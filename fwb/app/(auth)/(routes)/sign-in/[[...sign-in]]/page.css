@@ -1,3 +1,27 @@
 .hi{
   background-color: red;
+  width:698px;
+  display: inline-flex;
+height: 728px;
+padding: 110px 161px 109.48px 162px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 60px;
+border: 2px solid var(--neutral-000, #FFF);
+background: rgba(255, 255, 255, 0.15);
+
+box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
+backdrop-filter: blur(12.5px);
+}
+
+.signinContainer{
+  display: flex;
+ 
+}
+
+.leftSigninContainer{
+  width:549px;
+  background-color: blue;
 }

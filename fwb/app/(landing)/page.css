@@ -14,14 +14,20 @@
 }
 
 .signinButton{
-  background-color:#F5FE7D ;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  background-color:#F6ff82 ;
+  border-top-left-radius: 32px;
+  border-bottom-left-radius: 32px;
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
   margin-top: 10px;
 color: #8E94e9;
 width: 96px;
-height: 24px;
-
+height: 36px;
+text-align: center;
+font-family: Urbanist;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 125%; /* 20px */
+letter-spacing: 0.32px;
 }
