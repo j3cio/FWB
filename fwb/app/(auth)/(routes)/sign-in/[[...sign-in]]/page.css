@@ -1,27 +1,108 @@
-.hi{
-  background-color: red;
-  width:698px;
-  display: inline-flex;
-height: 728px;
-padding: 110px 161px 109.48px 162px;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-flex-shrink: 0;
-border-radius: 60px;
-border: 2px solid var(--neutral-000, #FFF);
-background: rgba(255, 255, 255, 0.15);
-
-box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
-backdrop-filter: blur(12.5px);
-}
-
-.signinContainer{
+.big {
+  width: 1440px;
+  height: 931px;
   display: flex;
- 
 }
 
-.leftSigninContainer{
-  width:549px;
+.signin {
+  display: inline-flex;
+  height: 728px;
+  padding: 110px 161px 109.48px 162px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: 2px solid var(--neutral-000, #fff);
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 75%;
+  box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12.5px);
+}
+
+.signinContainer {
+  width: 549px;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.leftSigninContainer {
   background-color: blue;
+  width: 1440px;
+}
+
+.circle1 {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  border: 5px solid var(--neutral-000, #fff);
+  margin-top: -70px;
+  margin-left: 150px;
+}
+
+.circle2 {
+  width: 293px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  border: 4.688px solid var(--neutral-000, #fff);
+  background: #fff;
+}
+
+.two {
+  display: flex;
+}
+.circle3 {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  padding: 37px 23.498px 23.753px 23px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 156.25px;
+  border: 5px solid var(--neutral-000, #fff);
+}
+
+.circle4 {
+  width: 150px;
+  height: 474px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  border: 5px solid var(--neutral-000, #fff);
+  background: #f6ff82;
+}
+
+.circle5 {
+  width: 150px;
+  height: 452px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  border: 5px solid var(--neutral-000, #fff);
+  background: #b79ced;
+  margin-top: -325px;
+}
+
+.circle6{
+  width: 150px;
+height: 150px;
+flex-shrink: 0;
+border-radius: 156.25px;
+background: var(--yellow-300, #F6FF82);
+}
+
+.circle7{
+  width: 150px;
+height: 205px;
+flex-shrink: 0;
+border-radius: 156.25px 156.25px 0px 0px;
+border: 3px solid var(--neutral-000, #FFF);
+margin-top: -128px;
+}
+
+.three{
+  display: flex;
+
 }
