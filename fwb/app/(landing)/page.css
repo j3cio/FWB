@@ -1,4 +1,27 @@
+.top{
+  display: flex;
+  justify-content: space-between;
+  
+}
+.exploreLists{
+  display: flex;
+  margin-top: 10px;
+}
+
 .exploreList{
   color:white;
-  margin-left: 20px;
+  margin-left: 40px;
+}
+
+.signinButton{
+  background-color:#F5FE7D ;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-top: 10px;
+color: #8E94e9;
+width: 96px;
+height: 24px;
+
 }
