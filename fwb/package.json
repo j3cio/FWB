@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.25.7",
+    "@mui/base": "^5.0.0-beta.22",
+    "@mui/material": "^5.14.16",
+    "@next/font": "^14.0.1",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
