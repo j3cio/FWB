@@ -28,12 +28,7 @@ const theme = createTheme({
     typography: {
       fontFamilty: "Urbanist, sans-serif",
     },
-
-    // Other predefined keys and custom color objects...
   },
 });
 
-// Figma Document Version: 4475134103
-
-
-export default typography;
+export default theme;
