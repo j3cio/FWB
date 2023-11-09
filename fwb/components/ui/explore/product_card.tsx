@@ -1,3 +1,4 @@
+'use client'
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -103,17 +104,17 @@ export default function ProductCard() {
           <Box sx={{ display: "flex", flexDirection: "row" }}>
             <Avatar
               alt="man1"
-              src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
+              src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
               sx={{ width: "24px", height: "24px" }}
             />
             <Avatar
               alt="man1"
-              src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
+              src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
               sx={{ width: "24px", height: "24px" }}
             />
             <Avatar
               alt="man1"
-              src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
+              src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
               sx={{ width: "24px", height: "24px" }}
             />
             <Typography variant="body2" color="text.secondary" padding="2px">

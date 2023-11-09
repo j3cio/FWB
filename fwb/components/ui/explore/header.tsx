@@ -1,0 +1,93 @@
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import groupIcon from "@/components/ui/explore/icons/group_24px.svg";
+import messsageIcon from "@/components/ui/explore/icons/message_24px.svg";
+import notificationIcon from "@/components/ui/explore/icons/notifications_24px.svg";
+import searchIcon from "@/components/ui/explore/icons/search_24px.svg";
+import { Image } from "next/dist/client/image-component";
+import { TextField, IconButton, Box } from "@mui/material";
+const SearchBar = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "right",
+        borderRadius: "100px",
+        backgroundColor: "white",
+        flexGrow: 1,
+        border: "none",
+      }}
+    >
+      <TextField
+        variant="outlined"
+        placeholder="Search"
+        style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px" }}
+        sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}
+      />
+      <IconButton
+        color="primary"
+        aria-label="search"
+        sx={{
+          backgroundColor: "black",
+          padding: "10px",
+          border: "none",
+          margin: "4px",
+        }}
+      >
+        <Image src={searchIcon} alt="Search Icon" />
+      </IconButton>
+    </Box>
+  );
+};
+export default function Header() {
+  return (
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: "transparent",
+        boxShadow: "none",
+        padding: "32px",
+        height: "112px",
+      }}
+    >
+      <Toolbar sx={{ display: "flex" }}>
+        <Typography
+          sx={{
+            marginRight: "69px",
+            height: "48px",
+            width: "114px",
+            fontSize: "38px",
+          }}
+        >
+          LOGO.
+        </Typography>
+        <SearchBar />
+        <Button
+          color="inherit"
+          startIcon={<Image src={messsageIcon} alt="message" />}
+          sx={{
+            width: "28.8px",
+            height: "28.8px",
+            padding: "9.6px",
+            borderRadius: "50%",
+          }}
+        />
+        <Button
+          color="inherit"
+          startIcon={<Image src={groupIcon} alt="Group Icon" />}
+          sx={{ width: "28.8px", height: "28.8px", padding: "9.6px" }}
+        />
+        <Button
+          color="inherit"
+          startIcon={<Image src={notificationIcon} alt="Notification Icon" />}
+          sx={{ width: "28.8px", height: "28.8px", padding: "9.6px" }}
+        />
+        <Avatar alt="User" />
+      </Toolbar>
+    </AppBar>
+  );
+}

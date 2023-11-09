@@ -1,13 +1,13 @@
-'use client'
 import ResponsiveGrid from "@/components/ui/explore/products_grid";
-import { Box, Typography } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 import ProductCard from "@/components/ui/explore/product_card";
+import Header from "@/components/ui/explore/header";
 export default function ExplorePage() {
   return (
-    <Box>
-      <Typography variant="h1" textAlign={"center"}>Explore Page</Typography>
-      
-      <ProductCard />
+    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
+      <Container disableGutters maxWidth="xl">
+        <Header />
+      </Container>
     </Box>
   );
 }
