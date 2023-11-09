@@ -41,12 +41,11 @@ const theme = createTheme({
 });
 
 function page() {
-  // Update colors once we have the color theme set up
-  // Proper icons, logos and images
+  // Set up color theme
+  // Proper icons and logos
   // Need to update font
   // Make Bargain text responsive
-  // Animations/Hover effects
-  // Make entire background same color (when you zoom in and out)
+  // Animations/Hover effects for buttons, etc..
   return (
     <ThemeProvider theme={theme}>
       <div className="bg-[#1a1a23] min-h-screen">
