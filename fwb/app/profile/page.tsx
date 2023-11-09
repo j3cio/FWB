@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Navbar from "@/components/ui/Navbar";
 import { Button } from "@mui/material";
@@ -28,8 +28,8 @@ declare module "@mui/material/Button" {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#8e94e9',
-      light: '#ffffff',
+      main: "#8e94e9",
+      light: "#ffffff",
     },
     ochre: {
       main: "#1a1a23",
@@ -49,7 +49,7 @@ function page() {
   // Make entire background same color (when you zoom in and out)
   return (
     <ThemeProvider theme={theme}>
-      <div>
+      <div className="bg-[#1a1a23] min-h-screen">
         <Navbar></Navbar>
         {/*Container div*/}
         <div className="flex flex-1 flex-col h-full w-full items-center justify-center">
@@ -62,13 +62,27 @@ function page() {
               <div className="flex gap-2 m-2">
                 <Button
                   variant="contained"
-                  sx={{ borderRadius: 28, borderStyle: "solid", borderColor: "white", borderWidth: 2, bgcolor: 'ochre.main', color:'primary.light' }}
+                  sx={{
+                    borderRadius: 28,
+                    borderStyle: "solid",
+                    borderColor: "white",
+                    borderWidth: 2,
+                    bgcolor: "ochre.main",
+                    color: "primary.light",
+                  }}
                 >
                   Edit Profile {">"}{" "}
                 </Button>
                 <Button
                   variant="contained"
-                  sx={{ borderRadius: 28, borderStyle: "solid", borderColor: "white", borderWidth: 2, bgcolor: 'ochre.main', color:'primary.light' }}
+                  sx={{
+                    borderRadius: 28,
+                    borderStyle: "solid",
+                    borderColor: "white",
+                    borderWidth: 2,
+                    bgcolor: "ochre.main",
+                    color: "primary.light",
+                  }}
                 >
                   Verify Employment [logo]
                 </Button>
@@ -93,7 +107,14 @@ function page() {
                 <div className="flex flex-row-reverse w-5/6 mr-28">
                   <Button
                     variant="contained"
-                    sx={{ borderRadius: 28, borderStyle: "solid", borderColor: "white", borderWidth: 2, bgcolor: 'ochre.light', color:'primary.main' }}
+                    sx={{
+                      borderRadius: 28,
+                      borderStyle: "solid",
+                      borderColor: "white",
+                      borderWidth: 2,
+                      bgcolor: "ochre.light",
+                      color: "primary.main",
+                    }}
                   >
                     Share your discount {">"}
                   </Button>
@@ -127,7 +148,14 @@ function page() {
               <div className="flex grow items-center justify-center mt-6">
                 <Button
                   variant="contained"
-                  sx={{ borderRadius: 28, borderStyle: "solid", borderColor: "white", borderWidth: 2, bgcolor: 'ochre.main', color:'primary.light' }}
+                  sx={{
+                    borderRadius: 28,
+                    borderStyle: "solid",
+                    borderColor: "white",
+                    borderWidth: 2,
+                    bgcolor: "ochre.main",
+                    color: "primary.light",
+                  }}
                 >
                   Share your discount {">"}
                 </Button>
