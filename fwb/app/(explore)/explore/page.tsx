@@ -5,11 +5,13 @@ import groupIcon from "@/components/ui/explore/icons/group_24px.svg";
 import Image from "next/image";
 import Header from "@/components/ui/explore/header";
 import Button from "@mui/material/Button";
+import AdSection from "@/components/ui/explore/ads_section";
 export default function ExplorePage() {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
-      <Container disableGutters maxWidth="xl">
+      <Container disableGutters maxWidth="lg">
         <Header />
+        <AdSection />
       </Container>
     </Box>
   );
