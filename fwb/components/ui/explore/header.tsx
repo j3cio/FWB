@@ -54,7 +54,7 @@ export default function Header() {
         height: "112px",
       }}
     >
-      <Toolbar sx={{ display: "flex" }}>
+      <Toolbar sx={{ display: "flex", gap: "24px" }}>
         <Typography
           sx={{
             marginRight: "69px",
@@ -66,27 +66,52 @@ export default function Header() {
           LOGO.
         </Typography>
         <SearchBar />
-        <Button
+        <IconButton
           color="inherit"
-          startIcon={<Image src={messsageIcon} alt="message" />}
           sx={{
-            width: "28.8px",
-            height: "28.8px",
             padding: "9.6px",
             borderRadius: "50%",
+            border: "2px solid white",
           }}
-        />
-        <Button
+        >
+          <Image
+            src={messsageIcon}
+            alt="message"
+            style={{
+              width: "28.8px",
+              height: "28.8px",
+            }}
+          />
+        </IconButton>
+        <IconButton
           color="inherit"
-          startIcon={<Image src={groupIcon} alt="Group Icon" />}
-          sx={{ width: "28.8px", height: "28.8px", padding: "9.6px" }}
-        />
-        <Button
+          sx={{
+            padding: "9.6px",
+            borderRadius: "50%",
+            border: "2px solid white",
+          }}
+        >
+          <Image
+            src={groupIcon}
+            alt="Group Icon"
+            style={{ width: "28.8px", height: "28.8px" }}
+          />
+        </IconButton>
+        <IconButton
           color="inherit"
-          startIcon={<Image src={notificationIcon} alt="Notification Icon" />}
-          sx={{ width: "28.8px", height: "28.8px", padding: "9.6px" }}
-        />
-        <Avatar alt="User" />
+          sx={{
+            padding: "9.6px",
+            borderRadius: "50%",
+            border: "2px solid white",
+          }}
+        >
+          <Image
+            src={notificationIcon}
+            alt="Notification Icon"
+            style={{ width: "28.8px", height: "28.8px" }}
+          />
+        </IconButton>
+        <Avatar alt="User" sx={{width: "48px", height: "48px"}}/>
       </Toolbar>
     </AppBar>
   );
