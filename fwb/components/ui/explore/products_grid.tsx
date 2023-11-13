@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Paper, Grid, styled, Typography } from "@mui/material";
 import * as React from 'react';
 import ProductCard from "./product_card";
@@ -14,9 +16,9 @@ export default function ResponsiveGrid() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {Array.from(Array(6)).map((_, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index}>
-            <Item>xs=2</Item>
+        {Array.from(Array(20)).map((_, index) => (
+          <Grid item xs={2} sm={3} md={3} key={index}>
+            <ProductCard />
           </Grid>
         ))}
       </Grid>
