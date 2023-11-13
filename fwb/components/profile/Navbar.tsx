@@ -27,6 +27,7 @@ export default function Navbar() {
             height: "48px",
             width: "114px",
             fontSize: "38px",
+            color: "#ffffff",
           }}
         >
           LOGO.
@@ -42,7 +43,7 @@ export default function Navbar() {
           }}
         ></Box>
         <IconButton
-          color="inherit"
+          
           sx={{
             padding: "9.6px",
             borderRadius: "50%",

@@ -6,6 +6,10 @@ import React from "react";
 import Image from "next/image";
 import imageSrc from "../../public/bargain1700x350.png";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Avatar from "@mui/material/Avatar";
+import SaveIcon from "../../components/profile/icons/save.svg";
+import BlueGroupIcon from "../../components/profile/icons/groups-blue.svg";
+import LinkedInIcon from "../../components/profile/icons/linkedin.svg";
 
 // Augment the palette to include an ochre color
 declare module "@mui/material/styles" {
@@ -54,10 +58,17 @@ function page() {
         <div className="flex flex-1 flex-col h-full w-full items-center justify-center">
           {/*Profile div*/}
           <div className="flex w-11/12 h-1/5 mt-6 mb-6 gap-10 border-b-2 border-slate-200 pb-6">
-            <div className="flex bg-slate-200 w-48 rounded-full justify-center items-center">Profile Icon</div>
+            <Avatar
+              alt="User"
+              sx={{ width: "200px", height: "200px" }}
+              className="flex bg-slate-200 w-48 rounded-full justify-center items-center"
+            ></Avatar>
             <div className="flex flex-col grow justify-center">
-              <div className="m-2  text-slate-200">User Name</div>
-              <div className="m-2 text-slate-200">Works at: Company Name</div> {/* Company name should be Yellow*/}
+              <div className="m-2 text-slate-200 text-lg">User Name</div>
+              <div className="flex flex-row">
+                <div className="my-2 ml-2 mr-1 text-slate-200">Works at: </div>
+                <div className="my-2 text-yellow-200">Nike</div>
+              </div>
               <div className="flex gap-2 m-2">
                 <Button
                   variant="contained"
@@ -82,8 +93,9 @@ function page() {
                     bgcolor: "ochre.main",
                     color: "primary.light",
                   }}
+                  endIcon={<Image src={LinkedInIcon} alt="123" />}
                 >
-                  Verify Employment [logo]
+                  Verify Employment
                 </Button>
               </div>
             </div>
@@ -126,14 +138,20 @@ function page() {
                   <div>Saved Discounts</div>
                   <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
                 </div>
-                <div className="flex flex-row-reverse grow mx-10">Icon</div>
+                <div className="flex flex-row-reverse grow mx-10">
+                  <Image src={SaveIcon} alt="Group Icon" width={50} height={50} />{" "}
+                  {/* Need custom icon for it to show*/}
+                </div>
               </a>
               <a href="google.com" className="flex flex-1 bg-white rounded-3xl items-center gap-6">
                 <div className="flex flex-col mx-6">
                   <div>Private Group</div>
                   <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
                 </div>
-                <div className="flex flex-row-reverse grow mx-10">Icon</div>
+                <div className="flex flex-row-reverse grow mx-10">
+                  <Image src={BlueGroupIcon} alt="Group Icon" width={50} height={50} />{" "}
+                  {/* Need custom icon for it to show*/}
+                </div>
               </a>
             </div>
           </div>
