@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import "./page.css";
+
 const LandingPage = () => {
   return (
     <div>
@@ -596,7 +597,8 @@ const LandingPage = () => {
         </div>
         <div className="mainLeftContainer">
           <div>
-            It's not what you think, but oh so much better! Friends <br></br>
+            It&apos;s not what you think, but oh so much better! Friends{" "}
+            <br></br>
             with Benefits is here to help you fight inflation.
           </div>
           <div>

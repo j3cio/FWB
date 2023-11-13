@@ -1,15 +1,15 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ClerkProvider } from '@clerk/nextjs'
-import { dark } from '@clerk/themes';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Friends With Benefits',
-  description: 'Discounts Have Never Been Easier To Find!',
-}
+  title: "Friends With Benefits",
+  description: "Discounts Have Never Been Easier To Find!",
+};
 
 // export default function RootLayout({
 //   children,
@@ -25,24 +25,27 @@ export const metadata: Metadata = {
 //   )
 // }
 
-
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: dark // dark 테마를 적용합니다.
+        signIn: {
+          variables: {
+            colorBackground: "#bbbef2",
+            colorText: "white",
+
+            // baseTheme: dark // dark 테마를 적용합니다.
+          },
+        },
       }}
     >
       <html lang="en">
         <body>{children}</body>
       </html>
     </ClerkProvider>
-  )
+  );
 }
-
-
-
