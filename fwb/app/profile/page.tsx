@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/ui/Navbar";
+import Navbar from "@/components/profile/Navbar";
 import { Button } from "@mui/material";
 import React from "react";
 import Image from "next/image";
@@ -142,7 +142,7 @@ function page() {
             <div className="flex flex-col h-full w-full">
               <div className="flex h-2/5 border-b-2 border-slate-200 pt-2 pl-2 text-3xl text-white">My Benefits!</div>
               <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-10 text-3xl">
-                Be the wingman to a friend's wallet now!
+                Be the wingman to a friend&apos;s wallet now!
               </div>
               <div className="flex grow items-center justify-center mt-6">
                 <Button
