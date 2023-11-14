@@ -50,11 +50,10 @@ export default function Header() {
       sx={{
         backgroundColor: "#1A1A23",
         boxShadow: "none",
-        padding: "32px",
-        height: "112px",
+        padding: "2.2vh",
       }}
     >
-      <Toolbar sx={{ display: "flex", gap: "24px" }}>
+      <Toolbar sx={{ display: "flex", gap: "0.9vw" }}>
         <Typography
           sx={{
             marginRight: "69px",
