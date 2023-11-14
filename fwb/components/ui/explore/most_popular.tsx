@@ -5,87 +5,81 @@ import Image from "next/image";
 import arrowIcon from "@/components/ui/explore/icons/arrow_forward_ios_24px.svg";
 import ProductCard from "./product_card";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+//[<ProductCard key={1}/>, <ProductCard key={2}/>, <ProductCard key={3}/>, <ProductCard key={4}/>, <ProductCard key={5}/>]; // Replace this with your array of components
+const Carousel: React.FC = () => {
+  const [position, setPosition] = useState(0);
+  const itemWidth = 200; // Adjust this value based on your component width
 
-const Carousel = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const cardsPerPage = 4;
-  const cards = [
-    <ProductCard key={0} />,
-    <ProductCard key={1} />,
-    <ProductCard key={2} />,
-    <ProductCard key={3} />,
-    <ProductCard key={4} />,
-    // Add more ProductCard components as needed
-  ];
+  const handleScroll = (direction: 'forward' | 'backward') => {
+    const containerWidth = itemWidth * data.length; // Adjust this value based on the number of items
 
-  const totalPages = Math.ceil(cards.length / cardsPerPage);
-
-  const variants = {
-    enter: (direction) => {
-      return {
-        x: direction > 0 ? '100%' : '-100%',
-        opacity: 0,
-      };
-    },
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction) => {
-      return {
-        x: direction < 0 ? '100%' : '-100%',
-        opacity: 0,
-      };
-    },
+    if (direction === 'forward') {
+      const newPosition = position - itemWidth;
+      setPosition(
+        newPosition < -containerWidth + itemWidth ? -containerWidth + itemWidth : newPosition
+      );
+    } else if (direction === 'backward') {
+      const newPosition = position + itemWidth;
+      setPosition(newPosition > 0 ? 0 : newPosition);
+    }
   };
 
-  const nextPage = () => {
-    setCurrentPage((prevPage) => (prevPage === totalPages - 1 ? 0 : prevPage + 1));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
-  const prevPage = () => {
-    setCurrentPage((prevPage) => (prevPage === 0 ? totalPages - 1 : prevPage - 1));
+  const itemVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
   };
 
-  const startIndex = currentPage * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
-  const visibleCards = cards.slice(startIndex, endIndex);
+  const data: React.ReactNode[] = [<ProductCard key={1}/>, <ProductCard key={2}/>, <ProductCard key={3}/>, <ProductCard key={4}/>, <ProductCard key={5}/>]; // Replace this with your array of components
 
   return (
-    <div>
-      <AnimatePresence initial={false} custom={currentPage}>
-        <motion.div
-          key={currentPage}
-          custom={currentPage}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ type: 'tween' }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.8}
-          onDragEnd={(event, { offset, velocity }) => {
-            if (offset.x > 100 || velocity.x > 500) {
-              prevPage();
-            } else if (offset.x < -100 || velocity.x < -500) {
-              nextPage();
-            }
-          }}
-          style={{ position: 'relative', width: 'calc(282px * 4)', height: '322px' }}
-        >
-          {visibleCards.map((card) => card)}
-        </motion.div>
-      </AnimatePresence>
-      <button onClick={prevPage} style={{ color: "white"}}>Previous</button>
-      <button onClick={nextPage} style={{ color: "white"}}>Next</button>
+    <div style={{ overflowX: 'scroll' }}>
+      <motion.div
+        className="carousel-container"
+        variants={containerVariants}
+        initial="visible"
+        animate={{ opacity: 1, x: position }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          minWidth: `${itemWidth}px`, // Adjust this value based on your component width
+        }}
+        transition={{ ease: 'easeOut', duration: 0.5 }} // Adjust the easing and duration as needed
+      >
+        {data.map((item, index) => (
+          <motion.div
+            key={index}
+            className="carousel-item"
+            variants={itemVariants}
+            style={{ minWidth: `${itemWidth}px` }} // Adjust this value based on your component width
+          >
+            {item}
+          </motion.div>
+        ))}
+      </motion.div>
+
+      <motion.button
+        onClick={() => handleScroll('backward')}
+        whileTap={{ scale: 0.9 }}
+        style={{ marginRight: '10px' }}
+      >
+        Left
+      </motion.button>
+      <motion.button
+        onClick={() => handleScroll('forward')}
+        whileTap={{ scale: 0.9 }}
+      >
+        Right
+      </motion.button>
     </div>
   );
 };
-
-
 
 export default function MostPopular() {
   return (
@@ -95,7 +89,6 @@ export default function MostPopular() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          marginBottom: "30px",
         }}
       >
         <Typography
@@ -103,7 +96,7 @@ export default function MostPopular() {
         >
           Most Popular
         </Typography>
-        <Box sx={{ display: "flex", gap: "24px" }}>
+        <Box sx={{ display: "flex", gap: "1.6vw" }}>
           <IconButton
             color="inherit"
             sx={{
