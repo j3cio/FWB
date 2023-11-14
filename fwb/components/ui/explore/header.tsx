@@ -50,13 +50,13 @@ export default function Header() {
       sx={{
         backgroundColor: "#1A1A23",
         boxShadow: "none",
-        padding: "2.2vh",
+        padding: "3.1vh",
       }}
     >
-      <Toolbar sx={{ display: "flex", gap: "0.9vw" }}>
+      <Box sx={{display: "flex", flexDirection: "row"}}>
         <Typography
           sx={{
-            marginRight: "69px",
+            marginRight: "4.8vw",
             height: "48px",
             width: "114px",
             fontSize: "38px",
@@ -64,54 +64,56 @@ export default function Header() {
         >
           LOGO.
         </Typography>
-        <SearchBar />
-        <IconButton
-          color="inherit"
-          sx={{
-            padding: "9.6px",
-            borderRadius: "50%",
-            border: "2px solid white",
-          }}
-        >
-          <Image
-            src={messsageIcon}
-            alt="message"
-            style={{
-              width: "28.8px",
-              height: "28.8px",
+        <Toolbar sx={{ display: "flex", gap: "1.6vw", flexGrow: 1 }}>
+          <SearchBar />
+          <IconButton
+            color="inherit"
+            sx={{
+              padding: "9.6px",
+              borderRadius: "50%",
+              border: "2px solid white",
             }}
-          />
-        </IconButton>
-        <IconButton
-          color="inherit"
-          sx={{
-            padding: "9.6px",
-            borderRadius: "50%",
-            border: "2px solid white",
-          }}
-        >
-          <Image
-            src={groupIcon}
-            alt="Group Icon"
-            style={{ width: "28.8px", height: "28.8px" }}
-          />
-        </IconButton>
-        <IconButton
-          color="inherit"
-          sx={{
-            padding: "9.6px",
-            borderRadius: "50%",
-            border: "2px solid white",
-          }}
-        >
-          <Image
-            src={notificationIcon}
-            alt="Notification Icon"
-            style={{ width: "28.8px", height: "28.8px" }}
-          />
-        </IconButton>
-        <Avatar alt="User" sx={{width: "48px", height: "48px"}}/>
-      </Toolbar>
+          >
+            <Image
+              src={messsageIcon}
+              alt="message"
+              style={{
+                width: "28.8px",
+                height: "28.8px",
+              }}
+            />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            sx={{
+              padding: "9.6px",
+              borderRadius: "50%",
+              border: "2px solid white",
+            }}
+          >
+            <Image
+              src={groupIcon}
+              alt="Group Icon"
+              style={{ width: "28.8px", height: "28.8px" }}
+            />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            sx={{
+              padding: "9.6px",
+              borderRadius: "50%",
+              border: "2px solid white",
+            }}
+          >
+            <Image
+              src={notificationIcon}
+              alt="Notification Icon"
+              style={{ width: "28.8px", height: "28.8px" }}
+            />
+          </IconButton>
+          <Avatar alt="User" sx={{ width: "48px", height: "48px" }} />
+        </Toolbar>
+      </Box>
     </AppBar>
   );
 }
