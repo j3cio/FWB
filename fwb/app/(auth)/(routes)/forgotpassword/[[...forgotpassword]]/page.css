@@ -14,8 +14,6 @@
   display: inline-flex;
   /* height: 728px; */
   padding: 110px 161px 109.48px 162px;
-  width: 690px;
-  height: 728px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -40,10 +38,24 @@
 .rightSigninContainer {
   /* background-color: blue; */
   /* width: 1440px; */
-  /* background-color: #8e94e9; */
-  /* background-color: red; */
+  background-color: #8e94e9;
 }
 
+.passwordContainer {
+  display: inline-flex;
+  /* height: 728px; */
+  padding: 110px 161px 109.48px 162px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: 2px solid var(--neutral-000, #fff);
+  background: rgba(255, 255, 255, 0.15);
+  /* opacity: 75%; */
+  box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12.5px);
+}
 .circle1 {
   width: 150px;
   height: 150px;
@@ -275,47 +287,6 @@
   display: flex;
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-  justify-content: center;
-}
-
-.googleButton {
-  width: 45.216px;
-  height: 45.216px;
-  padding: 12.696px 9.85px 12.832px 9.932px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 28.26px;
-  border: 1.413px solid #fff;
-  margin-right: 22.6px;
-}
-
-.discordButton {
-  width: 45.216px;
-  height: 45.216px;
-  padding: 12.696px 9.85px 12.832px 9.932px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 28.26px;
-  border: 1.413px solid #fff;
-}
-
-.or {
-  color: #fff;
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-
 .name {
   color: var(--neutral-000, #fff);
   text-align: center;
@@ -327,6 +298,39 @@
   line-height: 110%; /* 44px */
   margin-bottom: 80px;
 }
+
+.sendEmail {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  display: flex;
+  width: 366px;
+  height: 48px;
+  padding: 10px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 30px */
+  letter-spacing: 0.48px;
+}
+
+.explanation{
+  color: var(--neutral-000, #FFF);
+  text-align: center;
+  /* Heading/H5 */
+  font-family: Urbanist;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%; /* 22.5px */
+}
+
 
 .input {
   border-radius: 100px;
@@ -348,84 +352,4 @@ input::placeholder {
   font-weight: 400;
   line-height: 150%; /* 24px */
   opacity: 0.3;
-}
-.password{
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 32px;
-}
-
-.forgetPassword {
-  color: var(--neutral-000, #fff);
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
-}
-
-.errorMessage{
-  color: var(--neutral-000, #fff);
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  margin-bottom: 20px;
-  text-align: center;
-  /* overflow-wrap: break-word; */
-}
-
-.submit {
-  border-radius: 30px;
-  background: var(--yellow-300, #f6ff82);
-  display: flex;
-  width: 366px;
-  height: 48px;
-  padding: 10px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  color: var(--purple-300, #8e94e9);
-  text-align: center;
-  /* Label/24/bold */
-  font-family: Urbanist;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 30px */
-  letter-spacing: 0.48px;
-}
-
-.detail {
-  padding-right: 5px;
-  color: #fff;
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;} /* 24px */
- 
-
-.signup {
-  display: flex;
- justify-content: center;
- align-items: center;
-}
-
-.signupButton {
-  display: flex;
-  height: 36px;
-  padding: 8px 0px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  color: var(--neutral-000, #fff);
-  /* Label/16/bold */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 20px */
-  letter-spacing: 0.32px;
 }

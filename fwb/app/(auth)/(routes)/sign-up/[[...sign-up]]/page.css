@@ -300,7 +300,6 @@
   border-radius: 28.26px;
   border: 1.413px solid #fff;
   margin-right: 22.6px;
-
 }
 
 .discordButton {
@@ -364,12 +363,32 @@ input::placeholder {
   margin-bottom: 32px;
 }
 
-/* .checkbox[type="checkbox"]:checked {
-  content: '\2713';
-position: absolute;
-line-height: 20px;
-color: black
-} */
+input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.custom-checkbox {
+  position: relative;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border: solid 0.5px #fff;
+  line-height: 20px;
+  background-color: transparent;
+  margin-top: 4px;
+}
+
+.rememberme {
+  color: var(--neutral-000, #fff);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin-left: 5px;
+}
 
 .rememberme {
   color: var(--neutral-000, #fff);
@@ -380,6 +399,21 @@ color: black
   font-weight: 400;
   line-height: 150%; /* 24px */
 }
+
+.errorMessage{
+  color: var(--neutral-000, #fff);
+  max-width: 367px;
+  word-wrap:break-word;
+  text-align: left;
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  /* margin-bottom: 20px; */
+  /* text-align: center; */
+  /* overflow-wrap: break-word; */
+}
+
 
 .submit {
   border-radius: 30px;
