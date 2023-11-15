@@ -10,7 +10,8 @@ import Avatar from "@mui/material/Avatar";
 import SaveIcon from "../../components/profile/icons/save.svg";
 import BlueGroupIcon from "../../components/profile/icons/groups-blue.svg";
 import LinkedInIcon from "../../components/profile/icons/linkedin.svg";
-
+import ArrowForward from "@/components/profile/ArrowForward";
+import BlueArrowForward from "@/components/profile/YellowArrowForward";
 // Augment the palette to include an ochre color
 declare module "@mui/material/styles" {
   interface Palette {
@@ -71,6 +72,7 @@ function page() {
               </div>
               <div className="flex gap-2 m-2">
                 <Button
+                  endIcon={<ArrowForward />}
                   variant="contained"
                   sx={{
                     borderRadius: 28,
@@ -81,7 +83,7 @@ function page() {
                     color: "primary.light",
                   }}
                 >
-                  Edit Profile {">"}{" "}
+                  Edit Profile 
                 </Button>
                 <Button
                   variant="contained"
@@ -117,6 +119,7 @@ function page() {
                 <h1 className="flex w-1/6 ml-48 mt-10 text-6xl font-bold text-yellow-200">Booty Call for Bargains!</h1>
                 <div className="flex flex-row-reverse w-5/6 mr-28">
                   <Button
+                    endIcon={<BlueArrowForward />}
                     variant="contained"
                     sx={{
                       borderRadius: 28,
@@ -127,7 +130,7 @@ function page() {
                       color: "primary.main",
                     }}
                   >
-                    Share your discount {">"}
+                    Share your discount
                   </Button>
                 </div>
               </div>
@@ -164,6 +167,7 @@ function page() {
               </div>
               <div className="flex grow items-center justify-center mt-6">
                 <Button
+                  endIcon={<ArrowForward />}
                   variant="contained"
                   sx={{
                     borderRadius: 28,
@@ -174,7 +178,7 @@ function page() {
                     color: "primary.light",
                   }}
                 >
-                  Share your discount {">"}
+                  Share your discount
                 </Button>
               </div>
             </div>
