@@ -2,6 +2,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 import Image from "next/image";
+import { useTheme } from '@mui/material/styles';
 import Navbar from "@/components/profile/Navbar";
 import BargainBackgroundImage from "../../public/bargain1700x350.png";
 import AvatarIcon from "@mui/material/Avatar";
@@ -15,6 +16,9 @@ function page() {
   // Need to update font
   // Make Bargain text responsive
   // Animations/Hover effects for buttons, etc..
+
+  const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+
   return (
       <div className="bg-[#1a1a23] min-h-screen">
         <Navbar></Navbar>
@@ -42,7 +46,7 @@ function page() {
                     borderStyle: "solid",
                     borderColor: "white",
                     borderWidth: 2,
-                    bgcolor: "#1a1a23",
+                    bgcolor: `#1a1a23`,
                     color: "#ffffff",
                   }}
                 >
