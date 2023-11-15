@@ -106,7 +106,7 @@ function page() {
               </div>
             </div>
             <div className="flex h-2/5 gap-6">
-              <a href="google.com" className="flex flex-1 bg-white rounded-3xl items-center h-44">
+              <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center h-44">
                 <div className="flex flex-col mx-6">
                   <div>Saved Discounts</div>
                   <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
@@ -116,7 +116,7 @@ function page() {
                   {/* Need custom icon for it to show*/}
                 </div>
               </a>
-              <a href="google.com" className="flex flex-1 bg-white rounded-3xl items-center gap-6">
+              <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center gap-6">
                 <div className="flex flex-col mx-6">
                   <div>Private Group</div>
                   <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
