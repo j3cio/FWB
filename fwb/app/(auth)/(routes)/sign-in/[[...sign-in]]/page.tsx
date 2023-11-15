@@ -646,7 +646,7 @@ export default function Page() {
     ))}
               <div className="password">
                 <Link href="/forgotpassword" className="forgetPassword">
-                  Forget Password?
+                  Forgot Password?
                 </Link>
               </div>
               {/* <ul>

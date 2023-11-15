@@ -594,7 +594,7 @@ export default function Page() {
       >
         <div className="passwordContainer">
           <div>
-            <svg
+            <svg className="mail"
               xmlns="http://www.w3.org/2000/svg"
               width="41"
               height="41"
@@ -609,15 +609,15 @@ export default function Page() {
               />
             </svg>
           </div>
-          <div className="name">Forgot Password?</div>
+          <div className="title">Forget Password?</div>
           <div className="explanation">Dont worry! Enter your email address and we</div>
-          <div className="explanation">will send a lintk to reset your password</div>
+          <div className="explanation2">will send a lintk to reset your password</div>
           <form
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1em",
-            }}
+            // style={{
+            //   display: "flex",
+            //   flexDirection: "column",
+            //   gap: "1em",
+            // }}
             onSubmit={!successfulCreation ? create : reset}
           >
             {!successfulCreation && !complete && (
@@ -625,33 +625,36 @@ export default function Page() {
                 {/* <label htmlFor='email'>Please provide identifier</label> */}
                 <input
                   type="email"
-                  className="input"
+                  className="inputEmail"
                   placeholder="takeadvantage@address.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <button className="sendEmail">Send Email</button>
+                <div className="help">Having problems? Email us at <a className="helpEmail" href="mailto:help@makefwb.com">help@makefwb.com</a></div>
               </>
+              
             )}
 
             {successfulCreation && !complete && (
               <>
-                <label htmlFor="password">New password</label>
-                <input
+                <label htmlFor="password" className="newPassword">New password</label>
+                <input className="inputPassword"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <label htmlFor="password">Reset password code</label>
+                <label className="passwordCode"htmlFor="password">Reset password code</label>
                 <input
+                className="inputPassword"
                   type="text"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                 />
 
-                <button>Reset</button>
+                <button className="reset">Reset</button>
               </>
             )}
 

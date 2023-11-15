@@ -43,7 +43,8 @@
 
 .passwordContainer {
   display: inline-flex;
-  /* height: 728px; */
+  height: 728px;
+  width: 698px;
   padding: 110px 161px 109.48px 162px;
   flex-direction: column;
   justify-content: center;
@@ -55,6 +56,10 @@
   /* opacity: 75%; */
   box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(12.5px);
+}
+
+.mail{
+  margin-bottom: 24px;
 }
 .circle1 {
   width: 150px;
@@ -287,7 +292,7 @@
   display: flex;
 }
 
-.name {
+.title {
   color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H2 */
@@ -296,14 +301,14 @@
   font-style: normal;
   font-weight: 600;
   line-height: 110%; /* 44px */
-  margin-bottom: 80px;
+  margin-bottom: 16px;
 }
 
-.sendEmail {
+.sendEmail,.reset {
   border-radius: 30px;
   background: var(--yellow-300, #f6ff82);
   display: flex;
-  width: 366px;
+  width: 367px;
   height: 48px;
   padding: 10px 24px;
   justify-content: center;
@@ -313,11 +318,12 @@
   text-align: center;
   /* Label/24/bold */
   font-family: Urbanist;
-  font-size: 24px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%; /* 30px */
-  letter-spacing: 0.48px;
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
 }
 
 .explanation{
@@ -330,17 +336,28 @@
   font-weight: 500;
   line-height: 125%; /* 22.5px */
 }
+.explanation2{
+  color: var(--neutral-000, #FFF);
+  text-align: center;
+  /* Heading/H5 */
+  font-family: Urbanist;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%; /* 22.5px */
+  margin-bottom: 48px;
+}
 
-
-.input {
+.inputEmail, .inputPassword {
   border-radius: 100px;
   background: var(--neutral-000, #fff);
   display: flex;
   width: 367px;
+  height: 47.472px;
   padding: 8px 8px 8px 24px;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 input::placeholder {
@@ -352,4 +369,36 @@ input::placeholder {
   font-weight: 400;
   line-height: 150%; /* 24px */
   opacity: 0.3;
+}
+
+.help{
+  color: #FFF;
+
+font-family: Urbanist;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; 
+}
+
+.helpEmail{
+  color: var(--neutral-000, #FFF);
+/* Label/16/bold */
+font-family: Urbanist;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 125%; /* 20px */
+letter-spacing: 0.32px;
+}
+
+.newPassword, .passwordCode{
+  color: var(--neutral-000, #FFF);
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.32px;
 }
