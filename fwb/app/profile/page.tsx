@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
 import { useTheme } from '@mui/material/styles';
@@ -18,6 +18,8 @@ function page() {
   // Animations/Hover effects for buttons, etc..
 
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+
+  // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
 
   return (
       <div className="bg-[#1a1a23] min-h-screen">
@@ -46,8 +48,8 @@ function page() {
                     borderStyle: "solid",
                     borderColor: "white",
                     borderWidth: 2,
-                    bgcolor: `#1a1a23`,
-                    color: "#ffffff",
+                    bgcolor: `${theme.palette.neutral.n900}`,
+                    color: `${theme.palette.common.white}`,
                   }}
                 >
                   Edit Profile 
@@ -59,8 +61,8 @@ function page() {
                     borderStyle: "solid",
                     borderColor: "white",
                     borderWidth: 2,
-                    bgcolor: "#1a1a23",
-                    color: "#ffffff",
+                    bgcolor: `${theme.palette.neutral.n900}`,
+                    color: `${theme.palette.common.white}`,
                   }}
                   endIcon={<Image src={LinkedInIcon} alt="123" />}
                 >
@@ -79,8 +81,9 @@ function page() {
                 style={{
                   width: "100%",
                   height: "auto",
+                  objectFit: "cover"
                 }}
-                objectFit="cover"
+                
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <h1 className="flex w-1/6 ml-48 mt-10 text-6xl font-bold text-yellow-200">Booty Call for Bargains!</h1>
@@ -93,8 +96,8 @@ function page() {
                       borderStyle: "solid",
                       borderColor: "white",
                       borderWidth: 2,
-                      bgcolor: "#f6ff82",
-                      color: "#8e94e9",
+                      bgcolor: `${theme.palette.secondary.main}`,
+                      color: `${theme.palette.primary.light}`,
                     }}
                   >
                     Share your discount
@@ -141,8 +144,8 @@ function page() {
                     borderStyle: "solid",
                     borderColor: "white",
                     borderWidth: 2,
-                    bgcolor: "#1a1a23",
-                    color: "#ffffff",
+                    bgcolor: `${theme.palette.neutral.n900}`,
+                    color: `${theme.palette.common.white}`,
                   }}
                 >
                   Share your discount
