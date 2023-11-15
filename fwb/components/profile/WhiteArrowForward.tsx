@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const ArrowForward = (props: any) => (
+const WhiteArrowForward = (props: any) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={8} height={13} fill="none" {...props}>
     <path
       fill="#fff"
@@ -9,4 +9,4 @@ const ArrowForward = (props: any) => (
   </svg>
 );
 
-export default ArrowForward;
+export default WhiteArrowForward;
