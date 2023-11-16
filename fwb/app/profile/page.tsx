@@ -12,7 +12,7 @@ import LinkedInIcon from "../../components/profile/icons/linkedin.svg";//
 import WhiteArrowForward from "@/components/profile/WhiteArrowForward";
 import BlueArrowForward from "@/components/profile/BlueArrowForward"
 
-function page() {
+function Page() {
   // Need to update font
   // Make Bargain text responsive
   // Animations/Hover effects for buttons, etc..
@@ -158,4 +158,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
