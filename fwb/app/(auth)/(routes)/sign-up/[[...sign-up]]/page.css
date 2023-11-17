@@ -402,18 +402,35 @@ input[type="checkbox"] {
 
 .errorMessage{
   color: var(--neutral-000, #fff);
-  max-width: 367px;
-  word-wrap:break-word;
+  /* max-width: 367px; */
+  /* word-wrap:break-word; */
+  display: flex;
   text-align: left;
   /* Body/16/regular */
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
+  margin-top: -5px;
+margin-bottom: 5px;
   /* margin-bottom: 20px; */
   /* text-align: center; */
   /* overflow-wrap: break-word; */
 }
 
+.errorImage{
+  background-color:red;
+  border-radius:50%
+}
+
+.message{
+margin-left: 5px;
+margin-top:-5px;
+text-align: left;
+font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  word-wrap: break-word;
+}
 
 .submit {
   border-radius: 30px;
@@ -467,4 +484,13 @@ input[type="checkbox"] {
   font-weight: 700;
   line-height: 125%; /* 20px */
   letter-spacing: 0.32px;
+}
+
+.success{
+  color: #fff;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
 }

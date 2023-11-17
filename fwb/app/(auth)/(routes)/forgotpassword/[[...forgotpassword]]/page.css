@@ -60,6 +60,7 @@
 
 .mail{
   margin-bottom: 24px;
+
 }
 .circle1 {
   width: 150px;
@@ -360,6 +361,18 @@
   margin-bottom: 12px;
 }
 
+.inputPasswordCode{
+  margin-bottom: 60px;
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 367px;
+  height: 47.472px;
+  padding: 8px 8px 8px 24px;
+  align-items: center;
+  gap: 8px;
+}
+
 input::placeholder {
   color: var(--neutral-900, #090a10);
   /* Body/16/regular */
@@ -402,3 +415,35 @@ letter-spacing: 0.32px;
   line-height: 125%; /* 20px */
   letter-spacing: 0.32px;
 }
+
+.successImage{
+border-radius: 50%;
+border: 1px solid #fff;
+margin-bottom: 20px;
+}
+
+
+.success{
+  color: var(--neutral-000, #FFF);
+text-align: center;
+/* Heading/H2 */
+font-family: Urbanist;
+font-size: 40px;
+font-style: normal;
+font-weight: 600;
+margin-bottom:4px;
+line-height: 110%; /* 44px */}
+
+
+.successMessage{
+  color: var(--neutral-000, #FFF);
+text-align: center;
+/* Heading/H5 */
+font-family: Urbanist;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: 125%; /* 22.5px */
+margin-bottom: 64px;
+}
+

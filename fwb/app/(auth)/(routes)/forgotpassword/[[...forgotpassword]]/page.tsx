@@ -3,6 +3,7 @@ import React, { SyntheticEvent, useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import type { NextPage } from "next";
 import "./page.css";
+import Link from "next/link";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -585,83 +586,126 @@ export default function Page() {
           <div></div>
         </div>
       </div>
-      <div
-        className="rightContainer"
-        // style={{
-        //   margin: 'auto',
-        //   maxWidth: '500px',
-        // }}
-      >
-        <div className="passwordContainer">
-          <div>
-            <svg className="mail"
-              xmlns="http://www.w3.org/2000/svg"
-              width="41"
-              height="41"
-              viewBox="0 0 41 41"
-              fill="none"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7.16659 6.93066H33.8333C35.6666 6.93066 37.1666 8.43066 37.1666 10.264V30.264C37.1666 32.0973 35.6666 33.5973 33.8333 33.5973H7.16659C5.33325 33.5973 3.83325 32.0973 3.83325 30.264L3.84992 10.264C3.84992 8.43066 5.33325 6.93066 7.16659 6.93066ZM21.3831 21.3807L33.1664 14.014C33.5831 13.7473 33.8331 13.2973 33.8331 12.814C33.8331 11.6973 32.6164 11.0307 31.6664 11.614L20.4998 18.5973L9.33309 11.614C8.38309 11.0307 7.16642 11.6973 7.16642 12.814C7.16642 13.2973 7.41642 13.7473 7.83309 14.014L19.6164 21.3807C20.1498 21.714 20.8498 21.714 21.3831 21.3807Z"
-                fill="white"
-              />
-            </svg>
-          </div>
-          <div className="title">Forget Password?</div>
-          <div className="explanation">Dont worry! Enter your email address and we</div>
-          <div className="explanation2">will send a lintk to reset your password</div>
-          <form
-            // style={{
-            //   display: "flex",
-            //   flexDirection: "column",
-            //   gap: "1em",
-            // }}
-            onSubmit={!successfulCreation ? create : reset}
-          >
-            {!successfulCreation && !complete && (
-              <>
-                {/* <label htmlFor='email'>Please provide identifier</label> */}
-                <input
-                  type="email"
-                  className="inputEmail"
-                  placeholder="takeadvantage@address.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+      <div className="rightContainer">
+        <form onSubmit={!successfulCreation ? create : reset}>
+          {!successfulCreation && !complete && (
+            <>
+              <div>
+                <div className="passwordContainer">
+                  <svg
+                    className="mail"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="41"
+                    height="41"
+                    viewBox="0 0 41 41"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.16659 6.93066H33.8333C35.6666 6.93066 37.1666 8.43066 37.1666 10.264V30.264C37.1666 32.0973 35.6666 33.5973 33.8333 33.5973H7.16659C5.33325 33.5973 3.83325 32.0973 3.83325 30.264L3.84992 10.264C3.84992 8.43066 5.33325 6.93066 7.16659 6.93066ZM21.3831 21.3807L33.1664 14.014C33.5831 13.7473 33.8331 13.2973 33.8331 12.814C33.8331 11.6973 32.6164 11.0307 31.6664 11.614L20.4998 18.5973L9.33309 11.614C8.38309 11.0307 7.16642 11.6973 7.16642 12.814C7.16642 13.2973 7.41642 13.7473 7.83309 14.014L19.6164 21.3807C20.1498 21.714 20.8498 21.714 21.3831 21.3807Z"
+                      fill="white"
+                    />
+                  </svg>
 
-                <button className="sendEmail">Send Email</button>
-                <div className="help">Having problems? Email us at <a className="helpEmail" href="mailto:help@makefwb.com">help@makefwb.com</a></div>
-              </>
-              
-            )}
+                  <div className="title">Forget Password?</div>
+                  <div className="explanation">
+                    Dont worry! Enter your email address and we
+                  </div>
+                  <div className="explanation2">
+                    will send a lintk to reset your password
+                  </div>
+                  {/* <label htmlFor='email'>Please provide identifier</label> */}
+                  <input
+                    type="email"
+                    className="inputEmail"
+                    placeholder="takeadvantage@address.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
 
-            {successfulCreation && !complete && (
-              <>
-                <label htmlFor="password" className="newPassword">New password</label>
-                <input className="inputPassword"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                  <button className="sendEmail">Send Email</button>
+                  <div className="help">
+                    Having problems? Email us at{" "}
+                    <a className="helpEmail" href="mailto:help@makefwb.com">
+                      help@makefwb.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
 
-                <label className="passwordCode"htmlFor="password">Reset password code</label>
-                <input
+          {successfulCreation && !complete && (
+            <>
+            <div className="passwordContainer">
+              <div className="title">Reset Password</div>
+              <div className="explanation">
+                Enter new password with at least 8 charaters, contain at least 1
+                number and 1 uppercase
+              </div>
+              <div className="explanation2">
+                will send a lintk to reset your password
+              </div>
+              {/* <label htmlFor="password" className="newPassword">New password</label> */}
+              <input
                 className="inputPassword"
-                  type="text"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                />
+                placeholder="New password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-                <button className="reset">Reset</button>
-              </>
-            )}
+              {/* <label className="passwordCode"htmlFor="password">Reset password code</label> */}
+              <input
+                className="inputPasswordCode"
+                placeholder="Reset Password code"
+                type="text"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+              />
 
-            {complete && "You successfully changed you password"}
-            {secondFactor && "2FA is required, this UI does not handle that"}
-          </form>
-        </div>
+              <button className="reset">Reset</button>
+              <div className="help">
+                Having problems? Email us at{" "}
+                <a className="helpEmail" href="mailto:help@makefwb.com">
+                  help@makefwb.com
+                </a>
+              </div>
+              </div>
+            </>
+          )}
+
+          {complete && (
+            <div className="passwordContainer">
+              
+              <div className="successImage">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="33"
+                  height="32"
+                  viewBox="0 0 33 32"
+                  fill="none"
+                >
+                  <path
+                    d="M12.283 21.0985L7.71718 16.5327C7.47135 16.2863 7.1376 16.1479 6.78955 16.1479C6.4415 16.1479 6.10775 16.2863 5.86192 16.5327C5.34876 17.0459 5.34876 17.8748 5.86192 18.388L11.3619 23.888C11.8751 24.4011 12.704 24.4011 13.2172 23.888L27.1382 9.96692C27.6514 9.45376 27.6514 8.62481 27.1382 8.11166C26.8924 7.86527 26.5587 7.72681 26.2106 7.72681C25.8626 7.72681 25.5288 7.86527 25.283 8.11166L12.283 21.0985Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+              <div className="success">Success!!</div>
+              <div className="successMessage">
+                Yeyyy... You have successfully change your password
+              </div>
+              <Link href="/sign-in" className="reset">
+                Go to Sign In Page
+              </Link>
+            </div>
+          )}
+
+          {/* <button className="reset">Go to Sign In Page</button> */}
+          {secondFactor && "2FA is required, this UI does not handle that"}
+        </form>
       </div>
     </div>
   );
