@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
 import arrowIcon from "@/components/ui/explore/icons/expand_more_24px.svg";
 import Image from "next/image";
 
-function BasicSelect({ name, options }) {
+function BasicSelect({ name, options }: { name: string; options: string[] }) {
   const [option, setOption] = React.useState("");
   const [flip, setFlip] = React.useState(false);
 

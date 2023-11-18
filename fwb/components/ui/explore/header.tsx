@@ -2,7 +2,6 @@ import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import groupIcon from "@/components/ui/explore/icons/group_24px.svg";
 import messsageIcon from "@/components/ui/explore/icons/message_24px.svg";
@@ -53,11 +52,11 @@ export default function Header() {
         padding: "3.1vh",
         position: "sticky",
         top: 0,
-        zIndex:1,
-        height: "112px"
+        zIndex: 1,
+        height: "112px",
       }}
     >
-      <Box sx={{display: "flex", flexDirection: "row"}}>
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
         <Typography
           sx={{
             marginRight: "4.8vw",
@@ -68,7 +67,10 @@ export default function Header() {
         >
           LOGO.
         </Typography>
-        <Toolbar disableGutters sx={{ display: "flex", gap: "1.6vw", flexGrow: 1 }}>
+        <Toolbar
+          disableGutters
+          sx={{ display: "flex", gap: "1.6vw", flexGrow: 1 }}
+        >
           <SearchBar />
           <IconButton
             color="inherit"

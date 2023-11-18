@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -9,11 +9,11 @@ import Avatar from "@mui/material/Avatar";
 import { CardActionArea } from "@mui/material";
 import { motion } from "framer-motion";
 
-const Circle = () => {
+const Circle = ({isHovered} : {isHovered: boolean}) => {
   return (
     <div style={{ position: "relative" }}>
       <motion.div
-        whileHover={{ y: -10 }} // Move up 10 pixels when hovering
+        animate={{ y: isHovered ? -10 : 0 }} // Move up 10 pixels when hovering
         style={{
           position: "absolute",
           top: -40,
@@ -54,75 +54,83 @@ const Circle = () => {
   );
 };
 
-const Discount = () => {
+const Discount = ({isHovered}: {isHovered: boolean}) => {
   return (
     <Box>
-      <Circle />
+      <Circle isHovered={isHovered} />
     </Box>
   );
 };
 
 export default function ProductCard() {
+  const [isHovered, setIsHovered] = React.useState(false);
   return (
-    <Card
-      sx={{
-        width: "282px",
-        height: "322px",
-        background: "white",
-        borderRadius: "20px",
-        overflow: "hidden",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        display: "inline-flex",
-      }}
+    <motion.div
+    onHoverStart={() => setIsHovered(true)}
+    onHoverEnd={() => setIsHovered(false)}
     >
-      <CardActionArea sx={{ height: "100%" }}>
-        <CardMedia
-          component="img"
-          image="https://c.static-nike.com/a/images/w_1920,c_limit/bzl2wmsfh7kgdkufrrjq/image.jpg"
-          alt="nike"
-          sx={{ height: "72%", padding: "0" }}
-        />
-        <CardContent
-          sx={{
-            height: "28%",
-            paddingTop: "8px",
-            paddingLeft: "24px",
-            paddingRight: "24px",
-            paddingBottom: "24px",
-          }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Typography
-              sx={{ fontSize: 24, fontWeight: "600", wordWrap: "break-word" }}
-            >
-              Nike, Inc.
-            </Typography>
-            <Discount />
-          </Box>
-          <Box sx={{ display: "flex", flexDirection: "row" }}>
-            <Avatar
-              alt="man1"
-              src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-              sx={{ width: "24px", height: "24px" }}
-            />
-            <Avatar
-              alt="man1"
-              src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-              sx={{ width: "24px", height: "24px" }}
-            />
-            <Avatar
-              alt="man1"
-              src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-              sx={{ width: "24px", height: "24px" }}
-            />
-            <Typography variant="body2" color="text.secondary" padding="2px">
-              +5 Benefits available
-            </Typography>
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+      <Card
+        sx={{
+          width: "282px",
+          height: "322px",
+          background: "white",
+          borderRadius: "20px",
+          overflow: "hidden",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          display: "inline-flex",
+          borderWidth: isHovered ? "2px" : "0px",
+          borderColor: isHovered ? "#F6FF82" : "white",
+        }}
+      >
+        <CardActionArea sx={{ height: "100%" }}>
+          <CardMedia
+            component="img"
+            image="https://c.static-nike.com/a/images/w_1920,c_limit/bzl2wmsfh7kgdkufrrjq/image.jpg"
+            alt="nike"
+            sx={{ height: "72%", padding: "0" }}
+          />
+          <CardContent
+            sx={{
+              height: "28%",
+              paddingTop: "8px",
+              paddingLeft: "24px",
+              paddingRight: "24px",
+              paddingBottom: "24px",
+            }}
+          >
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography
+                sx={{ fontSize: 24, fontWeight: "600", wordWrap: "break-word" }}
+              >
+                Nike, Inc.
+              </Typography>
+              <Discount isHovered={isHovered}/>
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Avatar
+                alt="man1"
+                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                sx={{ width: "24px", height: "24px" }}
+              />
+              <Avatar
+                alt="man1"
+                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                sx={{ width: "24px", height: "24px" }}
+              />
+              <Avatar
+                alt="man1"
+                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                sx={{ width: "24px", height: "24px" }}
+              />
+              <Typography variant="body2" color="text.secondary" padding="2px">
+                +5 Benefits available
+              </Typography>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </motion.div>
   );
 }

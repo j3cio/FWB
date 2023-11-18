@@ -8,63 +8,63 @@ import ProductCard from "./product_card";
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function MostPopular({title: string, items: array}) {
+export default function MostPopular() {
   const [position, setPosition] = useState(0);
   const itemWidth = 282; // Adjust this value based on your component width
 
   const TitleAndButtons = () => {
-    return(
+    return (
       <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-      }}
-    >
-      <Typography
-        sx={{ color: "#F6FF82", fontWeight: "600", fontSize: "32px" }}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
       >
-        Most Popular
-      </Typography>
-      <Box sx={{ display: "flex", gap: "1.6vw" }}>
-        <IconButton
-          color="inherit"
-          onClick={() => handleScroll('backward')}
-          sx={{
-            padding: "9.6px",
-            borderRadius: "50%",
-            border: "2px solid white",
-          }}
+        <Typography
+          sx={{ color: "#F6FF82", fontWeight: "600", fontSize: "32px" }}
         >
-          <Image
-            src={arrowIcon}
-            alt="Back Arrow"
-            style={{ width: "28.8px", height: "28.8px" }}
-          />
-        </IconButton>
-        <IconButton
-          color="inherit"
-          onClick={() => handleScroll('forward')}
-          sx={{
-            padding: "9.6px",
-            borderRadius: "50%",
-            border: "2px solid white",
-          }}
-        >
-          <Image
-            src={arrowIcon}
-            alt="Next Arrow"
-            style={{
-              width: "28.8px",
-              height: "28.8px",
-              transform: "scaleX(-1)",
+          Most Popular
+        </Typography>
+        <Box sx={{ display: "flex", gap: "1.6vw" }}>
+          <IconButton
+            color="inherit"
+            onClick={() => handleScroll("backward")}
+            sx={{
+              padding: "9.6px",
+              borderRadius: "50%",
+              border: "2px solid white",
             }}
-          />
-        </IconButton>
+          >
+            <Image
+              src={arrowIcon}
+              alt="Back Arrow"
+              style={{ width: "28.8px", height: "28.8px" }}
+            />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            onClick={() => handleScroll("forward")}
+            sx={{
+              padding: "9.6px",
+              borderRadius: "50%",
+              border: "2px solid white",
+            }}
+          >
+            <Image
+              src={arrowIcon}
+              alt="Next Arrow"
+              style={{
+                width: "28.8px",
+                height: "28.8px",
+                transform: "scaleX(-1)",
+              }}
+            />
+          </IconButton>
+        </Box>
       </Box>
-    </Box>
-    )
-  }
+    );
+  };
 
   const handleScroll = (direction: "forward" | "backward") => {
     const containerWidth = itemWidth * data.length; // Adjust this value based on the number of items
@@ -103,33 +103,37 @@ export default function MostPopular({title: string, items: array}) {
   return (
     <Box>
       <TitleAndButtons />
-      <div style={{ overflowX: 'hidden', paddingTop: "4.6vh", paddingBottom: "4.6vh" }}>
+      <div
+        style={{
+          overflowX: "hidden",
+          paddingTop: "4.6vh",
+          paddingBottom: "4.6vh",
+        }}
+      >
         <motion.div
           className="carousel-container"
           variants={containerVariants}
           initial="visible"
           animate={{ opacity: 1, x: position }}
           style={{
-            display: 'flex',
-            flexDirection: 'row',
+            display: "flex",
+            flexDirection: "row",
             minWidth: `${itemWidth}px`, // Adjust this value based on your component width
           }}
-          transition={{ ease: 'easeOut', duration: 0.5 }} // Adjust the easing and duration as needed
+          transition={{ ease: "easeOut", duration: 0.5 }} // Adjust the easing and duration as needed
         >
           {data.map((item, index) => (
             <motion.div
               key={index}
               className="carousel-item"
               variants={itemVariants}
-              style={{ minWidth: `${itemWidth}px`, marginRight: '1.6vw'}} // Adjust this value based on your component width
+              style={{ minWidth: `${itemWidth}px`, marginRight: "1.5vw" }} // Adjust this value based on your component width
             >
               {item}
             </motion.div>
           ))}
         </motion.div>
       </div>
-
-
     </Box>
   );
 }
