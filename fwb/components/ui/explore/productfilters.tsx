@@ -7,23 +7,38 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Typography } from "@mui/material";
+import arrowIcon from "@/components/ui/explore/icons/expand_more_24px.svg";
+import Image from "next/image";
 
 function BasicSelect({ name, options }) {
   const [option, setOption] = React.useState("");
+  const [flip, setFlip] = React.useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
     setOption(event.target.value as string);
   };
 
+  const arrowStyle = {
+    color: "white",
+    width: "28.8px",
+    height: "28.8px",
+    transform: flip ? "rotate(180deg)" : "rotate(0deg)",
+  };
+
   return (
-    <Box sx={{ width: "100%", height: "100px", minWidth: 120, flexGrow: 1 }}>
+    <Box sx={{}}>
       <FormControl
         fullWidth
-        sx={{ color: "white", borderColor: "white", maxWidth: 200 }}
+        sx={{ display: "flex", minWidth: 246, height: "48px" }}
       >
         <InputLabel
           id="demo-simple-select-label"
-          sx={{ color: "white", borderColor: "white" }}
+          sx={{
+            color: "white",
+            borderColor: "white",
+            fontWeight: "700",
+            letterSpacing: "0.32px",
+          }}
         >
           {name}
         </InputLabel>
@@ -33,11 +48,38 @@ function BasicSelect({ name, options }) {
           value={option}
           label={`${name}`}
           onChange={handleChange}
-          sx={{ color: "white" }}
+          onOpen={() => setFlip(true)}
+          onClose={() => setFlip(false)}
+          IconComponent={() => (
+            <Image src={arrowIcon} alt="arrow" style={arrowStyle} />
+          )}
+          inputProps={{
+            MenuProps: {
+              MenuListProps: {
+                sx: {
+                  backgroundColor: "#1A1A23",
+                },
+              },
+            },
+          }}
+          sx={{
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#8E94E9",
+              borderWidth: "2px",
+              borderRadius: "10px",
+            },
+            color: "white",
+          }}
         >
-          <MenuItem value={10}>Option 1</MenuItem>
-          <MenuItem value={20}>Option 2</MenuItem>
-          <MenuItem value={30}>Option 3</MenuItem>
+          {options.map((option: string) => (
+            <MenuItem
+              key={option}
+              value={option}
+              sx={{ backgroundColor: "#1A1A23", color: "white" }}
+            >
+              {option}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>
@@ -45,16 +87,37 @@ function BasicSelect({ name, options }) {
 }
 export default function Productfilters() {
   return (
-    <Box>
+    <Box sx={{ marginY: "5vh" }}>
       <Typography
         sx={{ color: "#F6FF82", fontWeight: "600", fontSize: "32px" }}
       >
-        All Products
+        Discounts
       </Typography>
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
-        <BasicSelect name="Sort by" options={[]} />
-        <BasicSelect name="Private Group" options={[]} />
-        <BasicSelect name="Category" options={[]} />
+      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "24px" }}>
+        <BasicSelect
+          name="Sort by"
+          options={[
+            "Most Popular",
+            "Most Recent",
+            "Highest to Loweest Discounts",
+            "Lowest to Hightest Discounts",
+          ]}
+        />
+        <BasicSelect name="Private Group" options={["Group 1", "Group 2"]} />
+        <BasicSelect
+          name="Category"
+          options={[
+            "Sports",
+            "Fashion",
+            "Electronic",
+            "Health",
+            "Home & Kitchen",
+            "Computer & Accessories",
+            "Beauty & Skincare",
+            "Books",
+            "Hobbies",
+          ]}
+        />
       </Box>
     </Box>
   );
