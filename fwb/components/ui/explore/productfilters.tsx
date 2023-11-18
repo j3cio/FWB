@@ -26,7 +26,7 @@ function BasicSelect({ name, options }) {
   };
 
   return (
-    <Box sx={{}}>
+    <Box>
       <FormControl
         fullWidth
         sx={{ display: "flex", minWidth: 246, height: "48px" }}
@@ -68,8 +68,8 @@ function BasicSelect({ name, options }) {
               borderWidth: "2px",
               borderRadius: "10px",
             },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'white',
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
             },
             color: "white",
           }}
@@ -90,12 +90,18 @@ function BasicSelect({ name, options }) {
 }
 export default function Productfilters() {
   return (
-    <Box sx={{ marginY: "5vh" }}>
-      <Typography
-        sx={{ color: "#F6FF82", fontWeight: "600", fontSize: "32px" }}
-      >
-        Discounts
-      </Typography>
+    <Box
+      sx={{
+        backgroundColor: "#1A1A23",
+        marginY: "5vh",
+        position: "sticky",
+        top: "112px",
+        height: "76px",
+        zIndex: 1,
+        justifyContent: "flex-end",
+        display: "flex",
+      }}
+    >
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "24px" }}>
         <BasicSelect
           name="Sort by"

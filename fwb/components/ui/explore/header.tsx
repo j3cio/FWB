@@ -51,6 +51,10 @@ export default function Header() {
         backgroundColor: "#1A1A23",
         boxShadow: "none",
         padding: "3.1vh",
+        position: "sticky",
+        top: 0,
+        zIndex:1,
+        height: "112px"
       }}
     >
       <Box sx={{display: "flex", flexDirection: "row"}}>
