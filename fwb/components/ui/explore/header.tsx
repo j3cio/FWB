@@ -64,7 +64,7 @@ export default function Header() {
         >
           LOGO.
         </Typography>
-        <Toolbar sx={{ display: "flex", gap: "1.6vw", flexGrow: 1 }}>
+        <Toolbar disableGutters sx={{ display: "flex", gap: "1.6vw", flexGrow: 1 }}>
           <SearchBar />
           <IconButton
             color="inherit"

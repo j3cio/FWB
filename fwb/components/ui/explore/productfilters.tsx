@@ -68,6 +68,9 @@ function BasicSelect({ name, options }) {
               borderWidth: "2px",
               borderRadius: "10px",
             },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'white',
+            },
             color: "white",
           }}
         >

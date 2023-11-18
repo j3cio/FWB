@@ -12,14 +12,14 @@ import {Divider} from "@mui/material";
 export default function ExplorePage() {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
-      <Box sx={{ marginX: "8.3vh"}}>
+      <Container disableGutters maxWidth="lg">
         <Header />
         <AdSection />
         <MostPopular />
         <Divider color="white" />
         <Productfilters />
         <ResponsiveGrid />
-      </Box>
+      </Container>
     </Box>
   );
 }

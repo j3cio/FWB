@@ -7,9 +7,8 @@ export default function AdSection(): JSX.Element {
     <Box
       sx={{
         width: "100%",
-        height: "50vh",
+        height: "9,5vh",
         backgroundColor: "#8E94E9",
-        borderRadius: "20px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -21,7 +20,6 @@ export default function AdSection(): JSX.Element {
       <Typography sx={{ color: "#F6FF82", fontSize: "24px", fontWeight: "600", margin: 20 }}>
         AD Section
       </Typography>
-      <Button sx={{ backgroundColor: "#F6FF82", borderRadius: "10px"}}>FIND MORE DISCOUNTS</Button>
     </Box>
   );
 }
