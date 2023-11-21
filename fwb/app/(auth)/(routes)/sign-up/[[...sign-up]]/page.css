@@ -294,7 +294,9 @@
 .googleButton {
   width: 45.216px;
   height: 45.216px;
-  padding: 12.696px 9.85px 12.832px 9.932px;
+  padding-bottom: 1px;
+  padding-left: 8px;
+  /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
   border-radius: 28.26px;
@@ -305,7 +307,9 @@
 .discordButton {
   width: 45.216px;
   height: 45.216px;
-  padding: 12.696px 9.85px 12.832px 9.932px;
+  padding-bottom: 1px;
+  padding-left: 8px;
+  /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
   border-radius: 28.26px;
@@ -400,7 +404,7 @@ input[type="checkbox"] {
   line-height: 150%; /* 24px */
 }
 
-.errorMessage{
+.errorMessage {
   color: var(--neutral-000, #fff);
   /* max-width: 367px; */
   /* word-wrap:break-word; */
@@ -411,22 +415,22 @@ input[type="checkbox"] {
   font-size: 16px;
   font-style: normal;
   margin-top: -5px;
-margin-bottom: 5px;
+  margin-bottom: 5px;
   /* margin-bottom: 20px; */
   /* text-align: center; */
   /* overflow-wrap: break-word; */
 }
 
-.errorImage{
-  background-color:red;
-  border-radius:50%
+.errorImage {
+  background-color: red;
+  border-radius: 50%;
 }
 
-.message{
-margin-left: 5px;
-margin-top:-5px;
-text-align: left;
-font-family: Urbanist;
+.message {
+  margin-left: 5px;
+  margin-top: -5px;
+  text-align: left;
+  font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   word-wrap: break-word;
@@ -486,11 +490,176 @@ font-family: Urbanist;
   letter-spacing: 0.32px;
 }
 
-.success{
+.success {
   color: #fff;
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
+}
+
+.processContainer{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+}
+
+
+
+.verifyButton {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/20/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 25px */
+  letter-spacing: 0.4px;
+  width: 157px;
+  height: 48px;
+}
+
+.leftCircle{
+margin-top:-80px;
+margin-left:-80px
+}
+
+
+.verify {
+  width: 437px;
+  height: 435px;
+  border-radius: 60px;
+  border: 2px solid var(--neutral-000, #fff);
+  background: #8e94e9;
+}
+
+.rightCircle{
+  margin-left: 300px;
+  margin-top:-130px
+}
+
+.verifyPhotos {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: -40px;
+}
+
+.verifyPhoto2,
+.verifyPhoto3,
+.verifyPhoto4,
+.verifyPhoto5 {
+  margin-left: -25px;
+}
+
+.verifyPhoto5{
+z-index:1
+}
+
+.signupProcess {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signupTitle {
+  color: var(--neutral-000, #fff);
+  text-align: center;
+  /* Heading/H3 */
+  font-family: Urbanist;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%; /* 35.2px */
+  margin-bottom: 16px;
+
+  /* margin-top: 75.47px; */
+}
+
+.signupContent {
+  color: var(--neutral-000, #fff);
+  text-align: center;
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  margin-bottom: 72px;
+}
+
+.stayinContainer {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  margin-top: 64px;
+}
+
+.stayWords {
+  color: var(--purple-300, #8e94e9);
+  /* Heading/H5 */
+  font-family: Urbanist;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%;
+}
+
+.socialMedia {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top:8px ;
+  margin-bottom: 8px;
+}
+
+.problemContact {
+  color: var(--purple-300, #8e94e9);
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+}
+
+/* body {
+  background-color: white;
+
+} */
+
+
+.twitter,.instagram, .linkedin{
+  border-radius: 20px;
+  display: flex;
+  width: 32px;
+  height: 32px;
+  padding: 4.246px 3.754px 3.754px 4.246px;
+  justify-content: center;
+  align-items: center;
+  background: var(--purple-300, #8e94e9);
+}
+
+.instagram, .linkedin{
+  margin-left: 5px;
+}
+
+.helpEmail{
+  color: var(--purple-300, #8E94E9);
+/* Label/16/bold */
+font-family: Urbanist;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 125%; /* 20px */
+letter-spacing: 0.32px;
+}
+
+.helpEmail:visited{
+  color:white
 }

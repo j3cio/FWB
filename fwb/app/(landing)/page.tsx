@@ -4,7 +4,7 @@ import "./page.css";
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className="background">
       <div className="top">
         <h1
           className="flex justify-center items-center text-yellow-200 font-bold"

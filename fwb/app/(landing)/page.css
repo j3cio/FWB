@@ -1,9 +1,15 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
 
+.background{
+   background-color: #8e94e9;
+   height: 1000px;
+}
+
 .top {
   display: flex;
   justify-content: space-between;
   padding-top: 30px;
+
 }
 .exploreLists {
   display: flex;

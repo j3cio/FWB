@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 200vh;
+   background-color: #8e94e9;
 }
 
 .signin {
@@ -285,7 +287,9 @@
 .googleButton {
   width: 45.216px;
   height: 45.216px;
-  padding: 12.696px 9.85px 12.832px 9.932px;
+  padding-bottom: 1px;
+ padding-left: 8px;
+  /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
   border-radius: 28.26px;
@@ -296,7 +300,9 @@
 .discordButton {
   width: 45.216px;
   height: 45.216px;
-  padding: 12.696px 9.85px 12.832px 9.932px;
+  padding-bottom: 1px;
+  padding-left: 8px;
+  /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
   border-radius: 28.26px;
