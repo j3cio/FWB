@@ -12,6 +12,23 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { getAllDiscounts } from "@/supabase/supabaseRequests";
 export default function ExplorePage() {
+    // Example of using accessing backend with supabase client
+  const { userId, getToken } = useAuth();
+  const [loadingDiscounts, setLoadingDiscounts] = useState(false);
+  const [discounts, setDiscounts] = useState<any[]>([]);
+  useEffect(() => {
+    const loadDiscounts = async () => {
+      let token = await getToken({ template: "supabase" });
+      token = token ? token : "";
+      let discounts = await getAllDiscounts( { userId, token});
+      discounts = discounts ? discounts : [];
+      setDiscounts(discounts);
+
+      console.log(discounts);
+    };
+    loadDiscounts();
+  }, [getToken, userId]);
+
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
@@ -25,20 +42,3 @@ export default function ExplorePage() {
     </Box>
   );
 }
-
-// // Example of using accessing backend with supabase client
-// const { userId, getToken } = useAuth();
-// const [loadingDiscounts, setLoadingDiscounts] = useState(false);
-// const [discounts, setDiscounts] = useState<any[]>([]);
-// useEffect(() => {
-//   const loadDiscounts = async () => {
-//     let token = await getToken({ template: "supabase" });
-//     token = token ? token : "";
-//     let discounts = await getAllDiscounts( { userId, token});
-//     discounts = discounts ? discounts : [];
-//     setDiscounts(discounts);
-
-//     console.log(discounts);
-//   };
-//   loadDiscounts();
-// }, [getToken, userId]);
