@@ -1,8 +1,6 @@
 // theme.ts
 "use client";
-
 import { createTheme } from "@mui/material/styles";
-
 declare module "@mui/material/styles" {
   interface Palette {
     neutral: {
@@ -33,6 +31,11 @@ declare module "@mui/material/styles" {
 }
 
 const theme = createTheme({
+  typography: {
+    button: {
+      fontFamily: 'Urbanist, Arial, sans-serif',
+    },
+  },
   palette: {
     primary: {
       main: "#1A3E74",

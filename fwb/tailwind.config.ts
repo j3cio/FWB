@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      typography: {
+        fontFamily: ["Urbanist", "sans-serif"].join(",")
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
