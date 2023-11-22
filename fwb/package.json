@@ -16,6 +16,7 @@
     "@mui/material": "^5.14.18",
     "@next/font": "^14.0.1",
     "@radix-ui/react-slot": "^1.0.2",
+    "@supabase/supabase-js": "^2.38.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
