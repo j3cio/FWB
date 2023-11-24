@@ -21,7 +21,7 @@ export default function Page() {
 
     // Start the sign-in process using the email and password provided
     try {
-      setError(null)
+      setError(null);
       const result = await signIn.create({
         identifier: emailAddress,
         password,
@@ -41,7 +41,7 @@ export default function Page() {
       // This can return an array of errors.
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
       console.error(JSON.stringify(err, null, 2));
-      setError(err)
+      setError(err);
     }
   };
 
@@ -618,33 +618,33 @@ export default function Page() {
                 />
               </div>
               <div>
-                  {error &&
-                    error.errors
-                      .filter(
-                        (err: any) => err.meta.paramName === "email_address"
-                      )
-                      .map((passwordError: any) => (
-                        <div
-                          className="errorMessage"
-                          key={passwordError.meta.paramName}
+                {error &&
+                  error.errors
+                    .filter(
+                      (err: any) => err.meta.paramName === "email_address"
+                    )
+                    .map((passwordError: any) => (
+                      <div
+                        className="errorMessage"
+                        key={passwordError.meta.paramName}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 17"
+                          fill="none"
+                          className="errorImage"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 17"
-                            fill="none"
-                            className="errorImage"
-                          >
-                            <path
-                              d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
-                              fill="white"
-                            />
-                          </svg>{" "}
-                          <div className="message">{passwordError.message}</div>
-                        </div>
-                      ))}
-                </div>
+                          <path
+                            d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
+                            fill="white"
+                          />
+                        </svg>{" "}
+                        <div className="message">{passwordError.message}</div>
+                      </div>
+                    ))}
+              </div>
               <div>
                 {/* <label htmlFor="password">Password</label> */}
                 <input
@@ -657,42 +657,35 @@ export default function Page() {
                 />
               </div>
               {error &&
-                  error.errors
-                    .filter((err: any) => err.meta.paramName === "password")
-                    .map((passwordError: any) => (
-                      <div
-                        className="errorMessage"
-                        key={passwordError.meta.paramName}
+                error.errors
+                  .filter((err: any) => err.meta.paramName === "password")
+                  .map((passwordError: any) => (
+                    <div
+                      className="errorMessage"
+                      key={passwordError.meta.paramName}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 17"
+                        fill="none"
+                        className="errorImage"
                       >
-                         <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 16 17"
-                            fill="none"
-                            className="errorImage"
-                          >
-                            <path
-                              d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
-                              fill="white"
-                            />
-                          </svg>{" "}
-                        <div className="message">{passwordError.message}</div>
-                      </div>
-                    ))}
+                        <path
+                          d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
+                          fill="white"
+                        />
+                      </svg>{" "}
+                      <div className="message">{passwordError.message}</div>
+                    </div>
+                  ))}
               <div className="password">
                 <Link href="/forgotpassword" className="forgetPassword">
                   Forgot Password?
                 </Link>
               </div>
-              {/* <ul>
-                {error &&
-                  error.errors.map((err: any) => (
-                    <li className="errorMessage" key={err.meta.paramName}>
-                      {err.message}
-                    </li>
-                  ))} 
-              </ul> */}
+
               <button className="submit" type="submit">
                 Submit
               </button>
