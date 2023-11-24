@@ -142,6 +142,10 @@
   height: 60px;
   border-radius: 75px;
   border: 2.25px solid var(--neutral-000, #fff);
+  display: flex;
+
+  margin-left: 270px;
+  /* need to figure out center align */
 }
 
 .successWord {
@@ -193,6 +197,7 @@
   font-weight: 700;
   line-height: 125%; /* 25px */
   letter-spacing: 0.4px;
+  margin-left: 110px;
 }
 
 .rightHalfCircle {
