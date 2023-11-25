@@ -1,17 +1,10 @@
 import { supabaseClient } from "./supabaseClient";
 
-const getAllDiscounts = async ({
-  supabase,
-}: {
-  supabase: any;
-}) => {
+const getAllDiscounts = async ({ token } : { userId: string | undefined | null, token: string }) => {
+  const supabase = supabaseClient(token);
   const { data: discounts, error } = await supabase
     .from("discounts")
     .select("*");
-  
-  if (error) {
-    console.log(error);
-  }
 
   return discounts;
 };

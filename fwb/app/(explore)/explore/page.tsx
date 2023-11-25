@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 // Supabase + Clerk imports for accessing backend
 import { useAuth } from "@clerk/nextjs";
-import { getAllDiscounts } from "@/supabase/supabaseRequests";
+import { getAllDiscounts } from "@/backend/supabaseRequests";
 export default function ExplorePage() {
     // Example of using accessing backend with supabase client
   const { userId, getToken } = useAuth();

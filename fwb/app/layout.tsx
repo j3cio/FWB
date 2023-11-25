@@ -4,6 +4,8 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
+import { supabaseClient } from "@/backend/supabaseClient";
+import { useAuth } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
