@@ -161,7 +161,7 @@ export default function Page() {
         <div className="verifiedAccount">
           You have successfully verified your account
         </div>
-        <Link href='/fre' className="startButton">Lets Get Started!</Link>
+        <Link href='/fre1' className="startButton">Lets Get Started!</Link>
       </div>
       <div className="rightContainer">
         <div className="rightHalfCircle"></div>
