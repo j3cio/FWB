@@ -1,5 +1,5 @@
 "use client";
-import { SignUp, useSignUp } from "@clerk/nextjs";
+import { useSignUp } from "@clerk/nextjs";
 import "./page.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -76,6 +76,35 @@ export default function Page() {
       console.error(JSON.stringify(err, null, 2));
     }
   };
+
+  //This allows User to sign in with Google
+  const signUpWithGoogle = async () => {
+    try {
+      await signUp?.authenticateWithRedirect({
+        strategy: 'oauth_google',
+        redirectUrl: 'https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback',
+        redirectUrlComplete: '/success'
+      });
+    } catch (error) {
+      console.error('Error signing in with Google', error)
+    }
+  };
+
+  //This allows User to sign in with Discord
+  const signUpWithDiscord = async () => {
+    try {
+      const response = await signUp?.authenticateWithRedirect({
+        strategy: 'oauth_discord',
+        redirectUrl: '/sso-callback',
+        redirectUrlComplete: '/success'
+      });
+
+      console.log(response)
+    } catch (error) {
+      console.error('Error signing in with Discord', error)
+    }
+  };
+  
 
   return (
     <div>
@@ -617,10 +646,10 @@ export default function Page() {
             <div className="signin">
               <div className="name">Create Account</div>
               <div className="buttons">
-                <button className="googleButton">
+                <button className="googleButton" onClick={signUpWithGoogle}>
                   <img src="/google.png" alt="Google Icon" />
                 </button>
-                <button className="discordButton">
+                <button className="discordButton" onClick={signUpWithDiscord}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="27"

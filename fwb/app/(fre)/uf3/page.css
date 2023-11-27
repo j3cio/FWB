@@ -1,0 +1,172 @@
+@import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
+
+.big {
+  /* max-width: 1440px;
+  max-height: 931px; */
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.spacing {
+  flex-shrink: 0;
+  padding-left: 142px;
+  padding-right: 150px;
+}
+
+.illustrationFive {
+  margin-left: 108px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.illustrationSix {
+  margin-right: 120px;
+  flex-shrink: 0;
+}
+
+.progresscircles {
+  display: flex;
+  justify-content: center;
+  margin-top: 103px;
+}
+
+.largeheader {
+  color: var(--neutral-000, #fff);
+  text-align: center;
+  /* Heading/H2 */
+  font-family: Urbanist;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%; /* 44px */
+  margin-top: 135px;
+  margin-bottom:16px;
+  letter-spacing: 0.1rem;
+}
+
+.lowertext {
+    color: var(--neutral-000, #FFF);
+    text-align: center;
+    /* Heading/H5 */
+    font-family: Urbanist;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%; /* 22.5px */
+    margin-top: 8px;
+}
+
+.or {
+  color: var(--neutral-000, #FFF);
+    text-align: center;
+    /* Heading/H5 */
+    font-family: Urbanist;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%; /* 22.5px */
+    margin-top: 24px;
+    margin-bottom:24px
+}
+
+.next {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  display: flex;
+  width: 367px;
+  height: 48px;
+  padding: 10px 24px;
+  justify-content: center;
+  gap: 8px;
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 30px */
+  letter-spacing: 0.4px;
+  margin-top: 114px;
+  margin-bottom: 8px;
+}
+
+.inputfriends {
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 367px;
+  height: 47.472px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 13.53px;
+  margin-top: 72px;
+}
+
+input::placeholder {
+  color: var(--neutral-900, #090a10);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  opacity: 0.3;
+}
+
+.linkedinverify {
+  border-radius: 30px;
+  background: #8e94e9;
+  border: 2px solid #FFF;
+  display: flex;
+  width: 367px;
+  height: 48px;
+  padding: 10px 24px;
+  justify-content: center;
+  gap: 8px;
+  color: #FFF;
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 30px */
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.help{
+  color: #FFF;
+
+font-family: Urbanist;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; 
+}
+
+.helpEmail{
+  color: var(--neutral-000, #FFF);
+/* Label/16/bold */
+font-family: Urbanist;
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: 125%; /* 20px */
+letter-spacing: 0.32px;
+}
+
+.skip {
+  color: var(--neutral-000, #FFF);
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.32px;
+  margin-top: 19.5px;
+}

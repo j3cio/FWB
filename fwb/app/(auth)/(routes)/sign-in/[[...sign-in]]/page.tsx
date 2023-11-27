@@ -45,6 +45,35 @@ export default function Page() {
     }
   };
 
+  //Sign in with Google
+  //This allows User to sign in with Google
+  const signInWithGoogle = async () => {
+    try {
+      await signIn?.authenticateWithRedirect({
+        strategy: 'oauth_google',
+        redirectUrl: 'https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback',
+        redirectUrlComplete: '/success'
+      });
+    } catch (error) {
+      console.error('Error signing in with Google', error)
+    }
+  };
+
+  //Sign in with Discord
+  const signInWithDiscord = async () => {
+    try {
+      const response = await signIn?.authenticateWithRedirect({
+        strategy: 'oauth_discord',
+        redirectUrl: '/sso-callback',
+        redirectUrlComplete: '/success'
+      });
+
+      console.log(response)
+    } catch (error) {
+      console.error('Error signing in with Discord', error)
+    }
+  };
+
   return (
     <div className="big">
       <div className="leftSigninContainer">
@@ -585,7 +614,7 @@ export default function Page() {
           <div>
             <div className="name">Sign In</div>
             <div className="buttons">
-              <button className="googleButton">
+              <button className="googleButton" onClick={signInWithDiscord}>
                 <img src="/google.png" alt="Google Icon" />
               </button>
               <button className="discordButton">
@@ -656,6 +685,7 @@ export default function Page() {
                   type="password"
                 />
               </div>
+
               {error &&
                 error.errors
                   .filter((err: any) => err.meta.paramName === "password")
@@ -680,12 +710,13 @@ export default function Page() {
                       <div className="message">{passwordError.message}</div>
                     </div>
                   ))}
+                  
               <div className="password">
                 <Link href="/forgotpassword" className="forgetPassword">
                   Forgot Password?
                 </Link>
               </div>
-
+              
               <button className="submit" type="submit">
                 Submit
               </button>

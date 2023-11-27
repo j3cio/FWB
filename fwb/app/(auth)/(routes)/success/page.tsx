@@ -3,6 +3,7 @@ import { SignUp, useSignUp } from "@clerk/nextjs";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "./page.css";
+import Link from "next/link";
 
 export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -158,9 +159,9 @@ export default function Page() {
         </div>
         <div className="successWord">Success!!</div>
         <div className="verifiedAccount">
-          You have successfully verified the account
+          You have successfully verified your account
         </div>
-        <div className="startButton">Lets Get Started!</div>
+        <Link href='/fre' className="startButton">Lets Get Started!</Link>
       </div>
       <div className="rightContainer">
         <div className="rightHalfCircle"></div>

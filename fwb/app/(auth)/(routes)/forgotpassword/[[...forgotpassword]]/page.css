@@ -447,3 +447,33 @@ line-height: 125%; /* 22.5px */
 margin-bottom: 64px;
 }
 
+.errorMessage{
+  color: var(--neutral-000, #fff);
+  /* max-width: 367px; */
+  /* word-wrap:break-word; */
+  display: flex;
+  text-align: left;
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  margin-top: -5px;
+  margin-bottom: 5px;
+  
+}
+
+
+.errorImage {
+  background-color: red;
+  border-radius: 50%;
+}
+
+.message {
+  margin-left: 5px;
+  margin-top: -5px;
+  text-align: left;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  word-wrap: break-word;
+}

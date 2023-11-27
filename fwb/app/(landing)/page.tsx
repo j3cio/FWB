@@ -14,7 +14,7 @@ const LandingPage = () => {
         </h1>
         {/* <div className="flex justify-center items-center gap-x-2"> */}
         <div className="exploreLists">
-          <div className="exploreList">Explore</div>
+          <Link href='/explore' className="exploreList">Explore</Link>
           <div className="exploreList">Share Discounts</div>
           <div className="exploreList">About</div>
           <div className="exploreList">Groups</div>
