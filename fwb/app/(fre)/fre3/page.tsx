@@ -45,7 +45,7 @@ export default function UserFlowPage3() {
             </svg>
           </div>
           <h2 className="mainHeader">Share with Your Friends!</h2>
-          <h5 className="subtext">Spread the love and be the wingman to someone else's wallet!</h5>
+          <h5 className="subtext">Spread the love and be the wingman to someone else&apos;s wallet!</h5>
         
           {/* This is the form that will handle email sharing  */}
           <form className="flex justify-center">

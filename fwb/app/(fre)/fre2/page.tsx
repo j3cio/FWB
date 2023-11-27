@@ -36,7 +36,7 @@ export default function UserFlowPage2() {
               <circle cx="52" cy="4" r="4" fill="#ADB4D2"/>
             </svg>
           </div>
-          <h2 className="mainHeader">Share your "benefits" 😏</h2>
+          <h2 className="mainHeader">Share your &quot;benefits&quot; 😏</h2>
           <h5 className="subtextOne">Optionally verify your employment to help up build more trust in the community.</h5>
           <h5 className="subtextTwo">We will never share your information externally.</h5>
 

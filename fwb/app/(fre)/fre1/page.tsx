@@ -17,6 +17,14 @@ export default function UserFlowPage1() {
   //Utilizing useUser from Clerk to update user's profile picture / username
   const { isSignedIn, user, isLoaded } = useUser()
 
+  //Creating Random Name Generation Feature for User
+  const [randomName, setrandomName] = useState<any | null>(null)
+
+  //Initializes random username on the first render of webpage
+  useEffect(() => {
+    setrandomName(generateRandomUsername());
+  }, []);
+
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   if (!isLoaded || !isSignedIn) {
     return null
@@ -70,14 +78,6 @@ export default function UserFlowPage1() {
       console.warn('No file selected.');
     };
   };
-
-  //Creating Random Name Generation Feature for User
-  const [randomName, setrandomName] = useState<any | null>(null)
-
-  //Initializes random username on the first render of webpage
-  useEffect(() => {
-    setrandomName(generateRandomUsername());
-  }, []);
 
   //Function to randomly choose option from an array and then combines options to return username
   function generateRandomUsername() {
@@ -148,7 +148,7 @@ export default function UserFlowPage1() {
           </svg>
         </div>
         <h2 className="mainHeader">Welcome to Friends with Benefits!</h2>
-        <h5 className="subtext">Let's create your profile.</h5>
+        <h5 className="subtext">Let&apos;s create your profile.</h5>
 
         {/*Container for the entire Profile Picture Feature */}
         <div>
