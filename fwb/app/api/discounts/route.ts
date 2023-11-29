@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import supabaseClient from "@/supabase";
 
@@ -15,26 +15,27 @@ interface Discount {
 }
 
 // Create a new discount
-export async function POST(request: NextApiRequest, response: NextApiResponse) {
+export async function POST(request: NextRequest, response: NextResponse) {
   const { userId, getToken, orgRole } = auth();
   const user = await currentUser();
 
   if (userId && user) {
+    const formData = await request.formData();
     const newDiscount = {
       user_id: user.id,
-      company: request.body.company,
-      terms_and_conditions: request.body.terms_and_conditions,
-      company_url: request.body.company_url,
+      company: formData.get("company"),
+      terms_and_conditions: formData.get("terms_and_conditions"),
+      company_url: formData.get("company_url"),
       shareable_url: "",
-      discount_amount: request.body.discount_amount,
-      public: request.body.public,
-      private_groups: request.body.private_groups,
+      discount_amount: formData.get("discount_amount"),
+      public: formData.get("public"),
+      private_groups: formData.get("private_groups"),
     };
 
     // Create a Supabase client with the current user's access token
     const token = await getToken({ template: "supabase" });
     if (!token) {
-      return response.status(401).json({ error: "Unauthorized" });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
     const supabase = await supabaseClient(token);
 
@@ -44,32 +45,33 @@ export async function POST(request: NextApiRequest, response: NextApiResponse) {
       .insert([newDiscount])
       .select();
     if (error) {
-      return response.status(500).json({ error: "Failed to create discount" });
+      return NextResponse.json({ error: 'Failed to create discount' }, { status: 500 })
     }
 
-    return response.status(200).json({ success: true, data });
+    return NextResponse.json({ success: true, data }, { status: 200 });
   } else {
-    return response.status(401).json({ error: "Unauthorized" });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 }
 
-export async function GET(request: NextApiRequest, response: NextApiResponse) {
+export async function GET(request: NextRequest, response: NextResponse) {
   // Your code here
-  return response.status(401).json({ error: "Unauthorized" });
+  return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
 }
 
 // Delete a discount
 export async function DELETE(
-  request: NextApiRequest,
-  response: NextApiResponse
+  request: NextRequest,
+  response: NextResponse
 ) {
-  return response.status(401).json({ error: "Unauthorized" });
+  return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
 }
 
 // Update a discount
 export async function PATCH(
-  request: NextApiRequest,
-  response: NextApiResponse
+  request: NextRequest,
+  response: NextResponse
 ) {
-  return response.status(401).json({ error: "Unauthorized" });
+  return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
 }
+
