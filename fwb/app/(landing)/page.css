@@ -1,33 +1,115 @@
-.top{
+@import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
+
+.background{
+   background-color: #8e94e9;
+   height: 1000px;
+}
+
+.top {
   display: flex;
   justify-content: space-between;
-  
+  padding-top: 30px;
+
 }
-.exploreLists{
+.exploreLists {
   display: flex;
   margin-top: 10px;
 }
 
-.exploreList{
-  color:white;
+.exploreList {
+  color: white;
+  margin-top: 10px;
   margin-left: 40px;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.32px;
 }
 
-.signinButton{
-  background-color:#F6ff82 ;
+.signinButton {
+  background-color: #f6ff82;
   border-top-left-radius: 32px;
   border-bottom-left-radius: 32px;
   border-top-right-radius: 32px;
   border-bottom-right-radius: 32px;
   margin-top: 10px;
-color: #8E94e9;
-width: 96px;
-height: 36px;
-text-align: center;
+  color: #8e94e9;
+  width: 130px;
+  height: 36px;
+  text-align: center;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.32px;
+}
+
+.mainContainer1{
+margin-top:100px;
+}
+
+.firstLine {
+  display: flex;
+}
+
+.firstLineLetter {
+  color: var(--neutral-000, #fff);
+  /* Display/D1 */
+  font-family: Urbanist;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%; /* 150px */
+  letter-spacing: -4.8px;
+}
+.firstLineCirle1 {
+  width: 140px;
+  height: 140px;
+}
+
+.secondLine {
+  display: flex;
+}
+
+.secondLineLetter {
+  color: var(--neutral-000, #fff);
+  /* Display/D1 */
+  font-family: Urbanist;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%; /* 150px */
+  letter-spacing: -4.8px;
+}
+
+.thirdLine {
+  display: flex;
+}
+
+.thirdLineCircle {
+  display: flex;
+width: 482px;
+height: 110px;
+padding: 0px 32px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+  border-radius: 100px;
+  border: 2px solid var(--yellow-300, #f6ff82);
+}
+
+.thirdLineLetter{
+  color: var(--yellow-300, #F6FF82);
+/* Display/D1 */
 font-family: Urbanist;
-font-size: 16px;
+font-size: 120px;
 font-style: normal;
-font-weight: 700;
-line-height: 125%; /* 20px */
-letter-spacing: 0.32px;
+font-weight: 500;
+line-height: 125%; /* 150px */
+letter-spacing: -4.8px;
+border-radius: 100px;
+border:2px solid var(--yellow-300, #f6ff82);
 }
