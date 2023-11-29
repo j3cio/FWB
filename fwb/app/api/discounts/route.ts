@@ -15,7 +15,7 @@ interface Discount {
  }
 
 // Create a new discount
-export async function CREATE(
+export async function POST(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
