@@ -1,5 +1,4 @@
 // theme.ts
-"use client";
 
 import { createTheme } from "@mui/material/styles";
 
@@ -67,4 +66,5 @@ const theme = createTheme({
   },
   // Add other theme configurations here
 });
+
 export default theme;
