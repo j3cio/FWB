@@ -614,10 +614,10 @@ export default function Page() {
           <div>
             <div className="name">Sign In</div>
             <div className="buttons">
-              <button className="googleButton" onClick={signInWithDiscord}>
+              <button className="googleButton" onClick={signInWithGoogle}>
                 <img src="/google.png" alt="Google Icon" />
               </button>
-              <button className="discordButton">
+              <button className="discordButton" onClick={signInWithDiscord}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="27"
