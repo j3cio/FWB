@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { auth, currentUser } from "@clerk/nextjs";
 import supabaseClient from "@/supabase";
 
@@ -12,13 +12,10 @@ interface Discount {
   public: boolean;
   private_groups?: string;
   updated_by?: string;
- }
+}
 
 // Create a new discount
-export async function POST(
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
+export async function POST(request: NextApiRequest, response: NextApiResponse) {
   const { userId, getToken, orgRole } = auth();
   const user = await currentUser();
 
@@ -56,17 +53,23 @@ export async function POST(
   }
 }
 
-// Get all discounts accessible to the current user
-export async function GET(request: NextApiRequest, response: NextApiResponse) {}
+export async function GET(request: NextApiRequest, response: NextApiResponse) {
+  // Your code here
+  return response.status(401).json({ error: "Unauthorized" });
+}
 
 // Delete a discount
 export async function DELETE(
   request: NextApiRequest,
   response: NextApiResponse
-) {}
+) {
+  return response.status(401).json({ error: "Unauthorized" });
+}
 
 // Update a discount
 export async function PATCH(
   request: NextApiRequest,
   response: NextApiResponse
-) {}
+) {
+  return response.status(401).json({ error: "Unauthorized" });
+}
