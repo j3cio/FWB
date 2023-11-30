@@ -1,7 +1,7 @@
-// theme.ts
 "use client";
 
 import { createTheme } from "@mui/material/styles";
+
 declare module "@mui/material/styles" {
   interface Palette {
     neutral: {
@@ -66,5 +66,4 @@ const theme = createTheme({
   },
   // Add other theme configurations here
 });
-
 export default theme;
