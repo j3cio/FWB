@@ -66,7 +66,6 @@ export async function GET(request: NextRequest & { query: Record<string, string>
     // const category = request.nextUrl.searchParams.get('category');
     // const page_num = request.nextUrl.searchParams.get('page');
 
-
     // Fetch all public discounts
     const supabase = await supabaseClient();
     let { data: discounts, error } = await supabase
@@ -114,7 +113,6 @@ export async function DELETE(
         return NextResponse.json({ success: true }, { status: 200 })
       }
     } else {
-      console.log(error)
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
   } catch (error) {
