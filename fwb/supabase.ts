@@ -6,20 +6,28 @@ import { createClient } from "@supabase/supabase-js";
  * @returns {Promise<SupabaseClient>} - The Supabase client instance.
  * @throws {Error} - If the required environment variables are missing.
  */
-const supabaseClient = async (supabaseAccessToken: string) => {
+const supabaseClient = async (supabaseAccessToken?: string) => {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
     throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL env var");
   }
   if (!process.env.NEXT_PUBLIC_SUPABASE_KEY) {
     throw new Error("Missing NEXT_PUBLIC_SUPABASE_KEY env var");
   }
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_KEY,
-    {
-      global: { headers: { Authorization: `Bearer ${supabaseAccessToken}` } },
-    }
-  );
+  let supabase;
+  if (supabaseAccessToken) {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_KEY,
+      {
+        global: { headers: { Authorization: `Bearer ${supabaseAccessToken}` } },
+      }
+    );
+  } else {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_KEY,
+    );
+  }
 
   return supabase;
 };
