@@ -94,6 +94,8 @@ export async function DELETE(
     const user = await currentUser();
 
     if (userId && user) {
+      const discount_id = request.nextUrl.searchParams.get('discount_id');
+
       // Create a Supabase client with the current user's access token
       const token = await getToken({ template: "supabase" });
       if (!token) {
@@ -104,7 +106,7 @@ export async function DELETE(
       const { error } = await supabase
         .from('discounts')
         .delete()
-        .eq('some_column', 'someValue')
+        .eq('id', discount_id)
 
       if (error) {
         return NextResponse.json({ error: 'Failed to delete discount' }, { status: 500 })
@@ -112,6 +114,7 @@ export async function DELETE(
         return NextResponse.json({ success: true }, { status: 200 })
       }
     } else {
+      console.log(error)
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
   } catch (error) {
@@ -124,6 +127,6 @@ export async function PATCH(
   request: NextRequest,
   response: NextResponse
 ) {
-  return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+  return NextResponse.json({ error: 'Not Implemented' }, { status: 500 })
 }
 
