@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from 'next/image'
 import { useUser } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
-import IllustrationOne from "@/components/ui/fre/IllustrationOne";
+import IllustrationOne from "components/ui/fre/IllustrationOne";
 import IllustrationTwo from "@/components/ui/fre/IllustrationTwo";
 
 
