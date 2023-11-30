@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: "Friends With Benefits",
   description: "Discounts Have Never Been Easier To Find!",
 };
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider theme={theme}>
