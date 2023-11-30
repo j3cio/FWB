@@ -1,78 +1,67 @@
 "use client";
-import { SignIn, useSignIn } from "@clerk/nextjs";
+import React, { SyntheticEvent, useState } from "react";
+import { useSignIn } from "@clerk/nextjs";
+import type { NextPage } from "next";
 import "./page.css";
-import Container from "@mui/material/Container";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Page() {
-  const { isLoaded, signIn, setActive } = useSignIn();
-  const [emailAddress, setEmailAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [code, setCode] = useState("");
+  const [successfulCreation, setSuccessfulCreation] = useState(false);
+  const [complete, setComplete] = useState(false);
+  const [secondFactor, setSecondFactor] = useState(false);
   const [error, setError] = useState<any>(null);
-  // start the sign In process.
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const { isLoaded, signIn, setActive } = useSignIn();
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  async function create(e: SyntheticEvent) {
     e.preventDefault();
-    if (!isLoaded) {
-      return;
-    }
 
-    // Start the sign-in process using the email and password provided
-    try {
-      setError(null);
-      const result = await signIn.create({
-        identifier: emailAddress,
+    await signIn
+      ?.create({
+        strategy: "reset_password_email_code",
+        identifier: email,
+      })
+      .then((_) => {
+        setSuccessfulCreation(true);
+      })
+      .catch((err: any) => {
+        console.error(JSON.stringify(err, null, 2));
+        setError(err.errors[0].longMessage);
+      })
+  }
+
+  async function reset(e: SyntheticEvent) {
+    e.preventDefault();
+    setError(null);
+
+    await signIn
+      ?.attemptFirstFactor({
+        strategy: "reset_password_email_code",
+        code,
         password,
-      });
-
-      if (result.status === "complete") {
-        // If complete, user exists and provided password match -- set session active
-        await setActive({ session: result.createdSessionId });
-        // Redirect the user to a post sign-in route
-        router.push("/");
-      } else {
-        // The status can also be `needs_factor_on', 'needs_factor_two', or 'needs_identifier'
-        // Please see https://clerk.com/docs/references/react/use-sign-in#result-status for  more information
-        console.error(JSON.stringify(result, null, 2));
-      }
-    } catch (err: any) {
-      // This can return an array of errors.
-      // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
-      console.error(JSON.stringify(err, null, 2));
-      setError(err);
-    }
-  };
-
-  //Sign in with Google
-  //This allows User to sign in with Google
-  const signInWithGoogle = async () => {
-    try {
-      await signIn?.authenticateWithRedirect({
-        strategy: 'oauth_google',
-        redirectUrl: 'https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback',
-        redirectUrlComplete: '/success'
-      });
-    } catch (error) {
-      console.error('Error signing in with Google', error)
-    }
-  };
-
-  //Sign in with Discord
-  const signInWithDiscord = async () => {
-    try {
-      const response = await signIn?.authenticateWithRedirect({
-        strategy: 'oauth_discord',
-        redirectUrl: '/sso-callback',
-        redirectUrlComplete: '/success'
-      });
-
-      console.log(response)
-    } catch (error) {
-      console.error('Error signing in with Discord', error)
-    }
-  };
+      })
+      .then((result) => {
+        if (result.status === "needs_second_factor") {
+          setSecondFactor(true);
+        } else if (result.status === "complete") {
+          setActive({ session: result.createdSessionId });
+          setComplete(true);
+        } else {
+          console.log(result);
+        }
+      })
+      .catch((err: any) => {
+        console.error(JSON.stringify(err, null, 2));
+        setError(err.errors[0].longMessage);
+      })
+  }
 
   return (
     <div className="big">
@@ -607,128 +596,166 @@ export default function Page() {
           <div></div>
         </div>
       </div>
-      <div className="rightSigninContainer">
-        <div className="signin">
-          {/* <SignIn /> */}
+      <div className="rightContainer">
+        <form onSubmit={!successfulCreation ? create : reset}>
+          {!successfulCreation && !complete && (
+            <>
+              <div>
+                <div className="passwordContainer">
+                  <svg
+                    className="mail"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="41"
+                    height="41"
+                    viewBox="0 0 41 41"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.16659 6.93066H33.8333C35.6666 6.93066 37.1666 8.43066 37.1666 10.264V30.264C37.1666 32.0973 35.6666 33.5973 33.8333 33.5973H7.16659C5.33325 33.5973 3.83325 32.0973 3.83325 30.264L3.84992 10.264C3.84992 8.43066 5.33325 6.93066 7.16659 6.93066ZM21.3831 21.3807L33.1664 14.014C33.5831 13.7473 33.8331 13.2973 33.8331 12.814C33.8331 11.6973 32.6164 11.0307 31.6664 11.614L20.4998 18.5973L9.33309 11.614C8.38309 11.0307 7.16642 11.6973 7.16642 12.814C7.16642 13.2973 7.41642 13.7473 7.83309 14.014L19.6164 21.3807C20.1498 21.714 20.8498 21.714 21.3831 21.3807Z"
+                      fill="white"
+                    />
+                  </svg>
 
-          <div>
-            <div className="name">Sign In</div>
-            <div className="buttons">
-              <button className="googleButton" onClick={signInWithGoogle}>
-                <img src="/google.png" alt="Google Icon" />
-              </button>
-              <button className="discordButton" onClick={signInWithDiscord}>
+                  <div className="title">Forgot Password?</div>
+                  <div className="explanation">
+                    Dont worry! Enter your email address and we
+                  </div>
+                  <div className="explanation2">
+                    will send a link to reset your password
+                  </div>
+                  {/* <label htmlFor='email'>Please provide identifier</label> */}
+                  <input
+                    type="email"
+                    className="inputEmail"
+                    placeholder="takeadvantage@address.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+
+                <div>
+                  {error &&
+                  <div className="errorMessage">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 17"
+                      fill="none"
+                      className="errorImage"
+                    >
+                      <path
+                        d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
+                        fill="white"
+                      />
+                    </svg>{" "}
+                    <div className="message">{error}</div>
+                  </div>}
+                </div>
+
+                  <button className="sendEmail">Send Email</button>
+                  <div className="help">
+                    Having problems? Email us at{" "}
+                    <a className="helpEmail" href="mailto:help@makefwb.com">
+                      help@makefwb.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {successfulCreation && !complete && (
+            <>
+            <div className="passwordContainer">
+              <div className="title">Reset Password</div>
+              <div className="explanation">
+                Enter new password with at least 8 charaters, contain at least 1
+                number and 1 uppercase
+              </div>
+              <div className="explanation2">
+                will send a link to reset your password
+              </div>
+              {/* <label htmlFor="password" className="newPassword">New password</label> */}
+              <input
+                className="inputPassword"
+                placeholder="New password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+              {/* <label className="passwordCode"htmlFor="password">Reset password code</label> */}
+              <input
+                className="inputPasswordCode"
+                placeholder="Reset Password code"
+                type="text"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+              />
+
+              <div>
+                {error &&
+                <div className="errorMessage">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 17"
+                    fill="none"
+                    className="errorImage"
+                  >
+                    <path
+                      d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
+                      fill="white"
+                    />
+                  </svg>{" "}
+                  <div className="message">{error}</div>
+                </div>}
+              </div>
+
+              <button className="reset">Reset</button>
+              <div className="help">
+                Having problems? Email us at{" "}
+                <a className="helpEmail" href="mailto:help@makefwb.com">
+                  help@makefwb.com
+                </a>
+              </div>
+              </div>
+            </>
+          )}
+
+          {complete && (
+            <div className="passwordContainer">
+              
+              <div className="successImage">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="27"
-                  height="21"
-                  viewBox="0 0 27 21"
+                  width="33"
+                  height="32"
+                  viewBox="0 0 33 32"
                   fill="none"
                 >
                   <path
-                    d="M22.5638 2.45395C20.9174 1.68365 19.157 1.12382 17.3166 0.805054C17.0905 1.2137 16.8265 1.76335 16.6444 2.20059C14.688 1.90636 12.7495 1.90636 10.8291 2.20059C10.647 1.76335 10.377 1.2137 10.1489 0.805054C8.30648 1.12382 6.54406 1.6857 4.89768 2.45803C1.57691 7.47615 0.6767 12.3696 1.1268 17.1936C3.32932 18.8384 5.46381 19.8376 7.56229 20.4914C8.08042 19.7783 8.54251 19.0203 8.9406 18.2214C8.18243 17.9333 7.45627 17.5778 6.77013 17.165C6.95216 17.0302 7.13021 16.8892 7.30223 16.7441C11.4872 18.7015 16.0343 18.7015 20.1692 16.7441C20.3433 16.8892 20.5213 17.0302 20.7013 17.165C20.0132 17.5798 19.285 17.9353 18.5268 18.2234C18.9249 19.0203 19.385 19.7804 19.9052 20.4934C22.0057 19.8396 24.1421 18.8405 26.3446 17.1936C26.8728 11.6014 25.4424 6.75285 22.5638 2.45395ZM9.51074 14.2269C8.25446 14.2269 7.22421 13.0541 7.22421 11.6259C7.22421 10.1977 8.23246 9.02286 9.51074 9.02286C10.7891 9.02286 11.8193 10.1956 11.7973 11.6259C11.7993 13.0541 10.7891 14.2269 9.51074 14.2269ZM17.9607 14.2269C16.7044 14.2269 15.6742 13.0541 15.6742 11.6259C15.6742 10.1977 16.6824 9.02286 17.9607 9.02286C19.239 9.02286 20.2692 10.1956 20.2472 11.6259C20.2472 13.0541 19.239 14.2269 17.9607 14.2269Z"
+                    d="M12.283 21.0985L7.71718 16.5327C7.47135 16.2863 7.1376 16.1479 6.78955 16.1479C6.4415 16.1479 6.10775 16.2863 5.86192 16.5327C5.34876 17.0459 5.34876 17.8748 5.86192 18.388L11.3619 23.888C11.8751 24.4011 12.704 24.4011 13.2172 23.888L27.1382 9.96692C27.6514 9.45376 27.6514 8.62481 27.1382 8.11166C26.8924 7.86527 26.5587 7.72681 26.2106 7.72681C25.8626 7.72681 25.5288 7.86527 25.283 8.11166L12.283 21.0985Z"
                     fill="white"
                   />
                 </svg>
-              </button>
+              </div>
+              <div className="success">Success!!</div>
+              <div className="successMessage">
+                Yeyyy... You have successfully change your password
+              </div>
+              <Link href="/sign-in" className="reset">
+                Go to Sign In Page
+              </Link>
             </div>
-            <div className="or">Or</div>
+          )}
 
-            <form onSubmit={handleSubmit}>
-              <div>
-                {/* <label htmlFor="email">Email</label> */}
-                <input
-                  className="input"
-                  placeholder="Email@address.com"
-                  onChange={(e) => setEmailAddress(e.target.value)}
-                  id="email"
-                  name="email"
-                  type="email"
-                />
-              </div>
-              <div>
-                {error &&
-                  error.errors
-                    .filter(
-                      (err: any) => err.meta.paramName === "email_address"
-                    )
-                    .map((passwordError: any) => (
-                      <div
-                        className="errorMessage"
-                        key={passwordError.meta.paramName}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 17"
-                          fill="none"
-                          className="errorImage"
-                        >
-                          <path
-                            d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
-                            fill="white"
-                          />
-                        </svg>{" "}
-                        <div className="message">{passwordError.message}</div>
-                      </div>
-                    ))}
-              </div>
-              <div>
-                {/* <label htmlFor="password">Password</label> */}
-                <input
-                  className="input"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  name="password"
-                  type="password"
-                />
-              </div>
-
-              {error &&
-                error.errors
-                  .filter((err: any) => err.meta.paramName === "password")
-                  .map((passwordError: any) => (
-                    <div
-                      className="errorMessage"
-                      key={passwordError.meta.paramName}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 17"
-                        fill="none"
-                        className="errorImage"
-                      >
-                        <path
-                          d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
-                          fill="white"
-                        />
-                      </svg>{" "}
-                      <div className="message">{passwordError.message}</div>
-                    </div>
-                  ))}
-                  
-              <div className="password">
-                <Link href="/forgotpassword" className="forgetPassword">
-                  Forgot Password?
-                </Link>
-              </div>
-              
-              <button className="submit" type="submit">
-                Submit
-              </button>
-              <div className="signup">
-                <div className="detail">Don&apos;t have an account? </div>
-                <Link href="/sign-up" className="signupButton">
-                  Create Account
-                </Link>
-              </div>
-            </form>
-          </div>
-        </div>
+          {/* <button className="reset">Go to Sign In Page</button> */}
+          {secondFactor && "2FA is required, this UI does not handle that"}
+        </form>
       </div>
     </div>
   );
