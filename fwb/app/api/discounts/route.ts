@@ -17,7 +17,7 @@ interface Discount {
 // Create a new discount
 export async function POST(request: NextRequest, response: NextResponse) {
   try {
-    const { userId, getToken, orgRole } = auth();
+    const { userId, getToken } = auth();
     const user = await currentUser();
 
     if (userId && user) {
@@ -34,9 +34,12 @@ export async function POST(request: NextRequest, response: NextResponse) {
       };
 
       // Create a Supabase client with the current user's access token
-      const token = request.headers.get("supabase_jwt")
+      const token = request.headers.get("supabase_jwt");
       if (!token) {
-        return NextResponse.json({ error: "Could not create supabase access token" }, { status: 401 })
+        return NextResponse.json(
+          { error: "Could not create supabase access token" },
+          { status: 401 }
+        );
       }
       const supabase = await supabaseClient(token);
 
@@ -46,85 +49,146 @@ export async function POST(request: NextRequest, response: NextResponse) {
         .insert([newDiscount])
         .select();
       if (error) {
-        return NextResponse.json({ error: 'Failed to create discount' }, { status: 500 })
+        return NextResponse.json(
+          { error: "Failed to create discount" },
+          { status: 500 }
+        );
       }
 
       return NextResponse.json({ success: true, data }, { status: 200 });
     } else {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
-export async function GET(request: NextRequest & { query: Record<string, string> }, response: NextResponse) {
-  try {
-    // Filters
-    // const sort_by = request.nextUrl.searchParams.get('sort_by');
-    // const private_group = request.nextUrl.searchParams.get('private_group');
-    // const category = request.nextUrl.searchParams.get('category');
-    // const page_num = request.nextUrl.searchParams.get('page');
-
-    // Fetch all public discounts
-    const supabase = await supabaseClient();
-    let { data: discounts, error } = await supabase
-      .from('discounts')
-      .select('*');
-
-    if (error) {
-      return NextResponse.json({ error: 'Failed to fetch discounts' }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true, discounts }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
-}
-  
-
-// Delete a discount
-export async function DELETE(
-  request: NextRequest,
+export async function GET(
+  request: NextRequest & { query: Record<string, string> },
   response: NextResponse
 ) {
+  try {
+    // Filters
+    let sort_by = request.nextUrl.searchParams.get("sort_by");
+    const private_group = request.nextUrl.searchParams.get("private_group");
+    const category = request.nextUrl.searchParams.get("category");
+    const page_num = request.nextUrl.searchParams.get("page");
+
+    // Interpret sort_by. Default to "view_count".
+    if (sort_by === "Most Popular") sort_by = "view_count";
+    if (sort_by === "Highest to Lowest Discounts") sort_by = "discount_amount";
+    if (sort_by === "Lowest to Highest Discounts") sort_by = "discount_amount";
+    if (sort_by === null) sort_by = "view_count";
+
+    const getPagination = (page: number, size: number) => {
+      const limit = size ? +size : 3;
+      const from = page ? page * limit : 0;
+      const to = page ? from + size : size;
+
+      return { from, to };
+    };
+    const { from, to } = getPagination(Number(page_num), 20);
+
+    const { userId, getToken } = auth();
+    const user = await currentUser();
+    if (userId && user) {
+      // Create a Supabase client with the current user's access token
+      const token = request.headers.get("supabase_jwt");
+      if (!token) {
+        return NextResponse.json(
+          { error: "Could not create supabase access token" },
+          { status: 401 }
+        );
+      }
+      const supabase = await supabaseClient(token);
+      // Fetch 20 discounts for page_num
+      let { data: discounts, error } = await supabase
+        .from("discounts")
+        .select("*")
+        .containedBy("categories", [category])
+        .order(sort_by, { ascending: true })
+        .range(from, to);
+
+      if (error) {
+       
+        return NextResponse.json(
+          { error: "Failed to fetch discounts" },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json({ success: true, discounts }, { status: 200 });
+    } else {
+      // Ignore private group if user is not logged in
+      const supabase = await supabaseClient();
+      let { data: discounts, error } = await supabase
+        .from("discounts")
+        .select("*")
+        .containedBy("categories", [category])
+        .order(sort_by, { ascending: true })
+        .range(from, to);
+
+      if (error) {
+        console.log(error)
+        return NextResponse.json(
+          { error: "Failed to fetch discounts" },
+          { status: 500 }
+        );
+      }
+      return NextResponse.json({ success: true, discounts }, { status: 200 });
+    }
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+// Delete a discount
+export async function DELETE(request: NextRequest, response: NextResponse) {
   try {
     const { userId, getToken, orgRole } = auth();
     const user = await currentUser();
 
     if (userId && user) {
-      const discount_id = request.nextUrl.searchParams.get('discount_id');
+      const discount_id = request.nextUrl.searchParams.get("discount_id");
 
       // Create a Supabase client with the current user's access token
       const token = await getToken({ template: "supabase" });
       if (!token) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
       const supabase = await supabaseClient(token);
 
       const { error } = await supabase
-        .from('discounts')
+        .from("discounts")
         .delete()
-        .eq('id', discount_id)
+        .eq("id", discount_id);
 
       if (error) {
-        return NextResponse.json({ error: 'Failed to delete discount' }, { status: 500 })
+        return NextResponse.json(
+          { error: "Failed to delete discount" },
+          { status: 500 }
+        );
       } else {
-        return NextResponse.json({ success: true }, { status: 200 })
+        return NextResponse.json({ success: true }, { status: 200 });
       }
     } else {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
 // Update a discount
-export async function PATCH(
-  request: NextRequest,
-  response: NextResponse
-) {
-  return NextResponse.json({ error: 'Not Implemented' }, { status: 500 })
+export async function PATCH(request: NextRequest, response: NextResponse) {
+  return NextResponse.json({ error: "Not Implemented" }, { status: 500 });
 }
-
