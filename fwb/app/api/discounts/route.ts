@@ -34,9 +34,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
       };
 
       // Create a Supabase client with the current user's access token
-      const token = await getToken({ template: "supabase" });
+      const token = request.headers.get("supabase_jwt")
       if (!token) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        return NextResponse.json({ error: "Could not create supabase access token" }, { status: 401 })
       }
       const supabase = await supabaseClient(token);
 
