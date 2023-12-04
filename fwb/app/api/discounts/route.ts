@@ -75,22 +75,20 @@ export async function GET(
   try {
     // Filters
     let sort_by = request.nextUrl.searchParams.get("sort_by");
-    const private_group = request.nextUrl.searchParams.get("private_group");
-    const category = request.nextUrl.searchParams.get("category");
-    const page_num = request.nextUrl.searchParams.get("page");
+    let private_group = request.nextUrl.searchParams.get("private_group");
+    let category = request.nextUrl.searchParams.get("category");
+    let page_num = request.nextUrl.searchParams.get("page");
 
     let accending = true;
 
     // Interpret sort_by. Default to "view_count".
+    if (sort_by === null) sort_by = "view_count";
     if (sort_by === "Most Popular") sort_by = "view_count";
     if (sort_by === "Highest to Lowest Discounts") {
       sort_by = "discount_amount"
       accending = false;
     };
     if (sort_by === "Lowest to Highest Discounts") sort_by = "discount_amount";
-    if (sort_by === null) sort_by = "view_count";
-
-    console.log(sort_by)
 
     // Get the range of discounts to fetch. Uses 0 indexing
     const getPagination = (page: number, size: number) => {
@@ -119,9 +117,10 @@ export async function GET(
         .from("discounts")
         .select("*")
         .order(sort_by, { ascending: accending })
+        .filter('categories', 'cs', `{${category}}`)
         .range(from, to);
+  
       if (error) {
-       
         return NextResponse.json(
           { error: "Failed to fetch discounts" },
           { status: 500 }
@@ -135,6 +134,8 @@ export async function GET(
         .from("discounts")
         .select("*")
         .order(sort_by, { ascending: accending })
+        .filter('categories', 'cs', `{${category}}`)
+        .eq("public", true)
         .range(from, to);
         
 
