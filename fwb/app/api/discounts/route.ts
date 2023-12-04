@@ -29,7 +29,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         company_url: formData.get("company_url"),
         shareable_url: "",
         discount_amount: formData.get("discount_amount"),
-        public: formData.get("public"),
+        public: formData.get("public") === "true" ? true : false,
         private_groups: formData.get("private_groups"),
       };
 
@@ -49,6 +49,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
         .insert([newDiscount])
         .select();
       if (error) {
+        console.log(error)
         return NextResponse.json(
           { error: "Failed to create discount" },
           { status: 500 }
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 }
 
 export async function GET(
-  request: NextRequest & { query: Record<string, string> },
+  request: NextRequest,
   response: NextResponse
 ) {
   try {
@@ -84,13 +85,14 @@ export async function GET(
     if (sort_by === "Lowest to Highest Discounts") sort_by = "discount_amount";
     if (sort_by === null) sort_by = "view_count";
 
+    // Get the range of discounts to fetch. Uses 0 indexing
     const getPagination = (page: number, size: number) => {
-      const limit = size ? +size : 3;
-      const from = page ? page * limit : 0;
-      const to = page ? from + size : size;
-
-      return { from, to };
-    };
+      const limit = size ? +size : 3
+      const from = page ? page * limit : 0
+      const to = page ? from + size - 1 : size - 1
+    
+      return { from, to }
+    }
     const { from, to } = getPagination(Number(page_num), 20);
 
     const { userId, getToken } = auth();
@@ -109,10 +111,8 @@ export async function GET(
       let { data: discounts, error } = await supabase
         .from("discounts")
         .select("*")
-        .containedBy("categories", [category])
         .order(sort_by, { ascending: true })
         .range(from, to);
-
       if (error) {
        
         return NextResponse.json(
@@ -127,9 +127,9 @@ export async function GET(
       let { data: discounts, error } = await supabase
         .from("discounts")
         .select("*")
-        .containedBy("categories", [category])
         .order(sort_by, { ascending: true })
         .range(from, to);
+        
 
       if (error) {
         console.log(error)
@@ -158,7 +158,7 @@ export async function DELETE(request: NextRequest, response: NextResponse) {
       const discount_id = request.nextUrl.searchParams.get("discount_id");
 
       // Create a Supabase client with the current user's access token
-      const token = await getToken({ template: "supabase" });
+      const token = request.headers.get("supabase_jwt");
       if (!token) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
