@@ -79,11 +79,18 @@ export async function GET(
     const category = request.nextUrl.searchParams.get("category");
     const page_num = request.nextUrl.searchParams.get("page");
 
+    let accending = true;
+
     // Interpret sort_by. Default to "view_count".
     if (sort_by === "Most Popular") sort_by = "view_count";
-    if (sort_by === "Highest to Lowest Discounts") sort_by = "discount_amount";
+    if (sort_by === "Highest to Lowest Discounts") {
+      sort_by = "discount_amount"
+      accending = false;
+    };
     if (sort_by === "Lowest to Highest Discounts") sort_by = "discount_amount";
     if (sort_by === null) sort_by = "view_count";
+
+    console.log(sort_by)
 
     // Get the range of discounts to fetch. Uses 0 indexing
     const getPagination = (page: number, size: number) => {
@@ -111,7 +118,7 @@ export async function GET(
       let { data: discounts, error } = await supabase
         .from("discounts")
         .select("*")
-        .order(sort_by, { ascending: true })
+        .order(sort_by, { ascending: accending })
         .range(from, to);
       if (error) {
        
@@ -127,7 +134,7 @@ export async function GET(
       let { data: discounts, error } = await supabase
         .from("discounts")
         .select("*")
-        .order(sort_by, { ascending: true })
+        .order(sort_by, { ascending: accending })
         .range(from, to);
         
 
