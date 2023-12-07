@@ -175,15 +175,11 @@ export default function UserFlowPage1() {
             {/*Container to allow users to upload a personal profile picture*/}
             <div>
               <div className='addPhoto'>
-                <div className='mx-4 my-4 flex justify-center pl-32'>
-                  <input type="file" id="profilePicture" accept="image/*"/>
-                </div>
-                <div className='flex justify-center'>
-
-                  {/*Button that when clicked runs function to update picture on Clerk*/}
-                  <button type="button" className="updatePhoto" onClick={updateProfilePicture}>
-                    Add profile photo
-                  </button>
+                <div className='ml-4 mr-36 my-4 flex justify-center pl-32'>
+                  <label htmlFor="profilePicture" className="customPhotoInput">
+                    <span>Add profile photo</span>
+                    <input type="file" id="profilePicture" accept="image/*" onChange={updateProfilePicture} />
+                  </label>
                 </div>
               </div>
             </div>
