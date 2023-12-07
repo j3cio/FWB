@@ -7,34 +7,80 @@
   line-height: 110%;
 }
 
+.line1 , .line2, .line3, .line4{
+  display: flex;
+}
 
-.inputEmail{
-  color: var(--neutral-900, #090A10);
+.email,
+.company,
+.url,
+.verify {
+  color: var(--neutral-000, #fff);
+
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 20px */
+}
+
+.inputEmail, .inputCompany, .inputUrl {
+  border-radius: 5px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  padding: 4px 4px 4px 16px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  width: 364px;
+  height: 24px;
+}
+
+input::placeholder {
+  color: var(--neutral-900, #090a10);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  opacity: 0.3;
+}
+
+.LinkedIn{
+  display: flex;
+padding: 4px 4px 4px 16px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+align-self: stretch;
+border-radius: 5px;
+background: var(--purple-300, #8E94E9);
+color: var(--neutral-000, #FFF);
 /* Body/16/regular */
 font-family: Urbanist;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
 line-height: 150%; /* 24px */
-opacity: 0.3;
-border-radius: 5px;
-background: var(--neutral-000, #FFF);
-display: flex;
-padding: 4px 4px 4px 16px;
-align-items: center;
-gap: 8px;
-align-self: stretch;
-width: 364px;
-height: 24px;
+}
+
+
+.amount{
+  color: var(--neutral-000, #FFF);
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 20px */
 }
 
 
 .submitButtons {
   display: flex;
 }
-
-
-
 
 .save {
   color: var(--purple-300, #8e94e9);
