@@ -6,7 +6,7 @@ import { createClient } from "@supabase/supabase-js";
  * @returns {Promise<SupabaseClient>} - The Supabase client instance.
  * @throws {Error} - If the required environment variables are missing.
  */
-const supabaseClient = async (supabaseAccessToken?: string) => {
+const supabaseClient = async (supabaseAccessToken?: string | undefined | null) => {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
     throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL env var");
   }
