@@ -64,11 +64,32 @@
   background-position: center;
 }
 
-input[type="file"]::file-selector-button {
-  background-color: #f6ff82;
-  border: #f6ff82;
-  border-radius: 100px;
-  color:#8e94e9;
+.customPhotoInput {
+  border-radius: 30px;
+  background: #8e94e9;
+  border: 2px solid #FFF;
+  display: flex;
+  width: 213px;
+  height: 45px;
+  padding: 10px 24px;
+  justify-content: center;
+  gap: 8px;
+  color: var(--neutral-000, #FFF);
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 20px */
+  letter-spacing: 0.32px;
+}
+
+.customPhotoInput input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
 }
 
 .addPhoto {
@@ -124,26 +145,6 @@ input::placeholder {
   line-height: 125%; /* 30px */
   letter-spacing: 0.4px;
   margin-bottom: 12px;
-}
-
-.updatePhoto {
-  border-radius: 30px;
-  background: #8e94e9;
-  border: 2px solid #FFF;
-  display: flex;
-  width: 213px;
-  height: 45px;
-  padding: 10px 24px;
-  justify-content: center;
-  gap: 8px;
-  color: var(--neutral-000, #FFF);
-  /* Label/16/bold */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 20px */
-  letter-spacing: 0.32px;
 }
 
 .randomName {
