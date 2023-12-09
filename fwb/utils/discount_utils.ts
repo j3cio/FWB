@@ -23,6 +23,7 @@ const insertDiscount = async (request: NextRequest) => {
         terms_and_conditions: formData.get("terms_and_conditions"),
         company_url: formData.get("company_url"),
         shareable_url: "",
+        categories: formData.get("categories"),
         discount_amount: formData.get("discount_amount"),
         public: formData.get("public") === "true" ? true : false,
         private_groups: formData.get("private_groups"),

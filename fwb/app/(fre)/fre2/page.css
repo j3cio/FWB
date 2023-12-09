@@ -40,37 +40,154 @@
   font-style: normal;
   font-weight: 600;
   line-height: 110%; /* 44px */
-  margin-top: 131px;
-  margin-bottom:16px;
+  margin-top: 104px;
+  margin-bottom:41px;
   letter-spacing: 0.1rem;
 }
 
-.subtextOne {
+.discountFormText {
   color: var(--neutral-000, #FFF);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 125%; /* 22.5px */
-  margin-top: 8px;
+  display: flex;
+  justify-content: start;
+  margin-right: 24px;
 }
 
-.subtextTwo {
-  color: var(--neutral-000, #FFF);
-  text-align: center;
-  /* Heading/H5 */
+input::placeholder {
+  color: var(--neutral-900, #000000);
+  /* Body/16/regular */
   font-family: Urbanist;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 500;
-  line-height: 125%; /* 22.5px */
-  margin-top: 8px;
-  margin-bottom: 72px;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  opacity: 0.3;
+  vertical-align: text-top;
 }
 
-.next {
+.inputCompany {
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 384px;
+  height: 32px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.inputDiscount {
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 130px;
+  height: 32px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 20px;
+  margin-top: 8px;
+  margin-right: 24px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.selectCategory {
+  border-radius: 100px;
+  background: #8e94e9;
+  color:#FFF;
+  border: 1.5px solid #FFF;
+  display: flex;
+  width: 230px;
+  height: 32px;
+  padding-left: 12px;
+  gap: 8px;
+  margin-bottom: 20px;
+  margin-top: 8px;
+}
+
+option {
+  color: var(--neutral-900, #FFFFFF);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  opacity: 0.3;
+}
+
+.inputConditions {
+  border-radius: 10px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 384px;
+  height: 103px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+/* .linkedInVerify {
+  border-radius: 30px;
+  background: #8e94e9;
+  border: 2px solid #FFF;
+  display: flex;
+  width: 367px;
+  height: 48px;
+  padding: 10px 24px;
+  justify-content: center;
+  gap: 8px;
+  color: #FFF;
+  text-align: center;
+   Label/24/bold 
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; 30px 
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+} */
+
+/* .help{
+  color: #FFF;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; 
+}
+
+.helpEmail{
+  color: var(--neutral-000, #FFF);
+   Label/16/bold 
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; 20px 
+  letter-spacing: 0.32px;
+} */ 
+
+.share {
   border-radius: 30px;
   background: var(--yellow-300, #f6ff82);
   display: flex;
@@ -87,75 +204,10 @@
   font-style: normal;
   font-weight: 700;
   line-height: 125%; /* 30px */
-  letter-spacing: 0.4px;
+  letter-spacing: 1.1px;
   margin-top: 114px;
   margin-bottom: 8px;
-}
-
-.inputCompany {
-  border-radius: 100px;
-  background: var(--neutral-000, #fff);
-  display: flex;
-  width: 367px;
-  height: 47.472px;
-  padding: 8px 8px 8px 24px;
-  gap: 8px;
-  margin-bottom: 13.53px;
-  margin-top: 32px;
-}
-
-input::placeholder {
-  color: var(--neutral-900, #090a10);
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
-  opacity: 0.3;
-}
-
-.linkedInVerify {
-  border-radius: 30px;
-  background: #8e94e9;
-  border: 2px solid #FFF;
-  display: flex;
-  width: 367px;
-  height: 48px;
-  padding: 10px 24px;
-  justify-content: center;
-  gap: 8px;
-  color: #FFF;
-  text-align: center;
-  /* Label/24/bold */
-  font-family: Urbanist;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 30px */
-  letter-spacing: 0.4px;
-  margin-bottom: 12px;
-  margin-top: 8px;
-}
-
-.help{
-  color: #FFF;
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%; 
-}
-
-.helpEmail{
-  color: var(--neutral-000, #FFF);
-  /* Label/16/bold */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 20px */
-  letter-spacing: 0.32px;
+  margin-right: 8px;
 }
 
 .skip {
@@ -166,6 +218,7 @@ input::placeholder {
   font-style: normal;
   font-weight: 700;
   line-height: 125%; /* 20px */
-  letter-spacing: 0.32px;
+  letter-spacing: 1.1px;
   margin-top: 19.5px;
+  margin-right: 8px;
 }
