@@ -31,7 +31,14 @@ const theme = createTheme({
         },
         rail: {
           backgroundColor: "#FFF",
-        }
+        },
+        valueLabel: {
+          backgroundColor: "#FFF", // Label background color
+          color: "#000", // Label text color
+        },
+        valueLabelLabel: {
+          color: "#000", // Label text color
+        },
         // trackFilled: {
         //   backgroundColor: "#FFF", // Upper part fill color
         // },
