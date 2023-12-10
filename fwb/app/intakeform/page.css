@@ -96,6 +96,16 @@ input::placeholder {
   align-items: center;
 }
 
+.inputDiscount {
+  border-radius: 10px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  padding: 8px 4px 8px 16px;
+  gap: 8px;
+  width: 792px;
+  height: 160px;
+}
+
 .amount {
   color: var(--neutral-000, #fff);
   /* Heading/H6 */
@@ -104,16 +114,33 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
+ 
 }
 
-.discount{
+.discount1,
+.rule {
   display: flex;
   flex-direction: row;
+  margin-top: 80px;
 }
 
-.agree {
-  color: #fff;
-
+.share {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+  margin-bottom: 72px;
+}
+.discountName {
+  width: 34px;
+  height: 32px;
+  border-radius: 5px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  padding: 4px 8px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  color: var(--neutral-900, rgba(9, 10, 16, 0.5));
   /* Body/16/regular */
   font-family: Urbanist;
   font-size: 16px;
@@ -122,9 +149,78 @@ input::placeholder {
   line-height: 150%; /* 24px */
 }
 
+.public {
+  align-items: center;
+  margin-left: 26px;
+  color: var(--neutral-000, #fff);
+  display: flex;
+  flex-direction: row;
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%;
+  width: 384px;
+  height: 86px;
+  border-radius: 10px;
+  border: 2px solid var(--neutral-000, #8e94e9);
+}
+
+.pic{
+margin-left: 13px;
+}
+
+.publicLeft{
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #fff;
+  height: 38px;
+  padding-left: 8px;
+  margin-left: 6px;
+}
+
+.private {
+  margin-left: 22px;
+  color: var(--neutral-000, #fff);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 20px */
+  border-radius: 10px;
+  width: 384px;
+  height: 86px;
+  border: 2px solid var(--purple-300, #8e94e9);
+  background: var(--purple-300, #8e94e9);
+}
+
+.agree {
+  color: #fff;
+margin-top: 64px;
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+}
+
+.terms{
+  color:#8e94e9
+}
+
+.termAgree{
+  margin-left: -20px;
+}
 .submitButtons {
   display: flex;
   margin-top: 8px;
+  margin-top: 14px;
 }
 
 .save {
