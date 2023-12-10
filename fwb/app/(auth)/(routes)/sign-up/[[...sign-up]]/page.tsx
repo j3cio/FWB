@@ -1,4 +1,5 @@
 "use client";
+import Box from "@mui/material/Box";
 import { useSignUp } from "@clerk/nextjs";
 import "./page.css";
 import { useState } from "react";
@@ -1273,12 +1274,14 @@ export default function Page() {
                 </defs>
               </svg>
             </div>
+           
             <form onSubmit={onPressVerify}>
               {/* <input
                     value={code}
                     placeholder="Code..."
                     onChange={(e) => setCode(e.target.value)}
                   /> */}
+                  
               <div className="signupProcess">
                 <div className="signupTitle">You&apos;re almost there!</div>
                 <div className="signupContent">
@@ -1291,7 +1294,9 @@ export default function Page() {
                   <Link href="/success">Verify Now!</Link>
                 </button>
               </div>
+
             </form>
+         
             <div className="leftCircle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
