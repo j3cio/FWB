@@ -187,6 +187,28 @@ option {
   letter-spacing: 0.32px;
 } */ 
 
+.submitButton {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  display: flex;
+  width: 200px;
+  height: 32px;
+  padding: 3px;
+  justify-content: center;
+  gap: 8px;
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 30px */
+  letter-spacing: 1.1px;
+  margin-bottom: 8px;
+  margin-left: 90px;
+}
+
 .share {
   border-radius: 30px;
   background: var(--yellow-300, #f6ff82);

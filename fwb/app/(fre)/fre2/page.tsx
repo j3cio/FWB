@@ -6,7 +6,13 @@ import { useUser } from '@clerk/nextjs';
 import IllustrationThree from "@/components/ui/fre/IllustrationThree";
 import IllustrationFour from "@/components/ui/fre/IllustrationFour";
 import { useState } from 'react';
-import axios from 'axios';
+import { useRouter } from 'next/navigation'
+
+declare global {
+  interface Window {
+    Clerk: any;
+  }
+}
 
 export default function UserFlowPage2() {
 
@@ -14,28 +20,53 @@ export default function UserFlowPage2() {
   const [company, setCompany] = useState('');
   const [termsAndConditions, setTermsAndConditions] = useState('');
   const [discountAmount, setDiscountAmount] = useState('');
-  const [categories, setCategories] = useState('');
-  const [publicGroups, setPublicGroups] = useState(false);
-  const [privateGroups, setPrivateGroups] = useState('');
+  const [categories, setCategories] = useState([]);
+
+  const router = useRouter();
 
   //Handle Discount Submission
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/discounts', {
-        company,
-        terms_and_conditions: termsAndConditions,
-        discount_amount: parseInt(discountAmount),
-        categories,
+      const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
+
+      const supabaseToken = await window.Clerk.session.getToken({template: 'supabase'})
+
+      const formData = new FormData();
+      formData.append('company', company);
+      formData.append('terms_and_conditions', termsAndConditions);
+      formData.append('categories', `{${categories.join(',')}}`);
+      formData.append('discount_amount', discountAmount);
+
+      formData.append('company_url', '');
+      formData.append('public', 'true');
+
+      console.log(formData)
+
+      const response = await fetch('/api/discounts', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${bearerToken}`,
+          'supabase_jwt': supabaseToken,
+        },
+        body: formData
       });
 
-      console.log('Discount added successfully:', response.data);
-      // You can handle success here, e.g., redirect the user or show a success message
-    } catch (error: any) {
-      console.error('Error adding discount:', error.response.data);
-      // Handle error, e.g., show an error message to the user
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Discount added successfully:', data);
+      } else {
+        const errorData = await response.json();
+        console.error('Error adding discount:', errorData);
+      }
+    } catch (error) {
+      console.error('Error adding discount:', error);
     }
+  };
+
+  const handleCategoryChange = (selectedCategories: any) => {
+    setCategories(selectedCategories);
   };
 
   //Update user info based on provided company of Employment
@@ -94,20 +125,20 @@ export default function UserFlowPage2() {
               {/* This will Need to be updated with Map function for all Categories */}
               <select 
                 className='selectCategory'
+                onChange={(e) => handleCategoryChange(Array.from(e.target.selectedOptions, (option) => option.value))}
                 value={categories}
-                onChange={(e) => setCategories(e.target.value)} 
                 required
               >
-                <option value="all">All</option>
-                <option value="sports">Sports</option>
-                <option value="fashion">Fashion</option>
-                <option value="electronic">Electronic</option>
-                <option value="health">Health</option>
-                <option value="homeAndKitchen">Home & Kitchen</option>
-                <option value="computerAndAccessories">Computer & Accessories</option>
-                <option value="beautyAndSkincare">Beauty & Skincare</option>
-                <option value="books">Books</option>
-                <option value="hobbies">Hobbies</option>
+                <option value="All">All</option>
+                <option value="Sports">Sports</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Health">Health</option>
+                <option value="HomeAndKitchen">Home & Kitchen</option>
+                <option value="ComputerAndAccessories">Computer & Accessories</option>
+                <option value="BeautyAndSkincare">Beauty & Skincare</option>
+                <option value="Books">Books</option>
+                <option value="Hobbies">Hobbies</option>
               </select>
             </div>
 
@@ -120,37 +151,13 @@ export default function UserFlowPage2() {
               required
             />
 
-
+            <button type='submit' className='submitButton'>Submit Discount</button>
           </form>
           </div>
 
-          {/* This is the Button that will handle LinkedIn Verification 
-          <div className='flex justify-center mt-8px mb-4px'>
-            <button className='linkedInVerify' onClick={handleverify}>
-              <div>Verify with LinkedIn</div>
-
-               SVG Icon for LinkedIn Icon from Figma Design 
-              <div className='py-1'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401m-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4"/>
-                </svg>
-              </div>
-            </button>
-          </div> */}
-
-          {/* This is the help subtext to email us if they have problems 
-          <div className='flex justify-center'>
-            <div className="help">
-              Having problems? Email us at{" "}
-              <a className="helpEmail" href="mailto:help@makefwb.com">
-                help@makefwb.com
-              </a>
-            </div>
-          </div> */}
-
           {/* This is the link functionality to carry user to stage 3  */}
           <div className="flex justify-center">
-            <Link href='/fre3' className="share">Share Group</Link>
+            <Link type='submit' href='/fre3' className="share">Share on Public</Link>
           </div>
           <div className='flex justify-center'>
             <Link href='/fre3' className="skip">Skip for now</Link>
