@@ -20,6 +20,7 @@ const SearchBar = () => {
         backgroundColor: "white",
         flexGrow: 1,
         border: "none",
+      
       }}
     >
       <TextField

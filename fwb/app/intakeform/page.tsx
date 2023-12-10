@@ -7,20 +7,18 @@ import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
 import Slider from "@mui/material/Slider";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Select from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-
 
 const theme = createTheme({
   components: {
     MuiSlider: {
       styleOverrides: {
-       
         root: {
           height: 8, // Thickness
         },
@@ -30,8 +28,12 @@ const theme = createTheme({
         track: {
           backgroundColor: "#8E94E9",
         },
+        // '& .MuiSlider-rail': {
+        //   opacity: 0.5,
+        //   backgroundColor: 'red',
+        // },
         rail: {
-          backgroundColor: "#FFF",
+          backgroundColor: "red",
         },
         valueLabel: {
           backgroundColor: "#FFF", // Label background color
@@ -40,18 +42,10 @@ const theme = createTheme({
         valueLabelLabel: {
           color: "#000", // Label text color
         },
-        // trackFilled: {
-        //   backgroundColor: "#FFF", // Upper part fill color
-        // },
-        // railHover: {
-        //   backgroundColor: "#FFF", // Runnable track color on hover
-        // },
-      
+      },
     },
-  },}
+  },
 });
-
-
 
 export default function Intakeform() {
   // const theme = useTheme();
@@ -62,23 +56,19 @@ export default function Intakeform() {
     }
   };
   const [checked, setChecked] = useState(false);
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target?.checked);
   };
 
-  const valueLabelFormat = (discount) => {
+  const valueLabelFormat = (discount: number) => {
     return `${discount}%`;
   };
 
   const [selectedOption, setSelectedOption] = useState("");
 
-  const handleUpdate = (event) => {
-    setSelectedOption(event.target.value);
+  const handleUpdate = (event: SelectChangeEvent) => {
+    setSelectedOption(event.target?.value);
   };
-
-  
-  
-
 
   return (
     <div>
@@ -143,9 +133,23 @@ export default function Intakeform() {
             </div>
             <div className="line4">
               <div className="verify">Verify Employment</div>
-              <div className="LinkedIn">Verify with LinkedIn<span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-<path d="M14.2222 0C14.6937 0 15.1459 0.187301 15.4793 0.520699C15.8127 0.854097 16 1.30628 16 1.77778V14.2222C16 14.6937 15.8127 15.1459 15.4793 15.4793C15.1459 15.8127 14.6937 16 14.2222 16H1.77778C1.30628 16 0.854097 15.8127 0.520699 15.4793C0.187301 15.1459 0 14.6937 0 14.2222V1.77778C0 1.30628 0.187301 0.854097 0.520699 0.520699C0.854097 0.187301 1.30628 0 1.77778 0H14.2222ZM13.7778 13.7778V9.06667C13.7778 8.29813 13.4725 7.56107 12.929 7.01763C12.3856 6.47419 11.6485 6.16889 10.88 6.16889C10.1244 6.16889 9.24444 6.63111 8.81778 7.32444V6.33778H6.33778V13.7778H8.81778V9.39556C8.81778 8.71111 9.36889 8.15111 10.0533 8.15111C10.3834 8.15111 10.6999 8.28222 10.9333 8.5156C11.1667 8.74898 11.2978 9.06551 11.2978 9.39556V13.7778H13.7778ZM3.44889 4.94222C3.84495 4.94222 4.22478 4.78489 4.50484 4.50484C4.78489 4.22478 4.94222 3.84495 4.94222 3.44889C4.94222 2.62222 4.27556 1.94667 3.44889 1.94667C3.05047 1.94667 2.66838 2.10494 2.38666 2.38666C2.10494 2.66838 1.94667 3.05047 1.94667 3.44889C1.94667 4.27556 2.62222 4.94222 3.44889 4.94222ZM4.68444 13.7778V6.33778H2.22222V13.7778H4.68444Z" fill="white"/>
-</svg></span></div>
+              <div className="LinkedIn">
+                Verify with LinkedIn
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M14.2222 0C14.6937 0 15.1459 0.187301 15.4793 0.520699C15.8127 0.854097 16 1.30628 16 1.77778V14.2222C16 14.6937 15.8127 15.1459 15.4793 15.4793C15.1459 15.8127 14.6937 16 14.2222 16H1.77778C1.30628 16 0.854097 15.8127 0.520699 15.4793C0.187301 15.1459 0 14.6937 0 14.2222V1.77778C0 1.30628 0.187301 0.854097 0.520699 0.520699C0.854097 0.187301 1.30628 0 1.77778 0H14.2222ZM13.7778 13.7778V9.06667C13.7778 8.29813 13.4725 7.56107 12.929 7.01763C12.3856 6.47419 11.6485 6.16889 10.88 6.16889C10.1244 6.16889 9.24444 6.63111 8.81778 7.32444V6.33778H6.33778V13.7778H8.81778V9.39556C8.81778 8.71111 9.36889 8.15111 10.0533 8.15111C10.3834 8.15111 10.6999 8.28222 10.9333 8.5156C11.1667 8.74898 11.2978 9.06551 11.2978 9.39556V13.7778H13.7778ZM3.44889 4.94222C3.84495 4.94222 4.22478 4.78489 4.50484 4.50484C4.78489 4.22478 4.94222 3.84495 4.94222 3.44889C4.94222 2.62222 4.27556 1.94667 3.44889 1.94667C3.05047 1.94667 2.66838 2.10494 2.38666 2.38666C2.10494 2.66838 1.94667 3.05047 1.94667 3.44889C1.94667 4.27556 2.62222 4.94222 3.44889 4.94222ZM4.68444 13.7778V6.33778H2.22222V13.7778H4.68444Z"
+                      fill="white"
+                    />
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
           <div>
@@ -167,18 +171,22 @@ export default function Intakeform() {
                       <div className="discount1">
                         <div className="amount">Discount Amount*</div>
                         <ThemeProvider theme={theme}>
-                          <div className="slider" style={{ width: "240px"}}>
+                          <div className="slider" style={{ width: "240px" }}>
                             {/* <Typography gutterBottom>
                         Slider Value: {discount}
                       </Typography> */}
                             <Slider
+                              sx={{
+                                "& .MuiSlider-rail": {
+                                  backgroundColor: "white",
+                                },
+                              }}
                               value={discount}
                               onChange={handleSlide}
                               valueLabelDisplay="auto"
                               valueLabelFormat={valueLabelFormat}
                               // valueLabelStyle={{color:'#1A1A23', backgroundColor:'#FFF'}}
                               aria-labelledby="continuous-slider"
-                              
                             />
                           </div>
                         </ThemeProvider>
@@ -227,7 +235,11 @@ export default function Intakeform() {
                       <div className="select">
                         <FormControl
                           fullWidth
-                          sx={{ width: "386px", height: "48px", borderRadius:'10px' }}
+                          sx={{
+                            width: "386px",
+                            height: "48px",
+                            borderRadius: "10px",
+                          }}
                         >
                           <InputLabel id="select-label">All</InputLabel>
                           <Select
@@ -237,6 +249,7 @@ export default function Intakeform() {
                             label="Select Option"
                             onChange={handleUpdate}
                             sx={{
+                              background: "white",
                               color: "white",
                               "&:before": {
                                 borderColor: "#8e94e9",
@@ -288,7 +301,7 @@ export default function Intakeform() {
                     </div>
                     <div className="share">
                       <div className="shareOn">Share on*</div>
-                      <div className="public">
+                      <a className="public">
                         <span className="pic">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -310,9 +323,9 @@ export default function Intakeform() {
                           <span>Public</span>
                           <span>Lorem ipsum dolor sit amet consectetur</span>
                         </div>
-                      </div>
+                      </a>
 
-                      <div className="private">
+                      <a className="private">
                         <span className="pic">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -334,7 +347,7 @@ export default function Intakeform() {
                           <span>Private Group</span>
                           <span>Lorem ipsum dolor sit amet consectetur</span>
                         </div>
-                      </div>
+                      </a>
                     </div>
                   </div>
                 </div>
