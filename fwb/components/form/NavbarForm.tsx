@@ -19,12 +19,13 @@ const SearchBar = () => {
         backgroundColor: "white",
         flexGrow: 1,
         border: "none",
+      
       }}
     >
       <TextField
         variant="outlined"
         placeholder="Search more benefit"
-        style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px" }}
+        style={{ flex: 1, height: "48px", width:"729px", borderRadius: "25px 0 0 25px" }}
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}
       />
       <IconButton
@@ -37,7 +38,7 @@ const SearchBar = () => {
           margin: "4px",
         }}
       >
-        <Image src={searchIcon} alt="Search Icon" />
+        <Image src={searchIcon} alt="Search Icon" style={{ filter: 'brightness(0) invert(1)'}} />
       </IconButton>
     </Box>
   );
@@ -60,9 +61,11 @@ export default function Header() {
         <Typography
           sx={{
             marginRight: "4.8vw",
+            marginLeft:"22px",
             height: "48px",
             width: "114px",
             fontSize: "38px",
+            
           }}
         >
           LOGO.
