@@ -9,7 +9,11 @@ import Checkbox from "@mui/material/Checkbox";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 const theme = createTheme({
   components: {
@@ -45,10 +49,12 @@ export default function Intakeform() {
   const valueLabelFormat = (discount) => {
     return `${discount}%`;
   };
+  
+  const [selectedOption, setSelectedOption] = useState('');
 
-  // const handleChange = (event, newDiscount) => {
-  //   setValue(newValue);
-  // };
+  const handleUpdate = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
   return (
     <div>
@@ -70,6 +76,7 @@ export default function Intakeform() {
                 Share My Benefits
               </Typography>
             </div>
+
             <div className="line1">
               <div className="email">Email*</div>
               <div>
@@ -188,12 +195,49 @@ export default function Intakeform() {
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="amount">Category*</div>
-                      <div></div>
+                    <div className="categories">
+                      <div className="category">Category*</div>
+                      <div className="select">
+                      <FormControl fullWidth sx={{ width: '386px', height:'48px' }}>
+      <InputLabel id="select-label">Select Option</InputLabel>
+      <Select
+        labelId="select-label"
+        id="select"
+        value={selectedOption}
+        label="Select Option"
+        onChange={handleUpdate}
+        sx={{
+          color: 'white',
+          '&:before': {
+            borderColor: '#8e94e9',
+          },
+          '&:after': {
+            borderColor: '#8e94e9',
+          },
+          '& .MuiSelect-icon': {
+            color: 'white',
+          },
+        }}
+      >
+        {/* <MenuItem value="">
+          <em>None</em>
+        </MenuItem> */}
+        <MenuItem value="option1">All</MenuItem>
+        <MenuItem value="option2">Sports</MenuItem>
+        <MenuItem value="option3">Fashion</MenuItem>
+        <MenuItem value="option4">Electronic</MenuItem>
+        <MenuItem value="option5">Health</MenuItem>
+        <MenuItem value="option6">Home & Kitchen</MenuItem>
+        <MenuItem value="option7">Computer & Accessories</MenuItem>
+        <MenuItem value="option8">Beauty & Skincare</MenuItem>
+        <MenuItem value="option9">Books</MenuItem>
+        <MenuItem value="option10">Hobbies</MenuItem>
+      </Select>
+    </FormControl>
+                      </div>
                     </div>
                     <div className="rule">
-                      <div className="amount">
+                      <div className="discountRule">
                         Discount Rules* <p>& Conditions</p>
                       </div>
                       <div>
@@ -209,7 +253,7 @@ export default function Intakeform() {
                       </div>
                     </div>
                     <div className="share">
-                      <div className="amount">Share on*</div>
+                      <div className="shareOn">Share on*</div>
                       <div className="public">
                         <span className="pic">
                           <svg
@@ -230,19 +274,32 @@ export default function Intakeform() {
 
                         <div className="publicLeft">
                           <span>Public</span>
-                          <span>Lorem ipsum dolor sit amet consectetur</span></div>
+                          <span>Lorem ipsum dolor sit amet consectetur</span>
+                        </div>
                       </div>
-                    
+
                       <div className="private">
                         <span className="pic">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M28.3346 14.1667H30.0013C31.8346 14.1667 33.3346 15.6667 33.3346 17.5V34.1667C33.3346 36 31.8346 37.5 30.0013 37.5H10.0013C8.16797 37.5 6.66797 36 6.66797 34.1667V17.5C6.66797 15.6667 8.16797 14.1667 10.0013 14.1667H11.668V10.8333C11.668 6.23333 15.4013 2.5 20.0013 2.5C24.6013 2.5 28.3346 6.23333 28.3346 10.8333V14.1667ZM20.0013 5.83333C17.2346 5.83333 15.0013 8.06667 15.0013 10.8333V14.1667H25.0013V10.8333C25.0013 8.06667 22.768 5.83333 20.0013 5.83333ZM11.668 34.1667C10.7513 34.1667 10.0013 33.4167 10.0013 32.5V19.1667C10.0013 18.25 10.7513 17.5 11.668 17.5H28.3346C29.2513 17.5 30.0013 18.25 30.0013 19.1667V32.5C30.0013 33.4167 29.2513 34.1667 28.3346 34.1667H11.668ZM23.3346 25.8333C23.3346 27.6667 21.8346 29.1667 20.0013 29.1667C18.168 29.1667 16.668 27.6667 16.668 25.8333C16.668 24 18.168 22.5 20.0013 22.5C21.8346 22.5 23.3346 24 23.3346 25.8333Z" fill="white"/>
-</svg>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 40 40"
+                            fill="none"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                              d="M28.3346 14.1667H30.0013C31.8346 14.1667 33.3346 15.6667 33.3346 17.5V34.1667C33.3346 36 31.8346 37.5 30.0013 37.5H10.0013C8.16797 37.5 6.66797 36 6.66797 34.1667V17.5C6.66797 15.6667 8.16797 14.1667 10.0013 14.1667H11.668V10.8333C11.668 6.23333 15.4013 2.5 20.0013 2.5C24.6013 2.5 28.3346 6.23333 28.3346 10.8333V14.1667ZM20.0013 5.83333C17.2346 5.83333 15.0013 8.06667 15.0013 10.8333V14.1667H25.0013V10.8333C25.0013 8.06667 22.768 5.83333 20.0013 5.83333ZM11.668 34.1667C10.7513 34.1667 10.0013 33.4167 10.0013 32.5V19.1667C10.0013 18.25 10.7513 17.5 11.668 17.5H28.3346C29.2513 17.5 30.0013 18.25 30.0013 19.1667V32.5C30.0013 33.4167 29.2513 34.1667 28.3346 34.1667H11.668ZM23.3346 25.8333C23.3346 27.6667 21.8346 29.1667 20.0013 29.1667C18.168 29.1667 16.668 27.6667 16.668 25.8333C16.668 24 18.168 22.5 20.0013 22.5C21.8346 22.5 23.3346 24 23.3346 25.8333Z"
+                              fill="white"
+                            />
+                          </svg>
                         </span>
 
                         <div className="publicLeft">
                           <span>Private Group</span>
-                          <span>Lorem ipsum dolor sit amet consectetur</span></div>
+                          <span>Lorem ipsum dolor sit amet consectetur</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -251,18 +308,20 @@ export default function Intakeform() {
             </div>
             <div>
               <div className="agree">
-              <span>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={checked}
-            onChange={handleChange}
-            style={{ color: "white"}} // You can customize the color here
-          />
-        }
-        label=""
-      />
-    </span><span className="termAgree">I agree to the</span> <a className="terms">Terms & Privacy Policy</a>
+                <span>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={checked}
+                        onChange={handleChange}
+                        style={{ color: "white" }} // You can customize the color here
+                      />
+                    }
+                    label=""
+                  />
+                </span>
+                <span className="termAgree">I agree to the</span>{" "}
+                <a className="terms">Terms & Privacy Policy</a>
               </div>
               <div className="submitButtons">
                 <div>

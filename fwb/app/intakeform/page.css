@@ -4,8 +4,8 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  padding-right: 60px;
-  padding-left: 60px;
+  padding-right: 40px;
+  padding-left: 55px;
 }
 
 .share {
@@ -14,9 +14,31 @@
   line-height: 110%;
 }
 
+/* .column{
+  display: flex;
+}
+.column1{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.column2{
+  display: flex;
+  flex-direction: column;
+} */
+
 .firstBox,
 .secondBox {
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.firstBox {
+  padding-bottom: 64px;
+}
+
+.secondBox {
+  padding-top: 40px;
 }
 
 .line1,
@@ -31,13 +53,31 @@
 .url,
 .verify {
   color: var(--neutral-000, #fff);
-
   /* Heading/H6 */
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
+}
+
+.email {
+  margin-left: 137px;
+}
+
+.url {
+  margin-left: 76px;
+  margin-top: 16px;
+}
+
+.company {
+  margin-left: 60px;
+  margin-top: 16px;
+}
+
+.verify {
+  margin-left: 45px;
+  margin-top: 16px;
 }
 
 .inputEmail,
@@ -52,6 +92,12 @@
   align-self: stretch;
   width: 364px;
   height: 24px;
+  margin-left: 24px;
+}
+
+.inputCompany,
+.inputUrl {
+  margin-top: 16px;
 }
 
 input::placeholder {
@@ -81,6 +127,10 @@ input::placeholder {
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
+  margin-left: 26px;
+  margin-top: 16px;
+  width: 366px;
+  height: 24px;
 }
 
 .discountName {
@@ -114,7 +164,44 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
- 
+  margin-left: 34px;
+}
+
+.categories{
+  display: flex;
+  flex-direction: row;
+}
+.category {
+  color: var(--neutral-000, #fff);
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 20px */
+  margin-left: 95px;
+}
+
+.discountRule {
+  color: var(--neutral-000, #fff);
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 20px */
+  margin-left: 60px;
+}
+
+.shareOn {
+  color: var(--neutral-000, #fff);
+  /* Heading/H6 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 20px */
+  margin-left: 90px;
 }
 
 .discount1,
@@ -167,11 +254,11 @@ input::placeholder {
   border: 2px solid var(--neutral-000, #8e94e9);
 }
 
-.pic{
-margin-left: 13px;
+.pic {
+  margin-left: 13px;
 }
 
-.publicLeft{
+.publicLeft {
   display: flex;
   flex-direction: column;
   border-left: 1px solid #fff;
@@ -201,7 +288,7 @@ margin-left: 13px;
 
 .agree {
   color: #fff;
-margin-top: 64px;
+  margin-top: 64px;
   /* Body/16/regular */
   font-family: Urbanist;
   font-size: 16px;
@@ -210,11 +297,11 @@ margin-top: 64px;
   line-height: 150%; /* 24px */
 }
 
-.terms{
-  color:#8e94e9
+.terms {
+  color: #8e94e9;
 }
 
-.termAgree{
+.termAgree {
   margin-left: -20px;
 }
 .submitButtons {
