@@ -144,6 +144,7 @@ input::placeholder {
   padding: 2.667px 2.665px 2.666px 2.667px;
   justify-content: center;
   align-items: center;
+  margin-top: 9px;
 }
 
 .inputDiscount {
@@ -154,6 +155,7 @@ input::placeholder {
   gap: 8px;
   width: 792px;
   height: 160px;
+  margin-left: 23px;
 }
 
 .amount {
@@ -164,13 +166,17 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
-  margin-left: 34px;
+  margin-left: 62px;
 }
-
-.categories{
+.slider {
+  margin-left: 30px;
+}
+.categories {
   display: flex;
   flex-direction: row;
+  margin-top: 32px;
 }
+
 .category {
   color: var(--neutral-000, #fff);
   /* Heading/H6 */
@@ -179,7 +185,11 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
-  margin-left: 95px;
+  margin-left: 116px;
+}
+
+.select {
+  margin-left: 25px;
 }
 
 .discountRule {
@@ -190,7 +200,7 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
-  margin-left: 60px;
+  margin-left: 83px;
 }
 
 .shareOn {
@@ -201,7 +211,7 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
-  margin-left: 90px;
+  margin-left: 114px;
 }
 
 .discount1,
@@ -218,6 +228,7 @@ input::placeholder {
   margin-bottom: 72px;
 }
 .discountName {
+  margin-left: 80px;
   width: 34px;
   height: 32px;
   border-radius: 5px;

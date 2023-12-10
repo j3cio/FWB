@@ -10,15 +10,19 @@ import Slider from "@mui/material/Slider";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+
 
 const theme = createTheme({
   components: {
     MuiSlider: {
       styleOverrides: {
+        root: {
+          height: 8, // Thickness
+        },
         thumb: {
           backgroundColor: "#8E94E9",
         },
@@ -27,11 +31,19 @@ const theme = createTheme({
         },
         rail: {
           backgroundColor: "#FFF",
-        },
-      },
+        }
+        // trackFilled: {
+        //   backgroundColor: "#FFF", // Upper part fill color
+        // },
+        // railHover: {
+        //   backgroundColor: "#FFF", // Runnable track color on hover
+        // },
+      
     },
-  },
+  },}
 });
+
+
 
 export default function Intakeform() {
   // const theme = useTheme();
@@ -49,12 +61,16 @@ export default function Intakeform() {
   const valueLabelFormat = (discount) => {
     return `${discount}%`;
   };
-  
-  const [selectedOption, setSelectedOption] = useState('');
+
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleUpdate = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  
+  
+
 
   return (
     <div>
@@ -141,7 +157,7 @@ export default function Intakeform() {
                       <div className="discount1">
                         <div className="amount">Discount Amount*</div>
                         <ThemeProvider theme={theme}>
-                          <div style={{ width: "320px" }}>
+                          <div className="slider" style={{ width: "240px" }}>
                             {/* <Typography gutterBottom>
                         Slider Value: {discount}
                       </Typography> */}
@@ -198,42 +214,49 @@ export default function Intakeform() {
                     <div className="categories">
                       <div className="category">Category*</div>
                       <div className="select">
-                      <FormControl fullWidth sx={{ width: '386px', height:'48px' }}>
-      <InputLabel id="select-label">Select Option</InputLabel>
-      <Select
-        labelId="select-label"
-        id="select"
-        value={selectedOption}
-        label="Select Option"
-        onChange={handleUpdate}
-        sx={{
-          color: 'white',
-          '&:before': {
-            borderColor: '#8e94e9',
-          },
-          '&:after': {
-            borderColor: '#8e94e9',
-          },
-          '& .MuiSelect-icon': {
-            color: 'white',
-          },
-        }}
-      >
-        {/* <MenuItem value="">
+                        <FormControl
+                          fullWidth
+                          sx={{ width: "386px", height: "48px", borderRadius:'10px' }}
+                        >
+                          <InputLabel id="select-label">All</InputLabel>
+                          <Select
+                            labelId="select-label"
+                            id="select"
+                            value={selectedOption}
+                            label="Select Option"
+                            onChange={handleUpdate}
+                            sx={{
+                              color: "white",
+                              "&:before": {
+                                borderColor: "#8e94e9",
+                              },
+                              "&:after": {
+                                borderColor: "#8e94e9",
+                              },
+                              "& .MuiSelect-icon": {
+                                color: "white",
+                              },
+                            }}
+                          >
+                            {/* <MenuItem value="">
           <em>None</em>
         </MenuItem> */}
-        <MenuItem value="option1">All</MenuItem>
-        <MenuItem value="option2">Sports</MenuItem>
-        <MenuItem value="option3">Fashion</MenuItem>
-        <MenuItem value="option4">Electronic</MenuItem>
-        <MenuItem value="option5">Health</MenuItem>
-        <MenuItem value="option6">Home & Kitchen</MenuItem>
-        <MenuItem value="option7">Computer & Accessories</MenuItem>
-        <MenuItem value="option8">Beauty & Skincare</MenuItem>
-        <MenuItem value="option9">Books</MenuItem>
-        <MenuItem value="option10">Hobbies</MenuItem>
-      </Select>
-    </FormControl>
+                            <MenuItem value="option1">All</MenuItem>
+                            <MenuItem value="option2">Sports</MenuItem>
+                            <MenuItem value="option3">Fashion</MenuItem>
+                            <MenuItem value="option4">Electronic</MenuItem>
+                            <MenuItem value="option5">Health</MenuItem>
+                            <MenuItem value="option6">Home & Kitchen</MenuItem>
+                            <MenuItem value="option7">
+                              Computer & Accessories
+                            </MenuItem>
+                            <MenuItem value="option8">
+                              Beauty & Skincare
+                            </MenuItem>
+                            <MenuItem value="option9">Books</MenuItem>
+                            <MenuItem value="option10">Hobbies</MenuItem>
+                          </Select>
+                        </FormControl>
                       </div>
                     </div>
                     <div className="rule">
