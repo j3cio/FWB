@@ -8,6 +8,8 @@ import IllustrationFour from "@/components/ui/fre/IllustrationFour";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
 
+
+// Setting Clerk as Global Variable to access Clerk / Supabase Session Keys
 declare global {
   interface Window {
     Clerk: any;
@@ -15,13 +17,12 @@ declare global {
 }
 
 export default function UserFlowPage2() {
-
-  //TODO: Setup Company Input Form with User backend information
   const [company, setCompany] = useState('');
   const [termsAndConditions, setTermsAndConditions] = useState('');
   const [discountAmount, setDiscountAmount] = useState('');
   const [categories, setCategories] = useState([]);
 
+  //TODO: Handle User Routing Once Form is Submitted
   const router = useRouter();
 
   //Handle Discount Submission
@@ -38,12 +39,12 @@ export default function UserFlowPage2() {
       formData.append('terms_and_conditions', termsAndConditions);
       formData.append('categories', `{${categories.join(',')}}`);
       formData.append('discount_amount', discountAmount);
-
       formData.append('company_url', '');
       formData.append('public', 'true');
 
       console.log(formData)
 
+      // POST Fetch Request to Discounts API 
       const response = await fetch('/api/discounts', {
         method: 'POST',
         headers: {
@@ -65,6 +66,7 @@ export default function UserFlowPage2() {
     }
   };
 
+  //Function to handle Array Property of Categories Column in Supabase
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories);
   };
