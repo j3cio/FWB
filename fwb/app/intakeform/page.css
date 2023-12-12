@@ -177,19 +177,54 @@ input::placeholder {
   margin-top: 32px;
 }
 
+.selectCategory {
+  background-color: black;
+  color: white;
+  border: #8e94e9 solid 2px;
+  border-radius: 10px;
+  width: 386px;
+  height: 48px;
+  padding: 9px 16px;
+  margin-left: 20px;
+  padding-right: 50px;
+}
+
+select {
+  margin-left: 25px;
+  /* appearance: none; */
+  background-color: black;
+  color: white;
+  border: #8e94e9 solid 2px;
+  border-radius: 10px;
+  width: 386px;
+  height: 48px;
+  padding: 9px 16px;
+  margin-left: 20px;
+  padding-right: 50px;
+  
+}
+
 .category {
   color: var(--neutral-000, #fff);
-  /* Heading/H6 */
+
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
   margin-left: 116px;
 }
 
-.select {
-  margin-left: 25px;
+.all {
+  display: flex;
+  flex-direction: row;
+}
+
+.arrowImage {
+  margin-left: 289px;
+  z-index: 1;
+  order: 0;
+  color: white;
 }
 
 .discountRule {
@@ -266,6 +301,14 @@ input::placeholder {
   cursor: pointer;
 }
 
+.selectClass {
+  background-color: red;
+}
+
+.selectPrivate {
+  background-color: red !important;
+}
+
 .pic {
   margin-left: 13px;
 }
@@ -277,6 +320,7 @@ input::placeholder {
   height: 38px;
   padding-left: 8px;
   margin-left: 6px;
+  color: white;
 }
 
 .private {
@@ -297,6 +341,10 @@ input::placeholder {
   border: 2px solid var(--purple-300, #8e94e9);
   background: var(--purple-300, #8e94e9);
   cursor: pointer;
+}
+.submit {
+  padding-right: 40px;
+  padding-left: 55px;
 }
 
 .agree {
