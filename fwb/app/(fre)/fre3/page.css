@@ -115,49 +115,6 @@ input::placeholder {
   opacity: 0.3;
 }
 
-.linkedinverify {
-  border-radius: 30px;
-  background: #8e94e9;
-  border: 2px solid #FFF;
-  display: flex;
-  width: 367px;
-  height: 48px;
-  padding: 10px 24px;
-  justify-content: center;
-  gap: 8px;
-  color: #FFF;
-  text-align: center;
-  /* Label/24/bold */
-  font-family: Urbanist;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 30px */
-  letter-spacing: 0.4px;
-  margin-bottom: 12px;
-  margin-top: 8px;
-}
-
-.help{
-  color: #FFF;
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%; 
-}
-
-.helpEmail{
-  color: var(--neutral-000, #FFF);
-  /* Label/16/bold */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 20px */
-  letter-spacing: 0.32px;
-}
-
 .skip {
   color: var(--neutral-000, #FFF);
   /* Label/16/bold */
@@ -166,6 +123,7 @@ input::placeholder {
   font-style: normal;
   font-weight: 700;
   line-height: 125%; /* 20px */
-  letter-spacing: 0.32px;
-  margin-top: 19.5px;
+  letter-spacing: 1.1px;
+  margin-top: 1px;
+  margin-right: 8px;
 }
