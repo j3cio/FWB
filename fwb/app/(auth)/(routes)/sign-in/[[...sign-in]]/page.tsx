@@ -64,7 +64,7 @@ export default function Page() {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
         redirectUrl: "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback",
-        redirectUrlComplete: "/success",
+        redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
     } catch (error) {
       console.error("Error signing in with Google", error);
@@ -77,7 +77,7 @@ export default function Page() {
       const response = await signIn?.authenticateWithRedirect({
         strategy: "oauth_discord",
         redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/success",
+        redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
 
       console.log(response);
