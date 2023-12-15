@@ -12,17 +12,16 @@ import IllustrationTwo from "@/components/ui/fre/IllustrationTwo";
 export default function UserFlowPage1() {
 
   //TODO: Username verification feature, onChange run code to show user Username is available (possibly grey out Next Option)
-  //TODO: Update UI To make Random Name Generation more clear (Icon)
 
-  //Utilizing useUser from Clerk to update user's profile picture / username
   const { isSignedIn, user, isLoaded } = useUser()
-
   //Creating Random Name Generation Feature for User
-  const [randomName, setrandomName] = useState<any | null>(null)
+  const [randomName, setRandomName] = useState<any | null>(null)
+  // Creating useState for Optimistc Image Loading
+  const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(null);
 
   //Initializes random username on the first render of webpage
   useEffect(() => {
-    setrandomName(generateRandomUsername());
+    setRandomName(generateRandomUsername());
   }, []);
 
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
@@ -66,13 +65,19 @@ export default function UserFlowPage1() {
     const file = await convertFilePathToBlob(image);
 
     if (file) {
+      // implementing Optimistic Loading (Update UI before making backend request)
+      const optimisticImage = URL.createObjectURL(file);
+      setOptimisticImageUrl(optimisticImage)
+      
       // Use Clerk's setProfileImage method to update the profile picture
       user!.setProfileImage({ file })
         .then((imageResource) => {
           console.log('Profile picture updated:', imageResource);
+          setOptimisticImageUrl(null) // if optimistic upload fails, revert to previous picture
         })
         .catch((error) => {
           console.error('Error updating profile picture:', error);
+          setOptimisticImageUrl(null)
         });
     } else {
       console.warn('No file selected.');
@@ -100,7 +105,7 @@ export default function UserFlowPage1() {
   //Function updates the state of our random username to be displayed on the webpage
   function updateRandomUsername() {
     const newRandomUsername = generateRandomUsername()
-    setrandomName(newRandomUsername)
+    setRandomName(newRandomUsername)
   }
 
   //Function to update User's username on Clerk
@@ -164,7 +169,7 @@ export default function UserFlowPage1() {
                   height: "153px",
                 }}>
                 <Image
-                  src={user.imageUrl}
+                  src={optimisticImageUrl || user.imageUrl}
                   alt= ''
                   fill
                   className='image'
