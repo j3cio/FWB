@@ -63,7 +63,7 @@ export default function Page() {
     try {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback",
+        redirectUrl: "https://clerk.makefwb.com/v1/oauth_callback", // "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback"
         redirectUrlComplete: "/success",
       });
     } catch (error) {
