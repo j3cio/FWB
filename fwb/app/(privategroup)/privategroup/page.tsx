@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/ui/explore/header";
-import Bargains from "../../../components/ui/privategroups/bargains_picture";
+import Bargains from "../../../components/ui/privategroups/BargainsPicture";
 import Tabs from "@/components/ui/privategroups/Tabs";
 
 const page = () => {
