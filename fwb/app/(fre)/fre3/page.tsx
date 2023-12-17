@@ -73,7 +73,7 @@ export default function UserFlowPage3() {
 
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
           <div className="flex justify-center">
-            <Link href='/' className="next">
+            <Link href='/profile' className="next">
               <div>Start Saving</div>
               {/* SVG Icon for arrow from Figma Design */}
               <div>
