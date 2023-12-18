@@ -1,6 +1,7 @@
 import { Button } from "@mui/base";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import Bargains from "../../ui/privategroups/BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
@@ -15,22 +16,31 @@ const Tabs = () => {
   };
 
   return (
-    <div className=" w-full h-full">
-      <div className="flex flex-row justify-evenly items-center">
-        <div className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white ${!showMembers ? `text-white border-b-2 border-white` : `text-gray-600` }`}>
+    <div className="w-full h-full bg-[#1a1a23]">
+      <div className="flex flex-row justify-evenly items-center mt-10 mb-10">
+        <div
+          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
+            !showMembers ? `text-white border-b-2 border-white` : `text-gray-600`
+          }`}
+        >
           <Box textAlign="center">
             <Button onClick={showDiscountsTab} className=" items-center">
               Discounts Offers
             </Button>
           </Box>
         </div>
-        <div className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white ${showMembers ? `text-white border-b-2 border-white` : `text-gray-600` }`}>
+        <div
+          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
+            showMembers ? `text-white border-b-2 border-white` : `text-gray-600`
+          }`}
+        >
           <Box textAlign="center">
             <Button onClick={showMemberTab}>Members</Button>
           </Box>
         </div>
       </div>
-      {showMembers ? <MembersSection /> : <DiscountsSection />}
+      <div className="ml-10">{showMembers ? <></> : <Bargains />}</div>
+      <div className="w-full h-screen">{showMembers ? <MembersSection /> : <DiscountsSection />}</div>
     </div>
   );
 };
