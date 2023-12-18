@@ -23,10 +23,10 @@ const SearchBar = () => {
       }}
     >
       <TextField
-        variant="outlined"
+        fullWidth
         placeholder="Search"
         style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
-        sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": {alignItems: "flex-start"} }}
+        sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
       />
       <IconButton
         color="primary"
