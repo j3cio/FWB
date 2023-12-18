@@ -12,7 +12,7 @@ const bargains_picture = () => {
         alt="Image Alt Text"
         className="object-cover object-center"
         style={{
-          width: "100%",
+          width: "97%",
           height: "auto",
           objectFit: "cover",
         }}
