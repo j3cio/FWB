@@ -1,16 +1,24 @@
 "use client";
 import Header from "@/components/ui/explore/header";
-import Bargains from "../../../components/ui/privategroups/BargainsPicture";
+import GroupDetailsSection from "@/components/ui/privategroups/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/Tabs";
 
-const page = () => {
-  
+//TODOs:
+// Frontend ---
+// Add Icons
+// Adjust some spacing margins
+// Adjust font sizes
+// Button colors
+// Spacing for the discounts section
+// Backend ---
+// Search bar for searching members
+// Hook up to backend (Group info, discount info, and user info)
 
+const page = () => {
   return (
-    <div className="bg-[#1a1a23] min-h-screen">
+    <div className="bg-[#1a1a23] h-screen w-screen overflow-x-hidden">
       <Header />
-      <div> Profile Section </div>
-      <Bargains />
+      <GroupDetailsSection />
       <Tabs />
     </div>
   );
