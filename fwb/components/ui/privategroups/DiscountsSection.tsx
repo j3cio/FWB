@@ -4,10 +4,10 @@ import ResponsiveGrid from "@/components/ui/explore/products_grid";
 const DiscountsSection = () => {
   return (
     <div className="bg-[#1a1a23]">
-      <div className="mr-10 w-full">
+      <div className="w-11/12 bg-white">
         <Productfilters />
       </div>
-      <div className="bg-[#1a1a23]">
+      <div className=" flex justify-center ml-24">
         <ResponsiveGrid />
       </div>
     </div>
