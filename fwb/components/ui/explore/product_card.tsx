@@ -80,8 +80,8 @@ export default function ProductCard() {
           justifyContent: "flex-start",
           alignItems: "center",
           display: "inline-flex",
-          borderWidth: isHovered ? "2px" : "0px",
-          borderColor: isHovered ? "#F6FF82" : "white",
+          borderWidth: "2px",
+          borderColor: isHovered ? "#F6FF82" : "#1A1A23",
         }}
       >
         <CardActionArea sx={{ height: "100%" }}>
