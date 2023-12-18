@@ -69,18 +69,19 @@ export default function ProductCard() {
     onHoverStart={() => setIsHovered(true)}
     onHoverEnd={() => setIsHovered(false)}
     >
-      <Card
+      <Box
         sx={{
           width: "282px",
           height: "322px",
           background: "white",
-          borderRadius: "20px",
           overflow: "hidden",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
           display: "inline-flex",
+          backgroundColor: "transparent",
           borderWidth: "2px",
+          borderRadius: "20px",
           borderColor: isHovered ? "#F6FF82" : "#1A1A23",
         }}
       >
@@ -89,10 +90,11 @@ export default function ProductCard() {
             component="img"
             image="https://c.static-nike.com/a/images/w_1920,c_limit/bzl2wmsfh7kgdkufrrjq/image.jpg"
             alt="nike"
-            sx={{ height: "72%", padding: "0" }}
+            sx={{ height: "72%", padding: "0px", borderRadius: "20px",}}
           />
           <CardContent
             sx={{
+              backgroundColor: "white",
               height: "28%",
               paddingTop: "8px",
               paddingLeft: "24px",
@@ -130,7 +132,7 @@ export default function ProductCard() {
             </Box>
           </CardContent>
         </CardActionArea>
-      </Card>
+      </Box>
     </motion.div>
   );
 }
