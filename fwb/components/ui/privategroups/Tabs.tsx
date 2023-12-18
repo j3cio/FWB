@@ -17,7 +17,7 @@ const Tabs = () => {
 
   return (
     <div className="w-full h-full bg-[#1a1a23]">
-      <div className="flex flex-row justify-evenly items-center mt-10 mb-10">
+      <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
         <div
           className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
             !showMembers ? `text-white border-b-2 border-white` : `text-gray-600`
@@ -39,7 +39,7 @@ const Tabs = () => {
           </Box>
         </div>
       </div>
-      <div className="ml-10">{showMembers ? <></> : <Bargains />}</div>
+      <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
       <div className="w-full h-screen">{showMembers ? <MembersSection /> : <DiscountsSection />}</div>
     </div>
   );

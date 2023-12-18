@@ -4,7 +4,7 @@ import { Image } from "next/dist/client/image-component";
 
 const SearchBar = () => {
   return (
-    <div className="mx-4">
+    <div className="mr-4">
       <Box
         sx={{
           display: "flex",
