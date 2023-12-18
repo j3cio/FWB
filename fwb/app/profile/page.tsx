@@ -1,14 +1,14 @@
 "use client";
-import BlueArrowForward from "@/components/profile/BlueArrowForward";
-import Navbar from "@/components/profile/Navbar";
-import WhiteArrowForward from "@/components/profile/WhiteArrowForward";
+import BlueArrowForward from "@/components/ui/profile/BlueArrowForward";
+import Navbar from "@/components/ui/profile/Navbar";
+import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
 import { Button } from "@mui/material";
 import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
-import BlueGroupIcon from "../../components/profile/icons/groups-blue.svg";
-import LinkedInIcon from "../../components/profile/icons/linkedin.svg";
-import SaveIcon from "../../components/profile/icons/save.svg";
+import BlueGroupIcon from "../../components/ui/profile/icons/groups-blue.svg";
+import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
+import SaveIcon from "../../components/ui/profile/icons/save.svg";
 import BargainBackgroundImage from "../../public/bargain1700x350.png";
 
 function Page() {

@@ -4,7 +4,7 @@ import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import SearchBar from "./SearchBar";
 
-import WhiteArrowForward from "@/components/profile/WhiteArrowForward";
+import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
 
 const MembersArray = Array.from({ length: 10 }, (_, index) => index + 1);
 
