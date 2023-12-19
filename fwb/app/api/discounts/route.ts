@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import supabaseClient from "@/supabase";
-import { insertDiscount, getDiscounts, deleteDiscount, updateDiscount } from "@/utils/discount_utils";
+import { insertDiscount, getDiscounts, deleteDiscount, updateDiscount } from "@/app/api/discounts/utils/discount_utils";
 
 // Create a new discount
 export async function POST(request: NextRequest) {
