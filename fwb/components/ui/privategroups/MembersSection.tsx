@@ -1,13 +1,13 @@
 "use client";
+import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
 import { Button } from "@mui/material";
 import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
-import SearchBar from "./SearchBar";
-import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
 import Image from "next/image";
+import SearchBar from "./SearchBar";
 
+import Pencil from "../privategroups/icons/pencil.svg";
 import Settings from "../privategroups/icons/settings.svg";
-
 
 const MembersArray = Array.from({ length: 10 }, (_, index) => index + 1);
 
@@ -25,17 +25,16 @@ const Member = () => {
       </div>
       <div className="flex items-center justify-center mr-4">
         <div className="mr-2">
-        <Image
-              src={Settings}
-              alt="Image Alt Text"
-              className="object-cover object-center"
-              style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
-              }}
-            />
-
+          <Image
+            src={Settings}
+            alt="Image Alt Text"
+            className="object-cover object-center"
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "cover",
+            }}
+          />
         </div>
         <Button
           endIcon={<WhiteArrowForward />} // change this eventually
@@ -65,7 +64,18 @@ const MembersSection = () => {
         <div className="flex justify-between text-white my-4">
           <div className="flex flex-row">
             <div className="font-semibold text-4xl">About</div>
-            <div>Icon</div>
+            <div>
+              <Image
+                src={Pencil}
+                alt="Image Alt Text"
+                className="object-cover object-center"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
           </div>
 
           <div>Members icons</div>
@@ -77,7 +87,18 @@ const MembersSection = () => {
         </div>
         <div className="flex text-white">
           <div className="font-semibold text-4xl mt-24">Group Rules</div>
-          <div className="mt-24">Icon</div>
+          <div className="mt-24">
+          <Image
+                src={Pencil}
+                alt="Image Alt Text"
+                className="object-cover object-center"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+              />
+          </div>
         </div>
         <div className="text-white">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit explicabo, dolores iusto natus
