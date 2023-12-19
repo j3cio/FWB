@@ -302,11 +302,11 @@ select {
 }
 
 .selectClass {
-  background-color: red;
+  background-color: #8e94e9
 }
 
 .selectPrivate {
-  background-color: red !important;
+  background-color:  #8e94e9!important;
 }
 
 .pic {
@@ -339,7 +339,7 @@ select {
   width: 384px;
   height: 86px;
   border: 2px solid var(--purple-300, #8e94e9);
-  background: var(--purple-300, #8e94e9);
+  background: black;
   cursor: pointer;
 }
 .submit {

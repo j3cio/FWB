@@ -4,7 +4,7 @@ import {
   getNewLogoUrl,
   getExistingLogoUrl,
   saveLogoUrl,
-} from "@/utils/logos_utils";
+} from "@/app/api/discounts/utils/logos_utils";
 
 export async function GET(request: NextRequest) {
   try {
