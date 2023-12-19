@@ -1,6 +1,6 @@
 "use client";
 import Box from "@mui/material/Box";
-import { useSignUp } from "@clerk/nextjs";
+import { useSignUp, useUser } from "@clerk/nextjs";
 import "./page.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -24,8 +24,14 @@ export default function Page() {
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const router = useRouter();
-  const [error, setError] = useState<any>(null);
+  const { user } = useUser();
 
+  const [error, setError] = useState<any>(null);
+  if (user) {
+    // Redirect authenticated user to the profile page
+    router.replace("/profile");
+    return null; // You can also render a loading state or redirect message here
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isLoaded) {
@@ -71,7 +77,7 @@ export default function Page() {
       }
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
-        router.push("/");
+        router.push("/profile");
       }
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
@@ -82,12 +88,13 @@ export default function Page() {
   const signUpWithGoogle = async () => {
     try {
       await signUp?.authenticateWithRedirect({
-        strategy: 'oauth_google',
-        redirectUrl: 'https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback',
-        redirectUrlComplete: '/success'
+        strategy: "oauth_google",
+        redirectUrl:
+          "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback",
+        redirectUrlComplete: "/success",
       });
     } catch (error) {
-      console.error('Error signing in with Google', error)
+      console.error("Error signing in with Google", error);
     }
   };
 
@@ -95,17 +102,16 @@ export default function Page() {
   const signUpWithDiscord = async () => {
     try {
       const response = await signUp?.authenticateWithRedirect({
-        strategy: 'oauth_discord',
-        redirectUrl: '/sso-callback',
-        redirectUrlComplete: '/success'
+        strategy: "oauth_discord",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/success",
       });
 
-      console.log(response)
+      console.log(response);
     } catch (error) {
-      console.error('Error signing in with Discord', error)
+      console.error("Error signing in with Discord", error);
     }
   };
-  
 
   return (
     <div>
@@ -1274,14 +1280,14 @@ export default function Page() {
                 </defs>
               </svg>
             </div>
-           
+
             <form onSubmit={onPressVerify}>
               {/* <input
                     value={code}
                     placeholder="Code..."
                     onChange={(e) => setCode(e.target.value)}
                   /> */}
-                  
+
               <div className="signupProcess">
                 <div className="signupTitle">You&apos;re almost there!</div>
                 <div className="signupContent">
@@ -1294,9 +1300,8 @@ export default function Page() {
                   <Link href="/success">Verify Now!</Link>
                 </button>
               </div>
-
             </form>
-         
+
             <div className="leftCircle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

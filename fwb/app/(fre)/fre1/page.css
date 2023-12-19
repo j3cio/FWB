@@ -148,6 +148,36 @@ input::placeholder {
 }
 
 .randomName {
-  padding: 8px;
-  margin-top: 16px;
+  padding: 8px 9px 8px 10px;
+  margin-top: 36px;
+  margin-left:-46.5px;
+  background-color: #8e94e9;
+  border-radius: 123.35px;
+  height: 40px;
+  width:40px
+}
+
+/* #usernameForm{
+  width: 420px;
+  height: 48px;
+} */
+
+.userForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.button{
+  margin-top:13.53px
+}
+
+#newUsername{
+  width:420px;
+  height: 48px;
+}
+
+.button{
+  margin-left:110px
 }
