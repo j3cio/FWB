@@ -8,6 +8,7 @@ import SearchBar from "./SearchBar";
 
 import Pencil from "../privategroups/icons/pencil.svg";
 import Settings from "../privategroups/icons/settings.svg";
+import MembersIcon from "../privategroups/icons/membersicon.svg";
 
 const MembersArray = Array.from({ length: 10 }, (_, index) => index + 1);
 
@@ -78,7 +79,18 @@ const MembersSection = () => {
             </div>
           </div>
 
-          <div>Members icons</div>
+          <div>
+            <Image
+              src={MembersIcon}
+              alt="Image Alt Text"
+              className="object-cover object-center"
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+            />
+          </div>
         </div>
         <div className="text-white">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi provident ad, nulla voluptates dolores
@@ -88,16 +100,16 @@ const MembersSection = () => {
         <div className="flex text-white">
           <div className="font-semibold text-4xl mt-24">Group Rules</div>
           <div className="mt-24">
-          <Image
-                src={Pencil}
-                alt="Image Alt Text"
-                className="object-cover object-center"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
-                }}
-              />
+            <Image
+              src={Pencil}
+              alt="Image Alt Text"
+              className="object-cover object-center"
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+            />
           </div>
         </div>
         <div className="text-white">
