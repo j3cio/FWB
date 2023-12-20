@@ -102,11 +102,11 @@ function Page() {
                     borderStyle: "solid",
                     borderColor: "white",
                     borderWidth: 2,
-                    bgcolor: `${theme.palette.secondary.main}`,
-                    color: `${theme.palette.primary.light}`,
+                    bgcolor: `${theme.palette.secondary.light}`,
+                    color: `${theme.palette.primary.dark}`,
                     ':hover': {
-                      bgcolor: `${theme.palette.secondary.main}`, // Hover background color
-                      color: `${theme.palette.primary.light}`, // Hover text color
+                      bgcolor: `${theme.palette.secondary.light}`, // Hover background color
+                      color: `${theme.palette.primary.dark}`, // Hover text color
                     }
                   }}
                 >

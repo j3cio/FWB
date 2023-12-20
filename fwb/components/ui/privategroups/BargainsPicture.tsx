@@ -29,10 +29,10 @@ const bargains_picture = () => {
               borderColor: "white",
               borderWidth: 2,
               bgcolor: `${theme.palette.secondary.light}`,
-              color: `${theme.palette.primary.light}`,
+              color: `${theme.palette.primary.dark}`,
               ':hover': {
                 bgcolor: `${theme.palette.secondary.light}`, // Hover background color
-                color: `${theme.palette.primary.light}`, // Hover text color
+                color: `${theme.palette.primary.dark}`, // Hover text color
               }
             }}
           >
