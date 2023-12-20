@@ -49,6 +49,10 @@ function Page() {
                   borderWidth: 2,
                   bgcolor: `${theme.palette.neutral.n900}`,
                   color: `${theme.palette.common.white}`,
+                  ':hover': {
+                    bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
+                    color: `${theme.palette.common.white}`, // Hover text color
+                  }
                 }}
               >
                 Edit Profile
@@ -62,6 +66,10 @@ function Page() {
                   borderWidth: 2,
                   bgcolor: `${theme.palette.neutral.n900}`,
                   color: `${theme.palette.common.white}`,
+                  ':hover': {
+                    bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
+                    color: `${theme.palette.common.white}`, // Hover text color
+                  }
                 }}
                 endIcon={<Image src={LinkedInIcon} alt="123" />}
               >
@@ -96,6 +104,10 @@ function Page() {
                     borderWidth: 2,
                     bgcolor: `${theme.palette.secondary.main}`,
                     color: `${theme.palette.primary.light}`,
+                    ':hover': {
+                      bgcolor: `${theme.palette.secondary.main}`, // Hover background color
+                      color: `${theme.palette.primary.light}`, // Hover text color
+                    }
                   }}
                 >
                   Share your discount
@@ -143,6 +155,10 @@ function Page() {
                   borderWidth: 2,
                   bgcolor: `${theme.palette.neutral.n900}`,
                   color: `${theme.palette.common.white}`,
+                  ':hover': {
+                    bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
+                    color: `${theme.palette.common.white}`, // Hover text color
+                  }
                 }}
               >
                 Share your discount

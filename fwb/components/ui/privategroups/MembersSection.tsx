@@ -42,7 +42,12 @@ const Member = () => {
           variant="contained"
           sx={{
             borderRadius: 28,
-            bgcolor: `${theme.palette.neutral.n700}`,
+            bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
+            color: `${theme.palette.common.white}`, 
+            ':hover': {
+              bgcolor: `${theme.palette.primary.dark}`, // Hover background color
+              color: `${theme.palette.common.white}`, // Hover text color
+            }
           }}
         >
           Send Message

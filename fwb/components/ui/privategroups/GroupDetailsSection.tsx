@@ -1,9 +1,8 @@
 import { Avatar, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import MembersIcon from "../privategroups/icons/membersicon.svg"
-import Pencil from "../privategroups/icons/pencil.svg"
 import Image from "next/image";
-
+import MembersIcon from "../privategroups/icons/membersicon.svg";
+import Pencil from "../privategroups/icons/pencil.svg";
 
 const GroupDetailsSection = () => {
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
@@ -19,29 +18,29 @@ const GroupDetailsSection = () => {
           <div className="flex flex-row">
             <div>Group Name</div>
             <div>
-            <Image
-            src={Pencil}
-            alt="Image Alt Text"
-            className="object-cover object-center"
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
-            }}
-          />
+              <Image
+                src={Pencil}
+                alt="Image Alt Text"
+                className="object-cover object-center"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+              />
             </div>
           </div>
           <div className="mr-40">
-          <Image
-            src={MembersIcon}
-            alt="Image Alt Text"
-            className="object-cover object-center"
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
-            }}
-          />
+            <Image
+              src={MembersIcon}
+              alt="Image Alt Text"
+              className="object-cover object-center"
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+            />
           </div>
         </div>
         <div className="text-yellow-300 ml-24">Private Group</div>
@@ -58,7 +57,13 @@ const GroupDetailsSection = () => {
               variant="contained"
               sx={{
                 borderRadius: 28,
-                bgcolor: `${theme.palette.neutral.n700}`,
+                bgcolor: `${theme.palette.neutral.n900}`, // Non-hover color
+                color: `${theme.palette.common.white}`,
+                border: '2px solid white',
+                ":hover": {
+                  bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
+                  color: `${theme.palette.common.white}`, // Hover text color
+                },
               }}
             >
               Invite Members
@@ -67,7 +72,14 @@ const GroupDetailsSection = () => {
               variant="contained"
               sx={{
                 borderRadius: 28,
-                bgcolor: `${theme.palette.neutral.n700}`,
+                bgcolor: `${theme.palette.neutral.n900}`, // Non-hover color
+                color: `${theme.palette.common.white}`,
+                border: '2px solid white',
+
+                ":hover": {
+                  bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
+                  color: `${theme.palette.common.white}`, // Hover text color
+                },
               }}
             >
               Share invitation
