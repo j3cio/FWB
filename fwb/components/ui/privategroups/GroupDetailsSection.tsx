@@ -1,6 +1,7 @@
 import { Avatar, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import MembersIcon from "../privategroups/icons/membersicon.svg"
+import Pencil from "../privategroups/icons/pencil.svg"
 import Image from "next/image";
 
 
@@ -17,7 +18,18 @@ const GroupDetailsSection = () => {
         <div className="text-white ml-24 mt-36 flex flex-row justify-between">
           <div className="flex flex-row">
             <div>Group Name</div>
-            <div>Icon</div>
+            <div>
+            <Image
+            src={Pencil}
+            alt="Image Alt Text"
+            className="object-cover object-center"
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "cover",
+            }}
+          />
+            </div>
           </div>
           <div className="mr-40">
           <Image
