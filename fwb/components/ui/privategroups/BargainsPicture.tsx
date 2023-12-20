@@ -30,10 +30,10 @@ const bargains_picture = () => {
               borderWidth: 2,
               bgcolor: `${theme.palette.secondary.light}`,
               color: `${theme.palette.primary.dark}`,
-              ':hover': {
+              ":hover": {
                 bgcolor: `${theme.palette.secondary.light}`, // Hover background color
                 color: `${theme.palette.primary.dark}`, // Hover text color
-              }
+              },
             }}
           >
             Share your discount

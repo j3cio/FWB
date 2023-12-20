@@ -6,9 +6,9 @@ import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 
+import MembersIcon from "../privategroups/icons/membersicon.svg";
 import Pencil from "../privategroups/icons/pencil.svg";
 import Settings from "../privategroups/icons/settings.svg";
-import MembersIcon from "../privategroups/icons/membersicon.svg";
 
 const MembersArray = Array.from({ length: 10 }, (_, index) => index + 1);
 
@@ -43,11 +43,11 @@ const Member = () => {
           sx={{
             borderRadius: 28,
             bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
-            color: `${theme.palette.common.white}`, 
-            ':hover': {
+            color: `${theme.palette.common.white}`,
+            ":hover": {
               bgcolor: `${theme.palette.primary.dark}`, // Hover background color
               color: `${theme.palette.common.white}`, // Hover text color
-            }
+            },
           }}
         >
           Send Message

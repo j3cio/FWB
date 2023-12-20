@@ -59,7 +59,7 @@ const GroupDetailsSection = () => {
                 borderRadius: 28,
                 bgcolor: `${theme.palette.neutral.n900}`, // Non-hover color
                 color: `${theme.palette.common.white}`,
-                border: '2px solid white',
+                border: "2px solid white",
                 ":hover": {
                   bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
                   color: `${theme.palette.common.white}`, // Hover text color
@@ -74,7 +74,7 @@ const GroupDetailsSection = () => {
                 borderRadius: 28,
                 bgcolor: `${theme.palette.neutral.n900}`, // Non-hover color
                 color: `${theme.palette.common.white}`,
-                border: '2px solid white',
+                border: "2px solid white",
 
                 ":hover": {
                   bgcolor: `${theme.palette.neutral.n900}`, // Hover background color

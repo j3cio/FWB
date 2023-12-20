@@ -4,15 +4,9 @@ import GroupDetailsSection from "@/components/ui/privategroups/GroupDetailsSecti
 import Tabs from "@/components/ui/privategroups/Tabs";
 
 //TODOs:
-// Frontend ---
-// Add Icons
-// Adjust some spacing margins
-// Adjust font sizes
-// Button colors
-// Spacing for the discounts section
 // Backend ---
-// Search bar for searching members
 // Hook up to backend (Group info, discount info, and user info)
+// Search bar for searching members
 
 const page = () => {
   return (
