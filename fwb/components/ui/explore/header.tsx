@@ -65,7 +65,11 @@ export default function Header() {
             marginRight: "4.8vw",
             height: "48px",
             width: "114px",
-            fontSize: "38px",
+            fontSize: "38.156px",
+            fontWeight: "700",
+            lineHeight: "125%",
+            fontFamily: "inherit",
+            textTransform: "capitalize",
           }}
         >
           LOGO.

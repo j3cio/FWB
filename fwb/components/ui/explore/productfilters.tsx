@@ -113,7 +113,12 @@ export default function Productfilters() {
             "Lowest to Hightest Discounts",
           ]}
         />
-        <BasicSelect name="Private Group" options={["Group 1", "Group 2"]} />
+        <BasicSelect 
+          name="Private Group" 
+          options={[
+            "Group 1", "Group 2"
+          ]} 
+        />
         <BasicSelect
           name="Category"
           options={[

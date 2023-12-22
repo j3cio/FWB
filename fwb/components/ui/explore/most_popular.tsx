@@ -22,7 +22,13 @@ export default function MostPopular() {
         }}
       >
         <Typography
-          sx={{ color: "#F6FF82", fontWeight: "600", fontSize: "32px" }}
+          sx={{ color: "#FFF", 
+            fontFamily: "inherit",
+            fontWeight: "600", 
+            fontSize: "32px",
+            lineHeight: "110%",
+            fontStyle: "normal"
+           }}
         >
           Most Popular
         </Typography>
