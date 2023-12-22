@@ -27,8 +27,8 @@ export default function ProductGrid() {
   }, [infinteScroll]);
 
   return (
-    <Box sx={{ flexGrow: 1, paddingBottom: "10vh", justifyContent: "center" }}>
-      <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "10vh" }}>
+    <Box sx={{ flexGrow: 1, paddingBottom: "20px", justifyContent: "center" }}>
+      <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "60px" }}>
         {Array.from(Array(20)).map((_, index) => (
           <Grid
             item

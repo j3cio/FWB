@@ -93,7 +93,8 @@ export default function Productfilters() {
     <Box
       sx={{
         backgroundColor: "#1A1A23",
-        marginY: "5vh",
+        marginTop: "112px",
+        marginBottom: "32px",
         position: "sticky",
         top: "112px",
         height: "76px",

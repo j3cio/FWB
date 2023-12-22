@@ -26,7 +26,7 @@ export default function MostPopular() {
         >
           Most Popular
         </Typography>
-        <Box sx={{ display: "flex", gap: "1.6vw" }}>
+        <Box sx={{ display: "flex", gap: "24px" }}>
           <IconButton
             color="inherit"
             onClick={() => handleScroll("backward")}
@@ -67,15 +67,13 @@ export default function MostPopular() {
   };
 
   const handleScroll = (direction: "forward" | "backward") => {
-    const containerWidth = itemWidth * data.length; // Adjust this value based on the number of items
-
+    const containerWidth = (itemWidth + 24) * data.length; // (itemWidth + spacing) * number of product cards. Adjust the values accordingingly
+    
+    // Handle forward and backward scroll
     if (direction === "forward") {
       const newPosition = position - itemWidth;
-      setPosition(
-        newPosition < -containerWidth + itemWidth
-          ? -containerWidth + itemWidth
-          : newPosition
-      );
+      const maxPosition = -containerWidth + itemWidth * (data.length - 1); // Calculate the maximum position based on the number of items
+      setPosition(newPosition < maxPosition ? maxPosition : newPosition);
     } else if (direction === "backward") {
       const newPosition = position + itemWidth;
       setPosition(newPosition > 0 ? 0 : newPosition);
@@ -106,8 +104,8 @@ export default function MostPopular() {
       <div
         style={{
           overflowX: "hidden",
-          paddingTop: "4.6vh",
-          paddingBottom: "4.6vh",
+          paddingTop: "40px",
+          paddingBottom: "40px",
         }}
       >
         <motion.div
@@ -127,7 +125,7 @@ export default function MostPopular() {
               key={index}
               className="carousel-item"
               variants={itemVariants}
-              style={{ minWidth: `${itemWidth}px`, marginRight: "1.5vw" }} // Adjust this value based on your component width
+              style={{ minWidth: `${itemWidth}px`, marginRight: "24px" }} // Adjust this value based on your component width
             >
               {item}
             </motion.div>
