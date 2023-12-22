@@ -9,31 +9,40 @@ import Avatar from "@mui/material/Avatar";
 import { CardActionArea } from "@mui/material";
 import { motion } from "framer-motion";
 
+
+/**
+ * Renders a circle component with animation based on hover state.
+ * @param {boolean} isHovered - Indicates whether the circle is being hovered.
+ * @returns {JSX.Element} The rendered circle component.
+ */
 const Circle = ({isHovered} : {isHovered: boolean}) => {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", fontFamily: "inherit" }}>
       <motion.div
         animate={{ y: isHovered ? -10 : 0 }} // Move up 10 pixels when hovering
         style={{
           position: "absolute",
           top: -40,
           left: 50,
-          width: 60,
-          height: 60,
+          width: "60px",
+          height: "60px",
           borderRadius: "50%",
           backgroundColor: "#8e94e9",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          fontFamily: "inherit"
         }}
       >
-        <Box sx={{ justifyContent: "center", alignItems: "center" }}>
+        <Box sx={{ justifyContent: "center", alignItems: "center", fontFamily: "inherit" }}>
           <Typography
             sx={{
               color: "#F6FF82",
-              fontSize: 24,
+              fontSize: "24px",
               fontWeight: "600",
               lineHeight: "20px",
+              fontFamily: "inherit",
+              fontStyle: "normal",
             }}
           >
             50%
@@ -41,9 +50,12 @@ const Circle = ({isHovered} : {isHovered: boolean}) => {
           <Typography
             sx={{
               color: "#F6FF82",
-              fontSize: 12,
+              fontSize: "12px",
               fontWeight: "400",
               textAlign: "right",
+              fontFamily: "inherit",
+              fontStyle: "normal",
+              lineHeight: "14px",
             }}
           >
             off
@@ -54,6 +66,12 @@ const Circle = ({isHovered} : {isHovered: boolean}) => {
   );
 };
 
+
+/**
+ * Renders a discount component.
+ * @param {boolean} isHovered - Indicates whether the component is being hovered.
+ * @returns {JSX.Element} The rendered discount component.
+ */
 const Discount = ({isHovered}: {isHovered: boolean}) => {
   return (
     <Box>
@@ -62,13 +80,20 @@ const Discount = ({isHovered}: {isHovered: boolean}) => {
   );
 };
 
+
+
+/**
+ * Renders a product card component.
+ * @returns JSX.Element
+ */
 export default function ProductCard() {
-  const [isHovered, setIsHovered] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
     <motion.div
     onHoverStart={() => setIsHovered(true)}
     onHoverEnd={() => setIsHovered(false)}
     >
+      {/* Card Component */}
       <Box
         sx={{
           width: "282px",
@@ -86,12 +111,14 @@ export default function ProductCard() {
         }}
       >
         <CardActionArea sx={{ height: "100%" }}>
+          {/* Card Image */}
           <CardMedia
             component="img"
             image="https://c.static-nike.com/a/images/w_1920,c_limit/bzl2wmsfh7kgdkufrrjq/image.jpg"
             alt="nike"
             sx={{ height: "72%", padding: "0px", borderRadius: "20px",}}
           />
+          {/* Card Content */}
           <CardContent
             sx={{
               backgroundColor: "white",
@@ -110,6 +137,8 @@ export default function ProductCard() {
               </Typography>
               <Discount isHovered={isHovered}/>
             </Box>
+
+            {/*Profile Pictures of Users Offering Discounts for The Company*/}
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Avatar
                 alt="man1"
