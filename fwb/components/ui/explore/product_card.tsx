@@ -86,7 +86,7 @@ const Discount = ({isHovered}: {isHovered: boolean}) => {
  * Renders a product card component.
  * @returns JSX.Element
  */
-export default function ProductCard({image, company}) {
+export default function ProductCard() {
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
     <motion.div
