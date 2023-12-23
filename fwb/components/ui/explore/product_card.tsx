@@ -23,7 +23,7 @@ const Circle = ({isHovered} : {isHovered: boolean}) => {
         style={{
           position: "absolute",
           top: -40,
-          left: 50,
+          left: 80,
           width: "60px",
           height: "60px",
           borderRadius: "50%",
@@ -86,7 +86,7 @@ const Discount = ({isHovered}: {isHovered: boolean}) => {
  * Renders a product card component.
  * @returns JSX.Element
  */
-export default function ProductCard() {
+export default function ProductCard({image, company}) {
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
     <motion.div
@@ -131,7 +131,13 @@ export default function ProductCard() {
           >
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Typography
-                sx={{ fontSize: 24, fontWeight: "600", wordWrap: "break-word" }}
+                sx={{ fontSize: 24, 
+                  fontWeight: "600",
+                  wordWrap: "break-word",
+                  fontFamily: "inherit",
+                  fontStyle: "normal",
+                  lineHeight: "26.4px",
+                 }}
               >
                 Nike, Inc.
               </Typography>
@@ -139,23 +145,33 @@ export default function ProductCard() {
             </Box>
 
             {/*Profile Pictures of Users Offering Discounts for The Company*/}
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Avatar
-                alt="man1"
-                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                sx={{ width: "24px", height: "24px" }}
-              />
-              <Avatar
-                alt="man1"
-                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                sx={{ width: "24px", height: "24px" }}
-              />
-              <Avatar
-                alt="man1"
-                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                sx={{ width: "24px", height: "24px" }}
-              />
-              <Typography variant="body2" color="text.secondary" padding="2px">
+            <Box sx={{ display: "flex", flexDirection: "row", marginY: "4px", alignItems: "center" }}>
+              <div style={{ position: "relative", width: "64px", height: "24px" }}>
+                <Avatar
+                  alt="man1"
+                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                  sx={{ width: "24px", height: "24px", position: "absolute", left: "0" }}
+                />
+                <Avatar
+                  alt="man1"
+                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                  sx={{ width: "24px", height: "24px", position: "absolute", left: "20px" }}
+                />
+                <Avatar
+                  alt="man1"
+                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                  sx={{ width: "24px", height: "24px", position: "absolute", left: "40px" }}
+                />
+              </div>
+              <Typography sx={{
+                fontSize: "12px",
+                fontWeight: "400",
+                fontFamily: "inherit",
+                fontStyle: "normal",
+                color: "#6B77AD",
+                lineHeight: "18px",
+                marginLeft: "6px",
+              }}>
                 +5 Benefits available
               </Typography>
             </Box>
