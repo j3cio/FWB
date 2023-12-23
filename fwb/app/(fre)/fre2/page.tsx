@@ -161,7 +161,7 @@ export default function UserFlowPage2() {
           <div className="flex justify-center">
             <Link type='submit' href='/fre3' className="share">Share on Public</Link>
           </div>
-          <div className='flex justify-center'>
+          <div className='flex justify-center'style={{ marginTop: '-10px' }}>
             <Link href='/fre3' className="skip">Skip for now</Link>
           </div>
 

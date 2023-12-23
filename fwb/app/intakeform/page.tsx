@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
 import Slider from "@mui/material/Slider";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Theme from "../theme";
+import { POST } from "../api/discounts/route";
 
 const theme = createTheme({
   components: {
@@ -66,6 +67,12 @@ export default function Intakeform() {
     setChecked(event.target?.checked);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = { discount, discountAmount, selectedOption, categories };
+    console.log(data);
+  };
+
   const valueLabelFormat = (discount: number) => {
     return `${discount}%`;
   };
@@ -88,7 +95,11 @@ export default function Intakeform() {
         <div>
           <NavbarForm></NavbarForm>
         </div>
-        <div className="formContainer">
+        <form
+          id="discountForm"
+          onSubmit={handleSubmit}
+          className="formContainer"
+        >
           <div className="firstBox">
             <div className="share">
               <Typography
@@ -245,33 +256,33 @@ export default function Intakeform() {
                       <div className="category">Category*</div>
                       {/* <div className="flex justify-start"> */}
                       {/* <div className="selectCategory"> */}
-                        <select
-                          onChange={(e) =>
-                            handleCategoryChange(
-                              Array.from(
-                                e.target.selectedOptions,
-                                (option) => option.value
-                              )
+                      <select
+                        onChange={(e) =>
+                          handleCategoryChange(
+                            Array.from(
+                              e.target.selectedOptions,
+                              (option) => option.value
                             )
-                          }
-                          value={categories}
-                          required
-                        >
-                          <option value="All">All </option>
-                          <option value="Sports">Sports</option>
-                          <option value="Fashion">Fashion</option>
-                          <option value="Electronic">Electronic</option>
-                          <option value="Health">Health</option>
-                          <option value="HomeAndKitchen">Home & Kitchen</option>
-                          <option value="ComputerAndAccessories">
-                            Computer & Accessories
-                          </option>
-                          <option value="BeautyAndSkincare">
-                            Beauty & Skincare
-                          </option>
-                          <option value="Books">Books</option>
-                          <option value="Hobbies">Hobbies</option>
-                        </select>
+                          )
+                        }
+                        value={categories}
+                        required
+                      >
+                        <option value="All">All </option>
+                        <option value="Sports">Sports</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Electronic">Electronic</option>
+                        <option value="Health">Health</option>
+                        <option value="HomeAndKitchen">Home & Kitchen</option>
+                        <option value="ComputerAndAccessories">
+                          Computer & Accessories
+                        </option>
+                        <option value="BeautyAndSkincare">
+                          Beauty & Skincare
+                        </option>
+                        <option value="Books">Books</option>
+                        <option value="Hobbies">Hobbies</option>
+                      </select>
                       {/* </div> */}
                       {/* </div> */}
                       {/* <div className="select">
@@ -434,7 +445,7 @@ export default function Intakeform() {
               </div>
             </div>
           </div>
-        </div>
+        </form>
         <div className="submit">
           <div className="agree">
             <span>
@@ -454,7 +465,9 @@ export default function Intakeform() {
           </div>
           <div className="submitButtons">
             <div>
-              <button className="save">Save and Share</button>
+              <button className="save" type="submit" form="discountForm">
+                Save and Share
+              </button>
             </div>
             <div>
               <button className="cancel">Cancel</button>
