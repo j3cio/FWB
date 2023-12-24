@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import supabaseClient from "@/supabase";
+import { getNewLogoUrl } from "./utils/logos_utils";
 
 /**
  * Handles the POST request for creating a new discount.
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
       name: formData.get("company"),
       url: formData.get("company_url"),
       description: "",
-      logo: "",
+      logo: await getNewLogoUrl(String(formData.get("company_url"))),
     };
     // Insert the company into the companies table
     const { data: insertedCompany, error: insertError } = await supabase
@@ -100,8 +101,6 @@ export async function POST(request: NextRequest) {
     .update({ discounts: updatedDiscounts })
     .eq("url", company_url)
     .select();
-
-  console.log(company);
 
   if (companyError) {
     console.error(companyError);
@@ -140,7 +139,7 @@ export async function POST(request: NextRequest) {
       );
     }
   });
-  
+
   return NextResponse.json({ data: discount }, { status: 200 });
 }
 
