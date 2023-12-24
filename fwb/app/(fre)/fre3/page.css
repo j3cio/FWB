@@ -123,14 +123,11 @@ input::placeholder {
   font-style: normal;
   font-weight: 700;
   line-height: 125%; /* 20px */
-<<<<<<< Updated upstream
   letter-spacing: 1.1px;
   margin-top: 1px;
   margin-right: 8px;
 }
-=======
-  letter-spacing: 0.32px;
+  /* letter-spacing: 0.32px;
   margin-top: 19.5px;
-}
+} */
 
->>>>>>> Stashed changes
