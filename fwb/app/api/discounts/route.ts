@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     .select("discounts")
     .eq("url", company_url)
     .single();
-  
+
   // Create a new company if the company does not exist
   if (companyDataError) {
     const newCompany = {
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       .from("companies")
       .insert([newCompany])
       .single();
-    
+
     companyData = insertedCompany;
 
     if (insertError) {
@@ -88,19 +88,21 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-    
   }
-  
+
   // Insert the discount into the company's discounts array
-  const updatedDiscounts = [...(companyData?.discounts || []), String(discount[0].id)];
+  const updatedDiscounts = [
+    ...(companyData?.discounts || []),
+    String(discount[0].id),
+  ];
   const { data: company, error: companyError } = await supabase
     .from("companies")
     .update({ discounts: updatedDiscounts })
     .eq("url", company_url)
     .select();
-  
-  console.log(company)
-  
+
+  console.log(company);
+
   if (companyError) {
     console.error(companyError);
     return NextResponse.json(
@@ -109,6 +111,36 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Insert the discount into the categories' discounts arrays
+  const categories = String(formData.get("categories")).split(",");
+  categories.forEach(async (category) => {
+    let { data: categoryData, error: categoryDataError } = await supabase
+      .from("categories")
+      .select("discounts")
+      .eq("name", category.toLowerCase())
+      .single();
+
+    // Insert the discount into the category's discounts array
+    const updatedDiscounts = [
+      ...(categoryData?.discounts || []),
+      String(discount[0].id),
+    ];
+
+    const { data: categoryUpdated, error: categoryUpdatedError } = await supabase
+      .from("categories")
+      .update({ discounts: updatedDiscounts })
+      .eq("name", category.toLowerCase())
+      .select();
+
+    if (categoryUpdatedError) {
+      console.error(categoryUpdatedError);
+      return NextResponse.json(
+        { error: "Failed to insert discount into category" },
+        { status: 500 }
+      );
+    }
+  });
+  
   return NextResponse.json({ data: discount }, { status: 200 });
 }
 
