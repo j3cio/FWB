@@ -23,20 +23,6 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Extract the form data
-  const formData = await request.formData();
-  const newDiscount = {
-    user_id: user.id,
-    company: formData.get("company"),
-    terms_and_conditions: formData.get("terms_and_conditions"),
-    company_url: formData.get("company_url"),
-    shareable_url: "", //TODO: Generate shareable URL
-    categories: String(formData.get("categories")).split(",") || [],
-    discount_amount: formData.get("discount_amount"),
-    public: formData.get("public") === "true" ? true : false,
-    private_groups: String(formData.get("private_groups")).split(",") || [],
-  };
-
   // Create a supabase client
   // DEV NOTE: This is a temporary fix to get around the fact that we can't create a supabase_jwt with a long-lived session token
   const supabase = await supabaseClient(request.headers.get("supabase_jwt"));
@@ -47,13 +33,21 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const formData = await request.formData();
+  // Extract the form data
+  const newDiscount = {
+    user_id: user.id,
+    terms_and_conditions: formData.get("terms_and_conditions"),
+    shareable_url: "", //TODO: Generate shareable URL
+    discount_amount: formData.get("discount_amount"),
+    public: formData.get("public") === "true" ? true : false,
+  };
+
   // Insert the new discount into the database
-  const { data, error } = await supabase
+  const { data: discount, error } = await supabase
     .from("discounts")
     .insert([newDiscount])
     .select();
-
-  // Check for error and return response
   if (error) {
     console.error(error);
     return NextResponse.json(
@@ -62,7 +56,60 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  return NextResponse.json({ data: data }, { status: 200 });
+  // Get the discounts of the company
+  const company_url = formData.get("company_url");
+  let { data: companyData, error: companyDataError } = await supabase
+    .from("companies")
+    .select("discounts")
+    .eq("url", company_url)
+    .single();
+  
+  // Create a new company if the company does not exist
+  if (companyDataError) {
+    const newCompany = {
+      discounts: [],
+      name: formData.get("company"),
+      url: formData.get("company_url"),
+      description: "",
+      logo: "",
+    };
+    // Insert the company into the companies table
+    const { data: insertedCompany, error: insertError } = await supabase
+      .from("companies")
+      .insert([newCompany])
+      .single();
+    
+    companyData = insertedCompany;
+
+    if (insertError) {
+      console.error(insertError);
+      return NextResponse.json(
+        { error: "Failed to insert new company in supabase" },
+        { status: 500 }
+      );
+    }
+    
+  }
+  
+  // Insert the discount into the company's discounts array
+  const updatedDiscounts = [...(companyData?.discounts || []), String(discount[0].id)];
+  const { data: company, error: companyError } = await supabase
+    .from("companies")
+    .update({ discounts: updatedDiscounts })
+    .eq("url", company_url)
+    .select();
+  
+  console.log(company)
+  
+  if (companyError) {
+    console.error(companyError);
+    return NextResponse.json(
+      { error: "Failed to insert discount into company" },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json({ data: discount }, { status: 200 });
 }
 
 /**
