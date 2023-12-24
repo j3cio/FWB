@@ -71,6 +71,12 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({ data: data }, { status: 200 });
 }
 
+/**
+ * Retrieves discounts based on the provided query parameters.
+ *
+ * @param request - The NextRequest object containing the query parameters.
+ * @returns A NextResponse object containing the fetched discounts.
+ */
 export async function GET(request: NextRequest) {
   // Extract the filters from the query params
   let sort_by = request.nextUrl.searchParams.get("sort_by");
@@ -204,7 +210,50 @@ export async function GET(request: NextRequest) {
 
 // Delete a discount
 export async function DELETE(request: NextRequest, response: NextResponse) {
-  return await deleteDiscount(request);
+  const { userId } = auth();
+
+  // Check if the user is logged in
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const user = await currentUser();
+  if (!user) {
+    return NextResponse.json(
+      { error: "Unauthorized. Failed to obtain current User" },
+      { status: 401 }
+    );
+  }
+
+  // Extract the discount_id from the query params
+  const discount_id = request.nextUrl.searchParams.get("discount_id");
+
+  // Create a Supabase client with the current user's access token
+  const token = request.headers.get("supabase_jwt");
+  if (!token) {
+    return NextResponse.json(
+      { error: "Missing supabase_jwt token" },
+      { status: 401 }
+    );
+  }
+  const supabase = await supabaseClient(token);
+  if (!supabase) {
+    return NextResponse.json(
+      { error: "Failed to create supabase client" },
+      { status: 401 }
+    );
+  }
+
+  const { error } = await supabase
+    .from("discounts")
+    .delete()
+    .eq("id", discount_id);
+
+  if (error) {
+    return NextResponse.json(
+      { error: "Failed to delete discount" },
+      { status: 500 }
+    );
+  }
 }
 
 // Update a discount
