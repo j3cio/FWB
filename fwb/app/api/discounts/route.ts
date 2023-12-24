@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Only fetch discounts of a category if the category is not "all"
-    if (category !== "all") {
+    if (category && category !== "all") {
       let { data: categoryDiscounts, error } = await supabase
         .from("categories")
         .select("discounts")
@@ -159,7 +159,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ discounts }, { status: 200 });
     }
 
-    // Else Fetch 20 discounts directly from discounts table
+    // Else, Fetch 20 discounts directly from discounts table
     let { data: discounts, error } = await supabase
       .from("discounts")
       .select("*")
