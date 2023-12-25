@@ -70,6 +70,7 @@ export default function Header() {
             lineHeight: "125%",
             fontFamily: "inherit",
             textTransform: "capitalize",
+            color: "white",
           }}
         >
           LOGO.
