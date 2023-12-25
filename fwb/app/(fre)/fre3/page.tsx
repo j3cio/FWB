@@ -3,6 +3,7 @@
 import "./page.css";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { FormEvent, useState, KeyboardEvent } from "react";
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
 
@@ -12,10 +13,67 @@ export default function UserFlowPage3() {
 
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
-
+  const [emailInput, setEmailInput] = useState<string>("");
+  const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
   if (!isLoaded || !isSignedIn) {
     return null;
   }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      // 현재 입력란의 값을 추가
+      if (emailInput.trim() !== "") {
+        setEmailAddresses((prevEmails) => [...prevEmails, emailInput]);
+        setEmailInput("");
+      }
+    }
+  };
+
+  const handleRemoveEmail = (index: number) => {
+    setEmailAddresses((prevEmails) => {
+      const updatedEmails = [...prevEmails];
+      updatedEmails.splice(index, 1);
+      return updatedEmails;
+    });
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // 이메일 주소 배열을 사용하여 원하는 작업 수행
+    console.log(emailAddresses);
+
+    const sendEmails = async () => {
+      const data = {
+        emails: emailInput
+          .split(/[;, ]+/)
+          .filter((email) => email.trim() !== ""),
+        // 추가적인 데이터도 필요하다면 여기에 추가
+      };
+
+      try {
+        // 서버의 엔드포인트에 데이터를 전송
+        const response = await fetch(
+          "https://your-server-endpoint.com/send-emails",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+
+        if (response.ok) {
+          console.log("Emails sent successfully");
+        } else {
+          console.error("Failed to send emails");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+  };
 
   //OnClick Buttons to handle user redirect to respective socials to share with friends
   const handlewhatsapp = () => {
@@ -24,6 +82,10 @@ export default function UserFlowPage3() {
 
   const handleinstagram = () => {
     window.open("https://www.instagram.com/");
+  };
+
+  const handlefacebook = () => {
+    window.open("https://facebook.com/");
   };
 
   const handlediscord = () => {
@@ -55,14 +117,31 @@ export default function UserFlowPage3() {
 
           {/* This is the form that will handle email sharing  */}
 
-      
           {/* These are the social media redirect buttons that will handle email sharing  */}
-          <div className="flex justify-center items-center space-x-4">
-            <button onClick={handlewhatsapp}>
+          {/* <div className="flex justify-center items-center space-x-4"> */}
+          <div className="icons">
+            <button className="icon1" onClick={handlewhatsapp}>
               <img src="/socialicons/whatsapp.SVG" />
             </button>
-            <button onClick={handleinstagram}>
+            <button className="icon1" onClick={handleinstagram}>
               <img src="/socialicons/instagram.SVG" />
+            </button>
+            <button className="icon1" onClick={handlefacebook}>
+              <div className="facebookIcon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="34"
+                  height="34"
+                  viewBox="0 0 34 34"
+                  fill="none"
+                >
+                  <path
+                    d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+              {/* <img src="/socialicons/facebook.SVG" /> */}
             </button>
             <button onClick={handlediscord}>
               <img src="/socialicons/discord.SVG" />
@@ -70,17 +149,47 @@ export default function UserFlowPage3() {
           </div>
           <h5 className="or">Or</h5>
 
-          <form className="flex justify-center">
+          <form className="emailForm" onSubmit={handleSubmit}>
+            <div className="email-list">
+              {emailAddresses.map((email, index) => (
+                <span key={index} className="email-item">
+                  <div className="emailInput">
+                    <div className="emailItem">
+                      {email}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="17"
+                        viewBox="0 0 16 17"
+                        fill="none"
+                        style={{ marginTop: "4px", marginLeft: "5px" }}
+                        onClick={() => handleRemoveEmail(index)}
+                      >
+                        <path
+                          d="M12.2005 4.02258C12.0759 3.89774 11.9068 3.82759 11.7305 3.82759C11.5541 3.82759 11.385 3.89774 11.2605 4.02258L8.00047 7.27591L4.74047 4.01591C4.61591 3.89108 4.44681 3.82092 4.27047 3.82092C4.09412 3.82092 3.92502 3.89108 3.80047 4.01591C3.54047 4.27591 3.54047 4.69591 3.80047 4.95591L7.06047 8.21591L3.80047 11.4759C3.54047 11.7359 3.54047 12.1559 3.80047 12.4159C4.06047 12.6759 4.48047 12.6759 4.74047 12.4159L8.00047 9.15591L11.2605 12.4159C11.5205 12.6759 11.9405 12.6759 12.2005 12.4159C12.4605 12.1559 12.4605 11.7359 12.2005 11.4759L8.94047 8.21591L12.2005 4.95591C12.4538 4.70258 12.4538 4.27591 12.2005 4.02258Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </span>
+              ))}
+            </div>
+
             <input
-              type="email"
+              type="text"
               className="inputfriends"
               placeholder="Invite your friends..."
+              id="emailInput"
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </form>
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
-          <div className="flex justify-center"style={{ marginTop: '-80px' }}>
+          <div className="shareButtons">
             <Link href="/profile" className="next">
-              <div>Start Saving</div>
+              <div>Share</div>
               {/* SVG Icon for arrow from Figma Design */}
               <div>
                 <svg
@@ -96,6 +205,9 @@ export default function UserFlowPage3() {
                   />
                 </svg>
               </div>
+            </Link>
+            <Link href="/profile" className="skip">
+              <div className="skipButton">Skip for now</div>
             </Link>
           </div>
         </div>
