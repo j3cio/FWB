@@ -41,12 +41,12 @@
   font-weight: 600;
   line-height: 110%; /* 44px */
   margin-top: 135px;
-  margin-bottom:16px;
+  margin-bottom: 16px;
   letter-spacing: 0.1rem;
 }
 
 .subtext {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
@@ -58,7 +58,7 @@
 }
 
 .or {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
@@ -67,7 +67,7 @@
   font-weight: 500;
   line-height: 125%; /* 22.5px */
   margin-top: 24px;
-  margin-bottom:24px
+  margin-bottom: 24px;
 }
 
 .next {
@@ -93,15 +93,10 @@
 }
 
 .inputfriends {
-  border-radius: 100px;
   background: var(--neutral-000, #fff);
   display: flex;
-  width: 367px;
-  height: 47.472px;
-  padding: 8px 8px 8px 24px;
-  gap: 8px;
-  margin-bottom: 13.53px;
-  margin-top: 72px;
+  width: 544px;
+  height: 24px;
 }
 
 input::placeholder {
@@ -116,7 +111,7 @@ input::placeholder {
 }
 
 .skip {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 20px;
@@ -127,7 +122,88 @@ input::placeholder {
   margin-top: 1px;
   margin-right: 8px;
 }
-  /* letter-spacing: 0.32px;
+/* letter-spacing: 0.32px;
   margin-top: 19.5px;
 } */
 
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 64px;
+}
+
+.icon1 {
+  margin-right: 16px;
+}
+
+.shareButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -80px;
+}
+
+.skipButton {
+  color: white;
+  display: flex;
+  width: 150px;
+  height: 48px;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.emailForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  padding: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.emailInput {
+  display: flex;
+}
+
+.email-list {
+  display: flex;
+  max-width: 544px;
+  flex-wrap: wrap;
+}
+
+.emailItem {
+  background-color: var(--neutral-200, #adb4d2);
+  color: white;
+  display: flex;
+  padding: 2px 10px;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  border-radius: 100px;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.facebookIcon {
+  border-radius: 28.26px;
+  border: 1.413px solid var(--neutral-000, #fff);
+  display: flex;
+  width: 45.216px;
+  height: 45.216px;
+  padding: 6px 5.304px 5.304px 6px;
+  justify-content: center;
+  align-items: center;
+}
