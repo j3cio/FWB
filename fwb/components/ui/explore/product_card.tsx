@@ -22,8 +22,8 @@ const Circle = ({isHovered} : {isHovered: boolean}) => {
         animate={{ y: isHovered ? -10 : 0 }} // Move up 10 pixels when hovering
         style={{
           position: "absolute",
-          top: -40,
-          left: 80,
+          top: -55,
+          left: 180,
           width: "60px",
           height: "60px",
           borderRadius: "50%",
@@ -86,7 +86,8 @@ const Discount = ({isHovered}: {isHovered: boolean}) => {
  * Renders a product card component.
  * @returns JSX.Element
  */
-export default function ProductCard() {
+export default function ProductCard({company}: {company: any}) {
+  console.log(company.logo);
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
     <motion.div
@@ -114,7 +115,7 @@ export default function ProductCard() {
           {/* Card Image */}
           <CardMedia
             component="img"
-            image="https://c.static-nike.com/a/images/w_1920,c_limit/bzl2wmsfh7kgdkufrrjq/image.jpg"
+            image={`${company.logo}`}
             alt="nike"
             sx={{ height: "72%", padding: "0px", borderRadius: "20px",}}
           />
@@ -139,10 +140,10 @@ export default function ProductCard() {
                   lineHeight: "26.4px",
                  }}
               >
-                Nike, Inc.
+                {company.name}
               </Typography>
-              <Discount isHovered={isHovered}/>
             </Box>
+            <Discount isHovered={isHovered}/>
 
             {/*Profile Pictures of Users Offering Discounts for The Company*/}
             <Box sx={{ display: "flex", flexDirection: "row", marginY: "4px", alignItems: "center" }}>
@@ -172,7 +173,7 @@ export default function ProductCard() {
                 lineHeight: "18px",
                 marginLeft: "6px",
               }}>
-                +5 Benefits available
+                +{company.discounts.length} Benefits available
               </Typography>
             </Box>
           </CardContent>

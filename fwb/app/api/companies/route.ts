@@ -66,11 +66,10 @@ export async function GET(request: NextRequest) {
       let { data: categoryDiscounts, error } = await supabase
         .from("categories")
         .select("discounts")
-        .eq("name", category)
+        .eq("name", category.toLowerCase())
         .single();
 
       if (error) {
-        console.log(error);
         return NextResponse.json(
           { error: "Failed to fetch category discounts" },
           { status: 500 }
@@ -111,7 +110,6 @@ export async function GET(request: NextRequest) {
           });
         }
       });
-
       return NextResponse.json({ result }, { status: 200 });
     }
 

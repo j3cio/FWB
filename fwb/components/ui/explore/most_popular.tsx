@@ -97,11 +97,7 @@ export default function MostPopular() {
   };
 
   const data: React.ReactNode[] = [
-    <ProductCard key={1} />,
-    <ProductCard key={2} />,
-    <ProductCard key={3} />,
-    <ProductCard key={4} />,
-    <ProductCard key={5} />,
+
   ]; // Replace this with your array of components
 
   return (

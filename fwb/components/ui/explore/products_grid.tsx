@@ -4,7 +4,7 @@ import { Box, Paper, Grid, styled, Typography, Button } from "@mui/material";
 import * as React from "react";
 import ProductCard from "./product_card";
 
-export default function ProductGrid() {
+export default function ProductGrid({items}) {
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
 
@@ -29,7 +29,8 @@ export default function ProductGrid() {
   return (
     <Box sx={{ flexGrow: 1, paddingBottom: "20px", justifyContent: "center" }}>
       <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "60px" }}>
-        {Array.from(Array(20)).map((_, index) => (
+        {items.map((company, index) => (
+          console.log(company.logo),
           <Grid
             item
             xs={12}
@@ -38,7 +39,7 @@ export default function ProductGrid() {
             key={index}
             sx={{ width: "282px", height: "322px" }}
           >
-            <ProductCard />
+            <ProductCard company={company} />
           </Grid>
         ))}
       </Grid>
