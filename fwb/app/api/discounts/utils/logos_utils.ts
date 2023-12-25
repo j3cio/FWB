@@ -30,9 +30,9 @@ export const getExistingLogoUrl = async (domain_name: string) => {
   }
 
   let { data: logo, error } = await supabase
-    .from("logos")
-    .select("logo_url")
-    .eq("domain_name", domain_name)
+    .from("companies")
+    .select("logo")
+    .eq("url", domain_name)
     .limit(1)
     .single();
 
@@ -40,7 +40,7 @@ export const getExistingLogoUrl = async (domain_name: string) => {
     return null;
   }
 
-  return logo?.logo_url;
+  return logo?.logo;
 };
 
 export const saveLogoUrl = async (domain_name: string, logo_url: string) => {
