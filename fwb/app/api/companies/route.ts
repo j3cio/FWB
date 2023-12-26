@@ -8,6 +8,7 @@ type CompanyAndDiscounts = {
   description: string;
   logo: string;
   url: string;
+  greatest_discount: number;
   discounts: string[];
   views: number;
 };
@@ -105,6 +106,7 @@ export async function GET(request: NextRequest) {
             description: company.description,
             logo: company.logo,
             url: company.url,
+            greatest_discount: company.greatest_discount,
             discounts: Array.from(intersection),
             views: company.view_count,
           });
