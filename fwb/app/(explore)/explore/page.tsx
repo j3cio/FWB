@@ -58,9 +58,9 @@ function ExplorePageContent() {
         `http://localhost:3000/api/companies?sort_by=${encodeURIComponent(
           sortby
         )}&category=${encodeURIComponent(
-          category
+          category.toLowerCase()
         )}&private_group=${encodeURIComponent(
-          privateGroup
+          privateGroup.toLowerCase()
         )}&page=${encodeURIComponent(page)}`,
         requestOptions
       )
@@ -77,11 +77,13 @@ function ExplorePageContent() {
     }
   };
 
+  // Fetch Data and concatinate when page is changed or infinite scroll is enabled
   useEffect(() => {
     fetchData(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, infinteScroll]);
 
+  // Fetch Data on Filter Change
   useEffect(() => {
     setPage(0);
     fetchData(false);
@@ -96,8 +98,6 @@ function ExplorePageContent() {
       setIsAtBottom(isAtBottom);
 
       if (infinteScroll && isAtBottom) {
-        // Fetch More Products
-        // Add your code here to fetch more products
         setPage(page + 1);
       }
     };
