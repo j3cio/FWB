@@ -1,5 +1,11 @@
 "use client";
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  use,
+} from "react";
 import ResponsiveGrid from "@/components/ui/explore/products_grid";
 import { Container, Box, Typography } from "@mui/material";
 import Header from "@/components/ui/explore/header";
@@ -8,11 +14,14 @@ import MostPopular from "@/components/ui/explore/most_popular";
 import Productfilters from "@/components/ui/explore/productfilters";
 import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
-import { FilterContext, FilterProvider } from "@/components/ui/explore/filter_context";
+import {
+  FilterContext,
+  FilterProvider,
+} from "@/components/ui/explore/filter_context";
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
- * 
+ *
  * @returns The rendered ExplorePage component.
  */
 export default function ExplorePage() {
@@ -24,14 +33,14 @@ export default function ExplorePage() {
 }
 
 function ExplorePageContent() {
-  const {sortby, category, privateGroup} = useContext(FilterContext);
+  const { sortby, category, privateGroup } = useContext(FilterContext);
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);
 
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
 
-  const fetchData = async () => {
+  const fetchData = async (concat: boolean) => {
     try {
       var myHeaders = new Headers();
       myHeaders.append(
@@ -55,9 +64,13 @@ function ExplorePageContent() {
         )}&page=${encodeURIComponent(page)}`,
         requestOptions
       )
-        .then(async (res) =>
-          setCompanies([...companies].concat((await res.json()).result))
-        )
+        .then(async (res) => {
+          if (concat) {
+            setCompanies([...companies].concat((await res.json()).result));
+          } else {
+            setCompanies((await res.json()).result);
+          }
+        })
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -65,9 +78,15 @@ function ExplorePageContent() {
   };
 
   useEffect(() => {
-    fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, infinteScroll, category, sortby, privateGroup]);
+    fetchData(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, infinteScroll]);
+
+  useEffect(() => {
+    setPage(0);
+    fetchData(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortby, category, privateGroup]);
 
   React.useEffect(() => {
     const checkScroll = () => {
@@ -96,7 +115,7 @@ function ExplorePageContent() {
         <AdSection />
         <MostPopular />
         <Divider color="white" />
-        <Productfilters/>
+        <Productfilters />
         <ResponsiveGrid items={companies} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button
