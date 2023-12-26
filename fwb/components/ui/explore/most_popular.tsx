@@ -28,7 +28,7 @@ export default function MostPopular() {
       };
 
       fetch(
-        `http://localhost:3000/api/companies?sort_by=${
+        `http://${window.location.host}/api/companies?sort_by=${
           "Most%20Popular"
         }&category=${
           "all"
