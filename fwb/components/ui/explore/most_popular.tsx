@@ -35,7 +35,7 @@ export default function MostPopular() {
         }&page=0`,
         requestOptions
       )
-        .then(async (res) => setData((await res.json()).result.map((company) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
+        .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -111,7 +111,6 @@ export default function MostPopular() {
     // Handle forward and backward scroll
     if (direction === "forward") {
       const newPosition = position - itemWidth;
-      console.log(newPosition)
       const maxPosition = -containerWidth; // Calculate the maximum position based on the number of items
       setPosition(newPosition < maxPosition ? maxPosition : newPosition);
     } else if (direction === "backward") {
