@@ -55,7 +55,7 @@ function ExplorePageContent() {
       };
 
       fetch(
-        `https://${window.location.host}/api/companies?sort_by=${encodeURIComponent(
+        `http://${window.location.host}/api/companies?sort_by=${encodeURIComponent(
           sortby
         )}&category=${encodeURIComponent(
           category.toLowerCase()
