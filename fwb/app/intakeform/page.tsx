@@ -96,10 +96,12 @@ export default function Intakeform() {
       
       //email, discount rule
 
-
-      for (const pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+      // for (const pair of formData.entries()) {
+      //   console.log(pair[0], pair[1]);
+      // }
       
     } catch (error) {
       console.error("Error adding discount:", error);
