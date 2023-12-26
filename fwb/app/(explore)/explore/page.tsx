@@ -52,7 +52,7 @@ export default function ExplorePage() {
 
   useEffect(() => {
     fetchData();
-  }, [page, infinteScroll]);
+  }, [page, infinteScroll, category, sortby, privateGroup]);
 
   React.useEffect(() => {
     const checkScroll = () => {

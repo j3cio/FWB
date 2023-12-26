@@ -10,8 +10,8 @@ import { Typography } from "@mui/material";
 import arrowIcon from "@/components/ui/explore/icons/expand_more_24px.svg";
 import Image from "next/image";
 
-function BasicSelect({ name, options }: { name: string; options: string[] }) {
-  const [option, setOption] = React.useState("");
+function BasicSelect({ name, options, defaultValue }: { name: string; options: string[]; defaultValue: string }) {
+  const [option, setOption] = React.useState(defaultValue);
   const [flip, setFlip] = React.useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -38,13 +38,14 @@ function BasicSelect({ name, options }: { name: string; options: string[] }) {
             borderColor: "white",
             fontWeight: "700",
             letterSpacing: "0.32px",
+            fontFamily: "inherit",
           }}
         >
           {name}
         </InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId="simple-select-label"
+          id="simple-select"
           value={option}
           label={`${name}`}
           onChange={handleChange}
@@ -72,13 +73,14 @@ function BasicSelect({ name, options }: { name: string; options: string[] }) {
               borderColor: "white",
             },
             color: "white",
+            fontFamily: "inherit",
           }}
         >
           {options.map((option: string) => (
             <MenuItem
               key={option}
               value={option}
-              sx={{ backgroundColor: "#1A1A23", color: "white" }}
+              sx={{ backgroundColor: "#1A1A23", color: "white", fontFamily: "inherit", }}
             >
               {option}
             </MenuItem>
@@ -88,7 +90,15 @@ function BasicSelect({ name, options }: { name: string; options: string[] }) {
     </Box>
   );
 }
-export default function Productfilters() {
+export default function Productfilters({
+  setCategory,
+  setSortBy,
+  setPrivateGroup,
+}: {
+  setCategory: any;
+  setSortBy: any;
+  setPrivateGroup: any;
+}) {
   return (
     <Box
       sx={{
@@ -112,16 +122,13 @@ export default function Productfilters() {
             "Highest to Loweest Discounts",
             "Lowest to Hightest Discounts",
           ]}
+          defaultValue="Most Popular"
         />
-        <BasicSelect 
-          name="Private Group" 
-          options={[
-            "Group 1", "Group 2"
-          ]} 
-        />
+        <BasicSelect name="Private Group" options={["All", "Group 1", "Group 2"]} defaultValue="All"/>
         <BasicSelect
           name="Category"
           options={[
+            "All",
             "Sports",
             "Fashion",
             "Electronic",
@@ -132,6 +139,7 @@ export default function Productfilters() {
             "Books",
             "Hobbies",
           ]}
+          defaultValue="All"
         />
       </Box>
     </Box>
