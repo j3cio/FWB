@@ -23,9 +23,6 @@ function BasicSelect({
   const [option, setOption] = useState(defaultValue);
   const [flip, setFlip] = useState(false);
   const {
-    sortBy,
-    category,
-    privateGroup,
     setSortBy,
     setCategory,
     setPrivateGroup,
