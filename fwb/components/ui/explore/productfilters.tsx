@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,14 +9,27 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Typography } from "@mui/material";
 import arrowIcon from "@/components/ui/explore/icons/expand_more_24px.svg";
 import Image from "next/image";
+import { FilterContext } from "./filter_context";
 
-function BasicSelect({ name, options, defaultValue }: { name: string; options: string[]; defaultValue: string }) {
-  const [option, setOption] = React.useState(defaultValue);
-  const [flip, setFlip] = React.useState(false);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setOption(event.target.value as string);
-  };
+function BasicSelect({
+  name,
+  options,
+  defaultValue,
+}: {
+  name: string;
+  options: string[];
+  defaultValue: string;
+}) {
+  const [option, setOption] = useState(defaultValue);
+  const [flip, setFlip] = useState(false);
+  const {
+    sortBy,
+    category,
+    privateGroup,
+    setSortBy,
+    setCategory,
+    setPrivateGroup,
+  } = useContext(FilterContext);
 
   const arrowStyle = {
     color: "white",
@@ -48,7 +61,16 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
           id="simple-select"
           value={option}
           label={`${name}`}
-          onChange={handleChange}
+          onChange={(event: SelectChangeEvent) => {
+            setOption(event.target.value as string);
+            if (name === "Sort by") {
+              setSortBy(event.target.value as string);
+            } else if (name === "Category") {
+              setCategory(event.target.value as string);
+            } else if (name === "Private Group") {
+              setPrivateGroup(event.target.value as string);
+            }
+          }}
           onOpen={() => setFlip(true)}
           onClose={() => setFlip(false)}
           IconComponent={() => (
@@ -60,7 +82,6 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
                 sx: {
                   backgroundColor: "#1A1A23",
                 },
-                
               },
             },
           }}
@@ -81,7 +102,12 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
             <MenuItem
               key={option}
               value={option}
-              sx={{ backgroundColor: "#1A1A23", color: "white", fontFamily: "inherit", borderRadius: "10px"}}
+              sx={{
+                backgroundColor: "#1A1A23",
+                color: "white",
+                fontFamily: "inherit",
+                borderRadius: "10px",
+              }}
             >
               {option}
             </MenuItem>
@@ -117,7 +143,11 @@ export default function Productfilters() {
           ]}
           defaultValue="Most Popular"
         />
-        <BasicSelect name="Private Group" options={["All", "Group 1", "Group 2"]} defaultValue="All"/>
+        <BasicSelect
+          name="Private Group"
+          options={["All", "Group 1", "Group 2"]}
+          defaultValue="All"
+        />
         <BasicSelect
           name="Category"
           options={[
