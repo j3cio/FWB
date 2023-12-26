@@ -10,7 +10,7 @@ import { Divider } from "@mui/material";
 
 export default function ExplorePage() {
   const [sortby, setSortBy] = useState("Most Popular");
-  const [category, setCategory] = useState("electronic");
+  const [category, setCategory] = useState("all");
   const [privateGroup, setPrivateGroup] = useState("");
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);

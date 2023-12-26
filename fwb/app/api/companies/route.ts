@@ -114,7 +114,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Else, Fetch 20 companies directly from company table
-    let { data: companies, error: companiesError } = await supabase
+    let { data: result, error: companiesError } = await supabase
       .from("companies")
       .select("*")
       .order(sort_by, { ascending: accending })
@@ -128,7 +128,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ companies }, { status: 200 });
+    return NextResponse.json({ result }, { status: 200 });
   } 
 
   return NextResponse.json({ error: "User not logged in" }, { status: 401 });

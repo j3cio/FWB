@@ -19,8 +19,13 @@ export const getNewLogoUrl = async (domain_name: string) => {
     throw new Error("Failed to fetch brand data");
   }
 
-  const logo = (await res.json()).logos[0].formats[0].src;
-  return logo;
+  let brandLogo;
+  (await res.json()).logos.forEach((logo: any) => {
+    if (logo.type === "icon") {
+      brandLogo = logo.formats[0].src;
+    }
+  })
+  return brandLogo;
 };
 
 export const getExistingLogoUrl = async (domain_name: string) => {

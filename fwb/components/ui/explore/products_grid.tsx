@@ -26,11 +26,11 @@ export default function ProductGrid({items}) {
     };
   }, [infinteScroll]);
 
+  console.log(items);
   return (
     <Box sx={{ flexGrow: 1, paddingBottom: "20px", justifyContent: "center" }}>
       <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "60px" }}>
         {items.map((company, index) => (
-          console.log(company.logo),
           <Grid
             item
             xs={12}
