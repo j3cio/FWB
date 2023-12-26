@@ -60,6 +60,7 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
                 sx: {
                   backgroundColor: "#1A1A23",
                 },
+                
               },
             },
           }}
@@ -80,7 +81,7 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
             <MenuItem
               key={option}
               value={option}
-              sx={{ backgroundColor: "#1A1A23", color: "white", fontFamily: "inherit", }}
+              sx={{ backgroundColor: "#1A1A23", color: "white", fontFamily: "inherit", borderRadius: "10px"}}
             >
               {option}
             </MenuItem>
