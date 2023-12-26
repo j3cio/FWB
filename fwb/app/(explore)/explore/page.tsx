@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import ResponsiveGrid from "@/components/ui/explore/products_grid";
 import { Container, Box, Typography } from "@mui/material";
 import Header from "@/components/ui/explore/header";
@@ -8,11 +8,23 @@ import MostPopular from "@/components/ui/explore/most_popular";
 import Productfilters from "@/components/ui/explore/productfilters";
 import { Divider } from "@mui/material";
 import Button from "@mui/material/Button";
+import { FilterContext, FilterProvider } from "@/components/ui/explore/filter_context";
 
+/**
+ * Renders the ExplorePage component. With the FilterProvider
+ * 
+ * @returns The rendered ExplorePage component.
+ */
 export default function ExplorePage() {
-  const [sortby, setSortBy] = useState("Most Popular");
-  const [category, setCategory] = useState("all");
-  const [privateGroup, setPrivateGroup] = useState("");
+  return (
+    <FilterProvider>
+      <ExplorePageContent />
+    </FilterProvider>
+  );
+}
+
+function ExplorePageContent() {
+  const {sortby, category, privateGroup} = useContext(FilterContext);
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);
 
@@ -43,7 +55,9 @@ export default function ExplorePage() {
         )}&page=${encodeURIComponent(page)}`,
         requestOptions
       )
-        .then(async (res) => setCompanies([...companies].concat((await res.json()).result)))
+        .then(async (res) =>
+          setCompanies([...companies].concat((await res.json()).result))
+        )
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -52,6 +66,7 @@ export default function ExplorePage() {
 
   useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, infinteScroll, category, sortby, privateGroup]);
 
   React.useEffect(() => {
@@ -72,7 +87,7 @@ export default function ExplorePage() {
     return () => {
       window.removeEventListener("scroll", checkScroll);
     };
-  }, [infinteScroll]);
+  }, [infinteScroll, page]);
 
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
@@ -81,13 +96,19 @@ export default function ExplorePage() {
         <AdSection />
         <MostPopular />
         <Divider color="white" />
-        <Productfilters />
+        <Productfilters/>
         <ResponsiveGrid items={companies} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={() => {setPage(page+1); setInfinteScroll(true);}} sx={{ color: "white" }}>
-          Load More...
-        </Button>
-      </Box>
+          <Button
+            onClick={() => {
+              setPage(page + 1);
+              setInfinteScroll(true);
+            }}
+            sx={{ color: "white" }}
+          >
+            Load More...
+          </Button>
+        </Box>
       </Container>
     </Box>
   );

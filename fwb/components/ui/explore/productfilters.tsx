@@ -32,7 +32,7 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
         sx={{ display: "flex", minWidth: 246, height: "48px" }}
       >
         <InputLabel
-          id="demo-simple-select-label"
+          id="simple-select-label"
           sx={{
             color: "white",
             borderColor: "white",
@@ -91,15 +91,7 @@ function BasicSelect({ name, options, defaultValue }: { name: string; options: s
     </Box>
   );
 }
-export default function Productfilters({
-  setCategory,
-  setSortBy,
-  setPrivateGroup,
-}: {
-  setCategory: any;
-  setSortBy: any;
-  setPrivateGroup: any;
-}) {
+export default function Productfilters() {
   return (
     <Box
       sx={{
@@ -120,7 +112,7 @@ export default function Productfilters({
           options={[
             "Most Popular",
             "Most Recent",
-            "Highest to Loweest Discounts",
+            "Highest to Lowest Discounts",
             "Lowest to Hightest Discounts",
           ]}
           defaultValue="Most Popular"
