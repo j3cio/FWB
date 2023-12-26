@@ -5,28 +5,6 @@ import * as React from "react";
 import ProductCard from "./product_card";
 
 export default function ProductGrid({items}) {
-  const [isAtBottom, setIsAtBottom] = React.useState(false);
-  const [infinteScroll, setInfinteScroll] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkScroll = () => {
-      const isAtBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight;
-      setIsAtBottom(isAtBottom);
-      if (infinteScroll) {
-        // Fetch More Products
-        // Add your code here to fetch more products
-      }
-    };
-
-    window.addEventListener("scroll", checkScroll);
-    return () => {
-      window.removeEventListener("scroll", checkScroll);
-    };
-  }, [infinteScroll]);
-
-  console.log(items);
   return (
     <Box sx={{ flexGrow: 1, paddingBottom: "20px", justifyContent: "center" }}>
       <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "60px" }}>
@@ -43,11 +21,6 @@ export default function ProductGrid({items}) {
           </Grid>
         ))}
       </Grid>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={() => setInfinteScroll(true)} sx={{ color: "white" }}>
-          Load More...
-        </Button>
-      </Box>
     </Box>
   );
 }

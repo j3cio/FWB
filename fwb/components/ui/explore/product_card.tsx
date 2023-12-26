@@ -87,7 +87,6 @@ const Discount = ({isHovered}: {isHovered: boolean}) => {
  * @returns JSX.Element
  */
 export default function ProductCard({company}: {company: any}) {
-  console.log(company.logo);
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
     <motion.div
