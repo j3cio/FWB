@@ -52,25 +52,60 @@ const theme = createTheme({
 export default function Intakeform() {
   const [discount, setDiscount] = useState(0);
   const [discountAmount, setDiscountAmount] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [company, setCompany] = useState("");
+  const [discountRule, setDiscountRule]= useState("")
+  const [companyUrl, setCompanyUrl] = useState("");
   const [selectedOption, setSelectedOption] = useState<"public" | "private">(
     "public"
   );
   const [categories, setCategories] = useState([]);
+  const [termsAndConditions, setTermsAndConditions] = useState(false);
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
       setDiscount(newValue);
     }
   };
-  const [checked, setChecked] = useState(false);
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target?.checked);
+
+  const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    setTermsAndConditions(event.target?.checked);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = { discount, discountAmount, selectedOption, categories };
-    console.log(data);
+
+    try {
+      const bearerToken = await window.Clerk.session.getToken({
+        template: "testing_template",
+      });
+
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: "supabase",
+      });
+      const formData = new FormData();
+      formData.append("company", company);
+      formData.append("terms_and_conditions", `${termsAndConditions}`);
+      formData.append("categories", `{${categories.join(",")}}`);
+      formData.append("discount_amount", `${discount}`);
+      formData.append("company_url", companyUrl);
+      formData.append("public", "true");
+      formData.append("email", emailAddress)
+      formData.append("discountRule", discountRule)
+     
+      
+      //email, discount rule
+
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+      // for (const pair of formData.entries()) {
+      //   console.log(pair[0], pair[1]);
+      // }
+      
+    } catch (error) {
+      console.error("Error adding discount:", error);
+    }
   };
 
   const valueLabelFormat = (discount: number) => {
@@ -80,10 +115,6 @@ export default function Intakeform() {
   const handleOptionChange = (option: "public" | "private") => {
     setSelectedOption(option);
   };
-
-  // const handleUpdate = (event: SelectChangeEvent) => {
-  //   setSelectedOption(event.target?.value);
-  // };
 
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories);
@@ -106,7 +137,6 @@ export default function Intakeform() {
                 sx={{
                   color: "#F6FF82",
                   fontWeight: "600",
-                  // fontFamily: `${theme.typography.button.fontFamily}`,
                   fontSize: "32px",
                 }}
               >
@@ -120,10 +150,11 @@ export default function Intakeform() {
                 <input
                   className="inputEmail"
                   placeholder="Email@address.com"
-                  // onChange={(e) => setEmailAddress(e.target.value)}
                   id="email"
                   name="email"
                   type="email"
+                  onChange={(e) => setEmailAddress(e.target.value)}
+                  value={emailAddress}
                 />
               </div>
             </div>
@@ -134,10 +165,10 @@ export default function Intakeform() {
                 <input
                   className="inputCompany"
                   placeholder="Company Name"
-                  // onChange={(e) => setEmailAddress(e.target.value)}
+                  onChange={(e) => setCompany(e.target.value)}
                   id="companyName"
                   name="companyName"
-                  type="companyName"
+                  value={company}
                 />
               </div>
             </div>
@@ -147,10 +178,10 @@ export default function Intakeform() {
                 <input
                   className="inputUrl"
                   placeholder="/https:/abcdefgh.com"
-                  // onChange={(e) => setEmailAddress(e.target.value)}
+                  onChange={(e) => setCompanyUrl(e.target.value)}
                   id="companyName"
                   name="companyName"
-                  type="companyName"
+                  value={companyUrl}
                 />
               </div>
             </div>
@@ -182,7 +213,6 @@ export default function Intakeform() {
                   sx={{
                     color: "#F6FF82",
                     fontWeight: "600",
-                    // fontFamily: `${theme.typography.button.fontFamily}`,
                     fontSize: "32px",
                   }}
                 >
@@ -283,85 +313,6 @@ export default function Intakeform() {
                         <option value="Books">Books</option>
                         <option value="Hobbies">Hobbies</option>
                       </select>
-                      {/* </div> */}
-                      {/* </div> */}
-                      {/* <div className="select">
-                        <FormControl
-                          fullWidth
-                          sx={{
-                            width: "354px",
-                            height: "16px",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <InputLabel
-                            id="select-label"
-                            sx={{
-                              color: "white",
-                              paddingLeft: "5px",
-                              marginTop: "-5px",
-                              borderRadius: "10px",
-                            }}
-                          >
-                            <div className="all">
-                              All
-                              <div className="arrowImage">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  style={
-                                    {
-                                      // order: 0,
-                                      // zIndex: 1,
-                                      // position: "absolute",
-                                    }
-                                  }
-                                >
-                                  <path
-                                    d="M15.8746 9.00001L11.9946 12.88L8.11461 9.00001C7.92778 8.81275 7.67413 8.70752 7.40961 8.70752C7.14509 8.70752 6.89144 8.81275 6.70461 9.00001C6.31461 9.39001 6.31461 10.02 6.70461 10.41L11.2946 15C11.6846 15.39 12.3146 15.39 12.7046 15L17.2946 10.41C17.6846 10.02 17.6846 9.39001 17.2946 9.00001C16.9046 8.62001 16.2646 8.61001 15.8746 9.00001Z"
-                                    fill="white"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-                          </InputLabel>
-                          <Select
-                            labelId="select-label"
-                            id="select"
-                            value={selectedOption}
-                            label="Select Option"
-                            onChange={handleUpdate}
-                            sx={{
-                              background: "black",
-                              borderColor: "#8e94e9",
-                              color: "white",
-                              borderWidth: "3px",
-                              width: "386px",
-                              height: "48px",
-                              borderRadius: "10px",
-                              
-                            }}
-                          >
-                           
-                            <MenuItem value="option1">All</MenuItem>
-                            <MenuItem value="option2">Sports</MenuItem>
-                            <MenuItem value="option3">Fashion</MenuItem>
-                            <MenuItem value="option4">Electronic</MenuItem>
-                            <MenuItem value="option5">Health</MenuItem>
-                            <MenuItem value="option6">Home & Kitchen</MenuItem>
-                            <MenuItem value="option7">
-                              Computer & Accessories
-                            </MenuItem>
-                            <MenuItem value="option8">
-                              Beauty & Skincare
-                            </MenuItem>
-                            <MenuItem value="option9">Books</MenuItem>
-                            <MenuItem value="option10">Hobbies</MenuItem>
-                          </Select>
-                        </FormControl> */}
                     </div>
                   </div>
                   <div className="rule">
@@ -373,10 +324,10 @@ export default function Intakeform() {
                       <input
                         className="inputDiscount"
                         placeholder=""
-                        // onChange={(e) => setEmailAddress(e.target.value)}
+                        onChange={(e) => setDiscountRule(e.target.value)}
                         id="discountRule"
                         name="discountRule"
-                        type="discountRule"
+                        value={discountRule}
                       />
                     </div>
                   </div>
@@ -452,8 +403,8 @@ export default function Intakeform() {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={termsAndConditions}
+                    onChange={handleChecked}
                     style={{ color: "white" }} // You can customize the color here
                   />
                 }
