@@ -8,7 +8,7 @@ const DiscountsSection = () => {
         <Productfilters />
       </div>
       <div className=" flex justify-center ml-24">
-        <ResponsiveGrid />
+        
       </div>
     </div>
   );
