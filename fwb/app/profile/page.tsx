@@ -57,7 +57,7 @@ function Page() {
               >
                 Edit Profile
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 sx={{
                   borderRadius: 28,
@@ -74,7 +74,7 @@ function Page() {
                 endIcon={<Image src={LinkedInIcon} alt="123" />}
               >
                 Verify Employment
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
