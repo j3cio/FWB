@@ -9,6 +9,7 @@ import { Svg1 } from "./Svg1";
 import { Svg2 } from "./Svg2";
 import "./page.css";
 import { Photo3 } from "./photo3";
+import 'dotenv/config'
 
 export default function Page() {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -24,13 +25,15 @@ export default function Page() {
     return null; // You can also render a loading state or redirect message here
   }
 
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user)
-  //     router.push("/profile");
+  useEffect(() => {
+    if (user) {
+      console.log(user)
+      router.push("/profile");
 
-  //   }
-  // }, [user]);
+    } else {
+      console.log('not signed in')
+    }
+  }, [user]);
 
   // start the sign In process.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +74,7 @@ export default function Page() {
     try {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback",
+        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
         redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
     } catch (error) {
@@ -84,7 +87,7 @@ export default function Page() {
     try {
       const response = await signIn?.authenticateWithRedirect({
         strategy: "oauth_discord",
-        redirectUrl: "/sso-callback",
+        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
         redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
 

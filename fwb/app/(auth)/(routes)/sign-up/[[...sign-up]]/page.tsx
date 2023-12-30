@@ -61,7 +61,7 @@ export default function Page() {
     try {
       await signUp?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback",
+        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
         redirectUrlComplete: "/success"
       });
     } catch (error) {
@@ -74,7 +74,7 @@ export default function Page() {
     try {
       const response = await signUp?.authenticateWithRedirect({
         strategy: "oauth_discord",
-        redirectUrl: "/sso-callback",
+        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
         redirectUrlComplete: "/success"
       });
 
