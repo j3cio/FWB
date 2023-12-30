@@ -3,9 +3,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import groupIcon from "@/components/profile/icons/group_24px.svg";
-import messsageIcon from "@/components/profile/icons/message_24px.svg";
-import notificationIcon from "@/components/profile/icons/notifications_24px.svg";
+import groupIcon from "@/components/ui/profile/icons/group_24px.svg";
+import messsageIcon from "@/components/ui/profile/icons/message_24px.svg";
+import notificationIcon from "@/components/ui/profile/icons/notifications_24px.svg";
 import { Image } from "next/dist/client/image-component";
 import { IconButton, Box } from "@mui/material";
 
