@@ -10,6 +10,7 @@ import { Svg1 } from "./Svg1";
 import { Svg2 } from "./Svg2";
 import "./page.css";
 import { Photo3 } from "./photo3";
+import 'dotenv/config'
 
 export default function Page() {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -25,14 +26,15 @@ export default function Page() {
     return null; // You can also render a loading state or redirect message here
   }
 
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user);
-  //     router.push("/profile");
-  //   } else {
-  //     console.log("not signed in");
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      console.log(user)
+      router.push("/profile");
+
+    } else {
+      console.log('not signed in')
+    }
+  }, [user]);
 
   // start the sign In process.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
