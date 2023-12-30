@@ -25,14 +25,14 @@ export default function Page() {
     return null; // You can also render a loading state or redirect message here
   }
 
-  useEffect(() => {
-    if (user) {
-      console.log(user);
-      router.push("/profile");
-    } else {
-      console.log("not signed in");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     console.log(user);
+  //     router.push("/profile");
+  //   } else {
+  //     console.log("not signed in");
+  //   }
+  // }, [user]);
 
   // start the sign In process.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
