@@ -110,6 +110,37 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Update the greatest discount of the company and the discounts_updated_at timestamp
+  let { data: greatestDiscount, error: greatestDiscountsError } = await supabase
+    .from("companies")
+    .select("greatest_discount")
+    .eq("url", company_url)
+    .single();
+  if (greatestDiscountsError) {
+    console.error(greatestDiscountsError);
+    return NextResponse.json(
+      { error: "Failed to get greatest discount of company" },
+      { status: 500 }
+    );
+  }
+  
+  const { data: updatedCompany, error: updatedCompanyError } = await supabase
+    .from("companies")
+    .update({
+      greatest_discount: Math.max(Number(formData.get("discount_amount")), greatestDiscount?.greatest_discount || 0),
+      discounts_updated_at: new Date(),
+    })
+    .eq("url", company_url)
+    .select();
+  if (updatedCompanyError) {
+    console.error(updatedCompanyError);
+    return NextResponse.json(
+      { error: "Failed to update greatest discount of company" },
+      { status: 500 }
+    );
+  }
+
+
   // Insert the discount into the categories' discounts arrays
   const categories = String(formData.get("categories")).split(",");
   categories.forEach(async (category) => {
