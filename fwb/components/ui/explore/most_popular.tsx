@@ -28,7 +28,6 @@ export default function MostPopular() {
       };
 
       const protocal = window.location.protocol;
-      console.log(protocal);
       fetch(
         `${protocal}//${window.location.host}/api/companies?sort_by=${
           "Most%20Popular"
@@ -139,6 +138,7 @@ export default function MostPopular() {
           overflowX: "hidden",
           paddingTop: "40px",
           paddingBottom: "40px",
+          minHeight: "318px"
         }}
       >
         <motion.div
