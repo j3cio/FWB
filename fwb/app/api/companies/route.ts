@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
     sort_by = "greatest_discount";
     accending = false;
   }
+  if (sort_by === "Most Recent") sort_by = "discounts_updated_at";
   if (sort_by === "Lowest to Highest Discounts") sort_by = "greatest_discount";
 
   // Get the range of companies to fetch. Uses 0 indexing

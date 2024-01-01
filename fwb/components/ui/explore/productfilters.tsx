@@ -136,7 +136,7 @@ export default function Productfilters() {
             "Most Popular",
             "Most Recent",
             "Highest to Lowest Discounts",
-            "Lowest to Hightest Discounts",
+            "Lowest to Highest Discounts",
           ]}
           defaultValue="Most Popular"
         />

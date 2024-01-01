@@ -162,6 +162,7 @@ export async function GET(request: NextRequest) {
   // Interpret sort_by. Default to "view_count".
   if (sort_by === null) sort_by = "view_count";
   if (sort_by === "Most Popular") sort_by = "view_count";
+  if (sort_by === "Most Recent") sort_by = "created_at";
   if (sort_by === "Highest to Lowest Discounts") {
     sort_by = "discount_amount";
     accending = false;
@@ -207,7 +208,7 @@ export async function GET(request: NextRequest) {
           { status: 500 }
         );
       }
-
+      
       // Convert the array of discount UUIDs into discounts
       const discountUUIDs = categoryDiscounts?.discounts;
       const { data: discountsData, error: discountsError } = await supabase
