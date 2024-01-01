@@ -27,8 +27,10 @@ export default function MostPopular() {
         redirect: "follow" as RequestRedirect,
       };
 
+      const protocal = window.location.protocol;
+      console.log(protocal);
       fetch(
-        `https://${window.location.host}/api/companies?sort_by=${
+        `${protocal}//${window.location.host}/api/companies?sort_by=${
           "Most%20Popular"
         }&category=${
           "all"

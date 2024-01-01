@@ -54,8 +54,9 @@ function ExplorePageContent() {
         redirect: "follow" as RequestRedirect,
       };
 
+      const protocal = window.location.protocol;
       fetch(
-        `https://${window.location.host}/api/companies?sort_by=${encodeURIComponent(
+        `${protocal}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
           sortby
         )}&category=${encodeURIComponent(
           category.toLowerCase()
