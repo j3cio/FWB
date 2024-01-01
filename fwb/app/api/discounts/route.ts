@@ -182,10 +182,10 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   // Extract the filters from the query params
-  let sort_by = request.nextUrl.searchParams.get("sort_by")?.toLowerCase();
+  let sort_by = String(request.nextUrl.searchParams.get("sort_by")).toLowerCase();
   let private_group =
     request.nextUrl.searchParams.get("private_group") || "all";
-  let category = request.nextUrl.searchParams.get("category")?.toLowerCase();
+  let category = String(request.nextUrl.searchParams.get("category")).toLowerCase();
   let page_num = request.nextUrl.searchParams.get("page");
 
   let accending = true;
