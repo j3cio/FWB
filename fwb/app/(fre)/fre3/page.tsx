@@ -15,14 +15,16 @@ export default function UserFlowPage3() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
+
   if (!isLoaded || !isSignedIn) {
     return null;
   }
 
+  //adding emails
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      // 현재 입력란의 값을 추가
+
       if (emailInput.trim() !== "") {
         setEmailAddresses((prevEmails) => [...prevEmails, emailInput]);
         setEmailInput("");
@@ -30,6 +32,7 @@ export default function UserFlowPage3() {
     }
   };
 
+  //removing emails
   const handleRemoveEmail = (index: number) => {
     setEmailAddresses((prevEmails) => {
       const updatedEmails = [...prevEmails];
@@ -38,43 +41,27 @@ export default function UserFlowPage3() {
     });
   };
 
+  //sending emails
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // 이메일 주소 배열을 사용하여 원하는 작업 수행
     console.log(emailAddresses);
-
-    const sendEmails = async () => {
-      const data = {
-        emails: emailInput
-          .split(/[;, ]+/)
-          .filter((email) => email.trim() !== ""),
-        // 추가적인 데이터도 필요하다면 여기에 추가
-      };
-
-      try {
-        // 서버의 엔드포인트에 데이터를 전송
-        const response = await fetch(
-          "https://your-server-endpoint.com/send-emails",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-
-        if (response.ok) {
-          console.log("Emails sent successfully");
-        } else {
-          console.error("Failed to send emails");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+    emailAddresses.forEach((email) => {
+      sendInvitationEmail(email);
+    });
+    setEmailAddresses([]);
+    setEmailInput('');
   };
 
+  const sendInvitationEmail = (email:string) => {
+   
+    const message = `You have been invited to makefwb.com by [user first name]. Go to app.makefwb.com/sign-up to create an account`;
+    console.log(`Sending email to ${email}: ${message}`);
+   
+    //need to add sending eamil logic
+  };
+
+
+  
   //OnClick Buttons to handle user redirect to respective socials to share with friends
   const handlewhatsapp = () => {
     window.open("https://www.whatsapp.com/");
@@ -185,6 +172,7 @@ export default function UserFlowPage3() {
               onChange={(e) => setEmailInput(e.target.value)}
               onKeyDown={handleKeyDown}
             />
+            {/* <button type="submit">Send inviations</button> */}
           </form>
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
           <div className="shareButtons">

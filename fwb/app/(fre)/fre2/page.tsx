@@ -147,22 +147,24 @@ export default function UserFlowPage2() {
             <h6 className="discountFormText">Discount Rules & Conditions *</h6>
             <textarea
               className="inputConditions"
-              placeholder="Lorem Ipsum"
+              placeholder="Share details about What you are offering"
               value={termsAndConditions}
               onChange={(e) => setTermsAndConditions(e.target.value)} 
               required
             />
-
-            <button type='submit' className='submitButton'>Submit Discount</button>
+{/* 
+            <button type='submit' className='submitButton'>Submit Discount</button> */}
           </form>
           </div>
 
           {/* This is the link functionality to carry user to stage 3  */}
+          <div className="shareButtons">
           <div className="flex justify-center">
-            <Link type='submit' href='/fre3' className="share">Share on Public</Link>
+            <Link type='submit' href='/fre3' className="share">Share</Link>
           </div>
-          <div className='flex justify-center'style={{ marginTop: '-10px' }}>
+          <div className="skipButton">
             <Link href='/fre3' className="skip">Skip for now</Link>
+          </div>
           </div>
 
         </div>
