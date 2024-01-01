@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-  
+
   const { data: updatedCompany, error: updatedCompanyError } = await supabase
     .from("companies")
     .update({
@@ -182,23 +182,23 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   // Extract the filters from the query params
-  let sort_by = request.nextUrl.searchParams.get("sort_by");
+  let sort_by = request.nextUrl.searchParams.get("sort_by")?.toLowerCase();
   let private_group =
     request.nextUrl.searchParams.get("private_group") || "all";
-  let category = request.nextUrl.searchParams.get("category");
+  let category = request.nextUrl.searchParams.get("category")?.toLowerCase();
   let page_num = request.nextUrl.searchParams.get("page");
 
   let accending = true;
 
   // Interpret sort_by. Default to "view_count".
   if (sort_by === null) sort_by = "view_count";
-  if (sort_by === "Most Popular") sort_by = "view_count";
-  if (sort_by === "Most Recent") sort_by = "created_at";
-  if (sort_by === "Highest to Lowest Discounts") {
+  if (sort_by === "most popular") sort_by = "view_count";
+  if (sort_by === "most recent") sort_by = "created_at";
+  if (sort_by === "highest to lowest discounts") {
     sort_by = "discount_amount";
     accending = false;
   }
-  if (sort_by === "Lowest to Highest Discounts") sort_by = "discount_amount";
+  if (sort_by === "lowest to highest discounts") sort_by = "discount_amount";
 
   // Get the range of discounts to fetch. Uses 0 indexing
   const getPagination = (page: number, size: number) => {
