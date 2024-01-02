@@ -1,5 +1,7 @@
 "use client";
-
+import {
+  FacebookShareButton,
+} from "react-share";
 import "./page.css";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
@@ -126,7 +128,9 @@ export default function UserFlowPage3() {
             <button className="icon1" onClick={handleinstagram}>
               <img src="/socialicons/instagram.SVG" />
             </button>
-            <button className="icon1" onClick={handlefacebook}>
+            <div className="icon1">
+            {/* The url given is the url link you would like to share */}
+            <FacebookShareButton url={"app.makefwb.com"}>
               <div className="facebookIcon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +146,8 @@ export default function UserFlowPage3() {
                 </svg>
               </div>
               {/* <img src="/socialicons/facebook.SVG" /> */}
-            </button>
+              </FacebookShareButton>
+              </div>
             <button onClick={handlediscord}>
               <img src="/socialicons/discord.SVG" />
             </button>
