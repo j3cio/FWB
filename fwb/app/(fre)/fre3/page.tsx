@@ -12,7 +12,7 @@ import IllustrationSix from "@/components/ui/fre/IllustrationSix";
 export default function UserFlowPage3() {
   //TODO: Create Sharing Functionality to Send Emails with input field
   //TODO: Create Message Feature to open up personal chats when clicking on social icons
-
+  const shareURL = 'https://staging.app.makefwb.com/sign-in'
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
@@ -130,7 +130,7 @@ export default function UserFlowPage3() {
             </button>
             <div className="icon1">
             {/* The url given is the url link you would like to share */}
-            <FacebookShareButton url={"app.makefwb.com"}>
+            <FacebookShareButton url={shareURL}>
               <div className="facebookIcon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
