@@ -38,7 +38,7 @@ export default function UserFlowPage2() {
       formData.append('company', company);
       formData.append('terms_and_conditions', termsAndConditions);
       formData.append('categories', `{${categories.join(',')}}`);
-      formData.append('discount_amount', discountAmount);
+      formData.append('discount_amount', parseInt(discountAmount).toString());
       formData.append('company_url', '');
       formData.append('public', 'true');
 
@@ -107,16 +107,16 @@ export default function UserFlowPage2() {
             />
 
             <div className='flex justify-start'>
-              <h6 className="discountFormText">Discount Amount *</h6>
+              <h6 className="discountFormText">Discount Amount (%) *</h6>
               <h6 className="discountFormText">Category *</h6>
               </div>
 
               <div className='flex justify-start'>
               <input
-                type="number"
+                type="text"
                 className="inputDiscount"
-                placeholder='1 - 100         %' 
-                min="1" 
+                placeholder="1 - 100"
+                min="1"  
                 max="100" 
                 step="1"
                 value={discountAmount}
@@ -147,24 +147,22 @@ export default function UserFlowPage2() {
             <h6 className="discountFormText">Discount Rules & Conditions *</h6>
             <textarea
               className="inputConditions"
-              placeholder="Lorem Ipsum"
+              placeholder="Add details about your shared benefit"
               value={termsAndConditions}
               onChange={(e) => setTermsAndConditions(e.target.value)} 
               required
             />
 
-            <button type='submit' className='submitButton'>Submit Discount</button>
+            <div className="flex justify-center">
+              <Link type='submit' href='/fre3' className="share">Share</Link>
+            </div>
           </form>
           </div>
 
           {/* This is the link functionality to carry user to stage 3  */}
-          <div className="flex justify-center">
-            <Link type='submit' href='/fre3' className="share">Share on Public</Link>
-          </div>
           <div className='flex justify-center'style={{ marginTop: '-10px' }}>
             <Link href='/fre3' className="skip">Skip for now</Link>
           </div>
-
         </div>
       </div>
       <IllustrationFour />
