@@ -38,7 +38,7 @@ export default function UserFlowPage2() {
       formData.append('company', company);
       formData.append('terms_and_conditions', termsAndConditions);
       formData.append('categories', `{${categories.join(',')}}`);
-      formData.append('discount_amount', parseInt(discountAmount).toString());
+      formData.append('discount_amount', discountAmount);
       formData.append('company_url', '');
       formData.append('public', 'true');
 
@@ -113,7 +113,7 @@ export default function UserFlowPage2() {
 
               <div className='flex justify-start'>
               <input
-                type="text"
+                type="number"
                 className="inputDiscount"
                 placeholder="1 - 100"
                 min="1"  
