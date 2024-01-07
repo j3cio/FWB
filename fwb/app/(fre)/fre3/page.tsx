@@ -3,6 +3,7 @@
 import "./page.css";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+<<<<<<< Updated upstream
 import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
@@ -15,6 +16,17 @@ export default function UserFlowPage3() {
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
   const router = useRouter();
+=======
+import IllustrationFive from "@/components/ui/fre/IllustrationFive";
+import IllustrationSix from "@/components/ui/fre/IllustrationSix";
+
+export default function UserFlowPage3() {
+  //TODO: Create Sharing Functionality to Send Emails with input field
+  //TODO: Create Message Feature to open up personal chats when clicking on social icons
+
+  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
+  const { isSignedIn, user, isLoaded } = useUser();
+>>>>>>> Stashed changes
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -69,10 +81,13 @@ export default function UserFlowPage3() {
   const handleinstagram = () => {
     window.open("https://www.instagram.com/");
   };
+<<<<<<< Updated upstream
 
   const handlefacebook = () => {
     window.open("https://facebook.com/");
   };
+=======
+>>>>>>> Stashed changes
 
   const handlediscord = () => {
     window.open("https://discord.com/");
@@ -103,6 +118,7 @@ export default function UserFlowPage3() {
 
           {/* This is the form that will handle email sharing  */}
 
+<<<<<<< Updated upstream
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
           <div className="icons">
@@ -114,6 +130,36 @@ export default function UserFlowPage3() {
             </button>
             <button className="icon1" onClick={handlefacebook}>
               <div className="facebookIcon">
+=======
+      
+          {/* These are the social media redirect buttons that will handle email sharing  */}
+          <div className="flex justify-center items-center space-x-4">
+            <button onClick={handlewhatsapp}>
+              <img src="/socialicons/whatsapp.SVG" />
+            </button>
+            <button onClick={handleinstagram}>
+              <img src="/socialicons/instagram.SVG" />
+            </button>
+            <button onClick={handlediscord}>
+              <img src="/socialicons/discord.SVG" />
+            </button>
+          </div>
+          <h5 className="or">Or</h5>
+
+          <form className="flex justify-center">
+            <input
+              type="email"
+              className="inputfriends"
+              placeholder="Invite your friends..."
+            />
+          </form>
+          {/* Redirects user back to landing page, Probably should be changed to explore later  */}
+          <div className="flex justify-center"style={{ marginTop: '-80px' }}>
+            <Link href="/profile" className="next">
+              <div>Start Saving</div>
+              {/* SVG Icon for arrow from Figma Design */}
+              <div>
+>>>>>>> Stashed changes
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="34"
