@@ -114,6 +114,12 @@ export default function Intakeform() {
     console.log(data);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = { discount, discountAmount, selectedOption, categories };
+    console.log(data);
+  };
+
   const valueLabelFormat = (discount: number) => {
     return `${discount}%`;
   };
@@ -320,7 +326,10 @@ export default function Intakeform() {
                         <option value="Hobbies">Hobbies</option>
                       </select>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
                       {/* </div> */}
                       {/* </div> */}
                       {/* <div className="select">

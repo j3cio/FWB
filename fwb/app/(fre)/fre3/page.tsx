@@ -4,6 +4,7 @@ import "./page.css";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
@@ -21,11 +22,20 @@ import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
 
 export default function UserFlowPage3() {
+=======
+import IllustrationFive from "@/components/ui/fre/IllustrationFive";
+import IllustrationSix from "@/components/ui/fre/IllustrationSix";
+
+export default function UserFlowPage3() {
+>>>>>>> Stashed changes
   //TODO: Create Sharing Functionality to Send Emails with input field
   //TODO: Create Message Feature to open up personal chats when clicking on social icons
 
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
   if (!isLoaded || !isSignedIn) {
@@ -82,10 +92,13 @@ export default function UserFlowPage3() {
     window.open("https://www.instagram.com/");
   };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
   const handlefacebook = () => {
     window.open("https://facebook.com/");
   };
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -119,6 +132,7 @@ export default function UserFlowPage3() {
           {/* This is the form that will handle email sharing  */}
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
           <div className="icons">
@@ -131,6 +145,8 @@ export default function UserFlowPage3() {
             <button className="icon1" onClick={handlefacebook}>
               <div className="facebookIcon">
 =======
+=======
+>>>>>>> Stashed changes
       
           {/* These are the social media redirect buttons that will handle email sharing  */}
           <div className="flex justify-center items-center space-x-4">
