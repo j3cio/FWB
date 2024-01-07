@@ -3,26 +3,28 @@
 import "./page.css";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
-import { FormEvent, useState, KeyboardEvent } from "react";
+import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function UserFlowPage3() {
-  //TODO: Create Sharing Functionality to Send Emails with input field
-  //TODO: Create Message Feature to open up personal chats when clicking on social icons
-
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
+  const router = useRouter();
+
   if (!isLoaded || !isSignedIn) {
     return null;
   }
 
+  //adding emails
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      // 현재 입력란의 값을 추가
+
       if (emailInput.trim() !== "") {
         setEmailAddresses((prevEmails) => [...prevEmails, emailInput]);
         setEmailInput("");
@@ -30,6 +32,7 @@ export default function UserFlowPage3() {
     }
   };
 
+  //removing emails
   const handleRemoveEmail = (index: number) => {
     setEmailAddresses((prevEmails) => {
       const updatedEmails = [...prevEmails];
@@ -38,41 +41,24 @@ export default function UserFlowPage3() {
     });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  //sending emails
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // 이메일 주소 배열을 사용하여 원하는 작업 수행
-    console.log(emailAddresses);
 
-    const sendEmails = async () => {
-      const data = {
-        emails: emailInput
-          .split(/[;, ]+/)
-          .filter((email) => email.trim() !== ""),
-        // 추가적인 데이터도 필요하다면 여기에 추가
-      };
+    try {
+      const response = await axios.post("/api/invitations", {
+        emails: emailAddresses,
+      });
+    
 
-      try {
-        // 서버의 엔드포인트에 데이터를 전송
-        const response = await fetch(
-          "https://your-server-endpoint.com/send-emails",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-
-        if (response.ok) {
-          console.log("Emails sent successfully");
-        } else {
-          console.error("Failed to send emails");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+      // 이메일 전송 후 상태 초기화 또는 다른 작업 수행
+      setEmailAddresses([]);
+      setEmailInput("");
+      router.push("/profile");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
 
   //OnClick Buttons to handle user redirect to respective socials to share with friends
@@ -149,7 +135,7 @@ export default function UserFlowPage3() {
           </div>
           <h5 className="or">Or</h5>
 
-          <form className="emailForm" onSubmit={handleSubmit}>
+          <form id="invitations" className="emailForm" onSubmit={handleSubmit}>
             <div className="email-list">
               {emailAddresses.map((email, index) => (
                 <span key={index} className="email-item">
@@ -185,27 +171,31 @@ export default function UserFlowPage3() {
               onChange={(e) => setEmailInput(e.target.value)}
               onKeyDown={handleKeyDown}
             />
+            {/* <button type="submit">Send inviations</button> */}
           </form>
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
           <div className="shareButtons">
-            <Link href="/profile" className="next">
-              <div>Share</div>
-              {/* SVG Icon for arrow from Figma Design */}
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M5.20874 13H16.3787L11.4987 17.88C11.1087 18.27 11.1087 18.91 11.4987 19.3C11.8887 19.69 12.5187 19.69 12.9087 19.3L19.4987 12.71C19.8887 12.32 19.8887 11.69 19.4987 11.3L12.9187 4.69996C12.7319 4.5127 12.4783 4.40747 12.2137 4.40747C11.9492 4.40747 11.6956 4.5127 11.5087 4.69996C11.1187 5.08996 11.1187 5.71996 11.5087 6.10996L16.3787 11H5.20874C4.65874 11 4.20874 11.45 4.20874 12C4.20874 12.55 4.65874 13 5.20874 13Z"
-                    fill="#8E94E9"
-                  />
-                </svg>
-              </div>
-            </Link>
+            {/* <Link href="/profile" className="next"> */}
+
+            <button className="next" type="submit" form="invitations">
+              Share
+            </button>
+            {/* SVG Icon for arrow from Figma Design */}
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M5.20874 13H16.3787L11.4987 17.88C11.1087 18.27 11.1087 18.91 11.4987 19.3C11.8887 19.69 12.5187 19.69 12.9087 19.3L19.4987 12.71C19.8887 12.32 19.8887 11.69 19.4987 11.3L12.9187 4.69996C12.7319 4.5127 12.4783 4.40747 12.2137 4.40747C11.9492 4.40747 11.6956 4.5127 11.5087 4.69996C11.1187 5.08996 11.1187 5.71996 11.5087 6.10996L16.3787 11H5.20874C4.65874 11 4.20874 11.45 4.20874 12C4.20874 12.55 4.65874 13 5.20874 13Z"
+                  fill="#8E94E9"
+                />
+              </svg>
+            </div>
+            {/* </Link> */}
             <Link href="/profile" className="skip">
               <div className="skipButton">Skip for now</div>
             </Link>
