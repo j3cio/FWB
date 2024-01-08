@@ -92,6 +92,8 @@ function ExplorePageContent() {
   useEffect(() => {
     setPage(0);
     fetchData(false);
+
+    console.log("Filter Change")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortby, category, privateGroup]);
 

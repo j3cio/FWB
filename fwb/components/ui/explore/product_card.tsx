@@ -86,7 +86,7 @@ const Discount = ({
  * Renders a product card component.
  * @returns JSX.Element
  */
-export default function ProductCard({ company }: { company: any }) {
+const ProductCard = React.memo(function ProductCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   const [profilePics, setProfilePics] = React.useState<String[]>([]); // The profile pics of the users offering discounts for the company
   const { getToken } = useAuth();
@@ -140,11 +140,12 @@ export default function ProductCard({ company }: { company: any }) {
         return null;
       }
     };
+
     fetchUserProfilePic("d7e8473a-b5f8-493a-bb26-dd246a42b176").then((res) => console.log(res))
-    // // Map through the first 3 discounts of the company and fetch the user profile pictures of the users offering discounts for the company
-    // var profilePicURLs = company.discounts.slice(0, 3).map(async (discount: String) => {
-    //   return await fetchUserProfilePic(discount)
-    // });
+  // // Map through the first 3 discounts of the company and fetch the user profile pictures of the users offering discounts for the company
+  // var profilePicURLs = company.discounts.slice(0, 3).map(async (discount: String) => {
+  //   return await fetchUserProfilePic(discount)
+  // });
 
     // Promise.all(profilePicURLs)
     // console.log(profilePicURLs)
@@ -278,4 +279,5 @@ export default function ProductCard({ company }: { company: any }) {
       </Box>
     </motion.div>
   );
-}
+});
+export default ProductCard;
