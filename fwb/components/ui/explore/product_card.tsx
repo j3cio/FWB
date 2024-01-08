@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { CardActionArea } from "@mui/material";
 import { motion } from "framer-motion";
+import { useAuth } from "@clerk/nextjs";
+import { get } from "http";
 
 /**
  * Renders a discount component.
@@ -15,7 +17,13 @@ import { motion } from "framer-motion";
  * @param {number} amount - The discount amount in percentage.
  * @returns {JSX.Element} The discount component.
  */
-const Discount = ({ isHovered, amount }: { isHovered: boolean, amount: Number }) => {
+const Discount = ({
+  isHovered,
+  amount,
+}: {
+  isHovered: boolean;
+  amount: Number;
+}) => {
   return (
     <Box>
       <div style={{ position: "relative", fontFamily: "inherit" }}>
@@ -80,6 +88,69 @@ const Discount = ({ isHovered, amount }: { isHovered: boolean, amount: Number })
  */
 export default function ProductCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
+  const [profilePics, setProfilePics] = React.useState<String[]>([]); // The profile pics of the users offering discounts for the company
+  const { getToken } = useAuth();
+
+  React.useEffect(() => {
+    const fetchUserProfilePic = async (discountId: String) => {
+
+      // Fetch the Discount
+      var myHeaders = new Headers();
+      myHeaders.append(
+        "supabase_jwt",
+        `${await getToken({ template: "supabase" })}`
+      );
+      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow" as RequestRedirect,
+      };
+      const protocal = window.location.protocol;
+      const res = await fetch(
+        `${protocal}//${window.location.host}/api/discounts?id=${discountId}`,
+        requestOptions
+      );
+
+      const userId = (await res.json()).data.user_id;
+
+      //Fetch the User Profile Picture with the User Id
+      var myHeaders = new Headers();
+      myHeaders.append(
+        "supabase_jwt",
+        `${await getToken({ template: "supabase" })}`
+      );
+      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow" as RequestRedirect,
+      };
+
+      const res2 = await fetch(
+        `${protocal}//${window.location.host}/api/users?user_id=${userId}`,
+        requestOptions
+      );
+      
+      try{
+        const profilePicURL = (await res2.json()).users[0].profile_picture_url;
+        return profilePicURL;
+      } catch (error) {
+        return null;
+      }
+    };
+    fetchUserProfilePic("d7e8473a-b5f8-493a-bb26-dd246a42b176").then((res) => console.log(res))
+    // // Map through the first 3 discounts of the company and fetch the user profile pictures of the users offering discounts for the company
+    // var profilePicURLs = company.discounts.slice(0, 3).map(async (discount: String) => {
+    //   return await fetchUserProfilePic(discount)
+    // });
+
+    // Promise.all(profilePicURLs)
+    // console.log(profilePicURLs)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <motion.div
       onHoverStart={() => setIsHovered(true)}
@@ -140,7 +211,10 @@ export default function ProductCard({ company }: { company: any }) {
                 {company.name}
               </Typography>
             </Box>
-            <Discount isHovered={isHovered} amount={company.greatest_discount} />
+            <Discount
+              isHovered={isHovered}
+              amount={company.greatest_discount}
+            />
 
             {/*Profile Pictures of Users Offering Discounts for The Company*/}
             <Box
