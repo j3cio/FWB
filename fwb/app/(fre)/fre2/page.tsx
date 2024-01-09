@@ -162,11 +162,7 @@ export default function UserFlowPage2() {
           <div className="flex justify-center">
             <Link type='submit' href='/fre3' className="share">Share</Link>
           </div>
-<<<<<<< Updated upstream
           <div className="skipButton">
-=======
-          <div className='flex justify-center'style={{ marginTop: '-10px' }}>
->>>>>>> Stashed changes
             <Link href='/fre3' className="skip">Skip for now</Link>
           </div>
           </div>
