@@ -9,6 +9,7 @@ import notificationIcon from "@/components/ui/explore/icons/notifications_24px.s
 import searchIcon from "@/components/ui/explore/icons/search_24px.svg";
 import { Image } from "next/dist/client/image-component";
 import { TextField, IconButton, Box } from "@mui/material";
+
 const SearchBar = () => {
   return (
     <Box
@@ -22,10 +23,10 @@ const SearchBar = () => {
       }}
     >
       <TextField
-        variant="outlined"
+        fullWidth
         placeholder="Search"
-        style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px" }}
-        sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" } }}
+        style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
+        sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
       />
       <IconButton
         color="primary"
@@ -49,11 +50,13 @@ export default function Header() {
       sx={{
         backgroundColor: "#1A1A23",
         boxShadow: "none",
-        padding: "3.1vh",
+        paddingTop: "32px",
+        paddingBottom: "32px",
         position: "sticky",
         top: 0,
         zIndex: 1,
         height: "112px",
+        width: "100%"
       }}
     >
       <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -62,15 +65,21 @@ export default function Header() {
             marginRight: "4.8vw",
             height: "48px",
             width: "114px",
-            fontSize: "38px",
+            fontSize: "38.156px",
+            fontWeight: "700",
+            lineHeight: "125%",
+            fontFamily: "inherit",
+            textTransform: "capitalize",
+            color: "white",
           }}
         >
           LOGO.
         </Typography>
         <Toolbar
           disableGutters
-          sx={{ display: "flex", gap: "1.6vw", flexGrow: 1 }}
-        >
+          variant="dense"
+          sx={{ display: "flex", gap: "24px", height: "9.6px", flexGrow: 1 }}
+        > 
           <SearchBar />
           <IconButton
             color="inherit"

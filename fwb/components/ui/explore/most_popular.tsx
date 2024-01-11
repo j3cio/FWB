@@ -5,12 +5,50 @@ import Image from "next/image";
 import arrowIcon from "@/components/ui/explore/icons/arrow_forward_ios_24px.svg";
 import ProductCard from "./product_card";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@clerk/nextjs"
 
 export default function MostPopular() {
+  const { getToken } = useAuth();
+
   const [position, setPosition] = useState(0);
   const itemWidth = 282; // Adjust this value based on your component width
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append(
+        "Authorization",
+        `Bearer ${await getToken()}`
+      );
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow" as RequestRedirect,
+      };
+
+      const protocal = window.location.protocol;
+      fetch(
+        `${protocal}//${window.location.host}/api/companies?sort_by=${
+          "Most%20Popular"
+        }&category=${
+          "all"
+        }&page=0`,
+        requestOptions
+      )
+        .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const TitleAndButtons = () => {
     return (
@@ -22,11 +60,17 @@ export default function MostPopular() {
         }}
       >
         <Typography
-          sx={{ color: "#F6FF82", fontWeight: "600", fontSize: "32px" }}
+          sx={{ color: "#FFF", 
+            fontFamily: "inherit",
+            fontWeight: "600", 
+            fontSize: "32px",
+            lineHeight: "110%",
+            fontStyle: "normal"
+           }}
         >
           Most Popular
         </Typography>
-        <Box sx={{ display: "flex", gap: "1.6vw" }}>
+        <Box sx={{ display: "flex", gap: "24px" }}>
           <IconButton
             color="inherit"
             onClick={() => handleScroll("backward")}
@@ -67,15 +111,12 @@ export default function MostPopular() {
   };
 
   const handleScroll = (direction: "forward" | "backward") => {
-    const containerWidth = itemWidth * data.length; // Adjust this value based on the number of items
-
+    const containerWidth = (itemWidth + 24) * (data.length - 4); // (itemWidth + spacing) * (number of product cards - number of cards on screen). Adjust the values accordingingly
+    // Handle forward and backward scroll
     if (direction === "forward") {
       const newPosition = position - itemWidth;
-      setPosition(
-        newPosition < -containerWidth + itemWidth
-          ? -containerWidth + itemWidth
-          : newPosition
-      );
+      const maxPosition = -containerWidth; // Calculate the maximum position based on the number of items
+      setPosition(newPosition < maxPosition ? maxPosition : newPosition);
     } else if (direction === "backward") {
       const newPosition = position + itemWidth;
       setPosition(newPosition > 0 ? 0 : newPosition);
@@ -92,22 +133,15 @@ export default function MostPopular() {
     visible: { opacity: 1, x: 0 },
   };
 
-  const data: React.ReactNode[] = [
-    <ProductCard key={1} />,
-    <ProductCard key={2} />,
-    <ProductCard key={3} />,
-    <ProductCard key={4} />,
-    <ProductCard key={5} />,
-  ]; // Replace this with your array of components
-
   return (
     <Box>
       <TitleAndButtons />
       <div
         style={{
           overflowX: "hidden",
-          paddingTop: "4.6vh",
-          paddingBottom: "4.6vh",
+          paddingTop: "40px",
+          paddingBottom: "40px",
+          minHeight: "318px"
         }}
       >
         <motion.div
@@ -127,7 +161,7 @@ export default function MostPopular() {
               key={index}
               className="carousel-item"
               variants={itemVariants}
-              style={{ minWidth: `${itemWidth}px`, marginRight: "1.5vw" }} // Adjust this value based on your component width
+              style={{ minWidth: `${itemWidth}px`, marginRight: "24px" }} // Adjust this value based on your component width
             >
               {item}
             </motion.div>

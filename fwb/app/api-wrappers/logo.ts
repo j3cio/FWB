@@ -26,7 +26,7 @@ function fetchLogo(auth_token: string, domain_name: string) {
   };
 
   return fetch(
-    `http://localhost:3000/api/images/logos?domain_name=${domain_name}`,
+    `http://${window.location.host}/api/images/logos?domain_name=${domain_name}`,
     requestOptions
   )
     .then((response) => response.json())

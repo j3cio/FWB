@@ -25,7 +25,9 @@ export async function GET(request: NextRequest) {
 
     // If it doesn't exist, fetch it from Brandfetch and save it to the database
     const logoUrl = await getNewLogoUrl(domain_name);
-    saveLogoUrl(domain_name, logoUrl);
+    if (logoUrl) {
+      saveLogoUrl(domain_name, logoUrl);
+    }
     return NextResponse.json({ logo_url: logoUrl }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

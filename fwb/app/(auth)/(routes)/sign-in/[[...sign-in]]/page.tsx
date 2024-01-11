@@ -1,5 +1,6 @@
 "use client";
 import { useSignIn, useUser } from "@clerk/nextjs";
+import "dotenv/config";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -26,9 +27,10 @@ export default function Page() {
 
   // useEffect(() => {
   //   if (user) {
-  //     console.log(user)
+  //     console.log(user);
   //     router.push("/profile");
-
+  //   } else {
+  //     console.log("not signed in");
   //   }
   // }, [user]);
 
@@ -71,7 +73,7 @@ export default function Page() {
     try {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "https://clerk.makefwb.com/v1/oauth_callback", // "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback"
+        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
         redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
     } catch (error) {
@@ -84,7 +86,7 @@ export default function Page() {
     try {
       const response = await signIn?.authenticateWithRedirect({
         strategy: "oauth_discord",
-        redirectUrl: "/sso-callback",
+        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
         redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
 
@@ -115,6 +117,39 @@ export default function Page() {
               <div className="letter">
                 + more<br></br> friend
               </div>
+              <div className="photo3">
+                <Photo3 />
+              </div>
+            </div>
+            <div className="letter">
+              + more<br></br> friend
+            </div>
+          </div>
+          <div className="rightBag">
+            <div className="bagPhoto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="97" height="96" viewBox="0 0 97 96" fill="none">
+                <path
+                  d="M77.1569 74.8428L73.0649 29.1023C72.9914 28.1971 72.226 27.511 71.2986 27.511H62.6732C62.6584 19.9046 56.4175 13.7144 48.7487 13.7144C41.08 13.7144 34.839 19.9046 34.8243 27.511H26.1988C25.2862 27.511 24.5208 28.1971 24.4325 29.1023L20.3406 74.8428C20.3406 74.9012 20.3406 74.945 20.3406 75.0034C20.3406 80.0986 25.0655 84.2449 30.8648 84.2449H66.6326C72.432 84.2449 77.1569 80.0986 77.1569 75.0034C77.1569 74.945 77.1569 74.9012 77.1569 74.8428ZM48.7487 17.2183C54.4745 17.2183 59.1258 21.8317 59.1405 27.511H38.3569C38.3717 21.8317 43.0229 17.2183 48.7487 17.2183ZM66.6326 80.7264H30.8648C27.0378 80.7264 23.9174 78.2007 23.8732 75.0618L27.818 31.0149H34.8243V37.1613C34.8243 38.1249 35.6192 38.9132 36.5906 38.9132C37.5621 38.9132 38.3569 38.1249 38.3569 37.1613V31.0149H59.1405V37.1613C59.1405 38.1249 59.9354 38.9132 60.9068 38.9132C61.8783 38.9132 62.6732 38.1249 62.6732 37.1613V31.0149H69.6795L73.6243 75.0764C73.5801 78.2007 70.4596 80.7264 66.6326 80.7264Z"
+                  fill="white"
+                />
+                <path
+                  d="M70.3843 30.5H26.8843L22.8843 78.5L24.8843 81.5H70.3843C71.1843 81.5 74.0509 76.6667 74.3843 75L70.3843 30.5Z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="two">
+          <div className="circle3">
+            <div className="hiLetter">Hi!</div>
+            <div className="hiPhoto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="99" height="75" viewBox="0 0 99 75" fill="none">
+                <path
+                  d="M7.71092 6.53362L0.66204 48.2338C-0.0232002 52.2876 2.70754 56.1293 6.76132 56.8145L26.6775 60.1811L24.2968 74.2651L35.9252 61.7443L83.0976 69.7182C87.1513 70.4034 90.9931 67.6727 91.6783 63.6189L98.7272 21.9188C99.4124 17.865 96.6817 14.0233 92.6279 13.338L16.2917 0.434341C12.2379 -0.250899 8.39616 2.47984 7.71092 6.53362Z"
+                  fill="white"
+                />
+              </svg>
             </div>
             <div className="rightBag">
               <div className="bagPhoto">
@@ -148,6 +183,21 @@ export default function Page() {
                   viewBox="0 0 99 75"
                   fill="none"
                 >
+          <div></div>
+        </div>
+      </div>
+      <div className="rightSigninContainer">
+        <div className="signin">
+          {/* <SignIn /> */}
+
+          <div>
+            <div className="name">Sign In</div>
+            <div className="buttons">
+              <button className="googleButton" onClick={signInWithGoogle}>
+                <img src="/google.png" alt="Google Icon" />
+              </button>
+              <button className="discordButton" onClick={signInWithDiscord}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="21" viewBox="0 0 27 21" fill="none">
                   <path
                     d="M7.71092 6.53362L0.66204 48.2338C-0.0232002 52.2876 2.70754 56.1293 6.76132 56.8145L26.6775 60.1811L24.2968 74.2651L35.9252 61.7443L83.0976 69.7182C87.1513 70.4034 90.9931 67.6727 91.6783 63.6189L98.7272 21.9188C99.4124 17.865 96.6817 14.0233 92.6279 13.338L16.2917 0.434341C12.2379 -0.250899 8.39616 2.47984 7.71092 6.53362Z"
                     fill="white"
@@ -266,10 +316,10 @@ export default function Page() {
                   error.errors
                     .filter((err: any) => err.meta.paramName === "password")
                     .map((passwordError: any) => (
-                      <div
-                        className="errorMessage"
+                      <div 
+                        className="errorMessage" 
                         key={passwordError.meta.paramName}
-                      >
+                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"

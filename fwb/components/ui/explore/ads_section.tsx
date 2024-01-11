@@ -7,14 +7,14 @@ export default function AdSection(): JSX.Element {
     <Box
       sx={{
         width: "100%",
-        height: "9,5vh",
+        height: "250px",
         backgroundColor: "#8E94E9",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        marginTop: "5vh",
-        marginBottom: "5vh",
+        marginTop: "98px",
+        marginBottom: "98px",
       }}
     >
       <Typography sx={{ color: "#F6FF82", fontSize: "24px", fontWeight: "600", margin: 20 }}>
