@@ -96,7 +96,7 @@ export default function Page() {
     }
   };
 
-  return (
+return (
     <div className="pageHeight">
       <div className="big">
         <div className="leftSigninContainer">
@@ -183,6 +183,11 @@ export default function Page() {
                   viewBox="0 0 99 75"
                   fill="none"
                 >
+                  <path
+                    d="M7.71092 6.53362L0.66204 48.2338C-0.0232002 52.2876 2.70754 56.1293 6.76132 56.8145L26.6775 60.1811L24.2968 74.2651L35.9252 61.7443L83.0976 69.7182C87.1513 70.4034 90.9931 67.6727 91.6783 63.6189L98.7272 21.9188C99.4124 17.865 96.6817 14.0233 92.6279 13.338L16.2917 0.434341C12.2379 -0.250899 8.39616 2.47984 7.71092 6.53362Z"
+                    fill="white"
+                  />
+                </svg>
           <div></div>
         </div>
       </div>
@@ -203,6 +208,7 @@ export default function Page() {
                     fill="white"
                   />
                 </svg>
+              </button>
               </div>
             </div>
             <div className="circle4">
@@ -337,22 +343,23 @@ export default function Page() {
                       </div>
                     ))}
 
-                <div className="password">
-                  <Link href="/forgotpassword" className="forgetPassword">
-                    Forgot Password?
-                  </Link>
-                </div>
-
-                <button className="submit" type="submit">
-                  Submit
-                </button>
-                <div className="signup">
-                  <div className="detail">Don&apos;t have an account? </div>
-                  <Link href="/sign-up" className="signupButton">
-                    Create Account
-                  </Link>
-                </div>
-              </form>
+                  <div className="password">
+                    <Link href="/forgotpassword" className="forgetPassword">
+                      Forgot Password?
+                    </Link>
+                  </div>
+  
+                  <button className="submit" type="submit">
+                    Submit
+                  </button>
+                  <div className="signup">
+                    <div className="detail">Don&apos;t have an account? </div>
+                    <Link href="/sign-up" className="signupButton">
+                      Create Account
+                    </Link>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
