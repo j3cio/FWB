@@ -92,64 +92,7 @@ const ProductCard = React.memo(function ProductCard({ company }: { company: any 
   const { getToken } = useAuth();
 
   React.useEffect(() => {
-    const fetchUserProfilePic = async (discountId: String) => {
-
-      // Fetch the Discount
-      var myHeaders = new Headers();
-      myHeaders.append(
-        "supabase_jwt",
-        `${await getToken({ template: "supabase" })}`
-      );
-      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow" as RequestRedirect,
-      };
-      const protocal = window.location.protocol;
-      const res = await fetch(
-        `${protocal}//${window.location.host}/api/discounts?id=${discountId}`,
-        requestOptions
-      );
-
-      const userId = (await res.json()).data.user_id;
-
-      //Fetch the User Profile Picture with the User Id
-      var myHeaders = new Headers();
-      myHeaders.append(
-        "supabase_jwt",
-        `${await getToken({ template: "supabase" })}`
-      );
-      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
-
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow" as RequestRedirect,
-      };
-
-      const res2 = await fetch(
-        `${protocal}//${window.location.host}/api/users?user_id=${userId}`,
-        requestOptions
-      );
-      
-      try{
-        const profilePicURL = (await res2.json()).users[0].profile_picture_url;
-        return profilePicURL;
-      } catch (error) {
-        return null;
-      }
-    };
-
-    fetchUserProfilePic("d7e8473a-b5f8-493a-bb26-dd246a42b176").then((res) => console.log(res))
-  // // Map through the first 3 discounts of the company and fetch the user profile pictures of the users offering discounts for the company
-  // var profilePicURLs = company.discounts.slice(0, 3).map(async (discount: String) => {
-  //   return await fetchUserProfilePic(discount)
-  // });
-
-    // Promise.all(profilePicURLs)
-    // console.log(profilePicURLs)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    console.log(company);
   }, []);
 
   return (

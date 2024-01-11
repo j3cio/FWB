@@ -1,6 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import supabaseClient from "@/supabase";
+import getDiscountsByIds from "./utils";
+
+type Discount = {
+  id: string;
+  name: string;
+  description: string;
+  code: string;
+  url: string;
+  company: string;
+  category: string;
+  discount_amount: number;
+  discount_type: string;
+  expiration_date: string;
+  verified: boolean;
+  views: number;
+  created_at: string;
+  updated_at: string;
+};
 
 type CompanyAndDiscounts = {
   id: number;
@@ -9,7 +27,7 @@ type CompanyAndDiscounts = {
   logo: string;
   url: string;
   greatest_discount: number;
-  discounts: string[];
+  discounts: Discount[];
   views: number;
 };
 
@@ -97,11 +115,15 @@ export async function GET(request: NextRequest) {
 
       // Filter companies by category
       let result: CompanyAndDiscounts[] = [];
-      companies?.forEach((company) => {
+      companies?.forEach(async (company) => {
         const intersection = new Set(
           [...company.discounts].filter((x) =>
             categoryDiscounts?.discounts.includes(x)
           )
+        );
+        const populatedDiscounts = await getDiscountsByIds(
+          Array.from(intersection),
+          supabase
         );
         if (intersection.size > 0) {
           result.push({
@@ -111,7 +133,7 @@ export async function GET(request: NextRequest) {
             logo: company.logo,
             url: company.url,
             greatest_discount: company.greatest_discount,
-            discounts: Array.from(intersection),
+            discounts: populatedDiscounts,
             views: company.view_count,
           });
         }
@@ -134,8 +156,20 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ result }, { status: 200 });
-  } 
+    // Populate discounts
+    let populatedDiscounts = await Promise.all(result?.map(async (company) => {
+      const populatedDiscounts = await getDiscountsByIds(
+        company.discounts,
+        supabase
+      );
+      company.discounts = populatedDiscounts;
+      return company; // Return the updated company object
+    }) ?? []);
+
+
+    return NextResponse.json({ populatedDiscounts }, { status: 200 });
+
+  }
 
   return NextResponse.json({ error: "User not logged in" }, { status: 401 });
 }
