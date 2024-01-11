@@ -39,7 +39,7 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
         }&page=0`,
         requestOptions
       )
-        .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
+        .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} userProfiles={userProfiles}/>)))
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.error("Error fetching data:", error);
