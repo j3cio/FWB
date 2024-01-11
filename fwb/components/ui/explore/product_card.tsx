@@ -10,6 +10,7 @@ import { CardActionArea } from "@mui/material";
 import { motion } from "framer-motion";
 import { useAuth } from "@clerk/nextjs";
 import { get } from "http";
+import { useEffect } from "react";
 
 /**
  * Renders a discount component.
@@ -86,14 +87,29 @@ const Discount = ({
  * Renders a product card component.
  * @returns JSX.Element
  */
-const ProductCard = React.memo(function ProductCard({ company }: { company: any }) {
+const ProductCard = function ProductCard({
+  company,
+  userProfiles,
+}: {
+  company: any;
+  userProfiles: any[];
+}) {
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
-  const [profilePics, setProfilePics] = React.useState<String[]>([]); // The profile pics of the users offering discounts for the company
   const { getToken } = useAuth();
+  let profilePics: string[] = [];
 
-  React.useEffect(() => {
-    console.log(company);
-  }, []);
+  // Get the profile pictures of the first 3 users offering discounts for the company
+  if (userProfiles) {
+    let firstThreeUsers = company.discounts
+      .slice(0, 3)
+      .map((discount: any) => discount.user_id);
+    firstThreeUsers.forEach((user_id: string) => {
+      let user = userProfiles.find((user: any) => user.user_id == user_id);
+      if (user) {
+        profilePics.push(user.profile_picture_url);
+      }
+    });
+  }
 
   return (
     <motion.div
@@ -172,36 +188,42 @@ const ProductCard = React.memo(function ProductCard({ company }: { company: any 
               <div
                 style={{ position: "relative", width: "64px", height: "24px" }}
               >
-                <Avatar
-                  alt="man1"
-                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                  sx={{
-                    width: "24px",
-                    height: "24px",
-                    position: "absolute",
-                    left: "0",
-                  }}
-                />
-                <Avatar
-                  alt="man1"
-                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                  sx={{
-                    width: "24px",
-                    height: "24px",
-                    position: "absolute",
-                    left: "20px",
-                  }}
-                />
-                <Avatar
-                  alt="man1"
-                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                  sx={{
-                    width: "24px",
-                    height: "24px",
-                    position: "absolute",
-                    left: "40px",
-                  }}
-                />
+                {profilePics[0] && (
+                  <Avatar
+                    alt="avatar1"
+                    src={`${profilePics[0]}`}
+                    sx={{
+                      width: "24px",
+                      height: "24px",
+                      position: "absolute",
+                      left: "0px",
+                    }}
+                  />
+                )}
+                {profilePics[1] && (
+                  <Avatar
+                    alt="avatar2"
+                    src={`${profilePics[1]}`}
+                    sx={{
+                      width: "24px",
+                      height: "24px",
+                      position: "absolute",
+                      left: "20px",
+                    }}
+                  />
+                )}
+                {profilePics[2] && (
+                  <Avatar
+                    alt="avatar3"
+                    src={`${profilePics[0]}`}
+                    sx={{
+                      width: "24px",
+                      height: "24px",
+                      position: "absolute",
+                      left: "40px",
+                    }}
+                  />
+                )}
               </div>
               <Typography
                 sx={{
@@ -222,5 +244,5 @@ const ProductCard = React.memo(function ProductCard({ company }: { company: any 
       </Box>
     </motion.div>
   );
-});
+};
 export default ProductCard;

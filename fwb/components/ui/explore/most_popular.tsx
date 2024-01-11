@@ -9,7 +9,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@clerk/nextjs"
 
-export default function MostPopular() {
+export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
   const { getToken } = useAuth();
 
   const [position, setPosition] = useState(0);

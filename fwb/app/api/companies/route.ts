@@ -115,34 +115,36 @@ export async function GET(request: NextRequest) {
 
       // Filter companies by category
       let result: CompanyAndDiscounts[] = [];
-      companies?.forEach(async (company) => {
-        const intersection = new Set(
-          [...company.discounts].filter((x) =>
-            categoryDiscounts?.discounts.includes(x)
-          )
-        );
-        const populatedDiscounts = await getDiscountsByIds(
-          Array.from(intersection),
-          supabase
-        );
-        if (intersection.size > 0) {
-          result.push({
-            id: company.id,
-            name: company.name,
-            description: company.description,
-            logo: company.logo,
-            url: company.url,
-            greatest_discount: company.greatest_discount,
-            discounts: populatedDiscounts,
-            views: company.view_count,
-          });
+      if (companies) {
+        for (const company of companies) {
+          const intersection = new Set(
+            [...company.discounts].filter((x) =>
+              categoryDiscounts?.discounts.includes(x)
+            )
+          );
+          const populatedDiscounts = await getDiscountsByIds(
+            Array.from(intersection),
+            supabase
+          );
+          if (intersection.size > 0) {
+            result.push({
+              id: company.id,
+              name: company.name,
+              description: company.description,
+              logo: company.logo,
+              url: company.url,
+              greatest_discount: company.greatest_discount,
+              discounts: populatedDiscounts,
+              views: company.view_count,
+            });
+          }
         }
-      });
+      }
       return NextResponse.json({ result }, { status: 200 });
     }
 
     // Else, Fetch 20 companies directly from company table
-    let { data: result, error: companiesError } = await supabase
+    let { data: companies, error: companiesError } = await supabase
       .from("companies")
       .select("*")
       .order(sort_by, { ascending: accending })
@@ -157,7 +159,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Populate discounts
-    let populatedDiscounts = await Promise.all(result?.map(async (company) => {
+    let result = await Promise.all(companies?.map(async (company) => {
       const populatedDiscounts = await getDiscountsByIds(
         company.discounts,
         supabase
@@ -167,7 +169,7 @@ export async function GET(request: NextRequest) {
     }) ?? []);
 
 
-    return NextResponse.json({ populatedDiscounts }, { status: 200 });
+    return NextResponse.json({ result }, { status: 200 });
 
   }
 

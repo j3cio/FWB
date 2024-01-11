@@ -18,7 +18,7 @@ import {
   FilterContext,
   FilterProvider,
 } from "@/components/ui/explore/filter_context";
-import { useAuth } from "@clerk/nextjs"
+import { useAuth } from "@clerk/nextjs";
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
@@ -39,18 +39,35 @@ function ExplorePageContent() {
   const { sortby, category, privateGroup } = useContext(FilterContext);
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);
+  const [userProfiles, setUserProfiles] = useState([]);
 
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
 
+  const fetchUserProfiles = async () => {
+    const protocal = window.location.protocol === "https:" ? "https:" : "http:";
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${await getToken()}`);
+    myHeaders.append("supabase_jwt", `${await getToken({ template: "supabase" })}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow" as RequestRedirect,
+    };
+    fetch(`${protocal}//${window.location.host}/api/users`, requestOptions)
+      .then((res) => res.json())
+      .then((res) => {
+        setUserProfiles(res.users)
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   const fetchData = async (concat: boolean) => {
+    fetchUserProfiles();
     try {
       var myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        `Bearer ${await getToken()}`
-      );
+      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
 
       var requestOptions = {
         method: "GET",
@@ -60,7 +77,9 @@ function ExplorePageContent() {
 
       const protocal = window.location.protocol;
       fetch(
-        `${protocal}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
+        `${protocal}//${
+          window.location.host
+        }/api/companies?sort_by=${encodeURIComponent(
           sortby
         )}&category=${encodeURIComponent(
           category.toLowerCase()
@@ -93,7 +112,6 @@ function ExplorePageContent() {
     setPage(0);
     fetchData(false);
 
-    console.log("Filter Change")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortby, category, privateGroup]);
 
@@ -114,16 +132,15 @@ function ExplorePageContent() {
       window.removeEventListener("scroll", checkScroll);
     };
   }, [infinteScroll, page]);
-
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
         <Header />
         <AdSection />
-        <MostPopular />
+        <MostPopular userProfiles={userProfiles} />
         <Divider color="white" />
         <Productfilters />
-        <ResponsiveGrid items={companies} />
+        <ResponsiveGrid items={companies} userProfiles={userProfiles} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button
             onClick={() => {

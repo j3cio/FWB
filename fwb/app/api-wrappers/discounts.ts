@@ -7,7 +7,7 @@
  * 
  * How to get the authentication token and Supabase JWT useAuth must be called from a React component:
  * const { getToken } = useAuth();
- * const auth_token = getToken({template: 'testing_template'})
+ * const auth_token = getToken()
  * const supabase_jwt = getToken({template: 'supabase'})
  *
  */

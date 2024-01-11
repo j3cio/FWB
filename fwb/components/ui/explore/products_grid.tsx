@@ -4,7 +4,7 @@ import { Box, Paper, Grid, styled, Typography, Button } from "@mui/material";
 import * as React from "react";
 import ProductCard from "./product_card";
 
-const ProductGrid = React.memo(function ProductGrid({items}: {items: any[]}) {
+const ProductGrid = function ProductGrid({items, userProfiles}: {items: any[], userProfiles: any[]}) {
   return (
     <Box sx={{ flexGrow: 1, paddingBottom: "20px", justifyContent: "center", minHeight: "1706px" }}>
       <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "60px" }}>
@@ -17,12 +17,12 @@ const ProductGrid = React.memo(function ProductGrid({items}: {items: any[]}) {
             key={index}
             sx={{ width: "282px", height: "322px" }}
           >
-            <ProductCard company={company} />
+            <ProductCard company={company} userProfiles={userProfiles}/>
           </Grid>
         ))}
       </Grid>
     </Box>
   );
-});
+};
 
 export default ProductGrid;
