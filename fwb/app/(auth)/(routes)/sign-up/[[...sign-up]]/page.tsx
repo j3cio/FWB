@@ -84,7 +84,8 @@ export default function Page() {
   };
 
   return (
-    <div>
+    <div className="pageHeight">
+      <div>
       {!pendingVerification && (
         <div className="big">
           <div className="leftSigninContainer">
@@ -425,6 +426,7 @@ export default function Page() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

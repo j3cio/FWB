@@ -96,8 +96,9 @@ export default function Page() {
     }
   };
 
-  return (
-    <div className="big">
+return (
+    <div className="pageHeight">
+      <div className="big">
       <div className="leftSigninContainer">
         <div className="circle1"></div>
         <div className="circle2">
@@ -282,5 +283,6 @@ export default function Page() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
