@@ -66,7 +66,7 @@ function fetchDiscounts(
   };
 
   return fetch(
-    `http://localhost:3000/api/discounts?sort_by=${queryParams.sort_by}&private_group=${queryParams.private_group}&category=${queryParams.category}&page=${queryParams.page}`,
+    `http://${window.location.host}/api/discounts?sort_by=${queryParams.sort_by}&private_group=${queryParams.private_group}&category=${queryParams.category}&page=${queryParams.page}`,
     requestOptions
   )
     .then((response) => response.json())
@@ -110,7 +110,7 @@ function addDiscount(
     redirect: "follow" as RequestRedirect,
   };
 
-  return fetch("http://localhost:3000/api/discounts", requestOptions)
+  return fetch(`http://${window.location.host}/api/discounts`, requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
@@ -142,7 +142,7 @@ function deleteDiscount(
   };
 
   return fetch(
-    `http://localhost:3000/api/discounts?discount_id=${discount_id}`,
+    `http://${window.location.host}/api/discounts?discount_id=${discount_id}`,
     requestOptions
   )
     .then((response) => response.json())
@@ -205,7 +205,7 @@ function updateDiscount(
     redirect: "follow" as RequestRedirect,
   };
 
-  return fetch("http://localhost:3000/api/discounts", requestOptions)
+  return fetch(`http://${window.location.host}/api/discounts`, requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
