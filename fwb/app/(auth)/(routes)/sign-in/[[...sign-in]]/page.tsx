@@ -73,8 +73,8 @@ export default function Page() {
     try {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/profile", // redirect to this route if sign-in is successful
+        redirectUrl: "https://clerk.makefwb.com/v1/oauth_callback", // "https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback"
+        redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
     } catch (error) {
       console.error("Error signing in with Google", error);
@@ -87,7 +87,7 @@ export default function Page() {
       const response = await signIn?.authenticateWithRedirect({
         strategy: "oauth_discord",
         redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/profile", // redirect to this route if sign-in is successful
+        redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
       });
 
       console.log(response);
