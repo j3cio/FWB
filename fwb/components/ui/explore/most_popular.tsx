@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Image from "next/image";
 import arrowIcon from "@/components/ui/explore/icons/arrow_forward_ios_24px.svg";
@@ -7,9 +7,9 @@ import ProductCard from "./product_card";
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "@clerk/nextjs"
+import { useAuth } from "@clerk/nextjs";
 
-export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
+export default function MostPopular({ userProfiles }: { userProfiles: any[] }) {
   const { getToken } = useAuth();
 
   const [position, setPosition] = useState(0);
@@ -19,10 +19,7 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
   const fetchData = async () => {
     try {
       var myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        `Bearer ${await getToken()}`
-      );
+      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
 
       var requestOptions = {
         method: "GET",
@@ -32,14 +29,22 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
 
       const protocal = window.location.protocol;
       fetch(
-        `${protocal}//${window.location.host}/api/companies?sort_by=${
-          "Most%20Popular"
-        }&category=${
-          "all"
-        }&page=0`,
+        `${protocal}//${
+          window.location.host
+        }/api/companies?sort_by=${"Most%20Popular"}&category=${"all"}&page=0`,
         requestOptions
       )
-        .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} userProfiles={userProfiles}/>)))
+        .then(async (res) =>
+          setData(
+            (await res.json()).result.map((company: any) => (
+              <ProductCard
+                key={`MostPopular${company.name}`}
+                company={company}
+                userProfiles={userProfiles}
+              />
+            ))
+          )
+        )
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -60,13 +65,14 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
         }}
       >
         <Typography
-          sx={{ color: "#FFF", 
+          sx={{
+            color: "#FFF",
             fontFamily: "inherit",
-            fontWeight: "600", 
+            fontWeight: "600",
             fontSize: "32px",
             lineHeight: "110%",
-            fontStyle: "normal"
-           }}
+            fontStyle: "normal",
+          }}
         >
           Most Popular
         </Typography>
@@ -83,6 +89,7 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
             <Image
               src={arrowIcon}
               alt="Back Arrow"
+              priority={true}
               style={{ width: "28.8px", height: "28.8px" }}
             />
           </IconButton>
@@ -98,6 +105,7 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
             <Image
               src={arrowIcon}
               alt="Next Arrow"
+              priority={true}
               style={{
                 width: "28.8px",
                 height: "28.8px",
@@ -105,6 +113,7 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
               }}
             />
           </IconButton>
+          
         </Box>
       </Box>
     );
@@ -141,7 +150,7 @@ export default function MostPopular({userProfiles}: {userProfiles: any[]}) {
           overflowX: "hidden",
           paddingTop: "40px",
           paddingBottom: "40px",
-          minHeight: "318px"
+          minHeight: "318px",
         }}
       >
         <motion.div

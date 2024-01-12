@@ -141,13 +141,13 @@ function ExplorePageContent() {
         <Divider color="white" />
         <Productfilters />
         <ResponsiveGrid items={companies} userProfiles={userProfiles} />
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ display: "flex", justifyContent: "center"}}>
           <Button
             onClick={() => {
               setPage(page + 1);
               setInfinteScroll(true);
             }}
-            sx={{ color: "white" }}
+            sx={{ color: "white", marginBottom: "20px" }}
           >
             Load More...
           </Button>
