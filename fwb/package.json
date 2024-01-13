@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^4.68.5",
     "@clerk/nextjs": "^4.25.7",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
