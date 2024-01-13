@@ -9,90 +9,116 @@ import Avatar from "@mui/material/Avatar";
 import { CardActionArea } from "@mui/material";
 import { motion } from "framer-motion";
 
-const Circle = ({isHovered} : {isHovered: boolean}) => {
-  return (
-    <div style={{ position: "relative" }}>
-      <motion.div
-        animate={{ y: isHovered ? -10 : 0 }} // Move up 10 pixels when hovering
-        style={{
-          position: "absolute",
-          top: -40,
-          left: 50,
-          width: 60,
-          height: 60,
-          borderRadius: "50%",
-          backgroundColor: "#8e94e9",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box sx={{ justifyContent: "center", alignItems: "center" }}>
-          <Typography
-            sx={{
-              color: "#F6FF82",
-              fontSize: 24,
-              fontWeight: "600",
-              lineHeight: "20px",
-            }}
-          >
-            50%
-          </Typography>
-          <Typography
-            sx={{
-              color: "#F6FF82",
-              fontSize: 12,
-              fontWeight: "400",
-              textAlign: "right",
-            }}
-          >
-            off
-          </Typography>
-        </Box>
-      </motion.div>
-    </div>
-  );
-};
-
-const Discount = ({isHovered}: {isHovered: boolean}) => {
+/**
+ * Renders a discount component.
+ * @param {boolean} isHovered - Indicates whether the component is being hovered.
+ * @param {number} amount - The discount amount in percentage.
+ * @returns {JSX.Element} The discount component.
+ */
+const Discount = ({ isHovered, amount }: { isHovered: boolean, amount: Number }) => {
   return (
     <Box>
-      <Circle isHovered={isHovered} />
+      <div style={{ position: "relative", fontFamily: "inherit" }}>
+        <motion.div
+          animate={{ y: isHovered ? -10 : 0 }} // Move up 10 pixels when hovering
+          style={{
+            position: "absolute",
+            top: -55,
+            left: 180,
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
+            backgroundColor: "#8e94e9",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontFamily: "inherit",
+          }}
+        >
+          <Box
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              fontFamily: "inherit",
+            }}
+          >
+            <Typography
+              sx={{
+                color: "#F6FF82",
+                fontSize: "24px",
+                fontWeight: "600",
+                lineHeight: "20px",
+                fontFamily: "inherit",
+                fontStyle: "normal",
+              }}
+            >
+              {`${amount}%`}
+            </Typography>
+            <Typography
+              sx={{
+                color: "#F6FF82",
+                fontSize: "12px",
+                fontWeight: "400",
+                textAlign: "right",
+                fontFamily: "inherit",
+                fontStyle: "normal",
+                lineHeight: "14px",
+              }}
+            >
+              off
+            </Typography>
+          </Box>
+        </motion.div>
+      </div>
     </Box>
   );
 };
 
-export default function ProductCard() {
-  const [isHovered, setIsHovered] = React.useState(false);
+/**
+ * Renders a product card component.
+ * @returns JSX.Element
+ */
+export default function ProductCard({ company }: { company: any }) {
+  const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
     <motion.div
-    onHoverStart={() => setIsHovered(true)}
-    onHoverEnd={() => setIsHovered(false)}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
-      <Card
+      {/* Card Component */}
+      <Box
         sx={{
           width: "282px",
           height: "322px",
           background: "white",
-          borderRadius: "20px",
           overflow: "hidden",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
           display: "inline-flex",
-          borderWidth: isHovered ? "2px" : "0px",
-          borderColor: isHovered ? "#F6FF82" : "white",
+          backgroundColor: "transparent",
+          borderWidth: "2px",
+          borderRadius: "20px",
+          borderColor: isHovered ? "#F6FF82" : "#1A1A23",
         }}
       >
         <CardActionArea sx={{ height: "100%" }}>
+          {/* Card Image */}
           <CardMedia
             component="img"
-            image="https://c.static-nike.com/a/images/w_1920,c_limit/bzl2wmsfh7kgdkufrrjq/image.jpg"
-            alt="nike"
-            sx={{ height: "72%", padding: "0" }}
+            image={`${company.logo}`}
+            alt={`${company.name} logo`}
+            sx={{
+              height: "72%",
+              padding: "0px",
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+            }}
           />
+          {/* Card Content */}
           <CardContent
             sx={{
+              backgroundColor: "white",
               height: "28%",
               paddingTop: "8px",
               paddingLeft: "24px",
@@ -102,35 +128,80 @@ export default function ProductCard() {
           >
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Typography
-                sx={{ fontSize: 24, fontWeight: "600", wordWrap: "break-word" }}
+                sx={{
+                  fontSize: 24,
+                  fontWeight: "600",
+                  wordWrap: "break-word",
+                  fontFamily: "inherit",
+                  fontStyle: "normal",
+                  lineHeight: "26.4px",
+                }}
               >
-                Nike, Inc.
+                {company.name}
               </Typography>
-              <Discount isHovered={isHovered}/>
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Avatar
-                alt="man1"
-                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                sx={{ width: "24px", height: "24px" }}
-              />
-              <Avatar
-                alt="man1"
-                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                sx={{ width: "24px", height: "24px" }}
-              />
-              <Avatar
-                alt="man1"
-                src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                sx={{ width: "24px", height: "24px" }}
-              />
-              <Typography variant="body2" color="text.secondary" padding="2px">
-                +5 Benefits available
+            <Discount isHovered={isHovered} amount={company.greatest_discount} />
+
+            {/*Profile Pictures of Users Offering Discounts for The Company*/}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                marginY: "4px",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{ position: "relative", width: "64px", height: "24px" }}
+              >
+                <Avatar
+                  alt="man1"
+                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                  sx={{
+                    width: "24px",
+                    height: "24px",
+                    position: "absolute",
+                    left: "0",
+                  }}
+                />
+                <Avatar
+                  alt="man1"
+                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                  sx={{
+                    width: "24px",
+                    height: "24px",
+                    position: "absolute",
+                    left: "20px",
+                  }}
+                />
+                <Avatar
+                  alt="man1"
+                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                  sx={{
+                    width: "24px",
+                    height: "24px",
+                    position: "absolute",
+                    left: "40px",
+                  }}
+                />
+              </div>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: "400",
+                  fontFamily: "inherit",
+                  fontStyle: "normal",
+                  color: "#6B77AD",
+                  lineHeight: "18px",
+                  marginLeft: "6px",
+                }}
+              >
+                +{company.discounts.length} Benefits available
               </Typography>
             </Box>
           </CardContent>
         </CardActionArea>
-      </Card>
+      </Box>
     </motion.div>
   );
 }

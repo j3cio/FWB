@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "71cc6796-2092-44a4-96cc-cbbfef9c2f47",
+		"name": "Company and Discounts API",
+		"description": "The Discount provides many API products, tools, and resources that enable you to manage and access discounts from FWB.\n\n## Important Note:\n\n- You must use a JWT Bearer Token Created By Clerk to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n    \n\n## Getting Started:\n\nSign-in to FWB before running the commands\n\n1. Run this command in the browser console to generate a long-lived jwt bearer token:\n    \n\nawait window.Clerk.session.getToken({template: 'testing_template'})\n\nCopy and paste the generated token into the \"bearer_token\" current value input field in your postman environment\n\nThis is used for setting the \"bearer token\" in the authorization tab.\n\n<img src=\"https://content.pstmn.io/480bb9e3-40d4-4cd3-9939-5b80c80215e8/aW1hZ2UucG5n\" width=\"1135\" height=\"586\">\n\n2\\. Run this command in the browser console to generate a long-lived supabase access token:\n\nawait window.Clerk.session.getToken({template: 'supabase'})\n\nCopy and paste the generated token into the \"supabase_token\" current value input field in your postman environment\n\nThis is used for setting the \"supabase_jwt\" header value in requests.\n\n<img src=\"https://content.pstmn.io/9b9fd857-e235-4bf4-821b-9d703f5d7dae/aW1hZ2UucG5n\" width=\"1124\" height=\"620\">",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31420187",
+		"_collection_link": "https://red-satellite-955561.postman.co/workspace/J3C~76112fc8-c509-4015-b419-13944e47b7b8/collection/31420187-71cc6796-2092-44a4-96cc-cbbfef9c2f47?action=share&source=collection_link&creator=31420187"
+	},
+	"item": [
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Companies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/api/companies?sort_by=Most%20Popular&category=all&private_group&page=0",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "Most%20Popular",
+									"description": "Required. Choose One: Most Popular Highest to Lowest, Lowest to Highest, Most Recent"
+								},
+								{
+									"key": "category",
+									"value": "all",
+									"description": "Optional."
+								},
+								{
+									"key": "private_group",
+									"value": null,
+									"description": "Optional."
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Required. Pagination starts at 0"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Companies",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseurl}}/api/companies?sort_by=Most%20Popular&category=all&private_group&page=0",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"api",
+										"companies"
+									],
+									"query": [
+										{
+											"key": "sort_by",
+											"value": "Most%20Popular",
+											"description": "Required. Required. Choose One: Most Popular Highest to Lowest, Lowest to Highest, Most Recent"
+										},
+										{
+											"key": "category",
+											"value": "all",
+											"description": "Optional."
+										},
+										{
+											"key": "private_group",
+											"value": null,
+											"description": "Optional."
+										},
+										{
+											"key": "page",
+											"value": "0",
+											"description": "Required. Pagination starts at 0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-middleware-rewrite",
+									"value": "/api/companies?sort_by=Most+Popular&category=all&private_group=&page=0"
+								},
+								{
+									"key": "vary",
+									"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 01 Jan 2024 23:46:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": [\n        {\n            \"created_at\": \"2023-12-25T11:25:01.969461+00:00\",\n            \"name\": \"Ferrari\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idhiG18qpz/idTUh3E_Zc.jpeg\",\n            \"url\": \"www.ferrari.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"b0e4b7a8-6623-4434-b248-cc0cece62107\"\n            ],\n            \"id\": \"c6ce0dee-62d4-4015-b919-34b8e1c3eb28\",\n            \"view_count\": 0,\n            \"greatest_discount\": 20,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:25:17.418672+00:00\",\n            \"name\": \"Samsung\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/iduaw_nOnR/idpa3LOGLJ.jpeg\",\n            \"url\": \"www.samsung.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"952e61df-b778-4ef6-86bc-4af2e3ce405e\"\n            ],\n            \"id\": \"a66b5dd8-e957-4024-89c6-04b924ce8db1\",\n            \"view_count\": 0,\n            \"greatest_discount\": 10,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:21:43.769238+00:00\",\n            \"name\": \"Boeing\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idqRgU_Nu5/idDwRiWSMo.png\",\n            \"url\": \"www.boeing.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"d33f3166-be1c-4050-b11d-2322fabdfc4b\"\n            ],\n            \"id\": \"84e412cf-b321-4611-a211-e921af3a8c0c\",\n            \"view_count\": 0,\n            \"greatest_discount\": 2,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:22:12.727241+00:00\",\n            \"name\": \"dyson\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/iddvVvIMcZ/idc_NDes91.png\",\n            \"url\": \"www.dyson.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"6d835519-dc7c-489b-aee7-3c9285cd69f9\"\n            ],\n            \"id\": \"79533c12-7cc4-444d-b662-0e7a85037b73\",\n            \"view_count\": 0,\n            \"greatest_discount\": 5,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:23:07.312248+00:00\",\n            \"name\": \"Oneplus\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idi46coDvW/idBQBZ8TvD.jpeg\",\n            \"url\": \"www.oneplus.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"73fc9b8e-3519-4fe8-857f-977630dfcaef\"\n            ],\n            \"id\": \"8e216fa5-0f16-4f13-8a5c-66be264e4097\",\n            \"view_count\": 0,\n            \"greatest_discount\": 10,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:08:24.419458+00:00\",\n            \"name\": \"target\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/id0ZfAM4Dt/idjO1D3FAx.jpeg\",\n            \"url\": \"www.target.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"aad7ec8e-6187-44c3-94cb-574f5dd98739\"\n            ],\n            \"id\": \"693cf9e3-9329-44c2-9241-29d5dff7bee7\",\n            \"view_count\": 0,\n            \"greatest_discount\": 30,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:19:04.841837+00:00\",\n            \"name\": \"mcdonalds\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/id7ETzoB9W/idebA3SyUk.png\",\n            \"url\": \"www.mcdonalds.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"46803fb7-5b36-4d95-88ae-fc20dc84c3e1\",\n                \"8c266e60-7c95-423a-b573-364fabc147c6\",\n                \"b24b18af-2779-4e75-80fc-c8d3f2923513\"\n            ],\n            \"id\": \"e7ae62ba-6005-43d2-95d5-33e5f02ccb9f\",\n            \"view_count\": 0,\n            \"greatest_discount\": 100,\n            \"discounts_updated_at\": \"2024-01-01T23:36:56.175+00:00\"\n        },\n        {\n            \"created_at\": \"2024-01-01T23:43:10.209598+00:00\",\n            \"name\": \"Wendys\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idiMsuk2zA/idaObePQVX.jpeg\",\n            \"url\": \"www.wendys.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"90141cbb-6d31-4e3b-940f-dac7a094cf01\"\n            ],\n            \"id\": \"4472d423-c3b1-4e22-904b-ab87880d23d4\",\n            \"view_count\": 0,\n            \"greatest_discount\": 15,\n            \"discounts_updated_at\": \"2024-01-01T23:43:09.523+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:20:09.849748+00:00\",\n            \"name\": \"Facebook\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idpKX136kp/idQBiBTxsm.jpeg\",\n            \"url\": \"www.facebook.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"b4e8b225-ffb1-4650-a400-fbc597f8641b\"\n            ],\n            \"id\": \"26a87161-0a29-44da-ad4f-329153ff5c60\",\n            \"view_count\": 0,\n            \"greatest_discount\": 30,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:20:25.237592+00:00\",\n            \"name\": \"twitter\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idS5WhqBbM/idnz5G46Uq.jpeg\",\n            \"url\": \"www.twitter.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"a12983f3-65d4-46ba-a53e-fa64d435250b\"\n            ],\n            \"id\": \"a0e885ce-1fbf-46a5-8f05-8e08dfa02048\",\n            \"view_count\": 0,\n            \"greatest_discount\": 40,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:20:41.309475+00:00\",\n            \"name\": \"Hotels\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/id-Jaka7NL/idLD_6oIim.jpeg\",\n            \"url\": \"www.hotels.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"e99b8f4e-f8f2-4612-b6cd-e6dd680628cb\"\n            ],\n            \"id\": \"9f9ac19c-2cd5-422a-b620-fa916a300b27\",\n            \"view_count\": 0,\n            \"greatest_discount\": 50,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:21:17.76097+00:00\",\n            \"name\": \"Expedia\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idAGaivHFH/ide_xsD09Q.jpeg\",\n            \"url\": \"www.expedia.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"98e64b91-0d31-4814-b573-d9b4c3c7b35a\"\n            ],\n            \"id\": \"5fdc01d6-4adc-4811-82a9-2d14df7e1691\",\n            \"view_count\": 0,\n            \"greatest_discount\": 60,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-24T13:22:44.696482+00:00\",\n            \"name\": \"toyota\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idR0dj2M6E/id1frwvndF.jpeg\",\n            \"url\": \"www.toyota.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"c19f8186-ceac-4b18-af33-517b136e0926\",\n                \"4687b1cf-6eed-47d6-8534-a659230b4e61\"\n            ],\n            \"id\": \"8ef7c6ee-ec74-472b-9b5a-15026fb2816a\",\n            \"view_count\": 0,\n            \"greatest_discount\": 70,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:24:18.030788+00:00\",\n            \"name\": \"Honda\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/id9e9dg7ak/iduN8-7wyJ.jpeg\",\n            \"url\": \"www.honda.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"71f585de-19c2-4d0c-ad03-27b4afcf3323\"\n            ],\n            \"id\": \"eb51507d-f8c7-4880-8580-af627ab78d5e\",\n            \"view_count\": 0,\n            \"greatest_discount\": 90,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:15:01.315365+00:00\",\n            \"name\": \"prada\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idxHSB9cRy/idNL8XBZCz.jpeg\",\n            \"url\": \"www.prada.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"425ce3cb-30d6-43fa-98b3-0b738f6e379d\"\n            ],\n            \"id\": \"fcd8e824-c7b4-4955-aa2f-39827b29aaf3\",\n            \"view_count\": 0,\n            \"greatest_discount\": 50,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:17:30.974902+00:00\",\n            \"name\": \"volvo\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idNEAWjsMP/idYI-3X3Rk.jpeg\",\n            \"url\": \"www.volvo.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"02b73c73-6d49-49e6-8c56-ac4a01f23df8\"\n            ],\n            \"id\": \"93cdb8b1-e161-4515-ae9e-ae795955107c\",\n            \"view_count\": 0,\n            \"greatest_discount\": 20,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:17:51.208866+00:00\",\n            \"name\": \"pepsi\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idGhGN0KKe/idXUjgR8D-.jpeg\",\n            \"url\": \"www.pepsi.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"6231eebd-7d03-4a45-af9c-76073dc0c60a\"\n            ],\n            \"id\": \"575059c4-516e-47ae-a711-8972b151c25e\",\n            \"view_count\": 0,\n            \"greatest_discount\": 10,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:19:35.574246+00:00\",\n            \"name\": \"Youtube\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idVfYwcuQz/idmfkl4meA.jpeg\",\n            \"url\": \"www.youtube.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"1c8f87dd-b98d-4756-af3e-73caebe5b679\"\n            ],\n            \"id\": \"2e6d9d59-650e-4c5d-ab63-473ed00c2a96\",\n            \"view_count\": 0,\n            \"greatest_discount\": 9,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:19:53.14375+00:00\",\n            \"name\": \"Google\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/id6O2oGzv-/idNEgS9h8q.jpeg\",\n            \"url\": \"www.google.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"3befc40f-0eea-4097-9562-913330f269e3\"\n            ],\n            \"id\": \"b0c6a8e0-11d7-4b95-a267-3210e8fba9d7\",\n            \"view_count\": 0,\n            \"greatest_discount\": 20,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        },\n        {\n            \"created_at\": \"2023-12-26T00:23:22.163261+00:00\",\n            \"name\": \"Chase\",\n            \"description\": \"\",\n            \"logo\": \"https://asset.brandfetch.io/idudVYts5w/id81JWhQk9.jpeg\",\n            \"url\": \"www.chase.com\",\n            \"views\": 0,\n            \"discounts\": [\n                \"55fadf27-b6dc-42ef-a57f-3835b576e985\"\n            ],\n            \"id\": \"322ea7b9-67cc-493a-9a88-a93329b2e513\",\n            \"view_count\": 0,\n            \"greatest_discount\": 20,\n            \"discounts_updated_at\": \"2024-01-01T23:10:53.12933+00:00\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Add Discount",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "supabase_jwt",
+						"value": "{{supabase_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "company",
+							"value": "Wendys",
+							"description": "Required.",
+							"type": "text"
+						},
+						{
+							"key": "terms_and_conditions",
+							"value": "N/A",
+							"description": "Required.",
+							"type": "text"
+						},
+						{
+							"key": "company_url",
+							"value": "www.wendys.com",
+							"description": "Required.",
+							"type": "text"
+						},
+						{
+							"key": "discount_amount",
+							"value": "15",
+							"description": "Required.",
+							"type": "text"
+						},
+						{
+							"key": "public",
+							"value": "true",
+							"description": "Required.",
+							"type": "text"
+						},
+						{
+							"key": "private_groups",
+							"value": "",
+							"description": "Required. Comma separated string of group uuid",
+							"type": "text"
+						},
+						{
+							"key": "categories",
+							"value": "Hobbies",
+							"description": "Required. Comma separated string of categories.",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/discounts",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"discounts"
+					]
+				},
+				"description": "## Add Discounts\n\nThis endpoint allows you to add discounts for a company.\n\n### Request Body\n\n- `company` (text): The name of the company for which the discount is being added.\n- `terms_and_conditions` (text): The terms and conditions of the discount.\n- `company_url` (text): The URL of the company's website.\n- `discount_amount` (text): The amount of discount being offered in percent.\n- `public` (text): Indicates if the discount is public.\n    \n\n### Response\n\nUpon successful addition of the discount, the response will include the details of the added discount, such as the creation date, user ID, company name, terms and conditions, company URL, shareable URL, discount amount, expiration date, view count, share count, message count, and public status."
+			},
+			"response": [
+				{
+					"name": "Add Discount",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "supabase_jwt",
+								"value": "{{supabase_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company",
+									"value": "Wendys",
+									"description": "Required.",
+									"type": "text"
+								},
+								{
+									"key": "terms_and_conditions",
+									"value": "N/A",
+									"description": "Required.",
+									"type": "text"
+								},
+								{
+									"key": "company_url",
+									"value": "www.wendys.com",
+									"description": "Required.",
+									"type": "text"
+								},
+								{
+									"key": "discount_amount",
+									"value": "15",
+									"description": "Required.",
+									"type": "text"
+								},
+								{
+									"key": "public",
+									"value": "true",
+									"description": "Required.",
+									"type": "text"
+								},
+								{
+									"key": "private_groups",
+									"value": "",
+									"description": "Required. Comma separated string of group uuid",
+									"type": "text"
+								},
+								{
+									"key": "categories",
+									"value": "Hobbies",
+									"description": "Required. Comma separated string of categories.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/discounts",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"discounts"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "x-middleware-rewrite",
+							"value": "/api/discounts"
+						},
+						{
+							"key": "vary",
+							"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 01 Jan 2024 23:43:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"created_at\": \"2024-01-01T23:43:09.612542+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 15,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"90141cbb-6d31-4e3b-940f-dac7a094cf01\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Discounts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "supabase_jwt",
+						"value": "{{supabase_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/api/discounts?sort_by=Most%20Popular&private_group=&category=Electronics&page=0",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"discounts"
+					],
+					"query": [
+						{
+							"key": "sort_by",
+							"value": "Most%20Popular",
+							"description": "Required. Choose One: Most Popular Highest to Lowest, Lowest to Highest, Most Recent"
+						},
+						{
+							"key": "private_group",
+							"value": "",
+							"description": "Optional. Filter by a Private Group uuid."
+						},
+						{
+							"key": "category",
+							"value": "Electronics",
+							"description": "Optional. Filter By a Category"
+						},
+						{
+							"key": "page",
+							"value": "0",
+							"description": "Required. Page number for pagination. Starts at index 0."
+						}
+					]
+				},
+				"description": "### GET /api/discounts\n\nThis endpoint retrieves a list of discounts with optional sorting and pagination.\n\n#### Parameters\n\n- `sort_by`: Specifies the field to sort the discounts by.\n- `category`: Filters the discounts by a category.\n- `page`: Specifies the page number for paginated results. Starts at 0.\n- `private_group` (WIP)"
+			},
+			"response": [
+				{
+					"name": "Discounts",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "supabase_jwt",
+								"value": "{{supabase_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/discounts?sort_by=Most%20Popular&private_group=&category=all&page=0",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"discounts"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "Most%20Popular",
+									"description": "Required. Choose One: Most Popular Highest to Lowest, Lowest to Highest, Most Recent"
+								},
+								{
+									"key": "private_group",
+									"value": "",
+									"description": "Optional. Filter by a Private Group uuid."
+								},
+								{
+									"key": "category",
+									"value": "all",
+									"description": "Optional. Filter By a Category"
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Required. Page number for pagination. Starts at index 0."
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "x-middleware-rewrite",
+							"value": "/api/discounts?sort_by=Most+Popular&private_group=&category=all&page=0"
+						},
+						{
+							"key": "vary",
+							"value": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Url"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 01 Jan 2024 23:40:42 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"discounts\": [\n        {\n            \"created_at\": \"2023-12-24T12:06:38.408653+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"f91a968f-6c0d-4ae9-a914-6afb4b723eef\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:10:12.111065+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"f21844e8-9c96-4169-89be-0083c1d9f956\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:15:16.361871+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"d1373a33-9a11-401a-9939-e09435bff92f\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:17:02.486022+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"f93a2541-3e4f-467b-8d8d-1723911859c4\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:18:15.048338+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"d00e38fa-4ec1-436f-a088-735c0a6bdd19\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:21:53.399627+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"0e375818-750d-420b-9ced-fa6d8a85a07d\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:22:19.664412+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"85b64438-7a6b-4654-b607-d01f86ebbaa8\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:25:22.577002+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"2bcc90e1-e127-4148-a6b8-33b6535aa379\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:27:44.239823+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"70deb379-323a-4f3b-8cb7-fe072bb5399b\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:30:55.259701+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"958a1296-e145-4a47-baa3-bba4751198c2\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:31:23.662105+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"44ef6773-a415-4426-a518-178eda63f211\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:34:33.554004+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"2695d5fd-c864-4ca4-8e8c-04cd18a812ec\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:35:36.623369+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"ab7a4c54-6186-413f-a987-f9151ca4cbe7\"\n        },\n        {\n            \"created_at\": \"2023-12-24T13:18:24.342261+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"04cb7021-5149-47ef-9970-5ed12c29a23f\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:12:37.912685+00:00\",\n            \"user_id\": \"user_2Z3QIypzCDwPnQBHTZAcTLU0kQS\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 90,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"4687b1cf-6eed-47d6-8534-a659230b4e61\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:23:27.208479+00:00\",\n            \"user_id\": \"user_2Z3QIypzCDwPnQBHTZAcTLU0kQS\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 90,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"4623fecf-e5ce-4335-94fb-06f10515cc2a\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:25:00.705642+00:00\",\n            \"user_id\": \"user_2Z3QIypzCDwPnQBHTZAcTLU0kQS\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 5,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"b0e4b7a8-6623-4434-b248-cc0cece62107\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:25:16.807014+00:00\",\n            \"user_id\": \"user_2Z3QIypzCDwPnQBHTZAcTLU0kQS\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 5,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"952e61df-b778-4ef6-86bc-4af2e3ce405e\"\n        },\n        {\n            \"created_at\": \"2023-12-25T11:25:34.573256+00:00\",\n            \"user_id\": \"user_2Z3QIypzCDwPnQBHTZAcTLU0kQS\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 5,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"fcba2c82-67a4-4ede-8a1b-8528236baf2a\"\n        },\n        {\n            \"created_at\": \"2023-12-24T12:06:01.050713+00:00\",\n            \"user_id\": \"user_2YMU8LI2KedYHIorUqA6tnwYidi\",\n            \"terms_and_conditions\": \"N/A\",\n            \"shareable_url\": \"\",\n            \"discount_amount\": 25,\n            \"view_count\": 0,\n            \"share_count\": 0,\n            \"message_count\": 0,\n            \"public\": true,\n            \"id\": \"d7e8473a-b5f8-493a-bb26-dd246a42b176\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Discount",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "supabase_jwt",
+						"value": "{{supabase_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "discount_id",
+							"value": "a3d6b3ad-94e4-4eb3-a5db-37e5d3f2d46a",
+							"description": "uuid",
+							"type": "text"
+						},
+						{
+							"key": "discount_amount",
+							"value": "690",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "Tesla",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/discounts",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"discounts"
+					]
+				},
+				"description": "### Update Discount\n\nThis endpoint is used to update a discount by sending an HTTP PATCH request to the specified URL.\n\n#### Request Body\n\n- discount_id (text, required): The unique identifier of the discount (UUID).\n- {key} (text, required): The new value of a discount key-value pair"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Discount",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "supabase_jwt",
+						"value": "{{supabase_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/api/discounts?discount_id=fe787052-0d75-4ad0-8487-5b9a5fc42a8d",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"discounts"
+					],
+					"query": [
+						{
+							"key": "discount_id",
+							"value": "fe787052-0d75-4ad0-8487-5b9a5fc42a8d"
+						}
+					]
+				},
+				"description": "### Delete Discount\n\nThis endpoint is used to delete a specific discount by providing the discount ID as a query parameter.\n\n#### Request\n\n- Method: DELETE\n- URL: `{{baseurl}}/api/discounts`\n- Query Parameters:\n    \n    - discount_id (string, required): The ID of the discount to be deleted."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearer_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

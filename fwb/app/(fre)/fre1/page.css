@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   height: 100vh;
+  overflow: hidden;
 }
 
 .middleSpacing {
@@ -170,14 +171,11 @@ input::placeholder {
 }
 
 .button{
-  margin-top:13.53px
+  margin-top:13.53px;
+  margin-left:110px
 }
 
 #newUsername{
   width:420px;
   height: 48px;
-}
-
-.button{
-  margin-left:110px
 }

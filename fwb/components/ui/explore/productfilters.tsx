@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,14 +9,24 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Typography } from "@mui/material";
 import arrowIcon from "@/components/ui/explore/icons/expand_more_24px.svg";
 import Image from "next/image";
+import { FilterContext } from "./filter_context";
 
-function BasicSelect({ name, options }: { name: string; options: string[] }) {
-  const [option, setOption] = React.useState("");
-  const [flip, setFlip] = React.useState(false);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setOption(event.target.value as string);
-  };
+function BasicSelect({
+  name,
+  options,
+  defaultValue,
+}: {
+  name: string;
+  options: string[];
+  defaultValue: string;
+}) {
+  const [option, setOption] = useState(defaultValue);
+  const [flip, setFlip] = useState(false);
+  const {
+    setSortBy,
+    setCategory,
+    setPrivateGroup,
+  } = useContext(FilterContext);
 
   const arrowStyle = {
     color: "white",
@@ -32,22 +42,32 @@ function BasicSelect({ name, options }: { name: string; options: string[] }) {
         sx={{ display: "flex", minWidth: 246, height: "48px" }}
       >
         <InputLabel
-          id="demo-simple-select-label"
+          id="simple-select-label"
           sx={{
             color: "white",
             borderColor: "white",
             fontWeight: "700",
             letterSpacing: "0.32px",
+            fontFamily: "inherit",
           }}
         >
           {name}
         </InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId="simple-select-label"
+          id="simple-select"
           value={option}
           label={`${name}`}
-          onChange={handleChange}
+          onChange={(event: SelectChangeEvent) => {
+            setOption(event.target.value as string);
+            if (name === "Sort by") {
+              setSortBy(event.target.value as string);
+            } else if (name === "Category") {
+              setCategory(event.target.value as string);
+            } else if (name === "Private Group") {
+              setPrivateGroup(event.target.value as string);
+            }
+          }}
           onOpen={() => setFlip(true)}
           onClose={() => setFlip(false)}
           IconComponent={() => (
@@ -72,13 +92,19 @@ function BasicSelect({ name, options }: { name: string; options: string[] }) {
               borderColor: "white",
             },
             color: "white",
+            fontFamily: "inherit",
           }}
         >
           {options.map((option: string) => (
             <MenuItem
               key={option}
               value={option}
-              sx={{ backgroundColor: "#1A1A23", color: "white" }}
+              sx={{
+                backgroundColor: "#1A1A23",
+                color: "white",
+                fontFamily: "inherit",
+                borderRadius: "10px",
+              }}
             >
               {option}
             </MenuItem>
@@ -93,7 +119,8 @@ export default function Productfilters() {
     <Box
       sx={{
         backgroundColor: "#1A1A23",
-        marginY: "5vh",
+        marginTop: "108px",
+        marginBottom: "32px",
         position: "sticky",
         top: "112px",
         height: "76px",
@@ -108,14 +135,20 @@ export default function Productfilters() {
           options={[
             "Most Popular",
             "Most Recent",
-            "Highest to Loweest Discounts",
-            "Lowest to Hightest Discounts",
+            "Highest to Lowest Discounts",
+            "Lowest to Highest Discounts",
           ]}
+          defaultValue="Most Popular"
         />
-        <BasicSelect name="Private Group" options={["Group 1", "Group 2"]} />
+        <BasicSelect
+          name="Private Group"
+          options={["All", "Group 1", "Group 2"]}
+          defaultValue="All"
+        />
         <BasicSelect
           name="Category"
           options={[
+            "All",
             "Sports",
             "Fashion",
             "Electronic",
@@ -126,6 +159,7 @@ export default function Productfilters() {
             "Books",
             "Hobbies",
           ]}
+          defaultValue="All"
         />
       </Box>
     </Box>
