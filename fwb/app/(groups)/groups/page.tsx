@@ -4,10 +4,9 @@ import Tabs from "@/components/ui/privategroups/Tabs";
 
 //TODOs:
 // Backend ---
-// Hook up to backend (Group info, discount info, and user info)
 // Search bar for searching members
 
-async function getGroupData() {
+async function getGroupData(searchParams: { [key: string]: string | string[] | undefined }) {
   var myHeaders = new Headers();
   myHeaders.append(
     "supabase_jwt",
@@ -25,7 +24,7 @@ async function getGroupData() {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/groups?group_id=d7070966-ee40-40f6-a622-dffeaf5bd3f5`, // add to .env
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${searchParams.group_id}`, // add to .env
       requestOptions
     );
     if (!response.ok) {
@@ -56,7 +55,7 @@ async function getUserData() {
   };
 
   try {
-    const response = await fetch("http://localhost:3000/api/users", requestOptions);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -68,9 +67,10 @@ async function getUserData() {
   }
 }
 
-const page = async () => {
-  const groupData = await getGroupData();
-  const userData = await getUserData();
+const page = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
+  const groupData = await getGroupData(searchParams);
+  const userData = await getUserData(); // This function should take an array of userIds that are part of the group and return an array of userData
+
   return (
     <div className="bg-[#1a1a23] h-screen w-screen overflow-x-hidden">
       <Header />
