@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
