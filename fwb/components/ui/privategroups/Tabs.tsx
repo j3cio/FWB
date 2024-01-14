@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@mui/base";
 import { Box } from "@mui/material";
 import { useState } from "react";
@@ -5,7 +6,7 @@ import Bargains from "../../ui/privategroups/BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
-const Tabs = () => {
+const Tabs = ({ groupData, userData }: any) => {
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
   const showMemberTab = () => {
@@ -40,7 +41,9 @@ const Tabs = () => {
         </div>
       </div>
       <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
-      <div className="w-full h-screen">{showMembers ? <MembersSection /> : <DiscountsSection />}</div>
+      <div className="w-full h-screen">
+        {showMembers ? <MembersSection users={userData.users} /> : <DiscountsSection />}
+      </div>
     </div>
   );
 };
