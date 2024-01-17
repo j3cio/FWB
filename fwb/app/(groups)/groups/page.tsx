@@ -74,7 +74,7 @@ const page = async ({ searchParams }: { searchParams: { [key: string]: string | 
   return (
     <div className="bg-[#1a1a23] h-screen w-screen overflow-x-hidden">
       <Header />
-      <GroupDetailsSection />
+      <GroupDetailsSection userData={userData} groupData={groupData.data[0]}/>
       <Tabs userData={userData} groupData={groupData.data[0]} />
     </div>
   );
