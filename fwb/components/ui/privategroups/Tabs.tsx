@@ -43,7 +43,7 @@ const Tabs = ({ groupData, userData }: {groupData: GroupData, userData: UserData
       </div>
       <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
       <div className="w-full h-screen">
-        {showMembers ? <MembersSection users={userData.users} /> : <DiscountsSection />}
+        {showMembers ? <MembersSection users={userData} /> : <DiscountsSection />}
       </div>
     </div>
   );
