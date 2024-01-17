@@ -4,8 +4,10 @@ import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import MembersIcon from "../privategroups/icons/membersicon.svg";
 import Pencil from "../privategroups/icons/pencil.svg";
+import { GroupData, UserData } from "@/app/types/types";
 
-const GroupDetailsSection = ({groupData, userData}: any) => {
+const GroupDetailsSection = ({groupData, userData}: {groupData: GroupData, userData: UserData}) => {
+  
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
 
   return (

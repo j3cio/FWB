@@ -67,6 +67,7 @@ async function getUserData() {
   }
 }
 
+
 const page = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
   const groupData = await getGroupData(searchParams);
   const userData = await getUserData(); // This function should take an array of userIds that are part of the group and return an array of userData
@@ -74,7 +75,7 @@ const page = async ({ searchParams }: { searchParams: { [key: string]: string | 
   return (
     <div className="bg-[#1a1a23] h-screen w-screen overflow-x-hidden">
       <Header />
-      <GroupDetailsSection userData={userData} groupData={groupData.data[0]}/>
+      <GroupDetailsSection userData={userData.users} groupData={groupData.data[0]}/>
       <Tabs userData={userData} groupData={groupData.data[0]} />
     </div>
   );
