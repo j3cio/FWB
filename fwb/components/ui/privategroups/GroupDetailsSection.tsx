@@ -5,7 +5,7 @@ import Image from "next/image";
 import MembersIcon from "../privategroups/icons/membersicon.svg";
 import Pencil from "../privategroups/icons/pencil.svg";
 
-const GroupDetailsSection = () => {
+const GroupDetailsSection = ({groupData, userData}: any) => {
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
 
   return (
@@ -17,7 +17,7 @@ const GroupDetailsSection = () => {
         </div>
         <div className="text-white ml-24 mt-36 flex flex-row justify-between">
           <div className="flex flex-row">
-            <div>Group Name</div>
+            <div>{groupData.name}</div>
             <div>
               <Image
                 src={Pencil}
