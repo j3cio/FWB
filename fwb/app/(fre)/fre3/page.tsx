@@ -18,6 +18,7 @@ export default function UserFlowPage3() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const router = useRouter();
 
   if (!isLoaded || !isSignedIn) {
