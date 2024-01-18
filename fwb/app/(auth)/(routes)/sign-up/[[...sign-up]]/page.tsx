@@ -60,7 +60,7 @@ export default function Page() {
     try {
       await signUp?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
+        redirectUrl: "/sso-callback", // 'https://musical-collie-80.clerk.accounts.dev/v1/oauth_callback',
         redirectUrlComplete: "/success",
       });
     } catch (error) {

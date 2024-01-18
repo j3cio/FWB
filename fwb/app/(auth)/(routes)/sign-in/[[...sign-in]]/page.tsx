@@ -73,8 +73,8 @@ export default function Page() {
     try {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
-        redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/profile", // redirect to this route if sign-in is successful
       });
     } catch (error) {
       console.error("Error signing in with Google", error);
@@ -86,8 +86,8 @@ export default function Page() {
     try {
       const response = await signIn?.authenticateWithRedirect({
         strategy: "oauth_discord",
-        redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
-        redirectUrlComplete: "/fre1", // redirect to this route if sign-in is successful
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/profile", // redirect to this route if sign-in is successful
       });
 
       console.log(response);
