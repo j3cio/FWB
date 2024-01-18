@@ -1,19 +1,24 @@
 "use client";
-
-import "./page.css";
-import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
+import { useUser } from "@clerk/nextjs";
+import "dotenv/config";
+import Link from "next/link";
+import { FormEvent, KeyboardEvent, useState, useEffect } from "react";
+import { FacebookShareButton } from "react-share";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import "./page.css";
 
 export default function UserFlowPage3() {
+  //TODO: Create Sharing Functionality to Send Emails with input field
+  //TODO: Create Message Feature to open up personal chats when clicking on social icons
+
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const router = useRouter();
 
   if (!isLoaded || !isSignedIn) {
@@ -61,6 +66,26 @@ export default function UserFlowPage3() {
     }
   };
 
+  const handleShare = async () => {
+    if (emailAddresses.length === 0) {
+      setErrorMessage("Please enter at least one email before sharing.");
+      return;
+    }
+    try {
+      // Send emails
+      const response = await axios.post("/api/invitations", {
+        emails: emailAddresses,
+      });
+      // Reset state after sending emails
+      setEmailAddresses([]);
+      setEmailInput("");
+      // edirecting to the profile page
+      window.location.href = "/profile";
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
   //OnClick Buttons to handle user redirect to respective socials to share with friends
   const handlewhatsapp = () => {
     window.open("https://www.whatsapp.com/");
@@ -84,22 +109,14 @@ export default function UserFlowPage3() {
       <div className="middleSpacing">
         <div className="flex-col justify-center">
           <div className="progresscircles">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="56"
-              height="8"
-              viewBox="0 0 56 8"
-              fill="none"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="8" viewBox="0 0 56 8" fill="none">
               <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
               <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
               <circle cx="52" cy="4" r="4" fill="#F6FF82" />
             </svg>
           </div>
           <h2 className="mainHeader">Share with Your Friends!</h2>
-          <h5 className="subtext">
-            Spread the love and be the wingman to someone else&apos;s wallet!
-          </h5>
+          <h5 className="subtext">Spread the love and be the wingman to someone else&apos;s wallet!</h5>
 
           {/* This is the form that will handle email sharing  */}
 
@@ -112,23 +129,20 @@ export default function UserFlowPage3() {
             <button className="icon1" onClick={handleinstagram}>
               <img src="/socialicons/instagram.SVG" />
             </button>
-            <button className="icon1" onClick={handlefacebook}>
-              <div className="facebookIcon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="34"
-                  height="34"
-                  viewBox="0 0 34 34"
-                  fill="none"
-                >
-                  <path
-                    d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
-                    fill="white"
-                  />
-                </svg>
-              </div>
-              {/* <img src="/socialicons/facebook.SVG" /> */}
-            </button>
+            <div className="icon1">
+              {/* The url given is the url link you would like to share */}
+              <FacebookShareButton url={process.env.NEXT_PUBLIC_SHARE_URL || "https://staging.app.makefwb.com/sign-in"}>
+                <div className="facebookIcon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                    <path
+                      d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+                {/* <img src="/socialicons/facebook.SVG" /> */}
+              </FacebookShareButton>
+            </div>
             <button onClick={handlediscord}>
               <img src="/socialicons/discord.SVG" />
             </button>
@@ -176,8 +190,8 @@ export default function UserFlowPage3() {
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
           <div className="shareButtons">
             {/* <Link href="/profile" className="next"> */}
-
-            <button className="next" type="submit" form="invitations">
+            {/* <button className="next" type="submit" form="invitations"> */}
+            <button className="next" type="button" onClick={handleShare}>
               Share
             </button>
             {/* SVG Icon for arrow from Figma Design */}
