@@ -65,6 +65,26 @@ export default function UserFlowPage3() {
     }
   };
 
+  const handleShare = async () => {
+    if (emailAddresses.length === 0) {
+      setErrorMessage("Please enter at least one email before sharing.");
+      return;
+    }
+    try {
+      // Send emails
+      const response = await axios.post("/api/invitations", {
+        emails: emailAddresses,
+      });
+      // Reset state after sending emails
+      setEmailAddresses([]);
+      setEmailInput("");
+      // edirecting to the profile page
+      window.location.href = "/profile";
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
   //OnClick Buttons to handle user redirect to respective socials to share with friends
   const handlewhatsapp = () => {
     window.open("https://www.whatsapp.com/");
