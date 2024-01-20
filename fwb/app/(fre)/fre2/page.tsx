@@ -20,29 +20,30 @@ export default function UserFlowPage2() {
   const [company, setCompany] = useState('');
   const [termsAndConditions, setTermsAndConditions] = useState('');
   const [discountAmount, setDiscountAmount] = useState('');
-  const [categories, setCategories] = useState([]);
+
+  //Set State of All Categories
+  const allCategories = ["sports", "fashion", "electronic", "health", "books", "hobbies", "home & kitchen", "computer & accessories", "beauty & skincare"];
+  const [categories, setCategories] = useState<string[]>(allCategories);
 
   //TODO: Handle User Routing Once Form is Submitted
   const router = useRouter();
 
   //Handle Discount Submission
-  const handleSubmit = async (e: any) => {
+  const handleDiscountSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
       const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
 
-      const supabaseToken = await window.Clerk.session.getToken({template: 'supabase'})
+      const supabaseToken = await window.Clerk.session.getToken({template: 'supabase'});
 
       const formData = new FormData();
       formData.append('company', company);
       formData.append('terms_and_conditions', termsAndConditions);
-      formData.append('categories', `{${categories.join(',')}}`);
       formData.append('discount_amount', discountAmount);
-      formData.append('company_url', '');
       formData.append('public', 'true');
-
-      console.log(formData)
+      formData.append('categories', `${categories}`);
+      formData.append('company_url', `www.${company}.com`.toLowerCase())
 
       // POST Fetch Request to Discounts API 
       const response = await fetch('/api/discounts', {
@@ -54,22 +55,33 @@ export default function UserFlowPage2() {
         body: formData
       });
 
+      // Log each entry in the FormData separately
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+
       if (response.ok) {
         const data = await response.json();
         console.log('Discount added successfully:', data);
+        router.push('/fre3')
       } else {
         const errorData = await response.json();
         console.error('Error adding discount:', errorData);
       }
     } catch (error) {
-      console.error('Error adding discount:', error);
+      console.error('Error using discount API:', error);
     }
   };
 
   //Function to handle Array Property of Categories Column in Supabase
-  const handleCategoryChange = (selectedCategories: any) => {
-    setCategories(selectedCategories);
-  };
+  const handleCategoryChange = (selectedCategories: string[]) => {
+    // Set the state to the selected categories
+    if (selectedCategories.includes("All")) {
+      setCategories(allCategories)
+    } else {
+      setCategories(selectedCategories);
+    }
+  ;}
 
   //Update user info based on provided company of Employment
   const { isSignedIn, user, isLoaded } = useUser()
@@ -95,7 +107,8 @@ export default function UserFlowPage2() {
 
           {/* This is the form that will handle company user input  */}
           <div className='ml-9'>
-          <form onSubmit={handleSubmit}>
+
+          <form onSubmit={handleDiscountSubmit}>
             <h6 className="discountFormText">Company Name *</h6>
             <input
               type="text"
@@ -136,9 +149,9 @@ export default function UserFlowPage2() {
                 <option value="Fashion">Fashion</option>
                 <option value="Electronic">Electronic</option>
                 <option value="Health">Health</option>
-                <option value="HomeAndKitchen">Home & Kitchen</option>
-                <option value="ComputerAndAccessories">Computer & Accessories</option>
-                <option value="BeautyAndSkincare">Beauty & Skincare</option>
+                <option value="Home & Kitchen">Home & Kitchen</option>
+                <option value="Computer & Accessories">Computer & Accessories</option>
+                <option value="Beauty & Skincare">Beauty & Skincare</option>
                 <option value="Books">Books</option>
                 <option value="Hobbies">Hobbies</option>
               </select>
@@ -154,7 +167,8 @@ export default function UserFlowPage2() {
             />
 
             <div className="flex justify-center">
-              <Link type='submit' href='/fre3' className="share">Share</Link>
+              <button type='submit' className="share" onClick={handleDiscountSubmit}>Share
+              </button>
             </div>
           </form>
           </div>
