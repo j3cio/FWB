@@ -1,4 +1,4 @@
-import { DiscountData } from "@/app/types/types";
+import { DiscountData, UserData } from "@/app/types/types";
 import Header from "@/components/ui/explore/header";
 import GroupDetailsSection from "@/components/ui/privategroups/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/Tabs";
@@ -39,7 +39,7 @@ async function getGroupData(searchParams: { [key: string]: string | string[] | u
   }
 }
 
-async function getUserData() {
+async function getUser(user_id: string) {
   var myHeaders = new Headers();
   myHeaders.append(
     "supabase_jwt",
@@ -56,7 +56,7 @@ async function getUserData() {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, requestOptions);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -98,21 +98,30 @@ async function getDiscount(discount_id: string) {
   }
 }
 
-async function getAllDiscountsData(discount_id: string[]) {
-  const promises = discount_id.map((discount_id: string, key: number) => getDiscount(discount_id));
+async function getAllDiscountsData(discount_ids: string[]) {
+  const promises = discount_ids.map((discount_id: string, key: number) => getDiscount(discount_id));
   const results = await Promise.all(promises);
   return results;
 }
 
+async function getAllUserData(user_ids: string[]) {
+  const promises = user_ids.map((user_id: string, key: number) => getUser(user_id));
+  const results = await Promise.all(promises);
+  return results;
+  
+}
+
 const page = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
   const groupData = await getGroupData(searchParams);
-  const userData = await getUserData(); // This function should take an array of userIds that are part of the group and return an array of userData
+  //const userData = await getUserData(); // This function should take an array of userIds that are part of the group and return an array of userData
+  const userData: any = await getAllUserData(groupData.data[0].users)
   const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
+  console.log(discountData)
   return (
     <div className="bg-[#1a1a23] h-screen w-screen overflow-x-hidden">
       <Header />
-      <GroupDetailsSection userData={userData.users} groupData={groupData.data[0]} />
-      <Tabs userData={userData.users} discountData={discountData} />
+      <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
+      <Tabs userData={userData} discountData={discountData} />
     </div>
   );
 };

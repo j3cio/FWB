@@ -21,18 +21,23 @@ export interface DiscountData {
 }
 
 export interface UserData {
-  blocked_users: string;
-  company: string;
-  created_at: string;
-  email: string;
-  id: string;
-  profile_picture_url: string;
-  reported_users: string[];
-  user_discounts: string[];
-  user_groups: string[];
-  user_id: string;
-  user_messages: string[];
-  username: string;
-  verified: boolean;
+  success: boolean,
+  users: User[]
 }
 [];
+
+export interface User {
+      id: string,
+      created_at: string,
+      user_id: string,
+      username: string,
+      email: string[],
+      user_discounts: string[],
+      user_groups: string[],
+      user_messages: string[],
+      company: string,
+      verified: false,
+      blocked_users: string[],
+      reported_users: string[],
+      profile_picture_url: string
+}

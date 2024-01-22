@@ -11,6 +11,7 @@ import Pencil from "../privategroups/icons/pencil.svg";
 import Settings from "../privategroups/icons/settings.svg";
 
 const Member = ({ user }: any) => {
+  console.log(user)
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
@@ -60,7 +61,7 @@ const MembersSection = ({ users }: any) => {
       <div className="flex-1 ml-24">
         <SearchBar />
         {users.map((user: any, index: number) => (
-          <Member key={index} user={user} />
+          <Member key={index} user={user.users[0]} />
         ))}
       </div>
       <div className="flex-1 border-l-2 border-white pl-4 mr-40">
