@@ -21,16 +21,10 @@ export default function Page() {
   const { user } = useUser();
   const [userAction, setUserAction] = useState<any>();
 
-  if (user) {
-    // Redirect authenticated user to the profile page
-    router.replace("/profile");
-    return null; // You can also render a loading state or redirect message here
-  }
-
   // Display error message based on url and previous webpage accessed
   const searchParams = useSearchParams();
   const accountDoesntExist = searchParams.has('redirect_url')
-  
+
   useEffect(() => {
     // Check if window and localStorage are defined before accessing them
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -48,6 +42,12 @@ export default function Page() {
       localStorage.removeItem('userAction')
     }
   }, [redirectFromSignUp])
+
+  if (user) {
+    // Redirect authenticated user to the profile page
+    router.replace("/profile");
+    return null; // You can also render a loading state or redirect message here
+  }
 
   // start the sign In process.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

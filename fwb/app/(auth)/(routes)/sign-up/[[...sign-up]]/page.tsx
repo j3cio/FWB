@@ -26,11 +26,6 @@ export default function Page() {
   const { user } = useUser();
 
   const [error, setError] = useState<any>(null);
-  if (user) {
-    // Redirect authenticated user to the profile page
-    router.replace("/profile");
-    return null; // You can also render a loading state or redirect message here
-  }
 
   // Track local storage to determine if user being redirect to sign in comes from sign up page
   const queryParams = useSearchParams();
@@ -41,6 +36,11 @@ export default function Page() {
     localStorage.setItem('userAction', userAction);
   }, [queryParams]);
 
+  if (user) {
+    // Redirect authenticated user to the profile page
+    router.replace("/profile");
+    return null; // You can also render a loading state or redirect message here
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
