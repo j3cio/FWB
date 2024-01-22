@@ -28,13 +28,13 @@ export default function Page() {
   const [error, setError] = useState<any>(null);
 
   // Track local storage to determine if user being redirect to sign in comes from sign up page
-  const queryParams = useSearchParams();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const currentUrl = window.location.href
     const userAction = currentUrl.includes('/sign-up') ? 'signup' : 'signin';
     localStorage.setItem('userAction', userAction);
-  }, [queryParams]);
+  }, [searchParams]);
 
   if (user) {
     // Redirect authenticated user to the profile page
