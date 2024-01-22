@@ -198,7 +198,7 @@ return (
 
         {accountDoesntExist && !redirectFromSignUp && (
           <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 ml-20">
-            This account does not exist. Please create an account below
+            This account does not exist. Please create an account below.
           </div>
         )}
 
