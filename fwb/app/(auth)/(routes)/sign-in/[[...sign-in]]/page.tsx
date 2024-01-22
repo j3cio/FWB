@@ -1,8 +1,9 @@
 "use client";
+
 import { useSignIn, useUser } from "@clerk/nextjs";
 import "dotenv/config";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BoyPhoto } from "./BoyPhoto";
 import { GirlPhoto } from "./GirlPhoto";
@@ -18,21 +19,35 @@ export default function Page() {
   const router = useRouter();
   const [error, setError] = useState<any>(null);
   const { user } = useUser();
+  const [userAction, setUserAction] = useState<any>();
+
+  // Display error message based on url and previous webpage accessed
+  const searchParams = useSearchParams();
+  const accountDoesntExist = searchParams.has('redirect_url')
+
+  useEffect(() => {
+    // Check if window and localStorage are defined before accessing them
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedUserAction = localStorage.getItem('userAction');
+      setUserAction(storedUserAction);
+    }
+  }, [])
+
+  //Conditional to render only one error message not both if coming from sign-up page
+  const redirectFromSignUp = accountDoesntExist && userAction === 'signup';
+
+  //Use Effect to clear local storage if error message has already been displayed
+  useEffect(() => {
+    if (redirectFromSignUp) {
+      localStorage.removeItem('userAction')
+    }
+  }, [redirectFromSignUp])
 
   if (user) {
     // Redirect authenticated user to the profile page
     router.replace("/profile");
     return null; // You can also render a loading state or redirect message here
   }
-
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log(user);
-  //     router.push("/profile");
-  //   } else {
-  //     console.log("not signed in");
-  //   }
-  // }, [user]);
 
   // start the sign In process.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -173,10 +188,22 @@ return (
           <div></div>
         </div>
       </div>
-      <div className="rightSigninContainer">
+      <div>
+
+        {redirectFromSignUp && (
+          <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 ml-20">
+          This account is already taken. Please try signing in below.
+          </div>
+        )}
+
+        {accountDoesntExist && !redirectFromSignUp && (
+          <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 ml-20">
+            This account does not exist. Please create an account below.
+          </div>
+        )}
+
         <div className="signin">
           {/* <SignIn /> */}
-
           <div>
             <div className="name">Sign In</div>
             <div className="buttons">
