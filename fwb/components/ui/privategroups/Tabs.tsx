@@ -6,7 +6,6 @@ import { useState } from "react";
 import Bargains from "../../ui/privategroups/BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
-import { GroupData, UserData } from "@/app/types/types";
 
 const Tabs = ({ userData, discountData }: {userData: UserData, discountData: DiscountData[]}) => {
   // Tab State
