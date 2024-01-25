@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  important: true,
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -8,6 +9,21 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
+    screens: {
+      'xxl': '1440px',
+      // => @media (min-width: 640px) { ... }
+      'xl': {'max': '1440px', 'min': '1201px'},
+      // => @media (min-width: 768px) { ... }
+      'lg': {'max': '1200px', 'min': '901px'},
+      // => @media (min-width: 1024px) { ... }
+      'sm': {'max': '900px', 'min': '601px'},
+      // => @media (min-width: 1280px) { ... }
+      'xs': {'max': '600px', 'min': '401px'},
+      // => @media (min-width: 1536px) { ... }
+      'xxs': {'max': '400px'},
+      // => @media (min-width: 1536px) { ... }
+      'small': {'max': '900px'},
+    },
     container: {
       center: true,
       padding: "2rem",
