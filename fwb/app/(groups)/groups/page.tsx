@@ -1,22 +1,20 @@
-import { DiscountData, UserData } from "@/app/types/types";
+import { DiscountData } from "@/app/types/types";
 import Header from "@/components/ui/explore/header";
 import GroupDetailsSection from "@/components/ui/privategroups/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/Tabs";
-
+import { auth } from "@clerk/nextjs";
 //TODOs:
 // Backend ---
 // Search bar for searching members
 
-async function getGroupData(searchParams: { [key: string]: string | string[] | undefined }) {
+async function getGroupData(
+  searchParams: { [key: string]: string | string[] | undefined },
+  supabaseToken: any,
+  bearerToken: any
+) {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "supabase_jwt",
-    "eyJhbGciOiJIUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsInR5cCI6IkpXVCJ9.eyJhcHBfbWV0YWRhdGEiOnt9LCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiYXpwIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiZW1haWwiOiJkZXJpY2tAajNjLmlvIiwiZXhwIjoyMDIwOTgxMjYyLCJpYXQiOjE3MDU2MjEyNjIsImlzcyI6Imh0dHBzOi8vbXVzaWNhbC1jb2xsaWUtODAuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiNjc0OGFiMWUyZDVkMzNlNjg3NjgiLCJuYmYiOjE3MDU2MjEyNTcsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic3ViIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX21ldGFkYXRhIjp7fX0.PdeWLVRc1GQNekN9ItW641x29qhGtXClRpkZXwzWyEo"
-  );
-  myHeaders.append(
-    "Authorization",
-    "Bearer eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsImtpZCI6Imluc18yWEpITkRrNmpLRTZPZTN0T1MxRFFyNjB3cjAiLCJ0eXAiOiJKV1QifQ.eyJhcHBfbWV0YWRhdGEiOnt9LCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiYXpwIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiZW1haWwiOiJkZXJpY2tAajNjLmlvIiwiZXhwIjoyMDIwOTgxMjU1LCJpYXQiOjE3MDU2MjEyNTUsImlzcyI6Imh0dHBzOi8vbXVzaWNhbC1jb2xsaWUtODAuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiZDI4ZGQxNDM4MDczODdlZTEyZjUiLCJuYmYiOjE3MDU2MjEyNTAsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic3ViIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX21ldGFkYXRhIjp7fX0.kKMcX_-OSUM1y6-8Ip2AxMn-p99OdJdZ3eAVTKXKekGr2Zia4DRnbCfQz1p8hLDHo_A-cXT0CKlUzdVIjk4Fhdpa-DChaKJq3NtE8Kt9HRwNGxTB_bC1o_4WDszhMkIVZzbVrHoG8HvGYgLFN2WveC7BSz8KT3JS83MB2w7lNJbyXwEVjEOj6t7tMcukRTnadAYvtj7JCHT_dQKtoMFLg-nWqBAJo_sr-1dxFaMcAmAj12cYJc7y5hAlE-9eNlsCVAO5tJJLrZyL-4eQ5-IMNl-v_bKPlxxxjcIg5_xK0RXSnqsfU4TOg7_cnpWox8bcsf61txjdN-Amw81Urw5gYA"
-  );
+  myHeaders.append("supabase_jwt", supabaseToken);
+  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
 
   var requestOptions = {
     method: "GET",
@@ -39,16 +37,10 @@ async function getGroupData(searchParams: { [key: string]: string | string[] | u
   }
 }
 
-async function getUser(user_id: string) {
+async function getUser(user_id: string, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "supabase_jwt",
-    "eyJhbGciOiJIUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsInR5cCI6IkpXVCJ9.eyJhcHBfbWV0YWRhdGEiOnt9LCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiYXpwIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiZW1haWwiOiJkZXJpY2tAajNjLmlvIiwiZXhwIjoyMDIwNDQ0OTgzLCJpYXQiOjE3MDUwODQ5ODMsImlzcyI6Imh0dHBzOi8vbXVzaWNhbC1jb2xsaWUtODAuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiYWFlMTExMTFhNTdlNjQ4YjUwZTUiLCJuYmYiOjE3MDUwODQ5NzgsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic3ViIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX21ldGFkYXRhIjp7fX0.R_5DkJzkoLqcUFKC8bfMQ0Xr5QoUgDTBDi_3cqvqT0M"
-  );
-  myHeaders.append(
-    "Authorization",
-    "Bearer eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsImtpZCI6Imluc18yWEpITkRrNmpLRTZPZTN0T1MxRFFyNjB3cjAiLCJ0eXAiOiJKV1QifQ.eyJhcHBfbWV0YWRhdGEiOnt9LCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiYXpwIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiZW1haWwiOiJkZXJpY2tAajNjLmlvIiwiZXhwIjoyMDIwNDQ0OTc1LCJpYXQiOjE3MDUwODQ5NzUsImlzcyI6Imh0dHBzOi8vbXVzaWNhbC1jb2xsaWUtODAuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiZWNmZDg4OWIxMGQ4NmE3NWQ3ZDUiLCJuYmYiOjE3MDUwODQ5NzAsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic3ViIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX21ldGFkYXRhIjp7fX0.Z8toIkcWitiYAtLlbw3xF97KGBEHk6nCbVUHKZm2DjW1ADKB80lVHp0En5C0bYEbcuAq4EC0WD6ytxsKZB8_XVzm1rwa5IkDXX05qIt_KRXW3lor42nmcIk7oAp81E5kjg0Yaga1JX4cFiebtpSFMvcJQ_ofnnEF0ILA9JRxwS8XSHmffkt_OLM9evh0Vkq7ny6F23bUn9o9vXCzkJqh6tTz1MPwXUfvAa5QFCkLBRIm6tb7i_DKAAmUmiK3z0TdpXDDu2SIzzel2mpBLOKl5S1kYN1fjnYsT3swUeVlAifXa1ezYeoilpePs_BY2SascNBQ8Pf7b6EifysXTTpkpQ"
-  );
+  myHeaders.append("supabase_jwt", supabaseToken);
+  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
 
   var requestOptions = {
     method: "GET",
@@ -68,16 +60,10 @@ async function getUser(user_id: string) {
   }
 }
 
-async function getDiscount(discount_id: string) {
+async function getDiscount(discount_id: string, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers();
-  myHeaders.append(
-    "supabase_jwt",
-    "eyJhbGciOiJIUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsInR5cCI6IkpXVCJ9.eyJhcHBfbWV0YWRhdGEiOnt9LCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiYXpwIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiZW1haWwiOiJkZXJpY2tAajNjLmlvIiwiZXhwIjoyMDIwNDQ0OTgzLCJpYXQiOjE3MDUwODQ5ODMsImlzcyI6Imh0dHBzOi8vbXVzaWNhbC1jb2xsaWUtODAuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiYWFlMTExMTFhNTdlNjQ4YjUwZTUiLCJuYmYiOjE3MDUwODQ5NzgsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic3ViIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX21ldGFkYXRhIjp7fX0.R_5DkJzkoLqcUFKC8bfMQ0Xr5QoUgDTBDi_3cqvqT0M"
-  );
-  myHeaders.append(
-    "Authorization",
-    "Bearer eyJhbGciOiJSUzI1NiIsImNhdCI6ImNsX0I3ZDRQRDIyMkFBQSIsImtpZCI6Imluc18yWEpITkRrNmpLRTZPZTN0T1MxRFFyNjB3cjAiLCJ0eXAiOiJKV1QifQ.eyJhcHBfbWV0YWRhdGEiOnt9LCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiYXpwIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiZW1haWwiOiJkZXJpY2tAajNjLmlvIiwiZXhwIjoyMDIwNDQ0OTc1LCJpYXQiOjE3MDUwODQ5NzUsImlzcyI6Imh0dHBzOi8vbXVzaWNhbC1jb2xsaWUtODAuY2xlcmsuYWNjb3VudHMuZGV2IiwianRpIjoiZWNmZDg4OWIxMGQ4NmE3NWQ3ZDUiLCJuYmYiOjE3MDUwODQ5NzAsInJvbGUiOiJhdXRoZW50aWNhdGVkIiwic3ViIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkiLCJ1c2VyX21ldGFkYXRhIjp7fX0.Z8toIkcWitiYAtLlbw3xF97KGBEHk6nCbVUHKZm2DjW1ADKB80lVHp0En5C0bYEbcuAq4EC0WD6ytxsKZB8_XVzm1rwa5IkDXX05qIt_KRXW3lor42nmcIk7oAp81E5kjg0Yaga1JX4cFiebtpSFMvcJQ_ofnnEF0ILA9JRxwS8XSHmffkt_OLM9evh0Vkq7ny6F23bUn9o9vXCzkJqh6tTz1MPwXUfvAa5QFCkLBRIm6tb7i_DKAAmUmiK3z0TdpXDDu2SIzzel2mpBLOKl5S1kYN1fjnYsT3swUeVlAifXa1ezYeoilpePs_BY2SascNBQ8Pf7b6EifysXTTpkpQ"
-  );
+  myHeaders.append("supabase_jwt", supabaseToken);
+  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
   var requestOptions = {
     method: "GET",
     headers: myHeaders,
@@ -98,25 +84,30 @@ async function getDiscount(discount_id: string) {
   }
 }
 
-async function getAllDiscountsData(discount_ids: string[]) {
-  const promises = discount_ids.map((discount_id: string, key: number) => getDiscount(discount_id));
+async function getAllDiscountsData(discount_ids: string[], supabaseToken: any, bearerToken: any) {
+  const promises = discount_ids.map((discount_id: string, key: number) =>
+    getDiscount(discount_id, supabaseToken, bearerToken)
+  );
   const results = await Promise.all(promises);
   return results;
 }
 
-async function getAllUserData(user_ids: string[]) {
-  const promises = user_ids.map((user_id: string, key: number) => getUser(user_id));
+async function getAllUserData(user_ids: string[], supabaseToken: any, bearerToken: any) {
+  const promises = user_ids.map((user_id: string, key: number) => getUser(user_id, supabaseToken, bearerToken));
   const results = await Promise.all(promises);
   return results;
-  
 }
 
 const page = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
-  const groupData = await getGroupData(searchParams);
-  //const userData = await getUserData(); // This function should take an array of userIds that are part of the group and return an array of userData
-  const userData: any = await getAllUserData(groupData.data[0].users)
-  const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
-  console.log(discountData)
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+  const groupData = await getGroupData(searchParams, supabase_jwt, bearer_token);
+  const userData: any = await getAllUserData(groupData.data[0].users, supabase_jwt, bearer_token);
+  const discountData: DiscountData[] = await getAllDiscountsData(
+    groupData.data[0].discounts,
+    supabase_jwt,
+    bearer_token
+  );
   return (
     <div className="bg-[#1a1a23] h-screen w-screen overflow-x-hidden">
       <Header />
