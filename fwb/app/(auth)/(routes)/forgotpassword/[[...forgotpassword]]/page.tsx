@@ -25,6 +25,8 @@ export default function Page() {
 
   const { isLoaded, signIn, setActive } = useSignIn();
 
+  const width = useWindowDimensions();
+
   if (!isLoaded) {
     return null;
   }
@@ -71,8 +73,6 @@ export default function Page() {
         setError(err.errors[0].longMessage);
       });
   }
-
-  const width = useWindowDimensions();
 
   return (
     <div className="pageHeight">

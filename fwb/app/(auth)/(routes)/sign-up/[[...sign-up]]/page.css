@@ -350,6 +350,8 @@
   line-height: 110%;
   /* 44px */
   margin-bottom: 80px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .input {

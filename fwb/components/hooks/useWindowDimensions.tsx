@@ -1,3 +1,4 @@
+// useWindowDimensions.tsx
 import { useEffect, useState } from "react";
 
 const useWindowDimensions = () => {

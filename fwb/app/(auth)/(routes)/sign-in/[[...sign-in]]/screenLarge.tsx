@@ -93,7 +93,7 @@ export const LargeScreen = () => {
 
   return (
     <div className="h-screen w-full flex flex-row">
-      <div className="flex w-auto h-auto flex-col mt-auto ml-auto">
+      <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[70px]">
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[134px] h-[400px]"></div>
         <div className="circle6 lg:w-[133px] lg:h-[133px]"></div>
@@ -108,8 +108,8 @@ export const LargeScreen = () => {
             <button className="discordButton" onClick={signInWithDiscord}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="27"
-                height="21"
+                width="100%"
+                height="100%"
                 viewBox="0 0 27 21"
                 fill="none"
               >
