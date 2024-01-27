@@ -6,7 +6,6 @@
   display: flex;
   justify-content: space-between;
   height: 100vh;
-  overflow: hidden;
 }
 
 .middleSpacing {
@@ -98,6 +97,7 @@
   display: flex;
   width: 544px;
   height: 24px;
+  outline:none;
 }
 
 input::placeholder {

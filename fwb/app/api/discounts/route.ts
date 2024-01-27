@@ -1,16 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs";
 import supabaseClient from "@/supabase";
-<<<<<<< HEAD
-import {
-  insertDiscount,
-  getDiscounts,
-  deleteDiscount,
-  updateDiscount,
-} from "@/app/api/discounts/utils/discount_utils";
-=======
 import { getNewLogoUrl } from "./utils/logos_utils";
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
 
 /**
  * Handles the POST request for creating a new discount.
@@ -19,9 +10,6 @@ import { getNewLogoUrl } from "./utils/logos_utils";
  * @returns A NextResponse object containing the response data.
  */
 export async function POST(request: NextRequest) {
-<<<<<<< HEAD
-  return await insertDiscount(request);
-=======
   const { userId } = auth();
 
   // Check if the user is logged in
@@ -184,7 +172,6 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json({ data: discount }, { status: 200 });
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
 }
 
 /**
@@ -194,9 +181,6 @@ export async function POST(request: NextRequest) {
  * @returns A NextResponse object containing the fetched discounts.
  */
 export async function GET(request: NextRequest) {
-<<<<<<< HEAD
-  return await getDiscounts(request);
-=======
   // Extract the filters from the query params
   let sort_by = String(request.nextUrl.searchParams.get("sort_by")).toLowerCase();
   let private_group =
@@ -326,7 +310,6 @@ export async function GET(request: NextRequest) {
     }
     return NextResponse.json({ discounts }, { status: 200 });
   }
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
 }
 
 /**
@@ -337,9 +320,6 @@ export async function GET(request: NextRequest) {
  * @returns A JSON response indicating the success or failure of the delete operation.
  */
 export async function DELETE(request: NextRequest, response: NextResponse) {
-<<<<<<< HEAD
-  return await deleteDiscount(request);
-=======
   const { userId } = auth();
 
   // Check if the user is logged in
@@ -388,14 +368,10 @@ export async function DELETE(request: NextRequest, response: NextResponse) {
     { success: true, deleted: discount_id },
     { status: 200 }
   );
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
 }
 
 // Update a discount
 export async function PATCH(request: NextRequest, response: NextResponse) {
-<<<<<<< HEAD
-  return await updateDiscount(request);
-=======
   const { userId } = auth();
 
   // Check if the user is logged in
@@ -473,5 +449,4 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
     { success: true, updated_values: data },
     { status: 200 }
   );
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
 }
