@@ -12,28 +12,43 @@ async function getGroupData(
   supabaseToken: any,
   bearerToken: any
 ) {
-  var myHeaders = new Headers();
-  myHeaders.append("supabase_jwt", supabaseToken);
-  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
+  if (searchParams.group_id) {
+    var myHeaders = new Headers();
+    myHeaders.append("supabase_jwt", supabaseToken);
+    myHeaders.append("Authorization", `Bearer ${bearerToken}`);
 
-  var requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-  };
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${searchParams.group_id}`, // add to .env
-      requestOptions
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+    };
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${searchParams.group_id}`, // add to .env
+        requestOptions
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const result = await response.json();
+      return result; // This returns the result object
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      throw error; // This re-throws the error to be handled by the caller
     }
-    const result = await response.json();
-    return result; // This returns the result object
-  } catch (error) {
-    console.error("Error fetching data: ", error);
-    throw error; // This re-throws the error to be handled by the caller
+  } else {
+    return {
+      success: false,
+      data: [
+        {
+          id: "",
+          name: "No group id",
+          discounts: [],
+          admins: "123",
+          public: false,
+          users: [],
+        },
+      ],
+    };
   }
 }
 
@@ -70,7 +85,7 @@ async function getDiscount(discount_id: string, supabaseToken: any, bearerToken:
   };
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/discounts?discount_id=${discount_id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts?discount_id=${discount_id}`,
       requestOptions
     );
     if (!response.ok) {
