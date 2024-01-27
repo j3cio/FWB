@@ -10,6 +10,8 @@ import BlueGroupIcon from "../../components/ui/profile/icons/groups-blue.svg";
 import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 import SaveIcon from "../../components/ui/profile/icons/save.svg";
 import BargainBackgroundImage from "../../public/bargain1700x350.png";
+import { useState } from "react";
+import EditProfileModal from "./EditProfileModal";
 
 function Page() {
   // Need to update font
@@ -17,7 +19,16 @@ function Page() {
   // Animations/Hover effects for buttons, etc..
 
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+  
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
+  const openEditProfileModal = () => {
+    setIsEditProfileModalOpen(true);
+  };
+
+  const closeEditProfileModal = () => {
+    setIsEditProfileModalOpen(false);
+  };
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
 
   return (
@@ -56,6 +67,7 @@ function Page() {
                           color: `${theme.palette.common.white}`, // Hover text color
                         }
                       }}
+                      onClick={openEditProfileModal}
                     >
                       Edit Profile
                     </Button>
@@ -167,6 +179,7 @@ function Page() {
                 </div>
               </div>
             </div>
+            <EditProfileModal isOpen={isEditProfileModalOpen} onClose={closeEditProfileModal} />
           </div>
       </Container>
     </Box>

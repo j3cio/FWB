@@ -2,8 +2,8 @@
 import { useSignUp, useUser } from "@clerk/nextjs";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BoyPhoto } from "./BoyPhoto";
 import { GirlPhoto } from "./GirlPhoto";
 import { PhotoOne } from "./PhotoOne";
@@ -26,11 +26,22 @@ export default function Page() {
   const { user } = useUser();
 
   const [error, setError] = useState<any>(null);
+
+  // Track local storage to determine if user being redirect to sign in comes from sign up page
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const currentUrl = window.location.href
+    const userAction = currentUrl.includes('/sign-up') ? 'signup' : 'signin';
+    localStorage.setItem('userAction', userAction);
+  }, [searchParams]);
+
   if (user) {
     // Redirect authenticated user to the profile page
     router.replace("/profile");
     return null; // You can also render a loading state or redirect message here
   }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isLoaded) {
