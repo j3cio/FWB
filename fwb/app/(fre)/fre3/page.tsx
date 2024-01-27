@@ -1,17 +1,4 @@
 "use client";
-<<<<<<< HEAD
-
-import "./page.css";
-import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
-import IllustrationFive from "@/components/ui/fre/IllustrationFive";
-import IllustrationSix from "@/components/ui/fre/IllustrationSix";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-
-export default function UserFlowPage3() {
-=======
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
 import { useUser } from "@clerk/nextjs";
@@ -24,12 +11,10 @@ import "./page.css";
 export default function UserFlowPage3() {
   //TODO: Create Sharing Functionality to Send Emails with input field
   //TODO: Create Message Feature to open up personal chats when clicking on social icons
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
-  const router = useRouter();
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -61,36 +46,26 @@ export default function UserFlowPage3() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-<<<<<<< HEAD
-    try {
-      const response = await axios.post("/api/invitations", {
-        emails: emailAddresses,
-      });
-    
-
-      // 이메일 전송 후 상태 초기화 또는 다른 작업 수행
-      setEmailAddresses([]);
-      setEmailInput("");
-      router.push("/profile");
-    } catch (error) {
-      console.error("Error sending email:", error);
-    }
-=======
     const sendEmails = async () => {
       const data = {
-        emails: emailInput.split(/[;, ]+/).filter((email) => email.trim() !== ""),
+        emails: emailInput
+          .split(/[;, ]+/)
+          .filter((email) => email.trim() !== ""),
         // 추가적인 데이터도 필요하다면 여기에 추가
       };
 
       try {
         // 서버의 엔드포인트에 데이터를 전송
-        const response = await fetch("https://your-server-endpoint.com/send-emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+        const response = await fetch(
+          "https://your-server-endpoint.com/send-emails",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
 
         if (response.ok) {
           console.log("Emails sent successfully");
@@ -101,7 +76,6 @@ export default function UserFlowPage3() {
         console.error("Error:", error);
       }
     };
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
   };
 
   //OnClick Buttons to handle user redirect to respective socials to share with friends
@@ -127,14 +101,22 @@ export default function UserFlowPage3() {
       <div className="middleSpacing">
         <div className="flex-col justify-center">
           <div className="progresscircles">
-            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="8" viewBox="0 0 56 8" fill="none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="56"
+              height="8"
+              viewBox="0 0 56 8"
+              fill="none"
+            >
               <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
               <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
               <circle cx="52" cy="4" r="4" fill="#F6FF82" />
             </svg>
           </div>
           <h2 className="mainHeader">Share with Your Friends!</h2>
-          <h5 className="subtext">Spread the love and be the wingman to someone else&apos;s wallet!</h5>
+          <h5 className="subtext">
+            Spread the love and be the wingman to someone else&apos;s wallet!
+          </h5>
 
           {/* This is the form that will handle email sharing  */}
 
@@ -149,9 +131,20 @@ export default function UserFlowPage3() {
             </button>
             <div className="icon1">
               {/* The url given is the url link you would like to share */}
-              <FacebookShareButton url={process.env.NEXT_PUBLIC_SHARE_URL || "https://staging.app.makefwb.com/sign-in"}>
+              <FacebookShareButton
+                url={
+                  process.env.NEXT_PUBLIC_SHARE_URL ||
+                  "https://staging.app.makefwb.com/sign-in"
+                }
+              >
                 <div className="facebookIcon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="34"
+                    height="34"
+                    viewBox="0 0 34 34"
+                    fill="none"
+                  >
                     <path
                       d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
                       fill="white"
@@ -207,34 +200,17 @@ export default function UserFlowPage3() {
           </form>
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
           <div className="shareButtons">
-<<<<<<< HEAD
-            {/* <Link href="/profile" className="next"> */}
-
-            <button className="next" type="submit" form="invitations">
-              Share
-            </button>
-            {/* SVG Icon for arrow from Figma Design */}
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M5.20874 13H16.3787L11.4987 17.88C11.1087 18.27 11.1087 18.91 11.4987 19.3C11.8887 19.69 12.5187 19.69 12.9087 19.3L19.4987 12.71C19.8887 12.32 19.8887 11.69 19.4987 11.3L12.9187 4.69996C12.7319 4.5127 12.4783 4.40747 12.2137 4.40747C11.9492 4.40747 11.6956 4.5127 11.5087 4.69996C11.1187 5.08996 11.1187 5.71996 11.5087 6.10996L16.3787 11H5.20874C4.65874 11 4.20874 11.45 4.20874 12C4.20874 12.55 4.65874 13 5.20874 13Z"
-                  fill="#8E94E9"
-                />
-              </svg>
-            </div>
-            {/* </Link> */}
-=======
             <Link href="/profile" className="next">
               <div>Share</div>
               {/* SVG Icon for arrow from Figma Design */}
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
                   <path
                     d="M5.20874 13H16.3787L11.4987 17.88C11.1087 18.27 11.1087 18.91 11.4987 19.3C11.8887 19.69 12.5187 19.69 12.9087 19.3L19.4987 12.71C19.8887 12.32 19.8887 11.69 19.4987 11.3L12.9187 4.69996C12.7319 4.5127 12.4783 4.40747 12.2137 4.40747C11.9492 4.40747 11.6956 4.5127 11.5087 4.69996C11.1187 5.08996 11.1187 5.71996 11.5087 6.10996L16.3787 11H5.20874C4.65874 11 4.20874 11.45 4.20874 12C4.20874 12.55 4.65874 13 5.20874 13Z"
                     fill="#8E94E9"
@@ -242,7 +218,6 @@ export default function UserFlowPage3() {
                 </svg>
               </div>
             </Link>
->>>>>>> 45cd63592afe28f8ace5bc804fcff9488964baf5
             <Link href="/profile" className="skip">
               <div className="skipButton">Skip for now</div>
             </Link>
