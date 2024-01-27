@@ -266,7 +266,7 @@ export default function Navbar() {
               <PersonIcon style={{ marginRight: '8px'}}/>
               View Profile
             </MenuItem>
-            <MenuItem onClick={() => signOut(() => router.push("/signin"))}>
+            <MenuItem onClick={() => signOut(() => router.push("/"))}>
               <LogoutIcon style={{ marginRight: '8px'}}/>
               Logout
               </MenuItem>
