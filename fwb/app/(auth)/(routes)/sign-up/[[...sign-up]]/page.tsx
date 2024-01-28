@@ -24,6 +24,8 @@ export default function Page() {
   const router = useRouter();
   const { user } = useUser();
 
+  const width = useWindowDimensions();
+
   const [error, setError] = useState<any>(null);
 
   // Track local storage to determine if user being redirect to sign in comes from sign up page
@@ -94,8 +96,6 @@ export default function Page() {
       console.error("Error signing in with Discord", error);
     }
   };
-
-  const width = useWindowDimensions();
 
   return (
     <div className="pageHeight">

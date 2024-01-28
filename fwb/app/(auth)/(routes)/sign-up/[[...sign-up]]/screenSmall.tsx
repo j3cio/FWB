@@ -188,7 +188,7 @@ export const SmallScreen = () => {
                         <div className="message">{passwordError.message}</div>
                       </div>
                     ))}
-                <div className="remember">
+                <div className="remember mb-[64px] xs:mb-[80px] xxs:mb-[42px]">
                   <FormControlLabel
                     style={{ height: "24px" }}
                     label={
@@ -227,7 +227,7 @@ export const SmallScreen = () => {
               </form>
             </div>
           </div>
-          <div className=" absolute top-[30%] left-0 w-full z-0">
+          <div className=" absolute top-[30%] left-0 w-full z-0 xxs:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -320,7 +320,7 @@ export const SmallScreen = () => {
               <div className="signupProcess">
                 <div className="signupTitle">You&apos;re almost there!</div>
                 <div className="signupContent">
-                  Hey! You&apos;re almost ready to start making Freinds
+                  Hey! You&apos;re almost ready to start making Friends
                   <br></br>
                   with Benefits.Simply click the button below to <br></br>
                   verify your email address
@@ -437,9 +437,12 @@ export const SmallScreen = () => {
                 </svg>
               </div>
             </div>
-            <div className="problemContact">
+            <div className="problemContact text-[16px] xs:text-[12px] xxs:text-[12px]">
               Having Problems? Email us at{" "}
-              <a className="helpEmail" href="help@makefwb.com">
+              <a
+                className="helpEmail text-[16px] xs:text-[12px] xxs:text-[12px]"
+                href="help@makefwb.com"
+              >
                 help@makefwb.com
               </a>
             </div>

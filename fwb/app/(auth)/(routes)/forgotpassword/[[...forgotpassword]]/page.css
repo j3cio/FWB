@@ -70,7 +70,7 @@
 
 .mail {
   margin-bottom: 24px;
-
+  margin: 0 auto;
 }
 
 .circle1 {
@@ -319,7 +319,7 @@
   font-weight: 600;
   line-height: 110%;
   /* 44px */
-  margin-bottom: 16px;
+  margin: 0 auto 16px auto;
 }
 
 .sendEmail,
@@ -328,7 +328,6 @@
   background: var(--yellow-300, #f6ff82);
   display: flex;
   width: 367px;
-  height: 48px;
   padding: 10px 24px;
   justify-content: center;
   align-items: center;
@@ -343,7 +342,7 @@
   line-height: 125%;
   /* 30px */
   letter-spacing: 0.4px;
-  margin-bottom: 12px;
+  margin: 0 auto 12px auto;
 }
 
 .explanation {
@@ -381,7 +380,7 @@
   padding: 8px 8px 8px 24px;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin: 0 auto 12px auto;
 }
 
 .inputPasswordCode {
@@ -416,6 +415,7 @@ input::placeholder {
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
+  margin: 0 auto;
 }
 
 .helpEmail {
@@ -487,9 +487,7 @@ input::placeholder {
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
-  margin-top: -5px;
-  margin-bottom: 5px;
-
+  margin: -5px auto 5px auto;
 }
 
 

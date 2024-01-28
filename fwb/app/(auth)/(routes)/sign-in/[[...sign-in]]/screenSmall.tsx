@@ -221,7 +221,7 @@ export const SmallScreen = () => {
           </form>
         </div>
       </div>
-      <div className=" absolute top-[30%] left-0 w-full z-0">
+      <div className=" absolute top-[30%] left-0 w-full z-0 xxs:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
