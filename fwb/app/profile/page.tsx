@@ -1,5 +1,5 @@
 import React from 'react'
-import Profile from './profile';
+import Profile from './Profile';
 import { auth } from "@clerk/nextjs";
 
 
