@@ -82,3 +82,5 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+@import "~stream-chat-react/dist/css/v2/index.css"
