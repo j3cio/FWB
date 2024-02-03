@@ -10,18 +10,16 @@ import MembersIcon from "../privategroups/icons/membersicon.svg";
 import Pencil from "../privategroups/icons/pencil.svg";
 import Settings from "../privategroups/icons/settings.svg";
 
-const MembersArray = Array.from({ length: 10 }, (_, index) => index + 1);
-
-const Member = () => {
+const Member = ({ user }: any) => {
+  console.log(user)
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
-
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
       <div className="flex items-center justify-center">
         <AvatarIcon />
         <div className="flex flex-col ml-2">
-          <div className="font-bold">Name</div>
-          <div className=" font-light">Company</div>
+          <div className="font-bold">{user.username}</div>
+          <div className=" font-light">Company: {user.company}</div>
         </div>
       </div>
       <div className="flex items-center justify-center mr-4">
@@ -57,13 +55,13 @@ const Member = () => {
   );
 };
 
-const MembersSection = () => {
+const MembersSection = ({ users }: any) => {
   return (
     <div className="flex flex-row my-2">
       <div className="flex-1 ml-24">
         <SearchBar />
-        {[...Array(15)].map((_, index) => (
-          <Member key={index} />
+        {users.map((user: any, index: number) => (
+          <Member key={index} user={user.users[0]} />
         ))}
       </div>
       <div className="flex-1 border-l-2 border-white pl-4 mr-40">
