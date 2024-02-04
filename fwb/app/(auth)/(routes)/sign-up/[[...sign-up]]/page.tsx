@@ -31,6 +31,8 @@ export default function Page() {
   // Track local storage to determine if user being redirect to sign in comes from sign up page
   const searchParams = useSearchParams();
 
+  const width = useWindowDimensions();
+
   useEffect(() => {
     const currentUrl = window.location.href;
     const userAction = currentUrl.includes("/sign-up") ? "signup" : "signin";
