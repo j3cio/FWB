@@ -1,13 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  important: true,
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
+    screens: {
+      'xxl': '1440px',
+      // => @media (min-width: 640px) { ... }
+      'xl': { 'max': '1440px', 'min': '1200px' },
+      // => @media (min-width: 768px) { ... }
+      'lg': { 'max': '1200px', 'min': '900px' },
+      // => @media (min-width: 1024px) { ... }
+      'sm': { 'max': '900px', 'min': '600px' },
+      // => @media (min-width: 1280px) { ... }
+      'xs': { 'max': '600px', 'min': '400px' },
+      // => @media (min-width: 1536px) { ... }
+      'xxs': { 'max': '400px' },
+      // => @media (min-width: 1536px) { ... }
+      'small': { 'max': '900px' },
+    },
     container: {
       center: true,
       padding: "2rem",
