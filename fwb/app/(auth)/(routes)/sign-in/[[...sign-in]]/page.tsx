@@ -165,19 +165,19 @@ export default function Page() {
             </div>
           </div>
           <div className="rightSigninContainer">
-            <div className="signin xl:border-0 xl:bg-transparent xl:shadow-none">
-              {/* <SignIn /> */}
-              {redirectFromSignUp && (
-                <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 ml-20">
-                  This account is already taken. Please try signing in below.
-                </div>
-              )}
+            {/* <SignIn /> */}
+            {redirectFromSignUp && (
+              <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 mx-auto xl:ml-28 xl:mx-0">
+                This account is already taken. Please try signing in below.
+              </div>
+            )}
 
-              {accountDoesntExist && !redirectFromSignUp && (
-                <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 ml-20">
-                  This account does not exist. Please create an account below.
-                </div>
-              )}
+            {true && (
+              <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 mx-auto xl:ml-28 xl:mx-0">
+                This account does not exist. Please create an account below.
+              </div>
+            )}
+            <div className="signin xl:border-0 xl:bg-transparent xl:shadow-none">
               <div>
                 <div className="name">Sign In</div>
                 <div className="buttons">

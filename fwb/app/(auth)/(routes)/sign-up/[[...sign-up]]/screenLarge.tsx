@@ -96,7 +96,7 @@ export const LargeScreen = () => {
                 <img src="/google.png" alt="Google Icon" />
               </button>
               <button
-                className="discordButton px-[9px] py-[7px]"
+                className="discordButton px-[6px] py-[4px]"
                 onClick={signUpWithDiscord}
               >
                 <svg

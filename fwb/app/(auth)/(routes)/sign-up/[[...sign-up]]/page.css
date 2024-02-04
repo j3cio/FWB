@@ -317,8 +317,7 @@
 .discordButton {
   width: 45.216px;
   height: 45.216px;
-  padding-bottom: 1px;
-  padding-left: 8px;
+  padding: 5px;
   /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
