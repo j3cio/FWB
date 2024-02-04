@@ -26,6 +26,8 @@ export default function Page() {
   const { user } = useUser();
   const [userAction, setUserAction] = useState<any>();
 
+  const width = useWindowDimensions();
+
   // Display error message based on url and previous webpage accessed
   const searchParams = useSearchParams();
   const accountDoesntExist = searchParams.has("redirect_url");
@@ -115,8 +117,6 @@ export default function Page() {
       console.error("Error signing in with Discord", error);
     }
   };
-
-  const width = useWindowDimensions();
 
   return (
     <div className="pageHeight">
