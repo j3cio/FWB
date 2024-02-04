@@ -42,9 +42,9 @@ function Profile({ userData }: { userData: UserData }) {
         <Navbar />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
-          <div className="flex flex-1 flex-col h-full w-full items-center justify-center">
+          <div className="flex flex-1 flex-col h-full w-full items-center justify-center px-[120px]">
             {/*Profile div*/}
-            <div className="flex w-11/12 h-1/5 mt-6 mb-6 gap-10 border-b-2 border-slate-200 pb-6">
+            <div className="flex w-full h-1/5 mt-[95px] mb-[50px] gap-10 border-b-2 border-slate-200 pb-[95px]">
               {/* <AvatarIcon
                   alt="User"
                   sx={{ width: "200px", height: "200px" }}
@@ -57,12 +57,16 @@ function Profile({ userData }: { userData: UserData }) {
                 sx={{ width: "180px", height: "180px" }}
               />
               <div className="flex flex-col grow justify-center">
-                <div className="m-2 text-slate-200 text-lg">{user?.fullName}</div>
-                <div className="flex flex-row">
-                  <div className="my-2 ml-2 mr-1 text-slate-200">Works at: </div>
-                  <div className="my-2 text-yellow-200">{userData.users[0].company}</div>
+                <div className="text-slate-200 text-[35px] mb-[4px] leading-none font-semibold">
+                  {user?.fullName}
                 </div>
-                <div className="flex gap-2 m-2">
+                <div className="flex flex-row mb-[16px]">
+                  <div className="mr-1 text-slate-200">Works at: </div>
+                  <div className=" text-yellow-200">
+                    {userData.users[0].company}
+                  </div>
+                </div>
+                <div className="flex gap-2">
                   <Button
                     endIcon={<WhiteArrowForward />}
                     variant="contained"
@@ -104,22 +108,9 @@ function Profile({ userData }: { userData: UserData }) {
               </div>
             </div>
             {/*Bargains div*/}
-            <div className="flex flex-col h-3/5 w-11/12 grow gap-6">
-              <div className="flex rounded-3xl items-center justify-center relative z-0">
-                <Image
-                  src={BargainBackgroundImage}
-                  alt="Image Alt Text"
-                  className="object-cover object-center"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
-                  }}
-                />
+            <div className="flex flex-col w-full grow gap-6">
+              <div className="pb-[27%] flex rounded-3xl items-center justify-center relative z-0 bg-no-repeat bg-center bg-contain bg-[url('/profileBanner.svg')]">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <h1 className="flex w-1/6 ml-48 mt-10 text-6xl font-bold text-yellow-200">
-                    Booty Call for Bargains!
-                  </h1>
                   <div className="flex flex-row-reverse w-5/6 mr-28">
                     <Button
                       endIcon={<BlueArrowForward />}
@@ -143,34 +134,60 @@ function Profile({ userData }: { userData: UserData }) {
                 </div>
               </div>
               <div className="flex h-2/5 gap-6">
-                <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center h-44">
+                <a
+                  href="profile"
+                  className="flex flex-1 bg-white rounded-3xl items-center h-[126px]"
+                >
                   <div className="flex flex-col mx-6">
-                    <div className="font-semibold text-2xl">Saved Discounts</div>
+                    <div className="font-semibold text-2xl">
+                      Saved Discounts
+                    </div>
+                    <div className="text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
-                    <Image src={SaveIcon} alt="Group Icon" width={50} height={50} />{" "}
+                    <Image
+                      src={SaveIcon}
+                      alt="Group Icon"
+                      width={50}
+                      height={50}
+                    />{" "}
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
-                <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center gap-6">
+                <a
+                  href="profile"
+                  className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
+                >
                   <div className="flex flex-col mx-6">
                     <div className="font-semibold text-2xl">Private Groups</div>
+                    <div className="text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
-                    <Image src={BlueGroupIcon} alt="Group Icon" width={50} height={50} />{" "}
+                    <Image
+                      src={BlueGroupIcon}
+                      alt="Group Icon"
+                      width={50}
+                      height={50}
+                    />{" "}
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
               </div>
             </div>
             {/*My Benefits div*/}
-            <div className="flex flex-col w-11/12 h-1/5 my-10 rounded-lg">
+            <div className="flex flex-col w-full h-1/5 my-[80px] rounded-lg">
               <div className="flex flex-col h-full w-full">
-                <div className="flex h-2/5 border-b-2 border-slate-200 pt-2 pl-2 text-3xl text-white">My Benefits!</div>
-                <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-10 text-3xl">
+                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white">
+                  My Benefits!
+                </div>
+                <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-[120px] text-3xl">
                   Be the wingman to a friend&apos;s wallet now!
                 </div>
-                <div className="flex grow items-center justify-center mt-6">
+                <div className="flex grow items-center justify-center mt-[24px]">
                   <Button
                     endIcon={<WhiteArrowForward />}
                     variant="contained"
@@ -179,6 +196,8 @@ function Profile({ userData }: { userData: UserData }) {
                       borderStyle: "solid",
                       borderColor: "white",
                       borderWidth: 2,
+                      fontSize: "14px",
+                      fontWeight: "semiBold",
                       bgcolor: `${theme.palette.neutral.n900}`,
                       color: `${theme.palette.common.white}`,
                       ":hover": {
@@ -187,13 +206,16 @@ function Profile({ userData }: { userData: UserData }) {
                       },
                     }}
                   >
-                    Share your discount
+                    Share your discounts
                   </Button>
                 </div>
               </div>
             </div>
           </div>
-          <EditProfileModal isOpen={isEditProfileModalOpen} onClose={closeEditProfileModal} />
+          <EditProfileModal
+            isOpen={isEditProfileModalOpen}
+            onClose={closeEditProfileModal}
+          />
         </div>
       </Container>
     </Box>
