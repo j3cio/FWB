@@ -1,24 +1,40 @@
 "use client";
-import { StreamChat } from "stream-chat";
-import { Channel, ChannelHeader, Chat, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
+import { useUser } from "@clerk/nextjs";
+import {
+  Channel,
+  ChannelHeader,
+  ChannelList,
+  Chat,
+  LoadingIndicator,
+  MessageInput,
+  MessageList,
+  Thread,
+  Window,
+} from "stream-chat-react";
+import useIntitialChatClient from "./useIntializeChatClient";
 
 export default function page() {
-  const userId = "user_2aMhGjsruwj80nhj1bfJAdk8KNI";
-  const chatClient = StreamChat.getInstance(process.env.NEXT_PUBLIC_STREAM_KEY!);
+  const chatClient = useIntitialChatClient();
+  const { user } = useUser();
 
-  chatClient.connectUser(
-    {
-      id: userId,
-      name: "Derick Young",
-    },
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl8yYU1oR2pzcnV3ajgwbmhqMWJmSkFkazhLTkkifQ._GtJgZ6JOg1NRukAJUIW8VqaVyoe4GTjQg87t0-5g20"
-  );
+  if (!chatClient || !user) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <LoadingIndicator size={40} />
+      </div>
+    );
+  }
 
-  const channel = chatClient.channel("messaging", "channel_1", { name: "Channel #1", members: [userId] });
   return (
-    <div className="bg-white w-8/12 h-full mr-20">
+    <div className="bg-white w-8/12 h-screen mr-20">
       <Chat client={chatClient}>
-        <Channel channel={channel}>
+        {/* The channel list shows only channels that the currently loggeed in user is a member (filters prop) */}
+        <ChannelList
+          filters={{ type: "messaging", members: { $in: [user.id] } }}
+          sort={{ last_message_at: -1 }}
+          options={{ state: true, presence: true, limit: 10 }}
+        />
+        <Channel>
           <Window>
             <ChannelHeader />
             <MessageList />
