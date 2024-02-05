@@ -1,14 +1,16 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
 
+
 .pageHeight {
   height: 100vh;
   overflow: hidden;
+  width: 100%;
+  display: grid;
+  position: relative;
 }
 
 .big {
-  /* max-width: 1440px;
-  max-height: 931px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +30,7 @@
   background: rgba(255, 255, 255, 0.15);
   /* opacity: 75%; */
   box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12.5px);
+  /* backdrop-filter: blur(12.5px); */
 }
 
 .leftSigninContainer {
@@ -40,10 +42,12 @@
   justify-content: center;
 }
 
-.rightSigninContainer {
+.rightContainer {
   /* background-color: blue; */
   /* width: 1440px; */
-  background-color: #8e94e9;
+  height: 100vh;
+  position: relative;
+  display: flex;
 }
 
 .passwordContainer {
@@ -60,13 +64,15 @@
   background: rgba(255, 255, 255, 0.15);
   /* opacity: 75%; */
   box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12.5px);
+  /* backdrop-filter: blur(12.5px); */
+  margin: auto 0;
 }
 
-.mail{
+.mail {
   margin-bottom: 24px;
-
+  margin: 0 auto;
 }
+
 .circle1 {
   width: 150px;
   height: 150px;
@@ -97,6 +103,7 @@
   height: 150px;
   margin-right: 20px;
 }
+
 .photos {
   display: flex;
 }
@@ -146,6 +153,7 @@
 .two {
   display: flex;
 }
+
 .circle3 {
   display: flex;
   width: 150px;
@@ -164,7 +172,8 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 40px */
+  line-height: 125%;
+  /* 40px */
   position: absolute;
   z-index: 1;
   transform: rotate(10deg);
@@ -240,12 +249,14 @@
   line-height: 110%;
   margin-left: 85px;
 }
+
 .girlPhoto {
   margin-bottom: -70px;
   width: 140px;
   height: 199.201px;
   flex-shrink: 0;
 }
+
 .subBox {
   margin-top: 6px;
   width: 140px;
@@ -306,16 +317,17 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 44px */
-  margin-bottom: 16px;
+  line-height: 110%;
+  /* 44px */
+  margin: 0 auto 16px auto;
 }
 
-.sendEmail,.reset {
+.sendEmail,
+.reset {
   border-radius: 30px;
   background: var(--yellow-300, #f6ff82);
   display: flex;
   width: 367px;
-  height: 48px;
   padding: 10px 24px;
   justify-content: center;
   align-items: center;
@@ -327,12 +339,13 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 30px */
+  line-height: 125%;
+  /* 30px */
   letter-spacing: 0.4px;
-  margin-bottom: 12px;
+  margin: 0 auto 12px auto;
 }
 
-.explanation{
+.explanation {
   color: var(--neutral-000, #FFF);
   text-align: center;
   /* Heading/H5 */
@@ -340,9 +353,11 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 22.5px */
+  line-height: 125%;
+  /* 22.5px */
 }
-.explanation2{
+
+.explanation2 {
   color: var(--neutral-000, #FFF);
   text-align: center;
   /* Heading/H5 */
@@ -350,11 +365,13 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 22.5px */
+  line-height: 125%;
+  /* 22.5px */
   margin-bottom: 48px;
 }
 
-.inputEmail, .inputPassword {
+.inputEmail,
+.inputPassword {
   border-radius: 100px;
   background: var(--neutral-000, #fff);
   display: flex;
@@ -363,10 +380,10 @@
   padding: 8px 8px 8px 24px;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin: 0 auto 12px auto;
 }
 
-.inputPasswordCode{
+.inputPasswordCode {
   margin-bottom: 60px;
   border-radius: 100px;
   background: var(--neutral-000, #fff);
@@ -385,74 +402,82 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   opacity: 0.3;
 }
 
-.help{
+.help {
   color: #FFF;
 
-font-family: Urbanist;
-font-size: 16px;
-font-style: normal;
-font-weight: 500;
-line-height: 150%; 
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  margin: 0 auto;
 }
 
-.helpEmail{
-  color: var(--neutral-000, #FFF);
-/* Label/16/bold */
-font-family: Urbanist;
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: 125%; /* 20px */
-letter-spacing: 0.32px;
-}
-
-.newPassword, .passwordCode{
+.helpEmail {
   color: var(--neutral-000, #FFF);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
+  /* 20px */
   letter-spacing: 0.32px;
 }
 
-.successImage{
-border-radius: 50%;
-border: 1px solid #fff;
-margin-bottom: 20px;
+.newPassword,
+.passwordCode {
+  color: var(--neutral-000, #FFF);
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 20px */
+  letter-spacing: 0.32px;
+}
+
+.successImage {
+  border-radius: 50%;
+  border: 1px solid #fff;
+  margin-bottom: 20px;
 }
 
 
-.success{
+.success {
   color: var(--neutral-000, #FFF);
-text-align: center;
-/* Heading/H2 */
-font-family: Urbanist;
-font-size: 40px;
-font-style: normal;
-font-weight: 600;
-margin-bottom:4px;
-line-height: 110%; /* 44px */}
-
-
-.successMessage{
-  color: var(--neutral-000, #FFF);
-text-align: center;
-/* Heading/H5 */
-font-family: Urbanist;
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-line-height: 125%; /* 22.5px */
-margin-bottom: 64px;
+  text-align: center;
+  /* Heading/H2 */
+  font-family: Urbanist;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 110%;
+  /* 44px */
 }
 
-.errorMessage{
+
+.successMessage {
+  color: var(--neutral-000, #FFF);
+  text-align: center;
+  /* Heading/H5 */
+  font-family: Urbanist;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%;
+  /* 22.5px */
+  margin-bottom: 64px;
+}
+
+.errorMessage {
   color: var(--neutral-000, #fff);
   /* max-width: 367px; */
   /* word-wrap:break-word; */
@@ -462,9 +487,7 @@ margin-bottom: 64px;
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
-  margin-top: -5px;
-  margin-bottom: 5px;
-  
+  margin: -5px auto 5px auto;
 }
 
 

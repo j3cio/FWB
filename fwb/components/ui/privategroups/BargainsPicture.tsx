@@ -6,7 +6,7 @@ import BargainBackgroundImage from "../../../public/bargain1700x350.png";
 
 const bargains_picture = () => {
   return (
-    <div className="rounded-3xl items-center justify-center relative z-0">
+    /*<div className="rounded-3xl items-center justify-center relative z-0">
       <Image
         src={BargainBackgroundImage}
         alt="Image Alt Text"
@@ -40,7 +40,9 @@ const bargains_picture = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </div>*/
+
+    <div className="rounded-3xl items-center justify-center relative z-0"></div>
   );
 };
 
