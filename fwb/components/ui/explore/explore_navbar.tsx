@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useClerk } from "@clerk/clerk-react";
+import { useUser } from "@clerk/nextjs";
 
 const theme = createTheme({
   components: {
@@ -70,6 +71,7 @@ const SearchBar = () => {
 export default function Navbar() {
   const router = useRouter();
   const { signOut } = useClerk();
+  const { user, isSignedIn } = useUser();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -84,6 +86,7 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  if (isSignedIn) {
   return (
     <ThemeProvider theme={theme}>
     <AppBar
@@ -144,10 +147,10 @@ export default function Navbar() {
                 borderRadius: "50%",
                 border: "2px solid white",
                 borderColor: "#8e94e9",
-                backgroundColor: "#8e94e9",
+                backgroundColor: "#1a1a23",
                 '&:hover': {
-                  backgroundColor: "#1a1a23",
-                  borderColor: "#1a1a23"
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
                 }
               }}
             >
@@ -184,7 +187,8 @@ export default function Navbar() {
               borderRadius: "50%",
               border: "2px solid white",
               '&:hover': {
-                borderColor: "#1a1a23"
+                backgroundColor: "#8e94e9",
+                borderColor: "#8e94e9"
               }
             }}
           >
@@ -218,7 +222,8 @@ export default function Navbar() {
                 borderRadius: "50%",
                 border: "2px solid white",
                 '&:hover': {
-                  borderColor: "#1a1a23"
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
                 }
               }}
             >
@@ -239,14 +244,25 @@ export default function Navbar() {
               backgroundColor: "#DAE3EA",
               padding: "9.6px",
               borderRadius: "50%",
-              border: "4px solid white",
+              border: "2px solid white",
+              '&:hover': {
+                backgroundColor: "#8e94e9",
+                borderColor: "#8e94e9"
+              }
             }}
           >
+            <div 
+              style={{
+                width: "28.8px",
+                height: "28.8px",
+              }}
+            >
             <Image
-              src={avatar}
-              alt="profile"
-              style={{ width: "28.8px", height: "28.8px" }}
+              src={user.imageUrl}
+              alt={avatar}
+              fill
             />
+            </div>
           </IconButton>
           <Menu
             id="user-menu"
@@ -275,5 +291,5 @@ export default function Navbar() {
       </Box>
     </AppBar>
     </ThemeProvider>
-  );
+  )};
 }
