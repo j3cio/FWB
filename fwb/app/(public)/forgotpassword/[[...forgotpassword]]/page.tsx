@@ -64,6 +64,7 @@ export default function Page() {
   }
 
   return (
+    <div className="pageHeight">
     <div className="big">
       <div className="leftSigninContainer">
         <div className="circle1"></div>
@@ -757,6 +758,7 @@ export default function Page() {
           {secondFactor && "2FA is required, this UI does not handle that"}
         </form>
       </div>
+    </div>
     </div>
   );
 }

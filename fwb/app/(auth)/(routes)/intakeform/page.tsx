@@ -14,8 +14,6 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import Theme from "../theme";
-import { POST } from "../api/discounts/route";
 
 const theme = createTheme({
   components: {
@@ -239,25 +237,25 @@ export default function Intakeform() {
                             <path
                               d="M1.66797 12.3337L12.3346 1.66699"
                               stroke="white"
-                              stroke-width="2.13333"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2.13333"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                             <path
                               d="M2.73463 3.80033C3.32373 3.80033 3.8013 3.32276 3.8013 2.73366C3.8013 2.14456 3.32373 1.66699 2.73463 1.66699C2.14554 1.66699 1.66797 2.14456 1.66797 2.73366C1.66797 3.32276 2.14554 3.80033 2.73463 3.80033Z"
                               fill="white"
                               stroke="white"
-                              stroke-width="2.13333"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2.13333"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                             <path
                               d="M11.2678 12.334C11.8569 12.334 12.3345 11.8564 12.3345 11.2674C12.3345 10.6783 11.8569 10.2007 11.2678 10.2007C10.6787 10.2007 10.2012 10.6783 10.2012 11.2674C10.2012 11.8564 10.6787 12.334 11.2678 12.334Z"
                               fill="white"
                               stroke="white"
-                              stroke-width="2.13333"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeWidth="2.13333"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                             />
                           </svg>
                         </div>
@@ -330,8 +328,8 @@ export default function Intakeform() {
                           fill="none"
                         >
                           <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M19.9987 3.33301C10.7987 3.33301 3.33203 10.7997 3.33203 19.9997C3.33203 29.1997 10.7987 36.6663 19.9987 36.6663C29.1987 36.6663 36.6654 29.1997 36.6654 19.9997C36.6654 10.7997 29.1987 3.33301 19.9987 3.33301ZM18.332 33.2163C11.7487 32.3996 6.66536 26.7996 6.66536 19.9996C6.66536 18.9663 6.7987 17.9829 7.01536 17.0163L14.9987 24.9996V26.6663C14.9987 28.4996 16.4987 29.9996 18.332 29.9996V33.2163ZM26.6654 26.6661C28.1654 26.6661 29.3987 27.6327 29.832 28.9827C31.9987 26.6161 33.332 23.4661 33.332 19.9994C33.332 14.4161 29.882 9.63275 24.9987 7.64941V8.33275C24.9987 10.1661 23.4987 11.6661 21.6654 11.6661H18.332V14.9994C18.332 15.9161 17.582 16.6661 16.6654 16.6661H13.332V19.9994H23.332C24.2487 19.9994 24.9987 20.7494 24.9987 21.6661V26.6661H26.6654Z"
                             fill="white"
                           />
@@ -359,8 +357,8 @@ export default function Intakeform() {
                           fill="none"
                         >
                           <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M28.3346 14.1667H30.0013C31.8346 14.1667 33.3346 15.6667 33.3346 17.5V34.1667C33.3346 36 31.8346 37.5 30.0013 37.5H10.0013C8.16797 37.5 6.66797 36 6.66797 34.1667V17.5C6.66797 15.6667 8.16797 14.1667 10.0013 14.1667H11.668V10.8333C11.668 6.23333 15.4013 2.5 20.0013 2.5C24.6013 2.5 28.3346 6.23333 28.3346 10.8333V14.1667ZM20.0013 5.83333C17.2346 5.83333 15.0013 8.06667 15.0013 10.8333V14.1667H25.0013V10.8333C25.0013 8.06667 22.768 5.83333 20.0013 5.83333ZM11.668 34.1667C10.7513 34.1667 10.0013 33.4167 10.0013 32.5V19.1667C10.0013 18.25 10.7513 17.5 11.668 17.5H28.3346C29.2513 17.5 30.0013 18.25 30.0013 19.1667V32.5C30.0013 33.4167 29.2513 34.1667 28.3346 34.1667H11.668ZM23.3346 25.8333C23.3346 27.6667 21.8346 29.1667 20.0013 29.1667C18.168 29.1667 16.668 27.6667 16.668 25.8333C16.668 24 18.168 22.5 20.0013 22.5C21.8346 22.5 23.3346 24 23.3346 25.8333Z"
                             fill="white"
                           />

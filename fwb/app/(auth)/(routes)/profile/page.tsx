@@ -6,10 +6,10 @@ import { Container, Box, Button } from "@mui/material";
 import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
-import BlueGroupIcon from "../../components/ui/profile/icons/groups-blue.svg";
+import BlueGroupIcon from "../../../../components/ui/profile/icons/groups-blue.svg";
 import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
-import SaveIcon from "../../components/ui/profile/icons/save.svg";
-import BargainBackgroundImage from "../../public/bargain1700x350.png";
+import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
+import BargainBackgroundImage from "../../../../public/bargain1700x350.png";
 import { useState } from "react";
 import EditProfileModal from "./EditProfileModal";
 
