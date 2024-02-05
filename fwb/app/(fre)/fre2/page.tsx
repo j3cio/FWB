@@ -142,7 +142,7 @@ export default function UserFlowPage2() {
                 <h6 className="discountFormText">Category *</h6>
               </div>
 
-              <div className="flex justify-start">
+              <div className="flex justify-start flex-col">
                 <input
                   type="text"
                   className="inputCompany"
@@ -224,17 +224,6 @@ export default function UserFlowPage2() {
                   <option value="Hobbies">Hobbies</option>
                 </select>
               </div>
-
-              <h6 className="discountFormText">
-                Discount Rules & Conditions *
-              </h6>
-              <textarea
-                className="inputConditions"
-                placeholder="Add details about your shared benefit"
-                value={termsAndConditions}
-                onChange={(e) => setTermsAndConditions(e.target.value)}
-                required
-              />
 
               <div className="flex justify-center">
                 <button
