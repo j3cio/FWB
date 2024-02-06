@@ -1,10 +1,39 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
+
 .container {
   background: var(--purple-300, #8e94e9);
   /* width: 1440px;
   height: 931px; */
   display: flex;
   justify-content: space-between
+}
+
+.signin {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 60px;
+  /* opacity: 75%; */
+  position: relative;
+}
+
+.circle6 {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  background: var(--yellow-300, #f6ff82);
+}
+
+.circle1 {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  border: 5px solid var(--neutral-000, #fff);
+  margin-left: 150px;
 }
 
 .leftContainer {
@@ -27,6 +56,7 @@
   opacity: 0.25;
   border-top: none;
 }
+
 .halfCircle2 {
   border-radius: 0 0 156.25px 156.25px;
   border: 3px solid var(--neutral-000, #fff);
@@ -68,7 +98,8 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 40px */
+  line-height: 125%;
+  /* 40px */
   position: absolute;
   z-index: 1;
   transform: rotate(10deg);
@@ -81,6 +112,7 @@
   flex-shrink: 0;
   position: relative;
 }
+
 .circle5 {
   width: 150px;
   height: 452px;
@@ -105,12 +137,14 @@
   line-height: 110%;
   margin-left: 85px;
 }
+
 .girlPhoto {
   margin-bottom: -70px;
   width: 140px;
   height: 199.201px;
   flex-shrink: 0;
 }
+
 .subBox {
   margin-top: 6px;
   width: 140px;
@@ -122,10 +156,10 @@
 }
 
 .yellowBox {
-  border-radius: 156.25px 156.25px 0 0;
+  border-radius: 156.25px 156.25px 156.25px 156.25px;
   background: var(--yellow-300, #f6ff82);
   width: 150px;
-  height: 75px;
+  height: 150px;
   flex-shrink: 0;
 }
 
@@ -142,8 +176,7 @@
   border-radius: 75px;
   border: 2.25px solid var(--neutral-000, #fff);
   display: flex;
-
-  margin-left: 270px;
+  margin: 0 auto;
   /* need to figure out center align */
 }
 
@@ -155,12 +188,11 @@
   font-size: 120px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 150px */
+  line-height: 125%;
+  /* 150px */
   letter-spacing: -4.8px;
   align-self: stretch;
   align-self: stretch;
-  width: 588px;
-  height: 150px;
 }
 
 .verifiedAccount {
@@ -174,11 +206,12 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 22.5px */
+  line-height: 125%;
+  /* 22.5px */
 }
 
 .startButton {
-  
+
   width: 380px;
   height: 48px;
   padding: 10px 24px;
@@ -194,9 +227,10 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 25px */
+  line-height: 125%;
+  /* 25px */
   letter-spacing: 0.4px;
-  margin-left: 110px;
+  margin: 0 auto;
 }
 
 .rightHalfCircle {

@@ -28,7 +28,6 @@
   background: rgba(255, 255, 255, 0.15);
   /* opacity: 75%; */
   box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12.5px);
 }
 
 .leftSigninContainer {
@@ -76,6 +75,7 @@
   height: 150px;
   margin-right: 20px;
 }
+
 .photos {
   display: flex;
 }
@@ -125,6 +125,7 @@
 .two {
   display: flex;
 }
+
 .circle3 {
   display: flex;
   width: 150px;
@@ -143,7 +144,8 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 40px */
+  line-height: 125%;
+  /* 40px */
   position: absolute;
   z-index: 1;
   transform: rotate(10deg);
@@ -219,12 +221,14 @@
   line-height: 110%;
   margin-left: 85px;
 }
+
 .girlPhoto {
   margin-bottom: -70px;
   width: 140px;
   height: 199.201px;
   flex-shrink: 0;
 }
+
 .subBox {
   margin-top: 6px;
   width: 140px;
@@ -285,7 +289,8 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 44px */
+  line-height: 110%;
+  /* 44px */
   margin-bottom: 80px;
 }
 
@@ -312,8 +317,7 @@
 .discordButton {
   width: 45.216px;
   height: 45.216px;
-  padding-bottom: 1px;
-  padding-left: 8px;
+  padding: 5px;
   /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
@@ -342,8 +346,11 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 44px */
+  line-height: 110%;
+  /* 44px */
   margin-bottom: 80px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .input {
@@ -364,9 +371,11 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   opacity: 0.3;
 }
+
 .remember {
   display: flex;
   margin-bottom: 32px;
@@ -406,7 +415,8 @@ input[type="checkbox"] {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
 }
 
 .errorMessage {
@@ -458,7 +468,8 @@ input[type="checkbox"] {
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 30px */
+  line-height: 125%;
+  /* 30px */
   letter-spacing: 0.48px;
 }
 
@@ -470,7 +481,9 @@ input[type="checkbox"] {
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
-} /* 24px */
+}
+
+/* 24px */
 
 .signup {
   display: flex;
@@ -491,7 +504,8 @@ input[type="checkbox"] {
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
+  /* 20px */
   letter-spacing: 0.32px;
 }
 
@@ -504,7 +518,7 @@ input[type="checkbox"] {
   line-height: 150%;
 }
 
-.processContainer{
+.processContainer {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -523,15 +537,16 @@ input[type="checkbox"] {
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 25px */
+  line-height: 125%;
+  /* 25px */
   letter-spacing: 0.4px;
   width: 157px;
   height: 48px;
 }
 
-.leftCircle{
-margin-top:-80px;
-margin-left:-80px
+.leftCircle {
+  margin-top: -80px;
+  margin-left: -80px
 }
 
 
@@ -543,9 +558,9 @@ margin-left:-80px
   background: #8e94e9;
 }
 
-.rightCircle{
+.rightCircle {
   margin-left: 300px;
-  margin-top:-130px
+  margin-top: -130px
 }
 
 .verifyPhotos {
@@ -562,8 +577,8 @@ margin-left:-80px
   margin-left: -25px;
 }
 
-.verifyPhoto5{
-z-index:1
+.verifyPhoto5 {
+  z-index: 1
 }
 
 .signupProcess {
@@ -581,7 +596,8 @@ z-index:1
   font-size: 32px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 35.2px */
+  line-height: 110%;
+  /* 35.2px */
   margin-bottom: 16px;
 
   /* margin-top: 75.47px; */
@@ -595,7 +611,8 @@ z-index:1
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   margin-bottom: 72px;
 }
 
@@ -620,7 +637,7 @@ z-index:1
   display: flex;
   text-align: center;
   justify-content: center;
-  margin-top:8px ;
+  margin-top: 8px;
   margin-bottom: 8px;
 }
 
@@ -630,7 +647,8 @@ z-index:1
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
 }
 
 /* body {
@@ -639,7 +657,9 @@ z-index:1
 } */
 
 
-.twitter,.instagram, .linkedin{
+.twitter,
+.instagram,
+.linkedin {
   border-radius: 20px;
   display: flex;
   width: 32px;
@@ -650,21 +670,23 @@ z-index:1
   background: var(--purple-300, #8e94e9);
 }
 
-.instagram, .linkedin{
+.instagram,
+.linkedin {
   margin-left: 5px;
 }
 
-.helpEmail{
+.helpEmail {
   color: var(--purple-300, #8E94E9);
-/* Label/16/bold */
-font-family: Urbanist;
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: 125%; /* 20px */
-letter-spacing: 0.32px;
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 20px */
+  letter-spacing: 0.32px;
 }
 
-.helpEmail:visited{
-  color:white
+.helpEmail:visited {
+  color: white
 }
