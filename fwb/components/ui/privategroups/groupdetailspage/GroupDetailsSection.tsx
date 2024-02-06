@@ -2,8 +2,8 @@
 import { Avatar, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
-import MembersIcon from "../privategroups/icons/membersicon.svg";
-import Pencil from "../privategroups/icons/pencil.svg";
+import MembersIcon from "../icons/membersicon.svg";
+import Pencil from "../icons/pencil.svg";
 import { GroupData, UserData } from "@/app/types/types";
 
 const GroupDetailsSection = ({groupData, userData}: {groupData: GroupData, userData: UserData}) => {

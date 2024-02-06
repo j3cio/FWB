@@ -1,8 +1,7 @@
-import Navbar from "@/components/ui/privategroups/groups_navbar";
+import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import { auth } from "@clerk/nextjs";
 import { Box, Button, Container } from "@mui/material";
 import Link from "next/link";
-
 
 //TODOs:
 // Backend ---
@@ -36,8 +35,6 @@ const page = async () => {
   const supabase_jwt = await auth().getToken({ template: "supabase" });
   const userId = await auth().userId;
   const userData: any = await getUser(userId, supabase_jwt, bearer_token);
-
-  console.log(userData.users[0].user_groups);
 
   if (userData.users[0].user_groups.length == 0) {
     return (

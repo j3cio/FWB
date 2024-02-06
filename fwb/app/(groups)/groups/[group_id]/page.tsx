@@ -1,7 +1,7 @@
 import { DiscountData } from "@/app/types/types";
-import GroupDetailsSection from "@/components/ui/privategroups/GroupDetailsSection";
-import Tabs from "@/components/ui/privategroups/Tabs";
-import Navbar from "@/components/ui/privategroups/groups_navbar";
+import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
+import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
+import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import { auth } from "@clerk/nextjs";
 import { Box, Container } from "@mui/material";
 
@@ -126,7 +126,7 @@ const page = async ({ params }: { params: { group_id: string } }) => {
     bearer_token
   );
 
-  console.log(params)
+  console.log(params);
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
