@@ -13,7 +13,7 @@ import {
 } from "stream-chat-react";
 import useIntitialChatClient from "./useIntializeChatClient";
 
-export default function page() {
+export default function ChatPage() {
   const chatClient = useIntitialChatClient();
   const { user } = useUser();
 
