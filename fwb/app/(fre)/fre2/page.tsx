@@ -122,7 +122,9 @@ export default function UserFlowPage2() {
               <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
             </svg>
           </div>
-          <h2 className="mainHeader">Share your &quot;benefits&quot; 😏</h2>
+          <h2 className="mainHeader mb-[65px] mt-[36px]">
+            Share your &quot;benefits&quot; 😏
+          </h2>
 
           {/* This is the form that will handle company user input  */}
           <div className="ml-9">
@@ -225,7 +227,7 @@ export default function UserFlowPage2() {
                 </select> */}
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center mt-[60px]">
                 <button
                   type="submit"
                   className="share"
