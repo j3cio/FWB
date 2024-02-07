@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -30,7 +30,14 @@ const theme = createTheme({
   }
 })
 
-const SearchBar = () => {
+interface SearchBarProps {
+  handleSearch: (e: any) => void;
+  companyQuery: string;
+  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCompanyQuery }) => {
+
   return (
     <Box
       sx={{
@@ -47,6 +54,8 @@ const SearchBar = () => {
         placeholder="Search for more benefits"
         style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
+        value = {companyQuery}
+        onChange={(e) => setCompanyQuery(e.target.value)}
       />
       <IconButton
         color="primary"
@@ -61,6 +70,7 @@ const SearchBar = () => {
             backgroundColor: '#8e94e9'
           }
         }}
+        onClick={handleSearch}
       >
         <Image src={searchIcon} alt="Search Icon" />
       </IconButton>
@@ -68,11 +78,16 @@ const SearchBar = () => {
   );
 };
 
-export default function Navbar() {
+interface NavbarProps {
+  handleSearch: (e: any) => void;
+  companyQuery: string;
+  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQuery }) => {
   const router = useRouter();
   const { signOut } = useClerk();
   const { user, isSignedIn } = useUser();
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -124,7 +139,7 @@ export default function Navbar() {
           variant="dense"
           sx={{ display: "flex", gap: "24px", height: "9.6px", flexGrow: 1 }}
         > 
-          <SearchBar />
+          <SearchBar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
           <Tooltip 
             title="Explore"
             slotProps={{
@@ -293,3 +308,5 @@ export default function Navbar() {
     </ThemeProvider>
   )};
 }
+
+export default Navbar;

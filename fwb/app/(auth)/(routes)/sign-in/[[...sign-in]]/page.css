@@ -1,9 +1,16 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 
 .pageHeight {
   height: 100vh;
   overflow: hidden;
+  width: 100%;
+  display: grid;
+  position: relative;
 }
 
 .big {
@@ -13,8 +20,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 200vh;
-   background-color: #8e94e9;
+  background-color: #8e94e9;
 }
 
 .signin {
@@ -32,7 +38,7 @@
   background: rgba(255, 255, 255, 0.15);
   /* opacity: 75%; */
   box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12.5px);
+  position: relative;
 }
 
 .leftSigninContainer {
@@ -51,7 +57,6 @@
   border-radius: 156.25px;
   border: 5px solid var(--neutral-000, #fff);
   margin-left: 150px;
-  /* margin-top: 11%; */
 }
 
 .circle2 {
@@ -74,6 +79,7 @@
   height: 150px;
   margin-right: 20px;
 }
+
 .photos {
   display: flex;
 }
@@ -123,6 +129,7 @@
 .two {
   display: flex;
 }
+
 .circle3 {
   display: flex;
   width: 150px;
@@ -141,7 +148,8 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 40px */
+  line-height: 125%;
+  /* 40px */
   position: absolute;
   z-index: 1;
   transform: rotate(10deg);
@@ -217,12 +225,14 @@
   line-height: 110%;
   margin-left: 85px;
 }
+
 .girlPhoto {
   margin-bottom: -70px;
   width: 140px;
   height: 199.201px;
   flex-shrink: 0;
 }
+
 .subBox {
   margin-top: 6px;
   width: 140px;
@@ -243,12 +253,9 @@
 
 .circle7 {
   width: 150px;
-  /* height: 205px; */
-  /* height: 270px; */
-  flex-shrink: 0;
+  height: 280px;
   border-radius: 156.25px 156.25px 0px 0px;
   border: 3px solid var(--neutral-000, #fff);
-  margin-top: -128px;
 }
 
 .circle7second {
@@ -286,7 +293,7 @@
   width: 45.216px;
   height: 45.216px;
   padding-bottom: 1px;
- padding-left: 8px;
+  padding-left: 8px;
   /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
@@ -298,9 +305,7 @@
 .discordButton {
   width: 45.216px;
   height: 45.216px;
-  padding-bottom: 1px;
-  padding-left: 8px;
-  /* padding: 12.696px 9.85px 12.832px 9.932px; */
+  padding: 7px;
   justify-content: center;
   align-items: center;
   border-radius: 28.26px;
@@ -328,7 +333,8 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 44px */
+  line-height: 110%;
+  /* 44px */
   margin-bottom: 80px;
 }
 
@@ -350,10 +356,12 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   opacity: 0.3;
 }
-.password{
+
+.password {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 32px;
@@ -366,10 +374,11 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
 }
 
-.errorMessage{
+.errorMessage {
   color: var(--neutral-000, #fff);
   /* max-width: 367px; */
   /* word-wrap:break-word; */
@@ -381,7 +390,7 @@ input::placeholder {
   font-style: normal;
   margin-top: -5px;
   margin-bottom: 5px;
-  
+
 }
 
 
@@ -418,7 +427,8 @@ input::placeholder {
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 30px */
+  line-height: 125%;
+  /* 30px */
   letter-spacing: 0.48px;
 }
 
@@ -429,13 +439,16 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%;} /* 24px */
- 
+  line-height: 150%;
+}
+
+/* 24px */
+
 
 .signup {
   display: flex;
- justify-content: center;
- align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .signupButton {
@@ -451,7 +464,8 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
+  /* 20px */
   letter-spacing: 0.32px;
 }
 
