@@ -126,7 +126,6 @@ const page = async ({ params }: { params: { group_id: string } }) => {
     bearer_token
   );
 
-  console.log(params);
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
