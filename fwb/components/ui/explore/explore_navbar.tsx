@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useClerk } from "@clerk/clerk-react";
+import { useUser } from "@clerk/nextjs";
 
 const theme = createTheme({
   components: {
@@ -86,6 +87,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQuery }) => {
   const router = useRouter();
   const { signOut } = useClerk();
+  const { user, isSignedIn } = useUser();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -99,6 +101,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
     setAnchorEl(null);
   };
 
+  if (isSignedIn) {
   return (
     <ThemeProvider theme={theme}>
     <AppBar
@@ -159,10 +162,10 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
                 borderRadius: "50%",
                 border: "2px solid white",
                 borderColor: "#8e94e9",
-                backgroundColor: "#8e94e9",
+                backgroundColor: "#1a1a23",
                 '&:hover': {
-                  backgroundColor: "#1a1a23",
-                  borderColor: "#1a1a23"
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
                 }
               }}
             >
@@ -199,7 +202,8 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
               borderRadius: "50%",
               border: "2px solid white",
               '&:hover': {
-                borderColor: "#1a1a23"
+                backgroundColor: "#8e94e9",
+                borderColor: "#8e94e9"
               }
             }}
           >
@@ -233,7 +237,8 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
                 borderRadius: "50%",
                 border: "2px solid white",
                 '&:hover': {
-                  borderColor: "#1a1a23"
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
                 }
               }}
             >
@@ -254,14 +259,25 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
               backgroundColor: "#DAE3EA",
               padding: "9.6px",
               borderRadius: "50%",
-              border: "4px solid white",
+              border: "2px solid white",
+              '&:hover': {
+                backgroundColor: "#8e94e9",
+                borderColor: "#8e94e9"
+              }
             }}
           >
+            <div 
+              style={{
+                width: "28.8px",
+                height: "28.8px",
+              }}
+            >
             <Image
-              src={avatar}
-              alt="profile"
-              style={{ width: "28.8px", height: "28.8px" }}
+              src={user.imageUrl}
+              alt={avatar}
+              fill
             />
+            </div>
           </IconButton>
           <Menu
             id="user-menu"
@@ -290,7 +306,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
       </Box>
     </AppBar>
     </ThemeProvider>
-  );
+  )};
 }
 
 export default Navbar;

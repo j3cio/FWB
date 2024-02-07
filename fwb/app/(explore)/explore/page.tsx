@@ -9,7 +9,6 @@ import React, {
 import ResponsiveGrid from "@/components/ui/explore/products_grid";
 import { Container, Box, Typography } from "@mui/material";
 import Navbar from "@/components/ui/explore/explore_navbar";
-import AdSection from "@/components/ui/explore/ads_section";
 import MostPopular from "@/components/ui/explore/most_popular";
 import Productfilters from "@/components/ui/explore/productfilters";
 import { Divider } from "@mui/material";
@@ -164,7 +163,6 @@ function ExplorePageContent() {
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
         <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
-        <AdSection />
         <MostPopular />
         <Divider color="white" />
         <Productfilters />
