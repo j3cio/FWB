@@ -6,12 +6,11 @@ import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 
-import MembersIcon from "../privategroups/icons/membersicon.svg";
-import Pencil from "../privategroups/icons/pencil.svg";
-import Settings from "../privategroups/icons/settings.svg";
+import MembersIcon from "../icons/membersicon.svg";
+import Pencil from "../icons/pencil.svg";
+import Settings from "../icons/settings.svg";
 
 const Member = ({ user }: any) => {
-  console.log(user)
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
