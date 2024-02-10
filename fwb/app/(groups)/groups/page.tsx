@@ -1,3 +1,4 @@
+import CreateGroupForm from "@/components/form/CreateGroup/CreateGroupForm";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import { auth } from "@clerk/nextjs";
 import { Box, Button, Container } from "@mui/material";
@@ -38,22 +39,27 @@ const page = async () => {
 
   if (userData.users[0].user_groups.length == 0) {
     return (
-      <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
-        <Container disableGutters maxWidth="lg">
-          <Navbar />
-          <Box
-            sx={{
-              borderRadius: 28,
-              borderStyle: "solid",
-              borderColor: "white",
-              borderWidth: 2,
-              bgcolor: "white",
-            }}
-          >
-            <Button> Create a group </Button>
-          </Box>
-        </Container>
-      </Box>
+      <div className="w-full h-full">
+        <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
+          <Container disableGutters maxWidth="lg">
+            <Navbar />
+            <Box
+              sx={{
+                borderRadius: 28,
+                borderStyle: "solid",
+                borderColor: "white",
+                borderWidth: 2,
+                bgcolor: "white",
+              }}
+            >
+              <Button> Create a group </Button>
+            </Box>
+            <div className=" bg-white mt-4 h-56 w-full">
+              <CreateGroupForm />
+            </div>
+          </Container>
+        </Box>
+      </div>
     );
   }
 
