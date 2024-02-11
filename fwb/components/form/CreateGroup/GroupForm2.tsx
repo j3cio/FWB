@@ -1,11 +1,11 @@
 type Form2Data = {
-  invitedMembers: string;
+  users: string;
 };
 
 type Form2Props = Form2Data & {
   updateFields: (fields: Partial<Form2Data>) => void;
 };
-export function GroupForm2({ invitedMembers, updateFields }: Form2Props) {
+export function GroupForm2({ users, updateFields }: Form2Props) {
   return (
     <>
       <label> Invite your friends...</label>
@@ -13,8 +13,8 @@ export function GroupForm2({ invitedMembers, updateFields }: Form2Props) {
         autoFocus
         required
         type="text"
-        value={invitedMembers}
-        onChange={(e) => updateFields({ invitedMembers: e.target.value })}
+        value={users}
+        onChange={(e) => updateFields({ users: e.target.value })}
       />
     </>
   );
