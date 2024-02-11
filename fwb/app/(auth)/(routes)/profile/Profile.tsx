@@ -6,14 +6,14 @@ import { Box, Button, Container } from "@mui/material";
 //import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
-import BlueGroupIcon from "../../components/ui/profile/icons/groups-blue.svg";
+import BlueGroupIcon from "../../../../components/ui/profile/icons/groups-blue.svg";
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 import { useUser } from "@clerk/nextjs";
 import Avatar from "@mui/material/Avatar";
 import { useState } from "react";
-import SaveIcon from "../../components/ui/profile/icons/save.svg";
+import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
 import BargainBackgroundImage from "../../public/bargain1700x350.png";
-import { UserData } from "../types/types";
+import { UserData } from "../../../types/types";
 import EditProfileModal from "./EditProfileModal";
 
 function Profile({ userData }: { userData: UserData }) {
