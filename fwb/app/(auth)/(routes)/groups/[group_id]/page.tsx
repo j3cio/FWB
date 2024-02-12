@@ -1,22 +1,20 @@
 import { DiscountData } from "@/app/types/types";
-import Navbar from "@/components/ui/privategroups/groups_navbar";
-import GroupDetailsSection from "@/components/ui/privategroups/GroupDetailsSection";
-import Tabs from "@/components/ui/privategroups/Tabs";
+import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
+import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
+import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import { auth } from "@clerk/nextjs";
-import { Container, Box } from "@mui/material";
-import { relative } from "path";
-import SearchBar from "@/components/ui/privategroups/SearchBar";
+import { Box, Container } from "@mui/material";
 
 //TODOs:
 // Backend ---
 // Search bar for searching members
 
 async function getGroupData(
-  searchParams: { [key: string]: string | string[] | undefined },
+  params: { [key: string]: string | string[] | undefined },
   supabaseToken: any,
   bearerToken: any
 ) {
-  if (searchParams.group_id) {
+  if (params.group_id) {
     var myHeaders = new Headers();
     myHeaders.append("supabase_jwt", supabaseToken);
     myHeaders.append("Authorization", `Bearer ${bearerToken}`);
@@ -27,7 +25,7 @@ async function getGroupData(
     };
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${searchParams.group_id}`, // add to .env
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${params.group_id}`, // add to .env
         requestOptions
       );
       if (!response.ok) {
@@ -117,21 +115,22 @@ async function getAllUserData(user_ids: string[], supabaseToken: any, bearerToke
   return results;
 }
 
-const page = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
+const page = async ({ params }: { params: { group_id: string } }) => {
   const bearer_token = await auth().getToken({ template: "testing_template" });
   const supabase_jwt = await auth().getToken({ template: "supabase" });
-  const groupData = await getGroupData(searchParams, supabase_jwt, bearer_token);
+  const groupData = await getGroupData(params, supabase_jwt, bearer_token);
   const userData: any = await getAllUserData(groupData.data[0].users, supabase_jwt, bearer_token);
   const discountData: DiscountData[] = await getAllDiscountsData(
     groupData.data[0].discounts,
     supabase_jwt,
     bearer_token
   );
+
   return (
-    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh"}}>
+    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
         <Navbar />
-        <Box sx={{ position: 'relative', marginTop: "156px", zIndex: 0 }}>
+        <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
           <Tabs userData={userData} discountData={discountData} />
         </Box>
