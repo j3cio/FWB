@@ -8,11 +8,11 @@ import supabaseClient from "@/supabase";
  * @param request - The NextRequest object containing the query parameters.
  * @returns A NextResponse object containing the fetched users or an error response.
  */
-const getCompanyDiscounts = async (request: NextRequest) => {
+export async function GET(request: NextRequest) {
 
   //Extract the company_name from the url path
-  const urlObject = new URL(request.url)
-  const companyNamePathVariable = urlObject.pathname.split("/").pop()
+  const { searchParams } = new URL(request.url);
+  const query = searchParams.get('companyQuery');
 
   try {
     const { userId, getToken } = auth();
@@ -31,7 +31,7 @@ const getCompanyDiscounts = async (request: NextRequest) => {
       let { data: companyData, error } = await supabase
         .from("companies")
         .select("*")
-        .eq("name", companyNamePathVariable)
+        .eq("name", query)
 
       if (error) {
         return NextResponse.json(
@@ -55,5 +55,3 @@ const getCompanyDiscounts = async (request: NextRequest) => {
     );
   }
 };
-
-export { getCompanyDiscounts };

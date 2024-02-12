@@ -15,6 +15,7 @@ import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
 import BargainBackgroundImage from "../../public/bargain1700x350.png";
 import { UserData } from "../../../types/types";
 import EditProfileModal from "./EditProfileModal";
+import { useRouter } from "next/navigation";
 
 function Profile({ userData }: { userData: UserData }) {
   // Need to update font
@@ -35,11 +36,18 @@ function Profile({ userData }: { userData: UserData }) {
   };
 
   const { user } = useUser();
+  const router = useRouter();
+  const [companyQuery, setCompanyQuery] = useState('');
+
+  const handleSearch = (companyQuery: any) => {
+    const url = `/explore?company=${companyQuery}`;
+    router.push(url);
+  };
 
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
+        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
           <div className="flex flex-1 flex-col h-full w-full items-center justify-center px-[120px]">

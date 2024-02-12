@@ -18,7 +18,7 @@ import {
   FilterProvider,
 } from "@/components/ui/explore/filter_context";
 import { useAuth } from "@clerk/nextjs"
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
@@ -47,9 +47,46 @@ function ExplorePageContent() {
   const [companyQuery, setCompanyQuery] = useState('');
   const [searchedCompany, setSearchedCompany] = useState(null);
 
+  const searchParams = useSearchParams();
+  const companyRedirect = searchParams.get("company")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
+        const supabaseToken = await window.Clerk.session.getToken({ template: 'supabase' });
+
+        const response = await fetch(`api/companies/search?companyQuery=${companyRedirect}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+            supabase_jwt: supabaseToken,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Searching for Discount was Successful', data);
+          setSearchedCompany(data);
+        } else {
+          const errorData = await response.json();
+          console.error('Error Finding a Discount', errorData);
+          alert('There are no discounts for that company!');
+          setSearchedCompany(null);
+        }
+      } catch (error) {
+        console.error('GET Company Discount API Failed', error);
+        setSearchedCompany(null);
+      }
+    };
+
+    if (companyRedirect) {
+      fetchData();
+    }
+  }, [companyRedirect]);
+
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    console.log(companyQuery)
 
     if (!companyQuery) {
       console.error("Invalid company name provided");
@@ -64,13 +101,13 @@ function ExplorePageContent() {
       const supabaseToken = await window.Clerk.session.getToken({template: 'supabase'})
 
       // GET Fetch Request to Companies API 
-      const response = await fetch(`/api/companies/${companyQuery}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${bearerToken}`,
-          'supabase_jwt': supabaseToken,
-        },
-      });
+      const response = await fetch(`api/companies/search?companyQuery=${companyQuery}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${bearerToken}`,
+            'supabase_jwt': supabaseToken,
+          },
+        });
 
       if (response.ok) {
         const data = await response.json();
@@ -88,6 +125,7 @@ function ExplorePageContent() {
     }
 
     router.push('/explore')
+
   };
 
   const fetchData = async (concat: boolean) => {
