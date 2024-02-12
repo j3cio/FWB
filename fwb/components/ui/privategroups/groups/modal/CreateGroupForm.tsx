@@ -2,7 +2,7 @@
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@mui/material";
 import { FormEvent, useState } from "react";
-import useMultistepForm from "../../hooks/useMultistepForm";
+import useMultistepForm from "../../../../hooks/useMultistepForm";
 import { GroupForm1 } from "./GroupForm1";
 import { GroupForm2 } from "./GroupForm2";
 
@@ -21,6 +21,7 @@ const initialData: FormData = {
 const CreateGroupForm = () => {
   const { userId } = useAuth();
   const [data, setData] = useState(initialData);
+  //const [refresh, setRefresh] = useState(true)
 
   // This is the hook that carries the logic for the multistep form
   // We pass into it the JSX that is for each page of the form
@@ -45,7 +46,7 @@ const CreateGroupForm = () => {
       formData.append("discounts", "");
       formData.append("description", `${data.description}`);
 
-      // POST Fetch Request to Discounts API
+      // POST Fetch Request to add the group into groups table
       const response = await fetch("/api/groups", {
         method: "POST",
         headers: {
@@ -55,8 +56,11 @@ const CreateGroupForm = () => {
         body: formData,
       });
 
+      // Need to take the created group and add it to users discount array
+
       if (response.ok) {
         const data = await response.json();
+        //setRefresh(!refresh)
         console.log("Group added successfully:", data);
       } else {
         const errorData = await response.json();

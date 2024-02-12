@@ -1,0 +1,93 @@
+"use client";
+import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
+import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGroupForm";
+import { Box, Button, Container, Modal } from "@mui/material";
+import Link from "next/link";
+import { useState } from "react";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+// Type userData
+const GroupsHomePage = ({ userData }: any) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  if (userData.users[0].user_groups.length == 0) {
+    return (
+      <div className="w-full h-full">
+        <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
+          <Container disableGutters maxWidth="lg">
+            <Navbar />
+            <Box
+              sx={{
+                borderRadius: 28,
+                borderStyle: "solid",
+                borderColor: "white",
+                borderWidth: 2,
+                bgcolor: "white",
+              }}
+            >
+              <Button onClick={handleOpen}> Create a group </Button>
+            </Box>
+            <div className=" bg-white mt-4 h-56 w-full">
+              <CreateGroupForm />
+            </div>
+          </Container>
+        </Box>
+      </div>
+    );
+  }
+
+  return (
+    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
+      <Container disableGutters maxWidth="lg">
+        <Navbar />
+        <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
+          {userData.users[0].user_groups.map((group_id: string, key: number) => {
+            return (
+              <Link href={`/groups/${group_id}`} className="text-white bg-purple-400 p-4 mr-10" key={key}>
+                Group {`${key}`}
+              </Link>
+            );
+          })}
+        </Box>
+      </Container>
+      <Button
+        sx={{
+          borderRadius: 28,
+          borderStyle: "solid",
+          borderColor: "white",
+          borderWidth: 2,
+          bgcolor: "white",
+        }}
+        onClick={handleOpen}
+      >
+        {" "}
+        Create a group{" "}
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <CreateGroupForm />
+        </Box>
+      </Modal>
+    </Box>
+  );
+};
+
+export default GroupsHomePage;

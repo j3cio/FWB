@@ -1,12 +1,5 @@
-import CreateGroupForm from "@/components/form/CreateGroup/CreateGroupForm";
-import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
+import GroupsHomePage from "@/components/ui/privategroups/groups/GroupsHomePage";
 import { auth } from "@clerk/nextjs";
-import { Box, Button, Container } from "@mui/material";
-import Link from "next/link";
-
-//TODOs:
-// Backend ---
-// Search bar for searching members
 
 async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers();
@@ -37,47 +30,10 @@ const page = async () => {
   const userId = await auth().userId;
   const userData: any = await getUser(userId, supabase_jwt, bearer_token);
 
-  if (userData.users[0].user_groups.length == 0) {
-    return (
-      <div className="w-full h-full">
-        <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
-          <Container disableGutters maxWidth="lg">
-            <Navbar />
-            <Box
-              sx={{
-                borderRadius: 28,
-                borderStyle: "solid",
-                borderColor: "white",
-                borderWidth: 2,
-                bgcolor: "white",
-              }}
-            >
-              <Button> Create a group </Button>
-            </Box>
-            <div className=" bg-white mt-4 h-56 w-full">
-              <CreateGroupForm />
-            </div>
-          </Container>
-        </Box>
-      </div>
-    );
-  }
-
   return (
-    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
-      <Container disableGutters maxWidth="lg">
-        <Navbar />
-        <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
-          {userData.users[0].user_groups.map((group_id: string, key: number) => {
-            return (
-              <Link href={`/groups/${group_id}`} className="text-white bg-purple-400 p-4 mr-10" key={key}>
-                Group {`${key}`}
-              </Link>
-            );
-          })}
-        </Box>
-      </Container>
-    </Box>
+    <div>
+      <GroupsHomePage userData={userData} />
+    </div>
   );
 };
 
