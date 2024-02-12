@@ -14,6 +14,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import { useRouter } from "next/navigation";
 
 
 const theme = createTheme({
@@ -60,6 +61,14 @@ export default function Intakeform() {
   );
   const [categories, setCategories] = useState([]);
   const [termsAndConditions, setTermsAndConditions] = useState(false);
+
+  const router = useRouter();
+  const [companyQuery, setCompanyQuery] = useState('');
+
+  const handleSearch = (companyQuery: any) => {
+    const url = `/explore?company=${companyQuery}`;
+    router.push(url);
+  };
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
@@ -124,7 +133,7 @@ export default function Intakeform() {
       <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
         <div>
-          <Navbar />
+          <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         </div>
         <form
           id="discountForm"
