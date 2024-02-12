@@ -38,7 +38,7 @@ const page = async ({
 
   const userData: any = await getUser(userId, supabase_jwt, bearer_token);
 
-  console.log(userData.users[0].company);
+  console.log(userData.users[0].hasCompletedFRE);
 
   return (
     <div>

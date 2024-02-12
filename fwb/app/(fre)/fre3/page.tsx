@@ -8,6 +8,7 @@ import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useAuth, auth, currentUser, UserProfile } from "@clerk/nextjs";
 
 export default function UserFlowPage3() {
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
@@ -68,6 +69,8 @@ export default function UserFlowPage3() {
   //sending emails
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    changeFRE();
+
     event.preventDefault();
 
     try {
@@ -81,6 +84,40 @@ export default function UserFlowPage3() {
       router.push("/profile");
     } catch (error) {
       console.error("Error sending email:", error);
+    }
+  };
+
+  const changeFRE = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("hasCompletedFRE", "true");
+      console.log("fre 3 formData: " + formData.get("hasCompletedFRE"));
+
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: "supabase",
+      });
+      const bearerToken = await window.Clerk.session.getToken({
+        template: "testing_template",
+      });
+      console.log({ supabaseToken, bearerToken });
+
+      const headers = new Headers({
+        Authorization: `Bearer ${bearerToken}`,
+        supabase_jwt: supabaseToken,
+        apikey: process.env.NEXT_PUBLIC_SUPABASE_KEY,
+      } as HeadersInit);
+
+      const userResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        {
+          method: "PATCH",
+          headers,
+          body: formData,
+        }
+      );
+      console.log(await userResponse.json());
+    } catch (error) {
+      console.error("Error using discount API:", error);
     }
   };
 
@@ -225,7 +262,7 @@ export default function UserFlowPage3() {
               </svg>
             </div>
             {/* </Link> */}
-            <Link href="/profile" className="skip">
+            <Link href="/profile" className="skip" onClick={changeFRE}>
               <div className="skipButton">Skip for now</div>
             </Link>
           </div>
