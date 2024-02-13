@@ -1,6 +1,7 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import useMultistepForm from "../../../../hooks/useMultistepForm";
 import { GroupForm1 } from "./GroupForm1";
@@ -18,11 +19,16 @@ const initialData: FormData = {
   users: "", // This should be userId[] of people invited to the group
 };
 
-const CreateGroupForm = () => {
+// TODO:
+// Edge cases that need to be handled:
+// If the user is not part of any groups it gives errors
+// If you add a new group and go to a new page then go back to the /groups page it might give an error
+// I think it might be better to grab userGroups client side rather than server side??
+
+const CreateGroupForm = ({ userGroups }: any) => {
   const { userId } = useAuth();
   const [data, setData] = useState(initialData);
-  //const [refresh, setRefresh] = useState(true)
-
+  const router = useRouter();
   // This is the hook that carries the logic for the multistep form
   // We pass into it the JSX that is for each page of the form
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
@@ -37,9 +43,11 @@ const CreateGroupForm = () => {
   }
 
   async function handleCreateGroup(data: any) {
+    const bearerToken = await window.Clerk.session.getToken({ template: "testing_template" });
+    const supabaseToken = await window.Clerk.session.getToken({ template: "supabase" });
+
+    // This adds the group to the "groups" table in supabase
     try {
-      const bearerToken = await window.Clerk.session.getToken({ template: "testing_template" });
-      const supabaseToken = await window.Clerk.session.getToken({ template: "supabase" });
       const formData = new FormData();
       formData.append("name", `${data.name}`);
       formData.append("users", `${userId}`);
@@ -56,12 +64,10 @@ const CreateGroupForm = () => {
         body: formData,
       });
 
-      // Need to take the created group and add it to users discount array
-
       if (response.ok) {
         const data = await response.json();
-        //setRefresh(!refresh)
-        console.log("Group added successfully:", data);
+        console.log("Group added successfully:", data.data[0].id);
+        userGroups.push(data.data[0].id);
       } else {
         const errorData = await response.json();
         console.error("Error adding user:", errorData);
@@ -69,14 +75,41 @@ const CreateGroupForm = () => {
     } catch (error) {
       console.error("Error add user:", error);
     }
+
+    // This updates the user's groups column
+    try {
+      let testGroup = `{${userGroups.join(",")}}`;
+      const groupFormData = new FormData();
+      groupFormData.append("user_id", `${userId}`);
+      groupFormData.append("user_groups", `${testGroup}`);
+      const res = await fetch("/api/users", {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+        body: groupFormData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        //setRefresh(!refresh)
+        console.log("Group added successfully:", data);
+        userGroups.push(data);
+      } else {
+        const errorData = await res.json();
+        console.error("Error adding user:", errorData);
+      }
+    } catch (error) {
+      console.error("Error adding user group:", error);
+    }
   }
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isLastStep) return next(); // Check if on last page
-    //Creatie a group and add it to the db
+    // Create a group and add it to the db
     handleCreateGroup(data);
-    //TODO: When a group is created, need to update user fields to include this new group
+    router.push(`/profile`); // This is a bandaid fix for now for some reason when you the user clicks out of the modal it crashes the page
   }
 
   return (

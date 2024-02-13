@@ -2,7 +2,6 @@
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGroupForm";
 import { Box, Button, Container, Modal } from "@mui/material";
-import Link from "next/link";
 import { useState } from "react";
 
 const style = {
@@ -41,7 +40,7 @@ const GroupsHomePage = ({ userData }: any) => {
               <Button onClick={handleOpen}> Create a group </Button>
             </Box>
             <div className=" bg-white mt-4 h-56 w-full">
-              <CreateGroupForm />
+              <CreateGroupForm userGroup={userData.users[0].user_groups} />
             </div>
           </Container>
         </Box>
@@ -49,16 +48,33 @@ const GroupsHomePage = ({ userData }: any) => {
     );
   }
 
+  const navigateToUserPage = (group_id: any) => {
+    window.location.href = `/groups/${group_id}`;
+  };
+
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
         <Navbar />
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
-          {userData.users[0].user_groups.map((group_id: string, key: number) => {
+          {userData.users[0].user_groups.map((group_id: string) => {
             return (
-              <Link href={`/groups/${group_id}`} className="text-white bg-purple-400 p-4 mr-10" key={key}>
-                Group {`${key}`}
-              </Link>
+              <Button
+                variant="contained"
+                sx={{
+                  borderRadius: 28,
+                  borderStyle: "solid",
+                  borderColor: "white",
+                  borderWidth: 2,
+                  bgcolor: "white",
+                  margin: 2,
+                }}
+                key={group_id}
+                onClick={() => navigateToUserPage(group_id)}
+              >
+                {" "}
+                group {group_id}{" "}
+              </Button>
             );
           })}
         </Box>
@@ -83,7 +99,7 @@ const GroupsHomePage = ({ userData }: any) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateGroupForm />
+          <CreateGroupForm userGroups={userData.users[0].user_groups} />
         </Box>
       </Modal>
     </Box>
