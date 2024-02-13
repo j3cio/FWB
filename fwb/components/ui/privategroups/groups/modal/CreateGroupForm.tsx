@@ -32,8 +32,8 @@ const CreateGroupForm = ({ userGroups }: any) => {
   // This is the hook that carries the logic for the multistep form
   // We pass into it the JSX that is for each page of the form
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
-    <GroupForm1 {...data} updateFields={updateFields} />,
-    <GroupForm2 {...data} updateFields={updateFields} />,
+    <GroupForm1 key={1} {...data} updateFields={updateFields} />,
+    <GroupForm2 key={2} {...data} updateFields={updateFields} />,
   ]);
 
   function updateFields(fields: Partial<FormData>) {
