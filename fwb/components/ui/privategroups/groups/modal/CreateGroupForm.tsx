@@ -21,13 +21,11 @@ const initialData: FormData = {
 
 // TODO:
 // Edge cases that need to be handled:
-// If the user is not part of any groups it gives errors
-// If you add a new group and go to a new page then go back to the /groups page it might give an error
-// I think it might be better to grab userGroups client side rather than server side??
 
-const CreateGroupForm = ({ userGroups }: any) => {
+const CreateGroupForm = ({ userGroups, handleClose }: any) => {
   const { userId } = useAuth();
   const [data, setData] = useState(initialData);
+  const [newGroupId, setNewGroupId] = useState();
   const router = useRouter();
   // This is the hook that carries the logic for the multistep form
   // We pass into it the JSX that is for each page of the form
@@ -53,7 +51,6 @@ const CreateGroupForm = ({ userGroups }: any) => {
       formData.append("users", `${userId}`);
       formData.append("discounts", "");
       formData.append("description", `${data.description}`);
-
       // POST Fetch Request to add the group into groups table
       const response = await fetch("/api/groups", {
         method: "POST",
@@ -65,9 +62,13 @@ const CreateGroupForm = ({ userGroups }: any) => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log("Group added successfully:", data.data[0].id);
-        userGroups.push(data.data[0].id);
+        if (userGroups == undefined) {
+          userGroups = [];
+        }
+        const groupData = await response.json();
+        userGroups.push(groupData.data[0].id);
+        console.log("after .push", userGroups);
+        console.log("Group added successfully:", groupData.data[0].id);
       } else {
         const errorData = await response.json();
         console.error("Error adding user:", errorData);
@@ -78,10 +79,10 @@ const CreateGroupForm = ({ userGroups }: any) => {
 
     // This updates the user's groups column
     try {
-      let testGroup = `{${userGroups.join(",")}}`;
+      let newGroup = `{${userGroups.join(",")}}`;
       const groupFormData = new FormData();
       groupFormData.append("user_id", `${userId}`);
-      groupFormData.append("user_groups", `${testGroup}`);
+      groupFormData.append("user_groups", `${newGroup}`);
       const res = await fetch("/api/users", {
         method: "PATCH",
         headers: {
@@ -90,11 +91,13 @@ const CreateGroupForm = ({ userGroups }: any) => {
         },
         body: groupFormData,
       });
+
       if (res.ok) {
         const data = await res.json();
-        //setRefresh(!refresh)
         console.log("Group added successfully:", data);
-        userGroups.push(data);
+        router.refresh();
+        // If you want to redirect to new group made use this else just refresh the page...
+        //router.push(`/groups/${userGroups[userGroups.length-1]}`)
       } else {
         const errorData = await res.json();
         console.error("Error adding user:", errorData);
@@ -109,7 +112,7 @@ const CreateGroupForm = ({ userGroups }: any) => {
     if (!isLastStep) return next(); // Check if on last page
     // Create a group and add it to the db
     handleCreateGroup(data);
-    router.push(`/profile`); // This is a bandaid fix for now for some reason when you the user clicks out of the modal it crashes the page
+    handleClose();
   }
 
   return (
