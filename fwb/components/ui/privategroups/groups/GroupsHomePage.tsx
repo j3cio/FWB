@@ -1,4 +1,5 @@
 "use client";
+import { UserData } from "@/app/types/types";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGroupForm";
 import { Box, Button, Container, Modal } from "@mui/material";
@@ -17,10 +18,11 @@ const style = {
 };
 
 // Type userData
-const GroupsHomePage = ({ userData }: any) => {
+const GroupsHomePage = ({ userData }: {userData: UserData}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log(userData.users[0].user_groups)
 
   if (userData.users[0].user_groups.length == 0) {
     return (
@@ -55,7 +57,7 @@ const GroupsHomePage = ({ userData }: any) => {
     );
   }
 
-  const navigateToUserPage = (group_id: any) => {
+  const navigateToUserPage = (group_id: string) => {
     window.location.href = `/groups/${group_id}`;
   };
 

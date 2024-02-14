@@ -22,10 +22,9 @@ const initialData: FormData = {
 // TODO:
 // Edge cases that need to be handled:
 
-const CreateGroupForm = ({ userGroups, handleClose }: any) => {
+const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; handleClose: () => void }) => {
   const { userId } = useAuth();
   const [data, setData] = useState(initialData);
-  const [newGroupId, setNewGroupId] = useState();
   const router = useRouter();
   // This is the hook that carries the logic for the multistep form
   // We pass into it the JSX that is for each page of the form
@@ -40,7 +39,8 @@ const CreateGroupForm = ({ userGroups, handleClose }: any) => {
     });
   }
 
-  async function handleCreateGroup(data: any) {
+  async function handleCreateGroup(data: FormData) {
+    console.log(data);
     const bearerToken = await window.Clerk.session.getToken({ template: "testing_template" });
     const supabaseToken = await window.Clerk.session.getToken({ template: "supabase" });
 
