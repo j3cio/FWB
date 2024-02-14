@@ -39,9 +39,16 @@ const GroupsHomePage = ({ userData }: any) => {
             >
               <Button onClick={handleOpen}> Create a group </Button>
             </Box>
-            <div className=" bg-white mt-4 h-56 w-full">
-              <CreateGroupForm userGroup={userData.users[0].user_groups} />
-            </div>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <CreateGroupForm userGroups={userData.users[0].user_groups} handleClose={handleClose} />
+              </Box>
+            </Modal>
           </Container>
         </Box>
       </div>
@@ -99,7 +106,7 @@ const GroupsHomePage = ({ userData }: any) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateGroupForm userGroups={userData.users[0].user_groups} />
+          <CreateGroupForm userGroups={userData.users[0].user_groups} handleClose={handleClose} />
         </Box>
       </Modal>
     </Box>
