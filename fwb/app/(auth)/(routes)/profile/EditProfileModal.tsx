@@ -12,6 +12,9 @@ type EditProfileModalProps = {
   userData: UserData;
 };
 
+//TODO: 
+//Edge Case: Currently if the username or company is null on supabase it causes and error in the patch request
+
 const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) => {
   const { userId } = useAuth();
   const { user } = useUser();
