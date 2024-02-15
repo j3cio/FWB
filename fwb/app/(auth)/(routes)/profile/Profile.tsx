@@ -18,10 +18,6 @@ import EditProfileModal from "./EditProfileModal";
 import { useRouter } from "next/navigation";
 
 function Profile({ userData }: { userData: UserData }) {
-  // Need to update font
-  // Make Bargain text responsive
-  // Animations/Hover effects for buttons, etc..
-
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
 
@@ -55,11 +51,6 @@ function Profile({ userData }: { userData: UserData }) {
           <div className="flex flex-1 flex-col h-full w-full items-center justify-center px-[120px]">
             {/*Profile div*/}
             <div className="flex w-full h-1/5 mt-[95px] mb-[50px] gap-10 border-b-2 border-slate-200 pb-[95px]">
-              {/* <AvatarIcon
-                  alt="User"
-                  sx={{ width: "200px", height: "200px" }}
-                  className="flex bg-slate-200 w-48 rounded-full justify-center items-center"
-                ></AvatarIcon> */}
               <Avatar
                 alt="123"
                 src={`${user?.imageUrl}`}
@@ -96,24 +87,6 @@ function Profile({ userData }: { userData: UserData }) {
                   >
                     Edit Profile
                   </Button>
-                  {/* <Button
-                      variant="contained"
-                      sx={{
-                        borderRadius: 28,
-                        borderStyle: "solid",
-                        borderColor: "white",
-                        borderWidth: 2,
-                        bgcolor: `${theme.palette.neutral.n900}`,
-                        color: `${theme.palette.common.white}`,
-                        ':hover': {
-                          bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
-                          color: `${theme.palette.common.white}`, // Hover text color
-                        }
-                      }}
-                      endIcon={<Image src={LinkedInIcon} alt="123" />}
-                    >
-                      Verify Employment
-                    </Button> */}
                 </div>
               </div>
             </div>
@@ -225,6 +198,7 @@ function Profile({ userData }: { userData: UserData }) {
           <EditProfileModal
             isOpen={isEditProfileModalOpen}
             onClose={closeEditProfileModal}
+            userData={userData}
           />
         </div>
       </Container>
