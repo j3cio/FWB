@@ -17,7 +17,8 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
   const { user } = useUser();
   const router = useRouter();
   const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(null);
-
+  const [refresh, setRefresh] = useState(true);
+  
   //Taking converted blob file and updating User's Profile Picture based on button click
   const chooseProfilePicture = async (image: string) => {
     const file = await convertFilePathToBlob(image);
@@ -110,6 +111,7 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
     updateUser();
     onClose();
     router.refresh();
+    setRefresh(!refresh)
   };
 
   return (
