@@ -21,46 +21,6 @@ export default function UserFlowPage1() {
     null
   );
 
-  async function getUser() {
-    if (user && isLoaded) {
-      try {
-        const bearerToken = await window.Clerk.session.getToken({
-          template: "testing_template",
-        });
-
-        const supabaseToken = await window.Clerk.session.getToken({
-          template: "supabase",
-        });
-        if (user) {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${bearerToken}`,
-                supabase_jwt: supabaseToken,
-              },
-            }
-          );
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          const result = await response.json();
-          return result; // This returns the result object
-        }
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-        throw error; // This re-throws the error to be handled by the caller
-      }
-    } else {
-      console.log("session not ready");
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
   //Add router to push to fre2 after making User API POST Request
   const router = useRouter();
 

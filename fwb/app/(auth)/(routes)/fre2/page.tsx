@@ -139,20 +139,7 @@ export default function UserFlowPage2() {
                 required
               />
 
-              <div className="flex justify-start">
-                <h6 className="discountFormText">Discount Amount (%) *</h6>
-                <h6 className="discountFormText">Category *</h6>
-              </div>
-
               <div className="flex justify-start flex-col">
-                <input
-                  type="text"
-                  className="inputCompany"
-                  placeholder="Company Name"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                  required
-                />
 
                 <div className="flex justify-start">
                   <h6 className="discountFormText">Discount Amount (%) *</h6>
@@ -183,7 +170,7 @@ export default function UserFlowPage2() {
                         )
                       )
                     }
-                    value={categories}
+                    value={categories[0]}
                     required
                   >
                     <option value="All">All</option>
