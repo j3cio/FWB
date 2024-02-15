@@ -44,6 +44,8 @@ function Profile({ userData }: { userData: UserData }) {
     router.push(url);
   };
 
+  console.log(userData.users[0].username)
+
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
@@ -66,7 +68,7 @@ function Profile({ userData }: { userData: UserData }) {
               />
               <div className="flex flex-col grow justify-center">
                 <div className="text-slate-200 text-[35px] mb-[4px] leading-none font-semibold">
-                  {user?.fullName}
+                  {userData.users[0].username}
                 </div>
                 <div className="flex flex-row mb-[16px]">
                   <div className="mr-1 text-slate-200">Works at: </div>
