@@ -39,5 +39,6 @@ export interface User {
       verified: false,
       blocked_users: string[],
       reported_users: string[],
-      profile_picture_url: string
+      profile_picture_url: string,
+      hasCompletedFRE: false,
 }
