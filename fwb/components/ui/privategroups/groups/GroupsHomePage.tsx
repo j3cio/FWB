@@ -73,7 +73,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
+        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           {userData.users[0].user_groups.map((group_id: string) => {
             return (
