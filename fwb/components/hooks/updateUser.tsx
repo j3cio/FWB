@@ -1,4 +1,4 @@
-const UpdateUser = async (formData) => {
+const UpdateUser = async (formData: FormData) => {
   try {
     const bearerToken = await window.Clerk.session.getToken({
       template: "testing_template",
