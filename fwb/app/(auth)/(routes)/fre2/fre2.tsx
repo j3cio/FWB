@@ -8,6 +8,7 @@ import IllustrationFour from "@/components/ui/fre/IllustrationFour";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UserData } from "../../../types/types";
+import UpdateUser from "@/components/hooks/updateUser";
 
 // Setting Clerk as Global Variable to access Clerk / Supabase Session Keys
 declare global {
@@ -77,13 +78,31 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       if (response.ok) {
         const data = await response.json();
         console.log("Discount added successfully:", data);
-        router.push("/fre3");
+        updateUser();
       } else {
         const errorData = await response.json();
         console.error("Error adding discount:", errorData);
       }
     } catch (error) {
       console.error("Error using discount API:", error);
+    }
+  };
+
+  const updateUser = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("hasCompletedFRE", "{true, true, false}");
+      
+      const response = await UpdateUser(formData);
+  
+      if (response) {
+        console.log("rerouting to fre3")
+        router.push("/fre3");
+      } else {
+        console.error("Error in updateUser")
+      }
+    } catch (error) {
+      console.error("Error in updateUser:", error);
     }
   };
 
@@ -100,15 +119,16 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   //Update user info based on provided company of Employment
   const { isSignedIn, user, isLoaded } = useUser();
 
-  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   useEffect(() => {
     if (!isLoaded || !isSignedIn) {
       return;
     }
 
-    if (!userData || !userData.users[0].hasCompletedFRE) {
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
         router.replace("/fre1");
-    } else {
+    } else if (userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0] && !userData.users[0].hasCompletedFRE[2]) {
+        router.replace("/fre3");
+    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
         router.replace("profile");
     }
   }, [isLoaded, isSignedIn, userData, router]);
@@ -236,10 +256,10 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
           </div>
 
           {/* This is the link functionality to carry user to stage 3  */}
-          <div className="flex justify-center" style={{ marginTop: "-10px" }}>
-            <Link href="/fre3" className="skip">
+          <div className="flex justify-center" style={{ marginTop: "-10px" }} onClick={updateUser}>
+            <div className="skip">
               Skip for now
-            </Link>
+            </div>
           </div>
         </div>
       </div>

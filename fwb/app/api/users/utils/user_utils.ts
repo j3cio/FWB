@@ -28,7 +28,7 @@ const insertUser = async (request: NextRequest) => {
         user_messages: formData.get("user_messages") || [],
         company: formData.get("company"),
         verified: formData.get("verified") === "false" ? false : true,
-        hasCompletedFRE: formData.get("hasCompletedFRE") === "false" ? false : true,
+        hasCompletedFRE: formData.get("hasCompletedFRE") || [false, false, false],
         blocked_users: formData.get("blocked_users") || [],
         reported_users: formData.get("reported_users") || []
       };
@@ -210,8 +210,7 @@ const updateUser = async (request: NextRequest) => {
         updatedUser.verified = formData.get("verified");
       }
       if (formData.get("hasCompletedFRE")) {
-        const hasComplete =  formData.get("hasCompletedFRE") === "false" ? false : true;
-        updatedUser.hasCompletedFRE = hasComplete;
+        updatedUser.hasCompletedFRE = formData.get("hasCompletedFRE");
       }
       if (formData.get("blocked_users")) {
         updatedUser.blocked_users = formData.get("blocked_users");

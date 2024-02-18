@@ -40,5 +40,5 @@ export interface User {
       blocked_users: string[],
       reported_users: string[],
       profile_picture_url: string,
-      hasCompletedFRE: false,
+      hasCompletedFRE: boolean[],
 }

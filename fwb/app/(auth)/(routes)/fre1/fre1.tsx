@@ -37,8 +37,12 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
       return;
     }
 
-    if (userData && userData.users[0]?.hasCompletedFRE) {
-      router.replace("/profile");
+    if (!userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
+        router.replace("/fre2");
+    } else if (!userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
+        router.replace("/fre3");
+    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
+        router.replace("profile");
     }
   }, [isLoaded, isSignedIn, userData, router]);
 
@@ -207,7 +211,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
       formData.append("user_messages", "");
       formData.append("company", "");
       formData.append("verified", "false");
-      formData.append("hasCompletedFRE", "false");
+      formData.append("hasCompletedFRE", "{true, false, false}");
       formData.append("blocked_users", "");
       formData.append("reported_users", "");
 

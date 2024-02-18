@@ -10,6 +10,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAuth, auth, currentUser, UserProfile } from "@clerk/nextjs";
 import { UserData } from "../../../types/types";
+import UpdateUser from "@/components/hooks/updateUser";
 
 export default function UserFlowPage3({ userData }: { userData: UserData }) {
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
@@ -24,10 +25,12 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
     if (!isLoaded || !isSignedIn) {
       return;
     }
-
-    if (!userData || !userData.users[0].hasCompletedFRE) {
+    console.log(userData.users[0].hasCompletedFRE[2])
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
         router.replace("/fre1");
-    } else {
+    } else if (!userData.users[0].hasCompletedFRE[2] && !userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
+        router.replace("/fre2");
+    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
         router.replace("profile");
     }
   }, [isLoaded, isSignedIn, userData, router]);
@@ -100,34 +103,17 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
   const changeFRE = async () => {
     try {
       const formData = new FormData();
-      formData.append("hasCompletedFRE", "true");
-      console.log("fre 3 formData: " + formData.get("hasCompletedFRE"));
-
-      const supabaseToken = await window.Clerk.session.getToken({
-        template: "supabase",
-      });
-      const bearerToken = await window.Clerk.session.getToken({
-        template: "testing_template",
-      });
-      console.log({ supabaseToken, bearerToken });
-
-      const headers = new Headers({
-        Authorization: `Bearer ${bearerToken}`,
-        supabase_jwt: supabaseToken,
-        apikey: process.env.NEXT_PUBLIC_SUPABASE_KEY,
-      } as HeadersInit);
-
-      const userResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
-        {
-          method: "PATCH",
-          headers,
-          body: formData,
-        }
-      );
-      console.log(await userResponse.json());
+      formData.append("hasCompletedFRE", "{true, true, true}");
+      
+      const response = await UpdateUser(formData);
+  
+      if (response) {
+        router.push("/profile");
+      } else {
+        console.error("Error in updateUser")
+      }
     } catch (error) {
-      console.error("Error using discount API:", error);
+      console.error("Error in updateUser:", error);
     }
   };
 
@@ -254,27 +240,12 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
 
             {/* <button className="next" type="submit" form="invitations"> */}
             <button className="next" type="button" onClick={handleShare}>
-              Share
+              Share with My Friends
             </button>
-            {/* SVG Icon for arrow from Figma Design */}
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M5.20874 13H16.3787L11.4987 17.88C11.1087 18.27 11.1087 18.91 11.4987 19.3C11.8887 19.69 12.5187 19.69 12.9087 19.3L19.4987 12.71C19.8887 12.32 19.8887 11.69 19.4987 11.3L12.9187 4.69996C12.7319 4.5127 12.4783 4.40747 12.2137 4.40747C11.9492 4.40747 11.6956 4.5127 11.5087 4.69996C11.1187 5.08996 11.1187 5.71996 11.5087 6.10996L16.3787 11H5.20874C4.65874 11 4.20874 11.45 4.20874 12C4.20874 12.55 4.65874 13 5.20874 13Z"
-                  fill="#8E94E9"
-                />
-              </svg>
-            </div>
             {/* </Link> */}
-            <Link href="/profile" className="skip" onClick={changeFRE}>
+            <div className="skip" onClick={changeFRE}>
               <div className="skipButton">Skip for now</div>
-            </Link>
+            </div>
           </div>
         </div>
       </div>
