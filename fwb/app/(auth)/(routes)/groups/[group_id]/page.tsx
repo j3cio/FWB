@@ -119,7 +119,7 @@ async function getAllUserData(user_ids: string[], supabaseToken: any, bearerToke
   return results;
 }
 
-const page = async ({ params }: { params: { group_id: string } }) => {
+const Page = async ({ params }: { params: { group_id: string } }) => {
   const router = useRouter();
   const [companyQuery, setCompanyQuery] = useState('');
 
@@ -151,4 +151,4 @@ const page = async ({ params }: { params: { group_id: string } }) => {
   );
 };
 
-export default page;
+export default Page;
