@@ -4,6 +4,7 @@ import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar
 import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGroupForm";
 import { Box, Button, Container, Modal } from "@mui/material";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const style = {
   position: "absolute" as "absolute",
@@ -19,6 +20,14 @@ const style = {
 
 // Type userData
 const GroupsHomePage = ({ userData }: { userData: UserData }) => {
+  const router = useRouter();
+  const [companyQuery, setCompanyQuery] = useState('');
+
+  const handleSearch = (companyQuery: any) => {
+    const url = `/explore?company=${companyQuery}`;
+    router.push(url);
+  };
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -29,7 +38,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
       <div className="w-full h-full">
         <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
           <Container disableGutters maxWidth="lg">
-            <Navbar />
+            <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
             <Box
               sx={{
                 borderRadius: 28,

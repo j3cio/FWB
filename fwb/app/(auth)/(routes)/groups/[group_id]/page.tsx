@@ -1,9 +1,13 @@
+'use client'
+
 import { DiscountData } from "@/app/types/types";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import { auth } from "@clerk/nextjs";
 import { Box, Container } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 //TODOs:
 // Backend ---
@@ -116,6 +120,14 @@ async function getAllUserData(user_ids: string[], supabaseToken: any, bearerToke
 }
 
 const page = async ({ params }: { params: { group_id: string } }) => {
+  const router = useRouter();
+  const [companyQuery, setCompanyQuery] = useState('');
+
+  const handleSearch = (companyQuery: any) => {
+    const url = `/explore?company=${companyQuery}`;
+    router.push(url);
+  };
+
   const bearer_token = await auth().getToken({ template: "testing_template" });
   const supabase_jwt = await auth().getToken({ template: "supabase" });
   const groupData = await getGroupData(params, supabase_jwt, bearer_token);
@@ -129,7 +141,7 @@ const page = async ({ params }: { params: { group_id: string } }) => {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
+        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
           <Tabs userData={userData} discountData={discountData} />

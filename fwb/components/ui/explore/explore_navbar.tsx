@@ -56,6 +56,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
         value = {companyQuery}
         onChange={(e) => setCompanyQuery(e.target.value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            handleSearch(e);
+          }
+        }}
       />
       <IconButton
         color="primary"
