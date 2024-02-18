@@ -290,7 +290,7 @@ function Page() {
         </div>
 
         {/* right side of chat */}
-        <FirstRight></FirstRight>
+        {/* <FirstRight></FirstRight> */}
 
 
 
@@ -473,7 +473,7 @@ function Page() {
 
 
       {/* right side of Bigchat */}
-      {/* <GeneralBigChat></GeneralBigChat> */}
+      <GeneralBigChat></GeneralBigChat>
       </div>
     </div>
   );

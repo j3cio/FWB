@@ -5,6 +5,7 @@ import { StreamChat } from "stream-chat";
 export default function useIntitialChatClient() {
   // Read the currently logged in user
   const { user } = useUser();
+  console.log(user)
   const [chatClient, setChatClient] = useState<StreamChat | null>(null);
   useEffect(() => {
     // Check for user
