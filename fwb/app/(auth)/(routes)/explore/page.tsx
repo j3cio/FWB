@@ -9,7 +9,6 @@ import React, {
 import ResponsiveGrid from "@/components/ui/explore/products_grid";
 import { Container, Box, Typography } from "@mui/material";
 import Navbar from "@/components/ui/explore/explore_navbar";
-import AdSection from "@/components/ui/explore/ads_section";
 import MostPopular from "@/components/ui/explore/most_popular";
 import Productfilters from "@/components/ui/explore/productfilters";
 import { Divider } from "@mui/material";
@@ -19,6 +18,7 @@ import {
   FilterProvider,
 } from "@/components/ui/explore/filter_context";
 import { useAuth } from "@clerk/nextjs"
+import { useRouter, useSearchParams } from 'next/navigation';
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
@@ -34,6 +34,7 @@ export default function ExplorePage() {
 }
 
 function ExplorePageContent() {
+  const router = useRouter();
   const { getToken } = useAuth();
 
   const { sortby, category, privateGroup } = useContext(FilterContext);
@@ -43,6 +44,89 @@ function ExplorePageContent() {
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
 
+  const [companyQuery, setCompanyQuery] = useState('');
+  const [searchedCompany, setSearchedCompany] = useState(null);
+
+  const searchParams = useSearchParams();
+  const companyRedirect = searchParams.get("company")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
+        const supabaseToken = await window.Clerk.session.getToken({ template: 'supabase' });
+
+        const response = await fetch(`api/companies/search?companyQuery=${companyRedirect}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+            supabase_jwt: supabaseToken,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Searching for Discount was Successful', data);
+          setSearchedCompany(data);
+        } else {
+          const errorData = await response.json();
+          console.error('Error Finding a Discount', errorData);
+          alert('There are no discounts for that company!');
+          setSearchedCompany(null);
+        }
+      } catch (error) {
+        console.error('GET Company Discount API Failed', error);
+        setSearchedCompany(null);
+      }
+    };
+
+    if (companyRedirect) {
+      fetchData();
+    }
+  }, [companyRedirect]);
+
+  const handleSearch = async (e: any) => {
+    e.preventDefault();
+
+    if (!companyQuery) {
+      console.error("Invalid company name provided");
+      setSearchedCompany(null);
+      alert("The search bar is empty!")
+      return;
+    }
+
+    try {
+      const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
+
+      const supabaseToken = await window.Clerk.session.getToken({template: 'supabase'})
+
+      // GET Fetch Request to Companies API 
+      const response = await fetch(`api/companies/search?companyQuery=${companyQuery}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${bearerToken}`,
+            'supabase_jwt': supabaseToken,
+          },
+        });
+
+      if (response.ok) {
+        const data = await response.json();
+          console.log('Searching for Discount was Successful', data);
+          setSearchedCompany(data);
+      } else {
+        const errorData = await response.json();
+        console.error('Error Finding a Discount', errorData);
+        alert("There are no discounts for that company!")
+        setSearchedCompany(null);
+      }
+    } catch (error) {
+      console.error('GET Company Discount API Failed', error);
+      setSearchedCompany(null);
+    }
+
+    router.push('/explore')
+
+  };
 
   const fetchData = async (concat: boolean) => {
     try {
@@ -116,12 +200,11 @@ function ExplorePageContent() {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
-        <AdSection />
+        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         <MostPopular />
         <Divider color="white" />
         <Productfilters />
-        <ResponsiveGrid items={companies} />
+        <ResponsiveGrid items={searchedCompany ? [searchedCompany] : companies} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button
             onClick={() => {

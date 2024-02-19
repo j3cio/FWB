@@ -1,5 +1,5 @@
+import GroupsHomePage from "@/components/ui/privategroups/groups/GroupsHomePage";
 import { auth } from "@clerk/nextjs";
-import Profile from "./Profile";
 
 async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers();
@@ -12,10 +12,7 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   };
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`,
-      requestOptions
-    );
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -27,22 +24,15 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   }
 }
 
-const page = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
+const page = async () => {
   const bearer_token = await auth().getToken({ template: "testing_template" });
   const supabase_jwt = await auth().getToken({ template: "supabase" });
   const userId = await auth().userId;
-
   const userData: any = await getUser(userId, supabase_jwt, bearer_token);
-
-  console.log(userData.users[0].company);
 
   return (
     <div>
-      <Profile userData={userData} />
+      <GroupsHomePage userData={userData} />
     </div>
   );
 };
