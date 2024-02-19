@@ -6,7 +6,8 @@ import { useState } from "react";
 export default function MenuBar() {
   const [tab, setTab] = useState<"general" | "groups">("general");
   return (
-    <div className="flex flex-row ml-14 rounded-10 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5">
+    <div className="flex flex-row ml-14 rounded-10 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
+    style={{width:"425px"}}>
       <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
         <div
           className="flex flex-row justify-between"
@@ -76,7 +77,7 @@ export default function MenuBar() {
         </div>
 
         {/* search bar */}
-        <div
+        {/* <div
           className="flex w-full h-8 py-1 pl-4 pr-1 bg-white rounded-2xl"
           style={{ marginTop: "-110px" }}
         >
@@ -101,7 +102,7 @@ export default function MenuBar() {
               />
             </svg>
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -13,6 +13,8 @@ import {
   Thread,
   Window,
 } from "stream-chat-react";
+import ChatChannel from "./ChatChannel";
+import ChatSideBar from "./ChatSidebar";
 import MenuBar from "./MenuBar";
 import useIntitialChatClient from "./useIntializeChatClient";
 
@@ -38,26 +40,8 @@ export default function ChatPage() {
       <Chat client={chatClient}>
         {/* The channel list shows only channels that the currently loggeed in user is a member (filters prop) */}
         <div className="flex flex-row h-full">
-          <div className="w-full max-w-[432px]">
-            <MenuBar />
-            <div className="ml-14">
-              <ChannelList
-                filters={{ type: "messaging", members: { $in: [user.id] } }}
-                sort={{ last_message_at: -1 }}
-                options={{ state: true, presence: true, limit: 10 }}
-              />
-            </div>
-          </div>
-          <div className="h-full w-full ml-16 mr-10">
-            <Channel>
-              <Window>
-                <ChannelHeader />
-                <MessageList />
-                <MessageInput />
-              </Window>
-              <Thread />
-            </Channel>
-          </div>
+         <ChatSideBar user={user}/>
+          <ChatChannel/>
         </div>
       </Chat>
     </div>
