@@ -95,8 +95,8 @@ export default function Navbar() {
       sx={{
         backgroundColor: "#1A1A23",
         boxShadow: "none",
-        paddingTop: "32px",
-        paddingBottom: "32px",
+        paddingY: "32px",
+        paddingX: "18px",
         position: "sticky",
         top: 0,
         zIndex: 1,
@@ -244,6 +244,7 @@ export default function Navbar() {
             sx={{
               backgroundColor: "#DAE3EA",
               padding: "9.6px",
+              overflow: "hidden",
               borderRadius: "50%",
               border: "2px solid white",
               '&:hover': {
