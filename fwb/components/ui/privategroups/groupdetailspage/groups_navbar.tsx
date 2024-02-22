@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+'use client'
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -30,14 +31,7 @@ const theme = createTheme({
   }
 })
 
-interface SearchBarProps {
-  handleSearch: (e: any) => void;
-  companyQuery: string;
-  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCompanyQuery }) => {
-
+const SearchBar = () => {
   return (
     <Box
       sx={{
@@ -54,8 +48,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
         placeholder="Search for more benefits"
         style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
-        value = {companyQuery}
-        onChange={(e) => setCompanyQuery(e.target.value)}
       />
       <IconButton
         color="primary"
@@ -70,7 +62,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
             backgroundColor: '#8e94e9'
           }
         }}
-        onClick={handleSearch}
       >
         <Image src={searchIcon} alt="Search Icon" />
       </IconButton>
@@ -78,16 +69,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
   );
 };
 
-interface NavbarProps {
-  handleSearch: (e: any) => void;
-  companyQuery: string;
-  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQuery }) => {
+export default function Navbar() {
   const router = useRouter();
   const { signOut } = useClerk();
   const { user, isSignedIn } = useUser();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -139,7 +125,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
           variant="dense"
           sx={{ display: "flex", gap: "24px", height: "9.6px", flexGrow: 1 }}
         > 
-          <SearchBar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
+          <SearchBar />
           <Tooltip 
             title="Explore"
             slotProps={{
@@ -157,12 +143,11 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
           >
             <IconButton
               color="inherit"
+              onClick={() => router.push("/explore")}
               sx={{
                 padding: "9.6px",
                 borderRadius: "50%",
                 border: "2px solid white",
-                borderColor: "#8e94e9",
-                backgroundColor: "#1a1a23",
                 '&:hover': {
                   backgroundColor: "#8e94e9",
                   borderColor: "#8e94e9"
@@ -196,15 +181,16 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
           >
           <IconButton
             color="inherit"
-            onClick={() => router.push("/groups")}
             sx={{
               padding: "9.6px",
               borderRadius: "50%",
               border: "2px solid white",
-              '&:hover': {
-                backgroundColor: "#8e94e9",
-                borderColor: "#8e94e9"
-              }
+              borderColor: "#8e94e9",
+              backgroundColor: "#1a1a23",
+                '&:hover': {
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
+                }
             }}
           >
             <Image
@@ -309,5 +295,3 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
     </ThemeProvider>
   )};
 }
-
-export default Navbar;

@@ -1,0 +1,481 @@
+@import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
+@import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+.pageHeight {
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  display: grid;
+  position: relative;
+}
+
+.big {
+  /* max-width: 1440px;
+  max-height: 931px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #8e94e9;
+}
+
+.signin {
+  display: inline-flex;
+  /* height: 728px; */
+  padding: 110px 161px 109.48px 162px;
+  width: 690px;
+  height: 728px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: 2px solid var(--neutral-000, #fff);
+  background: rgba(255, 255, 255, 0.15);
+  /* opacity: 75%; */
+  box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
+  position: relative;
+}
+
+.leftSigninContainer {
+  width: 549px;
+  /* background-color: red; */
+  background-color: #8e94e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.circle1 {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  border: 5px solid var(--neutral-000, #fff);
+  margin-left: 150px;
+}
+
+.circle2 {
+  width: 293px;
+  height: 150px;
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  border: 4.688px solid var(--neutral-000, #fff);
+  background: #fff;
+  justify-content: center;
+}
+
+.leftCircle2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  height: 150px;
+  margin-right: 20px;
+}
+
+.photos {
+  display: flex;
+}
+
+.photo1 {
+  margin-left: 20px;
+}
+
+.photo2 {
+  margin-left: -10px;
+}
+
+.photo3 {
+  margin-left: -10px;
+}
+
+.letter {
+  color: var(--purple-500, #656de1);
+  /* Heading/H4 */
+  font-family: Urbanist;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+}
+
+.rightBag {
+  width: 142px;
+  height: 142px;
+  margin-right: -16px;
+  /* margin-left: 10%; */
+  background-color: #8e94e9;
+  display: flex;
+  border-radius: 156.25px;
+  /* padding: 27px 27.25px 27px 26.75px; */
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.bagPhoto {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.two {
+  display: flex;
+}
+
+.circle3 {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  flex-direction: column;
+  /* padding: 37px 23.498px 23.753px 23px; */
+  justify-content: center;
+  align-items: center;
+  border-radius: 156.25px;
+  border: 5px solid var(--neutral-000, #fff);
+}
+
+.hiLetter {
+  color: var(--purple-300, #8e94e9);
+  font-family: Outfit;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%;
+  /* 40px */
+  position: absolute;
+  z-index: 1;
+  transform: rotate(10deg);
+}
+
+.hiPhoto {
+  fill: var(--neutral-000, #fff);
+  width: 92.307px;
+  height: 71.464px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.circle4 {
+  width: 150px;
+  height: 474px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 100px;
+  border: 5px solid var(--neutral-000, #fff);
+  background: #f6ff82;
+  align-items: center;
+}
+
+.letterCircle4 {
+  color: var(--purple-500, #656de1);
+  /* Heading/H4 */
+  font-family: Urbanist;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  padding-top: 100px;
+}
+
+.boyPhoto {
+  margin-bottom: -37px;
+  padding-top: 28px;
+}
+
+.subCircle4Box {
+  width: 140px;
+  height: 140px;
+  background: #68b6d8;
+  flex-shrink: 0;
+  border-bottom-left-radius: 66px;
+  border-bottom-right-radius: 66px;
+}
+
+.circle5 {
+  width: 150px;
+  height: 452px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  border: 5px solid var(--neutral-000, #fff);
+  background: #b79ced;
+  margin-top: -325px;
+}
+
+.subCircle5 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 140.4px;
+}
+
+.circleLetter {
+  color: var(--neutral-000, #fff);
+  font-family: Urbanist;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 110%;
+  margin-left: 85px;
+}
+
+.girlPhoto {
+  margin-bottom: -70px;
+  width: 140px;
+  height: 199.201px;
+  flex-shrink: 0;
+}
+
+.subBox {
+  margin-top: 6px;
+  width: 140px;
+  height: 95px;
+  flex-shrink: 0;
+  background: #8e94e9;
+  border-bottom-left-radius: 66px;
+  border-bottom-right-radius: 66px;
+}
+
+.circle6 {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px;
+  background: var(--yellow-300, #f6ff82);
+}
+
+.circle7 {
+  width: 150px;
+  height: 280px;
+  border-radius: 156.25px 156.25px 0px 0px;
+  border: 3px solid var(--neutral-000, #fff);
+}
+
+.circle7second {
+  width: 149px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 162px 165px 0px 0px;
+  border-top: 3px solid var(--neutral-000, #fff);
+  margin-top: 42px;
+  opacity: 0.5;
+}
+
+.circle7third {
+  height: 80px;
+  width: 150px;
+  flex-shrink: 0;
+  border-radius: 156.25px 156.25px 0px 0px;
+  border-top: 3px solid var(--neutral-000, #fff);
+  opacity: 0.25;
+  margin-top: -60px;
+}
+
+.three {
+  display: flex;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.googleButton {
+  width: 45.216px;
+  height: 45.216px;
+  padding-bottom: 1px;
+  padding-left: 8px;
+  /* padding: 12.696px 9.85px 12.832px 9.932px; */
+  justify-content: center;
+  align-items: center;
+  border-radius: 28.26px;
+  border: 1.413px solid #fff;
+  margin-right: 22.6px;
+}
+
+.discordButton {
+  width: 45.216px;
+  height: 45.216px;
+  padding: 7px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 28.26px;
+  border: 1.413px solid #fff;
+}
+
+.or {
+  color: #fff;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.name {
+  color: var(--neutral-000, #fff);
+  text-align: center;
+  /* Heading/H2 */
+  font-family: Urbanist;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  /* 44px */
+  margin-bottom: 80px;
+}
+
+.input {
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 367px;
+  padding: 8px 8px 8px 24px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+input::placeholder {
+  color: var(--neutral-900, #090a10);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+  opacity: 0.3;
+}
+
+.password {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 32px;
+}
+
+.forgetPassword {
+  color: var(--neutral-000, #fff);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+}
+
+.errorMessage {
+  color: var(--neutral-000, #fff);
+  /* max-width: 367px; */
+  /* word-wrap:break-word; */
+  display: flex;
+  text-align: left;
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  margin-top: -5px;
+  margin-bottom: 5px;
+
+}
+
+
+.errorImage {
+  background-color: red;
+  border-radius: 50%;
+}
+
+.message {
+  margin-left: 5px;
+  margin-top: -5px;
+  text-align: left;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  word-wrap: break-word;
+}
+
+
+.submit {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  display: flex;
+  width: 366px;
+  height: 48px;
+  padding: 10px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 30px */
+  letter-spacing: 0.48px;
+}
+
+.detail {
+  padding-right: 5px;
+  color: #fff;
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+/* 24px */
+
+
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupButton {
+  display: flex;
+  height: 36px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: var(--neutral-000, #fff);
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 20px */
+  letter-spacing: 0.32px;
+}
+
+.error {
+  color: #ff0000;
+
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  margin-bottom: 10px;
+}

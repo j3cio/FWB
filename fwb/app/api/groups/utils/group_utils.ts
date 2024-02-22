@@ -17,15 +17,14 @@ const insertGroup = async (request: NextRequest) => {
     if (userId && user) {
       // Extract the form data
       const formData = await request.formData();
-
       const newGroup = {
         name: formData.get("name"),
-        users: formData.get("users") || [],
-        discounts: formData.get("discounts") || [],
-        admins: formData.get("admins") || [],
+        users: [formData.get("users")] || [],
+        discounts: [formData.get("discounts")] || [],
+        admins: [formData.get("admins")] || [],
         public: formData.get("public") === "false" ? false : true, // There might be a way to use a boolean rather than having to type false?
+        description: formData.get("description"),
       };
-
       const supabase = await supabaseClient(request.headers.get("supabase_jwt"));
       if (!supabase) {
         return NextResponse.json({ error: "Could not create supabase access token" }, { status: 401 });
@@ -127,10 +126,11 @@ const updateGroup = async (request: NextRequest) => {
 
       const updatedGroup = {
         name: formData.get("name"),
-        users: formData.get("users"), // Array
-        discounts: formData.get("discounts"), // Array
-        admins: formData.get("admins"), // Array
-        public: formData.get("public"),
+        users: [formData.get("users")] || [], // Array
+        discounts: [formData.get("discounts")] || [], // Array
+        admins: [formData.get("admins")] || [], // Array
+        public: formData.get("public") || true,
+        description: formData.get("description") || [],
       };
 
       // Create a Supabase client with the current user's access token

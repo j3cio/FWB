@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useClerk } from "@clerk/clerk-react";
+import { useUser } from "@clerk/nextjs";
 
 const theme = createTheme({
   components: {
@@ -29,7 +30,13 @@ const theme = createTheme({
   }
 })
 
-const SearchBar = () => {
+interface SearchBarProps {
+  handleSearch: (e: any) => void;
+  companyQuery: string;
+  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCompanyQuery }) => {
   return (
     <Box
       sx={{
@@ -46,20 +53,21 @@ const SearchBar = () => {
         placeholder="Search for more benefits"
         style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
+        value = {companyQuery}
+        onChange={(e) => setCompanyQuery(e.target.value)}
       />
       <IconButton
-        color="primary"
         aria-label="search"
         sx={{
           backgroundColor: "black",
           padding: "10px",
           border: "none",
           margin: "4px",
-          transition: 'backgroundColor 1s ease',
           '&:hover': {
             backgroundColor: '#8e94e9'
           }
         }}
+        onClick={() => handleSearch(companyQuery)}
       >
         <Image src={searchIcon} alt="Search Icon" />
       </IconButton>
@@ -67,9 +75,16 @@ const SearchBar = () => {
   );
 };
 
-export default function Navbar() {
+interface NavbarProps {
+  handleSearch: (e: any) => void;
+  companyQuery: string;
+  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQuery }) => {
   const router = useRouter();
   const { signOut } = useClerk();
+  const { user, isSignedIn } = useUser();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -84,6 +99,7 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  if (isSignedIn) {
   return (
     <ThemeProvider theme={theme}>
     <AppBar
@@ -91,8 +107,8 @@ export default function Navbar() {
       sx={{
         backgroundColor: "#1A1A23",
         boxShadow: "none",
-        paddingTop: "32px",
-        paddingBottom: "32px",
+        paddingX: "18px",
+        paddingY: "32px",
         position: "sticky",
         top: 0,
         zIndex: 1,
@@ -121,7 +137,7 @@ export default function Navbar() {
           variant="dense"
           sx={{ display: "flex", gap: "24px", height: "9.6px", flexGrow: 1 }}
         > 
-          <SearchBar />
+          <SearchBar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
           <Tooltip 
             title="Explore"
             slotProps={{
@@ -145,8 +161,8 @@ export default function Navbar() {
                 borderRadius: "50%",
                 border: "2px solid white",
                 '&:hover': {
-                  backgroundColor: "#1a1a23",
-                  borderColor: "#1a1a23"
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
                 }
               }}
             >
@@ -183,7 +199,8 @@ export default function Navbar() {
               borderRadius: "50%",
               border: "2px solid white",
               '&:hover': {
-                borderColor: "#1a1a23"
+                backgroundColor: "#8e94e9",
+                borderColor: "#8e94e9"
               }
             }}
           >
@@ -217,7 +234,8 @@ export default function Navbar() {
                 borderRadius: "50%",
                 border: "2px solid white",
                 '&:hover': {
-                  borderColor: "#1a1a23"
+                  backgroundColor: "#8e94e9",
+                  borderColor: "#8e94e9"
                 }
               }}
             >
@@ -238,14 +256,26 @@ export default function Navbar() {
               backgroundColor: "#DAE3EA",
               padding: "9.6px",
               borderRadius: "50%",
-              border: "4px solid white",
+              overflow: "hidden",
+              border: "2px solid white",
+              '&:hover': {
+                backgroundColor: "#8e94e9",
+                borderColor: "#8e94e9"
+              }
             }}
           >
+            <div 
+              style={{
+                width: "28.8px",
+                height: "28.8px",
+              }}
+            >
             <Image
-              src={avatar}
-              alt="profile"
-              style={{ width: "28.8px", height: "28.8px" }}
+              src={user.imageUrl}
+              alt={avatar}
+              fill
             />
+            </div>
           </IconButton>
           <Menu
             id="user-menu"
@@ -274,5 +304,7 @@ export default function Navbar() {
       </Box>
     </AppBar>
     </ThemeProvider>
-  );
+  )};
 }
+
+export default Navbar;
