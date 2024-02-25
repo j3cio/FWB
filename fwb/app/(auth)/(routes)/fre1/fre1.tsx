@@ -33,7 +33,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) {
+    if (!isLoaded || !isSignedIn || !userData.users[0]) {
       return;
     }
 
