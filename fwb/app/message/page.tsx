@@ -296,7 +296,7 @@ function Page() {
 
 
         {/* 2nd chat page */}
-        {/* <div
+        <div
           className="h-full w-full flex flex-col pt-6 pl-3 pr-3 pb-6 bg-opacity-10 mr-8 bg-white backdrop-blur-12.5 shadow-xl justify-start"
           style={{
             height: "770px",
@@ -469,11 +469,11 @@ function Page() {
         </div>
         <Third name={tab === "general" ? "Name" : "GroupName"}>
           {tab === "general" ? <RightGeneral /> : <RightGroup />}
-        </Third> */}
+        </Third>
 
 
       {/* right side of Bigchat */}
-      <GeneralBigChat></GeneralBigChat>
+      {/* <GeneralBigChat></GeneralBigChat> */}
       </div>
     </div>
   );

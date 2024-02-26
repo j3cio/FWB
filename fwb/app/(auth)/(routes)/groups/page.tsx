@@ -31,7 +31,7 @@ const page = async () => {
   const userData: any = await getUser(userId, supabase_jwt, bearer_token);
 
   return (
-    <div>
+    <div >
       <GroupsHomePage userData={userData} />
     </div>
   );
