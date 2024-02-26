@@ -21,6 +21,7 @@ import Third from "@/components/ui/message/Third";
 import { useState } from "react";
 import RightGroup from "@/components/ui/message/RightGroup";
 import RightGeneral from "@/components/ui/message/RightGeneral";
+//random
 
 export default function ChatPage() {
   const chatClient = useIntitialChatClient();
