@@ -7,7 +7,7 @@ import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
-const Tabs = ({ userData, discountData }: { userData: UserData; discountData: DiscountData[] }) => {
+const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: DiscountData[] }) => {
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
   const showMemberTab = () => {
