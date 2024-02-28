@@ -1,13 +1,17 @@
 "use client";
-import { DiscountData, UserData } from "@/app/types/types";
+import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
+import { DiscountData } from "@/app/types/types";
+import { useUser } from "@clerk/nextjs";
 import { Button } from "@mui/base";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { Chat, LoadingIndicator } from "stream-chat-react";
 import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
-const Tabs = ({ userData, discountData }: { userData: UserData; discountData: DiscountData[] }) => {
+const Tabs = ({ userData, discountData }: { userData: any; discountData: DiscountData[] }) => {
+  const chatClient = useIntitialChatClient();
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
   const showMemberTab = () => {
@@ -16,6 +20,17 @@ const Tabs = ({ userData, discountData }: { userData: UserData; discountData: Di
   const showDiscountsTab = () => {
     setShowMembers(false);
   };
+  const { user } = useUser();
+
+  if (!chatClient || !user) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <LoadingIndicator size={40} />
+      </div>
+    );
+  }
+
+  const channel = chatClient.channel("messaging", "channel_3", { name: "channel 3", members: [user.id] });
 
   return (
     <div className="w-full h-full bg-[#1a1a23]">
@@ -43,7 +58,13 @@ const Tabs = ({ userData, discountData }: { userData: UserData; discountData: Di
       </div>
       <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
       <div className="w-full h-screen">
-        {showMembers ? <MembersSection users={userData} /> : <DiscountsSection discountData={discountData} />}
+        {showMembers ? (
+          <Chat client={chatClient}>
+            <MembersSection users={userData} />
+          </Chat>
+        ) : (
+          <DiscountsSection discountData={discountData} />
+        )}
       </div>
     </div>
   );
