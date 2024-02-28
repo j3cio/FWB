@@ -36,6 +36,7 @@ export default function UserFlowPage3() {
 
   //error message if input is empty
   const handleShare = async () => {
+    console.log('clicked share')
     if (emailAddresses.length === 0) {
       setErrorMessage("Please enter at least one email before sharing.");
       return;
@@ -50,7 +51,7 @@ export default function UserFlowPage3() {
       // Reset state after sending emails
       setEmailAddresses([]);
       setEmailInput("");
-
+      console.log(response)
       // edirecting to the profile page
       window.location.href = "/profile";
     } catch (error) {
@@ -87,15 +88,15 @@ export default function UserFlowPage3() {
   };
 
   //OnClick Buttons to handle user redirect to respective socials to share with friends
-  const handlewhatsapp = () => {
+  const handleWhatsApp = () => {
     window.open("https://www.whatsapp.com/");
   };
 
-  const handleinstagram = () => {
+  const handleInstagram = () => {
     window.open("https://www.instagram.com/");
   };
 
-  const handlediscord = () => {
+  const handleDiscord = () => {
     window.open("https://discord.com/");
   };
 
@@ -119,10 +120,10 @@ export default function UserFlowPage3() {
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
           <div className="icons">
-            <button className="icon1" onClick={handlewhatsapp}>
+            <button className="icon1" onClick={handleWhatsApp}>
               <img src="/socialicons/whatsapp.SVG" />
             </button>
-            <button className="icon1" onClick={handleinstagram}>
+            <button className="icon1" onClick={handleInstagram}>
               <img src="/socialicons/instagram.SVG" />
             </button>
             <FacebookShareButton url={shareUrl} className="icon1">
@@ -136,7 +137,7 @@ export default function UserFlowPage3() {
               </div>
               {/* <img src="/socialicons/facebook.SVG" /> */}
             </FacebookShareButton>
-            <button onClick={handlediscord}>
+            <button onClick={handleDiscord}>
               <img src="/socialicons/discord.SVG" />
             </button>
           </div>
