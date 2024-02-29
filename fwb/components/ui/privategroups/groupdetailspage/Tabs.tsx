@@ -1,6 +1,6 @@
 "use client";
 import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
-import { DiscountData } from "@/app/types/types";
+import { DiscountData, UserData } from "@/app/types/types";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@mui/base";
 import { Box } from "@mui/material";
@@ -10,7 +10,7 @@ import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
-const Tabs = ({ userData, discountData }: { userData: any; discountData: DiscountData[] }) => {
+const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: DiscountData[] }) => {
   const chatClient = useIntitialChatClient();
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
@@ -60,7 +60,7 @@ const Tabs = ({ userData, discountData }: { userData: any; discountData: Discoun
       <div className="w-full h-screen">
         {showMembers ? (
           <Chat client={chatClient}>
-            <MembersSection users={userData} />
+            <MembersSection userData={userData} />
           </Chat>
         ) : (
           <DiscountsSection discountData={discountData} />

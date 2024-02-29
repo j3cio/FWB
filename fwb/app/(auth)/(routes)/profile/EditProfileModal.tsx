@@ -12,7 +12,7 @@ type EditProfileModalProps = {
   userData: UserData;
 };
 
-//TODO: 
+//TODO:
 //Edge Case: Currently if the username or company is null on supabase it causes and error in the patch request
 
 const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) => {
@@ -21,7 +21,7 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
   const router = useRouter();
   const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(null);
   const [refresh, setRefresh] = useState(true);
-  
+
   //Taking converted blob file and updating User's Profile Picture based on button click
   const chooseProfilePicture = async (image: string) => {
     const file = await convertFilePathToBlob(image);
@@ -114,7 +114,7 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
     updateUser();
     onClose();
     router.refresh();
-    setRefresh(!refresh)
+    setRefresh(!refresh);
   };
 
   return (
