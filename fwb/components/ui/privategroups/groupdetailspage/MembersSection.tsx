@@ -1,17 +1,19 @@
 "use client";
+import { User, UserData } from "@/app/types/types";
 import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
 import { Button } from "@mui/material";
 import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
-import SearchBar from "./SearchBar";
-
 import MembersIcon from "../icons/membersicon.svg";
 import Pencil from "../icons/pencil.svg";
 import Settings from "../icons/settings.svg";
+import SearchBar from "./SearchBar";
 
-const Member = ({ user }: any) => {
+const Member = ({ user }: { user: User }) => {
+  console.log(user);
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
       <div className="flex items-center justify-center">
@@ -54,12 +56,12 @@ const Member = ({ user }: any) => {
   );
 };
 
-const MembersSection = ({ users }: any) => {
+const MembersSection = ({ userData }: { userData: UserData[] }) => {
   return (
     <div className="flex flex-row my-2">
       <div className="flex-1 ml-24">
         <SearchBar />
-        {users.map((user: any, index: number) => (
+        {userData.map((user: UserData, index: number) => (
           <Member key={index} user={user.users[0]} />
         ))}
       </div>
