@@ -120,7 +120,8 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   const { isSignedIn, user, isLoaded } = useUser();
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) {
+    if (!isLoaded || !isSignedIn || !userData.users[0]) {
+      router.replace("/fre1");
       return;
     }
 

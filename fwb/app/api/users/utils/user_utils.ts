@@ -178,8 +178,9 @@ const updateUser = async (request: NextRequest) => {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
       const supabase = await supabaseClient(token);
-
+      
       const formData = await request.formData();
+
       const updatedUser: any = {};
 
       //const user_id = formData.get("user_id");
