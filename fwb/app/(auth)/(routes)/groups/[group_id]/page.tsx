@@ -127,7 +127,7 @@ const page = async ({ params }: { params: { group_id: string } }) => {
   );
 
   return (
-    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
+    <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
       <Container disableGutters maxWidth="lg">
         <Navbar />
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
