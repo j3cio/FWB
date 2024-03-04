@@ -22,7 +22,6 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(userData.users[0].user_groups);
 
   if (userData.users[0].user_groups.length == 0) {
     return (

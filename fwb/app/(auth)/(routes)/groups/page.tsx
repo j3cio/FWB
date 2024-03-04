@@ -1,10 +1,21 @@
+import { UserData } from "@/app/types/types";
 import GroupsHomePage from "@/components/ui/privategroups/groups/GroupsHomePage";
 import { auth } from "@clerk/nextjs";
 
-async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
+async function getUser() {
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+
+  if (!supabase_jwt) {
+    console.log("Not signed in");
+    return;
+  }
+
+  const userId = await auth().userId;
+
   var myHeaders = new Headers();
-  myHeaders.append("supabase_jwt", supabaseToken);
-  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
+  myHeaders.append("supabase_jwt", supabase_jwt);
+  myHeaders.append("Authorization", `Bearer ${bearer_token}`);
 
   var requestOptions = {
     method: "GET",
@@ -12,7 +23,7 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`, requestOptions);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -25,11 +36,7 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
 }
 
 const page = async () => {
-  const bearer_token = await auth().getToken({ template: "testing_template" });
-  const supabase_jwt = await auth().getToken({ template: "supabase" });
-  const userId = await auth().userId;
-  const userData: any = await getUser(userId, supabase_jwt, bearer_token);
-
+  const userData: UserData = await getUser();
   return (
     <div >
       <GroupsHomePage userData={userData} />

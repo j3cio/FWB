@@ -107,8 +107,8 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
       sx={{
         backgroundColor: "#1A1A23",
         boxShadow: "none",
-        paddingTop: "32px",
-        paddingBottom: "32px",
+        paddingX: "18px",
+        paddingY: "32px",
         position: "sticky",
         top: 0,
         zIndex: 1,
@@ -256,6 +256,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
               backgroundColor: "#DAE3EA",
               padding: "9.6px",
               borderRadius: "50%",
+              overflow: "hidden",
               border: "2px solid white",
               '&:hover': {
                 backgroundColor: "#8e94e9",
