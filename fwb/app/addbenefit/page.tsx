@@ -1,7 +1,8 @@
 "use client";
 
 import "./page.css";
-import Navbar from "@/components/ui/profile/profile_navbar";
+// import Navbar from "@/components/ui/profile/profile_navbar";
+
 import Box from "@mui/material/Box";
 import { Typography, Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -125,7 +126,8 @@ export default function Intakeform() {
       <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
         <div>
-          <Navbar />
+         {/* vercel error - nav bar missing props*/}
+          {/* <Navbar/> */}
         </div>
         <form
           id="discountForm"
