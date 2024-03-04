@@ -1,5 +1,6 @@
 "use client";
-import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
+import Navbar from "@/components/ui/message/Navbar";
+
 import "./page.css";
 import { useUser } from "@clerk/nextjs";
 import {
