@@ -1,5 +1,7 @@
 import { Box, FormLabel, Input } from "@mui/material";
 import Image from "next/image";
+import LockIconWhite from "../../icons/LockIconWhite";
+import LockIcon from "../../icons/LockIcon";
 
 type Form1Data = {
   name: string;
@@ -28,15 +30,21 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
       </FormLabel>
       <FormLabel className="font-urbanist flex flex-col gap-3 text-white"> 
         Group Name*
-        <Input 
-          className="font-urbanist bg-[#fff] w-full border-0 outline-none px-5 py-1 text-[#090A10] rounded-[2.5rem] focus:outline-none before:border-0" 
-          autoFocus 
-          required 
-          type="text" 
-          placeholder="Group's Name" 
-          value={name} 
-          onChange={(e) => updateFields({ name: e.target.value })} 
-        />
+        <Box className="flex gap-2">
+          <Input
+            className="font-urbanist bg-[#fff] w-full border-0 outline-none px-5 py-1 text-[#090A10] rounded-[2.5rem] focus:outline-none before:border-0" 
+            autoFocus 
+            required 
+            type="text" 
+            placeholder="Group's Name" 
+            value={name} 
+            onChange={(e) => updateFields({ name: e.target.value })} 
+          />
+          <span className="flex text-sm items-center gap-1">
+            Private
+            <LockIconWhite />
+          </span>
+        </Box>
       </FormLabel>
       <FormLabel className="font-urbanist flex flex-col gap-3 text-white">
         Add Description*

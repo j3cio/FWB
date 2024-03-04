@@ -136,21 +136,24 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
                   <Image priority className="w-full h-full rounded-t-xl" src={`/groups/pg-bg${randomNumber(index)}.png`} height={0} width={900}  alt="group-img" />
                   <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />
                 </Box>
-                <Box className="w-full px-7 py-4 flex items-center justify-between">
-                  <Box className="max-w-[60%] flex items-center gap-4">
+                <Box className="w-full px-7 py-4 xxs:flex-col xs:flex-col sm:flex-col gap-3 flex items-center justify-between">
+                  <Box className="xxs:max-w-full xs:max-w-full sm:max-w-full max-w-[60%] flex xxs:items-start xs:items-start sm:items-start items-center gap-4">
                     <Image className="w-16 h-16 rounded-t-xl" src='/groups/gp-avatar.svg' height={0} width={0} alt="pg-avatar" />
                     <Box className="flex flex-col gap-2 text-[#1A1A23]">
-                      <Typography className="text-2xl font-semibold font-urbanist">Group name</Typography>
+                      <Box className="flex justify-between items-center">
+                        <Typography className="xxs:text-xl xs:text-xl sm:text-xl text-2xl font-semibold font-urbanist">Group name</Typography>
+                        <span className=" lg:hidden xl:hidden xxl:hidden text-[#656DE1] text-xs font-urbanist">50 benefits available</span>
+                      </Box>
                       <Typography className="opacity-50 text-sm font-urbanist">
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus tempore voluptatem saepe, iure, tempora temporibus dolores labore est veniam deserunt adipisci sunt nulla doloribus dolorem possimus!
                       </Typography>
                     </Box>
                   </Box>
-                  <Box className="relative flex gap-4 items-center mt-auto">
-                    <span className="text-[#656DE1] text-xs absolute -top-8 right-2 font-urbanist">50 benefits available</span>
+                  <Box className="relative xxs:w-full xs:w-full sm:w-full flex gap-4 items-center mt-auto">
+                    <span className="xxs:hidden xs:hidden sm:hidden text-[#656DE1] text-xs absolute -top-8 right-2 font-urbanist">50 benefits available</span>
                     <Button
                       onClick={() => navigateToUserPage(group_id)} 
-                      className="flex items-center h-fit gap-3 px-5 rounded-3xl font-urbanist text-white bg-[#8E94E9]" endIcon={<EndArrowWhite />}
+                      className="flex xxs:w-full xs:w-full sm:w-full items-center h-fit gap-3 px-5 rounded-3xl font-urbanist text-white bg-[#8E94E9]" endIcon={<EndArrowWhite />}
                     >
                         Explore Group
                     </Button>
@@ -172,6 +175,9 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
         <Box
           className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] min-w-[80%] lg:min-w-[45vw] xl:min-w-[45vw] xxl:min-w-[45vw] min-h-[75vh]"
         >
+          <Button className="text-white font-medium absolute top-2 right-0 text-xl" onClick={handleClose}>
+              <Image className='w-8 h-8' src='/groups/icon-close.svg' height={0} width={0} alt='icon-close' />
+          </Button>
           <CreateGroupForm userGroups={userData.users[0].user_groups} handleClose={handleClose} />
         </Box>
       </Modal>
