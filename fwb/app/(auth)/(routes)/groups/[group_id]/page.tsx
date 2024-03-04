@@ -1,4 +1,4 @@
-import { DiscountData } from "@/app/types/types";
+import { DiscountData, GroupData, UserData } from "@/app/types/types";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
@@ -9,15 +9,19 @@ import { Box, Container } from "@mui/material";
 // Backend ---
 // Search bar for searching members
 
-async function getGroupData(
-  params: { [key: string]: string | string[] | undefined },
-  supabaseToken: any,
-  bearerToken: any
-) {
+async function getGroupData(params: { [key: string]: string | string[] | undefined }) {
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+
+  if (!supabase_jwt) {
+    console.log("Not signed in");
+    return;
+  }
+
   if (params.group_id) {
     var myHeaders = new Headers();
-    myHeaders.append("supabase_jwt", supabaseToken);
-    myHeaders.append("Authorization", `Bearer ${bearerToken}`);
+    myHeaders.append("supabase_jwt", supabase_jwt);
+    myHeaders.append("Authorization", `Bearer ${bearer_token}`);
 
     var requestOptions = {
       method: "GET",
@@ -54,10 +58,18 @@ async function getGroupData(
   }
 }
 
-async function getUser(user_id: string, supabaseToken: any, bearerToken: any) {
+async function getUser(user_id: string) {
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+
+  if (!supabase_jwt) {
+    console.log("Not signed in");
+    return;
+  }
+
   var myHeaders = new Headers();
-  myHeaders.append("supabase_jwt", supabaseToken);
-  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
+  myHeaders.append("supabase_jwt", supabase_jwt);
+  myHeaders.append("Authorization", `Bearer ${bearer_token}`);
 
   var requestOptions = {
     method: "GET",
@@ -77,10 +89,18 @@ async function getUser(user_id: string, supabaseToken: any, bearerToken: any) {
   }
 }
 
-async function getDiscount(discount_id: string, supabaseToken: any, bearerToken: any) {
+async function getDiscount(discount_id: string) {
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+
+  if (!supabase_jwt) {
+    console.log("Not signed in");
+    return;
+  }
+
   var myHeaders = new Headers();
-  myHeaders.append("supabase_jwt", supabaseToken);
-  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
+  myHeaders.append("supabase_jwt", supabase_jwt);
+  myHeaders.append("Authorization", `Bearer ${bearer_token}`);
   var requestOptions = {
     method: "GET",
     headers: myHeaders,
@@ -101,30 +121,22 @@ async function getDiscount(discount_id: string, supabaseToken: any, bearerToken:
   }
 }
 
-async function getAllDiscountsData(discount_ids: string[], supabaseToken: any, bearerToken: any) {
-  const promises = discount_ids.map((discount_id: string, key: number) =>
-    getDiscount(discount_id, supabaseToken, bearerToken)
-  );
+async function getAllDiscountsData(discount_ids: string[]) {
+  const promises = discount_ids.map((discount_id: string, key: number) => getDiscount(discount_id));
   const results = await Promise.all(promises);
   return results;
 }
 
-async function getAllUserData(user_ids: string[], supabaseToken: any, bearerToken: any) {
-  const promises = user_ids.map((user_id: string, key: number) => getUser(user_id, supabaseToken, bearerToken));
+async function getAllUserData(user_ids: string[]) {
+  const promises = user_ids.map((user_id: string, key: number) => getUser(user_id));
   const results = await Promise.all(promises);
   return results;
 }
 
 const page = async ({ params }: { params: { group_id: string } }) => {
-  const bearer_token = await auth().getToken({ template: "testing_template" });
-  const supabase_jwt = await auth().getToken({ template: "supabase" });
-  const groupData = await getGroupData(params, supabase_jwt, bearer_token);
-  const userData: any = await getAllUserData(groupData.data[0].users, supabase_jwt, bearer_token);
-  const discountData: DiscountData[] = await getAllDiscountsData(
-    groupData.data[0].discounts,
-    supabase_jwt,
-    bearer_token
-  );
+  const groupData: GroupData = await getGroupData(params);
+  const userData: UserData[] = await getAllUserData(groupData.data[0].users);
+  const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
 
   return (
     <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>

@@ -1,13 +1,14 @@
 "use client";
 
-import "./page.css";
-import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
 import IllustrationFive from "@/components/ui/fre/IllustrationFive";
 import IllustrationSix from "@/components/ui/fre/IllustrationSix";
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FormEvent, KeyboardEvent, useState } from "react";
+import { FacebookShareButton } from "react-share";
+import "./page.css";
 
 export default function UserFlowPage3() {
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
@@ -16,6 +17,7 @@ export default function UserFlowPage3() {
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const shareUrl = "https://staging.app.makefwb.com/sign-in";
 
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -34,6 +36,7 @@ export default function UserFlowPage3() {
 
   //error message if input is empty
   const handleShare = async () => {
+    console.log('clicked share')
     if (emailAddresses.length === 0) {
       setErrorMessage("Please enter at least one email before sharing.");
       return;
@@ -48,7 +51,7 @@ export default function UserFlowPage3() {
       // Reset state after sending emails
       setEmailAddresses([]);
       setEmailInput("");
-
+      console.log(response)
       // edirecting to the profile page
       window.location.href = "/profile";
     } catch (error) {
@@ -85,19 +88,15 @@ export default function UserFlowPage3() {
   };
 
   //OnClick Buttons to handle user redirect to respective socials to share with friends
-  const handlewhatsapp = () => {
+  const handleWhatsApp = () => {
     window.open("https://www.whatsapp.com/");
   };
 
-  const handleinstagram = () => {
+  const handleInstagram = () => {
     window.open("https://www.instagram.com/");
   };
 
-  const handlefacebook = () => {
-    window.open("https://facebook.com/");
-  };
-
-  const handlediscord = () => {
+  const handleDiscord = () => {
     window.open("https://discord.com/");
   };
 
@@ -107,43 +106,29 @@ export default function UserFlowPage3() {
       <div className="middleSpacing">
         <div className="flex-col justify-center">
           <div className="progresscircles">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="56"
-              height="8"
-              viewBox="0 0 56 8"
-              fill="none"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="8" viewBox="0 0 56 8" fill="none">
               <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
               <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
               <circle cx="52" cy="4" r="4" fill="#F6FF82" />
             </svg>
           </div>
           <h2 className="mainHeader">Share with Your Friends!</h2>
-          <h5 className="subtext">
-            Spread the love and be the wingman to someone else&apos;s wallet!
-          </h5>
+          <h5 className="subtext">Spread the love and be the wingman to someone else&apos;s wallet!</h5>
 
           {/* This is the form that will handle email sharing  */}
 
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
           <div className="icons">
-            <button className="icon1" onClick={handlewhatsapp}>
+            <button className="icon1" onClick={handleWhatsApp}>
               <img src="/socialicons/whatsapp.SVG" />
             </button>
-            <button className="icon1" onClick={handleinstagram}>
+            <button className="icon1" onClick={handleInstagram}>
               <img src="/socialicons/instagram.SVG" />
             </button>
-            <button className="icon1" onClick={handlefacebook}>
+            <FacebookShareButton url={shareUrl} className="icon1">
               <div className="facebookIcon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="34"
-                  height="34"
-                  viewBox="0 0 34 34"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                   <path
                     d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
                     fill="white"
@@ -151,8 +136,8 @@ export default function UserFlowPage3() {
                 </svg>
               </div>
               {/* <img src="/socialicons/facebook.SVG" /> */}
-            </button>
-            <button onClick={handlediscord}>
+            </FacebookShareButton>
+            <button onClick={handleDiscord}>
               <img src="/socialicons/discord.SVG" />
             </button>
           </div>
@@ -211,13 +196,7 @@ export default function UserFlowPage3() {
             </button>
             {/* SVG Icon for arrow from Figma Design */}
             <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M5.20874 13H16.3787L11.4987 17.88C11.1087 18.27 11.1087 18.91 11.4987 19.3C11.8887 19.69 12.5187 19.69 12.9087 19.3L19.4987 12.71C19.8887 12.32 19.8887 11.69 19.4987 11.3L12.9187 4.69996C12.7319 4.5127 12.4783 4.40747 12.2137 4.40747C11.9492 4.40747 11.6956 4.5127 11.5087 4.69996C11.1187 5.08996 11.1187 5.71996 11.5087 6.10996L16.3787 11H5.20874C4.65874 11 4.20874 11.45 4.20874 12C4.20874 12.55 4.65874 13 5.20874 13Z"
                   fill="#8E94E9"

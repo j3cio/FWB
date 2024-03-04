@@ -1,10 +1,20 @@
+import { UserData } from "@/app/types/types";
 import { auth } from "@clerk/nextjs";
 import Profile from "./Profile";
 
-async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
+async function getUser() {
+  const userId = await auth().userId;
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+
+  if (!supabase_jwt) {
+    console.log("Not signed in");
+    return;
+  }
+
   var myHeaders = new Headers();
-  myHeaders.append("supabase_jwt", supabaseToken);
-  myHeaders.append("Authorization", `Bearer ${bearerToken}`);
+  myHeaders.append("supabase_jwt", supabase_jwt);
+  myHeaders.append("Authorization", `Bearer ${bearer_token}`);
 
   var requestOptions = {
     method: "GET",
@@ -12,7 +22,7 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`, requestOptions);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`, requestOptions);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -24,12 +34,10 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   }
 }
 
-const page = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
-  const bearer_token = await auth().getToken({ template: "testing_template" });
-  const supabase_jwt = await auth().getToken({ template: "supabase" });
-  const userId = await auth().userId;
+// { searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }
 
-  const userData: any = await getUser(userId, supabase_jwt, bearer_token);
+const page = async () => {
+  const userData: UserData = await getUser();
 
   return (
     <div>
