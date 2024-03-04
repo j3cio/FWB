@@ -40,7 +40,7 @@ function Profile({ userData }: { userData: UserData }) {
     router.push(url);
   };
 
-  console.log(userData.users[0].username)
+ //console.log(userData.users[0].username)
 
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
