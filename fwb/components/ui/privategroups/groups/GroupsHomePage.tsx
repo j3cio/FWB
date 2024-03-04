@@ -35,10 +35,6 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const theme = useTheme();
-
-
-  //console.log(userData.users[0].user_groups)
 
   if (userData.users[0].user_groups.length == 0) {
     return (
@@ -56,17 +52,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
                 backgroundImage: {md: `url(${bgImg[0].img}), url(${bgImg[1].img})`},
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right top, left bottom",
-                //backgroundSize: "45px 50px",
               }}
-              // sx={{
-              //   display: "flex",
-              //   justifyContent: "space-between",
-              //   width: "100%",
-              //   minHeight: "30vh",
-              //   paddingY: "10%",
-              //   borderRadius: 6,
-              //   bgcolor: "#8E94E9",
-              // }}
             >
               <Box className="flex flex-col text-[#F6FF82]">
                 <Box className="ml-[10%] flex items-center gap-6">
