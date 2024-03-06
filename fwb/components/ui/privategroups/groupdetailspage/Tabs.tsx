@@ -7,7 +7,7 @@ import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
-const Tabs = ({ userData, discountData }: { userData: UserData; discountData: DiscountData[] }) => {
+const Tabs = ({ userData, discountData, isLoading }: { userData: UserData; discountData: DiscountData[], isLoading: boolean }) => {
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
   const showMemberTab = () => {
@@ -18,7 +18,9 @@ const Tabs = ({ userData, discountData }: { userData: UserData; discountData: Di
   };
 
   return (
-    <div className="w-full h-full bg-[#1a1a23]">
+    <div className="w-full bg-[#1a1a23]" style={{
+      minHeight: "100vh"
+    }}>
       <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
         <div
           className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
@@ -42,8 +44,8 @@ const Tabs = ({ userData, discountData }: { userData: UserData; discountData: Di
         </div>
       </div>
       <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
-      <div className="w-full h-screen">
-        {showMembers ? <MembersSection users={userData} /> : <DiscountsSection discountData={discountData} />}
+      <div className="w-full">
+        {showMembers ? <MembersSection users={userData} /> : <DiscountsSection discountData={discountData} isLoading={isLoading} />}
       </div>
     </div>
   );
