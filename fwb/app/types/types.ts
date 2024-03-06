@@ -41,3 +41,10 @@ export interface User {
       reported_users: string[],
       profile_picture_url: string
 }
+
+// Loading skeleton Block
+
+export interface LoadingSkeletonProps {
+  type: "ProductCard";
+  quantity?: number;
+}
