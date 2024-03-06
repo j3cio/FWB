@@ -2,6 +2,8 @@ import { LoadingSkeletonProps } from "@/app/types/types";
 
 import ProductCardSkeleton from "./variants/ProductCardSkeleton";
 import TitleAndButtonsSkeleton from "./variants/TitleAndButtonsSkeleton";
+import NavBarSkeleton from "./variants/NavBarSkeleton";
+import ProductFiltersSkeleton from "./variants/ProductFiltersSkeleton";
 
 export const generateSkeletons = ({ type, quantity }: LoadingSkeletonProps) => {
   const skeletons = Array.from({ length: quantity || 1 }, () => (
@@ -19,8 +21,14 @@ const CustomSkeleton = ({ type }: LoadingSkeletonProps) => {
       return <ProductCardSkeleton />;
 
     case "TitleAndButtons":
-        return  <TitleAndButtonsSkeleton />;
+      return <TitleAndButtonsSkeleton />;
 
+    case "NavBar":
+      return <NavBarSkeleton />;
+
+    case "ProductFilters": 
+      return <ProductFiltersSkeleton />;
+      
     default:
       return;
   }
