@@ -61,30 +61,18 @@ const NavBarSkeleton = () => {
             marginRight: "4px",
           }}
         >
-          <Skeleton
-            variant="circular"
-            sx={{ bgcolor: "#CED2E4" }}
-            width={50}
-            height={50}
-          />
-          <Skeleton
-            variant="circular"
-            sx={{ bgcolor: "#CED2E4" }}
-            width={50}
-            height={50}
-          />
-          <Skeleton
-            variant="circular"
-            sx={{ bgcolor: "#CED2E4" }}
-            width={50}
-            height={50}
-          />
-          <Skeleton
-            variant="circular"
-            sx={{ bgcolor: "#CED2E4" }}
-            width={50}
-            height={50}
-          />
+            {/* Creates a blank, iterable array of a predetermined length(in this case 4). equivalent of :
+            [undefined, undefined, undefined, undefined].
+            */}
+          {Array.apply(null, Array(4)).map((_, index) => (
+            <Skeleton
+              key={index}
+              variant="circular"
+              sx={{ bgcolor: "#CED2E4" }}
+              width={50}
+              height={50}
+            />
+          ))}
         </Box>
       </Box>
     </AppBar>
