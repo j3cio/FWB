@@ -45,6 +45,6 @@ export interface User {
 // Loading skeleton Block
 
 export interface LoadingSkeletonProps {
-  type: "ProductCard" | "TitleAndButtons";
+  type: "ProductCard" | "TitleAndButtons" | "NavBar" | "ProductFilters";
   quantity?: number;
 }
