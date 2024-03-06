@@ -1,4 +1,4 @@
-import { Skeleton, Box, CardActionArea } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 const ProductCardSkeleton = () => {
   return (
@@ -9,6 +9,7 @@ const ProductCardSkeleton = () => {
         backgroundColor: "white",
         borderRadius: 20,
         margin: 4,
+        marginTop: 40,
       }}
     >
       {/* the default variant is text, but that leads to some weird scaling, shifting to rectangular gives more direct styling control */}
