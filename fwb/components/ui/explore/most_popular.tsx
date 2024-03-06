@@ -42,13 +42,18 @@ export default function MostPopular() {
         requestOptions
       )
         .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
-        .catch((error) => console.log("error", error));
-        setIsLoading(false);
+        .catch((error) => console.error("error", error));
       } catch (error) {
       setIsLoading(false);
       console.error("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+    setIsLoading(false)
+    }
+  }, [data])
 
   useEffect(() => {
     fetchData();
