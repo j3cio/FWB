@@ -1,6 +1,7 @@
 import { LoadingSkeletonProps } from "@/app/types/types";
 
 import ProductCardSkeleton from "./variants/ProductCardSkeleton";
+import TitleAndButtonsSkeleton from "./variants/TitleAndButtonsSkeleton";
 
 export const generateSkeletons = ({ type, quantity }: LoadingSkeletonProps) => {
   const skeletons = Array.from({ length: quantity || 1 }, () => (
@@ -16,6 +17,9 @@ const CustomSkeleton = ({ type }: LoadingSkeletonProps) => {
   switch (type) {
     case "ProductCard":
       return <ProductCardSkeleton />;
+
+    case "TitleAndButtons":
+        return  <TitleAndButtonsSkeleton />;
 
     default:
       return;
