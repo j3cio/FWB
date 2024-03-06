@@ -1,5 +1,5 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Image from "next/image";
 import arrowIcon from "@/components/ui/explore/icons/arrow_forward_ios_24px.svg";
@@ -144,7 +144,11 @@ export default function MostPopular() {
 
   return (
     <Box>
-      <TitleAndButtons />
+      {isLoading ? (
+        <div className="h-4">{generateSkeletons({ type: "TitleAndButtons" })}</div>
+      ) : (
+        <TitleAndButtons />
+      )}
       <div
         style={{
           overflowX: "hidden",
