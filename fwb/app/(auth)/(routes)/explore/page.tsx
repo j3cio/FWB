@@ -40,6 +40,7 @@ function ExplorePageContent() {
   const { sortby, category, privateGroup } = useContext(FilterContext);
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
@@ -161,7 +162,8 @@ function ExplorePageContent() {
           }
         })
         .catch((error) => console.log("error", error));
-    } catch (error) {
+      } catch (error) {
+      setIsLoading(false)
       console.error("Error fetching data:", error);
     }
   };
@@ -172,6 +174,11 @@ function ExplorePageContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, infinteScroll]);
 
+  useEffect(() => {
+    if (companies && companies.length > 0) {
+      setIsLoading(false);
+    }
+  }, [companies])
   // Fetch Data on Filter Change
   useEffect(() => {
     setPage(0);
@@ -204,7 +211,7 @@ function ExplorePageContent() {
         <MostPopular />
         <Divider color="white" />
         <Productfilters />
-        <ResponsiveGrid items={searchedCompany ? [searchedCompany] : companies} />
+        <ResponsiveGrid items={searchedCompany ? [searchedCompany] : companies} isLoading={isLoading} />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button
             onClick={() => {
