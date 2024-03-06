@@ -11,11 +11,20 @@ const TitleAndButtonsSkeleton = () => {
         justifyContent: "space-between",
       }}
     >
-      <Skeleton sx={{ fontSize: "2rem",  bgcolor: "#CED2E4", width: "11ch"}} />
+      <Skeleton sx={{ fontSize: "2rem", bgcolor: "#CED2E4", width: "11ch" }} />
       <Box sx={{ display: "flex", gap: "24px" }}>
-
-      <Skeleton variant="circular" width={50} height={50} sx={{ bgcolor: "#CED2E4",}}/>
-      <Skeleton variant="circular" width={50} height={50} sx={{ bgcolor: "#CED2E4",}}/>
+        <Skeleton
+          variant="circular"
+          width={50}
+          height={50}
+          sx={{ bgcolor: "#CED2E4" }}
+        />
+        <Skeleton
+          variant="circular"
+          width={50}
+          height={50}
+          sx={{ bgcolor: "#CED2E4" }}
+        />
       </Box>
     </Box>
   );
