@@ -21,7 +21,7 @@ const NavBarSkeleton = () => {
           variant="rectangular"
           width={114}
           height={48}
-          sx={{ borderRadius: 250, bgcolor: "#CED2E4",  marginRight: "4.8vw"}}
+          sx={{ borderRadius: 250, bgcolor: "#CED2E4", marginRight: "4.8vw" }}
         />
         <Box
           sx={{
@@ -53,7 +53,14 @@ const NavBarSkeleton = () => {
           />
         </Box>
 
-        <Box sx={{ display: "flex", gap: "24px", marginLeft: "24px", marginRight: "4px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "24px",
+            marginLeft: "24px",
+            marginRight: "4px",
+          }}
+        >
           <Skeleton
             variant="circular"
             sx={{ bgcolor: "#CED2E4" }}
