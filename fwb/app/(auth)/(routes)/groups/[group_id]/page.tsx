@@ -131,7 +131,7 @@ const page = async ({ params }: { params: { group_id: string } }) => {
   return (
     <Box sx={{ backgroundColor: "#1A1A23" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
+       <Navbar />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection
             userData={userData}
