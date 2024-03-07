@@ -1,13 +1,12 @@
 "use client";
+import { Group, UserData } from "@/app/types/types";
 import { Avatar, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import MembersIcon from "../icons/membersicon.svg";
 import Pencil from "../icons/pencil.svg";
-import { GroupData, UserData } from "@/app/types/types";
 
-const GroupDetailsSection = ({groupData, userData}: {groupData: GroupData, userData: UserData}) => {
-  
+const GroupDetailsSection = ({ groupData, userData }: { groupData: Group; userData: UserData[] }) => {
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
 
   return (

@@ -1,9 +1,15 @@
 export interface GroupData {
+  sucess: boolean;
+  data: Group[];
+}
+export interface Group {
   id: string;
   name: string;
-  users: string[];
   discounts: string[];
   admins: string[];
+  public: boolean;
+  users: string[];
+  description: string;
 }
 export interface DiscountData {
   created_at: string;
@@ -21,28 +27,27 @@ export interface DiscountData {
 }
 
 export interface UserData {
-  success: boolean,
-  users: User[]
+  success: boolean;
+  users: User[];
 }
 [];
 
 export interface User {
-      id: string,
-      created_at: string,
-      user_id: string,
-      username: string,
-      email: string[],
-      user_discounts: string[],
-      user_groups: string[],
-      user_messages: string[],
-      company: string,
-      verified: false,
-      blocked_users: string[],
-      reported_users: string[],
-      profile_picture_url: string
+  blocked_users: string[];
+  company: string;
+  id: string;
+  created_at: string;
+  user_id: string;
+  username: string;
+  email: string[];
+  user_discounts: string[];
+  user_groups: string[];
+  user_messages: string[];
+  verified: false;
+  reported_users: string[];
+  profile_picture_url: string;
+  hasCompletedFRE: boolean[];
 }
-
-// Loading skeleton Block
 
 export interface LoadingSkeletonProps {
   type: "ProductCard" | "TitleAndButtons" | "NavBar" | "ProductFilters";

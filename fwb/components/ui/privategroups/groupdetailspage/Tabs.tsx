@@ -7,7 +7,7 @@ import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
 
-const Tabs = ({ userData, discountData, }: { userData: UserData; discountData: DiscountData[]}) => {
+const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: DiscountData[] }) => {
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
   const showMemberTab = () => {
@@ -43,10 +43,9 @@ const Tabs = ({ userData, discountData, }: { userData: UserData; discountData: D
           </Box>
         </div>
       </div>
-      {/* returning null here instead of empty Fragments (<></>) currently appears to solve our hydration issues, leaving this comment as a breadcrumb in case it acts back up when we reimplement <Bargains /> */}
-      <div className="ml-24 mr-24">{showMembers ? null : <Bargains />}</div>
-      <div className="w-full">
-        {showMembers ? <MembersSection users={userData} /> : <DiscountsSection discountData={discountData} />}
+      <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
+      <div className="w-full h-screen">
+        {showMembers ? <MembersSection userData={userData} /> : <DiscountsSection discountData={discountData} />}
       </div>
     </div>
   );
