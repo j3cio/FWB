@@ -1,9 +1,6 @@
 import { Box, Container } from "@mui/material";
 import NavBarSkeleton from "../../../../../components/ui/skeletons/variants/NavBarSkeleton";
-import { generateSkeletons } from "@/components/ui/skeletons/generateSkeletons";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
-import { Suspense } from "react";
-import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
 import GroupTabsSkeleton from "@/components/ui/skeletons/variants/GroupTabsSkeleton";
 
 export interface GroupData {
