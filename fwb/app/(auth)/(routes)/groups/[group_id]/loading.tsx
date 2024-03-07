@@ -22,7 +22,7 @@ const Loading = () => {
             userData={{ success: true, users: [] }}
             groupData={{
               id: "",
-              name: "",
+              name: "Loading...",
               users: [],
               discounts: [],
               admins: [],
