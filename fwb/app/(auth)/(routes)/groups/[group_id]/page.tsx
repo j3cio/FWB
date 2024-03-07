@@ -2,9 +2,10 @@ import { DiscountData } from "@/app/types/types";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
-import { generateSkeletons } from "@/components/ui/skeletons/generateSkeletons";
+
 import { auth } from "@clerk/nextjs";
 import { Box, Container } from "@mui/material";
+
 
 //TODOs:
 // Backend ---
@@ -127,25 +128,16 @@ const page = async ({ params }: { params: { group_id: string } }) => {
     bearer_token
   );
 
-  // Implementation takes this form since this is a server component:
-  let isLoading = true;
-
-  if (discountData && userData) {
-    isLoading = false;
-  }
-
-
   return (
-    <Box sx={{ backgroundColor: "#1A1A23", }}>
+    <Box sx={{ backgroundColor: "#1A1A23" }}>
       <Container disableGutters maxWidth="lg">
-      {isLoading ? (
-          generateSkeletons({ type: "NavBar" })
-        ) : (
-          <Navbar />
-        )}
+        <Navbar />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
-          <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
-          <Tabs userData={userData} discountData={discountData} isLoading={isLoading} />
+          <GroupDetailsSection
+            userData={userData}
+            groupData={groupData.data[0]}
+          />
+          <Tabs userData={userData} discountData={discountData} />
         </Box>
       </Container>
     </Box>
