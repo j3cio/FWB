@@ -181,7 +181,7 @@ export default function Navbar() {
           >
           <IconButton
             color="inherit"
-            onClick={() => router.back()}
+            onClick={() => router.push("/groups")}
             sx={{
               padding: "9.6px",
               borderRadius: "50%",
