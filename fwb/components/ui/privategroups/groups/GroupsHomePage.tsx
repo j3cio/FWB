@@ -3,7 +3,9 @@ import { UserData } from "@/app/types/types";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGroupForm";
 import { Box, Button, Container, Modal } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,6 +25,8 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   console.log(userData.users[0].user_groups);
+
+  const router = useRouter();
 
   if (userData.users[0].user_groups.length == 0) {
     return (
@@ -57,9 +61,6 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
     );
   }
 
-  const navigateToUserPage = (group_id: string) => {
-    window.location.href = `/groups/${group_id}`;
-  };
 
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
@@ -79,7 +80,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
                   margin: 2,
                 }}
                 key={group_id}
-                onClick={() => navigateToUserPage(group_id)}
+                onClick={() => router.push(`/groups/${group_id}`)}
               >
                 {" "}
                 group {group_id}{" "}
