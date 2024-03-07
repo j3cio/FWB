@@ -30,12 +30,11 @@ const GroupTabsSkeleton = () => {
           <Box textAlign="center">
             <Typography className=" items-center font-bold text-3xl">
               Members
-            </Typography>{" "}
+            </Typography>
           </Box>
         </div>
       </div>
       <div className="ml-24 mr-24">
-        <></>
       </div>
       <div className="w-full">
         <div className="bg-[#1a1a23]">

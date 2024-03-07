@@ -3,13 +3,6 @@ import NavBarSkeleton from "../../../../../components/ui/skeletons/variants/NavB
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import GroupTabsSkeleton from "@/components/ui/skeletons/variants/GroupTabsSkeleton";
 
-export interface GroupData {
-  id: string;
-  name: string;
-  users: string[];
-  discounts: string[];
-  admins: string[];
-}
 
 const Loading = () => {
   return (
