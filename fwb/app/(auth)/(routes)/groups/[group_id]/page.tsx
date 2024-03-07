@@ -137,7 +137,8 @@ const page = async ({ params }: { params: { group_id: string } }) => {
             userData={userData}
             groupData={groupData.data[0]}
           />
-          {/* <Tabs userData={userData} discountData={discountData} /> */}
+          {/* Something in <Tabs /> is causing a hydration error */}
+          <Tabs userData={userData} discountData={discountData} /> 
         </Box>
       </Container>
     </Box>
