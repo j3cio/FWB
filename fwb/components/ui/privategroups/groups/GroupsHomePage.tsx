@@ -5,6 +5,7 @@ import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGr
 import { Box, Button, Container, Modal } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 const style = {
@@ -21,6 +22,14 @@ const style = {
 
 // Type userData
 const GroupsHomePage = ({ userData }: { userData: UserData }) => {
+  const router = useRouter();
+  const [companyQuery, setCompanyQuery] = useState('');
+
+  const handleSearch = (companyQuery: any) => {
+    const url = `/explore?company=${companyQuery}`;
+    router.push(url);
+  };
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -32,7 +41,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
       <div className="w-full h-full">
         <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
           <Container disableGutters maxWidth="lg">
-            <Navbar />
+            <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
             <Box
               sx={{
                 borderRadius: 28,
@@ -64,7 +73,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
+        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           {userData.users[0].user_groups.map((group_id: string) => {
             return (
