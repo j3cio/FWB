@@ -43,10 +43,10 @@ const Tabs = ({ userData, discountData, }: { userData: UserData; discountData: D
           </Box>
         </div>
       </div>
-      <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
-      {/* <div className="w-full">
+      {/* <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div> */}
+      <div className="w-full">
         {showMembers ? <MembersSection users={userData} /> : <DiscountsSection discountData={discountData} />}
-      </div> */}
+      </div>
     </div>
   );
 };
