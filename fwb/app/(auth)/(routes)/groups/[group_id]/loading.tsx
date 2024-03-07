@@ -11,13 +11,15 @@ const Loading = () => {
        <NavBarSkeleton />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection
-            userData={{ success: true, users: [] }}
+            userData={[{ success: true, users: [] }]}
             groupData={{
               id: "",
               name: "Loading...",
               users: [],
               discounts: [],
               admins: [],
+              public: false,
+              description: "Loading..."
             }}
           />
           <GroupTabsSkeleton />
