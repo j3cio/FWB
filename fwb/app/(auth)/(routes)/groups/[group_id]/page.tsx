@@ -133,10 +133,10 @@ const page = async ({ params }: { params: { group_id: string } }) => {
       <Container disableGutters maxWidth="lg">
        <Navbar />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
-          <GroupDetailsSection
+          {/* <GroupDetailsSection
             userData={userData}
             groupData={groupData.data[0]}
-          />
+          /> */}
           <Tabs userData={userData} discountData={discountData} />
         </Box>
       </Container>
