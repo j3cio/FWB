@@ -16,7 +16,6 @@ const Loading = () => {
     <Box sx={{ backgroundColor: "#1A1A23" }}>
       <Container disableGutters maxWidth="lg">
        <NavBarSkeleton />
-
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection
             userData={{ success: true, users: [] }}
@@ -28,7 +27,6 @@ const Loading = () => {
               admins: [],
             }}
           />
-          {/* <Tabs userData={userData} discountData={discountData} /> */}
           <GroupTabsSkeleton />
         </Box>
       </Container>
