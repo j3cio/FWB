@@ -181,6 +181,7 @@ export default function Navbar() {
           >
           <IconButton
             color="inherit"
+            onClick={() => router.back()}
             sx={{
               padding: "9.6px",
               borderRadius: "50%",
