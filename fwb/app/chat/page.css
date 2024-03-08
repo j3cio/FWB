@@ -1,0 +1,45 @@
+.str-chat {
+  --str-chat__primary-color: #8e94e9;
+  --str-chat__active-primary-color: red;
+  --str-chat__surface-color: #8e94e9;
+  --str-chat__secondary-surface-color:rgba(255, 255, 255, 0.30);
+  --str-chat__primary-surface-color: #8e94e9;
+  --str-chat__primary-surface-color-low-emphasis: yellow;
+  --str-chat__message-bubble-color: #fff;
+  --str-chat__background-color: rgba(255, 255, 255, 0);
+  --str-chat__secondary-background-color: rgba(255, 255, 255,0);
+  --str-chat__text-color:white;
+  --str-chat__channel-preview-border-radius:10px;
+  --str-chat__message-textarea-border-radius:none;
+  --str-chat__message-textarea-border-block-start: 1px solid rgba(255, 255, 255, 0.30);
+  --str-chat__message-textarea-border-block-end:none;
+  --str-chat__message-textarea-border-inline-start:none;
+  --str-chat__message-textarea-border-inline-end:none;
+  --str-chat__message-send-color:white;
+  --str-chat__message-input-tools-color:white;
+  --str-chat__message-mention-color:white;
+  --str-chat__deleted-message-color:white;
+/* 
+글씨체 안바뀜
+전체 칼라가 바뀜-> 그래서 배경화면/유저이름 안바뀜
+채팅방에 유저이름 위치변경안됨
+placeholder변경안됨
+Search bar변경안됨 */
+  /* --str-chat__message-send-color:white; */
+  /* --str-chat__message-actions-box-border-radius:20px; */
+  /* --str-chat__message-bubble-border-inline-end:20px;
+  --str-chat__message-bubble-border-inline-start:20px; */
+  /* --str-chat__channel-border-inline-end:none; */
+  /* --str-chat__message-input-border-block-start:none; */
+  /* --str-chat__secondary-background-color:rgba(255, 255, 255,0.1); */
+  /* --str-chat__border-radius-sm: 14px; */
+  /* --str-chat__border-radius-md:18px; */
+  /* --str-chat__font-family:Urbanist;
+  --str-chat__caption-text:Urbanist; */
+  
+}
+
+/* .str-chat .str-chat__message-username {
+  color: red !important;
+} */
+

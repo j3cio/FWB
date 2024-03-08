@@ -244,7 +244,16 @@ export default function Page() {
                               />
                             </svg>{" "}
                             <div className="message">
-                              {passwordError.message}
+                            {passwordError.message.length > 50 ? (
+          <>
+            {passwordError.message.substring(0, 50)}
+            <br />
+            {passwordError.message.substring(50)}
+          </>
+        ) : (
+          passwordError.message
+        )}
+                              {/* {passwordError.message} */}
                             </div>
                           </div>
                         ))}

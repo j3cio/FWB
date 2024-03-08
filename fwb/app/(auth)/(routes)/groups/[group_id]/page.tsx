@@ -141,7 +141,8 @@ const page = async ({ params }: { params: { group_id: string } }) => {
   const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
 
   return (
-    <Box sx={{ backgroundColor: "#1A1A23" }}>
+
+    <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
       <Container disableGutters maxWidth="lg">
        <Navbar />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
