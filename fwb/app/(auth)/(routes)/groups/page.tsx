@@ -38,7 +38,7 @@ async function getUser() {
 const page = async () => {
   const userData: UserData = await getUser();
   return (
-    <div>
+    <div >
       <GroupsHomePage userData={userData} />
     </div>
   );
