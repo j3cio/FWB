@@ -35,7 +35,7 @@ const SearchBar = () => {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: {xs: "none", lg: "flex"},
         alignItems: "right",
         borderRadius: "100px",
         backgroundColor: "white",
@@ -104,7 +104,7 @@ export default function Navbar() {
         width: "100%"
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{width: "100%", display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
         <Typography
           sx={{
             marginRight: "4.8vw",
@@ -123,7 +123,7 @@ export default function Navbar() {
         <Toolbar
           disableGutters
           variant="dense"
-          sx={{ display: "flex", gap: "24px", height: "9.6px", flexGrow: 1 }}
+          sx={{ display: "flex", justifyContent: "end", gap: "24px", height: "9.6px", flexGrow: 1 }}
         > 
           <SearchBar />
           <Tooltip 
