@@ -41,7 +41,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
   return (
     <Box
       sx={{
-        display: "flex",
+        display: {xs: "none", lg: "flex"},
         alignItems: "right",
         borderRadius: "100px",
         backgroundColor: "white",
@@ -122,7 +122,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
         width: "100%"
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{width: "100%", display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
         <Typography
           sx={{
             marginRight: "4.8vw",
@@ -141,7 +141,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
         <Toolbar
           disableGutters
           variant="dense"
-          sx={{ display: "flex", gap: "24px", height: "9.6px", flexGrow: 1 }}
+          sx={{ display: "flex", justifyContent: "end", gap: "24px", height: "9.6px", flexGrow: 1 }}
         > 
           <SearchBar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
           <Tooltip 

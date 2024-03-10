@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { DiscountData, GroupData, UserData } from "@/app/types/types";
-=======
 'use client'
 
-import { DiscountData } from "@/app/types/types";
->>>>>>> 305c7afaef3b704907dd54c4f8967ef4d516695e
+import { DiscountData, GroupData, UserData } from "@/app/types/types";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
@@ -143,12 +139,6 @@ async function getAllUserData(user_ids: string[]) {
   return results;
 }
 
-<<<<<<< HEAD
-const page = async ({ params }: { params: { group_id: string } }) => {
-  const groupData: GroupData = await getGroupData(params);
-  const userData: UserData[] = await getAllUserData(groupData.data[0].users);
-  const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
-=======
 const Page = async ({ params }: { params: { group_id: string } }) => {
   const router = useRouter();
   const [companyQuery, setCompanyQuery] = useState('');
@@ -167,26 +157,15 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
     supabase_jwt,
     bearer_token
   );
->>>>>>> 305c7afaef3b704907dd54c4f8967ef4d516695e
 
   return (
-    <Box sx={{ backgroundColor: "#1A1A23" }}>
+
+    <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
       <Container disableGutters maxWidth="lg">
-<<<<<<< HEAD
-       <Navbar />
-        <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
-          <GroupDetailsSection
-            userData={userData}
-            groupData={groupData.data[0]}
-          />
-          {/* Something in <Tabs /> is causing a hydration error */}
-          <Tabs userData={userData} discountData={discountData} /> 
-=======
         <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
           <Tabs userData={userData} discountData={discountData} />
->>>>>>> 305c7afaef3b704907dd54c4f8967ef4d516695e
         </Box>
       </Container>
     </Box>

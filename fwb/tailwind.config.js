@@ -32,6 +32,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        urbanist: ['var(--font-urbanist)'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -7,7 +7,10 @@ import theme from "./theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const urbanist = Urbanist({ subsets: ["latin"] });
+const urbanist = Urbanist({ 
+  subsets: ['latin'],
+  display: 'swap', 
+});
 
 export const metadata: Metadata = {
   title: "Friends With Benefits",
