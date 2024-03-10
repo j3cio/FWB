@@ -48,3 +48,8 @@ export interface User {
   profile_picture_url: string;
   hasCompletedFRE: boolean[];
 }
+
+export interface LoadingSkeletonProps {
+  type: "ProductCard" | "TitleAndButtons" | "NavBar" | "ProductFilters";
+  quantity?: number;
+}
