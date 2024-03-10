@@ -48,3 +48,14 @@ export interface User {
   profile_picture_url: string;
   hasCompletedFRE: boolean[];
 }
+
+export type CompanyAndDiscounts = {
+  id: number;
+  name: string;
+  description: string;
+  logo: string;
+  url: string;
+  greatest_discount: number;
+  discounts: string[];
+  views: number;
+};
