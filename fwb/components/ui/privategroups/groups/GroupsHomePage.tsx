@@ -111,6 +111,9 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
     );
   }
 
+  const navigateToUserPage = (group_id: string) => {
+    window.location.href = `/groups/${group_id}`;
+  };
 
   return (
     <Box component='section' sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
