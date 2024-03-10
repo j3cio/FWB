@@ -28,6 +28,7 @@ const insertUser = async (request: NextRequest) => {
         user_messages: formData.get("user_messages") || [],
         company: formData.get("company"),
         verified: formData.get("verified") === "false" ? false : true,
+        hasCompletedFRE: formData.get("hasCompletedFRE") || [false, false, false],
         blocked_users: formData.get("blocked_users") || [],
         reported_users: formData.get("reported_users") || []
       };
@@ -182,8 +183,8 @@ const updateUser = async (request: NextRequest) => {
 
       const updatedUser: any = {};
 
-      const user_id = formData.get("user_id");
-
+      //const user_id = formData.get("user_id");
+      
       if (formData.get("username")) {
         updatedUser.username = formData.get("username");
       }
@@ -191,7 +192,7 @@ const updateUser = async (request: NextRequest) => {
         updatedUser.email = formData.get("email");
       }
       if (formData.get("profile_picture_url")) {
-        updatedUser.profile_picture_url = formData.get("profiile_picture_url");
+        updatedUser.profile_picture_url = formData.get("profile_picture_url");
       }
       if (formData.get("user_discounts")) {
         updatedUser.user_discounts = formData.get("user_discounts");
@@ -206,7 +207,11 @@ const updateUser = async (request: NextRequest) => {
         updatedUser.company = formData.get("company");
       }
       if (formData.get("verified")) {
+        const isVerified =  formData.get("verified") === "false" ? false : true;
         updatedUser.verified = formData.get("verified");
+      }
+      if (formData.get("hasCompletedFRE")) {
+        updatedUser.hasCompletedFRE = formData.get("hasCompletedFRE");
       }
       if (formData.get("blocked_users")) {
         updatedUser.blocked_users = formData.get("blocked_users");
