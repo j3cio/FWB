@@ -1,22 +1,23 @@
 "use client";
 import { useAuth } from "@clerk/nextjs";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import useMultistepForm from "../../../../hooks/useMultistepForm";
 import { GroupForm1 } from "./GroupForm1";
 import { GroupForm2 } from "./GroupForm2";
+import Image from "next/image";
 
 type FormData = {
   name: string;
   description: string;
-  users: string;
+  users: string[];
 };
 
 const initialData: FormData = {
   name: "",
   description: "",
-  users: "", // This should be userId[] of people invited to the group
+  users: [], // This should be userId[] of people invited to the group
 };
 
 // TODO:
@@ -116,20 +117,47 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        Page Indexing: {currentStepIndex + 1} / {steps.length}
-      </div>
+    <form className="min-w-full px-[10%] flex flex-col items-center gap-8">
+      <Box>
+        {currentStepIndex == 0 && <Image className="w-full h-2" src='/groups/slide-nav1.svg' height={0} width={0} alt='Slide Nav Image' />}
+        {currentStepIndex == 1 && <Image className="w-full h-2" src='/groups/slide-nav2.svg' height={0} width={0} alt='Slide Nav Image' />}
+        
+        {/* Page Indexing: {currentStepIndex + 1} / {steps.length} */}
+      </Box>
+      <Typography className="font-urbanist text-3xl font-semibold tracking-wide">
+        Create a new group
+      </Typography>
       {/* Render out the jsx of the form pages that we have passed in our hook*/}
       <div> {step} </div>
       {!isFirstStep && (
-        <Button variant="contained" type="button" onClick={back}>
+        <Button
+          className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9]" 
+          variant="contained" 
+          type="button" 
+          onClick={back}
+          >
           Back
         </Button>
       )}
-      <Button variant="contained" type="submit" onClick={onSubmit}>
-        {isLastStep ? "Finish" : "Next"}
+      <Button 
+        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50" 
+        variant="text"
+        disabled={data.name == "" && true} 
+        type="submit" 
+        onClick={onSubmit}
+        >
+        {isLastStep ? "Finish" : "Create Group"}
       </Button>
+      {isLastStep && (
+        <Button
+          className="font-urbanist capitalize text-base w-full py-3 bg-none text-white"  
+          type="button" 
+          onClick={onSubmit}
+          >
+          skip for now..
+        </Button>
+      )}
+      
     </form>
   );
 };

@@ -144,6 +144,7 @@ const page = async ({ params }: { params: { group_id: string } }) => {
 
     <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
       <Container disableGutters maxWidth="lg">
+<<<<<<< HEAD
        <Navbar />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection
@@ -152,6 +153,12 @@ const page = async ({ params }: { params: { group_id: string } }) => {
           />
           {/* Something in <Tabs /> is causing a hydration error */}
           <Tabs userData={userData} discountData={discountData} /> 
+=======
+        <Navbar />
+        <Box sx={{ position: "relative", marginTop: "136px", zIndex: 0 }}>
+          <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
+          <Tabs userData={userData} discountData={discountData} />
+>>>>>>> staging
         </Box>
       </Container>
     </Box>

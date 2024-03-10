@@ -6,18 +6,11 @@ import DiscountCard from "./DiscountCard";
 const DiscountsSection = ({ discountData, }: { discountData: DiscountData[], }) => {
   return (
     <div className="bg-[#1a1a23]">
-      <div className="w-11/12 bg-white">
+      <div className="w-11/12">
         <Productfilters />
       </div>
-      <div className="flex justify-center">
-        <Box
-          sx={{
-            flexGrow: 1,
-            paddingBottom: "20px",
-            justifyContent: "center",
-            minHeight: "1706px",
-          }}
-        >
+      <div className=" flex justify-center ml-24">
+        <Box sx={{ flexGrow: 1, paddingBottom: "20px", justifyContent: "center", minHeight: "100%" }}>
           <Grid container spacing={2} rowGap={2} sx={{ marginBottom: "60px" }}>
             {discountData.map((company: any, index: React.Key) => (
               <Grid
