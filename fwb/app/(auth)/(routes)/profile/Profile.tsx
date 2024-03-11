@@ -58,11 +58,11 @@ function Profile({ userData }: { userData: UserData }) {
                 <div className="text-slate-200 text-[35px] mb-[4px] leading-none font-semibold">
                   {userData.users[0].username}
                 </div>
-                <div className="flex flex-row mb-[16px]">
-                  <div className="mr-1 text-slate-200">Works at: </div>
+                {userData.users[0].company && <div className="flex flex-row mb-[16px]">
+                  <div className="mr-1 text-slate-200">Benefits from: </div>
                   <div className=" text-yellow-200">{userData.users[0].company}</div>
-                </div>
-                <div className="flex gap-2">
+                </div>}
+                <div className="flex my-2 gap-2">
                   <Button
                     endIcon={<WhiteArrowForward />}
                     variant="contained"
