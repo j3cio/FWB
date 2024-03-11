@@ -50,7 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
     >
       <TextField
         fullWidth
-        placeholder="Search for more benefits"
+        placeholder="Search for companies with benefits"
         style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
         value = {companyQuery}

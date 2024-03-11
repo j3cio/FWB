@@ -1,14 +1,10 @@
-'use client'
-
 import { DiscountData, GroupData, UserData } from "@/app/types/types";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
-import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 
 import { auth } from "@clerk/nextjs";
 import { Box, Container } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import SingleGroupNavbar from "./SingleGroupNavbar";
 
 
 //TODOs:
@@ -140,29 +136,16 @@ async function getAllUserData(user_ids: string[]) {
 }
 
 const Page = async ({ params }: { params: { group_id: string } }) => {
-  const router = useRouter();
-  const [companyQuery, setCompanyQuery] = useState('');
-
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`;
-    router.push(url);
-  };
-
   const bearer_token = await auth().getToken({ template: "testing_template" });
   const supabase_jwt = await auth().getToken({ template: "supabase" });
-  const groupData = await getGroupData(params, supabase_jwt, bearer_token);
-  const userData: any = await getAllUserData(groupData.data[0].users, supabase_jwt, bearer_token);
-  const discountData: DiscountData[] = await getAllDiscountsData(
-    groupData.data[0].discounts,
-    supabase_jwt,
-    bearer_token
-  );
+  const groupData = await getGroupData(params);
+  const userData: any = await getAllUserData(groupData.data[0].users);
+  const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
 
   return (
-
     <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
       <Container disableGutters maxWidth="lg">
-        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
+        <SingleGroupNavbar />
         <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
           <Tabs userData={userData} discountData={discountData} />
