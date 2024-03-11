@@ -248,8 +248,8 @@ export const SmallScreen = () => {
       )}
 
       {pendingVerification && (
-        <div className="processContainer">
-          <div className="verify">
+        <div className="processContainer  h-screen">
+          <div className="verify m-auto">
             <div className="verifyPhotos">
               <div className="verifyPhotos1">
                 <VerifyPhoto1 />

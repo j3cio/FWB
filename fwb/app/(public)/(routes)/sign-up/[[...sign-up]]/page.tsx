@@ -244,7 +244,16 @@ export default function Page() {
                               />
                             </svg>{" "}
                             <div className="message">
-                              {passwordError.message}
+                            {passwordError.message.length > 50 ? (
+          <>
+            {passwordError.message.substring(0, 50)}
+            <br />
+            {passwordError.message.substring(50)}
+          </>
+        ) : (
+          passwordError.message
+        )}
+                              {/* {passwordError.message} */}
                             </div>
                           </div>
                         ))}
@@ -283,8 +292,8 @@ export default function Page() {
           )}
 
           {pendingVerification && (
-            <div className="processContainer">
-              <div className="verify">
+            <div className="processContainer h-screen">
+              <div className="verify m-auto">
                 <div className="verifyPhotos">
                   <div className="verifyPhotos1">
                     <VerifyPhoto1 />
@@ -315,14 +324,14 @@ export default function Page() {
                       cy="102"
                       r="80.7022"
                       stroke="url(#paint0_linear_916_10370)"
-                      stroke-width="0.595588"
+                      strokeWidth="0.595588"
                     />
                     <circle
                       cx="102"
                       cy="102"
                       r="101.625"
                       stroke="url(#paint1_linear_916_10370)"
-                      stroke-width="0.75"
+                      strokeWidth="0.75"
                     />
                     <defs>
                       <linearGradient
@@ -333,8 +342,8 @@ export default function Page() {
                         y2="180.375"
                         gradientUnits="userSpaceOnUse"
                       >
-                        <stop stop-color="white" />
-                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                        <stop stopColor="white" />
+                        <stop offset="1" stopColor="white" stop-opacity="0" />
                       </linearGradient>
                       <linearGradient
                         id="paint1_linear_916_10370"
@@ -344,8 +353,8 @@ export default function Page() {
                         y2="213"
                         gradientUnits="userSpaceOnUse"
                       >
-                        <stop stop-color="white" />
-                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                        <stop stopColor="white" />
+                        <stop offset="1" stopColor="white" stop-opacity="0" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -380,7 +389,7 @@ export default function Page() {
                       r="80.7022"
                       transform="rotate(-25.7188 107 137)"
                       stroke="url(#paint0_linear_916_10371)"
-                      stroke-width="0.595588"
+                      strokeWidth="0.595588"
                     />
                     <circle
                       cx="107"
@@ -388,7 +397,7 @@ export default function Page() {
                       r="101.625"
                       transform="rotate(-25.7188 107 137)"
                       stroke="url(#paint1_linear_916_10371)"
-                      stroke-width="0.75"
+                      strokeWidth="0.75"
                     />
                     <defs>
                       <linearGradient
@@ -399,8 +408,8 @@ export default function Page() {
                         y2="215.375"
                         gradientUnits="userSpaceOnUse"
                       >
-                        <stop stop-color="white" />
-                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                        <stop stopColor="white" />
+                        <stop offset="1" stopColor="white" stop-opacity="0" />
                       </linearGradient>
                       <linearGradient
                         id="paint1_linear_916_10371"
@@ -410,14 +419,14 @@ export default function Page() {
                         y2="248"
                         gradientUnits="userSpaceOnUse"
                       >
-                        <stop stop-color="white" />
-                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                        <stop stopColor="white" />
+                        <stop offset="1" stopColor="white" stop-opacity="0" />
                       </linearGradient>
                     </defs>
                   </svg>
                 </div>
               </div>
-              <div className="stayinContainer">
+              <div className="stayinContainer my-[64px]">
                 <div className="stayWords">Stay in touch with us!</div>
                 <div className="socialMedia">
                   <div className="twitter">

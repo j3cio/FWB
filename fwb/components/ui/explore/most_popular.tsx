@@ -1,9 +1,10 @@
 "use client";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Image from "next/image";
 import arrowIcon from "@/components/ui/explore/icons/arrow_forward_ios_24px.svg";
 import ProductCard from "./product_card";
+import { generateSkeletons } from "../skeletons/generateSkeletons";
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +16,7 @@ export default function MostPopular() {
   const [position, setPosition] = useState(0);
   const itemWidth = 282; // Adjust this value based on your component width
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   const fetchData = async () => {
     try {
@@ -40,11 +42,18 @@ export default function MostPopular() {
         requestOptions
       )
         .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
-        .catch((error) => console.log("error", error));
-    } catch (error) {
+        .catch((error) => console.error("error", error));
+      } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+    setIsLoading(false)
+    }
+  }, [data])
 
   useEffect(() => {
     fetchData();
@@ -135,13 +144,17 @@ export default function MostPopular() {
 
   return (
     <Box>
-      <TitleAndButtons />
+      {isLoading ? (
+        <div className="h-4">{generateSkeletons({ type: "TitleAndButtons" })}</div>
+      ) : (
+        <TitleAndButtons />
+      )}
       <div
         style={{
           overflowX: "hidden",
           paddingTop: "40px",
           paddingBottom: "40px",
-          minHeight: "318px"
+          minHeight: "318px",
         }}
       >
         <motion.div
@@ -156,16 +169,30 @@ export default function MostPopular() {
           }}
           transition={{ ease: "easeOut", duration: 0.5 }} // Adjust the easing and duration as needed
         >
-          {data.map((item, index) => (
+          {isLoading ? (
             <motion.div
-              key={index}
               className="carousel-item"
               variants={itemVariants}
-              style={{ minWidth: `${itemWidth}px`, marginRight: "24px" }} // Adjust this value based on your component width
+              style={{
+                display: "flex",
+                minWidth: `${itemWidth}px`,
+                gap: 24,
+              }}
             >
-              {item}
+              {generateSkeletons({ type: "ProductCard", quantity: 4 })}
             </motion.div>
-          ))}
+          ) : (
+            data.map((item, index) => (
+              <motion.div
+                key={index}
+                className="carousel-item"
+                variants={itemVariants}
+                style={{ minWidth: `${itemWidth}px`, marginRight: "24px" }} // Adjust this value based on your component width
+              >
+                {item}
+              </motion.div>
+            ))
+          )}
         </motion.div>
       </div>
     </Box>

@@ -4,6 +4,7 @@ import { Stack, useTheme } from "@mui/material";
 import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 import EndArrow from "../icons/EndArrow";
 import CreateGroupForm from "@/components/ui/privategroups/groups/modal/CreateGroupForm";
+import { useRouter } from "next/navigation";
 import { Box, Button, Container, Modal, Typography } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
@@ -35,6 +36,8 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const router = useRouter();
 
   if (userData.users[0].user_groups.length == 0) {
     return (
@@ -131,7 +134,7 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
         <Stack className="relative mt-16 z-0" direction="column" spacing={3} >
           {userData.users[0].user_groups.map((group_id: string, index: number) => {
             return (
-              <Box className="bg-white border-4 overflow-hidden flex flex-col w-full rounded-xl" key={group_id}>
+              < Box className="bg-white border-4 overflow-hidden flex flex-col w-full rounded-xl" key={group_id}>
                 <Box className='w-full relative'>
                   <Image priority className="w-full h-full rounded-t-xl" src={`/groups/pg-bg${randomNumber(index)}.png`} height={0} width={900}  alt="group-img" />
                   <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />

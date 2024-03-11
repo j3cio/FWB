@@ -7,7 +7,7 @@ import React, {
   use,
 } from "react";
 import ResponsiveGrid from "@/components/ui/explore/products_grid";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box, Typography, Skeleton } from "@mui/material";
 import Navbar from "@/components/ui/explore/explore_navbar";
 import MostPopular from "@/components/ui/explore/most_popular";
 import Productfilters from "@/components/ui/explore/productfilters";
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/explore/filter_context";
 import { useAuth } from "@clerk/nextjs"
 import { useRouter, useSearchParams } from 'next/navigation';
+import { generateSkeletons } from "@/components/ui/skeletons/generateSkeletons";
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
@@ -40,6 +41,7 @@ function ExplorePageContent() {
   const { sortby, category, privateGroup } = useContext(FilterContext);
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
@@ -161,7 +163,8 @@ function ExplorePageContent() {
           }
         })
         .catch((error) => console.log("error", error));
-    } catch (error) {
+      } catch (error) {
+      setIsLoading(false)
       console.error("Error fetching data:", error);
     }
   };
@@ -172,6 +175,11 @@ function ExplorePageContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, infinteScroll]);
 
+  useEffect(() => {
+    if (companies && companies.length > 0) {
+      setIsLoading(false);
+    }
+  }, [companies])
   // Fetch Data on Filter Change
   useEffect(() => {
     setPage(0);
@@ -200,21 +208,45 @@ function ExplorePageContent() {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
+        {isLoading ? (
+          generateSkeletons({ type: "NavBar" })
+        ) : (
+          <Navbar
+            handleSearch={handleSearch}
+            companyQuery={companyQuery}
+            setCompanyQuery={setCompanyQuery}
+          />
+        )}
         <MostPopular />
         <Divider color="white" />
-        <Productfilters />
-        <ResponsiveGrid items={searchedCompany ? [searchedCompany] : companies} />
+        {isLoading ? (
+          generateSkeletons({ type: "ProductFilters" })
+        ) : (
+          <Productfilters />
+        )}
+        <ResponsiveGrid
+          items={searchedCompany ? [searchedCompany] : companies}
+          isLoading={isLoading}
+        />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            onClick={() => {
-              setPage(page + 1);
-              setInfinteScroll(true);
-            }}
-            sx={{ color: "white" }}
-          >
-            Load More...
-          </Button>
+          {isLoading ? (
+            <Skeleton
+            variant="rectangular"
+              width={87}
+              height={20}
+              sx={{ bgcolor: "#CED2E4", borderRadius: "5px"}}
+            />
+          ) : (
+            <Button
+              onClick={() => {
+                setPage(page + 1);
+                setInfinteScroll(true);
+              }}
+              sx={{ color: "white" }}
+            >
+              Load More...
+            </Button>
+          )}
         </Box>
       </Container>
     </Box>
