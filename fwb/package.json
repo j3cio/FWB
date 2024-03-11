@@ -6,8 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "prepare": "husky"
+        "lint": "next lint"
     },
     "dependencies": {
         "@clerk/clerk-js": "^4.68.5",
@@ -44,7 +43,6 @@
         "autoprefixer": "^10",
         "eslint": "^8",
         "eslint-config-next": "13.5.6",
-        "husky": "^9.0.11",
         "postcss": "^8",
         "prettier": "3.2.5",
         "pretty-quick": "^4.0.0",
