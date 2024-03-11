@@ -52,7 +52,7 @@ function Profile({ userData }: { userData: UserData }) {
                 alt="123"
                 src={`${user?.imageUrl}`}
                 className="flex bg-slate-200 w-48 justify-center items-center"
-                sx={{ width: "180px", height: "190px", padding:"4px", borderRadius:"50%"}}
+                sx={{ width: "180px", height: "190px", borderRadius:"50%"}}
               />
               <div className="flex flex-col grow justify-center">
                 <div className="text-slate-200 text-[35px] mb-[4px] leading-none font-semibold">
