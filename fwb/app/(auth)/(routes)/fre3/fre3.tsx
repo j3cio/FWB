@@ -26,13 +26,21 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
       router.replace("/fre1");
       return;
     }
-    console.log(userData.users[0].hasCompletedFRE[2])
+    console.log(userData.users[0].hasCompletedFRE[2]);
     if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre1");
-    } else if (!userData.users[0].hasCompletedFRE[2] && !userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre2");
-    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("profile");
+      router.replace("/fre1");
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace("/fre2");
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace("profile");
     }
   }, [isLoaded, isSignedIn, userData, router]);
 
@@ -105,13 +113,13 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
     try {
       const formData = new FormData();
       formData.append("hasCompletedFRE", "{true, true, true}");
-      
+
       const response = await UpdateUser(formData);
-  
+
       if (response) {
         router.push("/profile");
       } else {
-        console.error("Error in updateUser")
+        console.error("Error in updateUser");
       }
     } catch (error) {
       console.error("Error in updateUser:", error);

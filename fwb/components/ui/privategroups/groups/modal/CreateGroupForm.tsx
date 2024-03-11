@@ -23,16 +23,23 @@ const initialData: FormData = {
 // TODO:
 // Edge cases that need to be handled:
 
-const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; handleClose: () => void }) => {
+const CreateGroupForm = ({
+  userGroups,
+  handleClose,
+}: {
+  userGroups: string[];
+  handleClose: () => void;
+}) => {
   const { userId } = useAuth();
   const [data, setData] = useState(initialData);
   const router = useRouter();
   // This is the hook that carries the logic for the multistep form
   // We pass into it the JSX that is for each page of the form
-  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultistepForm([
-    <GroupForm1 key={1} {...data} updateFields={updateFields} />,
-    <GroupForm2 key={2} {...data} updateFields={updateFields} />,
-  ]);
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultistepForm([
+      <GroupForm1 key={1} {...data} updateFields={updateFields} />,
+      <GroupForm2 key={2} {...data} updateFields={updateFields} />,
+    ]);
 
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
@@ -42,8 +49,12 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
 
   async function handleCreateGroup(data: FormData) {
     console.log(data);
-    const bearerToken = await window.Clerk.session.getToken({ template: "testing_template" });
-    const supabaseToken = await window.Clerk.session.getToken({ template: "supabase" });
+    const bearerToken = await window.Clerk.session.getToken({
+      template: "testing_template",
+    });
+    const supabaseToken = await window.Clerk.session.getToken({
+      template: "supabase",
+    });
 
     // This adds the group to the "groups" table in supabase
     try {
@@ -119,9 +130,25 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
   return (
     <form className="min-w-full px-[10%] flex flex-col items-center gap-8">
       <Box>
-        {currentStepIndex == 0 && <Image className="w-full h-2" src='/groups/slide-nav1.svg' height={0} width={0} alt='Slide Nav Image' />}
-        {currentStepIndex == 1 && <Image className="w-full h-2" src='/groups/slide-nav2.svg' height={0} width={0} alt='Slide Nav Image' />}
-        
+        {currentStepIndex == 0 && (
+          <Image
+            className="w-full h-2"
+            src="/groups/slide-nav1.svg"
+            height={0}
+            width={0}
+            alt="Slide Nav Image"
+          />
+        )}
+        {currentStepIndex == 1 && (
+          <Image
+            className="w-full h-2"
+            src="/groups/slide-nav2.svg"
+            height={0}
+            width={0}
+            alt="Slide Nav Image"
+          />
+        )}
+
         {/* Page Indexing: {currentStepIndex + 1} / {steps.length} */}
       </Box>
       <Typography className="font-urbanist text-3xl font-semibold tracking-wide">
@@ -131,33 +158,32 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
       <div> {step} </div>
       {!isFirstStep && (
         <Button
-          className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9]" 
-          variant="contained" 
-          type="button" 
+          className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9]"
+          variant="contained"
+          type="button"
           onClick={back}
-          >
+        >
           Back
         </Button>
       )}
-      <Button 
-        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50" 
+      <Button
+        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
         variant="text"
-        disabled={data.name == "" && true} 
-        type="submit" 
+        disabled={data.name == "" && true}
+        type="submit"
         onClick={onSubmit}
-        >
+      >
         {isLastStep ? "Finish" : "Create Group"}
       </Button>
       {isLastStep && (
         <Button
-          className="font-urbanist capitalize text-base w-full py-3 bg-none text-white"  
-          type="button" 
+          className="font-urbanist capitalize text-base w-full py-3 bg-none text-white"
+          type="button"
           onClick={onSubmit}
-          >
+        >
           skip for now..
         </Button>
       )}
-      
     </form>
   );
 };

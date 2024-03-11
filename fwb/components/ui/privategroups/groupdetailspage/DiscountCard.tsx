@@ -15,7 +15,13 @@ import * as React from "react";
  * @returns {JSX.Element} The discount component.
  */
 
-const Discount = ({ isHovered, amount }: { isHovered: boolean; amount: Number }) => {
+const Discount = ({
+  isHovered,
+  amount,
+}: {
+  isHovered: boolean;
+  amount: Number;
+}) => {
   return (
     <Box>
       <div style={{ position: "relative", fontFamily: "inherit" }}>
@@ -81,7 +87,10 @@ const Discount = ({ isHovered, amount }: { isHovered: boolean; amount: Number })
 export default function DiscountCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = React.useState(false); // Indicates whether the card is being hovered
   return (
-    <motion.div onHoverStart={() => setIsHovered(true)} onHoverEnd={() => setIsHovered(false)}>
+    <motion.div
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+    >
       {/* Card Component */}
       <Box
         sx={{
@@ -148,7 +157,9 @@ export default function DiscountCard({ company }: { company: any }) {
                 alignItems: "center",
               }}
             >
-              <div style={{ position: "relative", width: "64px", height: "24px" }}>
+              <div
+                style={{ position: "relative", width: "64px", height: "24px" }}
+              >
                 <Avatar
                   alt="man1"
                   src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"

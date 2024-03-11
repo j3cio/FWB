@@ -1,10 +1,10 @@
 /**
  * This file contains functions that wrap the API calls to the discounts endpoint.
  * Written by: Kevin Lai
- * 
+ *
  * Creating supabase jwt token from client side is not secure and should only be used during development.
  * This was done to make long-lived tokens work with clerk and supabase for testing purposes.
- * 
+ *
  * How to get the authentication token and Supabase JWT useAuth must be called from a React component:
  * const { getToken } = useAuth();
  * const auth_token = getToken({template: 'testing_template'})
@@ -43,7 +43,7 @@ function fetchDiscounts(
   sortBy: string,
   privateGroup: string,
   category: string,
-  page: string
+  page: string,
 ) {
   // Set the headers
   var myHeaders = new Headers();
@@ -67,7 +67,7 @@ function fetchDiscounts(
 
   return fetch(
     `http://${window.location.host}/api/discounts?sort_by=${queryParams.sort_by}&private_group=${queryParams.private_group}&category=${queryParams.category}&page=${queryParams.page}`,
-    requestOptions
+    requestOptions,
   )
     .then((response) => response.json())
     .then((result) => result)
@@ -85,7 +85,7 @@ function fetchDiscounts(
 function addDiscount(
   auth_token: string,
   supabase_jwt: string,
-  discount: Discount
+  discount: Discount,
 ) {
   // Set the headers
   var myHeaders = new Headers();
@@ -127,7 +127,7 @@ function addDiscount(
 function deleteDiscount(
   auth_token: string,
   supabase_jwt: string,
-  discount_id: string
+  discount_id: string,
 ) {
   // Set the headers
   var myHeaders = new Headers();
@@ -143,7 +143,7 @@ function deleteDiscount(
 
   return fetch(
     `http://${window.location.host}/api/discounts?discount_id=${discount_id}`,
-    requestOptions
+    requestOptions,
   )
     .then((response) => response.json())
     .then((result) => console.log(result))
@@ -163,7 +163,7 @@ function updateDiscount(
   auth_token: string,
   supabase_jwt: string,
   discount_id: string,
-  discount: Discount
+  discount: Discount,
 ) {
   // Set the headers
   var myHeaders = new Headers();

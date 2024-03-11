@@ -292,9 +292,6 @@ function Page() {
         {/* right side of chat */}
         {/* <FirstRight></FirstRight> */}
 
-
-
-
         {/* 2nd chat page */}
         <div
           className="h-full w-full flex flex-col pt-6 pl-3 pr-3 pb-6 bg-opacity-10 mr-8 bg-white backdrop-blur-12.5 shadow-xl justify-start"
@@ -471,9 +468,8 @@ function Page() {
           {tab === "general" ? <RightGeneral /> : <RightGroup />}
         </Third>
 
-
-      {/* right side of Bigchat */}
-      {/* <GeneralBigChat></GeneralBigChat> */}
+        {/* right side of Bigchat */}
+        {/* <GeneralBigChat></GeneralBigChat> */}
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ export async function PATCH(req: NextRequest, res: NextResponse) {
     console.error("Error updating username:", error);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

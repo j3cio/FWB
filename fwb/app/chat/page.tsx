@@ -39,12 +39,12 @@ export default function ChatPage() {
   return (
     // <div className="w-8/12 h-screen mr-20">
 
-    <div style={{ background: "#1A1A23", paddingBottom:"80px"}}>
+    <div style={{ background: "#1A1A23", paddingBottom: "80px" }}>
       <Navbar></Navbar>
       <Chat client={chatClient}>
-      {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}
+        {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}
         {/* The channel list shows only channels that the currently loggeed in user is a member (filters prop) */}
-        <div className="flex flex-row h-full" style={{marginTop:"40px"}}>
+        <div className="flex flex-row h-full" style={{ marginTop: "40px" }}>
           <ChatSideBar user={user} />
           <ChatChannel />
         </div>

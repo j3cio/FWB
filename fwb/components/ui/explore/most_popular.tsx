@@ -8,7 +8,7 @@ import { generateSkeletons } from "../skeletons/generateSkeletons";
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "@clerk/nextjs"
+import { useAuth } from "@clerk/nextjs";
 
 export default function MostPopular() {
   const { getToken } = useAuth();
@@ -16,15 +16,12 @@ export default function MostPopular() {
   const [position, setPosition] = useState(0);
   const itemWidth = 282; // Adjust this value based on your component width
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
     try {
       var myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        `Bearer ${await getToken()}`
-      );
+      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
 
       var requestOptions = {
         method: "GET",
@@ -34,16 +31,21 @@ export default function MostPopular() {
 
       const protocal = window.location.protocol;
       fetch(
-        `${protocal}//${window.location.host}/api/companies?sort_by=${
-          "Most%20Popular"
-        }&category=${
-          "all"
-        }&page=0`,
-        requestOptions
+        `${protocal}//${window.location.host}/api/companies?sort_by=${"Most%20Popular"}&category=${"all"}&page=0`,
+        requestOptions,
       )
-        .then(async (res) => setData((await res.json()).result.map((company: any) => <ProductCard key={`MostPopular${company.name}`} company={company} />)))
+        .then(async (res) =>
+          setData(
+            (await res.json()).result.map((company: any) => (
+              <ProductCard
+                key={`MostPopular${company.name}`}
+                company={company}
+              />
+            )),
+          ),
+        )
         .catch((error) => console.error("error", error));
-      } catch (error) {
+    } catch (error) {
       setIsLoading(false);
       console.error("Error fetching data:", error);
     }
@@ -51,9 +53,9 @@ export default function MostPopular() {
 
   useEffect(() => {
     if (data && data.length > 0) {
-    setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     fetchData();
@@ -69,13 +71,14 @@ export default function MostPopular() {
         }}
       >
         <Typography
-          sx={{ color: "#FFF", 
+          sx={{
+            color: "#FFF",
             fontFamily: "inherit",
-            fontWeight: "600", 
+            fontWeight: "600",
             fontSize: "32px",
             lineHeight: "110%",
-            fontStyle: "normal"
-           }}
+            fontStyle: "normal",
+          }}
         >
           Most Popular
         </Typography>
@@ -145,7 +148,9 @@ export default function MostPopular() {
   return (
     <Box>
       {isLoading ? (
-        <div className="h-4">{generateSkeletons({ type: "TitleAndButtons" })}</div>
+        <div className="h-4">
+          {generateSkeletons({ type: "TitleAndButtons" })}
+        </div>
       ) : (
         <TitleAndButtons />
       )}

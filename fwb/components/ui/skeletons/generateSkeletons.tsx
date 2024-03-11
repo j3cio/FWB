@@ -26,9 +26,9 @@ const CustomSkeleton = ({ type }: LoadingSkeletonProps) => {
     case "NavBar":
       return <NavBarSkeleton />;
 
-    case "ProductFilters": 
+    case "ProductFilters":
       return <ProductFiltersSkeleton />;
-      
+
     default:
       return;
   }

@@ -22,18 +22,14 @@ const UpdateUser = async (formData: FormData) => {
       const data = await response.json();
       console.log("User added successfully:", data);
       return true;
-
     } else {
       const errorData = await response.json();
       console.error("Error adding user:", errorData);
       return false;
-
     }
-    
   } catch (error) {
     console.error("Error add user:", error);
     return false;
-
   }
 };
 

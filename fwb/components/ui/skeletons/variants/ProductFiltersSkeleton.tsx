@@ -1,4 +1,4 @@
-import { Box, Skeleton } from "@mui/material"
+import { Box, Skeleton } from "@mui/material";
 
 const ProductFiltersSkeleton = () => {
   return (
@@ -16,7 +16,6 @@ const ProductFiltersSkeleton = () => {
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "24px" }}>
-
         {/* Creates a blank, iterable array of a predetermined length(in this case 3). equivalent of :
             [undefined, undefined, undefined].
             */}
@@ -47,6 +46,6 @@ const ProductFiltersSkeleton = () => {
       </Box>
     </Box>
   );
-}
+};
 
-export default ProductFiltersSkeleton
+export default ProductFiltersSkeleton;

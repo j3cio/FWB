@@ -25,7 +25,7 @@ export default function Page() {
   const [error, setError] = useState<any>(null);
   const { user } = useUser();
   const [userAction, setUserAction] = useState<any>();
-  
+
   const width = useWindowDimensions();
 
   // Display error message based on url and previous webpage accessed
@@ -217,7 +217,7 @@ export default function Page() {
                     {error &&
                       error.errors
                         .filter(
-                          (err: any) => err.meta.paramName === "email_address"
+                          (err: any) => err.meta.paramName === "email_address",
                         )
                         .map((passwordError: any) => (
                           <div

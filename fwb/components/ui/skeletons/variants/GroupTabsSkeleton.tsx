@@ -34,8 +34,7 @@ const GroupTabsSkeleton = () => {
           </Box>
         </div>
       </div>
-      <div className="ml-24 mr-24">
-      </div>
+      <div className="ml-24 mr-24"></div>
       <div className="w-full">
         <div className="bg-[#1a1a23]">
           <div className="w-11/12 bg-white">

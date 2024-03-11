@@ -3,12 +3,11 @@ import NavBarSkeleton from "../../../../../components/ui/skeletons/variants/NavB
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import GroupTabsSkeleton from "@/components/ui/skeletons/variants/GroupTabsSkeleton";
 
-
 const Loading = () => {
   return (
     <Box sx={{ backgroundColor: "#1A1A23" }}>
       <Container disableGutters maxWidth="lg">
-       <NavBarSkeleton />
+        <NavBarSkeleton />
         <Box sx={{ position: "relative", paddingTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection
             userData={[{ success: true, users: [] }]}
@@ -19,7 +18,7 @@ const Loading = () => {
               discounts: [],
               admins: [],
               public: false,
-              description: "Loading..."
+              description: "Loading...",
             }}
           />
           <GroupTabsSkeleton />

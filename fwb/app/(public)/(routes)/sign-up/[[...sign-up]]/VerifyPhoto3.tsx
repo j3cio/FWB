@@ -94,5 +94,5 @@ export const VerifyPhoto3 = () => {
         fill="black"
       />
     </svg>
-  )
-}
+  );
+};

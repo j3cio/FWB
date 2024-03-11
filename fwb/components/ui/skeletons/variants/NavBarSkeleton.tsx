@@ -61,7 +61,7 @@ const NavBarSkeleton = () => {
             marginRight: "4px",
           }}
         >
-            {/* Creates a blank, iterable array of a predetermined length(in this case 4). equivalent of :
+          {/* Creates a blank, iterable array of a predetermined length(in this case 4). equivalent of :
             [undefined, undefined, undefined, undefined].
             */}
           {Array.apply(null, Array(4)).map((_, index) => (

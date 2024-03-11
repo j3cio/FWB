@@ -12,7 +12,10 @@ async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`, requestOptions);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`,
+      requestOptions,
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -33,7 +36,7 @@ const page = async () => {
 
   return (
     <div>
-      <UserFlowPage2 userData={userData}/>
+      <UserFlowPage2 userData={userData} />
     </div>
   );
 };

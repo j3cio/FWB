@@ -4,7 +4,7 @@ import supabaseClient from "@/supabase";
 
 /**
  * Inserts a new user into the database.
- * 
+ *
  * @param {NextRequest} request - The request object.
  * @returns {Promise<NextResponse>} A promise that resolves to the response object.
  */
@@ -28,18 +28,22 @@ const insertUser = async (request: NextRequest) => {
         user_messages: formData.get("user_messages") || [],
         company: formData.get("company"),
         verified: formData.get("verified") === "false" ? false : true,
-        hasCompletedFRE: formData.get("hasCompletedFRE") || [false, false, false],
+        hasCompletedFRE: formData.get("hasCompletedFRE") || [
+          false,
+          false,
+          false,
+        ],
         blocked_users: formData.get("blocked_users") || [],
-        reported_users: formData.get("reported_users") || []
+        reported_users: formData.get("reported_users") || [],
       };
 
       const supabase = await supabaseClient(
-        request.headers.get("supabase_jwt")
+        request.headers.get("supabase_jwt"),
       );
       if (!supabase) {
         return NextResponse.json(
           { error: "Could not create supabase access token" },
-          { status: 401 }
+          { status: 401 },
         );
       }
 
@@ -54,7 +58,7 @@ const insertUser = async (request: NextRequest) => {
         console.error(error);
         return NextResponse.json(
           { error: "Failed to create new user", details: error.message },
-          { status: 500 }
+          { status: 500 },
         );
       } else {
         return NextResponse.json({ data: data }, { status: 200 });
@@ -65,14 +69,14 @@ const insertUser = async (request: NextRequest) => {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
 
 /**
  * Retrieves users registered through Clerk.
- * 
+ *
  * @param request - The NextRequest object containing the query parameters.
  * @returns A NextResponse object containing the fetched users or an error response.
  */
@@ -83,38 +87,36 @@ const getUsers = async (request: NextRequest) => {
     // If the user is logged in, fetch all other users on the platform
     if (userId && user) {
       const supabase = await supabaseClient(
-        request.headers.get("supabase_jwt")
+        request.headers.get("supabase_jwt"),
       );
       if (!supabase) {
         return NextResponse.json(
           { error: "Could not create supabase access token" },
-          { status: 401 }
+          { status: 401 },
         );
       }
 
-      let { data: users, error } = await supabase
-        .from("users")
-        .select("*");
+      let { data: users, error } = await supabase.from("users").select("*");
 
       if (error) {
         return NextResponse.json(
           { error: "Failed to fetch users" },
-          { status: 500 }
+          { status: 500 },
         );
       }
       return NextResponse.json({ success: true, users }, { status: 200 });
-    } 
+    }
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
 
 /**
  * Deletes a user from the database.
- * 
+ *
  * @param request - The NextRequest object containing the request details.
  * @returns A NextResponse object with the result of the deletion.
  */
@@ -141,12 +143,12 @@ const deleteUser = async (request: NextRequest) => {
       if (error) {
         return NextResponse.json(
           { error: "Failed to delete user" },
-          { status: 500 }
+          { status: 500 },
         );
       } else {
         return NextResponse.json(
           { success: true, deleted: user_id },
-          { status: 200 }
+          { status: 200 },
         );
       }
     } else {
@@ -155,14 +157,14 @@ const deleteUser = async (request: NextRequest) => {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };
 
 /**
  * Updates a user in the database.
- * 
+ *
  * @param request - The NextRequest object containing the request details.
  * @returns A NextResponse object with the updated user data or an error message.
  */
@@ -178,13 +180,13 @@ const updateUser = async (request: NextRequest) => {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }
       const supabase = await supabaseClient(token);
-      
+
       const formData = await request.formData();
 
       const updatedUser: any = {};
 
       //const user_id = formData.get("user_id");
-      
+
       if (formData.get("username")) {
         updatedUser.username = formData.get("username");
       }
@@ -207,7 +209,7 @@ const updateUser = async (request: NextRequest) => {
         updatedUser.company = formData.get("company");
       }
       if (formData.get("verified")) {
-        const isVerified =  formData.get("verified") === "false" ? false : true;
+        const isVerified = formData.get("verified") === "false" ? false : true;
         updatedUser.verified = formData.get("verified");
       }
       if (formData.get("hasCompletedFRE")) {
@@ -230,12 +232,12 @@ const updateUser = async (request: NextRequest) => {
         console.log(error);
         return NextResponse.json(
           { error: "Failed to update user" },
-          { status: 500 }
+          { status: 500 },
         );
       } else {
         return NextResponse.json(
           { success: true, updated_values: data },
-          { status: 200 }
+          { status: 200 },
         );
       }
     } else {
@@ -244,7 +246,7 @@ const updateUser = async (request: NextRequest) => {
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

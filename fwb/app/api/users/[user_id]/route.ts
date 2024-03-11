@@ -5,5 +5,5 @@ import { getSingleUser } from "@/app/api/users/[user_id]/utils/user_utils";
 
 // Get single user
 export async function GET(request: NextRequest) {
-  return (await getSingleUser(request));
+  return await getSingleUser(request);
 }

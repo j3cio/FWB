@@ -6,12 +6,13 @@ import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar
 import { auth } from "@clerk/nextjs";
 import { Box, Container } from "@mui/material";
 
-
 //TODOs:
 // Backend ---
 // Search bar for searching members
 
-async function getGroupData(params: { [key: string]: string | string[] | undefined }) {
+async function getGroupData(params: {
+  [key: string]: string | string[] | undefined;
+}) {
   const bearer_token = await auth().getToken({ template: "testing_template" });
   const supabase_jwt = await auth().getToken({ template: "supabase" });
 
@@ -32,7 +33,7 @@ async function getGroupData(params: { [key: string]: string | string[] | undefin
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${params.group_id}`, // add to .env
-        requestOptions
+        requestOptions,
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -79,7 +80,10 @@ async function getUser(user_id: string) {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`, requestOptions);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`,
+      requestOptions,
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -110,7 +114,7 @@ async function getDiscount(discount_id: string) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts?discount_id=${discount_id}`,
-      requestOptions
+      requestOptions,
     );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -124,13 +128,17 @@ async function getDiscount(discount_id: string) {
 }
 
 async function getAllDiscountsData(discount_ids: string[]) {
-  const promises = discount_ids.map((discount_id: string, key: number) => getDiscount(discount_id));
+  const promises = discount_ids.map((discount_id: string, key: number) =>
+    getDiscount(discount_id),
+  );
   const results = await Promise.all(promises);
   return results;
 }
 
 async function getAllUserData(user_ids: string[]) {
-  const promises = user_ids.map((user_id: string, key: number) => getUser(user_id));
+  const promises = user_ids.map((user_id: string, key: number) =>
+    getUser(user_id),
+  );
   const results = await Promise.all(promises);
   return results;
 }
@@ -138,15 +146,19 @@ async function getAllUserData(user_ids: string[]) {
 const page = async ({ params }: { params: { group_id: string } }) => {
   const groupData: GroupData = await getGroupData(params);
   const userData: UserData[] = await getAllUserData(groupData.data[0].users);
-  const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
+  const discountData: DiscountData[] = await getAllDiscountsData(
+    groupData.data[0].discounts,
+  );
 
   return (
-
-    <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
+    <Box sx={{ backgroundColor: "#1A1A23", paddingBottom: "900px" }}>
       <Container disableGutters maxWidth="lg">
         <Navbar />
         <Box sx={{ position: "relative", marginTop: "0px", zIndex: 0 }}>
-          <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
+          <GroupDetailsSection
+            userData={userData}
+            groupData={groupData.data[0]}
+          />
           <Tabs userData={userData} discountData={discountData} />
         </Box>
       </Container>

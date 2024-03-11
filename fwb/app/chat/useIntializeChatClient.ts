@@ -5,7 +5,7 @@ import { StreamChat } from "stream-chat";
 export default function useIntitialChatClient() {
   // Read the currently logged in user
   const { user } = useUser();
-  console.log(user)
+  console.log(user);
   const [chatClient, setChatClient] = useState<StreamChat | null>(null);
   useEffect(() => {
     // Check for user
@@ -27,7 +27,7 @@ export default function useIntitialChatClient() {
           }
           const body = await res.json();
           return body.token;
-        }
+        },
       )
       .catch((error) => console.error("Failed to connect to user", error))
       .then(() => setChatClient(client));

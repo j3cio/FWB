@@ -17,8 +17,8 @@ import {
   FilterContext,
   FilterProvider,
 } from "@/components/ui/explore/filter_context";
-import { useAuth } from "@clerk/nextjs"
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useAuth } from "@clerk/nextjs";
+import { useRouter, useSearchParams } from "next/navigation";
 import { generateSkeletons } from "@/components/ui/skeletons/generateSkeletons";
 
 /**
@@ -41,43 +41,50 @@ function ExplorePageContent() {
   const { sortby, category, privateGroup } = useContext(FilterContext);
   const [page, setPage] = useState(0);
   const [companies, setCompanies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   const [isAtBottom, setIsAtBottom] = React.useState(false);
   const [infinteScroll, setInfinteScroll] = React.useState(false);
 
-  const [companyQuery, setCompanyQuery] = useState('');
+  const [companyQuery, setCompanyQuery] = useState("");
   const [searchedCompany, setSearchedCompany] = useState(null);
 
   const searchParams = useSearchParams();
-  const companyRedirect = searchParams.get("company")
+  const companyRedirect = searchParams.get("company");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
-        const supabaseToken = await window.Clerk.session.getToken({ template: 'supabase' });
-
-        const response = await fetch(`api/companies/search?companyQuery=${companyRedirect}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-            supabase_jwt: supabaseToken,
-          },
+        const bearerToken = await window.Clerk.session.getToken({
+          template: "testing_template",
         });
+        const supabaseToken = await window.Clerk.session.getToken({
+          template: "supabase",
+        });
+
+        const response = await fetch(
+          `api/companies/search?companyQuery=${companyRedirect}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${bearerToken}`,
+              supabase_jwt: supabaseToken,
+            },
+          },
+        );
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Searching for Discount was Successful', data);
+          console.log("Searching for Discount was Successful", data);
           setSearchedCompany(data);
         } else {
           const errorData = await response.json();
-          console.error('Error Finding a Discount', errorData);
-          alert('There are no discounts for that company!');
+          console.error("Error Finding a Discount", errorData);
+          alert("There are no discounts for that company!");
           setSearchedCompany(null);
         }
       } catch (error) {
-        console.error('GET Company Discount API Failed', error);
+        console.error("GET Company Discount API Failed", error);
         setSearchedCompany(null);
       }
     };
@@ -93,50 +100,53 @@ function ExplorePageContent() {
     if (!companyQuery) {
       console.error("Invalid company name provided");
       setSearchedCompany(null);
-      alert("The search bar is empty!")
+      alert("The search bar is empty!");
       return;
     }
 
     try {
-      const bearerToken = await window.Clerk.session.getToken({ template: 'testing_template' });
+      const bearerToken = await window.Clerk.session.getToken({
+        template: "testing_template",
+      });
 
-      const supabaseToken = await window.Clerk.session.getToken({template: 'supabase'})
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: "supabase",
+      });
 
-      // GET Fetch Request to Companies API 
-      const response = await fetch(`api/companies/search?companyQuery=${companyQuery}`, {
-          method: 'GET',
+      // GET Fetch Request to Companies API
+      const response = await fetch(
+        `api/companies/search?companyQuery=${companyQuery}`,
+        {
+          method: "GET",
           headers: {
-            'Authorization': `Bearer ${bearerToken}`,
-            'supabase_jwt': supabaseToken,
+            Authorization: `Bearer ${bearerToken}`,
+            supabase_jwt: supabaseToken,
           },
-        });
+        },
+      );
 
       if (response.ok) {
         const data = await response.json();
-          console.log('Searching for Discount was Successful', data);
-          setSearchedCompany(data);
+        console.log("Searching for Discount was Successful", data);
+        setSearchedCompany(data);
       } else {
         const errorData = await response.json();
-        console.error('Error Finding a Discount', errorData);
-        alert("There are no discounts for that company!")
+        console.error("Error Finding a Discount", errorData);
+        alert("There are no discounts for that company!");
         setSearchedCompany(null);
       }
     } catch (error) {
-      console.error('GET Company Discount API Failed', error);
+      console.error("GET Company Discount API Failed", error);
       setSearchedCompany(null);
     }
 
-    router.push('/explore')
-
+    router.push("/explore");
   };
 
   const fetchData = async (concat: boolean) => {
     try {
       var myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        `Bearer ${await getToken()}`
-      );
+      myHeaders.append("Authorization", `Bearer ${await getToken()}`);
 
       var requestOptions = {
         method: "GET",
@@ -147,13 +157,13 @@ function ExplorePageContent() {
       const protocal = window.location.protocol;
       fetch(
         `${protocal}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
-          sortby
+          sortby,
         )}&category=${encodeURIComponent(
-          category.toLowerCase()
+          category.toLowerCase(),
         )}&private_group=${encodeURIComponent(
-          privateGroup.toLowerCase()
+          privateGroup.toLowerCase(),
         )}&page=${encodeURIComponent(page)}`,
-        requestOptions
+        requestOptions,
       )
         .then(async (res) => {
           if (concat) {
@@ -163,8 +173,8 @@ function ExplorePageContent() {
           }
         })
         .catch((error) => console.log("error", error));
-      } catch (error) {
-      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching data:", error);
     }
   };
@@ -179,7 +189,7 @@ function ExplorePageContent() {
     if (companies && companies.length > 0) {
       setIsLoading(false);
     }
-  }, [companies])
+  }, [companies]);
   // Fetch Data on Filter Change
   useEffect(() => {
     setPage(0);
@@ -231,10 +241,10 @@ function ExplorePageContent() {
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           {isLoading ? (
             <Skeleton
-            variant="rectangular"
+              variant="rectangular"
               width={87}
               height={20}
-              sx={{ bgcolor: "#CED2E4", borderRadius: "5px"}}
+              sx={{ bgcolor: "#CED2E4", borderRadius: "5px" }}
             />
           ) : (
             <Button

@@ -12,7 +12,6 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { UserData } from "../../../types/types";
 
 export default function UserFlowPage1({ userData }: { userData: UserData }) {
-
   //TODO: Username verification feature, onChange run code to show user Username is available (possibly grey out Next Option)
 
   const { isSignedIn, user, isLoaded } = useUser();
@@ -20,7 +19,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
   const [randomName, setRandomName] = useState<any | null>(null);
   // Creating useState for Optimistc Image Loading
   const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(
-    null
+    null,
   );
 
   //Add router to push to fre2 after making User API POST Request
@@ -37,19 +36,30 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
       return;
     }
 
-    if (!userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre2");
-    } else if (!userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre3");
-    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("profile");
+    if (
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace("/fre2");
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace("/fre3");
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace("profile");
     }
   }, [isLoaded, isSignedIn, userData, router]);
 
   //Function to Allow user to Upload their own Profile Picture
   const updateProfilePicture = () => {
     const fileInput = document.getElementById(
-      "profilePicture"
+      "profilePicture",
     ) as HTMLInputElement;
     const file = fileInput?.files?.[0];
 
@@ -154,7 +164,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
   //Function to update User's username on Clerk
   function updateClerkUsername() {
     const newUsernameInput = document.getElementById(
-      "newUsername"
+      "newUsername",
     ) as HTMLInputElement;
     const newUsername = newUsernameInput?.value;
 

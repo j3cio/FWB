@@ -1,9 +1,8 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 .pageHeight {
   height: 100vh;
@@ -390,9 +389,7 @@ input::placeholder {
   font-style: normal;
   margin-top: -5px;
   margin-bottom: 5px;
-
 }
-
 
 .errorImage {
   background-color: red;
@@ -408,7 +405,6 @@ input::placeholder {
   font-style: normal;
   word-wrap: break-word;
 }
-
 
 .submit {
   border-radius: 30px;
@@ -443,7 +439,6 @@ input::placeholder {
 }
 
 /* 24px */
-
 
 .signup {
   display: flex;

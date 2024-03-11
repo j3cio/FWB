@@ -25,16 +25,27 @@ const insertGroup = async (request: NextRequest) => {
         public: formData.get("public") === "false" ? false : true, // There might be a way to use a boolean rather than having to type false?
         description: formData.get("description"),
       };
-      const supabase = await supabaseClient(request.headers.get("supabase_jwt"));
+      const supabase = await supabaseClient(
+        request.headers.get("supabase_jwt"),
+      );
       if (!supabase) {
-        return NextResponse.json({ error: "Could not create supabase access token" }, { status: 401 });
+        return NextResponse.json(
+          { error: "Could not create supabase access token" },
+          { status: 401 },
+        );
       }
       // Insert the new group into the groups table in supabase
-      const { data, error } = await supabase.from("groups").insert([newGroup]).select();
+      const { data, error } = await supabase
+        .from("groups")
+        .insert([newGroup])
+        .select();
 
       // Check for error and return response
       if (error) {
-        return NextResponse.json({ error: "Failed to create new group", details: error.message }, { status: 500 });
+        return NextResponse.json(
+          { error: "Failed to create new group", details: error.message },
+          { status: 500 },
+        );
       } else {
         return NextResponse.json({ data: data }, { status: 200 });
       }
@@ -42,7 +53,10 @@ const insertGroup = async (request: NextRequest) => {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
 /**
@@ -58,21 +72,33 @@ const getGroups = async (request: NextRequest) => {
     const supabase = await supabaseClient();
     if (group_id) {
       // If group_id return specific group
-      let { data, error } = await supabase.from("groups").select("*").eq("id", group_id);
+      let { data, error } = await supabase
+        .from("groups")
+        .select("*")
+        .eq("id", group_id);
       if (error) {
-        return NextResponse.json({ error: "Failed to fetch group" }, { status: 500 });
+        return NextResponse.json(
+          { error: "Failed to fetch group" },
+          { status: 500 },
+        );
       }
       return NextResponse.json({ success: true, data }, { status: 200 });
     } else {
       let { data, error } = await supabase.from("groups").select("*");
       if (error) {
         // Else return all groups
-        return NextResponse.json({ error: "Failed to fetch groups" }, { status: 500 });
+        return NextResponse.json(
+          { error: "Failed to fetch groups" },
+          { status: 500 },
+        );
       }
       return NextResponse.json({ success: true, data }, { status: 200 });
     }
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
 /**
@@ -92,13 +118,22 @@ const deleteGroup = async (request: NextRequest) => {
       // Create a Supabase client with the current user's access token
       const token = request.headers.get("supabase_jwt");
       if (!token) {
-        return NextResponse.json({ error: "Could not create supabase access token" }, { status: 401 });
+        return NextResponse.json(
+          { error: "Could not create supabase access token" },
+          { status: 401 },
+        );
       }
       const supabase = await supabaseClient(token);
-      const { error } = await supabase.from("groups").delete().eq("id", group_id);
+      const { error } = await supabase
+        .from("groups")
+        .delete()
+        .eq("id", group_id);
 
       if (error) {
-        return NextResponse.json({ error: "Failed to delete group" }, { status: 500 });
+        return NextResponse.json(
+          { error: "Failed to delete group" },
+          { status: 500 },
+        );
       } else {
         return NextResponse.json({ success: true }, { status: 200 });
       }
@@ -106,7 +141,10 @@ const deleteGroup = async (request: NextRequest) => {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
 /**
@@ -137,12 +175,19 @@ const updateGroup = async (request: NextRequest) => {
       const token = request.headers.get("supabase_jwt");
 
       if (!token) {
-        return NextResponse.json({ error: "Could not create supabase access token" }, { status: 401 });
+        return NextResponse.json(
+          { error: "Could not create supabase access token" },
+          { status: 401 },
+        );
       }
       const supabase = await supabaseClient(token);
 
       // Update the group in the database
-      const { data, error } = await supabase.from("groups").update(updatedGroup).eq("id", group_id).select();
+      const { data, error } = await supabase
+        .from("groups")
+        .update(updatedGroup)
+        .eq("id", group_id)
+        .select();
       if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
@@ -152,7 +197,10 @@ const updateGroup = async (request: NextRequest) => {
     }
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
 

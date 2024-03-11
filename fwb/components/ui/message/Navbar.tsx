@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import groupIcon from "@/components/ui/profile/icons/group_24px.svg";
 import messsageIcon from "@/components/ui/profile/icons/message_24px.svg";
-import chat from "@/components/ui/message/icons/chat.svg"
+import chat from "@/components/ui/message/icons/chat.svg";
 import { Image } from "next/dist/client/image-component";
 import { IconButton, Box } from "@mui/material";
 
@@ -43,7 +43,6 @@ export default function Navbar() {
           }}
         ></Box>
         <IconButton
-          
           sx={{
             padding: "9.6px",
             borderRadius: "50%",
@@ -67,7 +66,11 @@ export default function Navbar() {
             border: "2px solid white",
           }}
         >
-          <Image src={groupIcon} alt="Group Icon" style={{ width: "28.8px", height: "28.8px" }} />
+          <Image
+            src={groupIcon}
+            alt="Group Icon"
+            style={{ width: "28.8px", height: "28.8px" }}
+          />
         </IconButton>
         <IconButton
           color="inherit"
@@ -75,10 +78,14 @@ export default function Navbar() {
             padding: "9.6px",
             borderRadius: "50%",
             border: "2px solid #8E94E9",
-            background:"#8E94E9" 
+            background: "#8E94E9",
           }}
         >
-          <Image src={chat} alt="chat Icon" style={{ width: "28.8px", height: "28.8px"}} />
+          <Image
+            src={chat}
+            alt="chat Icon"
+            style={{ width: "28.8px", height: "28.8px" }}
+          />
         </IconButton>
         <Avatar alt="User" sx={{ width: "48px", height: "48px" }} />
       </Toolbar>

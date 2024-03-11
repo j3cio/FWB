@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     if (!supabase) {
       return NextResponse.json(
         { error: "Could not create supabase client" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
       if (error) {
         return NextResponse.json(
           { error: "Failed to fetch category discounts" },
-          { status: 500 }
+          { status: 500 },
         );
       }
 
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
       if (companiesError) {
         return NextResponse.json(
           { error: "Failed to fetch companies" },
-          { status: 500 }
+          { status: 500 },
         );
       }
 
@@ -100,8 +100,8 @@ export async function GET(request: NextRequest) {
       companies?.forEach((company) => {
         const intersection = new Set(
           [...company.discounts].filter((x) =>
-            categoryDiscounts?.discounts.includes(x)
-          )
+            categoryDiscounts?.discounts.includes(x),
+          ),
         );
         if (intersection.size > 0) {
           result.push({
@@ -130,12 +130,12 @@ export async function GET(request: NextRequest) {
       console.log(companiesError);
       return NextResponse.json(
         { error: "Failed to fetch public and private companies" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     return NextResponse.json({ result }, { status: 200 });
-  } 
+  }
 
   return NextResponse.json({ error: "User not logged in" }, { status: 401 });
 }

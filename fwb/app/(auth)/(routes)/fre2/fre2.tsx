@@ -92,14 +92,14 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     try {
       const formData = new FormData();
       formData.append("hasCompletedFRE", "{true, true, false}");
-      
+
       const response = await UpdateUser(formData);
-  
+
       if (response) {
-        console.log("rerouting to fre3")
+        console.log("rerouting to fre3");
         router.push("/fre3");
       } else {
-        console.error("Error in updateUser")
+        console.error("Error in updateUser");
       }
     } catch (error) {
       console.error("Error in updateUser:", error);
@@ -126,11 +126,19 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
 
     if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre1");
-    } else if (userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0] && !userData.users[0].hasCompletedFRE[2]) {
-        router.replace("/fre3");
-    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("profile");
+      router.replace("/fre1");
+    } else if (
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0] &&
+      !userData.users[0].hasCompletedFRE[2]
+    ) {
+      router.replace("/fre3");
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace("profile");
     }
   }, [isLoaded, isSignedIn, userData, router]);
 
@@ -170,7 +178,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
               />
 
               <div className="flex justify-start flex-col">
-
                 <div className="flex justify-start">
                   <h6 className="discountFormText">Discount Amount (%) *</h6>
                   <h6 className="discountFormText">Category *</h6>
@@ -196,8 +203,8 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       handleCategoryChange(
                         Array.from(
                           e.target.selectedOptions,
-                          (option) => option.value
-                        )
+                          (option) => option.value,
+                        ),
                       )
                     }
                     value={categories[0]}
@@ -257,10 +264,12 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
           </div>
 
           {/* This is the link functionality to carry user to stage 3  */}
-          <div className="flex justify-center" style={{ marginTop: "-10px" }} onClick={updateUser}>
-            <div className="skip">
-              Skip for now
-            </div>
+          <div
+            className="flex justify-center"
+            style={{ marginTop: "-10px" }}
+            onClick={updateUser}
+          >
+            <div className="skip">Skip for now</div>
           </div>
         </div>
       </div>
