@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js'
 
 /**
  * Creates a Supabase client with the provided access token.
@@ -7,31 +7,33 @@ import { createClient } from "@supabase/supabase-js";
  * @throws {Error} - If the required environment variables are missing.
  */
 const supabaseClient = async (
-  supabaseAccessToken?: string | undefined | null,
+    supabaseAccessToken?: string | undefined | null
 ) => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-    throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL env var");
-  }
-  if (!process.env.NEXT_PUBLIC_SUPABASE_KEY) {
-    throw new Error("Missing NEXT_PUBLIC_SUPABASE_KEY env var");
-  }
-  let supabase;
-  if (supabaseAccessToken) {
-    supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_KEY,
-      {
-        global: { headers: { Authorization: `Bearer ${supabaseAccessToken}` } },
-      },
-    );
-  } else {
-    supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_KEY,
-    );
-  }
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+        throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL env var')
+    }
+    if (!process.env.NEXT_PUBLIC_SUPABASE_KEY) {
+        throw new Error('Missing NEXT_PUBLIC_SUPABASE_KEY env var')
+    }
+    let supabase
+    if (supabaseAccessToken) {
+        supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_KEY,
+            {
+                global: {
+                    headers: { Authorization: `Bearer ${supabaseAccessToken}` },
+                },
+            }
+        )
+    } else {
+        supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_KEY
+        )
+    }
 
-  return supabase;
-};
+    return supabase
+}
 
-export default supabaseClient;
+export default supabaseClient

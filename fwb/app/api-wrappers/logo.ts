@@ -15,22 +15,22 @@
  * @returns A Promise that resolves to the fetched logo data.
  */
 function fetchLogo(auth_token: string, domain_name: string) {
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${auth_token}`);
+    var myHeaders = new Headers()
+    myHeaders.append('Authorization', `Bearer ${auth_token}`)
 
-  var requestOptions = {
-    method: "GET",
-    headers: myHeaders,
-    redirect: "follow" as RequestRedirect,
-  };
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow' as RequestRedirect,
+    }
 
-  return fetch(
-    `http://${window.location.host}/api/images/logos?domain_name=${domain_name}`,
-    requestOptions,
-  )
-    .then((response) => response.json())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+    return fetch(
+        `http://${window.location.host}/api/images/logos?domain_name=${domain_name}`,
+        requestOptions
+    )
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+        .catch((error) => console.log('error', error))
 }
 
-export { fetchLogo };
+export { fetchLogo }

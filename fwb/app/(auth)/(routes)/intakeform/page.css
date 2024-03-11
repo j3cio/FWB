@@ -2,16 +2,16 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
 
 .formContainer {
-  display: flex;
-  flex-direction: column;
-  padding-right: 55px;
-  padding-left: 55px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 55px;
+    padding-left: 55px;
 }
 
 .share {
-  font-family: Urbanist;
-  font-style: normal;
-  line-height: 110%;
+    font-family: Urbanist;
+    font-style: normal;
+    line-height: 110%;
 }
 
 /* .column{
@@ -30,390 +30,390 @@
 
 .firstBox,
 .secondBox {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .firstBox {
-  padding-bottom: 64px;
+    padding-bottom: 64px;
 }
 
 .secondBox {
-  padding-top: 40px;
+    padding-top: 40px;
 }
 
 .line1,
 .line2,
 .line3,
 .line4 {
-  display: flex;
+    display: flex;
 }
 
 .email,
 .company,
 .url,
 .verify {
-  color: var(--neutral-000, #fff);
-  /* Heading/H6 */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 20px */
+    color: var(--neutral-000, #fff);
+    /* Heading/H6 */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 20px */
 }
 
 .company,
 .url,
 .verify {
-  margin-top: 22px !important;
+    margin-top: 22px !important;
 }
 
 .email {
-  margin-left: 137px;
+    margin-left: 137px;
 }
 
 .url {
-  margin-left: 76px;
-  margin-top: 16px;
+    margin-left: 76px;
+    margin-top: 16px;
 }
 
 .company {
-  margin-left: 60px;
-  margin-top: 16px;
+    margin-left: 60px;
+    margin-top: 16px;
 }
 
 .verify {
-  margin-left: 45px;
-  margin-top: 16px;
+    margin-left: 45px;
+    margin-top: 16px;
 }
 
 .inputEmail,
 .inputCompany,
 .inputUrl {
-  border-radius: 5px;
-  background: var(--neutral-000, #fff);
-  display: flex;
-  padding: 4px 4px 4px 16px;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-  width: 364px;
-  height: 32px;
-  margin-left: 24px;
-  margin-top: -5px;
+    border-radius: 5px;
+    background: var(--neutral-000, #fff);
+    display: flex;
+    padding: 4px 4px 4px 16px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    width: 364px;
+    height: 32px;
+    margin-left: 24px;
+    margin-top: -5px;
 }
 
 .inputCompany,
 .inputUrl {
-  margin-top: 16px;
+    margin-top: 16px;
 }
 
 input::placeholder {
-  color: var(--neutral-900, #090a10);
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
-  opacity: 0.3;
+    color: var(--neutral-900, #090a10);
+    /* Body/16/regular */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+    opacity: 0.3;
 }
 
 .LinkedIn {
-  display: flex;
-  padding: 4px 4px 4px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-  border-radius: 5px;
-  background: var(--purple-300, #8e94e9);
-  color: var(--neutral-000, #fff);
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
-  margin-left: 26px;
-  margin-top: 16px;
-  width: 366px;
-  height: 32px;
+    display: flex;
+    padding: 4px 4px 4px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 5px;
+    background: var(--purple-300, #8e94e9);
+    color: var(--neutral-000, #fff);
+    /* Body/16/regular */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+    margin-left: 26px;
+    margin-top: 16px;
+    width: 366px;
+    height: 32px;
 }
 
 .discountName {
-  color: white;
+    color: white;
 }
 
 .percentage {
-  display: flex;
-  width: 16px;
-  height: 16px;
-  padding: 2.667px 2.665px 2.666px 2.667px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 9px;
+    display: flex;
+    width: 16px;
+    height: 16px;
+    padding: 2.667px 2.665px 2.666px 2.667px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 9px;
 }
 
 .inputDiscount {
-  border-radius: 10px;
-  background: var(--neutral-000, #fff);
-  display: flex;
-  padding: 8px 4px 8px 16px;
-  gap: 8px;
-  width: 792px;
-  height: 160px;
-  margin-left: 23px;
+    border-radius: 10px;
+    background: var(--neutral-000, #fff);
+    display: flex;
+    padding: 8px 4px 8px 16px;
+    gap: 8px;
+    width: 792px;
+    height: 160px;
+    margin-left: 23px;
 }
 
 .amount {
-  color: var(--neutral-000, #fff);
-  /* Heading/H6 */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 20px */
-  margin-left: 62px;
+    color: var(--neutral-000, #fff);
+    /* Heading/H6 */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 20px */
+    margin-left: 62px;
 }
 .slider {
-  margin-left: 30px;
+    margin-left: 30px;
 }
 .categories {
-  display: flex;
-  flex-direction: row;
-  margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 32px;
 }
 
 .selectCategory {
-  background-color: black;
-  color: white;
-  border: #8e94e9 solid 2px;
-  border-radius: 10px;
-  width: 386px;
-  height: 48px;
-  padding: 9px 16px;
-  margin-left: 20px;
-  padding-right: 50px;
+    background-color: black;
+    color: white;
+    border: #8e94e9 solid 2px;
+    border-radius: 10px;
+    width: 386px;
+    height: 48px;
+    padding: 9px 16px;
+    margin-left: 20px;
+    padding-right: 50px;
 }
 
 select {
-  margin-left: 25px;
-  /* appearance: none; */
-  background-color: black;
-  color: white;
-  border: #8e94e9 solid 2px;
-  border-radius: 10px;
-  width: 386px;
-  height: 48px;
-  padding: 9px 16px;
-  margin-left: 20px;
-  padding-right: 50px;
+    margin-left: 25px;
+    /* appearance: none; */
+    background-color: black;
+    color: white;
+    border: #8e94e9 solid 2px;
+    border-radius: 10px;
+    width: 386px;
+    height: 48px;
+    padding: 9px 16px;
+    margin-left: 20px;
+    padding-right: 50px;
 }
 
 .category {
-  color: var(--neutral-000, #fff);
+    color: var(--neutral-000, #fff);
 
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%;
-  margin-left: 116px;
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+    margin-left: 116px;
 }
 
 .all {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .arrowImage {
-  margin-left: 289px;
-  z-index: 1;
-  order: 0;
-  color: white;
+    margin-left: 289px;
+    z-index: 1;
+    order: 0;
+    color: white;
 }
 
 .discountRule {
-  color: var(--neutral-000, #fff);
-  /* Heading/H6 */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 20px */
-  margin-left: 83px;
+    color: var(--neutral-000, #fff);
+    /* Heading/H6 */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 20px */
+    margin-left: 83px;
 }
 
 .shareOn {
-  color: var(--neutral-000, #fff);
-  /* Heading/H6 */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 20px */
-  margin-left: 114px;
+    color: var(--neutral-000, #fff);
+    /* Heading/H6 */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 20px */
+    margin-left: 114px;
 }
 
 .discount1,
 .rule {
-  display: flex;
-  flex-direction: row;
-  margin-top: 80px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 80px;
 }
 
 .share {
-  display: flex;
-  flex-direction: row;
-  margin-top: 24px;
-  margin-bottom: 72px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 24px;
+    margin-bottom: 72px;
 }
 .discountName {
-  margin-left: 80px;
-  width: 34px;
-  height: 32px;
-  border-radius: 5px;
-  background: var(--neutral-000, #fff);
-  display: flex;
-  padding: 4px 8px;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-  color: var(--neutral-900, rgba(9, 10, 16, 0.5));
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
+    margin-left: 80px;
+    width: 34px;
+    height: 32px;
+    border-radius: 5px;
+    background: var(--neutral-000, #fff);
+    display: flex;
+    padding: 4px 8px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    color: var(--neutral-900, rgba(9, 10, 16, 0.5));
+    /* Body/16/regular */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
 }
 
 .public {
-  align-items: center;
-  margin-left: 26px;
-  color: var(--neutral-000, #fff);
-  display: flex;
-  flex-direction: row;
-  /* Heading/H6 */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%;
-  width: 384px;
-  height: 86px;
-  border-radius: 10px;
-  border: 2px solid var(--neutral-000, #8e94e9);
-  cursor: pointer;
+    align-items: center;
+    margin-left: 26px;
+    color: var(--neutral-000, #fff);
+    display: flex;
+    flex-direction: row;
+    /* Heading/H6 */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+    width: 384px;
+    height: 86px;
+    border-radius: 10px;
+    border: 2px solid var(--neutral-000, #8e94e9);
+    cursor: pointer;
 }
 
 .selectClass {
-  background-color: #8e94e9;
+    background-color: #8e94e9;
 }
 
 .selectPrivate {
-  background-color: #8e94e9 !important;
+    background-color: #8e94e9 !important;
 }
 
 .pic {
-  margin-left: 13px;
+    margin-left: 13px;
 }
 
 .publicLeft {
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid #fff;
-  height: 38px;
-  padding-left: 8px;
-  margin-left: 6px;
-  color: white;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #fff;
+    height: 38px;
+    padding-left: 8px;
+    margin-left: 6px;
+    color: white;
 }
 
 .private {
-  margin-left: 22px;
-  color: var(--neutral-000, #fff);
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  /* Heading/H6 */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 20px */
-  border-radius: 10px;
-  width: 384px;
-  height: 86px;
-  border: 2px solid var(--purple-300, #8e94e9);
-  background: black;
-  cursor: pointer;
+    margin-left: 22px;
+    color: var(--neutral-000, #fff);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /* Heading/H6 */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 20px */
+    border-radius: 10px;
+    width: 384px;
+    height: 86px;
+    border: 2px solid var(--purple-300, #8e94e9);
+    background: black;
+    cursor: pointer;
 }
 .submit {
-  padding-right: 40px;
-  padding-left: 55px;
+    padding-right: 40px;
+    padding-left: 55px;
 }
 
 .agree {
-  color: #fff;
-  margin-top: 64px;
-  /* Body/16/regular */
-  font-family: Urbanist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 24px */
+    color: #fff;
+    margin-top: 64px;
+    /* Body/16/regular */
+    font-family: Urbanist;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
 }
 
 .terms {
-  color: #8e94e9;
+    color: #8e94e9;
 }
 
 .termAgree {
-  margin-left: -20px;
+    margin-left: -20px;
 }
 .submitButtons {
-  display: flex;
-  margin-top: 8px;
-  margin-top: 14px;
+    display: flex;
+    margin-top: 8px;
+    margin-top: 14px;
 }
 
 .save {
-  color: var(--purple-300, #8e94e9);
-  text-align: center;
-  /* Label/20/bold */
-  font-family: Urbanist;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 25px */
-  letter-spacing: 0.4px;
-  border-radius: 30px;
-  background: var(--yellow-300, #f6ff82);
-  display: flex;
-  height: 48px;
-  padding: 10px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+    color: var(--purple-300, #8e94e9);
+    text-align: center;
+    /* Label/20/bold */
+    font-family: Urbanist;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 125%; /* 25px */
+    letter-spacing: 0.4px;
+    border-radius: 30px;
+    background: var(--yellow-300, #f6ff82);
+    display: flex;
+    height: 48px;
+    padding: 10px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .cancel {
-  display: flex;
-  height: 48px;
-  padding: 10px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 32px;
-  border: 1.5px solid var(--neutral-000, #fff);
-  color: var(--neutral-000, #fff);
-  text-align: center;
-  /* Label/20/bold */
-  font-family: Urbanist;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 125%; /* 25px */
-  letter-spacing: 0.4px;
-  margin-left: 16px;
+    display: flex;
+    height: 48px;
+    padding: 10px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 32px;
+    border: 1.5px solid var(--neutral-000, #fff);
+    color: var(--neutral-000, #fff);
+    text-align: center;
+    /* Label/20/bold */
+    font-family: Urbanist;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 125%; /* 25px */
+    letter-spacing: 0.4px;
+    margin-left: 16px;
 }
