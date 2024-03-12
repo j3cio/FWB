@@ -31,7 +31,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Install modules
-        run: npm install
+        run: cd fwb && npm install
         
       - name: Lint Code
         run: eslint . --ext .js,.jsx,.ts,.tsx
