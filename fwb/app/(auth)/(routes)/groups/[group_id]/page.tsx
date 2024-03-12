@@ -1,10 +1,10 @@
 import { DiscountData, GroupData, UserData } from "@/app/types/types";
 import GroupDetailsSection from "@/components/ui/privategroups/groupdetailspage/GroupDetailsSection";
 import Tabs from "@/components/ui/privategroups/groupdetailspage/Tabs";
-import Navbar from "@/components/ui/privategroups/groupdetailspage/groups_navbar";
 
 import { auth } from "@clerk/nextjs";
 import { Box, Container } from "@mui/material";
+import SingleGroupNavbar from "./SingleGroupNavbar";
 
 
 //TODOs:
@@ -135,17 +135,18 @@ async function getAllUserData(user_ids: string[]) {
   return results;
 }
 
-const page = async ({ params }: { params: { group_id: string } }) => {
-  const groupData: GroupData = await getGroupData(params);
-  const userData: UserData[] = await getAllUserData(groupData.data[0].users);
+const Page = async ({ params }: { params: { group_id: string } }) => {
+  const bearer_token = await auth().getToken({ template: "testing_template" });
+  const supabase_jwt = await auth().getToken({ template: "supabase" });
+  const groupData = await getGroupData(params);
+  const userData: any = await getAllUserData(groupData.data[0].users);
   const discountData: DiscountData[] = await getAllDiscountsData(groupData.data[0].discounts);
 
   return (
-
     <Box sx={{ backgroundColor: "#1A1A23",paddingBottom:"900px"}}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
-        <Box sx={{ position: "relative", marginTop: "0px", zIndex: 0 }}>
+        <SingleGroupNavbar />
+        <Box sx={{ position: "relative", marginTop: "156px", zIndex: 0 }}>
           <GroupDetailsSection userData={userData} groupData={groupData.data[0]} />
           <Tabs userData={userData} discountData={discountData} />
         </Box>
@@ -154,4 +155,4 @@ const page = async ({ params }: { params: { group_id: string } }) => {
   );
 };
 
-export default page;
+export default Page;

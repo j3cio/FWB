@@ -30,19 +30,26 @@ const randomNumber = (index: number): number => {
 };
 
 // Type userData
-const GroupsHomePage = ({ userData, groupData }: { userData: UserData; groupData: Group[] }) => {
+const GroupsHomePage = ({ userData, groupData }: { userData: UserData, groupData: Group[] }) => {
+  const router = useRouter();
+  const [companyQuery, setCompanyQuery] = useState('');
+
+  const handleSearch = (companyQuery: any) => {
+    const url = `/explore?company=${companyQuery}`;
+    router.push(url);
+  };
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const router = useRouter();
 
   if (userData.users[0].user_groups.length == 0) {
     return (
       <section className="w-full h-full">
         <Box className="font-urbanist" sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
           <Container disableGutters maxWidth="lg" sx={{ paddingX: 6 }}>
-            <Navbar />
-            <Typography className="font-urbanist" sx={{ fontSize: 24, color: "#FFFFFF", marginY: 3, fontWeight: 600 }}>
+            <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
+            <Typography className="font-urbanist" sx={{ fontSize: 24,color: "#FFFFFF", marginY: 3, fontWeight: 600 }}>
               Private Groups
             </Typography>
             <Box
@@ -123,10 +130,10 @@ const GroupsHomePage = ({ userData, groupData }: { userData: UserData; groupData
   return (
     <Box component="section" sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg" sx={{ paddingX: 6, paddingY: 8 }}>
-        <Navbar />
-        <Box className="flex justify-between items-center">
-          <Typography className="font-urbanist" sx={{ fontSize: 24, color: "#FFFFFF", marginY: 3, fontWeight: 600 }}>
-            Private Groups
+        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery}/>
+        <Box className='flex justify-between items-center'>
+          <Typography className="font-urbanist" sx={{ fontSize: 24,color: "#FFFFFF", marginY: 3, fontWeight: 600 }}>
+              Private Groups
           </Typography>
           <Button
             className="flex items-center h-fit gap-3 px-5 rounded-3xl bg-[#F6FF82] text-[#8E94E9]"
