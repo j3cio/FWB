@@ -13,14 +13,14 @@ import { UserData } from "../../../types/types";
 import UpdateUser from "@/components/hooks/updateUser";
 
 export default function UserFlowPage3({ userData }: { userData: UserData }) {
-  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
+  //Error handling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser();
   const [emailInput, setEmailInput] = useState<string>("");
   const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
-  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
+  //Error handling for if user tries to access page not signed in or Clerk isn't ready
   useEffect(() => {
     if (!isLoaded || !isSignedIn || !userData.users[0]) {
       router.replace("/fre1");
@@ -105,9 +105,9 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
     try {
       const formData = new FormData();
       formData.append("hasCompletedFRE", "{true, true, true}");
-      
+
       const response = await UpdateUser(formData);
-  
+
       if (response) {
         router.push("/profile");
       } else {
