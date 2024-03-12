@@ -106,7 +106,8 @@ export default function ProductCard({ company }: { company: any }) {
           {/* Card Image */}
           <CardMedia
             component="img"
-            image={`${company.logo}`}
+            image={company.logo ? `${company.logo}` : "nologo.png"} 
+            // image={`${company.logo}`}
             alt={`${company.name} logo`}
             sx={{
               height: "72%",
