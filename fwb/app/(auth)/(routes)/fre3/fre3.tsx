@@ -106,7 +106,9 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
       const formData = new FormData();
       formData.append("hasCompletedFRE", "{true, true, true}");
       const response = await UpdateUser(formData);
+      
       if (response) {
+        
         router.push("/profile");
       } else {
         console.error("Error in updateUser")
