@@ -1,18 +1,36 @@
 "use client";
 import { User, UserData } from "@/app/types/types";
 import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
+import { useAuth } from "@clerk/nextjs";
 import { Button } from "@mui/material";
 import AvatarIcon from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useChatContext } from "stream-chat-react";
 import MembersIcon from "../icons/membersicon.svg";
 import Pencil from "../icons/pencil.svg";
 import Settings from "../icons/settings.svg";
 import SearchBar from "./SearchBar";
 
 const Member = ({ user }: { user: User }) => {
-  console.log(user);
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+  const { client } = useChatContext();
+  const { userId } = useAuth();
+  const router = useRouter();
+
+  // This function takes in the userId of the person you are starting a chat with and will create a chat with them.
+  async function startChat(userId: any) {
+    try {
+      const channel = client.channel("messaging", { members: [userId, user.user_id] });
+      await channel.create();
+      console.log("Chat created rerouting to message page");
+      router.push("/chat");
+    } catch (error) {
+      console.error(error);
+      alert("Error creating channel");
+    }
+  }
 
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
@@ -36,21 +54,26 @@ const Member = ({ user }: { user: User }) => {
             }}
           />
         </div>
-        <Button
-          endIcon={<WhiteArrowForward />} // change this eventually
-          variant="contained"
-          sx={{
-            borderRadius: 28,
-            bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
-            color: `${theme.palette.common.white}`,
-            ":hover": {
-              bgcolor: `${theme.palette.primary.dark}`, // Hover background color
-              color: `${theme.palette.common.white}`, // Hover text color
-            },
-          }}
-        >
-          Send Message
-        </Button>
+        {userId === user.user_id ? (
+          ""
+        ) : (
+          <Button
+            endIcon={<WhiteArrowForward />} // change this eventually
+            variant="contained"
+            sx={{
+              borderRadius: 28,
+              bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
+              color: `${theme.palette.common.white}`,
+              ":hover": {
+                bgcolor: `${theme.palette.primary.dark}`, // Hover background color
+                color: `${theme.palette.common.white}`, // Hover text color
+              },
+            }}
+            onClick={() => startChat(userId)}
+          >
+            Send Message
+          </Button>
+        )}
       </div>
     </div>
   );
