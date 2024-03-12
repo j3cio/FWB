@@ -1,0 +1,256 @@
+"use client";
+
+import "./page.css";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
+import IllustrationFive from "@/components/ui/fre/IllustrationFive";
+import IllustrationSix from "@/components/ui/fre/IllustrationSix";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useAuth, auth, currentUser, UserProfile } from "@clerk/nextjs";
+import { UserData } from "../../../types/types";
+import UpdateUser from "@/components/hooks/updateUser";
+
+export default function UserFlowPage3({ userData }: { userData: UserData }) {
+  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
+  const { isSignedIn, user, isLoaded } = useUser();
+  const [emailInput, setEmailInput] = useState<string>("");
+  const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
+  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !userData.users[0]) {
+      router.replace("/fre1");
+      return;
+    }
+    console.log(userData.users[0].hasCompletedFRE[2])
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+        router.replace("/fre1");
+    } else if (!userData.users[0].hasCompletedFRE[2] && !userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
+        router.replace("/fre2");
+    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
+        router.replace("profile");
+    }
+  }, [isLoaded, isSignedIn, userData, router]);
+
+  //adding emails
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (emailInput.trim() !== "") {
+        setEmailAddresses((prevEmails) => [...prevEmails, emailInput]);
+        setEmailInput("");
+      }
+    }
+  };
+
+  //error message if input is empty
+  const handleShare = async () => {
+    if (emailAddresses.length === 0) {
+      setErrorMessage("Please enter at least one email before sharing.");
+      return;
+    }
+
+    try {
+      // Send emails
+      const response = await axios.post("/api/invitations", {
+        emails: emailAddresses,
+      });
+
+      // Reset state after sending emails
+      setEmailAddresses([]);
+      setEmailInput("");
+
+      // edirecting to the profile page
+      window.location.href = "/profile";
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
+  //removing emails
+  const handleRemoveEmail = (index: number) => {
+    setEmailAddresses((prevEmails) => {
+      const updatedEmails = [...prevEmails];
+      updatedEmails.splice(index, 1);
+      return updatedEmails;
+    });
+  };
+
+  //sending emails
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    changeFRE();
+
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("/api/invitations", {
+        emails: emailAddresses,
+      });
+
+      // 이메일 전송 후 상태 초기화 또는 다른 작업 수행
+      setEmailAddresses([]);
+      setEmailInput("");
+      router.push("/profile");
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
+  const changeFRE = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("hasCompletedFRE", "{true, true, true}");
+      
+      const response = await UpdateUser(formData);
+  
+      if (response) {
+        router.push("/profile");
+      } else {
+        console.error("Error in updateUser")
+      }
+    } catch (error) {
+      console.error("Error in updateUser:", error);
+    }
+  };
+
+  //OnClick Buttons to handle user redirect to respective socials to share with friends
+  const handlewhatsapp = () => {
+    window.open("https://www.whatsapp.com/");
+  };
+
+  const handleinstagram = () => {
+    window.open("https://www.instagram.com/");
+  };
+
+  const handlefacebook = () => {
+    window.open("https://facebook.com/");
+  };
+
+  const handlediscord = () => {
+    window.open("https://discord.com/");
+  };
+
+  return (
+    <div className="pageContent">
+      <IllustrationFive />
+      <div className="middleSpacing">
+        <div className="flex-col justify-center">
+          <div className="progresscircles">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="56"
+              height="8"
+              viewBox="0 0 56 8"
+              fill="none"
+            >
+              <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
+              <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
+              <circle cx="52" cy="4" r="4" fill="#F6FF82" />
+            </svg>
+          </div>
+          <h2 className="mainHeader">Share with Your Friends!</h2>
+          <h5 className="subtext">
+            Spread the love and be the wingman to someone else&apos;s wallet!
+          </h5>
+
+          {/* This is the form that will handle email sharing  */}
+
+          {/* These are the social media redirect buttons that will handle email sharing  */}
+          {/* <div className="flex justify-center items-center space-x-4"> */}
+          <div className="icons">
+            <button className="icon1" onClick={handlewhatsapp}>
+              <img src="/socialicons/whatsapp.SVG" />
+            </button>
+            <button className="icon1" onClick={handleinstagram}>
+              <img src="/socialicons/instagram.SVG" />
+            </button>
+            <button className="icon1" onClick={handlefacebook}>
+              <div className="facebookIcon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="34"
+                  height="34"
+                  viewBox="0 0 34 34"
+                  fill="none"
+                >
+                  <path
+                    d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+              {/* <img src="/socialicons/facebook.SVG" /> */}
+            </button>
+            <button onClick={handlediscord}>
+              <img src="/socialicons/discord.SVG" />
+            </button>
+          </div>
+          <h5 className="or">Or</h5>
+
+          <form id="invitations" className="emailForm" onSubmit={handleSubmit}>
+            <div className="email-list">
+              {emailAddresses.map((email, index) => (
+                <span key={index} className="email-item">
+                  <div className="emailInput">
+                    <div className="emailItem">
+                      {email}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="17"
+                        viewBox="0 0 16 17"
+                        fill="none"
+                        style={{ marginTop: "4px", marginLeft: "5px" }}
+                        onClick={() => handleRemoveEmail(index)}
+                      >
+                        <path
+                          d="M12.2005 4.02258C12.0759 3.89774 11.9068 3.82759 11.7305 3.82759C11.5541 3.82759 11.385 3.89774 11.2605 4.02258L8.00047 7.27591L4.74047 4.01591C4.61591 3.89108 4.44681 3.82092 4.27047 3.82092C4.09412 3.82092 3.92502 3.89108 3.80047 4.01591C3.54047 4.27591 3.54047 4.69591 3.80047 4.95591L7.06047 8.21591L3.80047 11.4759C3.54047 11.7359 3.54047 12.1559 3.80047 12.4159C4.06047 12.6759 4.48047 12.6759 4.74047 12.4159L8.00047 9.15591L11.2605 12.4159C11.5205 12.6759 11.9405 12.6759 12.2005 12.4159C12.4605 12.1559 12.4605 11.7359 12.2005 11.4759L8.94047 8.21591L12.2005 4.95591C12.4538 4.70258 12.4538 4.27591 12.2005 4.02258Z"
+                          fill="white"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </span>
+              ))}
+            </div>
+
+            <input
+              type="text"
+              className={`inputfriends ${errorMessage ? "error" : ""}`}
+              placeholder="Invite your friends..."
+              id="emailInput"
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            {/* <button type="submit">Send inviations</button> */}
+          </form>
+          {errorMessage && (
+            <div className="error-message" style={{ color: "white" }}>
+              {errorMessage}
+            </div>
+          )}
+          {/* Redirects user back to landing page, Probably should be changed to explore later  */}
+          <div className="shareButtons">
+            {/* <Link href="/profile" className="next"> */}
+
+            {/* <button className="next" type="submit" form="invitations"> */}
+            <button className="next" type="button" onClick={handleShare}>
+              Share with My Friends
+            </button>
+            {/* </Link> */}
+            <div className="skip" onClick={changeFRE}>
+              <div className="skipButton">Skip for now</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <IllustrationSix />
+    </div>
+  );
+}
