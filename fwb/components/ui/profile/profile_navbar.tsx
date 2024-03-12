@@ -233,7 +233,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
           >
             <IconButton
               color="inherit"
-              onClick={() => router.push("/messages")}
+              onClick={() => router.push("/chat")}
               sx={{
                 padding: "9.6px",
                 borderRadius: "50%",

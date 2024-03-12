@@ -146,6 +146,7 @@ input::placeholder {
   line-height: 125%; /* 30px */
   letter-spacing: 0.4px;
   margin-bottom: 12px;
+  margin-top: 0px;
 }
 
 .randomName {
