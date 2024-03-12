@@ -106,14 +106,20 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
     } catch (error) {
       console.error("Error adding user group:", error);
     }
+
+    
   }
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!isLastStep) return next(); // Check if on last page
+    //if (!isLastStep) return next();
+    if (isLastStep){
+      return handleClose();
+    }
     // Create a group and add it to the db
-    handleCreateGroup(data);
-    handleClose();
+    console.log('creating group')
+    await handleCreateGroup(data);
+    next()
   }
 
   return (
