@@ -16,7 +16,7 @@ async function getGroupData(params: { [key: string]: string | string[] | undefin
   const supabase_jwt = await auth().getToken({ template: "supabase" });
 
   if (!supabase_jwt) {
-    console.log("Not signed in");
+    console.warn("Not signed in");
     return;
   }
 
@@ -65,7 +65,7 @@ async function getUser(user_id: string) {
   const supabase_jwt = await auth().getToken({ template: "supabase" });
 
   if (!supabase_jwt) {
-    console.log("Not signed in");
+    console.warn("Not signed in");
     return;
   }
 
@@ -96,7 +96,7 @@ async function getDiscount(discount_id: string) {
   const supabase_jwt = await auth().getToken({ template: "supabase" });
 
   if (!supabase_jwt) {
-    console.log("Not signed in");
+    console.warn("Not signed in");
     return;
   }
 
@@ -108,15 +108,18 @@ async function getDiscount(discount_id: string) {
     headers: myHeaders,
   };
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts?discount_id=${discount_id}`,
-      requestOptions
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const result = await response.json();
-    return result.data[0]; // This returns the result object
+    if (discount_id !== '') {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts?discount_id=${discount_id}`,
+        requestOptions
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const result = await response.json();
+      return result.data[0]; // This returns the result object
+    } 
+    return null; // Explicitly added null instead of undefined or empty object to show that this is intended. API fix should be considered however, discount_id should never be ''.  
   } catch (error) {
     console.error("Error fetching data: ", error);
     throw error; // This re-throws the error to be handled by the caller
@@ -126,7 +129,9 @@ async function getDiscount(discount_id: string) {
 async function getAllDiscountsData(discount_ids: string[]) {
   const promises = discount_ids.map((discount_id: string, key: number) => getDiscount(discount_id));
   const results = await Promise.all(promises);
-  return results;
+  const filteredResults = results.filter((result) => result !== null);
+
+  return filteredResults;
 }
 
 async function getAllUserData(user_ids: string[]) {
