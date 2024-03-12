@@ -22,7 +22,7 @@ jobs:
         run: cd fwb && npm install
         
       - name: Prettify Code
-        run: npm run format
+        run: cd fwb && npm run format
 
   eslint:
     runs-on: ubuntu-latest
