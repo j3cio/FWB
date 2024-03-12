@@ -284,7 +284,7 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder={`${userData.users[0].username}`}
+                placeholder={userData.users[0].username ? `${userData.users[0].username}` : `username`}
                 style={{
                   //color: " var(--Neutral-900, #090A10);",
                   border: "none",
@@ -351,7 +351,7 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
             >
               <input
                 type="text"
-                placeholder={`${userData.users[0].company}`}
+                placeholder={userData.users[0].company ? `${userData.users[0].company}` : `company name`}
                 value={inputCompany}
                 onChange={(e) => setInputCompany(e.target.value)}
                 style={{

@@ -103,7 +103,7 @@ export default function DiscountCard({ company }: { company: any }) {
           {/* Card Image */}
           <CardMedia
             component="img"
-            image={`${company.logo}`}
+            image={company.logo ? `${company.logo}` : "/nologo.png"}  // The '/' is needed when we're in dynamic routes
             alt={`${company.name} logo`}
             sx={{
               height: "72%",
