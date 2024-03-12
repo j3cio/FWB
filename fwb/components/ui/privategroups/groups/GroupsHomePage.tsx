@@ -49,7 +49,6 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
               Private Groups
             </Typography>
             <Box
-              component="main"
               className="flex xxs:flex-col xs:flex-col sm:flex-col flex-row justify-between w-full min-h-[30vh] py-[10%] rounded-3xl bg-[#8E94E9]"
               sx={{
                 backgroundImage: {md: `url(${bgImg[0].img}), url(${bgImg[1].img})`},
