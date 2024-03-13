@@ -110,7 +110,7 @@ const GroupsHomePage = ({ userData, groupData }: { userData: UserData, groupData
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] min-w-[80%] lg:min-w-[45vw] xl:min-w-[45vw] xxl:min-w-[45vw] min-h-[75vh]">
+              <Box className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] max-w-full min-w-fit min-h-[75vh]">
                 <Button className="text-white font-medium absolute top-2 right-0 text-xl" onClick={handleClose}>
                   <Image className="w-8 h-8" src="/groups/icon-close.svg" height={0} width={0} alt="icon-close" />
                 </Button>
@@ -139,10 +139,8 @@ const GroupsHomePage = ({ userData, groupData }: { userData: UserData, groupData
             className="flex items-center h-fit gap-3 px-5 rounded-3xl bg-[#F6FF82] text-[#8E94E9]"
             onClick={handleOpen}
             endIcon={<EndArrow />}
-          >
-            <Typography className="text-sm lowercase font-urbanist" component="p">
-              Create new group
-            </Typography>
+          > 
+            <Typography className="text-sm capitalize font-urbanist" component="p">Create new group</Typography>
           </Button>
         </Box>
         <Stack className="relative mt-16 z-0" direction="column" spacing={3}>
@@ -207,7 +205,9 @@ const GroupsHomePage = ({ userData, groupData }: { userData: UserData, groupData
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] min-w-[80%] lg:min-w-[45vw] xl:min-w-[45vw] xxl:min-w-[45vw] min-h-[75vh]">
+        <Box
+          className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] min-w-fit max-w-full min-h-[75vh]"
+        >
           <Button className="text-white font-medium absolute top-2 right-0 text-xl" onClick={handleClose}>
             <Image className="w-8 h-8" src="/groups/icon-close.svg" height={0} width={0} alt="icon-close" />
           </Button>

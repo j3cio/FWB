@@ -9,6 +9,7 @@ import { Chat, LoadingIndicator } from "stream-chat-react";
 import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
+import CreateDiscountCard from "../../intakeform/CreateDiscountCard";
 
 const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: DiscountData[] }) => {
   const chatClient = useIntitialChatClient();
@@ -16,6 +17,9 @@ const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: 
 
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
+
+  const hasNoDiscounts = discountData.length === 0
+
   const showMemberTab = () => {
     setShowMembers(true);
   };
@@ -41,7 +45,9 @@ const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: 
       <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
         <div
           className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
-            !showMembers ? `text-white border-b-2 border-white` : `text-gray-600`
+            !showMembers
+              ? `text-white border-b-2 border-white`
+              : `text-gray-600`
           }`}
         >
           <Box textAlign="center">
@@ -66,6 +72,8 @@ const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: 
           <Chat client={chatClient}>
             <MembersSection userData={userData} />
           </Chat>
+        ) : hasNoDiscounts ? (
+          <CreateDiscountCard />
         ) : (
           <DiscountsSection discountData={discountData} />
         )}
