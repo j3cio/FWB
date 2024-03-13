@@ -1,5 +1,5 @@
-import avatar from "@/components/ui/message/icons/avatar.svg";
-import Image from "next/image";
+import avatar from '@/components/ui/message/icons/avatar.svg'
+import Image from 'next/image'
 
 export default function RightGroup() {
   return (
@@ -7,7 +7,7 @@ export default function RightGroup() {
       <div
         className="flex justify-between ml-4 mr-4 mt-5 pb-2"
         style={{
-          borderBottom: "1px solid rgba(255, 255, 255, 0.20)",
+          borderBottom: '1px solid rgba(255, 255, 255, 0.20)',
         }}
       >
         <div className="text-white">Memebers</div>
@@ -28,14 +28,14 @@ export default function RightGroup() {
       </div>
 
       <div className="flex flex-col justify-between">
-        <div style={{ height: "270px" }}>
+        <div style={{ height: '270px' }}>
           <div className="flex ml-4 mt-3 justify-between">
             <div className="flex">
               <div>
                 <Image
                   src={avatar}
                   alt="avatar Icon"
-                  style={{ width: "30px", height: "30px" }}
+                  style={{ width: '30px', height: '30px' }}
                 />
               </div>
               <div className="flex ml-2 items-center justify-center">Name</div>
@@ -80,7 +80,7 @@ export default function RightGroup() {
                 <Image
                   src={avatar}
                   alt="avatar Icon"
-                  style={{ width: "30px", height: "30px" }}
+                  style={{ width: '30px', height: '30px' }}
                 />
               </div>
               <div className="flex ml-2 items-center justify-center">Name</div>
@@ -142,9 +142,9 @@ export default function RightGroup() {
             <div
               className="ml-2"
               style={{
-                color: "#ED455D",
-                fontFamily: "Urbanist",
-                fontSize: "14px",
+                color: '#ED455D',
+                fontFamily: 'Urbanist',
+                fontSize: '14px',
               }}
             >
               Report
@@ -170,9 +170,9 @@ export default function RightGroup() {
             <div
               className="ml-2"
               style={{
-                color: "#ED455D",
-                fontFamily: "Urbanist",
-                fontSize: "14px",
+                color: '#ED455D',
+                fontFamily: 'Urbanist',
+                fontSize: '14px',
               }}
             >
               Leave Group
@@ -181,5 +181,5 @@ export default function RightGroup() {
         </div>
       </div>
     </div>
-  );
+  )
 }

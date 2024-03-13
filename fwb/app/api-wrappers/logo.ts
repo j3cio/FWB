@@ -8,7 +8,6 @@
  *
  */
 
-
 /**
  * Fetches the logo for a given domain name using the provided authentication token.
  * @param auth_token The authentication token used for authorization.
@@ -16,14 +15,14 @@
  * @returns A Promise that resolves to the fetched logo data.
  */
 function fetchLogo(auth_token: string, domain_name: string) {
-  var myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${auth_token}`);
+  var myHeaders = new Headers()
+  myHeaders.append('Authorization', `Bearer ${auth_token}`)
 
   var requestOptions = {
-    method: "GET",
+    method: 'GET',
     headers: myHeaders,
-    redirect: "follow" as RequestRedirect,
-  };
+    redirect: 'follow' as RequestRedirect,
+  }
 
   return fetch(
     `http://${window.location.host}/api/images/logos?domain_name=${domain_name}`,
@@ -31,8 +30,7 @@ function fetchLogo(auth_token: string, domain_name: string) {
   )
     .then((response) => response.json())
     .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+    .catch((error) => console.log('error', error))
 }
 
-export { fetchLogo };
-
+export { fetchLogo }

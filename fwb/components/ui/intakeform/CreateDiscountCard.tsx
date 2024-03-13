@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Button } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-import BlueArrowForward from "./BlueArrowForward";
+import BlueArrowForward from './BlueArrowForward'
 
 const CreateDiscountCard = () => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   return (
     <a href="/intakeform">
@@ -16,12 +16,12 @@ const CreateDiscountCard = () => {
               variant="contained"
               sx={{
                 borderRadius: 28,
-                borderStyle: "solid",
-                borderColor: "white",
+                borderStyle: 'solid',
+                borderColor: 'white',
                 borderWidth: 2,
                 bgcolor: `${theme.palette.secondary.light}`,
                 color: `${theme.palette.primary.dark}`,
-                ":hover": {
+                ':hover': {
                   bgcolor: `${theme.palette.secondary.light}`, // Hover background color
                   color: `${theme.palette.primary.dark}`, // Hover text color
                 },
@@ -33,7 +33,7 @@ const CreateDiscountCard = () => {
         </div>
       </div>
     </a>
-  );
-};
+  )
+}
 
-export default CreateDiscountCard;
+export default CreateDiscountCard
