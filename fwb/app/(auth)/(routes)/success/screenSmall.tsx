@@ -1,18 +1,18 @@
-"use client";
-import { useSignIn, useUser } from "@clerk/nextjs";
-import "dotenv/config";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import "./page.css";
+'use client'
+import { useSignIn, useUser } from '@clerk/nextjs'
+import 'dotenv/config'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import './page.css'
 
 export const SmallScreen = () => {
-  const { isLoaded, signIn, setActive } = useSignIn();
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const [error, setError] = useState<any>(null);
-  const { user } = useUser();
+  const { isLoaded, signIn, setActive } = useSignIn()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
+  const [error, setError] = useState<any>(null)
+  const { user } = useUser()
 
   return (
     <div className="h-screen w-full flex flex-row">
@@ -64,5 +64,5 @@ export const SmallScreen = () => {
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}

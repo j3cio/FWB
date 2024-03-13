@@ -1,8 +1,8 @@
-import theme from "@/app/theme";
-import BlueArrowForward from "@/components/ui/intakeform/BlueArrowForward";
-import { Button } from "@mui/material";
-import Image from "next/image";
-import BargainBackgroundImage from "../../../public/bargain1700x350.png";
+import theme from '@/app/theme'
+import BlueArrowForward from '@/components/ui/intakeform/BlueArrowForward'
+import { Button } from '@mui/material'
+import Image from 'next/image'
+import BargainBackgroundImage from '../../../public/bargain1700x350.png'
 
 const bargains_picture = () => {
   return (
@@ -43,7 +43,7 @@ const bargains_picture = () => {
     </div>*/
 
     <div className="rounded-3xl items-center justify-center relative z-0"></div>
-  );
-};
+  )
+}
 
-export default bargains_picture;
+export default bargains_picture

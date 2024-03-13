@@ -1,4 +1,5 @@
 "use client";
+
 import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
 import { DiscountData, UserData } from "@/app/types/types";
 import { useUser } from "@clerk/nextjs";
@@ -16,16 +17,16 @@ const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: 
   const { user } = useUser();
 
   // Tab State
-  const [showMembers, setShowMembers] = useState(false);
+  const [showMembers, setShowMembers] = useState(false)
 
   const hasNoDiscounts = discountData.length === 0
 
   const showMemberTab = () => {
-    setShowMembers(true);
-  };
+    setShowMembers(true)
+  }
   const showDiscountsTab = () => {
-    setShowMembers(false);
-  };
+    setShowMembers(false)
+  }
 
   if (!chatClient || !user) {
     return (
@@ -79,7 +80,7 @@ const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: 
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Tabs;
+export default Tabs

@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import Navbar from "@/components/ui/profile/profile_navbar";
-import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
-import { Box, Button, Container } from "@mui/material";
+import Navbar from '@/components/ui/profile/profile_navbar'
+import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
+import { Box, Button, Container } from '@mui/material'
 //import AvatarIcon from "@mui/material/Avatar";
-import { useTheme } from "@mui/material/styles";
-import Image from "next/image";
-import BlueGroupIcon from "../../../../components/ui/profile/icons/groups-blue.svg";
+import { useTheme } from '@mui/material/styles'
+import Image from 'next/image'
+import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
 import { useUser } from "@clerk/nextjs";
@@ -20,7 +20,7 @@ import CreateDiscountCard from "@/components/ui/intakeform/CreateDiscountCard";
 
 function Profile({ userData }: { userData: UserData }) {
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
-  const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+  const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
   //Intialize the user to be in GetStream db
   const client = useIntitialChatClient();
@@ -28,26 +28,30 @@ function Profile({ userData }: { userData: UserData }) {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
   const openEditProfileModal = () => {
-    setIsEditProfileModalOpen(true);
-  };
+    setIsEditProfileModalOpen(true)
+  }
 
   const closeEditProfileModal = () => {
-    setIsEditProfileModalOpen(false);
-  };
+    setIsEditProfileModalOpen(false)
+  }
 
-  const { user } = useUser();
-  const router = useRouter();
-  const [companyQuery, setCompanyQuery] = useState("");
+  const { user } = useUser()
+  const router = useRouter()
+  const [companyQuery, setCompanyQuery] = useState('')
 
   const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`;
-    router.push(url);
-  };
+    const url = `/explore?company=${companyQuery}`
+    router.push(url)
+  }
 
   return (
-    <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
+    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery} />
+        <Navbar
+          handleSearch={handleSearch}
+          companyQuery={companyQuery}
+          setCompanyQuery={setCompanyQuery}
+        />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
           <div className="flex flex-1 flex-col h-full w-full items-center justify-center px-[120px]">
@@ -75,12 +79,12 @@ function Profile({ userData }: { userData: UserData }) {
                     variant="contained"
                     sx={{
                       borderRadius: 28,
-                      borderStyle: "solid",
-                      borderColor: "white",
+                      borderStyle: 'solid',
+                      borderColor: 'white',
                       borderWidth: 2,
                       bgcolor: `${theme.palette.neutral.n900}`,
                       color: `${theme.palette.common.white}`,
-                      ":hover": {
+                      ':hover': {
                         bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
                         color: `${theme.palette.common.white}`, // Hover text color
                       },
@@ -94,26 +98,47 @@ function Profile({ userData }: { userData: UserData }) {
             </div>
             {/*Bargains div*/}
             <div className="flex flex-col w-full grow gap-6">
-
               <CreateDiscountCard />
               <div className="flex h-2/5 gap-6">
-                <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center h-[126px]">
+                <a
+                  href="profile"
+                  className="flex flex-1 bg-white rounded-3xl items-center h-[126px]"
+                >
                   <div className="flex flex-col mx-6">
-                    <div className="font-semibold text-2xl">Saved Discounts</div>
-                    <div className="text-[14px]">Lorem ipsum dolor sit amet consectetur.</div>
+                    <div className="font-semibold text-2xl">
+                      Saved Discounts
+                    </div>
+                    <div className="text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
-                    <Image src={SaveIcon} alt="Group Icon" width={50} height={50} />{" "}
+                    <Image
+                      src={SaveIcon}
+                      alt="Group Icon"
+                      width={50}
+                      height={50}
+                    />{' '}
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
-                <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]">
+                <a
+                  href="profile"
+                  className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
+                >
                   <div className="flex flex-col mx-6">
                     <div className="font-semibold text-2xl">Private Groups</div>
-                    <div className="text-[14px]">Lorem ipsum dolor sit amet consectetur.</div>
+                    <div className="text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
-                    <Image src={BlueGroupIcon} alt="Group Icon" width={50} height={50} />{" "}
+                    <Image
+                      src={BlueGroupIcon}
+                      alt="Group Icon"
+                      width={50}
+                      height={50}
+                    />{' '}
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
@@ -122,7 +147,9 @@ function Profile({ userData }: { userData: UserData }) {
             {/*My Benefits div*/}
             <div className="flex flex-col w-full h-1/5 my-[80px] rounded-lg">
               <div className="flex flex-col h-full w-full">
-                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white">My Benefits!</div>
+                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white">
+                  My Benefits!
+                </div>
                 <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-[120px] text-3xl">
                   Be the wingman to a friend&apos;s wallet now!
                 </div>
@@ -133,14 +160,14 @@ function Profile({ userData }: { userData: UserData }) {
                       variant="contained"
                       sx={{
                         borderRadius: 28,
-                        borderStyle: "solid",
-                        borderColor: "white",
+                        borderStyle: 'solid',
+                        borderColor: 'white',
                         borderWidth: 2,
-                        fontSize: "14px",
-                        fontWeight: "semiBold",
+                        fontSize: '14px',
+                        fontWeight: 'semiBold',
                         bgcolor: `${theme.palette.neutral.n900}`,
                         color: `${theme.palette.common.white}`,
-                        ":hover": {
+                        ':hover': {
                           bgcolor: `${theme.palette.neutral.n900}`, // Hover background color
                           color: `${theme.palette.common.white}`, // Hover text color
                         },
@@ -153,11 +180,15 @@ function Profile({ userData }: { userData: UserData }) {
               </div>
             </div>
           </div>
-          <EditProfileModal isOpen={isEditProfileModalOpen} onClose={closeEditProfileModal} userData={userData} />
+          <EditProfileModal
+            isOpen={isEditProfileModalOpen}
+            onClose={closeEditProfileModal}
+            userData={userData}
+          />
         </div>
       </Container>
     </Box>
-  );
+  )
 }
 
-export default Profile;
+export default Profile

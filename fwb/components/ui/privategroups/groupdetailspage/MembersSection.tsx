@@ -48,9 +48,9 @@ const Member = ({ user }: { user: User }) => {
             alt="Image Alt Text"
             className="object-cover object-center"
             style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
             }}
           />
         </div>
@@ -76,8 +76,8 @@ const Member = ({ user }: { user: User }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const MembersSection = ({ userData }: { userData: UserData[] }) => {
   return (
@@ -98,9 +98,9 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
                 alt="Image Alt Text"
                 className="object-cover object-center"
                 style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'cover',
                 }}
               />
             </div>
@@ -112,17 +112,18 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
               alt="Image Alt Text"
               className="object-cover object-center"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
               }}
             />
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi provident ad, nulla voluptates dolores
-          fugit similique saepe. Atque, accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum, itaque. Non,
-          assumenda accusantium.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi
+          provident ad, nulla voluptates dolores fugit similique saepe. Atque,
+          accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum,
+          itaque. Non, assumenda accusantium.
         </div>
         <div className="flex text-white">
           <div className="font-semibold text-4xl mt-24">Group Rules</div>
@@ -132,21 +133,22 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
               alt="Image Alt Text"
               className="object-cover object-center"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
               }}
             />
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit explicabo, dolores iusto natus
-          mollitia cumque nostrum sunt maiores voluptates quam delectus molestiae ipsa repellendus ullam! Aspernatur
-          recusandae nam modi ratione!
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Reprehenderit explicabo, dolores iusto natus mollitia cumque nostrum
+          sunt maiores voluptates quam delectus molestiae ipsa repellendus
+          ullam! Aspernatur recusandae nam modi ratione!
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MembersSection;
+export default MembersSection

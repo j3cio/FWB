@@ -3,16 +3,20 @@ export default function FirstRight() {
     <div
       className="h-full w-full flex flex-col items-center gap-32 pt-6 pl-3 pr-3 pb-6 bg-opacity-10 mr-12 bg-white backdrop-blur-12.5 shadow-xl justify-start"
       style={{
-        height: "770px",
-        borderRadius: "10px",
-        justifyContent: "center",
+        height: '770px',
+        borderRadius: '10px',
+        justifyContent: 'center',
       }}
     >
       <div
         className="flex flex-col"
-        style={{ width: "300px", height: "170.80", alignItems: "center" }}
+        style={{
+          width: '300px',
+          height: '170.80',
+          alignItems: 'center',
+        }}
       >
-        <div style={{ width: "28px", height: "28px" }}>
+        <div style={{ width: '28px', height: '28px' }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
@@ -35,10 +39,10 @@ export default function FirstRight() {
         <div
           className="flex flex-row mt-10 rounded-full"
           style={{
-            background: "#8E94E9",
-            width: "173px",
-            height: "36px",
-            justifyContent: "center",
+            background: '#8E94E9',
+            width: '173px',
+            height: '36px',
+            justifyContent: 'center',
           }}
         >
           <button className="text-white font-Urbanist text-base font-bold leading-5 tracking-0.32">
@@ -61,5 +65,5 @@ export default function FirstRight() {
         </div>
       </div>
     </div>
-  );
+  )
 }
