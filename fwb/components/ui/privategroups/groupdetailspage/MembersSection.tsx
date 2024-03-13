@@ -1,18 +1,18 @@
-"use client";
-import { User, UserData } from "@/app/types/types";
-import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
-import { Button } from "@mui/material";
-import AvatarIcon from "@mui/material/Avatar";
-import { useTheme } from "@mui/material/styles";
-import Image from "next/image";
-import MembersIcon from "../icons/membersicon.svg";
-import Pencil from "../icons/pencil.svg";
-import Settings from "../icons/settings.svg";
-import SearchBar from "./SearchBar";
+'use client'
+import { User, UserData } from '@/app/types/types'
+import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
+import { Button } from '@mui/material'
+import AvatarIcon from '@mui/material/Avatar'
+import { useTheme } from '@mui/material/styles'
+import Image from 'next/image'
+import MembersIcon from '../icons/membersicon.svg'
+import Pencil from '../icons/pencil.svg'
+import Settings from '../icons/settings.svg'
+import SearchBar from './SearchBar'
 
 const Member = ({ user }: { user: User }) => {
-  console.log(user);
-  const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+  console.log(user)
+  const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
@@ -30,9 +30,9 @@ const Member = ({ user }: { user: User }) => {
             alt="Image Alt Text"
             className="object-cover object-center"
             style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
             }}
           />
         </div>
@@ -43,7 +43,7 @@ const Member = ({ user }: { user: User }) => {
             borderRadius: 28,
             bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
             color: `${theme.palette.common.white}`,
-            ":hover": {
+            ':hover': {
               bgcolor: `${theme.palette.primary.dark}`, // Hover background color
               color: `${theme.palette.common.white}`, // Hover text color
             },
@@ -53,8 +53,8 @@ const Member = ({ user }: { user: User }) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const MembersSection = ({ userData }: { userData: UserData[] }) => {
   return (
@@ -75,9 +75,9 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
                 alt="Image Alt Text"
                 className="object-cover object-center"
                 style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'cover',
                 }}
               />
             </div>
@@ -89,17 +89,18 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
               alt="Image Alt Text"
               className="object-cover object-center"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
               }}
             />
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi provident ad, nulla voluptates dolores
-          fugit similique saepe. Atque, accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum, itaque. Non,
-          assumenda accusantium.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi
+          provident ad, nulla voluptates dolores fugit similique saepe. Atque,
+          accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum,
+          itaque. Non, assumenda accusantium.
         </div>
         <div className="flex text-white">
           <div className="font-semibold text-4xl mt-24">Group Rules</div>
@@ -109,21 +110,22 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
               alt="Image Alt Text"
               className="object-cover object-center"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
               }}
             />
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit explicabo, dolores iusto natus
-          mollitia cumque nostrum sunt maiores voluptates quam delectus molestiae ipsa repellendus ullam! Aspernatur
-          recusandae nam modi ratione!
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Reprehenderit explicabo, dolores iusto natus mollitia cumque nostrum
+          sunt maiores voluptates quam delectus molestiae ipsa repellendus
+          ullam! Aspernatur recusandae nam modi ratione!
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MembersSection;
+export default MembersSection

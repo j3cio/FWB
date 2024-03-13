@@ -1,138 +1,146 @@
-"use client";
+'use client'
 
-import "./page.css";
-import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import IllustrationThree from "@/components/ui/fre/IllustrationThree";
-import IllustrationFour from "@/components/ui/fre/IllustrationFour";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { UserData } from "../../../types/types";
-import UpdateUser from "@/components/hooks/updateUser";
+import './page.css'
+import Link from 'next/link'
+import { useUser } from '@clerk/nextjs'
+import IllustrationThree from '@/components/ui/fre/IllustrationThree'
+import IllustrationFour from '@/components/ui/fre/IllustrationFour'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { UserData } from '../../../types/types'
+import UpdateUser from '@/components/hooks/updateUser'
 
 // Setting Clerk as Global Variable to access Clerk / Supabase Session Keys
 declare global {
   interface Window {
-    Clerk: any;
+    Clerk: any
   }
 }
 
 export default function UserFlowPage2({ userData }: { userData: UserData }) {
-  const [company, setCompany] = useState("");
-  const [termsAndConditions, setTermsAndConditions] = useState("");
-  const [discountAmount, setDiscountAmount] = useState("");
+  const [company, setCompany] = useState('')
+  const [termsAndConditions, setTermsAndConditions] = useState('')
+  const [discountAmount, setDiscountAmount] = useState('')
 
   //Set State of All Categories
   const allCategories = [
-    "sports",
-    "fashion",
-    "electronic",
-    "health",
-    "books",
-    "hobbies",
-    "home & kitchen",
-    "computer & accessories",
-    "beauty & skincare",
-  ];
-  const [categories, setCategories] = useState<string[]>(allCategories);
+    'sports',
+    'fashion',
+    'electronic',
+    'health',
+    'books',
+    'hobbies',
+    'home & kitchen',
+    'computer & accessories',
+    'beauty & skincare',
+  ]
+  const [categories, setCategories] = useState<string[]>(allCategories)
 
   //TODO: Handle User Routing Once Form is Submitted
-  const router = useRouter();
+  const router = useRouter()
 
   //Handle Discount Submission
   const handleDiscountSubmit = async (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const bearerToken = await window.Clerk.session.getToken({
-        template: "testing_template",
-      });
+        template: 'testing_template',
+      })
 
       const supabaseToken = await window.Clerk.session.getToken({
-        template: "supabase",
-      });
+        template: 'supabase',
+      })
 
-      const formData = new FormData();
-      formData.append("company", company);
-      formData.append("terms_and_conditions", termsAndConditions);
-      formData.append("discount_amount", discountAmount);
-      formData.append("public", "true");
-      formData.append("categories", `${categories}`);
-      formData.append("company_url", `www.${company}.com`.toLowerCase());
+      const formData = new FormData()
+      formData.append('company', company)
+      formData.append('terms_and_conditions', termsAndConditions)
+      formData.append('discount_amount', discountAmount)
+      formData.append('public', 'true')
+      formData.append('categories', `${categories}`)
+      formData.append('company_url', `www.${company}.com`.toLowerCase())
 
       // POST Fetch Request to Discounts API
-      const response = await fetch("/api/discounts", {
-        method: "POST",
+      const response = await fetch('/api/discounts', {
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${bearerToken}`,
           supabase_jwt: supabaseToken,
         },
         body: formData,
-      });
+      })
 
       // Log each entry in the FormData separately
       formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
+        console.log(`${key}: ${value}`)
+      })
 
       if (response.ok) {
-        const data = await response.json();
-        console.log("Discount added successfully:", data);
-        updateUser();
+        const data = await response.json()
+        console.log('Discount added successfully:', data)
+        updateUser()
       } else {
-        const errorData = await response.json();
-        console.error("Error adding discount:", errorData);
+        const errorData = await response.json()
+        console.error('Error adding discount:', errorData)
       }
     } catch (error) {
-      console.error("Error using discount API:", error);
+      console.error('Error using discount API:', error)
     }
-  };
+  }
 
   const updateUser = async () => {
     try {
-      const formData = new FormData();
-      formData.append("hasCompletedFRE", "{true, true, false}");
-      
-      const response = await UpdateUser(formData);
-  
+      const formData = new FormData()
+      formData.append('hasCompletedFRE', '{true, true, false}')
+
+      const response = await UpdateUser(formData)
+
       if (response) {
-        console.log("rerouting to fre3")
-        router.push("/fre3");
+        console.log('rerouting to fre3')
+        router.push('/fre3')
       } else {
-        console.error("Error in updateUser")
+        console.error('Error in updateUser')
       }
     } catch (error) {
-      console.error("Error in updateUser:", error);
+      console.error('Error in updateUser:', error)
     }
-  };
+  }
 
   //Function to handle Array Property of Categories Column in Supabase
   const handleCategoryChange = (selectedCategories: string[]) => {
     // Set the state to the selected categories
-    if (selectedCategories.includes("All")) {
-      setCategories(allCategories);
+    if (selectedCategories.includes('All')) {
+      setCategories(allCategories)
     } else {
-      setCategories(selectedCategories);
+      setCategories(selectedCategories)
     }
-  };
+  }
 
   //Update user info based on provided company of Employment
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { isSignedIn, user, isLoaded } = useUser()
 
   useEffect(() => {
     if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace("/fre1");
-      return;
+      router.replace('/fre1')
+      return
     }
 
     if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre1");
-    } else if (userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0] && !userData.users[0].hasCompletedFRE[2]) {
-        router.replace("/fre3");
-    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("profile");
+      router.replace('/fre1')
+    } else if (
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0] &&
+      !userData.users[0].hasCompletedFRE[2]
+    ) {
+      router.replace('/fre3')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('profile')
     }
-  }, [isLoaded, isSignedIn, userData, router]);
+  }, [isLoaded, isSignedIn, userData, router])
 
   return (
     <div className="pageContent">
@@ -170,7 +178,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
               />
 
               <div className="flex justify-start flex-col">
-
                 <div className="flex justify-start">
                   <h6 className="discountFormText">Discount Amount (%) *</h6>
                   <h6 className="discountFormText">Category *</h6>
@@ -257,14 +264,16 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
           </div>
 
           {/* This is the link functionality to carry user to stage 3  */}
-          <div className="flex justify-center" style={{ marginTop: "-10px" }} onClick={updateUser}>
-            <div className="skip">
-              Skip for now
-            </div>
+          <div
+            className="flex justify-center"
+            style={{ marginTop: '-10px' }}
+            onClick={updateUser}
+          >
+            <div className="skip">Skip for now</div>
           </div>
         </div>
       </div>
       <IllustrationFour />
     </div>
-  );
+  )
 }

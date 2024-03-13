@@ -1,8 +1,8 @@
-import avatar from "@/components/ui/message/icons/avatar.svg";
-import Image from "next/image";
-import { Children, type PropsWithChildren } from "react";
+import avatar from '@/components/ui/message/icons/avatar.svg'
+import Image from 'next/image'
+import { Children, type PropsWithChildren } from 'react'
 
-type ThirdProps = { name: string };
+type ThirdProps = { name: string }
 export default function Third({
   name,
   children,
@@ -14,14 +14,14 @@ export default function Third({
     <div
       className="h-full w-full flex flex-col items-center pl-3 pr-3 pb-6 bg-opacity-10 mr-12 bg-white backdrop-blur-12.5 shadow-xl justify-start"
       style={{
-        height: "770px",
-        width: "314px",
-        borderRadius: "10px",
+        height: '770px',
+        width: '314px',
+        borderRadius: '10px',
       }}
     >
       <div
         className="flex justify-between items-center mt-10 font-urbanist font-semibold text-lg leading-125% text-white w-full bottom-border pb-4"
-        style={{ borderBottom: "1px solid #94A3B1" }}
+        style={{ borderBottom: '1px solid #94A3B1' }}
       >
         <div className="flex">
           <div className="flex items-center ml-3 font-urbanist font-semibold text-base leading-125%">
@@ -50,33 +50,33 @@ export default function Third({
             <Image
               src={avatar}
               alt="avatar Icon"
-              style={{ width: "88px", height: "88px" }}
+              style={{ width: '88px', height: '88px' }}
             />
           </div>
           <div
             className="mt-2"
-            style={{ fontFamily: "Urbanist", fontSize: "16px" }}
+            style={{ fontFamily: 'Urbanist', fontSize: '16px' }}
           >
             {name}
           </div>
-          <div style={{ fontFamily: "Urbanist", fontSize: "12px" }}>
+          <div style={{ fontFamily: 'Urbanist', fontSize: '12px' }}>
             Works at Nike.Inc
           </div>
         </div>
         <div
           className="mt-8 pt-1 pb-1 ml-4 mr-4 flex justify-center items-center"
           style={{
-            background: "#8E94E9",
-            borderRadius: "32px",
-            width: "282px",
-            height: "36px",
+            background: '#8E94E9',
+            borderRadius: '32px',
+            width: '282px',
+            height: '36px',
           }}
         >
           Open Profile
         </div>
         <div
           className="flex justify-between w-full mt-5 ml-4"
-          style={{ width: "282px" }}
+          style={{ width: '282px' }}
         >
           <div className="flex items-center">
             <div>
@@ -97,7 +97,7 @@ export default function Third({
             </div>
             <div
               className="ml-2"
-              style={{ fontFamily: "Urbanist", fontSize: "14px" }}
+              style={{ fontFamily: 'Urbanist', fontSize: '14px' }}
             >
               Mute Messages
             </div>
@@ -122,5 +122,5 @@ export default function Third({
         {children}
       </div>
     </div>
-  );
+  )
 }
