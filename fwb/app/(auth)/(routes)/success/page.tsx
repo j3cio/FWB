@@ -1,26 +1,26 @@
-"use client";
-import { SignUp, useSignUp } from "@clerk/nextjs";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import "./page.css";
-import Link from "next/link";
+'use client'
+import { SignUp, useSignUp } from '@clerk/nextjs'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import './page.css'
+import Link from 'next/link'
 
 //For responsiveness
-import useWindowDimensions from "@/components/hooks/useWindowDimensions";
+import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
-import { LargeScreen } from "./screenLarge";
-import { SmallScreen } from "./screenSmall";
+import { LargeScreen } from './screenLarge'
+import { SmallScreen } from './screenSmall'
 
 export default function Page() {
-  const { isLoaded, signUp, setActive } = useSignUp();
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const [pendingVerification, setPendingVerification] = useState(false);
-  const [code, setCode] = useState("");
-  const router = useRouter();
-  const [error, setError] = useState<any>(null);
+  const { isLoaded, signUp, setActive } = useSignUp()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const [pendingVerification, setPendingVerification] = useState(false)
+  const [code, setCode] = useState('')
+  const router = useRouter()
+  const [error, setError] = useState<any>(null)
 
-  const width = useWindowDimensions();
+  const width = useWindowDimensions()
 
   return (
     <div className="w-full h-screen block relative overflow-hidden">
@@ -115,5 +115,5 @@ export default function Page() {
       {width > 901 && width < 1200 && <LargeScreen />}
       {width < 901 && <SmallScreen />}
     </div>
-  );
+  )
 }

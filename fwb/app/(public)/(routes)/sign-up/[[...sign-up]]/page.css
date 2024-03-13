@@ -381,7 +381,7 @@ input::placeholder {
   margin-bottom: 32px;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   opacity: 0;
   position: absolute;
 }
@@ -522,10 +522,7 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   background-color: white;
-
 }
-
-
 
 .verifyButton {
   border-radius: 30px;
@@ -546,9 +543,8 @@ input[type="checkbox"] {
 
 .leftCircle {
   margin-top: -80px;
-  margin-left: -80px
+  margin-left: -80px;
 }
-
 
 .verify {
   width: 437px;
@@ -560,7 +556,7 @@ input[type="checkbox"] {
 
 .rightCircle {
   margin-left: 300px;
-  margin-top: -130px
+  margin-top: -130px;
 }
 
 .verifyPhotos {
@@ -578,7 +574,7 @@ input[type="checkbox"] {
 }
 
 .verifyPhoto5 {
-  z-index: 1
+  z-index: 1;
 }
 
 .signupProcess {
@@ -656,7 +652,6 @@ input[type="checkbox"] {
 
 } */
 
-
 .twitter,
 .instagram,
 .linkedin {
@@ -676,7 +671,7 @@ input[type="checkbox"] {
 }
 
 .helpEmail {
-  color: var(--purple-300, #8E94E9);
+  color: var(--purple-300, #8e94e9);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
@@ -688,5 +683,5 @@ input[type="checkbox"] {
 }
 
 .helpEmail:visited {
-  color: white
+  color: white;
 }

@@ -1,19 +1,21 @@
-"use client";
-import avatar from "@/components/ui/message/icons/avatar.svg";
-import Image from "next/image";
-import { useState } from "react";
+'use client'
+import avatar from '@/components/ui/message/icons/avatar.svg'
+import Image from 'next/image'
+import { useState } from 'react'
 
 export default function MenuBar() {
-  const [tab, setTab] = useState<"general" | "groups">("general");
+  const [tab, setTab] = useState<'general' | 'groups'>('general')
   return (
-    <div className="flex flex-row ml-14 rounded-10 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
-    style={{width:"4px"}}>
+    <div
+      className="flex flex-row ml-14 rounded-10 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
+      style={{ width: '4px' }}
+    >
       <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
         <div
           className="flex flex-row justify-between"
-          style={{ width: "400px", height: "26px" }}
+          style={{ width: '400px', height: '26px' }}
         >
-          <div className="text-white" style={{ fontSize: "24px" }}>
+          <div className="text-white" style={{ fontSize: '24px' }}>
             Messages
           </div>
           <div className="flex flex-row">
@@ -23,7 +25,7 @@ export default function MenuBar() {
               height="24"
               viewBox="0 0 24 24"
               fill="none"
-              style={{ marginRight: "16px" }}
+              style={{ marginRight: '16px' }}
             >
               <path
                 fillRule="evenodd"
@@ -53,24 +55,28 @@ export default function MenuBar() {
         </div>
         <div
           className="flex flex-row justify-between -mt-24"
-          style={{ width: "400px", height: "26px" }}
+          style={{ width: '400px', height: '26px' }}
         >
           <div
             className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125"
             style={{
-              width: "200px",
-              height: "26px",
-              borderBottom: "1px solid white",
-              cursor: "pointer",
+              width: '200px',
+              height: '26px',
+              borderBottom: '1px solid white',
+              cursor: 'pointer',
             }}
-            onClick={() => setTab("general")}
+            onClick={() => setTab('general')}
           >
             General
           </div>
           <div
             className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125 "
-            style={{ width: "200px", height: "26px", cursor: "pointer" }}
-            onClick={() => setTab("groups")}
+            style={{
+              width: '200px',
+              height: '26px',
+              cursor: 'pointer',
+            }}
+            onClick={() => setTab('groups')}
           >
             Groups
           </div>
@@ -105,5 +111,5 @@ export default function MenuBar() {
         </div> */}
       </div>
     </div>
-  );
+  )
 }

@@ -1,139 +1,146 @@
-"use client";
+'use client'
 
-import "./page.css";
-import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
-import IllustrationFive from "@/components/ui/fre/IllustrationFive";
-import IllustrationSix from "@/components/ui/fre/IllustrationSix";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useAuth, auth, currentUser, UserProfile } from "@clerk/nextjs";
-import { UserData } from "../../../types/types";
-import UpdateUser from "@/components/hooks/updateUser";
+import './page.css'
+import Link from 'next/link'
+import { useUser } from '@clerk/nextjs'
+import { FormEvent, useState, KeyboardEvent, useEffect } from 'react'
+import IllustrationFive from '@/components/ui/fre/IllustrationFive'
+import IllustrationSix from '@/components/ui/fre/IllustrationSix'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useAuth, auth, currentUser, UserProfile } from '@clerk/nextjs'
+import { UserData } from '../../../types/types'
+import UpdateUser from '@/components/hooks/updateUser'
 
 export default function UserFlowPage3({ userData }: { userData: UserData }) {
-  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
-  const { isSignedIn, user, isLoaded } = useUser();
-  const [emailInput, setEmailInput] = useState<string>("");
-  const [emailAddresses, setEmailAddresses] = useState<string[]>([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const router = useRouter();
+  //Error handling for if user tries to access page not signed in or Clerk isn't ready
+  const { isSignedIn, user, isLoaded } = useUser()
+  const [emailInput, setEmailInput] = useState<string>('')
+  const [emailAddresses, setEmailAddresses] = useState<string[]>([])
+  const [errorMessage, setErrorMessage] = useState('')
+  const router = useRouter()
 
-  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
+  //Error handling for if user tries to access page not signed in or Clerk isn't ready
   useEffect(() => {
     if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace("/fre1");
-      return;
+      router.replace('/fre1')
+      return
     }
     console.log(userData.users[0].hasCompletedFRE[2])
     if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre1");
-    } else if (!userData.users[0].hasCompletedFRE[2] && !userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("/fre2");
-    } else if (userData.users[0].hasCompletedFRE[2] && userData.users[0].hasCompletedFRE[1] && userData.users[0].hasCompletedFRE[0]) {
-        router.replace("profile");
+      router.replace('/fre1')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('/fre2')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('profile')
     }
-  }, [isLoaded, isSignedIn, userData, router]);
+  }, [isLoaded, isSignedIn, userData, router])
 
   //adding emails
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (emailInput.trim() !== "") {
-        setEmailAddresses((prevEmails) => [...prevEmails, emailInput]);
-        setEmailInput("");
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (emailInput.trim() !== '') {
+        setEmailAddresses((prevEmails) => [...prevEmails, emailInput])
+        setEmailInput('')
       }
     }
-  };
+  }
 
   //error message if input is empty
   const handleShare = async () => {
     if (emailAddresses.length === 0) {
-      setErrorMessage("Please enter at least one email before sharing.");
-      return;
+      setErrorMessage('Please enter at least one email before sharing.')
+      return
     }
 
     try {
       // Send emails
-      const response = await axios.post("/api/invitations", {
+      const response = await axios.post('/api/invitations', {
         emails: emailAddresses,
-      });
+      })
 
       // Reset state after sending emails
-      setEmailAddresses([]);
-      setEmailInput("");
+      setEmailAddresses([])
+      setEmailInput('')
 
       // edirecting to the profile page
-      window.location.href = "/profile";
+      window.location.href = '/profile'
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error('Error sending email:', error)
     }
-  };
+  }
 
   //removing emails
   const handleRemoveEmail = (index: number) => {
     setEmailAddresses((prevEmails) => {
-      const updatedEmails = [...prevEmails];
-      updatedEmails.splice(index, 1);
-      return updatedEmails;
-    });
-  };
+      const updatedEmails = [...prevEmails]
+      updatedEmails.splice(index, 1)
+      return updatedEmails
+    })
+  }
 
   //sending emails
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    changeFRE();
+    changeFRE()
 
-    event.preventDefault();
+    event.preventDefault()
 
     try {
-      const response = await axios.post("/api/invitations", {
+      const response = await axios.post('/api/invitations', {
         emails: emailAddresses,
-      });
+      })
 
       // 이메일 전송 후 상태 초기화 또는 다른 작업 수행
-      setEmailAddresses([]);
-      setEmailInput("");
-      router.push("/profile");
+      setEmailAddresses([])
+      setEmailInput('')
+      router.push('/profile')
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error('Error sending email:', error)
     }
-  };
+  }
 
   const changeFRE = async () => {
     try {
-      const formData = new FormData();
-      formData.append("hasCompletedFRE", "{true, true, true}");
-      
-      const response = await UpdateUser(formData);
-  
+      const formData = new FormData()
+      formData.append('hasCompletedFRE', '{true, true, true}')
+      const response = await UpdateUser(formData)
+
       if (response) {
-        router.push("/profile");
+        router.push('/profile')
       } else {
-        console.error("Error in updateUser")
+        console.error('Error in updateUser')
       }
     } catch (error) {
-      console.error("Error in updateUser:", error);
+      console.error('Error in updateUser:', error)
     }
-  };
+  }
 
   //OnClick Buttons to handle user redirect to respective socials to share with friends
   const handlewhatsapp = () => {
-    window.open("https://www.whatsapp.com/");
-  };
+    window.open('https://www.whatsapp.com/')
+  }
 
   const handleinstagram = () => {
-    window.open("https://www.instagram.com/");
-  };
+    window.open('https://www.instagram.com/')
+  }
 
   const handlefacebook = () => {
-    window.open("https://facebook.com/");
-  };
+    window.open('https://facebook.com/')
+  }
 
   const handlediscord = () => {
-    window.open("https://discord.com/");
-  };
+    window.open('https://discord.com/')
+  }
 
   return (
     <div className="pageContent">
@@ -205,7 +212,10 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
                         height="17"
                         viewBox="0 0 16 17"
                         fill="none"
-                        style={{ marginTop: "4px", marginLeft: "5px" }}
+                        style={{
+                          marginTop: '4px',
+                          marginLeft: '5px',
+                        }}
                         onClick={() => handleRemoveEmail(index)}
                       >
                         <path
@@ -221,7 +231,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
 
             <input
               type="text"
-              className={`inputfriends ${errorMessage ? "error" : ""}`}
+              className={`inputfriends ${errorMessage ? 'error' : ''}`}
               placeholder="Invite your friends..."
               id="emailInput"
               value={emailInput}
@@ -231,7 +241,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
             {/* <button type="submit">Send inviations</button> */}
           </form>
           {errorMessage && (
-            <div className="error-message" style={{ color: "white" }}>
+            <div className="error-message" style={{ color: 'white' }}>
               {errorMessage}
             </div>
           )}
@@ -252,5 +262,5 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
       </div>
       <IllustrationSix />
     </div>
-  );
+  )
 }

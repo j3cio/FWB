@@ -1,18 +1,18 @@
-"use client";
-import React, { SyntheticEvent, useState } from "react";
-import { useSignIn } from "@clerk/nextjs";
-import type { NextPage } from "next";
-import "./page.css";
-import Link from "next/link";
+'use client'
+import React, { SyntheticEvent, useState } from 'react'
+import { useSignIn } from '@clerk/nextjs'
+import type { NextPage } from 'next'
+import './page.css'
+import Link from 'next/link'
 
 export const LargeScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [successfulCreation, setSuccessfulCreation] = useState(false);
-  const [complete, setComplete] = useState(false);
-  const [secondFactor, setSecondFactor] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [code, setCode] = useState('')
+  const [successfulCreation, setSuccessfulCreation] = useState(false)
+  const [complete, setComplete] = useState(false)
+  const [secondFactor, setSecondFactor] = useState(false)
+  const [error, setError] = useState<any>(null)
 
   return (
     <div className="h-screen w-full flex flex-row overflow-hidden">
@@ -79,5 +79,5 @@ export const LargeScreen = () => {
         <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 circle1"></div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -4,7 +4,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
 .pageHeight {
   height: 100vh;
   overflow: hidden;
@@ -390,9 +389,7 @@ input::placeholder {
   font-style: normal;
   margin-top: -5px;
   margin-bottom: 5px;
-
 }
-
 
 .errorImage {
   background-color: red;
@@ -408,7 +405,6 @@ input::placeholder {
   font-style: normal;
   word-wrap: break-word;
 }
-
 
 .submit {
   border-radius: 30px;
@@ -443,7 +439,6 @@ input::placeholder {
 }
 
 /* 24px */
-
 
 .signup {
   display: flex;

@@ -1,92 +1,92 @@
-"use client";
-import Navbar from "@/components/ui/message/Navbar";
-import avatar from "@/components/ui/message/icons/avatar.svg";
-import Image from "next/image";
-import { useState } from "react";
-import Third from "@/components/ui/message/Third";
-import RightGroup from "@/components/ui/message/RightGroup";
-import RightGeneral from "@/components/ui/message/RightGeneral";
-import FirstRight from "@/components/ui/message/FirstRight";
-import GeneralBigChat from "@/components/ui/message/GeneralBigChat";
+'use client'
+import Navbar from '@/components/ui/message/Navbar'
+import avatar from '@/components/ui/message/icons/avatar.svg'
+import Image from 'next/image'
+import { useState } from 'react'
+import Third from '@/components/ui/message/Third'
+import RightGroup from '@/components/ui/message/RightGroup'
+import RightGeneral from '@/components/ui/message/RightGeneral'
+import FirstRight from '@/components/ui/message/FirstRight'
+import GeneralBigChat from '@/components/ui/message/GeneralBigChat'
 
 const messages = [
   {
     id: 1,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Rachel",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Rachel',
+    createdAt: '10:05AM',
     active: true,
     notifications: 0,
   },
 
   {
     id: 2,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Jeremy",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Jeremy',
+    createdAt: '10:05AM',
     active: false,
     notifications: 2,
   },
   {
     id: 3,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Derick",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Derick',
+    createdAt: '10:05AM',
     active: false,
     notifications: 6,
   },
   {
     id: 4,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Jason",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Jason',
+    createdAt: '10:05AM',
     active: false,
     notifications: 0,
   },
   {
     id: 5,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Daniel",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Daniel',
+    createdAt: '10:05AM',
     active: false,
     notifications: 0,
   },
   {
     id: 6,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Kevin",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Kevin',
+    createdAt: '10:05AM',
     active: false,
     notifications: 0,
   },
   {
     id: 7,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Charlen",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Charlen',
+    createdAt: '10:05AM',
     active: false,
     notifications: 0,
   },
   {
     id: 8,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "John",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'John',
+    createdAt: '10:05AM',
     active: false,
     notifications: 0,
   },
   {
     id: 9,
-    content: "Lorem ipusm dolar sit amet consectetuer. Lorem ...",
-    userName: "Chazz",
-    createdAt: "10:05AM",
+    content: 'Lorem ipusm dolar sit amet consectetuer. Lorem ...',
+    userName: 'Chazz',
+    createdAt: '10:05AM',
     active: false,
     notifications: 0,
   },
-];
+]
 
 function Page() {
-  const [tab, setTab] = useState<"general" | "groups">("general");
+  const [tab, setTab] = useState<'general' | 'groups'>('general')
 
   return (
     <div className="h-full bg-black">
@@ -95,9 +95,9 @@ function Page() {
         <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
           <div
             className="flex flex-row justify-between"
-            style={{ width: "400px", height: "26px" }}
+            style={{ width: '400px', height: '26px' }}
           >
-            <div className="text-white" style={{ fontSize: "24px" }}>
+            <div className="text-white" style={{ fontSize: '24px' }}>
               Messages
             </div>
             <div className="flex flex-row">
@@ -107,7 +107,7 @@ function Page() {
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                style={{ marginRight: "16px" }}
+                style={{ marginRight: '16px' }}
               >
                 <path
                   fill-rule="evenodd"
@@ -137,24 +137,28 @@ function Page() {
           </div>
           <div
             className="flex flex-row justify-between -mt-24"
-            style={{ width: "400px", height: "26px" }}
+            style={{ width: '400px', height: '26px' }}
           >
             <div
               className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125"
               style={{
-                width: "200px",
-                height: "26px",
-                borderBottom: "1px solid white",
-                cursor: "pointer",
+                width: '200px',
+                height: '26px',
+                borderBottom: '1px solid white',
+                cursor: 'pointer',
               }}
-              onClick={() => setTab("general")}
+              onClick={() => setTab('general')}
             >
               General
             </div>
             <div
               className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125 "
-              style={{ width: "200px", height: "26px", cursor: "pointer" }}
-              onClick={() => setTab("groups")}
+              style={{
+                width: '200px',
+                height: '26px',
+                cursor: 'pointer',
+              }}
+              onClick={() => setTab('groups')}
             >
               Groups
             </div>
@@ -163,7 +167,7 @@ function Page() {
           {/* search bar */}
           <div
             className="flex w-full h-8 py-1 pl-4 pr-1 bg-white rounded-2xl"
-            style={{ marginTop: "-110px" }}
+            style={{ marginTop: '-110px' }}
           >
             <input
               type="text"
@@ -188,16 +192,16 @@ function Page() {
             </span>
           </div>
 
-          <div className="w-full" style={{ marginTop: "-110px" }}>
+          <div className="w-full" style={{ marginTop: '-110px' }}>
             {messages.map((message) => (
               <div
                 key={message.id}
                 className="flex flex-row pt-3 pl-3 pr-3 mb-3"
                 style={{
-                  background: message.active ? "#8e94e9" : "inherit",
-                  width: "400px",
-                  height: "80px",
-                  borderRadius: "10px",
+                  background: message.active ? '#8e94e9' : 'inherit',
+                  width: '400px',
+                  height: '80px',
+                  borderRadius: '10px',
                 }}
               >
                 <div className="text-white">
@@ -212,7 +216,12 @@ function Page() {
                       <circle cx="24" cy="24" r="24" fill="#DAE3EA" />
                     </svg>
                   </div>
-                  <div style={{ marginTop: "-38px", marginLeft: "10px" }}>
+                  <div
+                    style={{
+                      marginTop: '-38px',
+                      marginLeft: '10px',
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="28"
@@ -232,14 +241,14 @@ function Page() {
                 <div>
                   <div
                     className="flex flex-row justify-between ml-4"
-                    style={{ width: "316px" }}
+                    style={{ width: '316px' }}
                   >
                     <div className="font-semibold text-white font-Urbanist">
                       {message.userName}
                     </div>
                     <div
                       className="font-normal text-white opacity-50 font-Urbanist"
-                      style={{ fontSize: "12px" }}
+                      style={{ fontSize: '12px' }}
                     >
                       10:05AM
                     </div>
@@ -248,15 +257,15 @@ function Page() {
                     <div
                       className="flex-1 ml-4 text-white h-18"
                       style={{
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        fontSize: "12px",
-                        fontFamily: "Urbanist",
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        fontSize: '12px',
+                        fontFamily: 'Urbanist',
                         fontWeight: 400,
-                        lineHeight: "150%",
+                        lineHeight: '150%',
                         opacity: 0.5,
-                        width: "316px",
+                        width: '316px',
                       }}
                     >
                       Lorem ipusm dolar sit amet consectetuer. Lorem ...
@@ -265,18 +274,18 @@ function Page() {
                       <div
                         className="p-0.5 flex justify-center items-center"
                         style={{
-                          background: "#F6FF82",
-                          borderRadius: "100px",
-                          width: "15px",
-                          height: "15px",
-                          color: "var(--Purple-300, #8E94E9)",
-                          textAlign: "center",
-                          fontFamily: "Urbanist",
-                          fontSize: "10px",
-                          fontStyle: "normal",
+                          background: '#F6FF82',
+                          borderRadius: '100px',
+                          width: '15px',
+                          height: '15px',
+                          color: 'var(--Purple-300, #8E94E9)',
+                          textAlign: 'center',
+                          fontFamily: 'Urbanist',
+                          fontSize: '10px',
+                          fontStyle: 'normal',
                           fontWeight: 500,
-                          lineHeight: "150%",
-                          marginLeft: "-20px",
+                          lineHeight: '150%',
+                          marginLeft: '-20px',
                         }}
                       >
                         {message.notifications}
@@ -292,29 +301,26 @@ function Page() {
         {/* right side of chat */}
         {/* <FirstRight></FirstRight> */}
 
-
-
-
         {/* 2nd chat page */}
         <div
           className="h-full w-full flex flex-col pt-6 pl-3 pr-3 pb-6 bg-opacity-10 mr-8 bg-white backdrop-blur-12.5 shadow-xl justify-start"
           style={{
-            height: "770px",
-            width: "546px",
+            height: '770px',
+            width: '546px',
 
-            borderRadius: "10px",
+            borderRadius: '10px',
           }}
         >
           <div
             className="flex justify-between items-center font-urbanist font-semibold text-lg leading-125% text-white w-full bottom-border pb-4"
-            style={{ borderBottom: "1px solid #94A3B1" }}
+            style={{ borderBottom: '1px solid #94A3B1' }}
           >
             <div className="flex">
               <div>
                 <Image
                   src={avatar}
                   alt="avatar Icon"
-                  style={{ width: "40px", height: "40px" }}
+                  style={{ width: '40px', height: '40px' }}
                 />
               </div>
 
@@ -342,27 +348,35 @@ function Page() {
           <div className="text-white w-full h-full ">
             <div
               className="flex items-center mt-4 justify-center font-urbanist font-medium text-xs leading-150%"
-              style={{ fontFamily: "Urbanist" }}
+              style={{ fontFamily: 'Urbanist' }}
             >
               November 08 2023
             </div>
             <div className="flex flex-row justify-end">
               <div
                 className="flex flex-col items-end text-neutral-000 opacity-50"
-                style={{ fontSize: "10px", fontFamily: "Urbanist" }}
+                style={{
+                  fontSize: '10px',
+                  fontFamily: 'Urbanist',
+                }}
               >
                 <div>Read</div>
-                <div style={{ fontSize: "10px", fontFamily: "Urbanist" }}>
+                <div
+                  style={{
+                    fontSize: '10px',
+                    fontFamily: 'Urbanist',
+                  }}
+                >
                   10:05AM
                 </div>
               </div>
               <div
                 className="pt-2 pb-2 pr-4 pl-4 ml-1"
                 style={{
-                  background: "#8E94E9",
-                  borderRadius: "20px",
-                  fontSize: "12px",
-                  fontFamily: "Urbanist",
+                  background: '#8E94E9',
+                  borderRadius: '20px',
+                  fontSize: '12px',
+                  fontFamily: 'Urbanist',
                 }}
               >
                 Hellooo
@@ -373,25 +387,25 @@ function Page() {
                 <Image
                   src={avatar}
                   alt="avatar Icon"
-                  style={{ width: "34px", height: "34px" }}
+                  style={{ width: '34px', height: '34px' }}
                 />
               </div>
               <div
                 className="ml-2 pl-4 pr-4 pt-2"
                 style={{
-                  background: "rgba(255, 255, 255, 0.30)",
-                  borderRadius: "20px",
-                  fontSize: "12px",
-                  fontFamily: "Urbanist",
+                  background: 'rgba(255, 255, 255, 0.30)',
+                  borderRadius: '20px',
+                  fontSize: '12px',
+                  fontFamily: 'Urbanist',
                 }}
               >
                 Hey.Whats up??
-              </div>{" "}
+              </div>{' '}
             </div>
           </div>
           <div
             className="flex w-full h-1 top-border pb-4 pt-4 justify-between"
-            style={{ borderTop: "1px solid #94A3B1" }}
+            style={{ borderTop: '1px solid #94A3B1' }}
           >
             <div className="flex">
               <div>
@@ -415,7 +429,7 @@ function Page() {
                   type="text"
                   placeholder="Write Messages..."
                   className="outline-none ml-4 text-xs font-normal leading-6 opacity-50"
-                  style={{ font: "Urbanist" }}
+                  style={{ font: 'Urbanist' }}
                 />
               </div>
             </div>
@@ -467,16 +481,15 @@ function Page() {
             </div>
           </div>
         </div>
-        <Third name={tab === "general" ? "Name" : "GroupName"}>
-          {tab === "general" ? <RightGeneral /> : <RightGroup />}
+        <Third name={tab === 'general' ? 'Name' : 'GroupName'}>
+          {tab === 'general' ? <RightGeneral /> : <RightGroup />}
         </Third>
 
-
-      {/* right side of Bigchat */}
-      {/* <GeneralBigChat></GeneralBigChat> */}
+        {/* right side of Bigchat */}
+        {/* <GeneralBigChat></GeneralBigChat> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default Page;
+export default Page

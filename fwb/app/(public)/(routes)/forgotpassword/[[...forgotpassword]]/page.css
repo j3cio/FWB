@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
 
-
 .pageHeight {
   height: 100vh;
   overflow: hidden;
@@ -346,7 +345,7 @@
 }
 
 .explanation {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
@@ -358,7 +357,7 @@
 }
 
 .explanation2 {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
@@ -408,7 +407,7 @@ input::placeholder {
 }
 
 .help {
-  color: #FFF;
+  color: #fff;
 
   font-family: Urbanist;
   font-size: 16px;
@@ -419,7 +418,7 @@ input::placeholder {
 }
 
 .helpEmail {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
@@ -432,7 +431,7 @@ input::placeholder {
 
 .newPassword,
 .passwordCode {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
@@ -449,9 +448,8 @@ input::placeholder {
   margin-bottom: 20px;
 }
 
-
 .success {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H2 */
   font-family: Urbanist;
@@ -463,9 +461,8 @@ input::placeholder {
   /* 44px */
 }
 
-
 .successMessage {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
@@ -489,7 +486,6 @@ input::placeholder {
   font-style: normal;
   margin: -5px auto 5px auto;
 }
-
 
 .errorImage {
   background-color: red;
