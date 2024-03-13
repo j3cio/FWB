@@ -51,11 +51,16 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch, companyQuery, setCo
     >
       <TextField
         fullWidth
-        placeholder="Search for more benefits"
+        placeholder="Search for companies with benefits"
         style={{ flex: 1, height: "48px", borderRadius: "25px 0 0 25px", justifyContent: "center"}}
         sx={{ "& .MuiOutlinedInput-notchedOutline": { border: "none" }, "&.MuiFormControl-root": { alignItems: "flex-start" } }}
         value = {companyQuery}
         onChange={(e) => setCompanyQuery(e.target.value)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            handleSearch(e);
+          }
+        }}
       />
       <IconButton
         color="primary"
@@ -231,7 +236,7 @@ const Navbar: React.FC<NavbarProps> =({ handleSearch, companyQuery, setCompanyQu
           >
             <IconButton
               color="inherit"
-              onClick={() => router.push("/messages")}
+              onClick={() => router.push("/chat")}
               sx={{
                 padding: "9.6px",
                 borderRadius: "50%",
