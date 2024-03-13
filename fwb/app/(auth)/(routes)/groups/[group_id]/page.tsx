@@ -145,7 +145,11 @@ async function getAllUserData(user_ids: string[]) {
     getUser(user_id)
   )
   const results = await Promise.all(promises)
-  return results
+
+  // filters out any data that has an empty users array
+  const filteredResults = results.filter((result) => result.users.length > 0)
+
+  return filteredResults
 }
 
 const Page = async ({ params }: { params: { group_id: string } }) => {

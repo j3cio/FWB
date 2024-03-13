@@ -1,20 +1,21 @@
-'use client'
-import { DiscountData, UserData } from '@/app/types/types'
-import { Button } from '@mui/base'
-import { Box } from '@mui/material'
-import { useState } from 'react'
-import Bargains from './BargainsPicture'
-import DiscountsSection from './DiscountsSection'
-import MembersSection from './MembersSection'
-import CreateDiscountCard from '../../intakeform/CreateDiscountCard'
+"use client";
 
-const Tabs = ({
-  userData,
-  discountData,
-}: {
-  userData: UserData[]
-  discountData: DiscountData[]
-}) => {
+import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
+import { DiscountData, UserData } from "@/app/types/types";
+import { useUser } from "@clerk/nextjs";
+import { Button } from "@mui/base";
+import { Box } from "@mui/material";
+import { useState } from "react";
+import { Chat, LoadingIndicator } from "stream-chat-react";
+import Bargains from "./BargainsPicture";
+import DiscountsSection from "./DiscountsSection";
+import MembersSection from "./MembersSection";
+import CreateDiscountCard from "../../intakeform/CreateDiscountCard";
+
+const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: DiscountData[] }) => {
+  const chatClient = useIntitialChatClient();
+  const { user } = useUser();
+
   // Tab State
   const [showMembers, setShowMembers] = useState(false)
 
@@ -27,11 +28,19 @@ const Tabs = ({
     setShowMembers(false)
   }
 
+  if (!chatClient || !user) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <LoadingIndicator size={40} />
+      </div>
+    );
+  }
+
   return (
     <div
       className="w-full bg-[#1a1a23]"
       style={{
-        minHeight: '100vh',
+        minHeight: "100vh",
       }}
     >
       <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
@@ -61,7 +70,9 @@ const Tabs = ({
       <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
       <div className="w-full h-screen">
         {showMembers ? (
-          <MembersSection userData={userData} />
+          <Chat client={chatClient}>
+            <MembersSection userData={userData} />
+          </Chat>
         ) : hasNoDiscounts ? (
           <CreateDiscountCard />
         ) : (
