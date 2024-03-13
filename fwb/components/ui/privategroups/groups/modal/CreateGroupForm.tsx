@@ -132,18 +132,9 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
       <Typography className="font-urbanist text-3xl font-semibold tracking-wide">Create a new group</Typography>
       {/* Render out the jsx of the form pages that we have passed in our hook*/}
       <div> {step} </div>
-      {/* {!isFirstStep && (
-        <Button
-          className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9]" 
-          variant="contained" 
-          type="button" 
-          onClick={back}
-          >
-          Back
-        </Button>
-      )} */}
-      <Button
-        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
+      
+      <Button 
+        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50" 
         variant="text"
         disabled={data.name == "" && true}
         type="submit"
@@ -156,8 +147,8 @@ const CreateGroupForm = ({ userGroups, handleClose }: { userGroups: string[]; ha
           className="font-urbanist capitalize text-base w-full py-3 bg-none text-white"
           type="button"
           onClick={onSubmit}
-        >
-          skip for now..
+          >
+          skip for now
         </Button>
       )}
     </form>
