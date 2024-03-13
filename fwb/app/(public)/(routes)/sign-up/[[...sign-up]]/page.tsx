@@ -45,27 +45,49 @@ export default function Page() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     if (!isLoaded) {
       return
     }
 
     try {
-      setError(null)
       await signUp.create({
         emailAddress,
         password,
       })
 
+      // send the email.
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+
       // change the UI to our pending section.
       setPendingVerification(true)
-
-      const magicLinkFlow = signUp.createEmailLinkFlow()
-      await magicLinkFlow.startEmailLinkFlow({
-        redirectUrl: 'https://staging.app.makefwb.com/success',
-      }) // local development: http://localhost:3000/success
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2))
-      setError(err)
+    }
+  }
+
+  // This verifies the user using email code that is delivered.
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!isLoaded) {
+      return
+    }
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code,
+      })
+      if (completeSignUp.status !== 'complete') {
+        /*  investigate the response, to see if there was an error
+         or if the user needs to complete more steps.*/
+        console.log(JSON.stringify(completeSignUp, null, 2))
+      }
+      if (completeSignUp.status === 'complete') {
+        await setActive({ session: completeSignUp.createdSessionId })
+        router.push('/fre1')
+      }
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2))
     }
   }
 
@@ -348,7 +370,7 @@ export default function Page() {
                         gradientUnits="userSpaceOnUse"
                       >
                         <stop stopColor="white" />
-                        <stop offset="1" stopColor="white" stop-opacity="0" />
+                        <stop offset="1" stopColor="white" stopOpacity="0" />
                       </linearGradient>
                       <linearGradient
                         id="paint1_linear_916_10370"
@@ -359,13 +381,13 @@ export default function Page() {
                         gradientUnits="userSpaceOnUse"
                       >
                         <stop stopColor="white" />
-                        <stop offset="1" stopColor="white" stop-opacity="0" />
+                        <stop offset="1" stopColor="white" stopOpacity="0" />
                       </linearGradient>
                     </defs>
                   </svg>
                 </div>
 
-                <form>
+                {/* <form>
                   <div className="signupProcess">
                     <div className="signupTitle">You&apos;re almost there!</div>
                     <div className="signupContent">
@@ -378,6 +400,17 @@ export default function Page() {
                       <Link href="/success">Verify Now!</Link>
                     </button>
                   </div>
+                </form> */}
+
+                <form onSubmit={handleVerify}>
+                  <label id="code">Code</label>
+                  <input
+                    value={code}
+                    id="code"
+                    name="code"
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                  <button type="submit">Complete Sign Up</button>
                 </form>
 
                 <div className="leftCircle">
@@ -414,7 +447,7 @@ export default function Page() {
                         gradientUnits="userSpaceOnUse"
                       >
                         <stop stopColor="white" />
-                        <stop offset="1" stopColor="white" stop-opacity="0" />
+                        <stop offset="1" stopColor="white" stopOpacity="0" />
                       </linearGradient>
                       <linearGradient
                         id="paint1_linear_916_10371"
@@ -425,7 +458,7 @@ export default function Page() {
                         gradientUnits="userSpaceOnUse"
                       >
                         <stop stopColor="white" />
-                        <stop offset="1" stopColor="white" stop-opacity="0" />
+                        <stop offset="1" stopColor="white" stopOpacity="0" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -447,14 +480,14 @@ export default function Page() {
                       viewBox="0 0 19 19"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_916_10345)">
+                      <g clipPath="url(#clip0_916_10345)">
                         <path
                           d="M9.70166 5.82715C8.83971 5.82715 8.01306 6.16956 7.40356 6.77905C6.79407 7.38855 6.45166 8.21519 6.45166 9.07715C6.45166 9.9391 6.79407 10.7658 7.40356 11.3752C8.01306 11.9847 8.83971 12.3271 9.70166 12.3271C10.5636 12.3271 11.3903 11.9847 11.9998 11.3752C12.6093 10.7658 12.9517 9.9391 12.9517 9.07715C12.9517 8.21519 12.6093 7.38855 11.9998 6.77905C11.3903 6.16956 10.5636 5.82715 9.70166 5.82715Z"
                           fill="white"
                         />
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M4.47148 0.159092C7.9475 -0.226208 11.4555 -0.226208 14.9315 0.159092C16.8305 0.371092 18.3615 1.86609 18.5845 3.77209C18.9967 7.29675 18.9967 10.8574 18.5845 14.3821C18.3615 16.2881 16.8305 17.7831 14.9325 17.9961C11.4561 18.3815 7.94783 18.3815 4.47148 17.9961C2.57248 17.7831 1.04148 16.2881 0.818481 14.3831C0.406209 10.8581 0.406209 7.29708 0.818481 3.77209C1.04148 1.86609 2.57248 0.371092 4.47148 0.159092ZM14.7015 3.07709C14.4363 3.07709 14.1819 3.18245 13.9944 3.36999C13.8068 3.55752 13.7015 3.81188 13.7015 4.07709C13.7015 4.34231 13.8068 4.59666 13.9944 4.7842C14.1819 4.97173 14.4363 5.07709 14.7015 5.07709C14.9667 5.07709 15.2211 4.97173 15.4086 4.7842C15.5961 4.59666 15.7015 4.34231 15.7015 4.07709C15.7015 3.81188 15.5961 3.55752 15.4086 3.36999C15.2211 3.18245 14.9667 3.07709 14.7015 3.07709ZM4.95148 9.07709C4.95148 7.81731 5.45193 6.60913 6.34272 5.71833C7.23352 4.82754 8.4417 4.32709 9.70148 4.32709C10.9613 4.32709 12.1694 4.82754 13.0602 5.71833C13.951 6.60913 14.4515 7.81731 14.4515 9.07709C14.4515 10.3369 13.951 11.5451 13.0602 12.4358C12.1694 13.3266 10.9613 13.8271 9.70148 13.8271C8.4417 13.8271 7.23352 13.3266 6.34272 12.4358C5.45193 11.5451 4.95148 10.3369 4.95148 9.07709Z"
                           fill="white"
                         />
