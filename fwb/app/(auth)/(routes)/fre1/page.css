@@ -47,7 +47,7 @@
 }
 
 .subtext {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   text-align: center;
   /* Heading/H5 */
   font-family: Urbanist;
@@ -68,14 +68,14 @@
 .customPhotoInput {
   border-radius: 30px;
   background: #8e94e9;
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
   display: flex;
   width: 213px;
   height: 45px;
   padding: 10px 24px;
   justify-content: center;
   gap: 8px;
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
@@ -94,7 +94,7 @@
 }
 
 .addPhoto {
-  color: var(--neutral-000, #FFF);
+  color: var(--neutral-000, #fff);
   /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
@@ -146,16 +146,17 @@ input::placeholder {
   line-height: 125%; /* 30px */
   letter-spacing: 0.4px;
   margin-bottom: 12px;
+  margin-top: 0px;
 }
 
 .randomName {
   padding: 8px 9px 8px 10px;
   margin-top: 36px;
-  margin-left:-46.5px;
+  margin-left: -46.5px;
   background-color: #8e94e9;
   border-radius: 123.35px;
   height: 40px;
-  width:40px
+  width: 40px;
 }
 
 /* #usernameForm{
@@ -163,19 +164,18 @@ input::placeholder {
   height: 48px;
 } */
 
-.userForm{
+.userForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
 
-.button{
-  margin-top:13.53px;
-  margin-left:110px
+.button {
+  margin-top: 13.53px;
+  margin-left: 110px;
 }
 
-#newUsername{
-  width:420px;
+#newUsername {
+  width: 420px;
   height: 48px;
 }

@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from 'react'
 
-const BlueArrowForward = (props:any) => (
+const BlueArrowForward = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={16}
