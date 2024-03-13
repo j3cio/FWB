@@ -6,10 +6,14 @@ import { useState } from "react";
 import Bargains from "./BargainsPicture";
 import DiscountsSection from "./DiscountsSection";
 import MembersSection from "./MembersSection";
+import CreateDiscountCard from "../../intakeform/CreateDiscountCard";
 
 const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: DiscountData[] }) => {
   // Tab State
   const [showMembers, setShowMembers] = useState(false);
+
+  const hasNoDiscounts = discountData.length === 0
+
   const showMemberTab = () => {
     setShowMembers(true);
   };
@@ -45,7 +49,7 @@ const Tabs = ({ userData, discountData }: { userData: UserData[]; discountData: 
       </div>
       <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
       <div className="w-full h-screen">
-        {showMembers ? <MembersSection userData={userData} /> : <DiscountsSection discountData={discountData} />}
+        {showMembers ? <MembersSection userData={userData} /> : hasNoDiscounts ? <CreateDiscountCard /> : <DiscountsSection discountData={discountData} />}
       </div>
     </div>
   );
