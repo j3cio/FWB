@@ -134,10 +134,6 @@ input::placeholder {
   margin-top: 64px;
 }
 
-.icon1 {
-  margin-right: 16px;
-}
-
 .shareButtons {
   display: flex;
   flex-direction: column;
