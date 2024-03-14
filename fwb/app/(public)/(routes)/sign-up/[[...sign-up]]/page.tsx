@@ -36,12 +36,15 @@ export default function Page() {
     const userAction = currentUrl.includes('/sign-up') ? 'signup' : 'signin'
     localStorage.setItem('userAction', userAction)
   }, [searchParams])
+  
+  useEffect(() => {
+    if (user) {
+      // Redirect authenticated user to the profile page
+      router.replace('/fre1')
+      return // You can also render a loading state or redirect message here
+    }
+  }, [user])
 
-  if (user) {
-    // Redirect authenticated user to the profile page
-    router.replace('/profile')
-    return null // You can also render a loading state or redirect message here
-  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -84,6 +87,7 @@ export default function Page() {
       }
       if (completeSignUp.status === 'complete') {
         await setActive({ session: completeSignUp.createdSessionId })
+        console.log('pushing to fre1')
         router.push('/fre1')
       }
     } catch (err: any) {
@@ -281,7 +285,7 @@ export default function Page() {
                         ))}
                     <div className="remember">
                       <FormControlLabel
-                        style={{ height: '24px' }}
+                        sx={{ height: '24px' }}
                         label={
                           <Typography
                             style={{
@@ -295,7 +299,7 @@ export default function Page() {
                         control={
                           <Checkbox
                             value="remember"
-                            style={{
+                            sx={{
                               color: '#fff',
                             }}
                           ></Checkbox>
