@@ -36,7 +36,7 @@ export default function Page() {
     const userAction = currentUrl.includes('/sign-up') ? 'signup' : 'signin'
     localStorage.setItem('userAction', userAction)
   }, [searchParams])
-  
+
   useEffect(() => {
     if (user) {
       // Redirect authenticated user to the profile page
@@ -44,7 +44,6 @@ export default function Page() {
       return // You can also render a loading state or redirect message here
     }
   }, [user])
-
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
