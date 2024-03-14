@@ -132,6 +132,7 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   margin-top: 64px;
+  gap: 16px;
 }
 
 .shareButtons {
