@@ -164,11 +164,9 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
           <div className="icons">
-            {/**Facebook Messenger in particular needs Facebook's application ID here, for now it won't work until we add one: https://developers.facebook.com/docs/sharing/messenger/#app-page-id */}
             <FacebookMessengerShareButton
               url="https://app.makefwb.com/sign-up"
-              title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
-              appId="1737806480044800"
+              appId="1461933537691569"
             >
               <FacebookMessengerIcon />
             </FacebookMessengerShareButton>
