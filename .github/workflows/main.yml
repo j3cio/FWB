@@ -38,6 +38,6 @@ jobs:
         run: cd fwb && npm install
         
       - name: Lint Code
-        run: npm run lint
+        run: cd fwb && npm run lint
 
 
