@@ -168,7 +168,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
             <FacebookMessengerShareButton
               url="https://app.makefwb.com/sign-up"
               title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
-              appId=""
+              appId="1737806480044800"
             >
               <FacebookMessengerIcon />
             </FacebookMessengerShareButton>
