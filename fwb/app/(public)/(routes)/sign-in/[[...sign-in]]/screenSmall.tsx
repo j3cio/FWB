@@ -1,9 +1,17 @@
 'use client'
-import { useSignIn, useUser } from '@clerk/nextjs'
-import 'dotenv/config'
+
+import { useState } from 'react'
+
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+
+import { useSignIn, useUser } from '@clerk/nextjs'
+
+import GooglePic from '@/public/google.png'
+
+import 'dotenv/config'
+
 import './page.css'
 
 export const SmallScreen = () => {
@@ -101,7 +109,7 @@ export const SmallScreen = () => {
               className="googleButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px]"
               onClick={signInWithGoogle}
             >
-              <img src="/google.png" alt="Google Icon" />
+              <Image src={GooglePic} alt="Google Icon" />
             </button>
             <button
               className="discordButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px] xs:p-[7px] sm:p-[7px]"
