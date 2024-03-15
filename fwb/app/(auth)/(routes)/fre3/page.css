@@ -132,10 +132,7 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   margin-top: 64px;
-}
-
-.icon1 {
-  margin-right: 16px;
+  gap: 16px;
 }
 
 .shareButtons {

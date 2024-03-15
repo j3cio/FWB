@@ -36,6 +36,12 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
     null
   )
 
+  const newUsernameInput = document.getElementById(
+    "newUsername"
+  ) as HTMLInputElement;
+  const newUsername = newUsernameInput?.value;
+
+
   //Add router to push to fre2 after making User API POST Request
   const router = useRouter()
 
@@ -43,6 +49,13 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
   useEffect(() => {
     setRandomName(generateRandomUsername())
   }, [])
+
+  useEffect(() => {
+    // Once our user exists, we don't have a manual name chosen, and our random name is generated, we update our username in clerk
+    if (!newUsername && randomName && user) {
+     updateClerkUsername()
+    }
+  }, [randomName, newUsername, user]);
 
   //Error handeling for if user tries to access page not signed in or Clerk isn't ready
   useEffect(() => {
@@ -177,11 +190,6 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
   //Function to update User's username on Clerk
   function updateClerkUsername() {
-    const newUsernameInput = document.getElementById(
-      'newUsername'
-    ) as HTMLInputElement
-    const newUsername = newUsernameInput?.value
-
     //If the user provides a username in the input, we will use that
     if (newUsername) {
       // Use Clerk's update method to update the username
