@@ -15,6 +15,7 @@ import { VerifyPhoto4 } from './VerifyPhoto4'
 import { VerifyPhoto5 } from './VerifyPhoto5'
 
 import GooglePic from '@/public/google.png'
+import TwitterPic from '@/public/twitter.png'
 
 import './page.css'
 
@@ -397,7 +398,7 @@ export const SmallScreen = () => {
             <div className="socialMedia">
               <div className="twitter">
                 <button className="twitterButton">
-                  <img src="/twitter.png" alt="Twitter Icon" />
+                  <Image src={TwitterPic} alt="Twitter Icon" />
                 </button>
               </div>
               <div className="instagram">

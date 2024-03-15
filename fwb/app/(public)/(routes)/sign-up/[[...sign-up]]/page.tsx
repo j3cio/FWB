@@ -16,6 +16,7 @@ import { VerifyPhoto5 } from './VerifyPhoto5'
 
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 import GooglePic from '@/public/google.png'
+import TwitterPic from '@/public/twitter.png'
 
 import { LargeScreen } from './screenLarge'
 import { SmallScreen } from './screenSmall'
@@ -443,7 +444,7 @@ export default function Page() {
                 <div className="socialMedia">
                   <div className="twitter">
                     <button className="twitterButton">
-                      <img src="/twitter.png" alt="Twitter Icon" />
+                      <Image src={TwitterPic} alt="Twitter Icon" />
                     </button>
                   </div>
                   <div className="instagram">
