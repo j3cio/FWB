@@ -1,19 +1,26 @@
 'use client'
+import { useEffect, useState } from 'react'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
+
 import { useSignUp, useUser } from '@clerk/nextjs'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+
 import { VerifyPhoto1 } from './VerifyPhoto1'
 import { VerifyPhoto2 } from './VerifyPhoto2'
 import { VerifyPhoto3 } from './VerifyPhoto3'
 import { VerifyPhoto4 } from './VerifyPhoto4'
 import { VerifyPhoto5 } from './VerifyPhoto5'
-import './page.css'
 
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
+import GooglePic from '@/public/google.png'
+
 import { LargeScreen } from './screenLarge'
 import { SmallScreen } from './screenSmall'
+
+import './page.css'
 
 export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -150,7 +157,7 @@ export default function Page() {
                   <div className="name">Create Account</div>
                   <div className="buttons">
                     <button className="googleButton" onClick={signUpWithGoogle}>
-                      <img src="/google.png" alt="Google Icon" />
+                      <Image src={GooglePic} alt="Google Icon" />
                     </button>
                     <button
                       className="discordButton"

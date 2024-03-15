@@ -1,14 +1,21 @@
 'use client'
+import { useState } from 'react'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
 import { useSignUp, useUser } from '@clerk/nextjs'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+
 import { VerifyPhoto1 } from './VerifyPhoto1'
 import { VerifyPhoto2 } from './VerifyPhoto2'
 import { VerifyPhoto3 } from './VerifyPhoto3'
 import { VerifyPhoto4 } from './VerifyPhoto4'
 import { VerifyPhoto5 } from './VerifyPhoto5'
+
+import GooglePic from '@/public/google.png'
+
 import './page.css'
 
 export const SmallScreen = () => {
@@ -94,7 +101,7 @@ export const SmallScreen = () => {
                   className="googleButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px]"
                   onClick={signUpWithGoogle}
                 >
-                  <img src="/google.png" alt="Google Icon" />
+                  <Image src={GooglePic} alt="Google Icon" />
                 </button>
                 <button
                   className="discordButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px] xs:p-[7px] sm:p-[7px]"
