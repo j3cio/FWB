@@ -32,11 +32,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
+          
 
       - name: Install modules
         run: cd fwb && npm install
         
       - name: Lint Code
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: npm run lint
 
 
