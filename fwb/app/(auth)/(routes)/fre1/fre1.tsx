@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -37,51 +37,12 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
   )
 
   const newUsernameInput = document.getElementById(
-    "newUsername"
-  ) as HTMLInputElement;
-  const newUsername = newUsernameInput?.value;
-
+    'newUsername'
+  ) as HTMLInputElement
+  const newUsername = newUsernameInput?.value
 
   //Add router to push to fre2 after making User API POST Request
   const router = useRouter()
-
-  //Initializes random username on the first render of webpage
-  useEffect(() => {
-    setRandomName(generateRandomUsername())
-  }, [])
-
-  useEffect(() => {
-    // Once our user exists, we don't have a manual name chosen, and our random name is generated, we update our username in clerk
-    if (!newUsername && randomName && user) {
-     updateClerkUsername()
-    }
-  }, [randomName, newUsername, user]);
-
-  //Error handeling for if user tries to access page not signed in or Clerk isn't ready
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      return
-    }
-
-    if (
-      !userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('/fre2')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, userData, router])
 
   //Function to Allow user to Upload their own Profile Picture
   const updateProfilePicture = () => {
@@ -189,7 +150,8 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
   }
 
   //Function to update User's username on Clerk
-  function updateClerkUsername() {
+  const updateClerkUsername = useCallback(() => {
+    console.log('firing')
     //If the user provides a username in the input, we will use that
     if (newUsername) {
       // Use Clerk's update method to update the username
@@ -216,7 +178,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
           console.error('Error updating username:', error)
         })
     }
-  }
+  }, [newUsername, randomName, user])
 
   //Function to update User's username on Clerk with random username
   function updateClerkWithRandomUsername() {
@@ -269,6 +231,44 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
       console.error('Error add user:', error)
     }
   }
+
+  //Error handling for if user tries to access page not signed in or Clerk isn't ready
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !userData.users[0]) {
+      return
+    }
+
+    if (
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('/fre2')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('/fre3')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('profile')
+    }
+  }, [isLoaded, isSignedIn, userData, router])
+
+  //Initializes random username on the first render of webpage
+  useEffect(() => {
+    setRandomName(generateRandomUsername())
+  }, [])
+
+  useEffect(() => {
+    // Once our user exists, we don't have a manual name chosen, and our random name is generated, we update our username in clerk
+    if (!newUsername && randomName && user) {
+      updateClerkUsername()
+    }
+  }, [randomName, newUsername, user, updateClerkUsername])
 
   // Render the First Run Experience if the User has been verified
   if (isSignedIn) {
