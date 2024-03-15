@@ -1,16 +1,27 @@
 'use client'
 
-import './page.css'
-import Link from 'next/link'
-import { useUser } from '@clerk/nextjs'
 import { FormEvent, useState, KeyboardEvent, useEffect } from 'react'
+
+import { useRouter } from 'next/navigation'
+
+import axios from 'axios'
+import { useUser } from '@clerk/nextjs'
+import {
+  FacebookMessengerShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+} from 'react-share'
+
 import IllustrationFive from '@/components/ui/fre/IllustrationFive'
 import IllustrationSix from '@/components/ui/fre/IllustrationSix'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { useAuth, auth, currentUser, UserProfile } from '@clerk/nextjs'
-import { UserData } from '../../../types/types'
 import UpdateUser from '@/components/hooks/updateUser'
+import FacebookMessengerIcon from '@/components/ui/icons/FacebookMessengerIcon'
+import WhatsappIcon from '@/components/ui/icons/WhatsappIcon'
+import TwitterIcon from '@/components/ui/icons/TwitterIcon'
+
+import { UserData } from '../../../types/types'
+
+import './page.css'
 
 export default function UserFlowPage3({ userData }: { userData: UserData }) {
   //Error handling for if user tries to access page not signed in or Clerk isn't ready
@@ -125,23 +136,6 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
     }
   }
 
-  //OnClick Buttons to handle user redirect to respective socials to share with friends
-  const handlewhatsapp = () => {
-    window.open('https://www.whatsapp.com/')
-  }
-
-  const handleinstagram = () => {
-    window.open('https://www.instagram.com/')
-  }
-
-  const handlefacebook = () => {
-    window.open('https://facebook.com/')
-  }
-
-  const handlediscord = () => {
-    window.open('https://discord.com/')
-  }
-
   return (
     <div className="pageContent">
       <IllustrationFive />
@@ -170,32 +164,24 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
           <div className="icons">
-            <button className="icon1" onClick={handlewhatsapp}>
-              <img src="/socialicons/whatsapp.SVG" />
-            </button>
-            <button className="icon1" onClick={handleinstagram}>
-              <img src="/socialicons/instagram.SVG" />
-            </button>
-            <button className="icon1" onClick={handlefacebook}>
-              <div className="facebookIcon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="34"
-                  height="34"
-                  viewBox="0 0 34 34"
-                  fill="none"
-                >
-                  <path
-                    d="M31.0861 16.956C31.0861 9.15628 24.7559 2.82605 16.9561 2.82605C9.1564 2.82605 2.82617 9.15628 2.82617 16.956C2.82617 23.7949 7.68688 29.4893 14.1301 30.8034V21.195H11.3042V16.956H14.1301V13.4235C14.1301 10.6964 16.3486 8.47804 19.0756 8.47804H22.6081V12.717H19.7821C19.005 12.717 18.3691 13.3529 18.3691 14.13V16.956H22.6081V21.195H18.3691V31.0153C25.5048 30.3088 31.0861 24.2895 31.0861 16.956Z"
-                    fill="white"
-                  />
-                </svg>
-              </div>
-              {/* <img src="/socialicons/facebook.SVG" /> */}
-            </button>
-            <button onClick={handlediscord}>
-              <img src="/socialicons/discord.SVG" />
-            </button>
+            <FacebookMessengerShareButton
+              url="https://app.makefwb.com/sign-up"
+              appId="1461933537691569"
+            >
+              <FacebookMessengerIcon />
+            </FacebookMessengerShareButton>
+            <WhatsappShareButton
+              url="https://app.makefwb.com/sign-up"
+              title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
+            >
+              <WhatsappIcon />
+            </WhatsappShareButton>
+            <TwitterShareButton
+              url="https://app.makefwb.com/sign-up"
+              title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
+            >
+              <TwitterIcon />
+            </TwitterShareButton>
           </div>
           <h5 className="or">Or</h5>
 
