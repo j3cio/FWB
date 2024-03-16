@@ -42,7 +42,11 @@ function Profile({ userData }: { userData: UserData }) {
   return (
     <Box sx={{ backgroundColor: "#1A1A23", minHeight: "100vh" }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar handleSearch={handleSearch} companyQuery={companyQuery} setCompanyQuery={setCompanyQuery} />
+        <Navbar
+          handleSearch={handleSearch}
+          companyQuery={companyQuery}
+          setCompanyQuery={setCompanyQuery}
+        />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
           <div className="flex flex-1 flex-col h-full w-full items-center justify-center px-[120px]">
@@ -60,7 +64,9 @@ function Profile({ userData }: { userData: UserData }) {
                 </div>
                 <div className="flex flex-row mb-[16px]">
                   <div className="mr-1 text-slate-200">Works at: </div>
-                  <div className=" text-yellow-200">{userData.users[0].company}</div>
+                  <div className=" text-yellow-200">
+                    {userData.users[0].company}
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <Button
@@ -112,23 +118,45 @@ function Profile({ userData }: { userData: UserData }) {
                 </div>
               </div>
               <div className="flex h-2/5 gap-6">
-                <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center h-[126px]">
+                <a
+                  href="profile"
+                  className="flex flex-1 bg-white rounded-3xl items-center h-[126px]"
+                >
                   <div className="flex flex-col mx-6">
-                    <div className="font-semibold text-2xl">Saved Discounts</div>
-                    <div className="text-[14px]">Lorem ipsum dolor sit amet consectetur.</div>
+                    <div className="font-semibold text-2xl">
+                      Saved Discounts
+                    </div>
+                    <div className="text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
-                    <Image src={SaveIcon} alt="Group Icon" width={50} height={50} />{" "}
+                    <Image
+                      src={SaveIcon}
+                      alt="Group Icon"
+                      width={50}
+                      height={50}
+                    />{" "}
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
-                <a href="profile" className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]">
+                <a
+                  href="profile"
+                  className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
+                >
                   <div className="flex flex-col mx-6">
                     <div className="font-semibold text-2xl">Private Groups</div>
-                    <div className="text-[14px]">Lorem ipsum dolor sit amet consectetur.</div>
+                    <div className="text-[14px]">
+                      Lorem ipsum dolor sit amet consectetur.
+                    </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
-                    <Image src={BlueGroupIcon} alt="Group Icon" width={50} height={50} />{" "}
+                    <Image
+                      src={BlueGroupIcon}
+                      alt="Group Icon"
+                      width={50}
+                      height={50}
+                    />{" "}
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
@@ -137,7 +165,9 @@ function Profile({ userData }: { userData: UserData }) {
             {/*My Benefits div*/}
             <div className="flex flex-col w-full h-1/5 my-[80px] rounded-lg">
               <div className="flex flex-col h-full w-full">
-                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white">My Benefits!</div>
+                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white">
+                  My Benefits!
+                </div>
                 <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-[120px] text-3xl">
                   Be the wingman to a friend&apos;s wallet now!
                 </div>
@@ -166,7 +196,11 @@ function Profile({ userData }: { userData: UserData }) {
               </div>
             </div>
           </div>
-          <EditProfileModal isOpen={isEditProfileModalOpen} onClose={closeEditProfileModal} userData={userData} />
+          <EditProfileModal
+            isOpen={isEditProfileModalOpen}
+            onClose={closeEditProfileModal}
+            userData={userData}
+          />
         </div>
       </Container>
     </Box>

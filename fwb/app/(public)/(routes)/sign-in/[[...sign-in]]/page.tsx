@@ -217,7 +217,7 @@ export default function Page() {
                     {error &&
                       error.errors
                         .filter(
-                          (err: any) => err.meta.paramName === "email_address"
+                          (err: any) => err.meta.paramName === "email_address",
                         )
                         .map((passwordError: any) => (
                           <div

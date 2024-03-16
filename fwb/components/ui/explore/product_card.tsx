@@ -15,7 +15,13 @@ import { motion } from "framer-motion";
  * @param {number} amount - The discount amount in percentage.
  * @returns {JSX.Element} The discount component.
  */
-const Discount = ({ isHovered, amount }: { isHovered: boolean, amount: Number }) => {
+const Discount = ({
+  isHovered,
+  amount,
+}: {
+  isHovered: boolean;
+  amount: Number;
+}) => {
   return (
     <Box>
       <div style={{ position: "relative", fontFamily: "inherit" }}>
@@ -140,7 +146,10 @@ export default function ProductCard({ company }: { company: any }) {
                 {company.name}
               </Typography>
             </Box>
-            <Discount isHovered={isHovered} amount={company.greatest_discount} />
+            <Discount
+              isHovered={isHovered}
+              amount={company.greatest_discount}
+            />
 
             {/*Profile Pictures of Users Offering Discounts for The Company*/}
             <Box

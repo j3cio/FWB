@@ -8,7 +8,6 @@
  *
  */
 
-
 /**
  * Fetches the logo for a given domain name using the provided authentication token.
  * @param auth_token The authentication token used for authorization.
@@ -27,7 +26,7 @@ function fetchLogo(auth_token: string, domain_name: string) {
 
   return fetch(
     `http://${window.location.host}/api/images/logos?domain_name=${domain_name}`,
-    requestOptions
+    requestOptions,
   )
     .then((response) => response.json())
     .then((result) => console.log(result))
@@ -35,4 +34,3 @@ function fetchLogo(auth_token: string, domain_name: string) {
 }
 
 export { fetchLogo };
-

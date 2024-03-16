@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     if (!domain_name) {
       return NextResponse.json(
         { message: "Missing domain_name parameter" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
         message:
           "An error occurred while fetching brand data. Check domain_name format or try again later.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

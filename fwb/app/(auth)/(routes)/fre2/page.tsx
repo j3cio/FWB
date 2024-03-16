@@ -179,8 +179,8 @@ export default function UserFlowPage2() {
                       handleCategoryChange(
                         Array.from(
                           e.target.selectedOptions,
-                          (option) => option.value
-                        )
+                          (option) => option.value,
+                        ),
                       )
                     }
                     value={categories}

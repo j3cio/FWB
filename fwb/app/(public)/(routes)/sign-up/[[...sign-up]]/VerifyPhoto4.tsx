@@ -86,5 +86,5 @@ export const VerifyPhoto4 = () => {
         fill="#E6F4FF"
       />
     </svg>
-  )
-}
+  );
+};

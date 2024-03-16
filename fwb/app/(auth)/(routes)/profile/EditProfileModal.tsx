@@ -15,11 +15,17 @@ type EditProfileModalProps = {
 //TODO:
 //Edge Case: Currently if the username or company is null on supabase it causes and error in the patch request
 
-const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) => {
+const EditProfileModal = ({
+  isOpen,
+  onClose,
+  userData,
+}: EditProfileModalProps) => {
   const { userId } = useAuth();
   const { user } = useUser();
   const router = useRouter();
-  const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(null);
+  const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(
+    null,
+  );
   const [refresh, setRefresh] = useState(true);
 
   //Taking converted blob file and updating User's Profile Picture based on button click
@@ -94,11 +100,14 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
     formData.append("user_id", userId as string);
 
     try {
-      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
-        method: "PATCH",
-        headers,
-        body: formData,
-      });
+      const userResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+        {
+          method: "PATCH",
+          headers,
+          body: formData,
+        },
+      );
       if (!userResponse.ok) {
         throw new Error(`HTTP error! status: ${userResponse.status}`);
       }
@@ -118,7 +127,11 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
   };
 
   return (
-    <Modal open={isOpen} onClose={onClose} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
       <div
         className="modal-content"
         style={{
@@ -176,28 +189,36 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/WomanOne.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/WomanOne.png")
+                  }
                 >
                   <img src="/profilepics/SVG/FemaleOne.svg" />
                 </button>
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/WomanTwo.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/WomanTwo.png")
+                  }
                 >
                   <img src="/profilepics/SVG/FemaleTwo.svg" />
                 </button>
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/WomanThree.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/WomanThree.png")
+                  }
                 >
                   <img src="/profilepics/SVG/FemaleThree.svg" />
                 </button>
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/WomanFour.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/WomanFour.png")
+                  }
                 >
                   <img src="/profilepics/SVG/FemaleFour.svg" />
                 </button>
@@ -207,28 +228,36 @@ const EditProfileModal = ({ isOpen, onClose, userData }: EditProfileModalProps) 
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/ManOne.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/ManOne.png")
+                  }
                 >
                   <img src="/profilepics/SVG/MaleOne.svg" />
                 </button>
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/ManTwo.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/ManTwo.png")
+                  }
                 >
                   <img src="/profilepics/SVG/MaleTwo.svg" />
                 </button>
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/ManThree.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/ManThree.png")
+                  }
                 >
                   <img src="/profilepics/SVG/MaleThree.svg" />
                 </button>
                 <button
                   type="button"
                   id="chooseProfilePicture"
-                  onClick={() => chooseProfilePicture("/profilepics/PNG/ManFour.png")}
+                  onClick={() =>
+                    chooseProfilePicture("/profilepics/PNG/ManFour.png")
+                  }
                 >
                   <img src="/profilepics/SVG/MaleFour.svg" />
                 </button>

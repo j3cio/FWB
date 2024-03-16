@@ -6,7 +6,13 @@ import Image from "next/image";
 import MembersIcon from "../icons/membersicon.svg";
 import Pencil from "../icons/pencil.svg";
 
-const GroupDetailsSection = ({ groupData, userData }: { groupData: Group; userData: UserData[] }) => {
+const GroupDetailsSection = ({
+  groupData,
+  userData,
+}: {
+  groupData: Group;
+  userData: UserData[];
+}) => {
   const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
 
   return (
@@ -49,9 +55,10 @@ const GroupDetailsSection = ({ groupData, userData }: { groupData: Group; userDa
         <div className="text-white flex flex-row">
           <div className="ml-24 flex-1">
             {" "}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam laboriosam sint suscipit quod esse quaerat
-            voluptates autem modi, aut perspiciatis dicta, nihil accusamus blanditiis laborum animi corrupti officia
-            dolores. Voluptates.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+            laboriosam sint suscipit quod esse quaerat voluptates autem modi,
+            aut perspiciatis dicta, nihil accusamus blanditiis laborum animi
+            corrupti officia dolores. Voluptates.
           </div>
 
           <div className="flex-1 flex flex-row-reverse mr-40 gap-4">

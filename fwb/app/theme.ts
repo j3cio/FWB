@@ -34,7 +34,7 @@ declare module "@mui/material/styles" {
 const theme = createTheme({
   typography: {
     button: {
-      fontFamily: 'Urbanist, Arial, sans-serif',
+      fontFamily: "Urbanist, Arial, sans-serif",
     },
   },
   palette: {

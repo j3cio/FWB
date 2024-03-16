@@ -12,7 +12,7 @@ export const getNewLogoUrl = async (domain_name: string) => {
 
   const res = await fetch(
     `https://api.brandfetch.io/v2/brands/${domain_name}`,
-    requestOptions
+    requestOptions,
   );
 
   if (!res.ok) {
@@ -24,7 +24,7 @@ export const getNewLogoUrl = async (domain_name: string) => {
     if (logo.type === "icon") {
       brandLogo = logo.formats[0].src;
     }
-  })
+  });
   return brandLogo;
 };
 

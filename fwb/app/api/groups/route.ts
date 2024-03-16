@@ -1,4 +1,9 @@
-import { deleteGroup, getGroups, insertGroup, updateGroup } from "@/app/api/groups/utils/group_utils";
+import {
+  deleteGroup,
+  getGroups,
+  insertGroup,
+  updateGroup,
+} from "@/app/api/groups/utils/group_utils";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Group {
@@ -15,7 +20,10 @@ export async function POST(request: NextRequest, response: NextResponse) {
   return await insertGroup(request);
 }
 // Get all groups
-export async function GET(request: NextRequest & { query: Record<string, string> }, response: NextResponse) {
+export async function GET(
+  request: NextRequest & { query: Record<string, string> },
+  response: NextResponse,
+) {
   return await getGroups(request);
 }
 // Delete a group

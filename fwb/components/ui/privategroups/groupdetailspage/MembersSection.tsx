@@ -97,9 +97,10 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi provident ad, nulla voluptates dolores
-          fugit similique saepe. Atque, accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum, itaque. Non,
-          assumenda accusantium.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi
+          provident ad, nulla voluptates dolores fugit similique saepe. Atque,
+          accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum,
+          itaque. Non, assumenda accusantium.
         </div>
         <div className="flex text-white">
           <div className="font-semibold text-4xl mt-24">Group Rules</div>
@@ -117,9 +118,10 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit explicabo, dolores iusto natus
-          mollitia cumque nostrum sunt maiores voluptates quam delectus molestiae ipsa repellendus ullam! Aspernatur
-          recusandae nam modi ratione!
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Reprehenderit explicabo, dolores iusto natus mollitia cumque nostrum
+          sunt maiores voluptates quam delectus molestiae ipsa repellendus
+          ullam! Aspernatur recusandae nam modi ratione!
         </div>
       </div>
     </div>

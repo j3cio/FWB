@@ -23,7 +23,10 @@ async function getUser() {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`, requestOptions);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
+      requestOptions,
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

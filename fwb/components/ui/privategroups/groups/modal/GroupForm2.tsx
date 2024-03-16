@@ -9,7 +9,13 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
   return (
     <>
       <label> Invite your friends...</label>
-      <input autoFocus required type="text" value={users} onChange={(e) => updateFields({ users: e.target.value })} />
+      <input
+        autoFocus
+        required
+        type="text"
+        value={users}
+        onChange={(e) => updateFields({ users: e.target.value })}
+      />
     </>
   );
 }

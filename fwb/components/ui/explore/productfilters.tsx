@@ -22,11 +22,7 @@ function BasicSelect({
 }) {
   const [option, setOption] = useState(defaultValue);
   const [flip, setFlip] = useState(false);
-  const {
-    setSortBy,
-    setCategory,
-    setPrivateGroup,
-  } = useContext(FilterContext);
+  const { setSortBy, setCategory, setPrivateGroup } = useContext(FilterContext);
 
   const arrowStyle = {
     color: "white",

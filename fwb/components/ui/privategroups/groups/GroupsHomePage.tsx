@@ -47,7 +47,10 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
               aria-describedby="modal-modal-description"
             >
               <Box sx={style}>
-                <CreateGroupForm userGroups={userData.users[0].user_groups} handleClose={handleClose} />
+                <CreateGroupForm
+                  userGroups={userData.users[0].user_groups}
+                  handleClose={handleClose}
+                />
               </Box>
             </Modal>
           </Container>
@@ -107,7 +110,10 @@ const GroupsHomePage = ({ userData }: { userData: UserData }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateGroupForm userGroups={userData.users[0].user_groups} handleClose={handleClose} />
+          <CreateGroupForm
+            userGroups={userData.users[0].user_groups}
+            handleClose={handleClose}
+          />
         </Box>
       </Modal>
     </Box>
