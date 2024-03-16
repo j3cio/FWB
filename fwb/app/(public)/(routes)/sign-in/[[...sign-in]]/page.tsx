@@ -52,7 +52,7 @@ export default function Page() {
 
   if (user) {
     // Redirect authenticated user to the profile page
-    router.replace('/profile')
+    router.replace('/fre1')
     return null // You can also render a loading state or redirect message here
   }
 
@@ -72,6 +72,7 @@ export default function Page() {
       })
 
       if (result.status === 'complete') {
+        localStorage.removeItem('userAction')
         // If complete, user exists and provided password match -- set session active
         await setActive({ session: result.createdSessionId })
         // Redirect the user to a post sign-in route
