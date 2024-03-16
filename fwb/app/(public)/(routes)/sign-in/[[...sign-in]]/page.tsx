@@ -50,11 +50,11 @@ export default function Page() {
     }
   }, [redirectFromSignUp]);
 
-  if (user) {
-    // Redirect authenticated user to the profile page
-    router.replace("/profile");
-    return null; // You can also render a loading state or redirect message here
-  }
+  // if (user) {
+  //   // Redirect authenticated user to the profile page
+  //   router.replace("/fre1");``
+  //   return null; // You can also render a loading state or redirect message here
+  // }
 
   // start the sign In process.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -72,10 +72,10 @@ export default function Page() {
       });
 
       if (result.status === "complete") {
+        localStorage.removeItem("userAction");
         // If complete, user exists and provided password match -- set session active
         await setActive({ session: result.createdSessionId });
         // Redirect the user to a post sign-in route
-        router.push("/");
       } else {
         // The status can also be `needs_factor_on', 'needs_factor_two', or 'needs_identifier'
         // Please see https://clerk.com/docs/references/react/use-sign-in#result-status for  more information
@@ -217,7 +217,7 @@ export default function Page() {
                     {error &&
                       error.errors
                         .filter(
-                          (err: any) => err.meta.paramName === "email_address",
+                          (err: any) => err.meta.paramName === "email_address"
                         )
                         .map((passwordError: any) => (
                           <div
