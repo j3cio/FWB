@@ -1,14 +1,22 @@
 'use client'
+import { useState } from 'react'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
 import { useSignUp, useUser } from '@clerk/nextjs'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+
 import { VerifyPhoto1 } from './VerifyPhoto1'
 import { VerifyPhoto2 } from './VerifyPhoto2'
 import { VerifyPhoto3 } from './VerifyPhoto3'
 import { VerifyPhoto4 } from './VerifyPhoto4'
 import { VerifyPhoto5 } from './VerifyPhoto5'
+
+import GooglePic from '@/public/google.png'
+import TwitterPic from '@/public/twitter.png'
+
 import './page.css'
 
 export const LargeScreen = () => {
@@ -93,7 +101,7 @@ export const LargeScreen = () => {
             <div className="name">Create Account</div>
             <div className="buttons">
               <button className="googleButton" onClick={signUpWithGoogle}>
-                <img src="/google.png" alt="Google Icon" />
+                <Image src={GooglePic} alt="Google Icon" />
               </button>
               <button
                 className="discordButton px-[6px] py-[4px]"
@@ -397,7 +405,7 @@ export const LargeScreen = () => {
             <div className="socialMedia">
               <div className="twitter">
                 <button className="twitterButton">
-                  <img src="/twitter.png" alt="Twitter Icon" />
+                  <Image src={TwitterPic} alt="Twitter Icon" />
                 </button>
               </div>
               <div className="instagram">
