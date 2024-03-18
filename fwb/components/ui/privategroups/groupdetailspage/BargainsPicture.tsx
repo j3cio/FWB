@@ -1,5 +1,5 @@
 import theme from '@/app/theme'
-import BlueArrowForward from '@/components/ui/intakeform/BlueArrowForward'
+import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
 import { Button } from '@mui/material'
 import Image from 'next/image'
 import BargainBackgroundImage from '../../../public/bargain1700x350.png'
