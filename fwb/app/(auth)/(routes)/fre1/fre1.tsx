@@ -151,7 +151,6 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
   //Function to update User's username on Clerk
   const updateClerkUsername = useCallback(() => {
-    console.log('firing')
     //If the user provides a username in the input, we will use that
     if (newUsername) {
       // Use Clerk's update method to update the username
