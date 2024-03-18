@@ -97,7 +97,7 @@
   display: flex;
   width: 544px;
   height: 24px;
-  outline:none;
+  outline: none;
 }
 
 input::placeholder {
@@ -132,17 +132,14 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   margin-top: 64px;
-}
-
-.icon1 {
-  margin-right: 16px;
+  gap: 16px;
 }
 
 .shareButtons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -80px;
+  margin-top: 0;
 }
 
 .skipButton {
@@ -154,6 +151,8 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   gap: 8px;
+  margin: 0px;
+  cursor: pointer;
 }
 
 .emailForm {

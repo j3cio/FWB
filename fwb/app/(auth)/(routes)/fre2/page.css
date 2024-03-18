@@ -107,7 +107,7 @@ input::-webkit-inner-spin-button {
   /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
   /* Firefox */
 }
@@ -209,6 +209,7 @@ option {
   letter-spacing: 1.1px;
   margin-top: 19.5px;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .shareButtons {

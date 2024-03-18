@@ -5,7 +5,7 @@
   /* width: 1440px;
   height: 931px; */
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 .signin {
@@ -211,7 +211,6 @@
 }
 
 .startButton {
-
   width: 380px;
   height: 48px;
   padding: 10px 24px;

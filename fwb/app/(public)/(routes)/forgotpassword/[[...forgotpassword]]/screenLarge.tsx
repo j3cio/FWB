@@ -1,66 +1,66 @@
-"use client";
-import React, { SyntheticEvent, useState } from "react";
-import { useSignIn } from "@clerk/nextjs";
-import type { NextPage } from "next";
-import "./page.css";
-import Link from "next/link";
+'use client'
+import React, { SyntheticEvent, useState } from 'react'
+import { useSignIn } from '@clerk/nextjs'
+import type { NextPage } from 'next'
+import './page.css'
+import Link from 'next/link'
 
 export const LargeScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const [successfulCreation, setSuccessfulCreation] = useState(false);
-  const [complete, setComplete] = useState(false);
-  const [secondFactor, setSecondFactor] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [code, setCode] = useState('')
+  const [successfulCreation, setSuccessfulCreation] = useState(false)
+  const [complete, setComplete] = useState(false)
+  const [secondFactor, setSecondFactor] = useState(false)
+  const [error, setError] = useState<any>(null)
 
-  const { isLoaded, signIn, setActive } = useSignIn();
+  const { isLoaded, signIn, setActive } = useSignIn()
 
   if (!isLoaded) {
-    return null;
+    return null
   }
 
   async function create(e: SyntheticEvent) {
-    e.preventDefault();
+    e.preventDefault()
 
     await signIn
       ?.create({
-        strategy: "reset_password_email_code",
+        strategy: 'reset_password_email_code',
         identifier: email,
       })
       .then((_) => {
-        setSuccessfulCreation(true);
+        setSuccessfulCreation(true)
       })
       .catch((err: any) => {
-        console.error(JSON.stringify(err, null, 2));
-        setError(err.errors[0].longMessage);
-      });
+        console.error(JSON.stringify(err, null, 2))
+        setError(err.errors[0].longMessage)
+      })
   }
 
   async function reset(e: SyntheticEvent) {
-    e.preventDefault();
-    setError(null);
+    e.preventDefault()
+    setError(null)
 
     await signIn
       ?.attemptFirstFactor({
-        strategy: "reset_password_email_code",
+        strategy: 'reset_password_email_code',
         code,
         password,
       })
       .then((result) => {
-        if (result.status === "needs_second_factor") {
-          setSecondFactor(true);
-        } else if (result.status === "complete") {
-          setActive({ session: result.createdSessionId });
-          setComplete(true);
+        if (result.status === 'needs_second_factor') {
+          setSecondFactor(true)
+        } else if (result.status === 'complete') {
+          setActive({ session: result.createdSessionId })
+          setComplete(true)
         } else {
-          console.log(result);
+          console.log(result)
         }
       })
       .catch((err: any) => {
-        console.error(JSON.stringify(err, null, 2));
-        setError(err.errors[0].longMessage);
-      });
+        console.error(JSON.stringify(err, null, 2))
+        setError(err.errors[0].longMessage)
+      })
   }
 
   return (
@@ -124,7 +124,7 @@ export const LargeScreen = () => {
                               d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                               fill="white"
                             />
-                          </svg>{" "}
+                          </svg>{' '}
                           <div className="message">{error}</div>
                         </div>
                       )}
@@ -132,7 +132,7 @@ export const LargeScreen = () => {
 
                     <button className="sendEmail">Send Email</button>
                     <div className="help">
-                      Having problems? Email us at{" "}
+                      Having problems? Email us at{' '}
                       <a className="helpEmail" href="mailto:help@makefwb.com">
                         help@makefwb.com
                       </a>
@@ -186,7 +186,7 @@ export const LargeScreen = () => {
                             d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                             fill="white"
                           />
-                        </svg>{" "}
+                        </svg>{' '}
                         <div className="message">{error}</div>
                       </div>
                     )}
@@ -194,7 +194,7 @@ export const LargeScreen = () => {
 
                   <button className="reset">Reset</button>
                   <div className="help">
-                    Having problems? Email us at{" "}
+                    Having problems? Email us at{' '}
                     <a className="helpEmail" href="mailto:help@makefwb.com">
                       help@makefwb.com
                     </a>
@@ -230,7 +230,7 @@ export const LargeScreen = () => {
             )}
 
             {/* <button className="reset">Go to Sign In Page</button> */}
-            {secondFactor && "2FA is required, this UI does not handle that"}
+            {secondFactor && '2FA is required, this UI does not handle that'}
           </form>
         </div>
       </div>
@@ -269,5 +269,5 @@ export const LargeScreen = () => {
         <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 circle1"></div>
       </div>
     </div>
-  );
-};
+  )
+}

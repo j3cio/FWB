@@ -1,17 +1,38 @@
-"use client";
-import WhiteArrowForward from "@/components/ui/profile/WhiteArrowForward";
-import { Button } from "@mui/material";
-import AvatarIcon from "@mui/material/Avatar";
-import { useTheme } from "@mui/material/styles";
-import Image from "next/image";
-import SearchBar from "./SearchBar";
+'use client'
+import { User, UserData } from '@/app/types/types'
+import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
+import { useAuth } from '@clerk/nextjs'
+import { Button } from '@mui/material'
+import AvatarIcon from '@mui/material/Avatar'
+import { useTheme } from '@mui/material/styles'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useChatContext } from 'stream-chat-react'
+import MembersIcon from '../icons/membersicon.svg'
+import Pencil from '../icons/pencil.svg'
+import Settings from '../icons/settings.svg'
+import SearchBar from './SearchBar'
 
-import MembersIcon from "../icons/membersicon.svg";
-import Pencil from "../icons/pencil.svg";
-import Settings from "../icons/settings.svg";
+const Member = ({ user }: { user: User }) => {
+  const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
+  const { client } = useChatContext()
+  const { userId } = useAuth()
+  const router = useRouter()
 
-const Member = ({ user }: any) => {
-  const theme = useTheme(); // To call useTheme you have to add "use client;" to the top of your file
+  // This function takes in the userId of the person you are starting a chat with and will create a chat with them.
+  async function startChat(userId: any) {
+    try {
+      const channel = client.channel('messaging', {
+        members: [userId, user.user_id],
+      })
+      await channel.create()
+      router.push('/chat')
+    } catch (error) {
+      console.error(error)
+      alert('Error creating channel')
+    }
+  }
+
   return (
     <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
       <div className="flex items-center justify-center">
@@ -28,38 +49,43 @@ const Member = ({ user }: any) => {
             alt="Image Alt Text"
             className="object-cover object-center"
             style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "cover",
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover',
             }}
           />
         </div>
-        <Button
-          endIcon={<WhiteArrowForward />} // change this eventually
-          variant="contained"
-          sx={{
-            borderRadius: 28,
-            bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
-            color: `${theme.palette.common.white}`,
-            ":hover": {
-              bgcolor: `${theme.palette.primary.dark}`, // Hover background color
-              color: `${theme.palette.common.white}`, // Hover text color
-            },
-          }}
-        >
-          Send Message
-        </Button>
+        {userId === user.user_id ? (
+          ''
+        ) : (
+          <Button
+            endIcon={<WhiteArrowForward />} // change this eventually
+            variant="contained"
+            sx={{
+              borderRadius: 28,
+              bgcolor: `${theme.palette.primary.dark}`, // Non-hover color
+              color: `${theme.palette.common.white}`,
+              ':hover': {
+                bgcolor: `${theme.palette.primary.dark}`, // Hover background color
+                color: `${theme.palette.common.white}`, // Hover text color
+              },
+            }}
+            onClick={() => startChat(userId)}
+          >
+            Send Message
+          </Button>
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-const MembersSection = ({ users }: any) => {
+const MembersSection = ({ userData }: { userData: UserData[] }) => {
   return (
     <div className="flex flex-row my-2">
       <div className="flex-1 ml-24">
         <SearchBar />
-        {users.map((user: any, index: number) => (
+        {userData.map((user: UserData, index: number) => (
           <Member key={index} user={user.users[0]} />
         ))}
       </div>
@@ -73,9 +99,9 @@ const MembersSection = ({ users }: any) => {
                 alt="Image Alt Text"
                 className="object-cover object-center"
                 style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
+                  width: '100%',
+                  height: 'auto',
+                  objectFit: 'cover',
                 }}
               />
             </div>
@@ -87,17 +113,18 @@ const MembersSection = ({ users }: any) => {
               alt="Image Alt Text"
               className="object-cover object-center"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
               }}
             />
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi provident ad, nulla voluptates dolores
-          fugit similique saepe. Atque, accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum, itaque. Non,
-          assumenda accusantium.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi
+          provident ad, nulla voluptates dolores fugit similique saepe. Atque,
+          accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum,
+          itaque. Non, assumenda accusantium.
         </div>
         <div className="flex text-white">
           <div className="font-semibold text-4xl mt-24">Group Rules</div>
@@ -107,21 +134,22 @@ const MembersSection = ({ users }: any) => {
               alt="Image Alt Text"
               className="object-cover object-center"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "cover",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'cover',
               }}
             />
           </div>
         </div>
         <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit explicabo, dolores iusto natus
-          mollitia cumque nostrum sunt maiores voluptates quam delectus molestiae ipsa repellendus ullam! Aspernatur
-          recusandae nam modi ratione!
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Reprehenderit explicabo, dolores iusto natus mollitia cumque nostrum
+          sunt maiores voluptates quam delectus molestiae ipsa repellendus
+          ullam! Aspernatur recusandae nam modi ratione!
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MembersSection;
+export default MembersSection

@@ -1,84 +1,92 @@
-"use client";
-import { useSignUp, useUser } from "@clerk/nextjs";
-import { Checkbox, FormControlLabel, Typography } from "@mui/material";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { VerifyPhoto1 } from "./VerifyPhoto1";
-import { VerifyPhoto2 } from "./VerifyPhoto2";
-import { VerifyPhoto3 } from "./VerifyPhoto3";
-import { VerifyPhoto4 } from "./VerifyPhoto4";
-import { VerifyPhoto5 } from "./VerifyPhoto5";
-import "./page.css";
+'use client'
+import { useState } from 'react'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
+import { useSignUp, useUser } from '@clerk/nextjs'
+import { Checkbox, FormControlLabel, Typography } from '@mui/material'
+
+import { VerifyPhoto1 } from './VerifyPhoto1'
+import { VerifyPhoto2 } from './VerifyPhoto2'
+import { VerifyPhoto3 } from './VerifyPhoto3'
+import { VerifyPhoto4 } from './VerifyPhoto4'
+import { VerifyPhoto5 } from './VerifyPhoto5'
+
+import GooglePic from '@/public/google.png'
+import TwitterPic from '@/public/twitter.png'
+
+import './page.css'
 
 export const SmallScreen = () => {
-  const { isLoaded, signUp, setActive } = useSignUp();
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const [pendingVerification, setPendingVerification] = useState(false);
-  const [code, setCode] = useState("");
-  const router = useRouter();
-  const { user } = useUser();
+  const { isLoaded, signUp, setActive } = useSignUp()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const [pendingVerification, setPendingVerification] = useState(false)
+  const [code, setCode] = useState('')
+  const router = useRouter()
+  const { user } = useUser()
 
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<any>(null)
   if (user) {
     // Redirect authenticated user to the profile page
-    router.replace("/profile");
-    return null; // You can also render a loading state or redirect message here
+    router.replace('/profile')
+    return null // You can also render a loading state or redirect message here
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!isLoaded) {
-      return;
+      return
     }
 
     try {
-      setError(null);
+      setError(null)
       await signUp.create({
         emailAddress,
         password,
-      });
+      })
 
       // change the UI to our pending section.
-      setPendingVerification(true);
+      setPendingVerification(true)
 
-      const magicLinkFlow = signUp.createEmailLinkFlow();
+      const magicLinkFlow = signUp.createEmailLinkFlow()
       await magicLinkFlow.startEmailLinkFlow({
-        redirectUrl: "https://staging.app.makefwb.com/success",
-      }); // local development: http://localhost:3000/success
+        redirectUrl: 'https://staging.app.makefwb.com/success',
+      }) // local development: http://localhost:3000/success
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
-      setError(err);
+      console.error(JSON.stringify(err, null, 2))
+      setError(err)
     }
-  };
+  }
 
   //This allows User to sign in with Google
   const signUpWithGoogle = async () => {
     try {
       await signUp?.authenticateWithRedirect({
-        strategy: "oauth_google",
+        strategy: 'oauth_google',
         redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
-        redirectUrlComplete: "/success",
-      });
+        redirectUrlComplete: '/success',
+      })
     } catch (error) {
-      console.error("Error signing in with Google", error);
+      console.error('Error signing in with Google', error)
     }
-  };
+  }
 
   //This allows User to sign in with Discord
   const signUpWithDiscord = async () => {
     try {
       const response = await signUp?.authenticateWithRedirect({
-        strategy: "oauth_discord",
+        strategy: 'oauth_discord',
         redirectUrl: `${process.env.SIGNIN_REDIRECT_LINK}`,
-        redirectUrlComplete: "/success",
-      });
+        redirectUrlComplete: '/success',
+      })
 
-      console.log(response);
+      console.log(response)
     } catch (error) {
-      console.error("Error signing in with Discord", error);
+      console.error('Error signing in with Discord', error)
     }
-  };
+  }
 
   return (
     <div className="h-screen w-full flex flex-row">
@@ -94,7 +102,7 @@ export const SmallScreen = () => {
                   className="googleButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px]"
                   onClick={signUpWithGoogle}
                 >
-                  <img src="/google.png" alt="Google Icon" />
+                  <Image src={GooglePic} alt="Google Icon" />
                 </button>
                 <button
                   className="discordButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px] xs:p-[7px] sm:p-[7px]"
@@ -130,7 +138,7 @@ export const SmallScreen = () => {
                   {error &&
                     error.errors
                       .filter(
-                        (err: any) => err.meta.paramName === "email_address"
+                        (err: any) => err.meta.paramName === 'email_address'
                       )
                       .map((passwordError: any) => (
                         <div
@@ -149,7 +157,7 @@ export const SmallScreen = () => {
                               d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                               fill="white"
                             />
-                          </svg>{" "}
+                          </svg>{' '}
                           <div className="message">{passwordError.message}</div>
                         </div>
                       ))}
@@ -166,7 +174,7 @@ export const SmallScreen = () => {
                 </div>
                 {error &&
                   error.errors
-                    .filter((err: any) => err.meta.paramName === "password")
+                    .filter((err: any) => err.meta.paramName === 'password')
                     .map((passwordError: any) => (
                       <div
                         className="errorMessage"
@@ -184,16 +192,19 @@ export const SmallScreen = () => {
                             d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                             fill="white"
                           />
-                        </svg>{" "}
+                        </svg>{' '}
                         <div className="message">{passwordError.message}</div>
                       </div>
                     ))}
                 <div className="remember mb-[64px] xs:mb-[80px] xxs:mb-[42px]">
                   <FormControlLabel
-                    style={{ height: "24px" }}
+                    style={{ height: '24px' }}
                     label={
                       <Typography
-                        style={{ color: "#fff", fontFamily: "Urbanist" }}
+                        style={{
+                          color: '#fff',
+                          fontFamily: 'Urbanist',
+                        }}
                       >
                         Remember me
                       </Typography>
@@ -201,7 +212,7 @@ export const SmallScreen = () => {
                     control={
                       <Checkbox
                         value="remember"
-                        style={{ color: "#fff" }}
+                        style={{ color: '#fff' }}
                       ></Checkbox>
                     }
                   ></FormControlLabel>
@@ -215,7 +226,7 @@ export const SmallScreen = () => {
                 </button>
                 <div className="signup">
                   <div className="detail xxs:text-[12px]">
-                    Already have an account?{" "}
+                    Already have an account?{' '}
                   </div>
                   <Link
                     href="/sign-in"
@@ -248,8 +259,8 @@ export const SmallScreen = () => {
       )}
 
       {pendingVerification && (
-        <div className="processContainer">
-          <div className="verify">
+        <div className="processContainer  h-screen">
+          <div className="verify m-auto">
             <div className="verifyPhotos">
               <div className="verifyPhotos1">
                 <VerifyPhoto1 />
@@ -387,7 +398,7 @@ export const SmallScreen = () => {
             <div className="socialMedia">
               <div className="twitter">
                 <button className="twitterButton">
-                  <img src="/twitter.png" alt="Twitter Icon" />
+                  <Image src={TwitterPic} alt="Twitter Icon" />
                 </button>
               </div>
               <div className="instagram">
@@ -438,7 +449,7 @@ export const SmallScreen = () => {
               </div>
             </div>
             <div className="problemContact text-[16px] xs:text-[12px] xxs:text-[12px]">
-              Having Problems? Email us at{" "}
+              Having Problems? Email us at{' '}
               <a
                 className="helpEmail text-[16px] xs:text-[12px] xxs:text-[12px]"
                 href="help@makefwb.com"
@@ -450,5 +461,5 @@ export const SmallScreen = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
