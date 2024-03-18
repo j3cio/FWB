@@ -1,9 +1,17 @@
 'use client'
-import { useSignIn, useUser } from '@clerk/nextjs'
-import 'dotenv/config'
+
+import { useState } from 'react'
+
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+
+import { useSignIn, useUser } from '@clerk/nextjs'
+
+import GooglePic from '@/public/google.png'
+
+import 'dotenv/config'
+
 import './page.css'
 
 export const LargeScreen = () => {
@@ -103,7 +111,7 @@ export const LargeScreen = () => {
           <div className="name">Sign In</div>
           <div className="buttons">
             <button className="googleButton" onClick={signInWithGoogle}>
-              <img src="/google.png" alt="Google Icon" />
+              <Image src={GooglePic} alt="Google Icon" />
             </button>
             <button className="discordButton" onClick={signInWithDiscord}>
               <svg
