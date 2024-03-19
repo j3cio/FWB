@@ -197,7 +197,7 @@ export const LargeScreen = () => {
                   ))}
               <div className="remember">
                 <FormControlLabel
-                  style={{ height: '24px' }}
+                  sx={{ height: '24px' }}
                   label={
                     <Typography
                       style={{
@@ -211,7 +211,7 @@ export const LargeScreen = () => {
                   control={
                     <Checkbox
                       value="remember"
-                      style={{ color: '#fff' }}
+                      sx={{ color: '#fff' }}
                     ></Checkbox>
                   }
                 ></FormControlLabel>
@@ -240,20 +240,20 @@ export const LargeScreen = () => {
                 <path
                   d="M3 1.6842H1.6842V3L1.6842 193C1.6842 230.177 31.8225 260.316 69 260.316C106.177 260.316 136.316 230.177 136.316 193L136.316 3V1.6842H135H3Z"
                   stroke="white"
-                  stroke-width="2.63158"
+                  strokeWidth="2.63158"
                 />
                 <g opacity="0.5">
                   <path
                     d="M3 1.6842H1.6842V3L1.6842 155C1.6842 192.177 31.8225 222.316 69 222.316C106.177 222.316 136.316 192.177 136.316 155L136.316 3V1.6842H135L3 1.6842Z"
                     stroke="white"
-                    stroke-width="2.63158"
+                    strokeWidth="2.63158"
                   />
                 </g>
                 <g opacity="0.25">
                   <path
                     d="M3 1.6842H1.6842V3L1.6842 112C1.6842 149.177 31.8225 179.316 69 179.316C106.177 179.316 136.316 149.177 136.316 112L136.316 3V1.6842H135L3 1.6842Z"
                     stroke="white"
-                    stroke-width="2.63158"
+                    strokeWidth="2.63158"
                   />
                 </g>
               </svg>
@@ -298,14 +298,14 @@ export const LargeScreen = () => {
                   cy="102"
                   r="80.7022"
                   stroke="url(#paint0_linear_916_10370)"
-                  stroke-width="0.595588"
+                  strokeWidth="0.595588"
                 />
                 <circle
                   cx="102"
                   cy="102"
                   r="101.625"
                   stroke="url(#paint1_linear_916_10370)"
-                  stroke-width="0.75"
+                  strokeWidth="0.75"
                 />
                 <defs>
                   <linearGradient
@@ -317,7 +317,7 @@ export const LargeScreen = () => {
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
+                    <stop offset="1" stop-color="white" stopOpacity="0" />
                   </linearGradient>
                   <linearGradient
                     id="paint1_linear_916_10370"
@@ -328,7 +328,7 @@ export const LargeScreen = () => {
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
+                    <stop offset="1" stop-color="white" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -363,7 +363,7 @@ export const LargeScreen = () => {
                   r="80.7022"
                   transform="rotate(-25.7188 107 137)"
                   stroke="url(#paint0_linear_916_10371)"
-                  stroke-width="0.595588"
+                  strokeWidth="0.595588"
                 />
                 <circle
                   cx="107"
@@ -371,7 +371,7 @@ export const LargeScreen = () => {
                   r="101.625"
                   transform="rotate(-25.7188 107 137)"
                   stroke="url(#paint1_linear_916_10371)"
-                  stroke-width="0.75"
+                  strokeWidth="0.75"
                 />
                 <defs>
                   <linearGradient
@@ -383,7 +383,7 @@ export const LargeScreen = () => {
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
+                    <stop offset="1" stop-color="white" stopOpacity="0" />
                   </linearGradient>
                   <linearGradient
                     id="paint1_linear_916_10371"
@@ -394,7 +394,7 @@ export const LargeScreen = () => {
                     gradientUnits="userSpaceOnUse"
                   >
                     <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
+                    <stop offset="1" stop-color="white" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -416,14 +416,14 @@ export const LargeScreen = () => {
                   viewBox="0 0 19 19"
                   fill="none"
                 >
-                  <g clip-path="url(#clip0_916_10345)">
+                  <g clipPath="url(#clip0_916_10345)">
                     <path
                       d="M9.70166 5.82715C8.83971 5.82715 8.01306 6.16956 7.40356 6.77905C6.79407 7.38855 6.45166 8.21519 6.45166 9.07715C6.45166 9.9391 6.79407 10.7658 7.40356 11.3752C8.01306 11.9847 8.83971 12.3271 9.70166 12.3271C10.5636 12.3271 11.3903 11.9847 11.9998 11.3752C12.6093 10.7658 12.9517 9.9391 12.9517 9.07715C12.9517 8.21519 12.6093 7.38855 11.9998 6.77905C11.3903 6.16956 10.5636 5.82715 9.70166 5.82715Z"
                       fill="white"
                     />
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M4.47148 0.159092C7.9475 -0.226208 11.4555 -0.226208 14.9315 0.159092C16.8305 0.371092 18.3615 1.86609 18.5845 3.77209C18.9967 7.29675 18.9967 10.8574 18.5845 14.3821C18.3615 16.2881 16.8305 17.7831 14.9325 17.9961C11.4561 18.3815 7.94783 18.3815 4.47148 17.9961C2.57248 17.7831 1.04148 16.2881 0.818481 14.3831C0.406209 10.8581 0.406209 7.29708 0.818481 3.77209C1.04148 1.86609 2.57248 0.371092 4.47148 0.159092ZM14.7015 3.07709C14.4363 3.07709 14.1819 3.18245 13.9944 3.36999C13.8068 3.55752 13.7015 3.81188 13.7015 4.07709C13.7015 4.34231 13.8068 4.59666 13.9944 4.7842C14.1819 4.97173 14.4363 5.07709 14.7015 5.07709C14.9667 5.07709 15.2211 4.97173 15.4086 4.7842C15.5961 4.59666 15.7015 4.34231 15.7015 4.07709C15.7015 3.81188 15.5961 3.55752 15.4086 3.36999C15.2211 3.18245 14.9667 3.07709 14.7015 3.07709ZM4.95148 9.07709C4.95148 7.81731 5.45193 6.60913 6.34272 5.71833C7.23352 4.82754 8.4417 4.32709 9.70148 4.32709C10.9613 4.32709 12.1694 4.82754 13.0602 5.71833C13.951 6.60913 14.4515 7.81731 14.4515 9.07709C14.4515 10.3369 13.951 11.5451 13.0602 12.4358C12.1694 13.3266 10.9613 13.8271 9.70148 13.8271C8.4417 13.8271 7.23352 13.3266 6.34272 12.4358C5.45193 11.5451 4.95148 10.3369 4.95148 9.07709Z"
                       fill="white"
                     />
