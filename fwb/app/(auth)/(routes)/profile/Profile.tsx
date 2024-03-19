@@ -27,10 +27,6 @@ interface ProfileProps {
 }
 
 function Profile({ userData, discountData}: ProfileProps) {
-
-
-
-  useEffect(() => {console.log({discountData, userData}), [discountData]})
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
@@ -174,8 +170,9 @@ function Profile({ userData, discountData}: ProfileProps) {
                        minHeight: '100%',
                      }}
                    >
-                     <Grid container spacing={2} rowGap={2} sx={{ marginBottom: '60px' }}>
+                     <Grid container spacing={2} rowGap={2} sx={{  gap: "64px", marginLeft: "14px" }}>
                        {discountData.map((company: any, index: React.Key) => (
+                       <>
                          <Grid
                            item
                            xs={12}
@@ -186,6 +183,27 @@ function Profile({ userData, discountData}: ProfileProps) {
                          >
                            <DiscountCard company={company} />
                          </Grid>
+                         <Grid
+                           item
+                           xs={12}
+                           sm={6}
+                           md={3}
+                           key={index}
+                           sx={{ width: '282px', height: '322px' }}
+                         >
+                           <DiscountCard company={company} />
+                         </Grid>
+                         <Grid
+                           item
+                           xs={12}
+                           sm={6}
+                           md={3}
+                           key={index}
+                           sx={{ width: '282px', height: '322px' }}
+                         >
+                           <DiscountCard company={company} />
+                         </Grid>
+                       </>
                        ))}
                      </Grid>
                    </Box>

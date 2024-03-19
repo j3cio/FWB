@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
     shareable_url: '', //TODO: Generate shareable URL
     discount_amount: formData.get('discount_amount'),
     public: formData.get('public') === 'true' ? true : false,
+    name: formData.get("company")
   }
 
   // Insert the new discount into the database
