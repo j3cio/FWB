@@ -49,6 +49,35 @@ const GroupsHomePage = ({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const handleDeleteGroup = async (groupId: string) => {
+    try {
+      const bearerToken = await window.Clerk.session.getToken({
+        template: 'testing_template',
+      })
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: 'supabase',
+      })
+      const response = await fetch(`/api/groups?group_id=${groupId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log('Group successfully deleted:', data)
+        router.push('/groups')
+      } else {
+        const errorData = await response.json()
+        console.error('Error adding user:', errorData)
+      }
+    } catch (error) {
+      console.error('Error add user:', error)
+    }
+  }
+
   if (userData.users[0].user_groups.length == 0) {
     return (
       <section className="w-full h-full">
@@ -249,6 +278,10 @@ const GroupsHomePage = ({
                       endIcon={<EndArrowWhite />}
                     >
                       Explore Group
+                    </Button>
+                    <Button onClick={() => handleDeleteGroup(group.id)}>
+                      {' '}
+                      Delete{' '}
                     </Button>
                     <MoreIcon />
                   </Box>
