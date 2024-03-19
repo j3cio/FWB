@@ -22,6 +22,7 @@ import Third from '@/components/ui/message/Third'
 import { useState } from 'react'
 import RightGroup from '@/components/ui/message/RightGroup'
 import RightGeneral from '@/components/ui/message/RightGeneral'
+import { Container } from '@mui/material'
 //random
 
 export default function ChatPage() {
@@ -39,19 +40,30 @@ export default function ChatPage() {
   return (
     // <div className="w-8/12 h-screen mr-20">
 
-    <div style={{ background: '#1A1A23', paddingBottom: '80px' }}>
-      <Navbar></Navbar>
-      <Chat client={chatClient}>
-        {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}
-        {/* The channel list shows only channels that the currently loggeed in user is a member (filters prop) */}
-        <div className="flex flex-row h-full" style={{ marginTop: '40px' }}>
-          <ChatSideBar user={user} />
-          <ChatChannel />
-        </div>
-        {/* <Third name={tab === "general" ? "Name" : "GroupName"}>
-          {tab === "general" ? <RightGeneral /> : <RightGroup />}
-        </Third> */}
-      </Chat>
+    <div
+      style={{
+        background: '#1A1A23',
+        paddingBottom: '80px',
+        minHeight: '100dvh',
+      }}
+    >
+      <Navbar />
+      <div className="flex flex-col items-center">
+        <Chat client={chatClient}>
+          {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}
+          {/* The channel list shows only channels that the currently loggeed in user is a member (filters prop) */}
+          <div
+            className="flex flex-row justify-center w-full px-14 h-full gap-6"
+            style={{ marginTop: '40px' }}
+          >
+            <ChatSideBar user={user} />
+            <ChatChannel />
+          </div>
+          {/* <Third name={tab === "general" ? "Name" : "GroupName"}>
+    {tab === "general" ? <RightGeneral /> : <RightGroup />}
+  </Third> */}
+        </Chat>
+      </div>
     </div>
   )
 }

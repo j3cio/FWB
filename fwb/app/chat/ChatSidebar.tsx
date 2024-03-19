@@ -11,7 +11,7 @@ export default function ChatSideBar({ user }: ChatSidebarProps) {
     <div className="w-full max-w-[432px]" style={{ width: "425px" }}>
       {/* <MenuBar/> */}
       <div
-        className="flex flex-row ml-14 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
+        className="flex flex-row bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
         style={{ width: "0px", borderRadius: "10px" }}
       >
         <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
