@@ -12,13 +12,34 @@ import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
 import { useUser } from "@clerk/nextjs";
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
 import { UserData } from "../../../types/types";
 import EditProfileModal from "./EditProfileModal";
 import CreateDiscountCard from "@/components/ui/intakeform/CreateDiscountCard";
+import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
+
+
 
 function Profile({ userData }: { userData: UserData }) {
+
+  const fetchDiscounts = async () => {
+    const discountIdArray = userData.users[0].user_discounts
+    const bearerToken = await window.Clerk.session.getToken({
+      template: 'testing_template',
+    })
+
+    const supabaseToken = await window.Clerk.session.getToken({
+      template: 'supabase',
+    })
+
+    const response = await getAllDiscountsData(discountIdArray, bearerToken, supabaseToken)
+
+    console.log({response})
+
+  }
+
+  useEffect(() => {fetchDiscounts()}, [])
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
