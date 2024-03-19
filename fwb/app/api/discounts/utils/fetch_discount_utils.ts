@@ -3,6 +3,7 @@ async function getDiscount(
   bearer_token: string,
   supabase_jwt: string
 ) {
+    
   if (!supabase_jwt) {
     console.warn('Not signed in')
     return
@@ -15,6 +16,7 @@ async function getDiscount(
     method: 'GET',
     headers: myHeaders,
   }
+
   try {
     if (discount_id !== '') {
       const response = await fetch(
