@@ -37,6 +37,8 @@ const GroupsHomePage = ({
   userData: UserData
   groupData: Group[]
 }) => {
+  //const isAdmin = groupData.
+
   const router = useRouter()
   const [companyQuery, setCompanyQuery] = useState('')
 
@@ -49,6 +51,13 @@ const GroupsHomePage = ({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const isUserAdmin = (group: Group, userId: string) => {
+    if (JSON.parse(group.admins).includes(userId)) {
+      return true
+    }
+    return false
+  }
+  // TODO: should also remove the group from userData array
   const handleDeleteGroup = async (groupId: string) => {
     try {
       const bearerToken = await window.Clerk.session.getToken({
@@ -279,10 +288,13 @@ const GroupsHomePage = ({
                     >
                       Explore Group
                     </Button>
-                    <Button onClick={() => handleDeleteGroup(group.id)}>
-                      {' '}
-                      Delete{' '}
-                    </Button>
+                    {isUserAdmin(group, userData.users[0].user_id) ? (
+                      <Button onClick={() => handleDeleteGroup(group.id)}>
+                        Delete
+                      </Button>
+                    ) : (
+                      ''
+                    )}
                     <MoreIcon />
                   </Box>
                 </Box>
