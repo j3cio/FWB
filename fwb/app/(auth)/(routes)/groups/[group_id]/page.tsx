@@ -5,7 +5,7 @@ import Tabs from '@/components/ui/privategroups/groupdetailspage/Tabs'
 import { auth } from '@clerk/nextjs'
 import { Box, Container } from '@mui/material'
 import SingleGroupNavbar from './SingleGroupNavbar'
-import { getAllDiscountsData } from '@/app/api/discounts/utils/get_discounts'
+import { getAllDiscountsData } from '@/app/api/discounts/utils/get_discounts_utils'
 
 //TODOs:
 // Backend ---
