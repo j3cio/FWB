@@ -183,26 +183,6 @@ function Profile({ userData, discountData}: ProfileProps) {
                          >
                            <DiscountCard company={company} />
                          </Grid>
-                         <Grid
-                           item
-                           xs={12}
-                           sm={6}
-                           md={3}
-                           key={index}
-                           sx={{ width: '282px', height: '322px' }}
-                         >
-                           <DiscountCard company={company} />
-                         </Grid>
-                         <Grid
-                           item
-                           xs={12}
-                           sm={6}
-                           md={3}
-                           key={index}
-                           sx={{ width: '282px', height: '322px' }}
-                         >
-                           <DiscountCard company={company} />
-                         </Grid>
                        </>
                        ))}
                      </Grid>
