@@ -44,7 +44,7 @@ const page = async () => {
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
  
   const userData: UserData = bearer_token && supabase_jwt ? await getUser(bearer_token, supabase_jwt): undefined
-  const discountIdArray = userData.users[0].user_discounts;
+  const discountIdArray = userData ? userData.users[0].user_discounts : [""] ;
 
   const discountData: DiscountData[] =
 userData && bearer_token && supabase_jwt 
