@@ -65,6 +65,8 @@ export async function POST(request: NextRequest) {
     .eq('url', company_url)
     .single()
 
+
+    const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
   // Create a new company if the company does not exist
   if (companyDataError) {
     const newCompany = {
@@ -72,7 +74,7 @@ export async function POST(request: NextRequest) {
       name: formData.get('company'),
       url: formData.get('company_url'),
       description: '',
-      logo: await getNewLogoUrl(String(formData.get('company_url'))),
+      logo: logoUrl
     }
     // Insert the company into the companies table
     const { data: insertedCompany, error: insertError } = await supabase
