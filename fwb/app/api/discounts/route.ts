@@ -66,13 +66,15 @@ export async function POST(request: NextRequest) {
     .single()
 
 
-    const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
+  const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
+  const companyUrl = formData.get('company_url')
+  const formattedUrl = companyUrl?.toString().replace(/\s/g, ""); // stripped out any inner whitespace
   // Create a new company if the company does not exist
   if (companyDataError) {
     const newCompany = {
       discounts: [],
       name: formData.get('company'),
-      url: formData.get('company_url'),
+      url: formattedUrl,
       description: '',
       logo: logoUrl
     }
