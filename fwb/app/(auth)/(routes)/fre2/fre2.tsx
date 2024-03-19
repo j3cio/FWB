@@ -226,11 +226,11 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                 </div>
 
                 <h6 className="discountFormText">
-                  Discount Rules & Conditions *
+                  Discount Rules & Conditions
                 </h6>
                 <textarea
                   className="inputConditions"
-                  placeholder="Add details about your shared benefit"
+                  placeholder="Share any rules or limitations about your benefit"
                   value={termsAndConditions}
                   onChange={(e) => setTermsAndConditions(e.target.value)}
                   required
