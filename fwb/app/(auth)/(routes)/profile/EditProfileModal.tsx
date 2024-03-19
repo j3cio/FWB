@@ -1,4 +1,14 @@
 import { UserData } from '@/app/types/types'
+import {
+  FemaleFourSVG,
+  FemaleOneSVG,
+  FemaleThreeSVG,
+  FemaleTwoSVG,
+  MaleFourSVG,
+  MaleOneSVG,
+  MaleThreeSVG,
+  MaleTwoSVG,
+} from '@/public/profilepics/SVG'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { Avatar, Modal } from '@mui/material'
 import { useRouter } from 'next/navigation'
@@ -201,7 +211,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanOne.png')
                   }
                 >
-                  <img src="/profilepics/SVG/FemaleOne.svg" />
+                  <FemaleOneSVG />
                 </button>
                 <button
                   type="button"
@@ -210,7 +220,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanTwo.png')
                   }
                 >
-                  <img src="/profilepics/SVG/FemaleTwo.svg" />
+                  <FemaleTwoSVG />
                 </button>
                 <button
                   type="button"
@@ -219,7 +229,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanThree.png')
                   }
                 >
-                  <img src="/profilepics/SVG/FemaleThree.svg" />
+                  <FemaleThreeSVG />
                 </button>
                 <button
                   type="button"
@@ -228,7 +238,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanFour.png')
                   }
                 >
-                  <img src="/profilepics/SVG/FemaleFour.svg" />
+                  <FemaleFourSVG />
                 </button>
               </div>
               {/* Second Row */}
@@ -240,7 +250,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManOne.png')
                   }
                 >
-                  <img src="/profilepics/SVG/MaleOne.svg" />
+                  <MaleOneSVG />
                 </button>
                 <button
                   type="button"
@@ -249,7 +259,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManTwo.png')
                   }
                 >
-                  <img src="/profilepics/SVG/MaleTwo.svg" />
+                  <MaleTwoSVG />
                 </button>
                 <button
                   type="button"
@@ -258,7 +268,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManThree.png')
                   }
                 >
-                  <img src="/profilepics/SVG/MaleThree.svg" />
+                  <MaleThreeSVG />
                 </button>
                 <button
                   type="button"
@@ -267,7 +277,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManFour.png')
                   }
                 >
-                  <img src="/profilepics/SVG/MaleFour.svg" />
+                  <MaleFourSVG />
                 </button>
               </div>
             </div>
