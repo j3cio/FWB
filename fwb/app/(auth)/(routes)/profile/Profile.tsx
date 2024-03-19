@@ -165,7 +165,7 @@ function Profile({ userData, discountData}: ProfileProps) {
                   My Benefits!
                 </div>
                 {discountData && discountData.length > 0 ? (
-                   <div className=" flex justify-center ml-24">
+                   <div className=" flex justify-center mt-12">
                    <Box
                      sx={{
                        flexGrow: 1,
