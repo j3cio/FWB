@@ -12,12 +12,11 @@ import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
 import { useUser } from "@clerk/nextjs";
 import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
 import { DiscountData, UserData } from "../../../types/types";
 import EditProfileModal from "./EditProfileModal";
-import CreateDiscountCard from "@/components/ui/intakeform/CreateDiscountCard";
-import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
+import CreateDiscountCard from "@/components/ui/addbenefit/CreateDiscountCard";
 import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
 
 
@@ -31,9 +30,9 @@ function Profile({ userData, discountData}: ProfileProps) {
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
   //Intialize the user to be in GetStream db
-  const client = useIntitialChatClient();
+  const client = useIntitialChatClient()
 
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
