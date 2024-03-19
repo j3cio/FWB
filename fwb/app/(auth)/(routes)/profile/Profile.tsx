@@ -8,24 +8,24 @@ import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
 import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
-import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
-import { useUser } from "@clerk/nextjs";
-import Avatar from "@mui/material/Avatar";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
-import { UserData } from "../../../types/types";
-import EditProfileModal from "./EditProfileModal";
-import CreateDiscountCard from "@/components/ui/intakeform/CreateDiscountCard";
+import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+import { useUser } from '@clerk/nextjs'
+import Avatar from '@mui/material/Avatar'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
+import { UserData } from '../../../types/types'
+import EditProfileModal from './EditProfileModal'
+import CreateDiscountCard from '@/components/ui/intakeform/CreateDiscountCard'
 
 function Profile({ userData }: { userData: UserData }) {
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
   //Intialize the user to be in GetStream db
-  const client = useIntitialChatClient();
+  const client = useIntitialChatClient()
 
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
@@ -61,7 +61,7 @@ function Profile({ userData }: { userData: UserData }) {
                 alt="123"
                 src={`${user?.imageUrl}`}
                 className="flex bg-slate-200 w-48 justify-center items-center"
-                sx={{ width: "180px", height: "190px", borderRadius: "50%" }}
+                sx={{ width: '180px', height: '190px', borderRadius: '50%' }}
               />
               <div className="flex flex-col grow justify-center">
                 <div className="text-slate-200 text-[35px] mb-[4px] leading-none font-semibold">
@@ -70,7 +70,9 @@ function Profile({ userData }: { userData: UserData }) {
                 {userData.users[0].company && (
                   <div className="flex flex-row mb-[16px]">
                     <div className="mr-1 text-slate-200">Benefits from: </div>
-                    <div className=" text-yellow-200">{userData.users[0].company}</div>
+                    <div className=" text-yellow-200">
+                      {userData.users[0].company}
+                    </div>
                   </div>
                 )}
                 <div className="flex my-2 gap-2">
@@ -102,34 +104,12 @@ function Profile({ userData }: { userData: UserData }) {
               <div className="flex h-2/5 gap-6">
                 <a
                   href="profile"
-                  className="flex flex-1 bg-white rounded-3xl items-center h-[126px]"
-                >
-                  <div className="flex flex-col mx-6">
-                    <div className="font-semibold text-2xl">
-                      Saved Discounts
-                    </div>
-                    <div className="text-[14px]">
-                      Lorem ipsum dolor sit amet consectetur.
-                    </div>
-                  </div>
-                  <div className="flex flex-row-reverse grow mx-10">
-                    <Image
-                      src={SaveIcon}
-                      alt="Group Icon"
-                      width={50}
-                      height={50}
-                    />{' '}
-                    {/* Need custom icon for it to show*/}
-                  </div>
-                </a>
-                <a
-                  href="profile"
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
                     <div className="font-semibold text-2xl">Private Groups</div>
                     <div className="text-[14px]">
-                      Lorem ipsum dolor sit amet consectetur.
+                      Get intimate with discounts in private groups
                     </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
@@ -138,7 +118,7 @@ function Profile({ userData }: { userData: UserData }) {
                       alt="Group Icon"
                       width={50}
                       height={50}
-                    />{' '}
+                    />
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
