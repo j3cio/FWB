@@ -20,8 +20,8 @@ import {
 import { useAuth } from '@clerk/nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
-import Fuse from 'fuse.js'
 import { fuzzySearch } from '@/lib/utils'
+import { SearchContext } from '@/contexts/SearchContext'
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
@@ -51,21 +51,13 @@ function ExplorePageContent() {
 
   const [companyQuery, setCompanyQuery] = useState('')
   const [searchedCompany, setSearchedCompany] = useState(null)
-  const [searchIndex, setSearchIndex] = useState([])
+  const [searchedCompanies, setSearchedCompanies] = useState<any[]>([])
 
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
-  // Temporary location for our search functionality since this makes a call already to list all our companies
-
-  useEffect(() => {
-    searchIndex &&
-      searchIndex.length > 0 &&
-      fuzzySearch({
-        queryString: companyQuery,
-        searchIndex,
-      })
-  }, [companyQuery])
+  const { searchQuery, setSearchQuery, searchIndex, setSearchIndex } =
+    useContext(SearchContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,50 +104,18 @@ function ExplorePageContent() {
   const handleSearch = async (e: any) => {
     e.preventDefault()
 
-    if (!companyQuery) {
-      console.error('Invalid company name provided')
-      setSearchedCompany(null)
-      alert('The search bar is empty!')
-      return
-    }
-
     try {
-      const bearerToken = await window.Clerk.session.getToken({
-        template: 'testing_template',
+      const results = await fuzzySearch({
+        searchQuery,
+        searchIndex,
       })
+      const parsedResults = results.map((item) => item.item)
 
-      const supabaseToken = await window.Clerk.session.getToken({
-        template: 'supabase',
-      })
-
-      // GET Fetch Request to Companies API
-      const response = await fetch(
-        `api/companies/search?companyQuery=${companyQuery}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-            supabase_jwt: supabaseToken,
-          },
-        }
-      )
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log('Searching for Discount was Successful', data)
-        setSearchedCompany(data)
-      } else {
-        const errorData = await response.json()
-        console.error('Error Finding a Discount', errorData)
-        alert('There are no discounts for that company!')
-        setSearchedCompany(null)
-      }
+      setSearchedCompanies(parsedResults)
     } catch (error) {
       console.error('GET Company Discount API Failed', error)
       setSearchedCompany(null)
     }
-
-    router.push('/explore')
   }
 
   const fetchData = async (concat: boolean) => {
@@ -184,19 +144,22 @@ function ExplorePageContent() {
           const data = await res.json()
           if (concat) {
             setCompanies([...companies].concat(data.result))
-            setSearchIndex(data.result)
           } else {
             setCompanies((await res.json()).result)
           }
         })
-        .catch((error) => console.log('error', error))
+        .catch((error) => console.error('error', error))
+
+      const testResponse = await fetch('/api/searchindex', requestOptions)
+      const testData = await testResponse.json()
+      setSearchIndex(testData.companies)
     } catch (error) {
       setIsLoading(false)
       console.error('Error fetching data:', error)
     }
   }
 
-  // Fetch Data and concatinate when page is changed or infinite scroll is enabled
+  // Fetch Data and concatenate when page is changed or infinite scroll is enabled
   useEffect(() => {
     fetchData(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -232,6 +195,15 @@ function ExplorePageContent() {
     }
   }, [infiniteScroll, page])
 
+  useEffect(() => {
+    searchIndex &&
+      searchIndex.length > 0 &&
+      fuzzySearch({
+        searchQuery,
+        searchIndex,
+      })
+  }, [searchQuery, searchIndex])
+
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
@@ -240,8 +212,8 @@ function ExplorePageContent() {
         ) : (
           <Navbar
             handleSearch={handleSearch}
-            companyQuery={companyQuery}
-            setCompanyQuery={setCompanyQuery}
+            companyQuery={searchQuery}
+            setCompanyQuery={setSearchQuery}
           />
         )}
         <MostPopular />
@@ -252,7 +224,7 @@ function ExplorePageContent() {
           <Productfilters />
         )}
         <ResponsiveGrid
-          items={searchedCompany ? [searchedCompany] : companies}
+          items={searchedCompanies.length > 0 ? searchedCompanies : companies}
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
