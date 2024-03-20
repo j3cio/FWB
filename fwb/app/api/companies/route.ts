@@ -126,7 +126,7 @@ export async function GET(request: NextRequest) {
       .range(from, to)
 
     if (companiesError) {
-      console.log(companiesError)
+      console.error(companiesError)
       return NextResponse.json(
         { error: 'Failed to fetch public and private companies' },
         { status: 500 }
