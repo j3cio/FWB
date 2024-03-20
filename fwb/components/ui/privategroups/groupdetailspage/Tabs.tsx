@@ -10,7 +10,7 @@ import { Chat, LoadingIndicator } from 'stream-chat-react'
 import Bargains from './BargainsPicture'
 import DiscountsSection from './DiscountsSection'
 import MembersSection from './MembersSection'
-import CreateDiscountCard from '../../intakeform/CreateDiscountCard'
+import CreateDiscountCard from '../../addbenefit/CreateDiscountCard'
 
 const Tabs = ({
   userData,

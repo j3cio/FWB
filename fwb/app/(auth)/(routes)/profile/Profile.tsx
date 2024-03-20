@@ -16,7 +16,7 @@ import { useState } from 'react'
 import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
 import { UserData } from '../../../types/types'
 import EditProfileModal from './EditProfileModal'
-import CreateDiscountCard from '@/components/ui/intakeform/CreateDiscountCard'
+import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
 
 function Profile({ userData }: { userData: UserData }) {
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
@@ -156,7 +156,7 @@ function Profile({ userData }: { userData: UserData }) {
                   Be the wingman to a friend&apos;s wallet now!
                 </div>
                 <div className="flex grow items-center justify-center mt-[24px]">
-                  <a href="/intakeform">
+                  <a href="/addbenefit">
                     <Button
                       endIcon={<WhiteArrowForward />}
                       variant="contained"
