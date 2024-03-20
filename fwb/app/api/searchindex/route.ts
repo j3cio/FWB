@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth, currentUser } from '@clerk/nextjs'
 import supabaseClient from '@/supabase'
-import { CompanyAndDiscounts } from '../companies/route'
 
 export async function GET(request: NextRequest) {
   const { userId } = auth()
