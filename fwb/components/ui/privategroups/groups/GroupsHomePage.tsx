@@ -37,8 +37,6 @@ const GroupsHomePage = ({
   userData: UserData
   groupData: Group[]
 }) => {
-  //const isAdmin = groupData.
-
   const router = useRouter()
   const [companyQuery, setCompanyQuery] = useState('')
 
@@ -57,8 +55,9 @@ const GroupsHomePage = ({
     }
     return false
   }
-  // TODO: should also remove the group from userData array
-  const handleDeleteGroup = async (groupId: string) => {
+
+  const handleDeleteGroup = async (groupId: string, userGroups: string[]) => {
+    // Deleting group from groups table
     try {
       const bearerToken = await window.Clerk.session.getToken({
         template: 'testing_template',
@@ -73,17 +72,49 @@ const GroupsHomePage = ({
           supabase_jwt: supabaseToken,
         },
       })
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log('Group successfully deleted:', data)
-        router.push('/groups')
-      } else {
+      if (!response.ok) {
         const errorData = await response.json()
         console.error('Error adding user:', errorData)
       }
+      const data = await response.json()
+      console.log('Group successfully deleted:', data)
     } catch (error) {
       console.error('Error add user:', error)
+    }
+
+    // Deleting group from user table, user_groups[]
+    try {
+      const newUserGroups: string[] = userGroups.filter(
+        (group) => group !== groupId
+      )
+      let newUserGroupsString = '{' + newUserGroups.join(',') + '}'
+      const formData = new FormData()
+      formData.append('user_id', `${userData.users[0].user_id}`)
+      formData.append('user_groups', `${newUserGroupsString}`)
+      const bearerToken = await window.Clerk.session.getToken({
+        template: 'testing_template',
+      })
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: 'supabase',
+      })
+      const response = await fetch('/api/users', {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      router.refresh()
+      return data
+    } catch (error) {
+      console.error('Error updating data: ', error)
+      throw error
     }
   }
 
@@ -289,7 +320,14 @@ const GroupsHomePage = ({
                       Explore Group
                     </Button>
                     {isUserAdmin(group, userData.users[0].user_id) ? (
-                      <Button onClick={() => handleDeleteGroup(group.id)}>
+                      <Button
+                        onClick={() =>
+                          handleDeleteGroup(
+                            group.id,
+                            userData.users[0].user_groups
+                          )
+                        }
+                      >
                         Delete
                       </Button>
                     ) : (
