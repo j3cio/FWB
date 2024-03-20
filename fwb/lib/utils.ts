@@ -7,13 +7,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 interface fuzzySearchParams {
-  queryString: string
+  searchQuery: string
   searchIndex: any[]
   keys?: string[]
 }
 
 export const fuzzySearch = async ({
-  queryString,
+  searchQuery,
   searchIndex,
   keys = ['name'],
 }: fuzzySearchParams) => {
@@ -22,8 +22,6 @@ export const fuzzySearch = async ({
   }
   const fuse = new Fuse(searchIndex, fuseOptions)
 
-  const searchResults = await fuse.search(queryString)
-  console.log({ searchIndex })
-  console.log({ queryString, searchResults })
+  const searchResults = await fuse.search(searchQuery)
   return searchResults
 }
