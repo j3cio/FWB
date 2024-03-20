@@ -20,12 +20,15 @@ import {
 import { useAuth } from '@clerk/nextjs'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
+import Fuse from 'fuse.js'
+import { fuzzySearch } from '@/lib/utils'
 
 /**
  * Renders the ExplorePage component. With the FilterProvider
  *
  * @returns The rendered ExplorePage component.
  */
+
 export default function ExplorePage() {
   return (
     <FilterProvider>
@@ -44,13 +47,25 @@ function ExplorePageContent() {
   const [isLoading, setIsLoading] = useState(true)
 
   const [isAtBottom, setIsAtBottom] = React.useState(false)
-  const [infinteScroll, setInfinteScroll] = React.useState(false)
+  const [infiniteScroll, setInfiniteScroll] = React.useState(false)
 
   const [companyQuery, setCompanyQuery] = useState('')
   const [searchedCompany, setSearchedCompany] = useState(null)
+  const [searchIndex, setSearchIndex] = useState([])
 
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
+
+  // Temporary location for our search functionality since this makes a call already to list all our companies
+
+  useEffect(() => {
+    searchIndex &&
+      searchIndex.length > 0 &&
+      fuzzySearch({
+        queryString: companyQuery,
+        searchIndex,
+      })
+  }, [companyQuery])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -166,8 +181,10 @@ function ExplorePageContent() {
         requestOptions
       )
         .then(async (res) => {
+          const data = await res.json()
           if (concat) {
-            setCompanies([...companies].concat((await res.json()).result))
+            setCompanies([...companies].concat(data.result))
+            setSearchIndex(data.result)
           } else {
             setCompanies((await res.json()).result)
           }
@@ -183,7 +200,7 @@ function ExplorePageContent() {
   useEffect(() => {
     fetchData(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, infinteScroll])
+  }, [page, infiniteScroll])
 
   useEffect(() => {
     if (companies && companies.length > 0) {
@@ -204,7 +221,7 @@ function ExplorePageContent() {
         document.documentElement.scrollHeight
       setIsAtBottom(isAtBottom)
 
-      if (infinteScroll && isAtBottom) {
+      if (infiniteScroll && isAtBottom) {
         setPage(page + 1)
       }
     }
@@ -213,7 +230,7 @@ function ExplorePageContent() {
     return () => {
       window.removeEventListener('scroll', checkScroll)
     }
-  }, [infinteScroll, page])
+  }, [infiniteScroll, page])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
@@ -250,7 +267,7 @@ function ExplorePageContent() {
             <Button
               onClick={() => {
                 setPage(page + 1)
-                setInfinteScroll(true)
+                setInfiniteScroll(true)
               }}
               sx={{ color: 'white' }}
             >
