@@ -26,18 +26,18 @@ export async function GET(request: NextRequest) {
   let category = request.nextUrl.searchParams.get('category')
   let page_num = request.nextUrl.searchParams.get('page')
 
-  let accending = true
+  let ascending = true
 
   // Interpret sort_by. Default to "view_count".
   if (sort_by === null) sort_by = 'view_count'
   if (sort_by === 'Most Popular') sort_by = 'view_count'
   if (sort_by === 'Highest to Lowest Discounts') {
     sort_by = 'greatest_discount'
-    accending = false
+    ascending = false
   }
   if (sort_by === 'Most Recent') {
     sort_by = 'discounts_updated_at'
-    accending = false
+    ascending = false
   }
   if (sort_by === 'Lowest to Highest Discounts') sort_by = 'greatest_discount'
 
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
       let { data: companies, error: companiesError } = await supabase
         .from('companies')
         .select('*')
-        .order(sort_by, { ascending: accending })
+        .order(sort_by, { ascending: ascending })
         .range(from, to)
 
       if (companiesError) {
@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
     let { data: result, error: companiesError } = await supabase
       .from('companies')
       .select('*')
-      .order(sort_by, { ascending: accending })
+      .order(sort_by, { ascending: ascending })
       .range(from, to)
 
     if (companiesError) {
