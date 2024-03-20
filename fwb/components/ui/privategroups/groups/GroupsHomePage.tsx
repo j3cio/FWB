@@ -67,63 +67,75 @@ const GroupsHomePage = ({
               sx={{
                 fontSize: 24,
                 color: '#FFFFFF',
-                marginY: 3,
+                marginY: 7,
+                paddingX: "18px",
                 fontWeight: 600,
               }}
             >
               Private Groups
             </Typography>
-            <Box
-              className="flex xxs:flex-col xs:flex-col sm:flex-col flex-row justify-between w-full min-h-[30vh] py-[10%] rounded-3xl bg-[#8E94E9]"
-              sx={{
-                backgroundImage: {
-                  md: `url(${bgImg[0].img}), url(${bgImg[1].img})`,
-                },
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right top, left bottom',
-              }}
-            >
-              <Box className="flex flex-col text-[#F6FF82]">
-                <Box className="ml-[10%] flex items-center gap-6">
-                  <Typography className="font-urbanist text-[32px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
-                    Create
-                  </Typography>
-                  <Image
-                    className="w-64"
-                    src="/groups/avatar-container.svg"
-                    height={0}
-                    width={0}
-                    alt="avatar-container"
-                  />
+            <Box className="px-[18px]">
+              <Box
+                className="flex xxs:flex-col xs:flex-col sm:flex-col flex-row justify-between w-full min-h-[25vh] py-[7%] rounded-3xl bg-[#8E94E9]"
+                sx={{
+                  backgroundImage: {
+                    md: `url(${bgImg[0].img}), url(${bgImg[1].img})`,
+                  },
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right top, left bottom',
+                }}
+              >
+                <Box className="flex flex-col text-[#F6FF82]">
+                  <Box className="ml-[10%] flex items-center gap-3 md:gap-6">
+                    <Typography className="font-urbanist text-[28px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
+                      Create
+                    </Typography>
+                    <Image
+                      className="w-32 sm:w-48 md:w-64 lg:w-64 xl:w-64 xxl:w-64"
+                      src="/groups/avatar-container.svg"
+                      height={0}
+                      width={0}
+                      alt="avatar-container"
+                    />
+                  </Box>
+                  <Box className="relative mt-0 flex items-center">
+                    <span className="bg-[#F6FF82] rounded-r-full xxs:h-8 xs:h-8 h-12 xxs:w-32 xs:w-32 w-48"></span>
+                    <span className="bg-[#F6FF82] xxs:mx-1 xs:mx-1 mx-4 rounded-full xxs:w-8 xxs:h-8 xs:w-8 xs:h-8 h-12 w-12"></span>
+                    <Box className="flex gap-3 items-center">
+                      <Typography className="font-urbanist text-[28px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
+                        new
+                      </Typography>
+                      <Box className="relative flex">
+                        <Typography className="font-urbanist text-[28px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
+                          group
+                        </Typography>
+                        <Image
+                          className="xxs:hidden xs:hidden sm:hidden absolute h-12 w-fit top-2 -right-8"
+                          src="/groups/circle-element.svg"
+                          height={0}
+                          width={0}
+                          alt="circle-element"
+                        />
+                      </Box>
+                    </Box>
+                    
+                  </Box>
                 </Box>
-                <Box className="relative mt-3 flex items-center">
-                  <span className="bg-[#F6FF82] rounded-r-full h-12 xxs:w-32 xs:w-32 w-48"></span>
-                  <span className="bg-[#F6FF82] mx-4 rounded-full h-12 w-12"></span>
-                  <Typography className="font-urbanist text-[32px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
-                    new group
-                  </Typography>
-                  <Image
-                    className="xxs:hidden xs:hidden sm:hidden absolute h-12 w-fit mb-8 -right-[10]"
-                    src="/groups/circle-element.svg"
-                    height={0}
-                    width={0}
-                    alt="circle-element"
-                  />
-                </Box>
-              </Box>
-              <Box className="px-8 lg:w-fit xl:w-fit xxl:w-fit xxs:mt-10 xs:mt-10 sm:mt-10 mt-auto">
-                <Button
-                  className="flex xxs:w-full xs:w-full sm:w-full items-center gap-3 px-5 py-3 rounded-3xl bg-[#F6FF82] text-[#8E94E9] ml-auto"
-                  onClick={handleOpen}
-                  endIcon={<EndArrow />}
-                >
-                  <Typography
-                    className="sm:text-lg text-base xl:text-lg xxl:text-xl font-urbanist lowercase"
-                    component="p"
+                <Box className="px-8 lg:w-fit xl:w-fit xxl:w-fit xxs:mt-10 xs:mt-10 sm:mt-10 mt-auto">
+                  <Button
+                    className="flex xxs:w-full xs:w-full sm:w-full items-center gap-3 px-5 py-3 rounded-3xl bg-[#F6FF82] text-[#8E94E9] ml-auto"
+                    onClick={handleOpen}
+                    endIcon={<EndArrow />}
                   >
-                    Create new group
-                  </Typography>
-                </Button>
+                    <Typography
+                      
+                      className="sm:text-lg text-base xl:text-lg xxl:text-xl font-bold font-urbanist normal-case"
+                      component="p"
+                    >
+                      Create new group
+                    </Typography>
+                  </Button>
+                </Box>
               </Box>
             </Box>
             <Modal
@@ -173,7 +185,7 @@ const GroupsHomePage = ({
           companyQuery={companyQuery}
           setCompanyQuery={setCompanyQuery}
         />
-        <Box className="flex justify-between items-center">
+        <Box className="px-[18px] flex justify-between items-center">
           <Typography
             className="font-urbanist"
             sx={{
@@ -191,14 +203,14 @@ const GroupsHomePage = ({
             endIcon={<EndArrow />}
           >
             <Typography
-              className="text-sm capitalize font-urbanist"
+              className="text-sm normal-case font-bold font-urbanist"
               component="p"
             >
               Create new group
             </Typography>
           </Button>
         </Box>
-        <Stack className="relative mt-16 z-0" direction="column" spacing={3}>
+        <Stack className="relative px-[18px] mt-16 z-0" direction="column" spacing={3}>
           {groupData.map((group: Group, index: number) => {
             return (
               <Box
@@ -207,8 +219,9 @@ const GroupsHomePage = ({
               >
                 <Box className="w-full relative">
                   <Image
+                    onClick={() => navigateToUserPage(group.id)}
                     priority
-                    className="w-full h-full rounded-t-xl"
+                    className="w-full h-full cursor-pointer rounded-t-xl"
                     src={`/groups/pg-bg${randomNumber(index)}.png`}
                     height={0}
                     width={900}
@@ -227,7 +240,7 @@ const GroupsHomePage = ({
                     />
                     <Box className="flex flex-col gap-2 text-[#1A1A23]">
                       <Box className="flex justify-between items-center">
-                        <Typography className="xxs:text-xl xs:text-xl sm:text-xl text-2xl font-semibold font-urbanist">
+                        <Typography onClick={() => navigateToUserPage(group.id)} className="xxs:text-xl xs:text-xl sm:text-xl text-2xl font-semibold cursor-pointer font-urbanist">
                           {group.name}
                         </Typography>
                         <span className=" lg:hidden xl:hidden xxl:hidden text-[#656DE1] text-xs font-urbanist">
@@ -250,7 +263,7 @@ const GroupsHomePage = ({
                     >
                       Explore Group
                     </Button>
-                    <MoreIcon />
+                    <MoreIcon className='cursor-pointer' />
                   </Box>
                 </Box>
               </Box>

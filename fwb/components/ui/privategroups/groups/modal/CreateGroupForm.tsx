@@ -159,7 +159,7 @@ const CreateGroupForm = ({
       <div> {step} </div>
 
       <Button
-        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
+        className="font-urbanist font-bold capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
         variant="text"
         disabled={data.name == '' && true}
         type="submit"
