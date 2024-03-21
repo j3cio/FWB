@@ -90,7 +90,7 @@ function Page() {
 
   return (
     <div className="h-full bg-black">
-      <Navbar></Navbar>
+      {/* <Navbar /></Navbar> */}
       <div className="flex flex-row ml-14 rounded-10 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5">
         <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
           <div
