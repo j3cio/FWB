@@ -28,6 +28,6 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    return NextResponse.json({ companies }, { status: 200 })
+    return NextResponse.json(companies, { status: 200 })
   }
 }
