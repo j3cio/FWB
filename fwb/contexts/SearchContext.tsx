@@ -15,6 +15,8 @@ interface SearchContextInterface {
   setSearchIndex: Dispatch<SetStateAction<any[]>>
   keys: string[]
   setKeys: Dispatch<SetStateAction<string[]>>
+  searchResults: any[]
+  setSearchResults: Dispatch<SetStateAction<any[]>>
 }
 
 export const SearchContext = createContext<SearchContextInterface>({
@@ -24,12 +26,15 @@ export const SearchContext = createContext<SearchContextInterface>({
   setSearchIndex: () => {},
   keys: ['name'],
   setKeys: () => {},
+  searchResults: [],
+  setSearchResults: () => {},
 })
 
 const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [searchIndex, setSearchIndex] = useState<any[]>([])
   const [keys, setKeys] = useState<string[]>(['name'])
+  const [searchResults, setSearchResults] = useState<any[]>([])
 
   return (
     <SearchContext.Provider
@@ -40,6 +45,8 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
         setSearchIndex,
         keys,
         setKeys,
+        searchResults,
+        setSearchResults,
       }}
     >
       {children}
