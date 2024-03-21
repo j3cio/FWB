@@ -21,17 +21,14 @@ export default function Navbar() {
       }}
     >
       <Toolbar sx={{ display: 'flex', gap: '24px' }}>
-        <Typography
-          sx={{
-            marginRight: '69px',
-            height: '48px',
-            width: '114px',
-            fontSize: '38px',
-            color: '#ffffff',
-          }}
-        >
-          LOGO.
-        </Typography>
+        <Image 
+          priority
+          className='w-52 h-full' 
+          src='/fwb_logo.png' 
+          alt="logo" 
+          width={900} 
+          height={0} 
+        />
         <Box
           sx={{
             display: 'flex',
