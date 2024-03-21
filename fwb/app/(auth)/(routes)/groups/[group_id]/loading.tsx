@@ -22,7 +22,7 @@ const Loading = () => {
               name: 'Loading...',
               users: [],
               discounts: [],
-              admins: [],
+              admins: '',
               public: false,
               description: 'Loading...',
             }}

@@ -26,7 +26,7 @@ const GroupDetailsSection = ({
           className="w-full h-full"
           src={`/groups/pg-bg2.png`}
           height={0}
-          width={900}
+          width={1200}
           alt="group-img"
         />
         <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />
@@ -64,13 +64,10 @@ const GroupDetailsSection = ({
                 />
               </div>
             </div>
-            <div className="">
+            {groupData.description && (<div className="">
               {' '}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-              laboriosam sint suscipit quod esse quaerat voluptates autem modi,
-              aut perspiciatis dicta, nihil accusamus blanditiis laborum animi
-              corrupti officia dolores. Voluptates.
-            </div>
+              {groupData?.description}
+            </div>)}
           </div>
 
           <div className="text-white xxs:w-full xs:w-full sm:w-full flex flex-row-reverse justify-between items-center lg:flex-col xl:flex-col xxl:flex-col gap-3">

@@ -61,6 +61,7 @@ const CreateGroupForm = ({
       formData.append('name', `${data.name}`)
       formData.append('users', `${userId}`)
       formData.append('discounts', '')
+      formData.append('admins', `${userId}`)
       formData.append('description', `${data.description}`)
       // POST Fetch Request to add the group into groups table
       const response = await fetch('/api/groups', {
@@ -159,7 +160,7 @@ const CreateGroupForm = ({
       <div> {step} </div>
 
       <Button
-        className="font-urbanist capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
+        className="font-urbanist font-bold capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
         variant="text"
         disabled={data.name == '' && true}
         type="submit"
