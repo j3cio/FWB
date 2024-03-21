@@ -6,7 +6,7 @@ export interface Group {
   id: string
   name: string
   discounts: string[]
-  admins: string[]
+  admins: string
   public: boolean
   users: string[]
   description: string
