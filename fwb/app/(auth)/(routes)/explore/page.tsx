@@ -152,12 +152,13 @@ function ExplorePageContent() {
             }
           })
           .catch((error) => console.error('error', error))
+          .finally(async () => {
+            const companiesIndex = await getSearchIndex({
+              bearer_token: bearerToken,
+            })
 
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-
-        setSearchIndex(companiesIndex)
+            setSearchIndex(companiesIndex)
+          })
       }
     } catch (error) {
       setIsLoading(false)
