@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useContext } from 'react'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 import { useAuth } from '@clerk/nextjs'
 import Button from '@mui/material/Button'
