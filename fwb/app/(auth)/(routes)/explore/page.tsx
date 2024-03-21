@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/explore/filter_context'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 
-import { fuzzySearch } from '@/lib/utils'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 import { SearchContext } from '@/contexts/SearchContext'
 
 /**
@@ -46,15 +46,19 @@ function ExplorePageContent() {
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
 
-  const [companyQuery, setCompanyQuery] = useState('')
   const [searchedCompany, setSearchedCompany] = useState(null)
-  const [searchedCompanies, setSearchedCompanies] = useState<any[]>([])
 
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
-  const { searchQuery, setSearchQuery, searchIndex, setSearchIndex } =
-    useContext(SearchContext)
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    searchResults,
+    setSearchResults,
+  } = useContext(SearchContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,9 +110,8 @@ function ExplorePageContent() {
         searchQuery,
         searchIndex,
       })
-      const parsedResults = results.map((item) => item.item)
 
-      setSearchedCompanies(parsedResults)
+      setSearchResults(results)
     } catch (error) {
       console.error('GET Company Discount API Failed', error)
       setSearchedCompany(null)
@@ -118,38 +121,44 @@ function ExplorePageContent() {
   const fetchData = async (concat: boolean) => {
     try {
       var myHeaders = new Headers()
-      myHeaders.append('Authorization', `Bearer ${await getToken()}`)
+      const bearerToken = await getToken()
 
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow' as RequestRedirect,
-      }
+      if (bearerToken) {
+        myHeaders.append('Authorization', `Bearer ${bearerToken}`)
 
-      const protocol = window.location.protocol
-      fetch(
-        `${protocol}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
-          sortby
-        )}&category=${encodeURIComponent(
-          category.toLowerCase()
-        )}&private_group=${encodeURIComponent(
-          privateGroup.toLowerCase()
-        )}&page=${encodeURIComponent(page)}`,
-        requestOptions
-      )
-        .then(async (res) => {
-          const data = await res.json()
-          if (concat) {
-            setCompanies([...companies].concat(data.result))
-          } else {
-            setCompanies((await res.json()).result)
-          }
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow' as RequestRedirect,
+        }
+
+        const protocol = window.location.protocol
+        fetch(
+          `${protocol}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
+            sortby
+          )}&category=${encodeURIComponent(
+            category.toLowerCase()
+          )}&private_group=${encodeURIComponent(
+            privateGroup.toLowerCase()
+          )}&page=${encodeURIComponent(page)}`,
+          requestOptions
+        )
+          .then(async (res) => {
+            const data = await res.json()
+            if (concat) {
+              setCompanies([...companies].concat(data.result))
+            } else {
+              setCompanies((await res.json()).result)
+            }
+          })
+          .catch((error) => console.error('error', error))
+
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
         })
-        .catch((error) => console.error('error', error))
 
-      const testResponse = await fetch('/api/searchindex', requestOptions)
-      const testData = await testResponse.json()
-      setSearchIndex(testData.companies)
+        setSearchIndex(companiesIndex)
+      }
     } catch (error) {
       setIsLoading(false)
       console.error('Error fetching data:', error)
@@ -221,7 +230,7 @@ function ExplorePageContent() {
           <Productfilters />
         )}
         <ResponsiveGrid
-          items={searchedCompanies.length > 0 ? searchedCompanies : companies}
+          items={searchResults.length > 0 ? searchResults : companies}
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
