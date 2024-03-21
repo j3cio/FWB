@@ -1,5 +1,6 @@
 'use client'
 
+import { useCallback, useContext, useEffect, useState } from 'react'
 import Navbar from '@/components/ui/profile/profile_navbar'
 import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
 import { Box, Button, Container } from '@mui/material'
@@ -9,23 +10,34 @@ import Image from 'next/image'
 import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
-import { useUser } from '@clerk/nextjs'
+import { useUser, useAuth } from '@clerk/nextjs'
 import Avatar from '@mui/material/Avatar'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
 import { UserData } from '../../../types/types'
 import EditProfileModal from './EditProfileModal'
 import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
+import { SearchContext } from '@/contexts/SearchContext'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 function Profile({ userData }: { userData: UserData }) {
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
+  const [companyQuery, setCompanyQuery] = useState('')
+
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
-
+  const { getToken } = useAuth()
   //Intialize the user to be in GetStream db
   const client = useIntitialChatClient()
-
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
+  const { user } = useUser()
+  const router = useRouter()
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    setSearchResults,
+  } = useContext(SearchContext)
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
@@ -35,22 +47,43 @@ function Profile({ userData }: { userData: UserData }) {
     setIsEditProfileModalOpen(false)
   }
 
-  const { user } = useUser()
-  const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
   }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
         <Navbar
           handleSearch={handleSearch}
-          companyQuery={companyQuery}
-          setCompanyQuery={setCompanyQuery}
+          companyQuery={searchQuery}
+          setCompanyQuery={setSearchQuery}
         />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
