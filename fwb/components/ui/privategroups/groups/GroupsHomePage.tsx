@@ -7,9 +7,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import EndArrow from '../icons/EndArrow'
-import EndArrowWhite from '../icons/EndArrowWhite'
-import LockIcon from '../icons/LockIcon'
-import MoreIcon from '../icons/MoreIcon'
+
+import SingleGroupCard from './GroupCard'
 
 const bgImg = [
   {
@@ -21,13 +20,6 @@ const bgImg = [
     img: '/groups/circle-element2.svg',
   },
 ]
-
-const randomNumber = (index: number): number => {
-  if (index < 5) {
-    return index + 1
-  }
-  return [1, 2, 3, 4, 5][index]
-}
 
 // Type userData
 const GroupsHomePage = ({
@@ -48,6 +40,79 @@ const GroupsHomePage = ({
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const isUserAdmin = (group: Group, userId: string) => {
+    if (JSON.parse(group.admins).includes(userId)) {
+      return true
+    }
+    return false
+  }
+
+  const handleDeleteTest = async (groupId: string, userGroups: string[]) => {
+    console.log("group id:", groupId, "groups:", userGroups )
+  }
+
+  const handleDeleteGroup = async (groupId: string, userGroups: string[]) => {
+    // Deleting group from groups table
+    try {
+      const bearerToken = await window.Clerk.session.getToken({
+        template: 'testing_template',
+      })
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: 'supabase',
+      })
+      const response = await fetch(`/api/groups?group_id=${groupId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+      })
+      if (!response.ok) {
+        const errorData = await response.json()
+        console.error('Error adding user:', errorData)
+      }
+      const data = await response.json()
+      console.log('Group successfully deleted:', data)
+    } catch (error) {
+      console.error('Error add user:', error)
+    }
+
+    // Deleting group from user table, user_groups[]
+    try {
+      const newUserGroups: string[] = userGroups.filter(
+        (group) => group !== groupId
+      )
+      let newUserGroupsString = '{' + newUserGroups.join(',') + '}'
+      const formData = new FormData()
+      formData.append('user_id', `${userData.users[0].user_id}`)
+      formData.append('user_groups', `${newUserGroupsString}`)
+      const bearerToken = await window.Clerk.session.getToken({
+        template: 'testing_template',
+      })
+      const supabaseToken = await window.Clerk.session.getToken({
+        template: 'supabase',
+      })
+      const response = await fetch('/api/users', {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      router.refresh()
+      return data
+    } catch (error) {
+      console.error('Error updating data: ', error)
+      throw error
+    }
+  }
 
   if (userData.users[0].user_groups.length == 0) {
     return (
@@ -170,10 +235,6 @@ const GroupsHomePage = ({
     )
   }
 
-  const navigateToUserPage = (group_id: string) => {
-    window.location.href = `/groups/${group_id}`
-  }
-
   return (
     <Box
       component="section"
@@ -213,60 +274,14 @@ const GroupsHomePage = ({
         <Stack className="relative px-[18px] mt-16 z-0" direction="column" spacing={3}>
           {groupData.map((group: Group, index: number) => {
             return (
-              <Box
-                className="bg-white border-4 overflow-hidden flex flex-col w-full rounded-xl"
-                key={index}
-              >
-                <Box className="w-full relative">
-                  <Image
-                    onClick={() => navigateToUserPage(group.id)}
-                    priority
-                    className="w-full h-full cursor-pointer rounded-t-xl"
-                    src={`/groups/pg-bg${randomNumber(index)}.png`}
-                    height={0}
-                    width={900}
-                    alt="group-img"
-                  />
-                  <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />
-                </Box>
-                <Box className="w-full px-7 py-4 xxs:flex-col xs:flex-col sm:flex-col gap-3 flex items-center justify-between">
-                  <Box className="xxs:max-w-full xs:max-w-full sm:max-w-full max-w-[60%] flex xxs:items-start xs:items-start sm:items-start items-center gap-4">
-                    <Image
-                      className="w-16 h-16 rounded-t-xl"
-                      src="/groups/gp-avatar.svg"
-                      height={0}
-                      width={0}
-                      alt="pg-avatar"
-                    />
-                    <Box className="flex flex-col gap-2 text-[#1A1A23]">
-                      <Box className="flex justify-between items-center">
-                        <Typography onClick={() => navigateToUserPage(group.id)} className="xxs:text-xl xs:text-xl sm:text-xl text-2xl font-semibold cursor-pointer font-urbanist">
-                          {group.name}
-                        </Typography>
-                        <span className=" lg:hidden xl:hidden xxl:hidden text-[#656DE1] text-xs font-urbanist">
-                          {group.discounts.length} benefits available
-                        </span>
-                      </Box>
-                      <Typography className="opacity-50 text-sm font-urbanist">
-                        {group.description}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box className="relative xxs:w-full xs:w-full sm:w-full flex gap-4 items-center mt-auto">
-                    <span className="xxs:hidden xs:hidden sm:hidden text-[#656DE1] text-xs absolute -top-8 right-2 font-urbanist">
-                      {group.discounts.length} benefits available
-                    </span>
-                    <Button
-                      onClick={() => navigateToUserPage(group.id)}
-                      className="flex xxs:w-full xs:w-full sm:w-full items-center h-fit gap-3 px-5 rounded-3xl font-urbanist text-white bg-[#8E94E9]"
-                      endIcon={<EndArrowWhite />}
-                    >
-                      Explore Group
-                    </Button>
-                    <MoreIcon className='cursor-pointer' />
-                  </Box>
-                </Box>
-              </Box>
+              <SingleGroupCard
+                handleDeleteGroup={handleDeleteGroup} 
+                group={group} 
+                key={group.id} 
+                index={index} 
+                isUserAdmin={isUserAdmin(group, userData.users[0].user_id)}
+                userGroups={userData.users[0].user_groups} 
+                />
             )
           })}
         </Stack>

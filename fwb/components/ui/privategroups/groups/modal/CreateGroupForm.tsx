@@ -61,6 +61,7 @@ const CreateGroupForm = ({
       formData.append('name', `${data.name}`)
       formData.append('users', `${userId}`)
       formData.append('discounts', '')
+      formData.append('admins', `${userId}`)
       formData.append('description', `${data.description}`)
       // POST Fetch Request to add the group into groups table
       const response = await fetch('/api/groups', {
