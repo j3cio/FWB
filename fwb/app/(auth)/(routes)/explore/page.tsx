@@ -1,25 +1,23 @@
 'use client'
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  use,
-} from 'react'
+
+import React, { useEffect, useState, useContext } from 'react'
+
+import { useRouter, useSearchParams } from 'next/navigation'
+
+import { useAuth } from '@clerk/nextjs'
+import Button from '@mui/material/Button'
+import { Container, Box, Divider, Skeleton } from '@mui/material'
+
 import ResponsiveGrid from '@/components/ui/explore/products_grid'
-import { Container, Box, Typography, Skeleton } from '@mui/material'
 import Navbar from '@/components/ui/explore/explore_navbar'
 import MostPopular from '@/components/ui/explore/most_popular'
 import Productfilters from '@/components/ui/explore/productfilters'
-import { Divider } from '@mui/material'
-import Button from '@mui/material/Button'
 import {
   FilterContext,
   FilterProvider,
 } from '@/components/ui/explore/filter_context'
-import { useAuth } from '@clerk/nextjs'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
+
 import { fuzzySearch } from '@/lib/utils'
 import { SearchContext } from '@/contexts/SearchContext'
 
@@ -38,7 +36,6 @@ export default function ExplorePage() {
 }
 
 function ExplorePageContent() {
-  const router = useRouter()
   const { getToken } = useAuth()
 
   const { sortby, category, privateGroup } = useContext(FilterContext)
