@@ -78,7 +78,7 @@ async function getGroupData(groupId: string) {
           id: '',
           name: 'No group id',
           discounts: [],
-          admins: '123',
+          admins: ['123'],
           public: false,
           users: [],
         },

@@ -1,22 +1,25 @@
-import { UserResource } from "@clerk/types";
-import { useState } from "react";
-import { ChannelList } from "stream-chat-react";
+import { UserResource } from '@clerk/types'
+import { useState } from 'react'
+import { ChannelList } from 'stream-chat-react'
 interface ChatSidebarProps {
-  user: UserResource;
+  user: UserResource
 }
 
 export default function ChatSideBar({ user }: ChatSidebarProps) {
-  const [tab, setTab] = useState<"general" | "groups">("general");
+  const [tab, setTab] = useState<'general' | 'groups'>('general')
   return (
-    <div className="w-full max-w-[432px]" style={{ width: "425px" }}>
+    <div className="w-full max-w-[432px]" style={{ width: '425px' }}>
       {/* <MenuBar/> */}
       <div
-        className="flex flex-row bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
-        style={{ width: "0px", borderRadius: "10px" }}
+        className="flex flex-row ml-14 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
+        style={{ width: '0px', borderRadius: '10px' }}
       >
         <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
-          <div className="flex flex-row justify-between" style={{ width: "400px", height: "26px" }}>
-            <div className="text-white" style={{ fontSize: "24px" }}>
+          <div
+            className="flex flex-row justify-between"
+            style={{ width: '400px', height: '26px' }}
+          >
+            <div className="text-white" style={{ fontSize: '24px' }}>
               Messages
             </div>
             <div className="flex flex-row">
@@ -26,7 +29,7 @@ export default function ChatSideBar({ user }: ChatSidebarProps) {
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                style={{ marginRight: "16px" }}
+                style={{ marginRight: '16px' }}
               >
                 <path
                   fillRule="evenodd"
@@ -36,7 +39,13 @@ export default function ChatSideBar({ user }: ChatSidebarProps) {
                 />
               </svg>
 
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
                 <path
                   d="M15.4964 4.1665C14.9652 4.1665 14.4557 4.37753 14.0801 4.75315L5.11021 13.723L4.16602 17.4998L7.94281 16.5556L16.9127 7.58575C17.2883 7.21012 17.4993 6.70067 17.4993 6.16945C17.4993 5.63824 17.2883 5.12878 16.9127 4.75315C16.5371 4.37753 16.0276 4.1665 15.4964 4.1665Z"
                   fill="#F6FF82"
@@ -48,30 +57,33 @@ export default function ChatSideBar({ user }: ChatSidebarProps) {
               </svg>
             </div>
           </div>
-          <div className="flex flex-row justify-between -mt-24" style={{ width: "400px", height: "26px" }}>
+          <div
+            className="flex flex-row justify-between -mt-24"
+            style={{ width: '400px', height: '26px' }}
+          >
             <div
               className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125"
               style={{
-                width: "200px",
-                height: "26px",
-                borderBottom: "1px solid white",
-                cursor: "pointer",
+                width: '200px',
+                height: '26px',
+                borderBottom: '1px solid white',
+                cursor: 'pointer',
               }}
-              onClick={() => setTab("general")}
+              onClick={() => setTab('general')}
             >
               General
             </div>
             <div
               className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125 "
-              style={{ width: "200px", height: "26px", cursor: "pointer" }}
-              onClick={() => setTab("groups")}
+              style={{ width: '200px', height: '26px', cursor: 'pointer' }}
+              onClick={() => setTab('groups')}
             >
               Groups
             </div>
           </div>
-          <div style={{ width: "400px", marginTop: "-100px", height: "771px" }}>
+          <div style={{ width: '400px', marginTop: '-100px', height: '771px' }}>
             <ChannelList
-              filters={{ type: "messaging", members: { $in: [user.id] } }}
+              filters={{ type: 'messaging', members: { $in: [user.id] } }}
               sort={{ last_message_at: -1 }}
               options={{ state: true, presence: true, limit: 10 }}
               showChannelSearch
@@ -91,5 +103,5 @@ export default function ChatSideBar({ user }: ChatSidebarProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }
