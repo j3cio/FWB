@@ -22,7 +22,6 @@ import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 function Profile({ userData }: { userData: UserData }) {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
-  const [companyQuery, setCompanyQuery] = useState('')
 
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
