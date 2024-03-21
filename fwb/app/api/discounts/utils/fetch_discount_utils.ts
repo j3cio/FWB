@@ -3,7 +3,6 @@ async function getDiscount(
   bearer_token: string,
   supabase_jwt: string
 ) {
-    
   if (!supabase_jwt) {
     console.warn('Not signed in')
     return
@@ -41,11 +40,12 @@ export async function getAllDiscountsData(
   bearer_token: string,
   supabase_jwt: string
 ) {
-  const promises = discount_ids.map((discount_id: string, key: number) =>
-    getDiscount(discount_id, bearer_token, supabase_jwt)
+  const discountPromises = discount_ids.map(
+    (discount_id: string, key: number) =>
+      getDiscount(discount_id, bearer_token, supabase_jwt)
   )
-  const results = await Promise.all(promises)
-  const filteredResults = results.filter((result) => result !== null)
+  const discounts = await Promise.all(discountPromises)
+  const filteredResults = discounts.filter((discount) => discount !== null)
 
   return filteredResults
 }
