@@ -153,8 +153,6 @@ async function getAllUserData(user_ids: string[]) {
 }
 
 const Page = async ({ params }: { params: { group_id: string } }) => {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const groupData = await getGroupData(params)
   const userData: any = await getAllUserData(groupData.data[0].users)
   const discountData: DiscountData[] = await getAllDiscountsData(
