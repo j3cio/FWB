@@ -16,7 +16,7 @@ export default function useIntitialChatClient() {
       .connectUser(
         {
           id: user.id,
-          name: user.fullName || user.id,
+          name: user.username || user.id,
           image: user.imageUrl,
         },
         async () => {
