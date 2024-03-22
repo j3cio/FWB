@@ -104,34 +104,12 @@ function Profile({ userData }: { userData: UserData }) {
               <div className="flex h-2/5 gap-6">
                 <a
                   href="profile"
-                  className="flex flex-1 bg-white rounded-3xl items-center h-[126px]"
-                >
-                  <div className="flex flex-col mx-6">
-                    <div className="font-semibold text-2xl">
-                      Saved Discounts
-                    </div>
-                    <div className="text-[14px]">
-                      Lorem ipsum dolor sit amet consectetur.
-                    </div>
-                  </div>
-                  <div className="flex flex-row-reverse grow mx-10">
-                    <Image
-                      src={SaveIcon}
-                      alt="Group Icon"
-                      width={50}
-                      height={50}
-                    />{' '}
-                    {/* Need custom icon for it to show*/}
-                  </div>
-                </a>
-                <a
-                  href="profile"
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
                     <div className="font-semibold text-2xl">Private Groups</div>
                     <div className="text-[14px]">
-                      Lorem ipsum dolor sit amet consectetur.
+                      Get intimate with discounts in private groups
                     </div>
                   </div>
                   <div className="flex flex-row-reverse grow mx-10">
@@ -140,7 +118,7 @@ function Profile({ userData }: { userData: UserData }) {
                       alt="Group Icon"
                       width={50}
                       height={50}
-                    />{' '}
+                    />
                     {/* Need custom icon for it to show*/}
                   </div>
                 </a>
