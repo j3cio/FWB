@@ -74,10 +74,12 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       formData.forEach((value, key) => {
         console.log(`${key}: ${value}`)
       })
-
+      
       if (response.ok) {
         const data = await response.json()
+        const discountId = data.data[0].id
         console.log('Discount added successfully:', data)
+        addDiscountToUser(discountId, bearerToken, supabaseToken)
         updateUser()
       } else {
         const errorData = await response.json()
@@ -103,6 +105,22 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       }
     } catch (error) {
       console.error('Error in updateUser:', error)
+    }
+  }
+
+  const addDiscountToUser = async (discountId: string, bearerToken: string, supabaseToken: string,) => {
+    try {
+     await fetch('/api/tempdiscounts', {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+        body: JSON.stringify({discountId})
+      })
+
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -226,11 +244,11 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                 </div>
 
                 <h6 className="discountFormText">
-                  Discount Rules & Conditions *
+                  Discount Rules & Conditions
                 </h6>
                 <textarea
                   className="inputConditions"
-                  placeholder="Add details about your shared benefit"
+                  placeholder="Share any rules or limitations about your benefit"
                   value={termsAndConditions}
                   onChange={(e) => setTermsAndConditions(e.target.value)}
                   required

@@ -22,7 +22,7 @@ const DiscountsSection = ({
             minHeight: '100%',
           }}
         >
-          <Grid container spacing={2} rowGap={2} sx={{ marginBottom: '60px' }}>
+          <Grid container spacing={14} rowGap={2} sx={{ marginBottom: '60px' }}>
             {discountData.map((company: any, index: React.Key) => (
               <Grid
                 item

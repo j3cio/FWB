@@ -1,11 +1,11 @@
-import { UserData } from '@/app/types/types'
+import { DiscountData, UserData } from '@/app/types/types'
 import { auth } from '@clerk/nextjs'
 import Profile from './Profile'
+import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
 
-async function getUser() {
+async function getUser(bearer_token: string, supabase_jwt: string) {
   const userId = await auth().userId
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
 
   if (!supabase_jwt) {
     console.log('Not signed in')
@@ -40,11 +40,24 @@ async function getUser() {
 // { searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }
 
 const page = async () => {
-  const userData: UserData = await getUser()
+  const bearer_token = await auth().getToken({ template: 'testing_template' })
+  const supabase_jwt = await auth().getToken({ template: 'supabase' })
+ 
+  const userData: UserData = bearer_token && supabase_jwt ? await getUser(bearer_token, supabase_jwt): undefined
+  const discountIdArray = userData ? userData.users[0].user_discounts : [""] ;
+
+  const discountData: DiscountData[] =
+userData && bearer_token && supabase_jwt 
+    ? await getAllDiscountsData(
+        discountIdArray,
+        bearer_token,
+        supabase_jwt
+      )
+    : []
 
   return (
     <div>
-      <Profile userData={userData} />
+      <Profile userData={userData} discountData={discountData} />
     </div>
   )
 }
