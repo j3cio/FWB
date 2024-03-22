@@ -1,9 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { DiscountData } from "@/app/types/types";
+import { DiscountDataDetail } from "@/app/types/types";
 
-export default function ProductCard({ data }: { data: DiscountData }) {
+export default function ProductCard({ data }: { data: DiscountDataDetail}, {key}: {key: number}) {
 
     return (
         <div className="mx-[120px] flex flex-row relative mb-[32px]">
@@ -14,12 +14,12 @@ export default function ProductCard({ data }: { data: DiscountData }) {
                 <div className='w-full flex justify-between py-[64px]'>
                     <div>
                         <div className="text-[24px] font-bold">
-                            Get 25% off for Shoes & Bags
+                            Get {data.discount_amount}% off Shoes and Sandals
                         </div>
                         <div className="text-[14px]">*Terms & Conditions apply</div>
                         <div className="flex flex-row mt-[48px]">
-                            <div className="h-[24px] w-[24px] rounded-[24px] border-black border-[2px] mr-[8px]"></div>
-                            <div>by Darrell Steward</div>
+                            <div className="h-[24px] w-[24px] rounded-[24px] mr-[5px] bg-no-repeat bg-center bg-contain" style={{ backgroundImage: `url(${data.user_image? data.user_image:'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJjanBvRjl3OXpJTXRUM3JBak9vcTNBQkRIOCJ9'})` }}></div>
+                            <div>by {data.user_username? data.user_username: "Unknown"}</div>
                         </div>
                     </div>
                     <div className="flex h-auto my-auto cursor-pointer">
@@ -51,7 +51,6 @@ export default function ProductCard({ data }: { data: DiscountData }) {
                         <div>
                             <div className='text-[16px] text-[#1A1A23] font-bold mb-[3px]'>Terms & Conditions:</div>   
                             <div>{data.terms_and_conditions}</div>
-
                         </div>
                     </div>
                 )}

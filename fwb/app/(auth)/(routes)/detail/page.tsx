@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import DetailPage from "./detail";
 import { useRouter, useSearchParams } from 'next/navigation';
-import { DetailData, CompanyAndDiscounts, DiscountData } from "@/app/types/types";
+import { DetailData, CompanyAndDiscounts, DiscountDataDetail } from "@/app/types/types";
 
 const handleSearch = async () => {
     try {
@@ -31,8 +31,7 @@ const handleSearch = async () => {
         }
         
         // Parse the JSON data from the first response
-        const company:CompanyAndDiscounts  = await response.json();
-
+        const company: CompanyAndDiscounts  = await response.json();
         
         // // Use the data from the first response in the second request
         const responseDetail = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts/detail?discount_ids=${company.discounts}`, requestOptions);
@@ -43,7 +42,7 @@ const handleSearch = async () => {
         }
         
         // // Parse the JSON data from the second response
-        const discounts: DiscountData[] = await responseDetail.json();
+        const discounts: DiscountDataDetail[] = await responseDetail.json();
 
         const combinedData = { company, discounts };
 
@@ -59,11 +58,15 @@ const handleSearch = async () => {
 
 const page = async () => {
     
-  const data: DetailData = await handleSearch();
+  const data: DetailData | undefined = await handleSearch();
 
   return (
     <div>
-      <DetailPage data={data}/>
+      {data ? (
+        <DetailPage data={data}/>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 }

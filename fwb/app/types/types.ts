@@ -67,5 +67,22 @@ export type CompanyAndDiscounts = {
 
 export type DetailData = {
   company: CompanyAndDiscounts,
-  discounts: DiscountData[],
+  discounts: DiscountDataDetail[],
+}
+
+export interface DiscountDataDetail {
+  created_at: string
+  user_id: string
+  terms_and_conditions: string
+  shareable_url: string
+  discount_amount: number
+  view_count: number
+  share_count: number
+  message_count: number
+  public: true
+  id: string
+  logo: string
+  name: string
+  user_image: string
+  user_username: string
 }

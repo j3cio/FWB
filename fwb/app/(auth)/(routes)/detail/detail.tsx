@@ -1,13 +1,14 @@
 "use client";
 
 import * as React from 'react'
-import { DetailData, DiscountData } from "@/app/types/types";
+import { DetailData, DiscountDataDetail } from "@/app/types/types";
 import DetailCard from '@/components/ui/detail/discount'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 
-export default function DetailPage({ data, }: {data: DetailData;}) {
+export default function DetailPage({ data, }: { data: DetailData; }) {
 
-    const items: DiscountData[] = data.discounts;
+  const items: DiscountDataDetail[] = data.discounts;
 
   return (
     <div className="w-full bg-[#1A1A23] pt-[96px]">
@@ -23,7 +24,7 @@ export default function DetailPage({ data, }: {data: DetailData;}) {
           <div className="mt-[45px] w-full flex flex-row">
             {/* Company Name div */}
             <div className="text-[#F6FF82] text-[32px] font-bold">
-              Nike. Inc
+              {data.company.name}
             </div>
             {/* link icon */}
             <div className="my-auto ml-[8px] cursor-pointer">
@@ -86,11 +87,11 @@ export default function DetailPage({ data, }: {data: DetailData;}) {
             <div className="flex flex-col mr-[24px]">
               <label>
                 <div>Sort By:</div>
-                <select className="p-[9px] rounded-[10px] border-[2px] border-[#8E94E9] bg-transparent mt-[8px]">
-                  <option value="select">Select an option</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
+                <select className="p-[9px] rounded-[10px] border-[2px] border-[#8E94E9] bg-transparent mt-[8px] p-[8px]">
+                  <option value="select" className="bg-[#1A1A23] py-[5px] mt-[-20px]">Select an option</option>
+                  <option value="option1" className="bg-[#1A1A23] my-[2px]">Option 1</option>
+                  <option value="option2" className="bg-[#1A1A23] my-[2px]">Option 2</option>
+                  <option value="option3" className="bg-[#1A1A23] my-[2px]">Option 3</option>
                 </select>
               </label>
             </div>
@@ -110,11 +111,13 @@ export default function DetailPage({ data, }: {data: DetailData;}) {
       </div>
 
       {/* discount listing section */}
-        <div className='mb-[50px] relative'>
-            {items.map((item: DiscountData) => (
-                <DetailCard data={item} />
-            ))}
-        </div>
+      <div className='mb-[50px] relative'>
+        {items.map((item: DiscountDataDetail) => (
+          <DetailCard data={item} key={item.discount_amount}/>
+        ))}
+      </div>
+      
+      <div className='h-[200px]'></div>
     </div>
   );
 }
