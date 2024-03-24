@@ -4,8 +4,8 @@ import { StreamChat } from 'stream-chat'
 
 export default function useIntitialChatClient() {
   // Read the currently logged in user
-  const { user } = useUser();
-  const [chatClient, setChatClient] = useState<StreamChat | null>(null);
+  const { user } = useUser()
+  const [chatClient, setChatClient] = useState<StreamChat | null>(null)
   useEffect(() => {
     // Check for user
     if (!user?.id) return
@@ -16,7 +16,7 @@ export default function useIntitialChatClient() {
       .connectUser(
         {
           id: user.id,
-          name: user.fullName || user.id,
+          name: user.username || user.id,
           image: user.imageUrl,
         },
         async () => {

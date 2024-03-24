@@ -11,7 +11,10 @@ import Image from '@/node_modules/next/image'
 
 export default function ChatChannel() {
   return (
-    <div className="w-full ml-16 mr-10" style={{ height: '771px' }}>
+    <div
+      className="w-full rounded-lg bg-opacity-10 bg-white "
+      style={{ height: '771px' }}
+    >
       <Channel>
         <Window>
           <ChannelHeader />

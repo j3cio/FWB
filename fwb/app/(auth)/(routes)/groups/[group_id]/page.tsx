@@ -5,6 +5,7 @@ import Tabs from '@/components/ui/privategroups/groupdetailspage/Tabs'
 import { auth } from '@clerk/nextjs'
 import { Box, Container } from '@mui/material'
 import SingleGroupNavbar from './SingleGroupNavbar'
+import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
 
 //TODOs:
 // Backend ---
@@ -95,51 +96,6 @@ async function getUser(user_id: string) {
   }
 }
 
-async function getDiscount(discount_id: string) {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
-
-  if (!supabase_jwt) {
-    console.warn('Not signed in')
-    return
-  }
-
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabase_jwt)
-  myHeaders.append('Authorization', `Bearer ${bearer_token}`)
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-  }
-  try {
-    if (discount_id !== '') {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts?discount_id=${discount_id}`,
-        requestOptions
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const result = await response.json()
-      return result.data[0] // This returns the result object
-    }
-    return null // Explicitly added null instead of undefined or empty object to show that this is intended. API fix should be considered however, discount_id should never be ''.
-  } catch (error) {
-    console.error('Error fetching data: ', error)
-    throw error // This re-throws the error to be handled by the caller
-  }
-}
-
-async function getAllDiscountsData(discount_ids: string[]) {
-  const promises = discount_ids.map((discount_id: string, key: number) =>
-    getDiscount(discount_id)
-  )
-  const results = await Promise.all(promises)
-  const filteredResults = results.filter((result) => result !== null)
-
-  return filteredResults
-}
-
 async function getAllUserData(user_ids: string[]) {
   const promises = user_ids.map((user_id: string, key: number) =>
     getUser(user_id)
@@ -157,15 +113,22 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const groupData = await getGroupData(params)
   const userData: any = await getAllUserData(groupData.data[0].users)
-  const discountData: DiscountData[] = await getAllDiscountsData(
-    groupData.data[0].discounts
-  )
 
+  // Makes sure that our tokens exist, else gives us an empty array
+  const discountData: DiscountData[] =
+    bearer_token && supabase_jwt
+      ? await getAllDiscountsData(
+          groupData.data[0].discounts,
+          bearer_token,
+          supabase_jwt
+        )
+      : []
+      
   return (
-    <Box sx={{ backgroundColor: '#1A1A23', paddingBottom: '900px' }}>
+    <Box sx={{ backgroundColor: '#1A1A23' }}>
       <Container disableGutters maxWidth="lg">
         <SingleGroupNavbar />
-        <Box sx={{ position: 'relative', marginTop: '156px', zIndex: 0 }}>
+        <Box sx={{ paddingX: '18px', position: 'relative', marginTop: '156px', zIndex: 0 }}>
           <GroupDetailsSection
             userData={userData}
             groupData={groupData.data[0]}

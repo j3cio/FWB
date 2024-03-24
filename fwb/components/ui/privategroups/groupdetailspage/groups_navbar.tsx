@@ -154,21 +154,14 @@ const Navbar: React.FC<NavbarProps> = ({
               flexDirection: 'row',
             }}
           >
-            <Typography
-              sx={{
-                marginRight: '4.8vw',
-                height: '48px',
-                width: '114px',
-                fontSize: '38.156px',
-                fontWeight: '700',
-                lineHeight: '125%',
-                fontFamily: 'inherit',
-                textTransform: 'capitalize',
-                color: 'white',
-              }}
-            >
-              LOGO.
-            </Typography>
+            <Image 
+              priority
+              className='mr-[4.6vw] w-44 h-full' 
+              src='/fwb_logo.png' 
+              alt="logo" 
+              width={900} 
+              height={0} 
+            />
             <Toolbar
               disableGutters
               variant="dense"
@@ -280,7 +273,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
-                  onClick={() => router.push('/messages')}
+                  onClick={() => router.push('/chat')}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',

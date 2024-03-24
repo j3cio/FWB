@@ -1,21 +1,24 @@
 'use client'
 
-import { useSignIn, useUser } from '@clerk/nextjs'
-import 'dotenv/config'
-
-//CSS page
-import './page.css'
+import { useEffect, useState } from 'react'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import './page.css'
+
+import { useSignIn, useUser } from '@clerk/nextjs'
+
+import 'dotenv/config'
 
 //For responsiveness
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
+import GooglePic from '@/public/google.png'
 
 import { LargeScreen } from './screenLarge'
 import { SmallScreen } from './screenSmall'
+
+//CSS page
+import './page.css'
 
 export default function Page() {
   const { isLoaded, signIn, setActive } = useSignIn()
@@ -52,7 +55,7 @@ export default function Page() {
 
   if (user) {
     // Redirect authenticated user to the profile page
-    router.replace('/profile')
+    router.replace('/fre1')
     return null // You can also render a loading state or redirect message here
   }
 
@@ -72,6 +75,7 @@ export default function Page() {
       })
 
       if (result.status === 'complete') {
+        localStorage.removeItem('userAction')
         // If complete, user exists and provided password match -- set session active
         await setActive({ session: result.createdSessionId })
         // Redirect the user to a post sign-in route
@@ -182,7 +186,7 @@ export default function Page() {
                 <div className="name">Sign In</div>
                 <div className="buttons">
                   <button className="googleButton" onClick={signInWithGoogle}>
-                    <img src="/google.png" alt="Google Icon" />
+                    <Image src={GooglePic} alt="Google Icon" />
                   </button>
                   <button className="discordButton" onClick={signInWithDiscord}>
                     <svg

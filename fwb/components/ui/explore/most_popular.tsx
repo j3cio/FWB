@@ -1,13 +1,13 @@
 'use client'
-import { Box, Skeleton, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import Image from 'next/image'
 import arrowIcon from '@/components/ui/explore/icons/arrow_forward_ios_24px.svg'
 import ProductCard from './product_card'
 import { generateSkeletons } from '../skeletons/generateSkeletons'
 
-import React, { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { useAuth } from '@clerk/nextjs'
 
 export default function MostPopular() {
@@ -18,7 +18,7 @@ export default function MostPopular() {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       var myHeaders = new Headers()
       myHeaders.append('Authorization', `Bearer ${await getToken()}`)
@@ -29,9 +29,9 @@ export default function MostPopular() {
         redirect: 'follow' as RequestRedirect,
       }
 
-      const protocal = window.location.protocol
+      const protocol = window.location.protocol
       fetch(
-        `${protocal}//${window.location.host}/api/companies?sort_by=${'Most%20Popular'}&category=${'all'}&page=0`,
+        `${protocol}//${window.location.host}/api/companies?sort_by=${'Most%20Popular'}&category=${'all'}&page=0`,
         requestOptions
       )
         .then(async (res) =>
@@ -49,7 +49,7 @@ export default function MostPopular() {
       setIsLoading(false)
       console.error('Error fetching data:', error)
     }
-  }
+  }, [setData, setIsLoading, getToken])
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -59,7 +59,7 @@ export default function MostPopular() {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [fetchData])
 
   const TitleAndButtons = () => {
     return (
