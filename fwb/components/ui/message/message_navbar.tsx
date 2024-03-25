@@ -189,6 +189,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
+                  onClick={() => router.push('/explore')}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',
