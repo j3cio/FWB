@@ -121,7 +121,7 @@ const GroupsHomePage = ({
           className="font-urbanist"
           sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
         >
-          <Container disableGutters maxWidth="lg" sx={{ paddingX: 6 }}>
+          <Container disableGutters maxWidth="lg">
             <Navbar
               handleSearch={handleSearch}
               companyQuery={companyQuery}
@@ -240,7 +240,7 @@ const GroupsHomePage = ({
       component="section"
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
-      <Container disableGutters maxWidth="lg" sx={{ paddingX: 6, paddingY: 8 }}>
+      <Container disableGutters maxWidth="lg">
         <Navbar
           handleSearch={handleSearch}
           companyQuery={companyQuery}
