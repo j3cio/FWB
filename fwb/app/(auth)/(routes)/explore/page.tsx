@@ -154,9 +154,9 @@ function ExplorePageContent() {
         redirect: 'follow' as RequestRedirect,
       }
 
-      const protocal = window.location.protocol
+      const protocol = window.location.protocol
       fetch(
-        `${protocal}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
+        `${protocol}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
           sortby
         )}&category=${encodeURIComponent(
           category.toLowerCase()
