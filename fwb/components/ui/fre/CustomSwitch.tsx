@@ -2,11 +2,12 @@ import { styled } from '@mui/material/styles'
 import Switch, { switchClasses } from '@mui/material/Switch'
 
 export const CustomSwitch = styled(Switch)(({ theme }) => {
-  const borderWidth = 2
+  const borderWidth = 1
   const width = 32
-  const height = 16
-  const size = 22
+  const height = 17
   const gap = (34 - 22) / 2
+  const transitionDuration = '.2s'
+
   return {
     width,
     height,
@@ -17,22 +18,25 @@ export const CustomSwitch = styled(Switch)(({ theme }) => {
       padding: gap,
       [`&.${switchClasses.checked}`]: {
         color: '#fff',
-        transform: `translateX(calc(${width} - ${size} - ${2 * gap}))`,
+        transform: `translateX(15px)`,
         [`& + .${switchClasses.track}`]: {
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: 'white',
           opacity: 1,
           border: 'none',
         },
         [`& .${switchClasses.thumb}`]: {
-          backgroundColor: '#fff',
+          backgroundColor: '#8E94E9',
         },
       },
     },
     [`& .${switchClasses.thumb}`]: {
       boxShadow: 'none',
-      backgroundColor: theme.palette.grey[400],
+      backgroundColor: 'white',
       width: 13.3,
       height: 13.3,
+      position: 'absolute',
+      top: 2,
+      left: 3,
     },
     [`& .${switchClasses.track}`]: {
       borderRadius: 40,
@@ -40,7 +44,7 @@ export const CustomSwitch = styled(Switch)(({ theme }) => {
       borderWidth,
       backgroundColor: '#8E94E9',
       opacity: 1,
-      transition: theme.transitions.create(['background-color', 'border']),
+      transition: `background-color ${transitionDuration}, border ${transitionDuration}`, // Modify transition property
       boxSizing: 'border-box',
     },
   }
