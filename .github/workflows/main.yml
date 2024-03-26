@@ -25,6 +25,6 @@ jobs:
         run: cd fwb && npm run format
 
       - name: Lint Code
-        run: npm run lint
+        run: cd fwb && npm run lint
 
 
