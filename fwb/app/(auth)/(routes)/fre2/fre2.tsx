@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -167,6 +167,9 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
+  useEffect(() => {
+    console.log({ isPrivate }), [isPrivate]
+  })
   // useEffect(() => {
   //   handleRedirect()
   // }, [handleRedirect])
@@ -264,10 +267,12 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                   onChange={(e) => setTermsAndConditions(e.target.value)}
                   required
                 />
-                <div className="flex items-center">
+                <div
+                  className="flex items-center cursor-pointer select-none"
+                  onClick={() => togglePrivacy()}
+                >
                   <CustomSwitch
                     checked={isPrivate}
-                    onChange={togglePrivacy}
                     inputProps={{ 'aria-label': 'controlled Switch' }}
                   />
                   <p className="text-white">Keep private</p>
