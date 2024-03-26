@@ -88,9 +88,14 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       formData.append('company', company)
       formData.append('terms_and_conditions', termsAndConditions)
       formData.append('discount_amount', discountAmount)
-      formData.append('public', 'true')
       formData.append('categories', `${categories}`)
       formData.append('company_url', `www.${company}.com`.toLowerCase())
+      formData.append('public', JSON.stringify(!isPrivate))
+      // While slightly confusing, the default value of our Switch selector is public, which means that our checked state and our public status will always be inverted:
+      //
+      // isPrivate === true ? then public === false
+      //
+      // A little unfortunate, but that's just some classic UI and DB decoupling, and i prefer the table to have PUBLIC rather than PRIVATE as default
 
       // POST Fetch Request to Discounts API
       const response = await fetch('/api/discounts', {
@@ -167,9 +172,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  useEffect(() => {
-    console.log({ isPrivate }), [isPrivate]
-  })
   // useEffect(() => {
   //   handleRedirect()
   // }, [handleRedirect])
