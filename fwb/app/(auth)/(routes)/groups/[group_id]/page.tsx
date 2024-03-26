@@ -109,6 +109,8 @@ async function getAllUserData(user_ids: string[]) {
 }
 
 const Page = async ({ params }: { params: { group_id: string } }) => {
+  const bearer_token = await auth().getToken({ template: 'testing_template' })
+  const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const groupData = await getGroupData(params)
   const userData: any = await getAllUserData(groupData.data[0].users)
 
@@ -121,12 +123,19 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
           supabase_jwt
         )
       : []
-      
+
   return (
     <Box sx={{ backgroundColor: '#1A1A23' }}>
       <Container disableGutters maxWidth="lg">
         <SingleGroupNavbar />
-        <Box sx={{ paddingX: '18px', position: 'relative', marginTop: '156px', zIndex: 0 }}>
+        <Box
+          sx={{
+            paddingX: '18px',
+            position: 'relative',
+            marginTop: '156px',
+            zIndex: 0,
+          }}
+        >
           <GroupDetailsSection
             userData={userData}
             groupData={groupData.data[0]}
