@@ -44,7 +44,7 @@ function ExplorePageContent() {
   const [isLoading, setIsLoading] = useState(true)
 
   const [isAtBottom, setIsAtBottom] = React.useState(false)
-  const [infinteScroll, setInfinteScroll] = React.useState(false)
+  const [infiniteScroll, setInfiniteScroll] = React.useState(false)
 
   const [companyQuery, setCompanyQuery] = useState('')
   const [searchedCompany, setSearchedCompany] = useState(null)
@@ -183,7 +183,7 @@ function ExplorePageContent() {
   useEffect(() => {
     fetchData(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, infinteScroll])
+  }, [page, infiniteScroll])
 
   useEffect(() => {
     if (companies && companies.length > 0) {
@@ -204,7 +204,7 @@ function ExplorePageContent() {
         document.documentElement.scrollHeight
       setIsAtBottom(isAtBottom)
 
-      if (infinteScroll && isAtBottom) {
+      if (infiniteScroll && isAtBottom) {
         setPage(page + 1)
       }
     }
@@ -213,7 +213,7 @@ function ExplorePageContent() {
     return () => {
       window.removeEventListener('scroll', checkScroll)
     }
-  }, [infinteScroll, page])
+  }, [infiniteScroll, page])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
@@ -250,7 +250,7 @@ function ExplorePageContent() {
             <Button
               onClick={() => {
                 setPage(page + 1)
-                setInfinteScroll(true)
+                setInfiniteScroll(true)
               }}
               sx={{ color: 'white' }}
             >
