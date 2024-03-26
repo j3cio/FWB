@@ -1,14 +1,19 @@
 'use client'
 
-import './page.css'
-import Link from 'next/link'
+import { useState, useCallback } from 'react'
+
+import { useRouter } from 'next/navigation'
+
 import { useUser } from '@clerk/nextjs'
+
+import UpdateUser from '@/components/hooks/updateUser'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
 import IllustrationFour from '@/components/ui/fre/IllustrationFour'
-import { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+
 import { UserData } from '../../../types/types'
-import UpdateUser from '@/components/hooks/updateUser'
+
+import './page.css'
+import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
 
 // Setting Clerk as Global Variable to access Clerk / Supabase Session Keys
 declare global {
@@ -17,29 +22,32 @@ declare global {
   }
 }
 
+//Set State of All Categories
+const allCategories = [
+  'sports',
+  'fashion',
+  'electronic',
+  'health',
+  'books',
+  'hobbies',
+  'home & kitchen',
+  'computer & accessories',
+  'beauty & skincare',
+]
+
 export default function UserFlowPage2({ userData }: { userData: UserData }) {
   const [company, setCompany] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState('')
   const [discountAmount, setDiscountAmount] = useState('')
-
-  //Set State of All Categories
-  const allCategories = [
-    'sports',
-    'fashion',
-    'electronic',
-    'health',
-    'books',
-    'hobbies',
-    'home & kitchen',
-    'computer & accessories',
-    'beauty & skincare',
-  ]
+  const [isPrivate, setIsPrivate] = useState(false)
   const [categories, setCategories] = useState<string[]>(allCategories)
 
   //TODO: Handle User Routing Once Form is Submitted
   const router = useRouter()
   //Update user info based on provided company of Employment
   const { isSignedIn, user, isLoaded } = useUser()
+
+  const togglePrivacy = () => setIsPrivate(!isPrivate)
 
   const handleRedirect = useCallback(() => {
     if (!isLoaded || !isSignedIn || !userData.users[0]) {
@@ -256,13 +264,21 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                   onChange={(e) => setTermsAndConditions(e.target.value)}
                   required
                 />
+                <div className="flex items-center">
+                  <CustomSwitch
+                    checked={isPrivate}
+                    onChange={togglePrivacy}
+                    inputProps={{ 'aria-label': 'controlled Switch' }}
+                  />
+                  <p className="text-white">Keep private</p>
+                </div>
                 {/* <select>
                   <option value="All">All</option>
                   <option value="Sports">Sports</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Electronic">Electronic</option>
+                  <oalue="Electronic">Electronic</oalue=>
                   <option value="Health">Health</option>
-                  <option value="Home & Kitchen">Home & Kitchen</option>
+                  <option vaption value="Fashion">Fashion</option>
+                  <option vlue="Home & Kitchen">Home & Kitchen</option>
                   <option value="Computer & Accessories">
                     Computer & Accessories
                   </option>
