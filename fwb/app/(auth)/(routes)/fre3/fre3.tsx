@@ -37,7 +37,6 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
       router.replace('/fre1')
       return
     }
-    console.log(userData.users[0].hasCompletedFRE[2])
     if (!userData || !userData.users[0].hasCompletedFRE[0]) {
       router.replace('/fre1')
     } else if (

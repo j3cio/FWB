@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useUser } from '@clerk/nextjs'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
 import IllustrationFour from '@/components/ui/fre/IllustrationFour'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { UserData } from '../../../types/types'
 import UpdateUser from '@/components/hooks/updateUser'
@@ -38,7 +38,31 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
 
   //TODO: Handle User Routing Once Form is Submitted
   const router = useRouter()
+  //Update user info based on provided company of Employment
+  const { isSignedIn, user, isLoaded } = useUser()
 
+  const handleRedirect = useCallback(() => {
+    if (!isLoaded || !isSignedIn || !userData.users[0]) {
+      router.replace('/fre1')
+      return
+    }
+
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+      router.replace('/fre1')
+    } else if (
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0] &&
+      !userData.users[0].hasCompletedFRE[2]
+    ) {
+      router.replace('/fre3')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('profile')
+    }
+  }, [isLoaded, isSignedIn, router, userData])
   //Handle Discount Submission
   const handleDiscountSubmit = async (e: any) => {
     e.preventDefault()
@@ -71,14 +95,13 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       })
 
       // Log each entry in the FormData separately
-      formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`)
-      })
-      
+      // formData.forEach((value, key) => {
+      //   console.log(`${key}: ${value}`)
+      // })
+
       if (response.ok) {
         const data = await response.json()
         const discountId = data.data[0].id
-        console.log('Discount added successfully:', data)
         addDiscountToUser(discountId, bearerToken, supabaseToken)
         updateUser()
       } else {
@@ -98,7 +121,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       const response = await UpdateUser(formData)
 
       if (response) {
-        console.log('rerouting to fre3')
         router.push('/fre3')
       } else {
         console.error('Error in updateUser')
@@ -108,17 +130,20 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  const addDiscountToUser = async (discountId: string, bearerToken: string, supabaseToken: string,) => {
+  const addDiscountToUser = async (
+    discountId: string,
+    bearerToken: string,
+    supabaseToken: string
+  ) => {
     try {
-     await fetch('/api/tempdiscounts', {
+      await fetch('/api/tempdiscounts', {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${bearerToken}`,
           supabase_jwt: supabaseToken,
         },
-        body: JSON.stringify({discountId})
+        body: JSON.stringify({ discountId }),
       })
-
     } catch (error) {
       console.error(error)
     }
@@ -134,31 +159,9 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  //Update user info based on provided company of Employment
-  const { isSignedIn, user, isLoaded } = useUser()
-
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace('/fre1')
-      return
-    }
-
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      router.replace('/fre1')
-    } else if (
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0] &&
-      !userData.users[0].hasCompletedFRE[2]
-    ) {
-      router.replace('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, userData, router])
+  // useEffect(() => {
+  //   handleRedirect()
+  // }, [handleRedirect])
 
   return (
     <div className="pageContent">
