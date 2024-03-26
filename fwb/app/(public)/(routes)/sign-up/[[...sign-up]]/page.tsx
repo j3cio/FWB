@@ -51,7 +51,7 @@ export default function Page() {
       router.replace('/fre1')
       return // You can also render a loading state or redirect message here
     }
-  }, [user])
+  }, [user, router])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
