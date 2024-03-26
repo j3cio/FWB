@@ -172,9 +172,9 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  // useEffect(() => {
-  //   handleRedirect()
-  // }, [handleRedirect])
+  useEffect(() => {
+    handleRedirect()
+  }, [handleRedirect])
 
   return (
     <div className="pageContent">
