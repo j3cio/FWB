@@ -35,64 +35,20 @@ export default function ExplorePage() {
 }
 
 function ExplorePageContent() {
-  const router = useRouter()
-  const { getToken } = useAuth()
-
-  const { sortby, category, privateGroup } = useContext(FilterContext)
   const [page, setPage] = useState(0)
   const [companies, setCompanies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
-
   const [companyQuery, setCompanyQuery] = useState('')
   const [searchedCompany, setSearchedCompany] = useState(null)
 
+  const router = useRouter()
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const bearerToken = await window.Clerk.session.getToken({
-          template: 'testing_template',
-        })
-        const supabaseToken = await window.Clerk.session.getToken({
-          template: 'supabase',
-        })
-
-        const response = await fetch(
-          `api/companies/search?companyQuery=${companyRedirect}`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${bearerToken}`,
-              supabase_jwt: supabaseToken,
-            },
-          }
-        )
-
-        if (response.ok) {
-          const data = await response.json()
-          console.log('Searching for Discount was Successful', data)
-          setSearchedCompany(data)
-        } else {
-          const errorData = await response.json()
-          console.error('Error Finding a Discount', errorData)
-          alert('There are no discounts for that company!')
-          setSearchedCompany(null)
-        }
-      } catch (error) {
-        console.error('GET Company Discount API Failed', error)
-        setSearchedCompany(null)
-      }
-    }
-
-    if (companyRedirect) {
-      fetchData()
-    }
-  }, [companyRedirect])
+  const { getToken } = useAuth()
+  const { sortby, category, privateGroup } = useContext(FilterContext)
 
   const handleSearch = async (e: any) => {
     e.preventDefault()
@@ -197,7 +153,7 @@ function ExplorePageContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortby, category, privateGroup])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkScroll = () => {
       const isAtBottom =
         window.scrollY + window.innerHeight >=
@@ -214,6 +170,48 @@ function ExplorePageContent() {
       window.removeEventListener('scroll', checkScroll)
     }
   }, [infiniteScroll, page])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const bearerToken = await window.Clerk.session.getToken({
+          template: 'testing_template',
+        })
+        const supabaseToken = await window.Clerk.session.getToken({
+          template: 'supabase',
+        })
+
+        const response = await fetch(
+          `api/companies/search?companyQuery=${companyRedirect}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${bearerToken}`,
+              supabase_jwt: supabaseToken,
+            },
+          }
+        )
+
+        if (response.ok) {
+          const data = await response.json()
+          console.log('Searching for Discount was Successful', data)
+          setSearchedCompany(data)
+        } else {
+          const errorData = await response.json()
+          console.error('Error Finding a Discount', errorData)
+          alert('There are no discounts for that company!')
+          setSearchedCompany(null)
+        }
+      } catch (error) {
+        console.error('GET Company Discount API Failed', error)
+        setSearchedCompany(null)
+      }
+    }
+
+    if (companyRedirect) {
+      fetchData()
+    }
+  }, [companyRedirect])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
