@@ -135,7 +135,7 @@ function ExplorePageContent() {
     }
   }
 
-  // Fetch Data and concatinate when page is changed or infinite scroll is enabled
+  // Fetch Data and concatenate when page is changed or infinite scroll is enabled
   useEffect(() => {
     fetchData(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
