@@ -40,13 +40,26 @@ interface fuzzySearchParams {
   keys?: string[]
 }
 
+// https://www.fusejs.io/api/options.html for more options
+interface fuseOptionsParams {
+  includeScore?: boolean // Whether the score should be included in the result set. A score of 0indicates a perfect match, while a score of 1 indicates a complete mismatch. good for testing
+  minMatchCharLength?: number
+  shouldSort?: boolean
+  location?: number //default 0: Determines approximately where in the text is the pattern expected to be found.
+  threshold?: number // Default 0.6: At what point does the match algorithm give up. A threshold of 0.0 requires a perfect match (of both letters and location), a threshold of 1.0 would match anything.
+  distance?: number //Default 100: Determines how close the match must be to the fuzzy location (specified by location). An exact letter match which is distance characters away from the fuzzy location would score as a complete mismatch. A distance of 0 requires the match be at the exact location specified. A distance of 1000 would require a perfect match to be within 800 characters of the location to be found using a threshold of 0.8.
+  keys: string[]
+}
+
 export const fuzzySearch = async ({
   searchQuery,
   searchIndex,
   keys = ['name'],
 }: fuzzySearchParams) => {
-  const fuseOptions = {
+  const fuseOptions: fuseOptionsParams = {
     keys,
+    distance: 100,
+    threshold: 0.3,
   }
   const fuse = new Fuse(searchIndex, fuseOptions)
 
