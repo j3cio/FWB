@@ -6,6 +6,7 @@ interface ChatSidebarProps {
 }
 
 export default function ChatSideBar({ user }: ChatSidebarProps) {
+  console.log({ user })
   const [tab, setTab] = useState<'general' | 'groups'>('general')
   return (
     <div className="w-full max-w-[432px]" style={{ width: '425px' }}>

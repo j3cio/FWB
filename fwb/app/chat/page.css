@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
 .str-chat {
   --str-chat__primary-color: #8e94e9;
   --str-chat__active-primary-color: red;
@@ -13,6 +15,7 @@
   --str-chat__message-textarea-border-radius: none;
   --str-chat__message-textarea-border-block-start: 1px solid
     rgba(255, 255, 255, 0.3);
+  --str-chat__font-family: 'Urbanist', sans-serif;
   --str-chat__message-textarea-border-block-end: none;
   --str-chat__message-textarea-border-inline-start: none;
   --str-chat__message-textarea-border-inline-end: none;
@@ -20,6 +23,17 @@
   --str-chat__message-input-tools-color: white;
   --str-chat__message-mention-color: white;
   --str-chat__deleted-message-color: white;
+
+  /* Searchbar */
+  --str-chat__channel-search-input-color: black;
+  --str-chat__channel-search-input-wrapper-background-color: white;
+  --str-chat__channel-search-input-wrapper-active-background-color: white;
+  --str-chat__channel-search-input-wrapper-active-border-radius: 50px;
+  /* Mobile styles */
+
+  @media screen and (max-width: 639px) {
+    --str-chat__channel-list-border-inline-end: 0;
+  }
   /* 
 글씨체 안바뀜
 전체 칼라가 바뀜-> 그래서 배경화면/유저이름 안바뀜
@@ -39,6 +53,51 @@ Search bar변경안됨 */
   --str-chat__caption-text:Urbanist; */
 }
 
-/* .str-chat .str-chat__message-username {
-  color: red !important;
-} */
+/* ChatList Styling */
+.str-chat__channel-preview-messenger {
+  height: 56px;
+}
+
+.str-chat__channel-preview-messenger--name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.str-chat__channel-preview-messenger--last-message {
+  font-size: 10px;
+  /* Add back when we figure out timestamps */
+  /* max-width: 90%; */
+}
+
+/* SearchBar */
+.str-chat__channel-search-bar-button {
+  background-color: white !important;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.str-chat__channel-search-input {
+  padding-left: 12px;
+}
+
+.str-chat__channel-search-input--icon {
+  position: absolute;
+  right: 10px;
+  background-color: black;
+  background-image: url('/search_24px.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-position: center;
+  margin-right: 4px;
+
+  svg {
+    background-color: transparent;
+    stroke: transparent;
+    path {
+      fill: transparent;
+    }
+  }
+}
