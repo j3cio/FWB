@@ -140,16 +140,30 @@ export async function GET(request: NextRequest) {
       .order(sort_by, { ascending: ascending })
       .range(from, to)
 
-    const publicCompanies = result?.map((company: Company) => company.discounts)
-
-    console.log({ publicCompanies })
     if (companiesError) {
-      console.log(companiesError)
+      console.error(companiesError)
       return NextResponse.json(
         { error: 'Failed to fetch public and private companies' },
         { status: 500 }
       )
     }
+
+    let { data: privateDiscounts, error: discountsError } = await supabase
+      .from('discounts')
+      .select('id')
+      .neq('public', true)
+
+    console.log({ privateDiscounts: privateDiscounts?.length })
+
+    if (discountsError) {
+      console.error(discountsError)
+      return NextResponse.json(
+        { error: 'Failed to fetch public and private discounts' },
+        { status: 500 }
+      )
+    }
+
+    const publicCompanies = result?.map((company: Company) => company.discounts)
 
     return NextResponse.json({ result }, { status: 200 })
   }
