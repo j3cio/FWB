@@ -179,6 +179,11 @@ function ExplorePageContent() {
     }
   }
 
+  const clearSearch = () => {
+    setSearchedCompany(null)
+    setCompanyQuery('')
+  }
+
   // Fetch Data and concatinate when page is changed or infinite scroll is enabled
   useEffect(() => {
     fetchData(true)
@@ -223,6 +228,7 @@ function ExplorePageContent() {
         ) : (
           <Navbar
             handleSearch={handleSearch}
+            clearSearch={clearSearch}
             companyQuery={companyQuery}
             setCompanyQuery={setCompanyQuery}
           />

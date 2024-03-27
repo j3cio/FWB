@@ -104,12 +104,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
 interface NavbarProps {
   handleSearch: (e: any) => void
+  clearSearch: () => void
   companyQuery: string
   setCompanyQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   handleSearch,
+  clearSearch,
   companyQuery,
   setCompanyQuery,
 }) => {
@@ -187,6 +189,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
+                  onClick={clearSearch}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',
