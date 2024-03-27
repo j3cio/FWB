@@ -23,39 +23,39 @@ export default function DetailPage({ company, }: { company: CompanyAndDiscounts 
 
   const discountIds = company.discounts.join(',');
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       var myHeaders = new Headers()
-  //       myHeaders.append('Authorization', `Bearer ${await getToken()}`)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        var myHeaders = new Headers()
+        myHeaders.append('Authorization', `Bearer ${await getToken()}`)
 
-  //       var requestOptions = {
-  //         method: 'GET',
-  //         headers: myHeaders,
-  //         redirect: 'follow' as RequestRedirect,
-  //       }
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow' as RequestRedirect,
+        }
 
-  //       const protocol = window.location.protocol
-  //       const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
-  //         requestOptions
-  //       )
+        const protocol = window.location.protocol
+        const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+          requestOptions
+        )
 
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
 
-  //       const responseData = await response.json();
+        const responseData = await response.json();
 
-  //       setDiscounts(responseData);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error)
-  //     }
-  //   }
+        setDiscounts(responseData);
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
 
-  //   if (discounts) {
-  //     fetchData()
-  //   }
-  // }, [discountIds])
+    if (discounts) {
+      fetchData()
+    }
+  }, [discountIds])
 
 
   const combinedData: DetailData = { company, discounts }
@@ -92,7 +92,6 @@ function DetailPageContent({ data, }: { data: DetailData; }) {
         headers: myHeaders,
         redirect: 'follow' as RequestRedirect,
       }
-      console.log(discountIds)
 
       const protocol = window.location.protocol
       const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
@@ -110,10 +109,6 @@ function DetailPageContent({ data, }: { data: DetailData; }) {
       console.error('Error fetching data:', error)
     }
   }
-  // console.log("data.discounts is ")
-  // console.log(data.discounts)
-  // console.log("discounts is ")
-  // console.log(discounts)
 
   return (
     <div className="w-full bg-[#1A1A23] pt-[96px]">

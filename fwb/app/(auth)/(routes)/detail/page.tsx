@@ -40,22 +40,6 @@ const handleSearch = async (companyName: string) => {
       // Parse the JSON data from the first response
       const company: CompanyAndDiscounts = await response.json()
 
-      // // Use the data from the first response in the second request
-      // const responseDetail = await fetch(
-      //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts/detail?discount_ids=${company.discounts}`,
-      //   requestOptions
-      // )
-
-      // Check if the second request is successful
-      // if (!responseDetail.ok) {
-      //   throw new Error(`HTTP error! status: ${responseDetail.status}`)
-      // }
-
-      // // Parse the JSON data from the second response
-      // const discounts: DiscountDataDetail[] = await responseDetail.json()
-
-      // const combinedData = { company, discounts }
-
       return company // This returns the result object
     } catch (error) {
       console.error('Error fetching data: ', error)

@@ -5,7 +5,6 @@ import supabaseClient from '@/supabase'
 export async function GET(request: NextRequest) {
   let discount_ids = request.nextUrl.searchParams.get('discount_ids')
   const discount_array = discount_ids?.split(',');
-  console.log(discount_array)
 
   let sort_by = request.nextUrl.searchParams.get('sort_by') || null
   let private_group = request.nextUrl.searchParams.get('private_group') || 'all'
@@ -14,16 +13,16 @@ export async function GET(request: NextRequest) {
 
   // Interpret sort_by. Default to "view_count".
   if (sort_by === null) sort_by = 'view_count'
-  if (sort_by === 'Most Popular') sort_by = 'view_count'
-  if (sort_by === 'Highest to Lowest Discounts') {
+  if (sort_by === 'most popular') sort_by = 'view_count'
+  if (sort_by === 'highest to lowest discounts') {
     sort_by = 'discount_amount'
     accending = false
   }
-  if (sort_by === 'Most Recent') {
+  if (sort_by === 'most recent') {
     sort_by = 'created_at'
     accending = false
   }
-  if (sort_by === 'Lowest to Highest Discounts') sort_by = 'discount_amount'
+  if (sort_by === 'lowest to highest discounts') sort_by = 'discount_amount'
 
   try {
     // Fetch all public groups
