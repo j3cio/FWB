@@ -227,8 +227,6 @@ function ExplorePageContent() {
             setCompanyQuery={setCompanyQuery}
           />
         )}
-        <MostPopular />
-        <Divider color="white" />
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
