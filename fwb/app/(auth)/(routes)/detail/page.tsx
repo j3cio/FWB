@@ -41,22 +41,22 @@ const handleSearch = async (companyName: string) => {
       const company: CompanyAndDiscounts = await response.json()
 
       // // Use the data from the first response in the second request
-      const responseDetail = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts/detail?discount_ids=${company.discounts}`,
-        requestOptions
-      )
+      // const responseDetail = await fetch(
+      //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts/detail?discount_ids=${company.discounts}`,
+      //   requestOptions
+      // )
 
       // Check if the second request is successful
-      if (!responseDetail.ok) {
-        throw new Error(`HTTP error! status: ${responseDetail.status}`)
-      }
+      // if (!responseDetail.ok) {
+      //   throw new Error(`HTTP error! status: ${responseDetail.status}`)
+      // }
 
       // // Parse the JSON data from the second response
-      const discounts: DiscountDataDetail[] = await responseDetail.json()
+      // const discounts: DiscountDataDetail[] = await responseDetail.json()
 
-      const combinedData = { company, discounts }
+      // const combinedData = { company, discounts }
 
-      return combinedData // This returns the result object
+      return company // This returns the result object
     } catch (error) {
       console.error('Error fetching data: ', error)
       throw error // This re-throws the error to be handled by the caller
@@ -71,13 +71,12 @@ const page = async ({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) => {
-  console.log({ searchParams })
 
   if (searchParams.name) {
-    const data: DetailData | undefined = await handleSearch(searchParams.name)
+    const data: CompanyAndDiscounts | undefined = await handleSearch(searchParams.name)
 
     return (
-      <div>{data ? <DetailPage data={data} /> : <div>Loading...</div>}</div>
+      <div>{data ? <DetailPage company={data} /> : <div>Loading...</div>}</div>
     )
   } else {
     redirect('/explore')

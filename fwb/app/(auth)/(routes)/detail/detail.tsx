@@ -1,14 +1,119 @@
 "use client";
 
-import * as React from 'react'
-import { DetailData, DiscountDataDetail } from "@/app/types/types";
+import React, {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  use,
+} from 'react'
+import { DetailData, DiscountDataDetail, CompanyAndDiscounts } from "@/app/types/types";
 import DetailCard from '@/components/ui/detail/discount'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import DetailFilters from '@/components/ui/explore/detailfilters'
+import {
+  DetailContext,
+  DetailProvider,
+} from '@/components/ui/explore/filter_context'
+import { useAuth } from '@clerk/nextjs'
+
+export default function DetailPage({ company, }: { company: CompanyAndDiscounts }) {
+  const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
+  const { sortby, privateGroup } = useContext(DetailContext)
+  const { getToken } = useAuth()
+
+  const discountIds = company.discounts.join(',');
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       var myHeaders = new Headers()
+  //       myHeaders.append('Authorization', `Bearer ${await getToken()}`)
+
+  //       var requestOptions = {
+  //         method: 'GET',
+  //         headers: myHeaders,
+  //         redirect: 'follow' as RequestRedirect,
+  //       }
+
+  //       const protocol = window.location.protocol
+  //       const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+  //         requestOptions
+  //       )
+
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+
+  //       const responseData = await response.json();
+
+  //       setDiscounts(responseData);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error)
+  //     }
+  //   }
+
+  //   if (discounts) {
+  //     fetchData()
+  //   }
+  // }, [discountIds])
 
 
-export default function DetailPage({ data, }: { data: DetailData; }) {
+  const combinedData: DetailData = { company, discounts }
 
-  const items: DiscountDataDetail[] = data.discounts;
+  return (
+    <DetailProvider>
+      <DetailPageContent data={combinedData} />
+    </DetailProvider>
+  )
+}
+
+
+function DetailPageContent({ data, }: { data: DetailData; }) {
+
+  const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
+  const { sortby, privateGroup } = useContext(DetailContext)
+  const { getToken } = useAuth()
+
+  useEffect(() => {
+    if (data.discounts) {
+      fetchData()
+    }
+  }, [sortby, privateGroup])
+
+  const discountIds = data.company.discounts.join(',');
+
+  const fetchData = async () => {
+    try {
+      var myHeaders = new Headers()
+      myHeaders.append('Authorization', `Bearer ${await getToken()}`)
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow' as RequestRedirect,
+      }
+      console.log(discountIds)
+
+      const protocol = window.location.protocol
+      const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+        requestOptions
+      )
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json();
+
+      setDiscounts(responseData);
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+  // console.log("data.discounts is ")
+  // console.log(data.discounts)
+  // console.log("discounts is ")
+  // console.log(discounts)
 
   return (
     <div className="w-full bg-[#1A1A23] pt-[96px]">
@@ -65,7 +170,7 @@ export default function DetailPage({ data, }: { data: DetailData; }) {
             <div className="flex flex-col mr-[45px] ">
               <div className="text-[15px]">Total Offers</div>
               <div className="text-center text-[23px]">
-                {data.company.discounts.length}
+                {data.discounts.length}
               </div>
             </div>
             <div className="flex flex-col">
@@ -83,40 +188,17 @@ export default function DetailPage({ data, }: { data: DetailData; }) {
           <div className="text-[#F6FF82] text-[32px] font-bold mb-auto">
             Discounts Offered
           </div>
-          <div className="flex flex-row text-white">
-            <div className="flex flex-col mr-[24px]">
-              <label>
-                <div>Sort By:</div>
-                <select className="p-[9px] rounded-[10px] border-[2px] border-[#8E94E9] bg-transparent mt-[8px] p-[8px]">
-                  <option value="select" className="bg-[#1A1A23] py-[5px] mt-[-20px]">Select an option</option>
-                  <option value="option1" className="bg-[#1A1A23] my-[2px]">Option 1</option>
-                  <option value="option2" className="bg-[#1A1A23] my-[2px]">Option 2</option>
-                  <option value="option3" className="bg-[#1A1A23] my-[2px]">Option 3</option>
-                </select>
-              </label>
-            </div>
-            <div className="flex flex-col ">
-              <label>
-                <div>Private Groups:</div>
-                <select className="p-[9px] rounded-[10px] border-[2px] border-[#8E94E9] bg-transparent mt-[8px]">
-                  <option value="">Select an option</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </select>
-              </label>
-            </div>
-          </div>
+          <DetailFilters />
         </div>
       </div>
 
       {/* discount listing section */}
       <div className='mb-[50px] relative'>
-        {items.map((item: DiscountDataDetail) => (
-          <DetailCard data={item} key={item.discount_amount}/>
+        {(discounts.length != 0 ? discounts : data.discounts)?.map((item: DiscountDataDetail) => (
+          <DetailCard data={item} key={item.discount_amount} />
         ))}
       </div>
-      
+
       <div className='h-[200px]'></div>
     </div>
   );
