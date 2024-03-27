@@ -123,12 +123,19 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
           supabase_jwt
         )
       : []
-      
+
   return (
     <Box sx={{ backgroundColor: '#1A1A23' }}>
       <Container disableGutters maxWidth="lg">
         <SingleGroupNavbar />
-        <Box sx={{ paddingX: '18px', position: 'relative', marginTop: '156px', zIndex: 0 }}>
+        <Box
+          sx={{
+            paddingX: '18px',
+            position: 'relative',
+            marginTop: '156px',
+            zIndex: 0,
+          }}
+        >
           <GroupDetailsSection
             userData={userData}
             groupData={groupData.data[0]}

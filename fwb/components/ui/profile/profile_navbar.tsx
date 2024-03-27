@@ -147,14 +147,16 @@ const Navbar: React.FC<NavbarProps> = ({
           }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Image 
-                priority
-                className='mr-[4.6vw] xxs:w-28 xs:w-28 sm:w-32 w-44 h-full' 
-                src='/fwb_logo.png' 
-                alt="logo" 
-                width={900} 
-                height={0} 
-            />
+            <button onClick={() => router.push('/profile')}>
+              <Image 
+                  priority
+                  className='mr-[4.6vw] xxs:w-28 xs:w-28 sm:w-32 w-44 h-full' 
+                  src='/fwb_logo.png' 
+                  alt="logo" 
+                  width={900} 
+                  height={0} 
+              />
+            </button>
             <Toolbar
               disableGutters
               variant="dense"
