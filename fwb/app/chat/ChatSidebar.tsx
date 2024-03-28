@@ -1,8 +1,10 @@
-import { UserResource } from '@clerk/types'
+// import { UserResource } from '@clerk/types'
 import { useState } from 'react'
 import { ChannelList } from 'stream-chat-react'
+import { User } from '@/app/types/types'
+
 interface ChatSidebarProps {
-  user: UserResource
+  user: User
 }
 
 export default function ChatSideBar({ user }: ChatSidebarProps) {
