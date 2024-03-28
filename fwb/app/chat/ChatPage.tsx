@@ -47,7 +47,6 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
 
   const user = userData.users[0]
 
-  console.log({ userData, groupData })
   const isDesktop = useMediaQuery({
     query: '(min-width: 640px)',
   })
@@ -91,16 +90,18 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
       ) : (
         <div className="flex flex-col text-white px-[13px]">
           {/* Mobile Nav bar thingy */}
-          <MobileChatNavigation />
-          {/* Tabs */}
-          <MobileTabsSelector
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
-          {/* Chat lists */}
           <Chat client={chatClient}>
+            <MobileChatNavigation />
+            {/* Tabs */}
+            <MobileTabsSelector
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+            {/* Chat lists */}
             {/* swap out user with groups when we get toggle to work */}
-            <MobileChatList channelData={user} />
+            <MobileChatList
+              channelData={activeTab === 'general' ? user : groupData[0]}
+            />
             {/* Group/Contact Chat Details */}
           </Chat>
         </div>
