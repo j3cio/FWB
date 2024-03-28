@@ -34,24 +34,25 @@
   @media screen and (max-width: 639px) {
     --str-chat__channel-list-border-inline-end: 0;
   }
-  /* 
+}
+
+/* 
 글씨체 안바뀜
 전체 칼라가 바뀜-> 그래서 배경화면/유저이름 안바뀜
 채팅방에 유저이름 위치변경안됨
 placeholder변경안됨
 Search bar변경안됨 */
-  /* --str-chat__message-send-color:white; */
-  /* --str-chat__message-actions-box-border-radius:20px; */
-  /* --str-chat__message-bubble-border-inline-end:20px;
+/* --str-chat__message-send-color:white; */
+/* --str-chat__message-actions-box-border-radius:20px; */
+/* --str-chat__message-bubble-border-inline-end:20px;
   --str-chat__message-bubble-border-inline-start:20px; */
-  /* --str-chat__channel-border-inline-end:none; */
-  /* --str-chat__message-input-border-block-start:none; */
-  /* --str-chat__secondary-background-color:rgba(255, 255, 255,0.1); */
-  /* --str-chat__border-radius-sm: 14px; */
-  /* --str-chat__border-radius-md:18px; */
-  /* --str-chat__font-family:Urbanist;
+/* --str-chat__channel-border-inline-end:none; */
+/* --str-chat__message-input-border-block-start:none; */
+/* --str-chat__secondary-background-color:rgba(255, 255, 255,0.1); */
+/* --str-chat__border-radius-sm: 14px; */
+/* --str-chat__border-radius-md:18px; */
+/* --str-chat__font-family:Urbanist;
   --str-chat__caption-text:Urbanist; */
-}
 
 /* ChatList Styling */
 .str-chat__channel-preview-messenger {
@@ -70,6 +71,12 @@ Search bar변경안됨 */
 }
 
 /* SearchBar */
+.str-chat__channel-search-bar {
+  /* padding: 16px 0 !important; */
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+}
+
 .str-chat__channel-search-bar-button {
   background-color: white !important;
   border-radius: 50%;
@@ -92,12 +99,13 @@ Search bar변경안됨 */
   border-radius: 50%;
   background-position: center;
   margin-right: 4px;
+}
 
-  svg {
-    background-color: transparent;
-    stroke: transparent;
-    path {
-      fill: transparent;
-    }
-  }
+.str-chat__channel-search-input--icon svg {
+  background-color: transparent;
+  stroke: transparent;
+}
+
+.str-chat__channel-search-input--icon svg path {
+  fill: transparent;
 }
