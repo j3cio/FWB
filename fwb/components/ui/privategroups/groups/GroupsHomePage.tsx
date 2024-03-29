@@ -5,21 +5,19 @@ import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGr
 import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import EndArrow from '../icons/EndArrow'
+import EndArrowWhite from '../icons/EndArrowWhite'
+import LockIcon from '../icons/LockIcon'
+import MoreIcon from '../icons/MoreIcon'
+import { SearchContext } from '@/contexts/SearchContext'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import { useAuth } from '@clerk/nextjs'
 
 import SingleGroupCard from './GroupCard'
+import CreateGroupCard from './CreateGroupCard'
 
-const bgImg = [
-  {
-    id: 'bg-1',
-    img: '/groups/bg-top-right.svg',
-  },
-  {
-    id: 'bg-2',
-    img: '/groups/circle-element2.svg',
-  },
-]
+
 
 // Type userData
 const GroupsHomePage = ({
@@ -29,27 +27,56 @@ const GroupsHomePage = ({
   userData: UserData
   groupData: Group[]
 }) => {
-  const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
+  const [open, setOpen] = useState(false)
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
+  const router = useRouter()
+  const { getToken } = useAuth()
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    setSearchResults,
+  } = useContext(SearchContext)
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  const [open, setOpen] = useState(false)
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+    
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
       return true
     }
     return false
-  }
-
-  const handleDeleteTest = async (groupId: string, userGroups: string[]) => {
-    console.log("group id:", groupId, "groups:", userGroups )
   }
 
   const handleDeleteGroup = async (groupId: string, userGroups: string[]) => {
@@ -121,11 +148,11 @@ const GroupsHomePage = ({
           className="font-urbanist"
           sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
         >
-          <Container disableGutters maxWidth="lg" sx={{ paddingX: 6 }}>
+          <Container disableGutters maxWidth="lg">
             <Navbar
               handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
+              companyQuery={searchQuery}
+              setCompanyQuery={setSearchQuery}
             />
             <Typography
               className="font-urbanist"
@@ -140,68 +167,7 @@ const GroupsHomePage = ({
               Private Groups
             </Typography>
             <Box className="px-[18px]">
-              <Box
-                className="flex xxs:flex-col xs:flex-col sm:flex-col flex-row justify-between w-full min-h-[25vh] py-[7%] rounded-3xl bg-[#8E94E9]"
-                sx={{
-                  backgroundImage: {
-                    md: `url(${bgImg[0].img}), url(${bgImg[1].img})`,
-                  },
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'right top, left bottom',
-                }}
-              >
-                <Box className="flex flex-col text-[#F6FF82]">
-                  <Box className="ml-[10%] flex items-center gap-3 md:gap-6">
-                    <Typography className="font-urbanist text-[28px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
-                      Create
-                    </Typography>
-                    <Image
-                      className="w-32 sm:w-48 md:w-64 lg:w-64 xl:w-64 xxl:w-64"
-                      src="/groups/avatar-container.svg"
-                      height={0}
-                      width={0}
-                      alt="avatar-container"
-                    />
-                  </Box>
-                  <Box className="relative mt-0 flex items-center">
-                    <span className="bg-[#F6FF82] rounded-r-full xxs:h-8 xs:h-8 h-12 xxs:w-32 xs:w-32 w-48"></span>
-                    <span className="bg-[#F6FF82] xxs:mx-1 xs:mx-1 mx-4 rounded-full xxs:w-8 xxs:h-8 xs:w-8 xs:h-8 h-12 w-12"></span>
-                    <Box className="flex gap-3 items-center">
-                      <Typography className="font-urbanist text-[28px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
-                        new
-                      </Typography>
-                      <Box className="relative flex">
-                        <Typography className="font-urbanist text-[28px] sm:text-[48px] lg:text-[54px] xl:text-[64px] xxl:text-[64px] font-semibold">
-                          group
-                        </Typography>
-                        <Image
-                          className="xxs:hidden xs:hidden sm:hidden absolute h-12 w-fit top-2 -right-8"
-                          src="/groups/circle-element.svg"
-                          height={0}
-                          width={0}
-                          alt="circle-element"
-                        />
-                      </Box>
-                    </Box>
-                    
-                  </Box>
-                </Box>
-                <Box className="px-8 lg:w-fit xl:w-fit xxl:w-fit xxs:mt-10 xs:mt-10 sm:mt-10 mt-auto">
-                  <Button
-                    className="flex xxs:w-full xs:w-full sm:w-full items-center gap-3 px-5 py-3 rounded-3xl bg-[#F6FF82] text-[#8E94E9] ml-auto"
-                    onClick={handleOpen}
-                    endIcon={<EndArrow />}
-                  >
-                    <Typography
-                      
-                      className="sm:text-lg text-base xl:text-lg xxl:text-xl font-bold font-urbanist normal-case"
-                      component="p"
-                    >
-                      Create new group
-                    </Typography>
-                  </Button>
-                </Box>
-              </Box>
+              <CreateGroupCard handleOpen={handleOpen} />
             </Box>
             <Modal
               className="flex items-center justify-center"
@@ -240,11 +206,11 @@ const GroupsHomePage = ({
       component="section"
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
-      <Container disableGutters maxWidth="lg" sx={{ paddingX: 6, paddingY: 8 }}>
+      <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <Navbar
           handleSearch={handleSearch}
-          companyQuery={companyQuery}
-          setCompanyQuery={setCompanyQuery}
+          companyQuery={searchQuery}
+          setCompanyQuery={setSearchQuery}
         />
         <Box className="px-[18px] flex justify-between items-center">
           <Typography

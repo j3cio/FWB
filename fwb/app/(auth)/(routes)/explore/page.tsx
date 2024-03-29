@@ -1,11 +1,12 @@
 'use client'
+
 import React, { useEffect, useState, useContext } from 'react'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
+import { useAuth } from '@clerk/nextjs'
 import Button from '@mui/material/Button'
 import { Container, Box, Divider, Skeleton } from '@mui/material'
-import { useAuth } from '@clerk/nextjs'
 
 import ResponsiveGrid from '@/components/ui/explore/products_grid'
 import Navbar from '@/components/ui/explore/explore_navbar'
@@ -17,11 +18,15 @@ import {
 } from '@/components/ui/explore/filter_context'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import { SearchContext } from '@/contexts/SearchContext'
+
 /**
  * Renders the ExplorePage component. With the FilterProvider
  *
  * @returns The rendered ExplorePage component.
  */
+
 export default function ExplorePage() {
   return (
     <FilterProvider>
@@ -36,136 +41,22 @@ function ExplorePageContent() {
   const [isLoading, setIsLoading] = useState(true)
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
-  const [companyQuery, setCompanyQuery] = useState('')
+
   const [searchedCompany, setSearchedCompany] = useState(null)
 
-  const router = useRouter()
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
   const { getToken } = useAuth()
   const { sortby, category, privateGroup } = useContext(FilterContext)
-
-  const handleSearch = async (e: any) => {
-    e.preventDefault()
-
-    if (!companyQuery) {
-      console.error('Invalid company name provided')
-      setSearchedCompany(null)
-      alert('The search bar is empty!')
-      return
-    }
-
-    try {
-      const bearerToken = await window.Clerk.session.getToken({
-        template: 'testing_template',
-      })
-
-      const supabaseToken = await window.Clerk.session.getToken({
-        template: 'supabase',
-      })
-
-      // GET Fetch Request to Companies API
-      const response = await fetch(
-        `api/companies/search?companyQuery=${companyQuery}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-            supabase_jwt: supabaseToken,
-          },
-        }
-      )
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log('Searching for Discount was Successful', data)
-        setSearchedCompany(data)
-      } else {
-        const errorData = await response.json()
-        console.error('Error Finding a Discount', errorData)
-        alert('There are no discounts for that company!')
-        setSearchedCompany(null)
-      }
-    } catch (error) {
-      console.error('GET Company Discount API Failed', error)
-      setSearchedCompany(null)
-    }
-
-    router.push('/explore')
-  }
-
-  const fetchData = async (concat: boolean) => {
-    try {
-      var myHeaders = new Headers()
-      myHeaders.append('Authorization', `Bearer ${await getToken()}`)
-
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow' as RequestRedirect,
-      }
-
-      const protocol = window.location.protocol
-      fetch(
-        `${protocol}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
-          sortby
-        )}&category=${encodeURIComponent(
-          category.toLowerCase()
-        )}&private_group=${encodeURIComponent(
-          privateGroup.toLowerCase()
-        )}&page=${encodeURIComponent(page)}`,
-        requestOptions
-      )
-        .then(async (res) => {
-          if (concat) {
-            setCompanies([...companies].concat((await res.json()).result))
-          } else {
-            setCompanies((await res.json()).result)
-          }
-        })
-        .catch((error) => console.log('error', error))
-    } catch (error) {
-      setIsLoading(false)
-      console.error('Error fetching data:', error)
-    }
-  }
-
-  // Fetch Data and concatenate when page is changed or infinite scroll is enabled
-  useEffect(() => {
-    fetchData(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, infiniteScroll])
-
-  useEffect(() => {
-    if (companies && companies.length > 0) {
-      setIsLoading(false)
-    }
-  }, [companies])
-  // Fetch Data on Filter Change
-  useEffect(() => {
-    setPage(0)
-    fetchData(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortby, category, privateGroup])
-
-  useEffect(() => {
-    const checkScroll = () => {
-      const isAtBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight
-      setIsAtBottom(isAtBottom)
-
-      if (infiniteScroll && isAtBottom) {
-        setPage(page + 1)
-      }
-    }
-
-    window.addEventListener('scroll', checkScroll)
-    return () => {
-      window.removeEventListener('scroll', checkScroll)
-    }
-  }, [infiniteScroll, page])
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    searchResults,
+    setSearchResults,
+  } = useContext(SearchContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -209,6 +100,121 @@ function ExplorePageContent() {
     }
   }, [companyRedirect])
 
+  const handleSearch = async (e: any) => {
+    e.preventDefault()
+
+    try {
+      const results = await fuzzySearch({
+        searchQuery,
+        searchIndex,
+      })
+
+      setSearchResults(results)
+    } catch (error) {
+      console.error('GET Company Discount API Failed', error)
+      setSearchedCompany(null)
+    }
+  }
+
+  const fetchData = async (concat: boolean) => {
+    try {
+      var myHeaders = new Headers()
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow' as RequestRedirect,
+        }
+
+        const protocol = window.location.protocol
+        fetch(
+          `${protocol}//${window.location.host}/api/companies?sort_by=${encodeURIComponent(
+            sortby
+          )}&category=${encodeURIComponent(
+            category.toLowerCase()
+          )}&private_group=${encodeURIComponent(
+            privateGroup.toLowerCase()
+          )}&page=${encodeURIComponent(page)}`,
+          requestOptions
+        )
+          .then(async (res) => {
+            const data = await res.json()
+            if (concat) {
+              setCompanies([...companies].concat(data.result))
+            } else {
+              setCompanies((await res.json()).result)
+            }
+          })
+          .catch((error) => console.error('error', error))
+          .finally(async () => {
+            const companiesIndex = await getSearchIndex({
+              bearer_token: bearerToken,
+            })
+
+            setSearchIndex(companiesIndex)
+          })
+      }
+    } catch (error) {
+      setIsLoading(false)
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
+  // Fetch Data and concatenate when page is changed or infinite scroll is enabled
+
+  useEffect(() => {
+    fetchData(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, infiniteScroll])
+
+  useEffect(() => {
+    if (companies && companies.length > 0) {
+      setIsLoading(false)
+    }
+  }, [companies])
+  // Fetch Data on Filter Change
+  useEffect(() => {
+    setPage(0)
+    fetchData(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortby, category, privateGroup])
+
+  useEffect(() => {
+    const checkScroll = () => {
+      const isAtBottom =
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight
+      setIsAtBottom(isAtBottom)
+
+      if (infiniteScroll && isAtBottom) {
+        setPage(page + 1)
+      }
+    }
+
+    window.addEventListener('scroll', checkScroll)
+    return () => {
+      window.removeEventListener('scroll', checkScroll)
+    }
+  }, [infiniteScroll, page])
+
+  useEffect(() => {
+    searchIndex &&
+      searchIndex.length > 0 &&
+      fuzzySearch({
+        searchQuery,
+        searchIndex,
+      })
+  }, [searchQuery, searchIndex])
+
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
@@ -217,19 +223,18 @@ function ExplorePageContent() {
         ) : (
           <Navbar
             handleSearch={handleSearch}
-            companyQuery={companyQuery}
-            setCompanyQuery={setCompanyQuery}
+            clearSearch={clearSearch}
+            companyQuery={searchQuery}
+            setCompanyQuery={setSearchQuery}
           />
         )}
-        <MostPopular />
-        <Divider color="white" />
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
           <Productfilters />
         )}
         <ResponsiveGrid
-          items={searchedCompany ? [searchedCompany] : companies}
+          items={searchResults.length > 0 ? searchResults : companies}
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
