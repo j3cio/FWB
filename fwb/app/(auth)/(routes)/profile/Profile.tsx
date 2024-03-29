@@ -8,24 +8,23 @@ import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
 import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
-import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
-import { useUser } from "@clerk/nextjs";
-import Avatar from "@mui/material/Avatar";
-import { useRouter } from "next/navigation";
-import {  useState } from "react";
-import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
-import { DiscountData, UserData } from "../../../types/types";
-import EditProfileModal from "./EditProfileModal";
-import CreateDiscountCard from "@/components/ui/addbenefit/CreateDiscountCard";
+import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+import { useUser } from '@clerk/nextjs'
+import Avatar from '@mui/material/Avatar'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
+import { DiscountData, UserData } from '../../../types/types'
+import EditProfileModal from './EditProfileModal'
+import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
 import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
 
-
 interface ProfileProps {
-  userData: UserData;
-  discountData: DiscountData[];
+  userData: UserData
+  discountData: DiscountData[]
 }
 
-function Profile({ userData, discountData}: ProfileProps) {
+function Profile({ userData, discountData }: ProfileProps) {
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
@@ -138,33 +137,38 @@ function Profile({ userData, discountData}: ProfileProps) {
                   My Benefits!
                 </div>
                 {discountData && discountData.length > 0 ? (
-                   <div className=" flex justify-center mt-12">
-                   <Box
-                     sx={{
-                       flexGrow: 1,
-                       paddingBottom: '20px',
-                       justifyContent: 'center',
-                       minHeight: '100%',
-                     }}
-                   >
-                     <Grid container spacing={2} rowGap={2} sx={{  gap: "64px", marginLeft: "14px" }}>
-                       {discountData.map((company: any, index: React.Key) => (
-                       <>
-                         <Grid
-                           item
-                           xs={12}
-                           sm={6}
-                           md={3}
-                           key={index}
-                           sx={{ width: '282px', height: '322px' }}
-                         >
-                           <DiscountCard company={company} />
-                         </Grid>
-                       </>
-                       ))}
-                     </Grid>
-                   </Box>
-                 </div>
+                  <div className=" flex justify-center mt-12">
+                    <Box
+                      sx={{
+                        flexGrow: 1,
+                        paddingBottom: '20px',
+                        justifyContent: 'center',
+                        minHeight: '100%',
+                      }}
+                    >
+                      <Grid
+                        container
+                        spacing={2}
+                        rowGap={2}
+                        sx={{ gap: '64px', marginLeft: '14px' }}
+                      >
+                        {discountData.map((company: any, index: React.Key) => (
+                          <>
+                            <Grid
+                              item
+                              xs={12}
+                              sm={6}
+                              md={3}
+                              key={index}
+                              sx={{ width: '282px', height: '322px' }}
+                            >
+                              <DiscountCard company={company} />
+                            </Grid>
+                          </>
+                        ))}
+                      </Grid>
+                    </Box>
+                  </div>
                 ) : (
                   <>
                     <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-[120px] text-3xl">

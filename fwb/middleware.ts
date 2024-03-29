@@ -6,7 +6,13 @@ import { NextResponse } from 'next/server'
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 
 const publicRoutes = ['/', '/forgotpassword', '/sign-in', 'sign-up']
-const protectedRoutes = ['/profile', '/api', '/api/discounts', '/dashboard', '/fre1']
+const protectedRoutes = [
+  '/profile',
+  '/api',
+  '/api/discounts',
+  '/dashboard',
+  '/fre1',
+]
 
 export default authMiddleware({
   publicRoutes,

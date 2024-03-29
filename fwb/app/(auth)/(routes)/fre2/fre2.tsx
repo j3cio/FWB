@@ -74,7 +74,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       formData.forEach((value, key) => {
         console.log(`${key}: ${value}`)
       })
-      
+
       if (response.ok) {
         const data = await response.json()
         const discountId = data.data[0].id
@@ -108,17 +108,20 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  const addDiscountToUser = async (discountId: string, bearerToken: string, supabaseToken: string,) => {
+  const addDiscountToUser = async (
+    discountId: string,
+    bearerToken: string,
+    supabaseToken: string
+  ) => {
     try {
-     await fetch('/api/tempdiscounts', {
+      await fetch('/api/tempdiscounts', {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${bearerToken}`,
           supabase_jwt: supabaseToken,
         },
-        body: JSON.stringify({discountId})
+        body: JSON.stringify({ discountId }),
       })
-
     } catch (error) {
       console.error(error)
     }
