@@ -231,31 +231,6 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
     }
   }
 
-  //Error handling for if user tries to access page not signed in or Clerk isn't ready
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      return
-    }
-
-    if (
-      !userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('/fre2')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, userData, router])
 
   //Initializes random username on the first render of webpage
   useEffect(() => {

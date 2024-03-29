@@ -1,5 +1,6 @@
-import { auth } from '@clerk/nextjs'
-import UserFlowPage1 from './fre1'
+import UserFlowPage1 from './fre1';
+import { auth } from '@clerk/nextjs'; // Import the redirect function from '@clerk/nextjs'
+import { redirect } from 'next/navigation';
 
 async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers()
@@ -33,6 +34,29 @@ const page = async () => {
   const userId = await auth().userId
 
   const userData: any = await getUser(userId, supabase_jwt, bearer_token)
+
+  console.log("asidfasodinfaoi" + userData);
+  //Error handling for if user tries to access page not signed in or Clerk isn't ready
+  if (userData.users[0]) {
+    if (
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/fre2')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/fre3')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/profile')
+    }
+  } 
 
   return (
     <div>
