@@ -110,7 +110,6 @@ export async function GET(request: NextRequest) {
 
       // Filter companies by category
       let result: CompanyAndDiscounts[] = []
-      // const publicCompanies = companies?.filter(company: Company => company.)
       companies?.forEach((company) => {
         const intersection = new Set(
           [...company.discounts].filter((x) =>
@@ -148,12 +147,11 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Query our private discounts. For now this won't work, but this is just a reference for our query in the future
     let { data: privateDiscounts, error: discountsError } = await supabase
       .from('discounts')
       .select('id')
       .neq('public', true)
-
-    console.log({ privateDiscounts: privateDiscounts?.length })
 
     if (discountsError) {
       console.error(discountsError)
@@ -162,8 +160,6 @@ export async function GET(request: NextRequest) {
         { status: 500 }
       )
     }
-
-    const publicCompanies = result?.map((company: Company) => company.discounts)
 
     return NextResponse.json({ result }, { status: 200 })
   }
