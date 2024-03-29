@@ -282,9 +282,9 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                 {/* <select>
                   <option value="All">All</option>
                   <option value="Sports">Sports</option>
-                  <option="Electronic">Electronic</option>
+                  <option value="Electronic">Electronic</option>
                   <option value="Health">Health</option>
-                  <option  value="Fashion">Fashion</option>
+                  <option value="Fashion">Fashion</option>
                   <option value="Home & Kitchen">Home & Kitchen</option>
                   <option value="Computer & Accessories">
                     Computer & Accessories
