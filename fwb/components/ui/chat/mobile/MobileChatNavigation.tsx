@@ -7,7 +7,7 @@ import BackArrowIcon from '../icons/BackArrowIcon'
 import EditIcon from '../icons/EditIcon'
 
 const MobileChatNavigation = () => {
-  const { setActiveChannel } = useChatContext()
+  const { setActiveChannel, channel } = useChatContext()
 
   return (
     <nav className="flex font-urbanist justify-between py-[28px]">
@@ -16,7 +16,9 @@ const MobileChatNavigation = () => {
         onClick={() => setActiveChannel(undefined, undefined, undefined)}
       >
         <BackArrowIcon />
-        <p className="text-white font-semibold">Messages</p>
+        <p className="text-white font-semibold">
+          {channel ? 'Messages' : 'Messages'}
+        </p>
       </div>
       <div className="flex items-center gap-3 cursor-pointer">
         <div>
