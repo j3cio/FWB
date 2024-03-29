@@ -130,7 +130,7 @@ const CreateGroupForm = ({
   }
 
   return (
-    <form className="min-w-full px-[10%] flex flex-col items-center gap-8">
+    <form className="min-w-full px-[15%] flex flex-col items-center gap-8">
       <Box>
         {currentStepIndex == 0 && (
           <Image

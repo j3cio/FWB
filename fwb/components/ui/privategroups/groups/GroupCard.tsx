@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, IconButton, Menu, MenuItem, Modal, Stack, Typography } from '@mui/material'
+import { Box, Button, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 import Image from 'next/image'
 import { Group } from '@/app/types/types'
 import LockIcon from '../icons/LockIcon'
@@ -34,14 +34,10 @@ const SingleGroupCard = ({ group, index, isUserAdmin, userGroups, handleDeleteGr
         setAnchorEl(null)
     }
 
-    // const handleDeleteTest = async (groupId: string, userGroups: string[]) => {
-    //     console.log("group id:", groupId, "groups:", userGroups )
-    // }
-
     
-  const navigateToUserPage = (group_id: string) => {
-    window.location.href = `/groups/${group_id}`
-  }
+    const navigateToUserPage = (group_id: string) => {
+      window.location.href = `/groups/${group_id}`
+    }
     
   return (
      <Box
@@ -123,7 +119,7 @@ const SingleGroupCard = ({ group, index, isUserAdmin, userGroups, handleDeleteGr
                             Share Group
                           </MenuItem>
                           {isUserAdmin && (<MenuItem
-                              className='font-urbanist'
+                              className='font-urbanist text-[#ED455D]'
                               onClick={() => {
                                 handleDeleteGroup(
                                   group.id,
@@ -132,7 +128,7 @@ const SingleGroupCard = ({ group, index, isUserAdmin, userGroups, handleDeleteGr
                                 handleCloseMenu()
                               }}
                             >
-                              <DeleteIcon style={{ marginRight: '8px' }} />
+                              <DeleteIcon style={{ color: '#ED455D', marginRight: '8px' }} />
                                 Delete 
                             </MenuItem>)}
                         </Menu>

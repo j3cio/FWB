@@ -1,5 +1,4 @@
-'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -53,7 +52,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <Box
       sx={{
-        display: { xs: 'none', lg: 'flex' },
+        display: 'flex',
         alignItems: 'right',
         borderRadius: '100px',
         backgroundColor: 'white',
@@ -78,22 +77,24 @@ const SearchBar: React.FC<SearchBarProps> = ({
         onChange={(e) => setCompanyQuery(e.target.value)}
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
-            handleSearch(companyQuery)
+            handleSearch(e)
           }
         }}
       />
       <IconButton
+        color="primary"
         aria-label="search"
         sx={{
           backgroundColor: 'black',
           padding: '10px',
           border: 'none',
           margin: '4px',
+          transition: 'backgroundColor 1s ease',
           '&:hover': {
             backgroundColor: '#8e94e9',
           },
         }}
-        onClick={() => handleSearch(companyQuery)}
+        onClick={handleSearch}
       >
         <Image src={searchIcon} alt="Search Icon" />
       </IconButton>
@@ -115,7 +116,6 @@ const Navbar: React.FC<NavbarProps> = ({
   const router = useRouter()
   const { signOut } = useClerk()
   const { user, isSignedIn } = useUser()
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -146,14 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({
             width: '100%',
           }}
         >
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-            }}
-          >
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <button onClick={() => router.push('/profile')}>
               <Image 
                   priority
@@ -169,7 +162,6 @@ const Navbar: React.FC<NavbarProps> = ({
               variant="dense"
               sx={{
                 display: 'flex',
-                justifyContent: 'end',
                 gap: '24px',
                 height: '9.6px',
                 flexGrow: 1,
@@ -240,8 +232,6 @@ const Navbar: React.FC<NavbarProps> = ({
                     padding: '9.6px',
                     borderRadius: '50%',
                     border: '2px solid white',
-                    borderColor: '#8e94e9',
-                    backgroundColor: '#1a1a23',
                     '&:hover': {
                       backgroundColor: '#8e94e9',
                       borderColor: '#8e94e9',
@@ -280,6 +270,8 @@ const Navbar: React.FC<NavbarProps> = ({
                     padding: '9.6px',
                     borderRadius: '50%',
                     border: '2px solid white',
+                    borderColor: '#8e94e9',
+                    backgroundColor: '#1a1a23',
                     '&:hover': {
                       backgroundColor: '#8e94e9',
                       borderColor: '#8e94e9',
