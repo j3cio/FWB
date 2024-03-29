@@ -111,6 +111,14 @@ Search bar변경안됨 */
 }
 
 /* Message List/ Chat styling */
+.str-chat__message-bubble {
+  border-end-end-radius: var(
+    --str-chat__message-bubble-border-radius
+  ) !important;
+  border-start-end-radius: var(
+    --str-chat__message-bubble-border-radius
+  ) !important;
+}
 
 .str-chat__date-separator-line {
   display: none;
