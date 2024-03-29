@@ -109,3 +109,17 @@ Search bar변경안됨 */
 .str-chat__channel-search-input--icon svg path {
   fill: transparent;
 }
+
+/* Message List/ Chat styling */
+
+.str-chat__date-separator-line {
+  display: none;
+}
+
+.str-chat__date-separator-date {
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+}
