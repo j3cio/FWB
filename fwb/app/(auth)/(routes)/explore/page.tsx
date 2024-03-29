@@ -167,8 +167,7 @@ function ExplorePageContent() {
   }
 
   const clearSearch = () => {
-    setSearchedCompany(null)
-    setCompanyQuery('')
+    setSearchResults([])
   }
 
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
@@ -226,9 +225,8 @@ function ExplorePageContent() {
           <Navbar
             handleSearch={handleSearch}
             clearSearch={clearSearch}
-            companyQuery={companyQuery}
-            setCompanyQuery={setCompanyQuery}
-
+            companyQuery={searchQuery}
+            setCompanyQuery={setSearchQuery}
           />
         )}
         {isLoading ? (
