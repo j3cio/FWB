@@ -53,3 +53,36 @@ export interface LoadingSkeletonProps {
   type: 'ProductCard' | 'TitleAndButtons' | 'NavBar' | 'ProductFilters'
   quantity?: number
 }
+
+export type CompanyAndDiscounts = {
+  id: number;
+  name: string;
+  description: string;
+  logo: string;
+  url: string;
+  greatest_discount: number;
+  discounts: string[];
+  views: number;
+};
+
+export type DetailData = {
+  company: CompanyAndDiscounts,
+  discounts: DiscountDataDetail[],
+}
+
+export interface DiscountDataDetail {
+  created_at: string
+  user_id: string
+  terms_and_conditions: string
+  shareable_url: string
+  discount_amount: number
+  view_count: number
+  share_count: number
+  message_count: number
+  public: true
+  id: string
+  logo: string
+  name: string
+  user_image: string
+  user_username: string
+}

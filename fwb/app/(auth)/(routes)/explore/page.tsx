@@ -166,7 +166,13 @@ function ExplorePageContent() {
     }
   }
 
+  const clearSearch = () => {
+    setSearchedCompany(null)
+    setCompanyQuery('')
+  }
+
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
+
   useEffect(() => {
     fetchData(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -219,12 +225,12 @@ function ExplorePageContent() {
         ) : (
           <Navbar
             handleSearch={handleSearch}
-            companyQuery={searchQuery}
-            setCompanyQuery={setSearchQuery}
+            clearSearch={clearSearch}
+            companyQuery={companyQuery}
+            setCompanyQuery={setCompanyQuery}
+
           />
         )}
-        <MostPopular />
-        <Divider color="white" />
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (

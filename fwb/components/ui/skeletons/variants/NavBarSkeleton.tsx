@@ -7,8 +7,8 @@ const NavBarSkeleton = () => {
       sx={{
         backgroundColor: '#1A1A23',
         boxShadow: 'none',
-        paddingTop: '32px',
-        paddingBottom: '32px',
+        paddingY: '32px',
+        paddingX: '18px',
         position: 'sticky',
         top: 0,
         zIndex: 1,
@@ -19,12 +19,13 @@ const NavBarSkeleton = () => {
       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
         <Skeleton
           variant="rectangular"
-          width={114}
+          width={174}
           height={48}
           sx={{
             borderRadius: 250,
             bgcolor: '#CED2E4',
-            marginRight: '4.8vw',
+            marginRight: '3.8vw',
+            marginLeft: '.5vw',
           }}
         />
         <Box
@@ -38,23 +39,25 @@ const NavBarSkeleton = () => {
             border: 'none',
           }}
         >
-          <Skeleton
-            variant="rectangular"
-            height={48}
-            width={'100%'}
-            sx={{ bgcolor: '#CED2E4', borderRadius: '100px' }}
-          />
-          <Skeleton
-            variant="circular"
-            height={40}
-            width={40}
-            sx={{
-              position: 'absolute',
-              right: '4px',
-              top: '4px',
-              bgcolor: '#ADB4D2',
-            }}
-          />
+          <div className="flex w-full justify-end">
+            <Skeleton
+              variant="rectangular"
+              height={48}
+              width={'95%'}
+              sx={{ bgcolor: '#CED2E4', borderRadius: '100px' }}
+            />
+            <Skeleton
+              variant="circular"
+              height={40}
+              width={40}
+              sx={{
+                position: 'absolute',
+                right: '4px',
+                top: '4px',
+                bgcolor: '#ADB4D2',
+              }}
+            />
+          </div>
         </Box>
 
         <Box

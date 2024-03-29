@@ -10,8 +10,9 @@ const Loading = () => {
         <NavBarSkeleton />
         <Box
           sx={{
+            paddingX: '18px',
             position: 'relative',
-            paddingTop: '156px',
+            marginTop: '156px',
             zIndex: 0,
           }}
         >

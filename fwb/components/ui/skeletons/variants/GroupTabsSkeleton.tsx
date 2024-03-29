@@ -18,7 +18,7 @@ const GroupTabsSkeleton = () => {
             }`}
         >
           <Box textAlign="center">
-            <Typography className=" items-center font-bold text-3xl">
+            <Typography className=" items-center font-bold text-3xl font-urbanist">
               Discounts Offers
             </Typography>
           </Box>
@@ -28,7 +28,7 @@ const GroupTabsSkeleton = () => {
             }`}
         >
           <Box textAlign="center">
-            <Typography className=" items-center font-bold text-3xl">
+            <Typography className=" items-center font-bold text-3xl font-urbanist">
               Members
             </Typography>
           </Box>
