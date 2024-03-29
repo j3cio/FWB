@@ -167,7 +167,7 @@ const GroupsHomePage = ({
       component="section"
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
-      <Container disableGutters maxWidth="lg">
+      <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <Navbar
           handleSearch={handleSearch}
           companyQuery={companyQuery}
