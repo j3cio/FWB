@@ -18,11 +18,17 @@ const MobileChatNavigation = () => {
     membersArray && membersArray.find((member) => member.role === 'member')
   const recipientName = memberWithRoleMember && memberWithRoleMember.user?.name
 
+  const handleRedirect = () => {
+    channel
+      ? setActiveChannel(undefined, undefined, undefined)
+      : router.push('/explore')
+  }
+
   return (
     <nav className="flex justify-between py-[28px] font-urbanist">
       <div
         className="flex cursor-pointer items-center gap-2"
-        onClick={() => setActiveChannel(undefined, undefined, undefined)}
+        onClick={() => handleRedirect()}
       >
         <BackArrowIcon />
 
