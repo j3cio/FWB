@@ -167,6 +167,7 @@ function ExplorePageContent() {
   }
 
   const clearSearch = () => {
+    setSearchQuery('')
     setSearchResults([])
   }
 
