@@ -5,8 +5,14 @@ import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGr
 import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import EndArrow from '../icons/EndArrow'
+import EndArrowWhite from '../icons/EndArrowWhite'
+import LockIcon from '../icons/LockIcon'
+import MoreIcon from '../icons/MoreIcon'
+import { SearchContext } from '@/contexts/SearchContext'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import { useAuth } from '@clerk/nextjs'
 
 import SingleGroupCard from './GroupCard'
 import CreateGroupCard from './CreateGroupCard'
@@ -19,18 +25,51 @@ const GroupsHomePage = ({
   userData: UserData
   groupData: Group[]
 }) => {
-  const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
+  const [open, setOpen] = useState(false)
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
+  const router = useRouter()
+  const { getToken } = useAuth()
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    setSearchResults,
+  } = useContext(SearchContext)
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  const [open, setOpen] = useState(false)
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+    
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
       return true
@@ -110,8 +149,8 @@ const GroupsHomePage = ({
           <Container disableGutters maxWidth="lg">
             <Navbar
               handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
+              companyQuery={searchQuery}
+              setCompanyQuery={setSearchQuery}
             />
             <Typography
               className="font-urbanist"
@@ -165,11 +204,11 @@ const GroupsHomePage = ({
       component="section"
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
-      <Container disableGutters maxWidth="lg">
+      <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <Navbar
           handleSearch={handleSearch}
-          companyQuery={companyQuery}
-          setCompanyQuery={setCompanyQuery}
+          companyQuery={searchQuery}
+          setCompanyQuery={setSearchQuery}
         />
         <Box className="px-[18px] flex justify-between items-center">
           <Typography
