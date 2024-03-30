@@ -9,6 +9,7 @@ import CustomOption from './CustomOption'
 import BlockIcon from '@/components/ui/chat/icons/BlockIcon'
 import ReportRedIcon from '@/components/ui/chat/icons/ReportRedIcon'
 import DeleteRedIcon from '@/components/ui/chat/icons/DeleteRedIcon'
+import { useUser } from '@clerk/nextjs'
 
 const ChatDetailsPage = ({ user }: { user: User }) => {
   return (
@@ -20,6 +21,8 @@ const ChatDetailsPage = ({ user }: { user: User }) => {
             alt={`profile picture for ${user.username}`}
             width={88}
             height={88}
+            className=" rounded-full"
+            priority
           />
           <h1 className="pt-2 font-semibold">{user.username}</h1>
           {user.company ? (
