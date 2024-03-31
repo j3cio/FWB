@@ -55,9 +55,10 @@ const page = async ({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) => {
-
   if (searchParams.name) {
-    const data: CompanyAndDiscounts | undefined = await handleSearch(searchParams.name)
+    const data: CompanyAndDiscounts | undefined = await handleSearch(
+      searchParams.name
+    )
 
     return (
       <div>{data ? <DetailPage company={data} /> : <div>Loading...</div>}</div>

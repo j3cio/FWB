@@ -148,13 +148,13 @@ const Navbar: React.FC<NavbarProps> = ({
         >
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <button onClick={() => router.push('/profile')}>
-              <Image 
-                  priority
-                  className='mr-[4.6vw] xxs:w-28 xs:w-28 sm:w-32 w-44 h-full' 
-                  src='/fwb_logo.png' 
-                  alt="logo" 
-                  width={900} 
-                  height={0} 
+              <Image
+                priority
+                className="mr-[4.6vw] xxs:w-28 xs:w-28 sm:w-32 w-44 h-full"
+                src="/fwb_logo.png"
+                alt="logo"
+                width={900}
+                height={0}
               />
             </button>
             <Toolbar
@@ -204,7 +204,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Image
                     src={discountIcon}
                     alt="Explore"
-                    className='xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]'
+                    className="xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]"
                     style={{
                       width: '28.8px',
                       height: '28.8px',
@@ -243,7 +243,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Image
                     src={groupIcon}
                     alt="Groups"
-                    className='xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]'
+                    className="xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]"
                     style={{
                       width: '28.8px',
                       height: '28.8px',
@@ -282,7 +282,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Image
                     src={messageIcon}
                     alt="Messages"
-                    className='xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]'
+                    className="xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]"
                     style={{
                       width: '28.8px',
                       height: '28.8px',
@@ -309,7 +309,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 }}
               >
                 <div
-                  className='xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]'
+                  className="xxs:w-full xxs:h-full xs:w-[14px] xs:h-[14px] sm:h-[18px] sm:w-[18px]"
                   style={{
                     width: '28.8px',
                     height: '28.8px',

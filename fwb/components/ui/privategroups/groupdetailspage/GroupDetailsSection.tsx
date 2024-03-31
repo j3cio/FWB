@@ -64,10 +64,9 @@ const GroupDetailsSection = ({
                 />
               </div>
             </div>
-            {groupData.description && (<div className="">
-              {' '}
-              {groupData?.description}
-            </div>)}
+            {groupData.description && (
+              <div className=""> {groupData?.description}</div>
+            )}
           </div>
 
           <div className="text-white xxs:w-full xs:w-full sm:w-full flex flex-row-reverse justify-between items-center lg:flex-col xl:flex-col xxl:flex-col gap-3">

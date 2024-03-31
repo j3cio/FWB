@@ -39,7 +39,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
   }
 }
 
-
 export async function PATCH(request: NextRequest, response: NextResponse) {
   const { userId } = auth()
   const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
