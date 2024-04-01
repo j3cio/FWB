@@ -8,7 +8,7 @@ const MobileMessageList = () => {
         {/* setting loadingMore to false gets rid of the loading indicator */}
         <MessageList loadingMore={false} />
 
-        <div className="fixed bottom-0 w-full px-4">
+        <div className="fixed bottom-0 left-0 h-[50px] w-full">
           <MessageInput />
         </div>
       </section>

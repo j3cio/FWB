@@ -10,8 +10,12 @@ import BlockIcon from '@/components/ui/chat/icons/BlockIcon'
 import ReportRedIcon from '@/components/ui/chat/icons/ReportRedIcon'
 import DeleteRedIcon from '@/components/ui/chat/icons/DeleteRedIcon'
 import { useUser } from '@clerk/nextjs'
+import { useState } from 'react'
+import { Theme } from '@mui/material'
 
 const ChatDetailsPage = ({ user }: { user: User }) => {
+  const [muteMessages, setMuteMessages] = useState(false) // Temporarily just modifies state for now. In future there should be some kind of async action here. Maybe on getstream itself once we're done doing UI.
+
   return (
     <section className="flex h-dvh w-full flex-col items-center justify-between px-5">
       <div className="w-full">
@@ -36,9 +40,12 @@ const ChatDetailsPage = ({ user }: { user: User }) => {
         </div>
 
         <div className="flex w-full flex-col text-xs">
-          <article className="flex justify-between">
+          <article
+            className="flex justify-between"
+            onClick={() => setMuteMessages(!muteMessages)}
+          >
             <CustomOption icon={<MuteIcon />}>Mute Messages</CustomOption>
-            <SmallCustomSwitch />
+            <SmallCustomSwitch checked={muteMessages} />
           </article>
 
           <CustomOption icon={<ShareIcon />}> Share Profile</CustomOption>
