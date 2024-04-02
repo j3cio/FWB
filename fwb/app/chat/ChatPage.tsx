@@ -53,7 +53,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
 
   if (!chatClient || !user) {
     return (
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <LoadingIndicator size={40} />
       </div>
     )
@@ -67,18 +67,22 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       {isDesktop ? (
-        <Container disableGutters maxWidth="lg">
-          <Navbar
-            handleSearch={handleSearch}
-            companyQuery={companyQuery}
-            setCompanyQuery={setCompanyQuery}
-          />
+        <>
+          <Container disableGutters maxWidth="lg">
+            <Navbar
+              handleSearch={handleSearch}
+              companyQuery={companyQuery}
+              setCompanyQuery={setCompanyQuery}
+            />
+          </Container>
           <div className="flex flex-col items-center">
             <Chat client={chatClient}>
               {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}
               {/* The channel list shows only channels that the currently logged in user is a member (filters prop) */}
-              <div className="flex flex-row justify-center w-full pt-2 px-14 gap-6">
-                <ChatSideBar user={user} />
+              <div className="2xl:flex-nowrap flex w-full flex-row flex-wrap justify-center gap-6 pt-2">
+                <ChatSideBar
+                  channelData={activeTab === 'general' ? user : groupData[0]}
+                />
                 <ChatChannel />
               </div>
               {/* <Third name={tab === "general" ? "Name" : "GroupName"}>
@@ -86,9 +90,9 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
     </Third> */}
             </Chat>
           </div>
-        </Container>
+        </>
       ) : (
-        <div className="flex flex-col text-white px-[13px]">
+        <div className="flex flex-col px-[13px] text-white">
           {/* Mobile Nav bar thingy */}
           <Chat client={chatClient}>
             <MobileChatNavigation />

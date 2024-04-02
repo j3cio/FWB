@@ -12,7 +12,7 @@ import Image from '@/node_modules/next/image'
 export default function ChatChannel() {
   return (
     <div
-      className="w-full rounded-lg bg-opacity-10 bg-white "
+      className="w-full max-w-[900px] rounded-lg bg-white bg-opacity-10"
       style={{ height: '771px' }}
     >
       <Channel>
