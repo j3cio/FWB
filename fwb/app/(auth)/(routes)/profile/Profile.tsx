@@ -140,21 +140,23 @@ function Profile({ userData, discountData }: ProfileProps) {
             {/*Bargains div*/}
             <div className="flex flex-col w-full grow gap-6">
               <CreateDiscountCard />
-              <div className='md:hidden lg:hidden xl:hidden xxl:hidden flex w-full h-2/5'>
-              <a className='min-w-full' href="/addbenefit">
-                <div className='flex rounded-[32px] bg-cover py-5 sm:py-[10%] bg-[url("/profilebanner-sm.svg")]'>
-                  <div className='flex flex-col items-start gap-2 px-4 pt-8 pb-5'>
-                    <h1 className='text-[#F6FF82] text-xl sm:text-3xl font-medium'>Booty Call <br/> For Bargains!</h1>
-                    <Button
+              <div className="md:hidden lg:hidden xl:hidden xxl:hidden flex w-full h-2/5">
+                <a className="min-w-full" href="/intakeform">
+                  <div className='flex rounded-[32px] bg-cover py-5 sm:py-[10%] bg-[url("/profilebanner-sm.svg")]'>
+                    <div className="flex flex-col items-start gap-2 px-4 pt-8 pb-5">
+                      <h1 className="text-[#F6FF82] text-xl sm:text-3xl font-medium">
+                        Booty Call <br /> For Bargains!
+                      </h1>
+                      <Button
                         endIcon={<BlueArrowForward />}
                         variant="contained"
-                        className='rounded-[32px] font-medium text-sm sm:text-lg border-2 border-white text-[#8E94E9] bg-[#F6FF82] normal-case'
+                        className="rounded-[32px] font-medium text-sm sm:text-lg border-2 border-white text-[#8E94E9] bg-[#F6FF82] normal-case"
                       >
                         Share your discount
                       </Button>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
               </div>
               <div className="flex h-2/5 gap-6">
                 <a
@@ -162,7 +164,9 @@ function Profile({ userData, discountData }: ProfileProps) {
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
-                    <div className="font-semibold xxs:text-lg xs:text-lg sm:text-xl text-2xl">Private Groups</div>
+                    <div className="font-semibold xxs:text-lg xs:text-lg sm:text-xl text-2xl">
+                      Private Groups
+                    </div>
                     <div className="xxs:text-[10px] xs:text-[10px] sm:text-[10px] text-[14px]">
                       Get intimate with discounts in private groups
                     </div>
