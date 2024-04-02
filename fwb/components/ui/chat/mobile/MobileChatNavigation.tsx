@@ -9,15 +9,17 @@ import EditIcon from '../icons/EditIcon'
 import InfoIcon from '../icons/InfoIcon'
 
 const MobileChatNavigation = () => {
-  const { setActiveChannel, channel } = useChatContext()
+  const { client, setActiveChannel, channel } = useChatContext()
   const router = useRouter()
 
+  const currentChatUser = client._user?.id
   const recipient = channel?.state.members
   const membersArray = recipient && Object.values(recipient)
-  const memberWithRoleMember =
-    membersArray && membersArray.find((member) => member.role === 'member')
-  const recipientName = memberWithRoleMember && memberWithRoleMember.user?.name
 
+  const memberWithRoleMember =
+    membersArray &&
+    membersArray.find((member) => member.user_id !== currentChatUser)
+  const recipientName = memberWithRoleMember && memberWithRoleMember.user?.name
   const handleRedirect = () => {
     channel
       ? setActiveChannel(undefined, undefined, undefined)

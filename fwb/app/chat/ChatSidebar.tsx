@@ -1,13 +1,9 @@
-// import { UserResource } from '@clerk/types'
-import { useState } from 'react'
-import { ChannelList, useChatContext } from 'stream-chat-react'
-import { Group, User } from '@/app/types/types'
-import AddFriendsIcon from '@/components/ui/chat/icons/AddFriendsIcon'
-import EditIcon from '@/components/ui/chat/icons/EditIcon'
-import DesktopChatTopBar from '@/components/ui/chat/desktop/DesktopChannelListTopBar'
+import { ChannelList } from 'stream-chat-react'
+
 import DesktopTabsSelector from '@/components/ui/chat/desktop/DesktopTabsSelector'
 import DesktopChannelListTopBar from '@/components/ui/chat/desktop/DesktopChannelListTopBar'
 
+import { Group, User } from '@/app/types/types'
 interface ChatSidebarProps {
   channelData: User | Group
 }

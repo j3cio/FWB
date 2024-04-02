@@ -28,10 +28,9 @@ interface ChatPageProps {
 const ChatPage = ({ userData, groupData }: ChatPageProps) => {
   const [companyQuery, setCompanyQuery] = useState('')
 
-  const { showChatDetails, activeTab } = useContext(FWBChatContext)
-
   const router = useRouter()
   const chatClient = useIntitialChatClient()
+  const { showChatDetails, activeTab } = useContext(FWBChatContext)
 
   const user = userData.users[0]
 
@@ -53,7 +52,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
   }
 
   return (
-    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
+    <main className="h-full bg-[#1A1A23]">
       {isDesktop ? (
         <>
           <Container disableGutters maxWidth="lg">
@@ -63,7 +62,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
               setCompanyQuery={setCompanyQuery}
             />
           </Container>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center overflow-y-hidden bg-[#1A1A23] pb-6 lg:pb-0">
             <Chat client={chatClient}>
               {/* The channel list shows only channels that the currently logged in user is a member (filters prop) */}
               <div className="flex w-full flex-row flex-wrap justify-center  gap-6 px-4 pt-2 lg:flex-nowrap">
@@ -71,7 +70,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
                   channelData={activeTab === 'general' ? user : groupData[0]}
                 />
                 <ChatChannel />
-                {showChatDetails ? <ChannelDetails /> : null}
+                {showChatDetails ? <ChannelDetails user={user} /> : null}
               </div>
             </Chat>
           </div>
@@ -92,7 +91,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
           </Chat>
         </div>
       )}
-    </Box>
+    </main>
   )
 }
 

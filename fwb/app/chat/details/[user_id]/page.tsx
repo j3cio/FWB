@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { User } from '@/app/types/types'
 import ChatDetailsPage from './ChatDetailsPage'
 
-const getUserDetails = async (userId: string) => {
+export const getUserDetails = async (userId: string) => {
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
   const supabase = await supabaseClient(supabase_jwt)
@@ -49,7 +49,7 @@ const page = async ({ params }: ChatDetailParams) => {
   const user: User = data.data
 
   return (
-    <main className="bg-[#1A1A23] h-dvh flex flex-col text-white ">
+    <main className="flex h-dvh flex-col bg-[#1A1A23] text-white ">
       <ReturnToChat />
       <ChatDetailsPage user={user} />
     </main>

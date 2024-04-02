@@ -5,6 +5,7 @@ import {
   Channel,
   Window,
   ChannelHeader,
+  LoadingIndicator,
 } from 'stream-chat-react'
 
 const MobileMessageList = () => {
