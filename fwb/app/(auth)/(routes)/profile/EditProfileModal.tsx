@@ -147,7 +147,7 @@ const EditProfileModal = ({
       }}
     >
       <div
-        className="modal-content relative xs:h-screen xs:w-full sm:w-[80%] xs:rounded-none xs:border-none"
+        className="modal-content relative xs-max:h-screen xs-max:w-full sm-max:w-[80%] xs-max:rounded-none xs-max:border-none"
         style={{
           borderRadius: '40px',
           border: '2px solid var(--Neutral-000, #FFF)',
@@ -159,7 +159,7 @@ const EditProfileModal = ({
           height: '722px',
         }}
       >
-        <div className="hidden xxs:flex xs:flex gap-2">
+        <div className="hidden xxs-max:flex xs-max:flex gap-2">
           <svg
             className="cursor-pointer"
             onClick={handleXClick}
@@ -179,7 +179,7 @@ const EditProfileModal = ({
         {/* X Button*/}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="xxs:hidden xs:hidden sm:ml-[85%]"
+          className="xxs-max:hidden xs-max:hidden sm-max:ml-[85%]"
           width="40"
           height="40"
           viewBox="0 0 40 40"
@@ -199,7 +199,7 @@ const EditProfileModal = ({
         </svg>
         <div className="flex items-center justify-center flex-col">
           <h2
-            className="font-urbanist xxs:hidden xs:hidden"
+            className="font-urbanist xxs-max:hidden xs-max:hidden"
             style={{
               color: 'var(--Neutral-000, #FFF)',
               textAlign: 'center',
@@ -212,15 +212,15 @@ const EditProfileModal = ({
           >
             Edit Profile
           </h2>
-          <div className="flex xxs:flex-col xs:flex-col items-center justify-center flex-row my-4">
+          <div className="flex xxs-max:flex-col xs-max:flex-col items-center justify-center flex-row my-4">
             {/* Avatar */}
             <Avatar
               alt="123"
               src={`${user?.imageUrl}`}
-              className="flex bg-slate-200 xxs:h-36 xxs:w-36 xs:h-40 xs:w-40 h-48 w-48 rounded-full justify-center items-center"
+              className="flex bg-slate-200 xxs-max:h-36 xxs-max:w-36 xs-max:h-40 xs-max:w-40 h-48 w-48 rounded-full justify-center items-center"
             />
             <div className="flex items-center justify-center flex-col m-4">
-              <div className="hidden xs:flex xxs:flex font-urbanist font-semibold text-white text-sm">
+              <div className="hidden xs-max:flex xxs-max:flex font-urbanist font-semibold text-white text-sm">
                 Edit photo
               </div>
               <div className="flex items-center justify-center flex-row m-4 gap-2">
@@ -304,7 +304,7 @@ const EditProfileModal = ({
             </div>
           </div>
           <div
-            className="font-urbanist xxs:hidden xs:hidden"
+            className="font-urbanist xxs-max:hidden xs-max:hidden"
             style={{
               color: '#FFF',
               textAlign: 'center',
