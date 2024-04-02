@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { User } from '@/app/types/types'
 import ChatDetailsPage from './ChatDetailsPage'
 
-export const getUserDetails = async (userId: string) => {
+const getUserDetails = async (userId: string) => {
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
   const supabase = await supabaseClient(supabase_jwt)
