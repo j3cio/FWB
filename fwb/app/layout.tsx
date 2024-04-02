@@ -4,6 +4,7 @@ import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
+import SearchProvider from '@/contexts/SearchContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +26,9 @@ export default function RootLayout({
     <ThemeProvider theme={theme}>
       <ClerkProvider>
         <html lang="en">
-          <body className={urbanist.className}>{children}</body>
+          <body className={urbanist.className}>
+            <SearchProvider>{children}</SearchProvider>
+          </body>
         </html>
       </ClerkProvider>
     </ThemeProvider>

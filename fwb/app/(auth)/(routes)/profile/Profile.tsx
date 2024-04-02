@@ -1,5 +1,6 @@
 'use client'
 
+import { useCallback, useContext, useEffect, useState } from 'react'
 import Navbar from '@/components/ui/profile/profile_navbar'
 import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
 import { Box, Button, Container, Grid } from '@mui/material'
@@ -8,31 +9,42 @@ import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
 import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
-import useIntitialChatClient from "@/app/chat/useIntializeChatClient";
-import { useUser } from "@clerk/nextjs";
-import Avatar from "@mui/material/Avatar";
-import { useRouter } from "next/navigation";
-import {  useState } from "react";
-import SaveIcon from "../../../../components/ui/profile/icons/save.svg";
-import { DiscountData, UserData } from "../../../types/types";
-import EditProfileModal from "./EditProfileModal";
-import CreateDiscountCard from "@/components/ui/addbenefit/CreateDiscountCard";
-import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
+import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+import { useUser, useAuth } from '@clerk/nextjs'
+import Avatar from '@mui/material/Avatar'
+import { useRouter } from 'next/navigation'
+import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
+import { UserData } from '../../../types/types'
+import EditProfileModal from './EditProfileModal'
+import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
+import { SearchContext } from '@/contexts/SearchContext'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import { DiscountData } from '../../../types/types'
 
+import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
+import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
 
 interface ProfileProps {
-  userData: UserData;
-  discountData: DiscountData[];
+  userData: UserData
+  discountData: DiscountData[]
 }
 
-function Profile({ userData, discountData}: ProfileProps) {
+function Profile({ userData, discountData }: ProfileProps) {
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
-
+  const { getToken } = useAuth()
   //Intialize the user to be in GetStream db
   const client = useIntitialChatClient()
-
-  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
+  const { user } = useUser()
+  const router = useRouter()
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    setSearchResults,
+  } = useContext(SearchContext)
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
@@ -42,40 +54,60 @@ function Profile({ userData, discountData}: ProfileProps) {
     setIsEditProfileModalOpen(false)
   }
 
-  const { user } = useUser()
-  const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
   }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
         <Navbar
           handleSearch={handleSearch}
-          companyQuery={companyQuery}
-          setCompanyQuery={setCompanyQuery}
+          companyQuery={searchQuery}
+          setCompanyQuery={setSearchQuery}
         />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
-          <div className="flex flex-1 flex-col h-full w-full items-center justify-center px-[120px]">
+          <div className="flex flex-1 flex-col h-full w-full xxs-max:items-start xs-max:items-start sm-max:items-start items-center justify-center xxs-max:px-4 xs-max:px-6 sm-max:px-8 px-[120px]">
             {/*Profile div*/}
-            <div className="flex w-full h-1/5 mt-[95px] mb-[50px] gap-10 border-b-2 border-slate-200 pb-[95px]">
+            <div className="flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col w-full h-1/5 xxs-max:mt-4 xs-max:mt-6 sm-max:mt-8 mt-[95px] mb-[50px] xxs-max:gap-3 xs-max:gap-3 sm-max:gap-4 gap-10 border-b-2 border-slate-200 xxs-max:pb-4 xs-max:pb-4 sm-max:pb-6 pb-[95px]">
               <Avatar
                 alt="123"
                 src={`${user?.imageUrl}`}
-                className="flex bg-slate-200 w-48 justify-center items-center"
-                sx={{ width: '180px', height: '190px', borderRadius: '50%' }}
+                className="flex xxs-max:h-[92px] xxs-max:w-[92px] xs-max:h-[92px] xs-max:w-[92px] sm-max:h-[102px] sm-max:w-[102px] h-[190px] w-48 rounded-full bg-slate-200 justify-center items-center"
               />
               <div className="flex flex-col grow justify-center">
-                <div className="text-slate-200 text-[35px] mb-[4px] leading-none font-semibold">
+                <div className="text-slate-200 xxs-max:text-[24px] xs-max:text-[24px] sm-max:text-[28px] text-[35px] mb-[4px] leading-none font-semibold">
                   {userData.users[0].username}
                 </div>
                 {userData.users[0].company && (
-                  <div className="flex flex-row mb-[16px]">
+                  <div className="xxs-max:text-[12px] xs-max:text-[12px] sm-max:text-[14px] flex flex-row mb-[16px]">
                     <div className="mr-1 text-slate-200">Benefits from: </div>
                     <div className=" text-yellow-200">
                       {userData.users[0].company}
@@ -108,14 +140,34 @@ function Profile({ userData, discountData}: ProfileProps) {
             {/*Bargains div*/}
             <div className="flex flex-col w-full grow gap-6">
               <CreateDiscountCard />
+              <div className="md:hidden lg-max:hidden xl-max:hidden xxl-max:hidden flex w-full h-2/5">
+                <a className="min-w-full" href="/intakeform">
+                  <div className='flex rounded-[32px] bg-cover py-5 sm-max:py-[10%] bg-[url("/profilebanner-sm.svg")]'>
+                    <div className="flex flex-col items-start gap-2 px-4 pt-8 pb-5">
+                      <h1 className="text-[#F6FF82] text-xl sm-max:text-3xl font-medium">
+                        Booty Call <br /> For Bargains!
+                      </h1>
+                      <Button
+                        endIcon={<BlueArrowForward />}
+                        variant="contained"
+                        className="rounded-[32px] font-medium text-sm sm-max:text-lg border-2 border-white text-[#8E94E9] bg-[#F6FF82] normal-case"
+                      >
+                        Share your discount
+                      </Button>
+                    </div>
+                  </div>
+                </a>
+              </div>
               <div className="flex h-2/5 gap-6">
                 <a
                   href="profile"
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
-                    <div className="font-semibold text-2xl">Private Groups</div>
-                    <div className="text-[14px]">
+                    <div className="font-semibold xxs-max:text-lg xs-max:text-lg sm-max:text-xl text-2xl">
+                      Private Groups
+                    </div>
+                    <div className="xxs-max:text-[10px] xs-max:text-[10px] sm-max:text-[10px] text-[14px]">
                       Get intimate with discounts in private groups
                     </div>
                   </div>
@@ -132,42 +184,47 @@ function Profile({ userData, discountData}: ProfileProps) {
               </div>
             </div>
             {/*My Benefits div*/}
-            <div className="flex flex-col w-full h-1/5 my-[80px] rounded-lg">
+            <div className="flex flex-col w-full h-1/5 xxs-max:my-6 xs-max:my-8 sm-max:my-10 my-[80px] rounded-lg">
               <div className="flex flex-col h-full w-full">
-                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white">
+                <div className="flex h-2/5 border-b-2 border-slate-200 xxs-max:text-xl xs-max:text-xl sm-max:text-xl text-3xl text-white">
                   My Benefits!
                 </div>
                 {discountData && discountData.length > 0 ? (
-                   <div className=" flex justify-center mt-12">
-                   <Box
-                     sx={{
-                       flexGrow: 1,
-                       paddingBottom: '20px',
-                       justifyContent: 'center',
-                       minHeight: '100%',
-                     }}
-                   >
-                     <Grid container spacing={2} rowGap={2} sx={{  gap: "64px", marginLeft: "14px" }}>
-                       {discountData.map((company: any, index: React.Key) => (
-                       <>
-                         <Grid
-                           item
-                           xs={12}
-                           sm={6}
-                           md={3}
-                           key={index}
-                           sx={{ width: '282px', height: '322px' }}
-                         >
-                           <DiscountCard company={company} />
-                         </Grid>
-                       </>
-                       ))}
-                     </Grid>
-                   </Box>
-                 </div>
+                  <div className=" flex justify-center mt-12">
+                    <Box
+                      sx={{
+                        flexGrow: 1,
+                        paddingBottom: '20px',
+                        justifyContent: 'center',
+                        minHeight: '100%',
+                      }}
+                    >
+                      <Grid
+                        container
+                        spacing={2}
+                        rowGap={2}
+                        sx={{ gap: '64px', marginLeft: '14px' }}
+                      >
+                        {discountData.map((company: any, index: React.Key) => (
+                          <>
+                            <Grid
+                              item
+                              xs={12}
+                              sm={6}
+                              md={3}
+                              key={index}
+                              sx={{ width: '282px', height: '322px' }}
+                            >
+                              <DiscountCard company={company} />
+                            </Grid>
+                          </>
+                        ))}
+                      </Grid>
+                    </Box>
+                  </div>
                 ) : (
                   <>
-                    <div className="flex h-1/4 items-center justify-center text-yellow-200 mt-[120px] text-3xl">
+                    <div className="flex h-1/4 items-center justify-center text-yellow-200 xxs-max:mt-10 xs-max:mt-10 sm-max:mt-10 mt-[120px] xxs-max:text-xl xs-max:text-xl sm-max:text-xl text-3xl">
                       Be the wingman to a friend&apos;s wallet now!
                     </div>
                     <div className="flex grow items-center justify-center mt-[24px]">
