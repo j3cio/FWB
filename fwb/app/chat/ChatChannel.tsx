@@ -6,23 +6,23 @@ import {
   Thread,
   Window,
 } from 'stream-chat-react'
-import avatar from '@/components/ui/message/icons/avatar.svg'
-import Image from '@/node_modules/next/image'
+
+import DesktopMessageListTopBar from '@/components/ui/chat/desktop/DesktopMessageListTopBar'
 
 export default function ChatChannel() {
   return (
-    <div
-      className="w-full max-w-[900px] rounded-lg bg-white bg-opacity-10"
+    <section
+      className="max-h-[500px] min-h-[300px] w-full rounded-lg bg-[#313139] px-4 text-white md:w-[717px] lg:h-[771px] lg:max-h-[771px]"
       style={{ height: '771px' }}
     >
       <Channel>
         <Window>
-          <ChannelHeader />
-          <MessageList />
+          <DesktopMessageListTopBar />
+          <MessageList loadingMore={false} />
           <MessageInput />
         </Window>
         <Thread />
       </Channel>
-    </div>
+    </section>
   )
 }

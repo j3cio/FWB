@@ -3,11 +3,11 @@
 import { FWBChatContext } from '@/contexts/ChatContext'
 import { useContext } from 'react'
 
-const MobileTabsSelector = () => {
+const DesktopTabsSelector = () => {
   const { activeTab, setActiveTab } = useContext(FWBChatContext)
 
   return (
-    <section className="flex cursor-pointer text-xs">
+    <section className="flex cursor-pointer font-semibold">
       <article
         className={`w-1/2 border-b pb-2 text-center ${activeTab === 'general' ? '' : ' opacity-25'}`}
         onClick={() => setActiveTab && setActiveTab('general')}
@@ -24,4 +24,4 @@ const MobileTabsSelector = () => {
   )
 }
 
-export default MobileTabsSelector
+export default DesktopTabsSelector

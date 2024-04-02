@@ -31,9 +31,7 @@
   --str-chat__channel-search-input-wrapper-active-border-radius: 50px;
   /* Mobile styles */
 
-  @media screen and (max-width: 639px) {
-    --str-chat__channel-list-border-inline-end: 0;
-  }
+  --str-chat__channel-list-border-inline-end: 0;
 }
 
 /* ChatList Styling */
@@ -56,7 +54,7 @@
 .str-chat__channel-search-bar {
   /* padding: 16px 0 !important; */
   margin-top: 16px !important;
-  margin-bottom: 16px !important;
+  margin-bottom: 24px !important;
 }
 
 .str-chat__channel-search-bar-button {
@@ -93,9 +91,11 @@
 }
 
 /* Message List/ Chat styling */
-.str-chat__list {
-  height: calc(100% - 125px) !important;
-}
+/* @media screen and (max-width: 640px) {
+  .str-chat__list {
+    height: calc(100% - 70px) !important;
+  }
+} */
 
 .str-chat__message-bubble {
   border-end-end-radius: var(
