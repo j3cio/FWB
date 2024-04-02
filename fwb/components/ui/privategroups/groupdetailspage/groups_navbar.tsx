@@ -53,7 +53,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <Box
       sx={{
-        display: { xs: 'none', lg: 'flex' },
+        display: { xs-max: 'none', lg-max: 'flex' },
         alignItems: 'right',
         borderRadius: '100px',
         backgroundColor: 'white',
