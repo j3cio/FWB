@@ -3,21 +3,20 @@
 import { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Box, Container } from '@mui/material'
+import { Container } from '@mui/material'
 import { Chat, LoadingIndicator } from 'stream-chat-react'
 import { useMediaQuery } from 'react-responsive'
 
 import ChatChannel from './ChatChannel'
 import ChatSideBar from './ChatSidebar'
-import useIntitialChatClient from './useIntializeChatClient'
-
+import ChannelDetails from './ChannelDetails'
 import Navbar from '@/components/ui/message/message_navbar'
 import MobileChatNavigation from '@/components/ui/chat/mobile/MobileChatNavigation'
 import MobileTabsSelector from '@/components/ui/chat/mobile/MobileTabsSelector'
 import MobileChatList from '@/components/ui/chat/mobile/MobileChatList'
 
+import useIntitialChatClient from './useIntializeChatClient'
 import { UserData, Group } from '@/app/types/types'
-import ChannelDetails from './ChannelDetails'
 import { FWBChatContext } from '@/contexts/ChatContext'
 
 interface ChatPageProps {

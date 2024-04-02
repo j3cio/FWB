@@ -1,11 +1,12 @@
-import React from 'react'
-import ReturnToChat from './ReturnToChat'
-import supabaseClient from '@/supabase'
 import { NextResponse } from 'next/server'
+
 import { auth } from '@clerk/nextjs'
-import Image from 'next/image'
-import { User } from '@/app/types/types'
+import supabaseClient from '@/supabase'
+
+import ReturnToChat from './ReturnToChat'
 import ChatDetailsPage from './ChatDetailsPage'
+
+import { User } from '@/app/types/types'
 
 const getUserDetails = async (userId: string) => {
   const supabase_jwt = await auth().getToken({ template: 'supabase' })

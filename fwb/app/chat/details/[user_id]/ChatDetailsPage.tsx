@@ -1,17 +1,18 @@
 'use client'
 
-import { User } from '@/app/types/types'
+import { useState } from 'react'
+import Image from 'next/image'
+
+import CustomOption from './CustomOption'
 import SmallCustomSwitch from '@/components/ui/chat/SmallCustomSwitch'
+
 import MuteIcon from '@/components/ui/chat/icons/MuteIcon'
 import ShareIcon from '@/components/ui/chat/icons/ShareIcon'
-import Image from 'next/image'
-import CustomOption from './CustomOption'
 import BlockIcon from '@/components/ui/chat/icons/BlockIcon'
 import ReportRedIcon from '@/components/ui/chat/icons/ReportRedIcon'
 import DeleteRedIcon from '@/components/ui/chat/icons/DeleteRedIcon'
-import { useUser } from '@clerk/nextjs'
-import { useState } from 'react'
-import { Theme } from '@mui/material'
+
+import { User } from '@/app/types/types'
 
 const ChatDetailsPage = ({ user }: { user: User }) => {
   const [muteMessages, setMuteMessages] = useState(false) // Temporarily just modifies state for now. In future there should be some kind of async action here. Maybe on getstream itself once we're done doing UI.

@@ -1,10 +1,4 @@
-import {
-  Channel,
-  MessageInput,
-  MessageList,
-  Thread,
-  Window,
-} from 'stream-chat-react'
+import { Channel, MessageInput, MessageList, Thread } from 'stream-chat-react'
 
 import DesktopMessageListTopBar from '@/components/ui/chat/desktop/DesktopMessageListTopBar'
 
