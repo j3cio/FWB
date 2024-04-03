@@ -129,7 +129,6 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
       sx={{
         backgroundColor: '#1A1A23',
         minHeight: '100vh',
-        // paddingTop: '50px',
       }}
     >
       <Container disableGutters maxWidth="lg">
