@@ -133,7 +133,7 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
       }}
     >
       <Container disableGutters maxWidth="lg">
-        <div className="bg-[#1A1A23' min-h-[80px]">
+        <div className="bg-[#1A1A23' min-h-[180px]">
           <SingleGroupNavbar />
         </div>
         <Box
