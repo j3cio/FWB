@@ -1,25 +1,31 @@
-import { ChannelList } from 'stream-chat-react'
+'use client'
 
-import DesktopTabsSelector from '@/components/ui/chat/desktop/DesktopTabsSelector'
-import DesktopChannelListTopBar from '@/components/ui/chat/desktop/DesktopChannelListTopBar'
+import {
+  ChannelList,
+  useChatContext,
+  Channel,
+  DefaultStreamChatGenerics,
+} from 'stream-chat-react'
+
+import MobileMessageList from './MobileMessageList'
 
 import { Group, User } from '@/app/types/types'
-interface ChatSidebarProps {
+import { useEffect } from 'react'
+
+interface MobileChatListProps {
   channelData: User | Group
 }
 
-export default function ChatSideBar({ channelData }: ChatSidebarProps) {
-  // See MobileChatList for more details on this function
+const MobileChatList = ({ channelData }: MobileChatListProps) => {
+  // Type guard function! Pretty cool way to type check our data for conditional rendering
   const isUser = (object: User | Group): object is User => 'user_id' in object
-  // const { client, channel, setActiveChannel } = useChatContext()
+  const { client, channel, setActiveChannel } = useChatContext()
 
   return (
-    <section className="flex max-h-[500px] min-h-[300px] w-full flex-col rounded-lg bg-[#313139] px-4 text-white md:w-[717px] lg:h-[771px] lg:max-h-[771px] lg:w-[432px]">
-      <DesktopChannelListTopBar />
-      <DesktopTabsSelector />
-
-      <div className="pt-4">
+    <div>
+      {!channel ? (
         <ChannelList
+          customActiveChannel="LEAVE_THIS_PROP_ALONE" // This prop allows us to set a default active channel. For now, we want this active channel to be invalid so that nothing stays selected by default on mobile, as this is pretty heavily what our mobile UX is based off of: We see our list of chats, we click one chat, and we "navigate" to said chat. However, due to that flow, we can't have any chats set to active by default, anjd using an empty string doesn't work
           filters={{
             type: 'messaging',
             members: {
@@ -45,7 +51,11 @@ export default function ChatSideBar({ channelData }: ChatSidebarProps) {
             },
           }}
         />
-      </div>
-    </section>
+      ) : (
+        <MobileMessageList />
+      )}
+    </div>
   )
 }
+
+export default MobileChatList
