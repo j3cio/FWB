@@ -17,8 +17,6 @@ import { useAuth } from '@clerk/nextjs'
 import SingleGroupCard from './GroupCard'
 import CreateGroupCard from './CreateGroupCard'
 
-
-
 // Type userData
 const GroupsHomePage = ({
   userData,
@@ -160,7 +158,7 @@ const GroupsHomePage = ({
                 fontSize: 24,
                 color: '#FFFFFF',
                 marginY: 7,
-                paddingX: "18px",
+                paddingX: '18px',
                 fontWeight: 600,
               }}
             >
@@ -237,17 +235,21 @@ const GroupsHomePage = ({
             </Typography>
           </Button>
         </Box>
-        <Stack className="relative px-[18px] mt-16 z-0" direction="column" spacing={3}>
+        <Stack
+          className="relative px-[18px] mt-16 z-0"
+          direction="column"
+          spacing={3}
+        >
           {groupData.map((group: Group, index: number) => {
             return (
               <SingleGroupCard
-                handleDeleteGroup={handleDeleteGroup} 
-                group={group} 
-                key={group.id} 
-                index={index} 
+                handleDeleteGroup={handleDeleteGroup}
+                group={group}
+                key={group.id}
+                index={index}
                 isUserAdmin={isUserAdmin(group, userData.users[0].user_id)}
-                userGroups={userData.users[0].user_groups} 
-                />
+                userGroups={userData.users[0].user_groups}
+              />
             )
           })}
         </Stack>
