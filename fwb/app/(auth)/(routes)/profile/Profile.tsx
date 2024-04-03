@@ -140,7 +140,7 @@ function Profile({ userData, discountData }: ProfileProps) {
             {/*Bargains div*/}
             <div className="flex flex-col w-full grow gap-6">
               <CreateDiscountCard />
-              <div className="md:hidden lg-max:hidden xl-max:hidden xxl-max:hidden flex w-full h-2/5">
+              <div className="lg-max:hidden xl-max:hidden xxl-max:hidden flex w-full h-2/5">
                 <a className="min-w-full" href="/intakeform">
                   <div className='flex rounded-[32px] bg-cover py-5 sm-max:py-[10%] bg-[url("/profilebanner-sm.svg")]'>
                     <div className="flex flex-col items-start gap-2 px-4 pt-8 pb-5">
@@ -160,7 +160,7 @@ function Profile({ userData, discountData }: ProfileProps) {
               </div>
               <div className="flex h-2/5 gap-6">
                 <a
-                  href="profile"
+                  href="groups"
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">

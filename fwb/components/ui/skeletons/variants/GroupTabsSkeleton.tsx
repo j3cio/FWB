@@ -12,7 +12,7 @@ const GroupTabsSkeleton = () => {
         minHeight: '100vh',
       }}
     >
-      <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
+      <div className="flex flex-row justify-evenly items-center my-10">
         <div
           className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl  text-white border-b-2 border-white
             }`}
@@ -34,7 +34,7 @@ const GroupTabsSkeleton = () => {
           </Box>
         </div>
       </div>
-      <div className="ml-24 mr-24"></div>
+      <div className=""></div>
       <div className="w-full">
         <div className="bg-[#1a1a23]">
           <div className="w-11/12 bg-white">

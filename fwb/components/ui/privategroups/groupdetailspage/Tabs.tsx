@@ -49,31 +49,31 @@ const Tabs = ({
         minHeight: '100vh',
       }}
     >
-      <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
+      <div className="flex justify-evenly items-center my-10 ">
         <div
-          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
+          className={`w-1/2 hover:text-white border-b hover:border-white font-bold text-xl ${
             !showMembers
-              ? `text-white border-b-2 border-white`
-              : `text-gray-600`
+              ? `text-white border-white`
+              : `text-gray-600 border-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button onClick={showDiscountsTab} className=" items-center">
+            <Button onClick={showDiscountsTab} className="pb-2 items-center">
               Discounts Offers
             </Button>
           </Box>
         </div>
         <div
-          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
-            showMembers ? `text-white border-b-2 border-white` : `text-gray-600`
+          className={`w-1/2 hover:text-white border-b hover:border-white font-bold text-xl ${
+            showMembers ? `text-white border-b border-white` : `text-gray-600 border-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button onClick={showMemberTab}>Members</Button>
+            <Button className="pb-2 items-center" onClick={showMemberTab}>Members</Button>
           </Box>
         </div>
       </div>
-      <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
+      <div className="">{showMembers ? <></> : <Bargains />}</div>
       <div className="w-full h-screen">
         {showMembers ? (
           <Chat client={chatClient}>

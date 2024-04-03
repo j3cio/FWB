@@ -19,7 +19,7 @@ const GroupDetailsSection = ({
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
 
   return (
-    <Box className="h-2/3 w-full border-none my-10 flex flex-col">
+    <Box className="h-2/3 w-full border-none flex flex-col">
       <Box className="w-full relative">
         <Image
           priority
@@ -41,7 +41,7 @@ const GroupDetailsSection = ({
             }}
           />
         </div>
-        <div className="mt-36 flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-4 justify-between">
+        <div className="mt-28 w-full flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-4 justify-between">
           <div className="text-white flex flex-col gap-3 xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[50%]">
             <div className="flex items-start gap-1">
               <p className="text-2xl capitalize flex flex-col">

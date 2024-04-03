@@ -127,6 +127,7 @@ const Navbar: React.FC<NavbarProps> = ({
     setAnchorEl(null)
   }
   const handleProfileClick = () => {
+    clearSearch()
     router.push('/profile')
     setAnchorEl(null)
   }
@@ -231,7 +232,10 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
-                  onClick={() => router.push('/groups')}
+                  onClick={() => {
+                    clearSearch()
+                    router.push('/groups')
+                  }}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',
@@ -269,7 +273,10 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
-                  onClick={() => router.push('/chat')}
+                  onClick={() => {
+                    clearSearch()
+                    router.push('/chat')
+                  }}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',
