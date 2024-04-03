@@ -69,7 +69,7 @@ const GroupsHomePage = ({
   useEffect(() => {
     fetchSearchIndex()
   }, [fetchSearchIndex])
-    
+
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
       return true

@@ -22,7 +22,7 @@ function BasicSelect({
 }) {
   const [option, setOption] = useState(defaultValue)
   const [flip, setFlip] = useState(false)
-  const {setSortBy, setPrivateGroup } = useContext(DetailContext)
+  const { setSortBy, setPrivateGroup } = useContext(DetailContext)
 
   const arrowStyle = {
     color: 'white',
@@ -109,7 +109,6 @@ function BasicSelect({
   )
 }
 export default function DetailFilters() {
-    
   return (
     <Box
       sx={{

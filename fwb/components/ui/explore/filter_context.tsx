@@ -37,7 +37,6 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-
 export const DetailContext = createContext({
   sortby: '',
   privateGroup: '',
