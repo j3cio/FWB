@@ -164,6 +164,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
+
                     <div className="font-semibold xxs-max:text-lg xs-max:text-lg sm-max:text-xl text-2xl">
                       Private Groups
                     </div>

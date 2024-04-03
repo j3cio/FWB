@@ -55,19 +55,19 @@ export interface LoadingSkeletonProps {
 }
 
 export type CompanyAndDiscounts = {
-  id: number;
-  name: string;
-  description: string;
-  logo: string;
-  url: string;
-  greatest_discount: number;
-  discounts: string[];
-  views: number;
-};
+  id: number
+  name: string
+  description: string
+  logo: string
+  url: string
+  greatest_discount: number
+  discounts: string[]
+  views: number
+}
 
 export type DetailData = {
-  company: CompanyAndDiscounts,
-  discounts: DiscountDataDetail[],
+  company: CompanyAndDiscounts
+  discounts: DiscountDataDetail[]
 }
 
 export interface DiscountDataDetail {
