@@ -19,7 +19,7 @@ export const LargeScreen = () => {
       <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[60px]">
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[134px] h-[400px]"></div>
-        <div className="circle6 lg:!w-[133px] lg:!h-[133px]"></div>
+        <div className="circle6 lg-max:!w-[133px] lg-max:!h-[133px]"></div>
       </div>
       <div className="signin flex p-0 max-w-[556px] h-[728px] mx-0 my-auto w-2/3">
         <div className="check mx-auto">
@@ -76,7 +76,7 @@ export const LargeScreen = () => {
         </div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[260px] h-[133px] translate-x-[-50%]"></div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[133px] h-[420px]"></div>
-        <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 circle1"></div>
+        <div className="lg-max:!w-[133px] lg-max:!h-[133px] lg-max:!ml-0 circle1"></div>
       </div>
     </div>
   )

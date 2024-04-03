@@ -56,9 +56,9 @@ export default function Page() {
                 </g>
               </svg>
             </div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl:w-[136px] xl:h-[136px]"></div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl:w-[136px] xl:h-[405px]"></div>
-            <div className="yellowBox xl:w-[134px] xl:h-[134px]"></div>
+            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl-max:w-[136px] xl-max:h-[136px]"></div>
+            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl-max:w-[136px] xl-max:h-[405px]"></div>
+            <div className="yellowBox xl-max:w-[134px] xl-max:h-[134px]"></div>
           </div>
           <div className="middleContainer h-screen">
             <div className="check">
@@ -84,8 +84,8 @@ export default function Page() {
             </Link>
           </div>
           <div className="rightContainer translate-y-[-50px]">
-            <div className="rightHalfCircle xl:w-[134px]"></div>
-            <div className="bagIcon xl:w-[134px] xl:h-[134px]">
+            <div className="rightHalfCircle xl-max:w-[134px]"></div>
+            <div className="bagIcon xl-max:w-[134px] xl-max:h-[134px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="97"
@@ -103,7 +103,7 @@ export default function Page() {
                 />
               </svg>
             </div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl:w-[136px] xl:h-[425px]"></div>
+            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl-max:w-[136px] xl-max:h-[425px]"></div>
 
             <div className="circle7">
               <div className="circle7second"></div>
