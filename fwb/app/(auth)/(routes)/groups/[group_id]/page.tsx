@@ -124,6 +124,10 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
         )
       : []
 
+  // const placeholderNavbarContainer = () => <div className=''>
+
+  // </div>
+
   return (
     <Box
       sx={{
@@ -133,7 +137,7 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
       }}
     >
       <Container disableGutters maxWidth="lg">
-        <div className="bg-[#1A1A23' min-h-[180px]">
+        <div className="bg-[#1A1A23' min-h-[100px]">
           <SingleGroupNavbar />
         </div>
         <Box
