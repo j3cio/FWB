@@ -14,7 +14,7 @@ type Form1Props = Form1Data & {
 
 export function GroupForm1({ name, description, updateFields }: Form1Props) {
   return (
-    <Box className="font-urbanist xxs:min-w-[80vw] xs:min-w-[80vw] sm:min-w-[60vw] min-w-[50vw] px-[15%] flex flex-col gap-6">
+    <Box className="font-urbanist xxs-max:min-w-[80vw] xs-max:min-w-[80vw] sm-max:min-w-[60vw] min-w-[50vw] px-[15%] flex flex-col gap-6">
       <FormLabel className="flex justify-center">
         <Input
           className="hidden"

@@ -68,8 +68,8 @@ const SingleGroupCard = ({
         />
         <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />
       </Box>
-      <Box className="w-full px-7 py-4 xxs:flex-col xs:flex-col sm:flex-col gap-3 flex items-center justify-between">
-        <Box className="xxs:max-w-full xs:max-w-full sm:max-w-full max-w-[60%] flex xxs:items-start xs:items-start sm:items-start items-center gap-4">
+      <Box className="w-full px-7 py-4 xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-3 flex items-center justify-between">
+        <Box className="xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[60%] flex xxs-max:items-start xs-max:items-start sm-max:items-start items-center gap-4">
           <Image
             className="w-16 h-16 rounded-t-xl"
             src="/groups/gp-avatar.svg"
@@ -81,11 +81,11 @@ const SingleGroupCard = ({
             <Box className="flex justify-between items-center">
               <Typography
                 onClick={() => navigateToUserPage(group.id)}
-                className="xxs:text-xl xs:text-xl sm:text-xl text-2xl font-semibold cursor-pointer font-urbanist"
+                className="xxs-max:text-xl xs-max:text-xl sm-max:text-xl text-2xl font-semibold cursor-pointer font-urbanist"
               >
                 {group.name}
               </Typography>
-              <span className="lg:hidden xl:hidden xxl:hidden text-[#656DE1] text-xs font-urbanist">
+              <span className="lg-max:hidden xl-max:hidden xxl-max:hidden text-[#656DE1] text-xs font-urbanist">
                 {group.discounts.length} benefits available
               </span>
             </Box>
@@ -94,13 +94,13 @@ const SingleGroupCard = ({
             </Typography>
           </Box>
         </Box>
-        <Box className="relative xxs:w-full xs:w-full sm:w-full flex gap-4 items-center mt-auto">
-          <span className="xxs:hidden xs:hidden sm:hidden text-[#656DE1] text-xs absolute -top-5 right-2 font-urbanist">
+        <Box className="relative xxs-max:w-full xs-max:w-full sm-max:w-full flex gap-4 items-center mt-auto">
+          <span className="xxs-max:hidden xs-max:hidden sm-max:hidden text-[#656DE1] text-xs absolute -top-5 right-2 font-urbanist">
             {group.discounts.length} benefits available
           </span>
           <Button
             onClick={() => navigateToUserPage(group.id)}
-            className="flex xxs:w-full xs:w-full sm:w-full items-center h-fit gap-3 px-5 rounded-3xl font-urbanist text-white bg-[#8E94E9]"
+            className="flex xxs-max:w-full xs-max:w-full sm-max:w-full items-center h-fit gap-3 px-5 rounded-3xl font-urbanist text-white bg-[#8E94E9]"
             endIcon={<EndArrowWhite />}
           >
             Explore Group
