@@ -1,11 +1,12 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Container } from '@mui/material'
 import { Chat, LoadingIndicator } from 'stream-chat-react'
 import { useMediaQuery } from 'react-responsive'
+import { Container } from '@mui/material'
+import { useAuth } from '@clerk/nextjs'
 
 import ChatChannel from './ChatChannel'
 import ChatSideBar from './ChatSidebar'
@@ -16,8 +17,12 @@ import MobileTabsSelector from '@/components/ui/chat/mobile/MobileTabsSelector'
 import MobileChatList from '@/components/ui/chat/mobile/MobileChatList'
 
 import useIntitialChatClient from './useIntializeChatClient'
-import { UserData, Group } from '@/app/types/types'
+
 import { FWBChatContext } from '@/contexts/ChatContext'
+import { SearchContext } from '@/contexts/SearchContext'
+
+import { UserData, Group } from '@/app/types/types'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 interface ChatPageProps {
   userData: UserData
@@ -37,17 +42,51 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
     query: '(min-width: 640px)',
   })
 
+  const { getToken } = useAuth()
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    setSearchResults,
+  } = useContext(SearchContext)
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+
   if (!chatClient || !user) {
     return (
       <div className="flex h-screen items-center justify-center">
         <LoadingIndicator size={40} />
       </div>
     )
-  }
-
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
   }
 
   return (
@@ -57,8 +96,8 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
           <Container disableGutters maxWidth="lg">
             <Navbar
               handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
+              companyQuery={searchQuery}
+              setCompanyQuery={setSearchQuery}
             />
           </Container>
           <div className="flex flex-col items-center overflow-y-hidden bg-[#1A1A23] pb-6 lg:pb-0">
