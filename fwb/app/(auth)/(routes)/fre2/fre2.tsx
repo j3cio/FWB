@@ -224,41 +224,70 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       <h6 className="discountFormText">Category *</h6>
                     </div>
 
-                <h6 className="discountFormText">
-                  Discount Rules & Conditions
-                </h6>
-                <textarea
-                  className="inputConditions"
-                  placeholder="Share any rules or limitations about your benefit"
-                  value={termsAndConditions}
-                  onChange={(e) => setTermsAndConditions(e.target.value)}
-                  required
-                />
-                <div
-                  className="flex items-center cursor-pointer select-none"
-                  onClick={() => togglePrivacy()}
-                >
-                  <CustomSwitch
-                    checked={isPrivate}
-                    inputProps={{ 'aria-label': 'controlled Switch' }}
-                  />
-                  <p className="text-white">Keep private</p>
-                </div>
-                {/* <select>
+                    <div className="flex justify-start">
+                      <input
+                        type="number"
+                        className="inputDiscount"
+                        placeholder="1 - 100"
+                        min="1"
+                        max="100"
+                        step="1"
+                        value={discountAmount}
+                        onChange={(e) => setDiscountAmount(e.target.value)}
+                        required
+                      />
 
-                  <option value="All">All</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Electronic">Electronic</option>
-                  <option value="Health">Health</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Home & Kitchen">Home & Kitchen</option>
-                  <option value="Computer & Accessories">
-                    Computer & Accessories
-                  </option>
-                  <option value="Beauty & Skincare">Beauty & Skincare</option>
-                  <option value="Books">Books</option>
-                  <option value="Hobbies">Hobbies</option>
-                </select> */}
+                      {/* This will Need to be updated with Map function for all Categories */}
+                      <select
+                        className="selectCategory"
+                        onChange={(e) =>
+                          handleCategoryChange(
+                            Array.from(
+                              e.target.selectedOptions,
+                              (option) => option.value
+                            )
+                          )
+                        }
+                        value={categories[0]}
+                        required
+                      >
+                        <option value="All">All</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Electronic">Electronic</option>
+                        <option value="Health">Health</option>
+                        <option value="HomeAndKitchen">Home & Kitchen</option>
+                        <option value="ComputerAndAccessories">
+                          Computer & Accessories
+                        </option>
+                        <option value="BeautyAndSkincare">
+                          Beauty & Skincare
+                        </option>
+                        <option value="Books">Books</option>
+                        <option value="Hobbies">Hobbies</option>
+                      </select>
+                    </div>
+
+                    <h6 className="discountFormText">
+                      Discount Rules & Conditions
+                    </h6>
+                    <textarea
+                      className="inputConditions"
+                      placeholder="Share any rules or limitations about your benefit"
+                      value={termsAndConditions}
+                      onChange={(e) => setTermsAndConditions(e.target.value)}
+                      required
+                    />
+                    <div
+                      className="flex items-center cursor-pointer select-none"
+                      onClick={() => togglePrivacy()}
+                    >
+                      <CustomSwitch
+                        checked={isPrivate}
+                        inputProps={{ 'aria-label': 'controlled Switch' }}
+                      />
+                      <p className="text-white">Keep private</p>
+                    </div>
                   </div>
 
                   <div className="flex justify-center mt-[60px]">
