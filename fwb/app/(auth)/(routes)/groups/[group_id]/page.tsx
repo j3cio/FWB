@@ -125,9 +125,17 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
       : []
 
   return (
-    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
+    <Box
+      sx={{
+        backgroundColor: '#1A1A23',
+        minHeight: '100vh',
+        // paddingTop: '50px',
+      }}
+    >
       <Container disableGutters maxWidth="lg">
-        {/* <SingleGroupNavbar /> */}
+        <div className="bg-[#1A1A23' min-h-[20px]">
+          <SingleGroupNavbar />
+        </div>
         <Box
           sx={{
             paddingX: '18px',
