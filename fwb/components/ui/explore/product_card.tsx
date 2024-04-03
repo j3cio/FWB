@@ -9,6 +9,8 @@ import Avatar from '@mui/material/Avatar'
 import { CardActionArea } from '@mui/material'
 import { motion } from 'framer-motion'
 
+import { useRouter } from 'next/navigation'
+
 /**
  * Renders a discount component.
  * @param {boolean} isHovered - Indicates whether the component is being hovered.
@@ -86,6 +88,9 @@ const Discount = ({
  */
 export default function ProductCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = React.useState(false) // Indicates whether the card is being hovered
+
+  const router = useRouter()
+
   return (
     <motion.div
       onHoverStart={() => setIsHovered(true)}
@@ -107,6 +112,7 @@ export default function ProductCard({ company }: { company: any }) {
           borderRadius: '20px',
           borderColor: isHovered ? '#F6FF82' : '#1A1A23',
         }}
+        onClick={() => router.push(`/detail?name=${company.name}`)}
       >
         <CardActionArea sx={{ height: '100%' }}>
           {/* Card Image */}

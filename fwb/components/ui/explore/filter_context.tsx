@@ -36,3 +36,28 @@ export const FilterProvider = ({ children }: { children: React.ReactNode }) => {
     </FilterContext.Provider>
   )
 }
+
+export const DetailContext = createContext({
+  sortby: '',
+  privateGroup: '',
+  setSortBy: (sortby: string) => {},
+  setPrivateGroup: (privateGroup: string) => {},
+})
+
+export const DetailProvider = ({ children }: { children: React.ReactNode }) => {
+  const [sortby, setSortBy] = useState('Most Popular')
+  const [privateGroup, setPrivateGroup] = useState('')
+
+  return (
+    <DetailContext.Provider
+      value={{
+        sortby,
+        privateGroup,
+        setSortBy,
+        setPrivateGroup,
+      }}
+    >
+      {children}
+    </DetailContext.Provider>
+  )
+}

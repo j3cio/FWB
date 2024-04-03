@@ -41,8 +41,8 @@ const GroupDetailsSection = ({
             }}
           />
         </div>
-        <div className="mt-36 flex xxs:flex-col xs:flex-col sm:flex-col gap-4 justify-between">
-          <div className="text-white flex flex-col gap-3 xxs:max-w-full xs:max-w-full sm:max-w-full max-w-[50%]">
+        <div className="mt-36 flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-4 justify-between">
+          <div className="text-white flex flex-col gap-3 xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[50%]">
             <div className="flex items-start gap-1">
               <p className="text-2xl capitalize flex flex-col">
                 {groupData.name}
@@ -64,13 +64,12 @@ const GroupDetailsSection = ({
                 />
               </div>
             </div>
-            {groupData.description && (<div className="">
-              {' '}
-              {groupData?.description}
-            </div>)}
+            {groupData.description && (
+              <div className=""> {groupData?.description}</div>
+            )}
           </div>
 
-          <div className="text-white xxs:w-full xs:w-full sm:w-full flex flex-row-reverse justify-between items-center lg:flex-col xl:flex-col xxl:flex-col gap-3">
+          <div className="text-white xxs-max:w-full xs-max:w-full sm-max:w-full flex flex-row-reverse justify-between items-center lg-max:flex-col xl-max:flex-col xxl-max:flex-col gap-3">
             <div className="flex flex-col gap-1">
               <Image
                 src="/groups/AvatarContainer.svg"

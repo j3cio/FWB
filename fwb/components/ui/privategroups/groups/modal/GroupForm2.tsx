@@ -62,7 +62,7 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
 
   return (
     <>
-      <FormLabel className="flex flex-col font-urbanist text-white xxs:min-w-[80vw] xs:min-w-[80vw] sm:min-w-[60vw] min-w-[50vw] px-[15%]">
+      <FormLabel className="flex flex-col font-urbanist text-white xxs-max:min-w-[80vw] xs-max:min-w-[80vw] sm-max:min-w-[60vw] min-w-[50vw] px-[15%]">
         Invite members*
         <Box className="relative flex flex-col bg-white rounded min-h-[15vh] max-h-[40vh] font-urbanist w-full p-2">
           <Stack direction="row" flexWrap="wrap" useFlexGap spacing={2}>
