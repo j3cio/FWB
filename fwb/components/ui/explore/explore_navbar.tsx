@@ -104,12 +104,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
 interface NavbarProps {
   handleSearch: (e: any) => void
+  clearSearch: () => void
   companyQuery: string
   setCompanyQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   handleSearch,
+  clearSearch,
   companyQuery,
   setCompanyQuery,
 }) => {
@@ -148,13 +150,13 @@ const Navbar: React.FC<NavbarProps> = ({
         >
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <button onClick={() => router.push('/profile')}>
-              <Image 
-                  priority
-                  className='mr-[4.6vw] w-44 h-full' 
-                  src='/fwb_logo.png' 
-                  alt="logo" 
-                  width={900} 
-                  height={0} 
+              <Image
+                priority
+                className="mr-[4.6vw] w-44 h-full"
+                src="/fwb_logo.png"
+                alt="logo"
+                width={900}
+                height={0}
               />
             </button>
             <Toolbar
@@ -189,6 +191,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
+                  onClick={clearSearch}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',

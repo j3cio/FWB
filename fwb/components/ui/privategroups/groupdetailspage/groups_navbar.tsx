@@ -155,13 +155,13 @@ const Navbar: React.FC<NavbarProps> = ({
             }}
           >
             <button onClick={() => router.push('/profile')}>
-              <Image 
-                  priority
-                  className='mr-[4.6vw] w-44 h-full' 
-                  src='/fwb_logo.png' 
-                  alt="logo" 
-                  width={900} 
-                  height={0} 
+              <Image
+                priority
+                className="mr-[4.6vw] w-44 h-full"
+                src="/fwb_logo.png"
+                alt="logo"
+                width={900}
+                height={0}
               />
             </button>
             <Toolbar

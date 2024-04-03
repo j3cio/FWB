@@ -1,8 +1,8 @@
-const MaleOneSVG = () => {
+const MaleOneSVG = ({ width, height }) => {
   return (
     <svg
-      width="50"
-      height="50"
+      width={width}
+      height={height}
       viewBox="0 0 50 50"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
