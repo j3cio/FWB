@@ -51,25 +51,27 @@ const Tabs = ({
     >
       <div className="flex justify-evenly items-center my-10 ">
         <div
-          className={`w-1/2 hover:text-white border-b hover:border-white font-bold text-xl ${
+          onClick={showDiscountsTab}
+          className={`w-1/2 cursor-pointer hover:text-white border-b hover:border-white font-bold text-xl ${
             !showMembers
               ? `text-white border-white`
               : `text-gray-600 border-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button onClick={showDiscountsTab} className="pb-2 items-center">
+            <Button className="pb-2 items-center">
               Discounts Offers
             </Button>
           </Box>
         </div>
         <div
-          className={`w-1/2 hover:text-white border-b hover:border-white font-bold text-xl ${
+          onClick={showMemberTab}
+          className={`w-1/2 cursor-pointer hover:text-white border-b hover:border-white font-bold text-xl ${
             showMembers ? `text-white border-b border-white` : `text-gray-600 border-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button className="pb-2 items-center" onClick={showMemberTab}>Members</Button>
+            <Button className="pb-2 items-center">Members</Button>
           </Box>
         </div>
       </div>
