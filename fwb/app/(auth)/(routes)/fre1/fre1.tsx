@@ -276,7 +276,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
   // Render the First Run Experience if the User has been verified
   if (isSignedIn) {
     return (
-      <div>
+      <div className="pageContent">
         {width > 400 && (
           <div className="pageContent">
             <IllustrationOne />

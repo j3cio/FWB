@@ -168,7 +168,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   }, [isLoaded, isSignedIn, userData, router])
 
   return (
-    <div>
+    <div className="pageContent">
       {width > 400 && (
         <div className="pageContent">
           <IllustrationThree />

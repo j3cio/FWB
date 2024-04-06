@@ -140,7 +140,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
   }
 
   return (
-    <div>
+    <div className="pageContent">
       {width > 400 && (
         <div className="pageContent">
           <IllustrationFive />
