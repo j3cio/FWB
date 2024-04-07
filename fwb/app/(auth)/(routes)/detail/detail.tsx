@@ -79,6 +79,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
   const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
+  console.log(data)
 
   useEffect(() => {
     if (data.discounts) {

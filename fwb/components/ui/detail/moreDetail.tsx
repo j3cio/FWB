@@ -7,7 +7,7 @@ import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import { CSSTransition } from 'react-transition-group'
 
-export default function CustomButton() {
+export default function MoreButton() {
   const [flip, setFlip] = useState(false)
   const [isExpanded, setisExpanded] = useState(false)
 
@@ -17,7 +17,8 @@ export default function CustomButton() {
     height: '28.8px',
     transform: flip ? 'rotate(0deg)' : 'rotate(180deg)',
     marginRight: flip ? '4px' : '-4px',
-    marginLeft: flip ? '-6px' : '8px',
+    marginLeft: flip ? '-8px' : '8px',
+    transition: '0.1s',
   }
 
   const buttonStyle = {
@@ -27,6 +28,7 @@ export default function CustomButton() {
     padding: flip ? '0px' : '6px 16px 6px 35px',
     minWidth: '48px',
     height: '48px',
+    transition: '0.5s',
   }
 
   const setCondition = () => {

@@ -3,8 +3,8 @@
 import { DiscountDataDetail } from '@/app/types/types'
 import { useState, useCallback, useEffect } from 'react'
 import Button from '@mui/material/Button'
-import CustomButton from '@/components/ui/detail/moreDetail'
-import { Transition } from 'react-transition-group'
+import MoreButton from '@/components/ui/detail/moreDetail'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function ProductCard(
   { data }: { data: DiscountDataDetail },
@@ -27,12 +27,24 @@ export default function ProductCard(
 
   const toggleDetail = () => setIsOpen(!isOpen)
 
+  const [contentHeight, setContentHeight] = useState(0)
+  useEffect(() => {
+    if (isOpen) {
+      // Get the actual height of the content
+      const element = document.getElementById('content')
+      if (element) {
+        const height = element.offsetHeight
+        setContentHeight(height)
+      }
+    }
+  }, [isOpen])
+
   return (
-    <div className="mx-[120px] flex flex-row relative mb-[32px]">
+    <motion.div className="mx-[120px] flex flex-row relative mb-[32px]" layout>
       <div className="w-[20%] bg-[#8E94E9] text-white flex rounded-l-[25px]">
-        <div className="text-[40px] font-bold w-[70px] m-auto">
+        <motion.div className="text-[40px] font-bold w-[70px] m-auto" layout>
           {data.discount_amount}% OFF
-        </div>
+        </motion.div>
       </div>
       <div className="w-[80%] px-[40px] bg-white flex flex-col rounded-r-[25px]">
         <div className="w-full flex justify-between py-[64px]">
@@ -55,31 +67,51 @@ export default function ProductCard(
           </div>
           <div className="flex h-auto my-auto cursor-pointer">
             <div className="mr-[16px] my-auto">
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 50 50"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <Button
+                onClick={() => console.log('message')}
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '24px',
+                  padding: '0px',
+                  minWidth: '48px',
+                }}
               >
-                <rect
-                  x="1"
-                  y="1"
-                  width="45.9996"
-                  height="45.9996"
-                  rx="22.9998"
-                  stroke="#8E94E9"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M33.5998 11.9998H14.4C13.08 11.9998 12.012 13.0797 12.012 14.3997L12 35.9996L16.8 31.1996H33.5998C34.9198 31.1996 35.9998 30.1196 35.9998 28.7996V14.3997C35.9998 13.0797 34.9198 11.9998 33.5998 11.9998Z"
-                  fill="#8E94E9"
-                />
-              </svg>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 50 50"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="45.9996"
+                    height="45.9996"
+                    rx="22.9998"
+                    stroke="#8E94E9"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M33.5998 11.9998H14.4C13.08 11.9998 12.012 13.0797 12.012 14.3997L12 35.9996L16.8 31.1996H33.5998C34.9198 31.1996 35.9998 30.1196 35.9998 28.7996V14.3997C35.9998 13.0797 34.9198 11.9998 33.5998 11.9998Z"
+                    fill="#8E94E9"
+                  />
+                </svg>
+              </Button>
             </div>
             {/* This is the sharable link */}
             <div className="mr-[16px] my-auto cursor-pointer">
-              <button onClick={copyShareURL}>
+              <Button
+                onClick={() => copyShareURL()}
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '24px',
+                  padding: '0px',
+                  minWidth: '48px',
+                }}
+              >
                 <svg
                   width="48"
                   height="48"
@@ -101,41 +133,56 @@ export default function ProductCard(
                     fill="#8E94E9"
                   />
                 </svg>
-              </button>
+              </Button>
             </div>
             <div className="cursor-pointer">
               <div
                 className="flex items-center cursor-pointer select-none"
                 onClick={() => toggleDetail()}
               >
-                <CustomButton />
+                <MoreButton />
               </div>
             </div>
           </div>
         </div>
 
-        <Transition in={isOpen} timeout={1000}>
-          {(state) => (
-            <div
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
               style={{
                 transition: 'height 0.5s',
-                height: state == 'entered' ? 'auto' : '0px',
                 overflow: 'hidden',
               }}
+              initial={{
+                height: 0,
+                marginBottom: '0px',
+              }}
+              animate={{
+                height: contentHeight,
+                marginBottom: '40px',
+              }}
+              exit={{
+                height: 0,
+                marginBottom: '-40px',
+              }}
+              transition={{
+                duration: 0.5,
+                ease: 'easeIn',
+              }}
             >
-              <div className="mb-[40px]">
-                <div className="w-full bg-[#ADB4D2] h-[1px] mb-[24px]"></div>
+              <div id="content" className="mb-[24px]">
+                <div className="w-full bg-[#ADB4D2] h-[1px]"></div>
                 <div>
-                  <div className="text-[16px] text-[#1A1A23] font-bold mb-[3px]">
+                  <div className="text-[16px] text-[#1A1A23] font-bold mb-[3px] mt-[5px]">
                     Terms & Conditions:
                   </div>
                   <div>{data.terms_and_conditions}</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
-        </Transition>
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   )
 }

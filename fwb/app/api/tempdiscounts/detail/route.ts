@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
             { status: 500 }
           )
         }
+        console.log(users)
 
         const combinedData = discounts?.map((discount) => {
           const user = users?.find((user) => user.user_id === discount.user_id)
