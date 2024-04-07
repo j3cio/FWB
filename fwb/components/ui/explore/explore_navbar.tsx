@@ -383,11 +383,11 @@ const Navbar: React.FC<NavbarProps> = ({
                 flexGrow: 1,
               }}
             >
-              <SearchBar
+              {/* <SearchBar
                 handleSearch={handleSearch}
                 companyQuery={companyQuery}
                 setCompanyQuery={setCompanyQuery}
-              />
+              /> */}
               <Tooltip
                 title="Explore"
                 slotProps={{
