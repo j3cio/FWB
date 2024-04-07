@@ -352,6 +352,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -425,6 +426,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 placeholder={
                   userData.users[0].company
