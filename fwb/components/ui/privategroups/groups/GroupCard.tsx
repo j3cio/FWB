@@ -68,6 +68,7 @@ const SingleGroupCard = ({
         />
         <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />
       </Box>
+
       <Box className="w-full px-7 py-4 xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-3 flex items-center justify-between">
         <Box className="xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[60%] flex xxs-max:items-start xs-max:items-start sm-max:items-start items-center gap-4">
           <Image

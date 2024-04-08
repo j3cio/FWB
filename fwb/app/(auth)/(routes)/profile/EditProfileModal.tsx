@@ -159,6 +159,7 @@ const EditProfileModal = ({
           height: '722px',
         }}
       >
+
         <div className="hidden xxs-max:flex xs-max:flex gap-2">
           <svg
             className="cursor-pointer"
@@ -179,6 +180,7 @@ const EditProfileModal = ({
         {/* X Button*/}
         <svg
           xmlns="http://www.w3.org/2000/svg"
+
           className="xxs-max:hidden xs-max:hidden sm-max:ml-[85%]"
           width="40"
           height="40"
@@ -220,6 +222,7 @@ const EditProfileModal = ({
               className="flex bg-slate-200 xxs-max:h-36 xxs-max:w-36 xs-max:h-40 xs-max:w-40 h-48 w-48 rounded-full justify-center items-center"
             />
             <div className="flex items-center justify-center flex-col m-4">
+
               <div className="hidden xs-max:flex xxs-max:flex font-urbanist font-semibold text-white text-sm">
                 Edit photo
               </div>
@@ -349,6 +352,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -422,6 +426,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 placeholder={
                   userData.users[0].company

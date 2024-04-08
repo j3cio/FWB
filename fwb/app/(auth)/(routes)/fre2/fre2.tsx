@@ -1,14 +1,19 @@
 'use client'
 
-import './page.css'
-import Link from 'next/link'
+import { useState, useCallback, useEffect } from 'react'
+
+import { useRouter } from 'next/navigation'
+
 import { useUser } from '@clerk/nextjs'
+
+import UpdateUser from '@/components/hooks/updateUser'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
 import IllustrationFour from '@/components/ui/fre/IllustrationFour'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+
 import { UserData } from '../../../types/types'
-import UpdateUser from '@/components/hooks/updateUser'
+
+import './page.css'
+import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
 
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
@@ -23,6 +28,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   const [company, setCompany] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState('')
   const [discountAmount, setDiscountAmount] = useState('')
+  const [isPrivate, setIsPrivate] = useState(false)
 
   const width = useWindowDimensions()
 
@@ -42,7 +48,33 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
 
   //TODO: Handle User Routing Once Form is Submitted
   const router = useRouter()
+  //Update user info based on provided company of Employment
+  const { isSignedIn, user, isLoaded } = useUser()
 
+  const togglePrivacy = () => setIsPrivate(!isPrivate)
+
+  const handleRedirect = useCallback(() => {
+    if (!isLoaded || !isSignedIn || !userData.users[0]) {
+      router.replace('/fre1')
+      return
+    }
+
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+      router.replace('/fre1')
+    } else if (
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0] &&
+      !userData.users[0].hasCompletedFRE[2]
+    ) {
+      router.replace('/fre3')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      router.replace('profile')
+    }
+  }, [isLoaded, isSignedIn, router, userData])
   //Handle Discount Submission
   const handleDiscountSubmit = async (e: any) => {
     e.preventDefault()
@@ -60,9 +92,14 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       formData.append('company', company)
       formData.append('terms_and_conditions', termsAndConditions)
       formData.append('discount_amount', discountAmount)
-      formData.append('public', 'true')
       formData.append('categories', `${categories}`)
       formData.append('company_url', `www.${company}.com`.toLowerCase())
+      formData.append('public', JSON.stringify(!isPrivate))
+      // While slightly confusing, the default value of our Switch selector is public, which means that our checked state and our public status will always be inverted:
+      //
+      // isPrivate === true ? then public === false
+      //
+      // A little unfortunate, but that's just some classic UI and DB decoupling, and i prefer the table to have PUBLIC rather than PRIVATE as default
 
       // POST Fetch Request to Discounts API
       const response = await fetch('/api/discounts', {
@@ -75,14 +112,12 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       })
 
       // Log each entry in the FormData separately
-      formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`)
-      })
-
+      // formData.forEach((value, key) => {
+      //   console.log(`${key}: ${value}`)
+      // })
       if (response.ok) {
         const data = await response.json()
         const discountId = data.data[0].id
-        console.log('Discount added successfully:', data)
         addDiscountToUser(discountId, bearerToken, supabaseToken)
         updateUser()
       } else {
@@ -102,7 +137,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       const response = await UpdateUser(formData)
 
       if (response) {
-        console.log('rerouting to fre3')
         router.push('/fre3')
       } else {
         console.error('Error in updateUser')
@@ -140,32 +174,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       setCategories(selectedCategories)
     }
   }
-
-  //Update user info based on provided company of Employment
-  const { isSignedIn, user, isLoaded } = useUser()
-
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace('/fre1')
-      return
-    }
-
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      router.replace('/fre1')
-    } else if (
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0] &&
-      !userData.users[0].hasCompletedFRE[2]
-    ) {
-      router.replace('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, userData, router])
 
   return (
     <div>
@@ -266,20 +274,16 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       onChange={(e) => setTermsAndConditions(e.target.value)}
                       required
                     />
-                    {/* <select>
-                  <option value="All">All</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Electronic">Electronic</option>
-                  <option value="Health">Health</option>
-                  <option value="Home & Kitchen">Home & Kitchen</option>
-                  <option value="Computer & Accessories">
-                    Computer & Accessories
-                  </option>
-                  <option value="Beauty & Skincare">Beauty & Skincare</option>
-                  <option value="Books">Books</option>
-                  <option value="Hobbies">Hobbies</option>
-                </select> */}
+                    <div
+                      className="flex items-center cursor-pointer select-none"
+                      onClick={() => togglePrivacy()}
+                    >
+                      <CustomSwitch
+                        checked={isPrivate}
+                        inputProps={{ 'aria-label': 'controlled Switch' }}
+                      />
+                      <p className="text-white">Keep private</p>
+                    </div>
                   </div>
 
                   <div className="flex justify-center mt-[60px]">

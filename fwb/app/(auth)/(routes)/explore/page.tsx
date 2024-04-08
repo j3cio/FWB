@@ -36,13 +36,9 @@ export default function ExplorePage() {
 }
 
 function ExplorePageContent() {
-  const { getToken } = useAuth()
-
-  const { sortby, category, privateGroup } = useContext(FilterContext)
   const [page, setPage] = useState(0)
   const [companies, setCompanies] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
 
@@ -51,6 +47,8 @@ function ExplorePageContent() {
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
+  const { getToken } = useAuth()
+  const { sortby, category, privateGroup } = useContext(FilterContext)
   const {
     searchQuery,
     setSearchQuery,
@@ -190,7 +188,7 @@ function ExplorePageContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortby, category, privateGroup])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkScroll = () => {
       const isAtBottom =
         window.scrollY + window.innerHeight >=
