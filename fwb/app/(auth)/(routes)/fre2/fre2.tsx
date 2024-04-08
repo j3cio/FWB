@@ -141,32 +141,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  //Update user info based on provided company of Employment
-  const { isSignedIn, user, isLoaded } = useUser()
-
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace('/fre1')
-      return
-    }
-
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      router.replace('/fre1')
-    } else if (
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0] &&
-      !userData.users[0].hasCompletedFRE[2]
-    ) {
-      router.replace('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, userData, router])
-
   return (
     <div>
       {width > 400 && (

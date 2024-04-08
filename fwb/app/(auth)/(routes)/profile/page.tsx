@@ -1,7 +1,8 @@
-import { DiscountData, UserData } from '@/app/types/types'
+import { DiscountData, UserData, User } from '@/app/types/types'
 import { auth } from '@clerk/nextjs'
 import Profile from './Profile'
 import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
+import { redirect } from 'next/navigation'
 
 async function getUser(bearer_token: string, supabase_jwt: string) {
   const userId = await auth().userId
@@ -52,6 +53,29 @@ const page = async () => {
     userData && bearer_token && supabase_jwt
       ? await getAllDiscountsData(discountIdArray, bearer_token, supabase_jwt)
       : []
+
+  if (
+    userData.users[0].hasCompletedFRE[0] &&
+    userData.users[0].hasCompletedFRE[1] &&
+    userData.users[0].hasCompletedFRE[2]
+  ) {
+  } else {
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+      redirect('/fre1')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/fre2')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/fre3')
+    }
+  }
 
   return (
     <div>
