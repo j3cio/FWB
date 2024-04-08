@@ -34,29 +34,6 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
   const router = useRouter()
   const width = useWindowDimensions()
 
-  //Error handling for if user tries to access page not signed in or Clerk isn't ready
-  useEffect(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace('/fre1')
-      return
-    }
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      router.replace('/fre1')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      !userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('/fre2')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, userData, router])
-
   //adding emails
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

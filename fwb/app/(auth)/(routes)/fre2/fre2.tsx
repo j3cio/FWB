@@ -175,10 +175,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  useEffect(() => {
-    handleRedirect()
-  }, [handleRedirect])
-
   return (
     <div>
       {width > 400 && (
