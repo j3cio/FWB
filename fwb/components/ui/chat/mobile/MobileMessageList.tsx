@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  MessageList,
-  MessageInput,
-  Channel,
-  Window,
-  ChannelHeader,
-  LoadingIndicator,
-} from 'stream-chat-react'
+import { MessageList, MessageInput, Channel, Window } from 'stream-chat-react'
 
 const MobileMessageList = () => {
   return (

@@ -80,9 +80,6 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
             {/* Mobile Navigation */}
             <MobileChatNavigation />
 
-            {/* Tabs */}
-            <MobileTabsSelector />
-
             {/* Chat lists */}
             <MobileChatList
               channelData={activeTab === 'general' ? user : groupData[0]}
