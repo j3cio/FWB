@@ -139,7 +139,7 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
           sx={{
             paddingX: '18px',
             position: 'relative',
-            marginTop: '156px',
+            marginTop: '56px',
             zIndex: 0,
           }}
         >

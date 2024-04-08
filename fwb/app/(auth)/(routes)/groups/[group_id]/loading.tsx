@@ -12,7 +12,7 @@ const Loading = () => {
           sx={{
             paddingX: '18px',
             position: 'relative',
-            marginTop: '156px',
+            marginTop: '56px',
             zIndex: 0,
           }}
         >

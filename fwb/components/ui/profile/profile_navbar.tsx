@@ -204,7 +204,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Image
                     src={discountIcon}
                     alt="Explore"
-                    className="xxs-max:w-full xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
+                    className="xxs-max:w-[10px] xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
                     style={{
                       width: '28.8px',
                       height: '28.8px',
@@ -243,7 +243,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Image
                     src={groupIcon}
                     alt="Groups"
-                    className="xxs-max:w-full xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
+                    className="xxs-max:w-[10px] xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
                     style={{
                       width: '28.8px',
                       height: '28.8px',
@@ -282,7 +282,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <Image
                     src={messageIcon}
                     alt="Messages"
-                    className="xxs-max:w-full xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
+                    className="xxs-max:w-[10px] xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
                     style={{
                       width: '28.8px',
                       height: '28.8px',
@@ -309,7 +309,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 }}
               >
                 <div
-                  className="xxs-max:w-full xxs-max:h-full xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
+                  className="xxs-max:w-[10px] xxs-max:h-[10px] xs-max:w-[14px] xs-max:h-[14px] sm-max:h-[18px] sm-max:w-[18px]"
                   style={{
                     width: '28.8px',
                     height: '28.8px',
