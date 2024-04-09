@@ -101,27 +101,6 @@ function ExplorePageContent() {
     }
   }, [companyRedirect])
 
-  const handleSearch = async (e: any) => {
-    e.preventDefault()
-
-    try {
-      const results = await fuzzySearch({
-        searchQuery,
-        searchIndex,
-      })
-
-      setSearchResults(results)
-    } catch (error) {
-      console.error('GET Company Discount API Failed', error)
-      setSearchedCompany(null)
-    }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
   const fetchData = async (concat: boolean) => {
     try {
       var myHeaders = new Headers()
@@ -219,16 +198,7 @@ function ExplorePageContent() {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        {isLoading ? (
-          generateSkeletons({ type: 'NavBar' })
-        ) : (
-          <Navbar
-            handleSearch={handleSearch}
-            clearSearch={clearSearch}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-        )}
+        {isLoading ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (

@@ -1,9 +1,8 @@
 'use client'
 
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 
 import { Box, Button, Container, Grid } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -22,11 +21,7 @@ import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
 //import AvatarIcon from "@mui/material/Avatar";
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
-
-import { SearchContext } from '@/contexts/SearchContext'
 
 import { UserData } from '../../../types/types'
 import { DiscountData } from '../../../types/types'
@@ -44,14 +39,6 @@ function Profile({ userData, discountData }: ProfileProps) {
   //Intialize the user to be in GetStream db
   const client = useIntitialChatClient()
   const { user } = useUser()
-  const router = useRouter()
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    setSearchResults,
-  } = useContext(SearchContext)
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
@@ -61,50 +48,10 @@ function Profile({ userData, discountData }: ProfileProps) {
     setIsEditProfileModalOpen(false)
   }
 
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
-
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
-
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar
-          clearSearch={clearSearch}
-          handleSearch={handleSearch}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Navbar />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
           <div className="flex flex-1 flex-col h-full w-full xxs-max:items-start xs-max:items-start sm-max:items-start items-center justify-center xxs-max:px-4 xs-max:px-6 sm-max:px-8 px-[120px]">

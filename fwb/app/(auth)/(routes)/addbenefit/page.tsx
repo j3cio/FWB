@@ -1,5 +1,7 @@
 'use client'
 
+import { ChangeEvent, FormEvent, useState } from 'react'
+
 import Navbar from '@/components/ui/navbar/Navbar'
 
 import { useAuth, useUser } from '@clerk/nextjs'
@@ -10,17 +12,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Slider from '@mui/material/Slider'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-import {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
 import './page.css'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 const theme = createTheme({
   components: {
@@ -69,46 +61,6 @@ export default function Intakeform() {
 
   const router = useRouter()
   const { getToken } = useAuth()
-
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    searchResults,
-    setSearchResults,
-  } = useContext(SearchContext)
-
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === 'number') {
@@ -186,21 +138,12 @@ export default function Intakeform() {
     setCategories(selectedCategories)
   }
 
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
-
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
           <div>
-            <Navbar
-              clearSearch={clearSearch}
-              handleSearch={handleSearch}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
+            <Navbar />
           </div>
           <form
             id="discountForm"

@@ -25,60 +25,12 @@ import Third from '@/components/ui/message/Third'
 import RightGroup from '@/components/ui/message/RightGroup'
 import RightGeneral from '@/components/ui/message/RightGeneral'
 import { Box, Container } from '@mui/material'
-import { useRouter } from 'next/navigation'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 export default function ChatPage() {
   const [tab, setTab] = useState<'general' | 'groups'>('general')
 
-  const { getToken } = useAuth()
-  const router = useRouter()
   const chatClient = useIntitialChatClient()
   const { user } = useUser()
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    searchResults,
-    setSearchResults,
-  } = useContext(SearchContext)
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
-
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
 
   if (!chatClient || !user) {
     return (
@@ -91,12 +43,7 @@ export default function ChatPage() {
     // <div className="w-8/12 h-screen mr-20">
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar
-          clearSearch={clearSearch}
-          handleSearch={handleSearch}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Navbar />
         <div className="flex flex-col items-center">
           <Chat client={chatClient}>
             {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}

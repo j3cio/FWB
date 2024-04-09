@@ -1,13 +1,6 @@
 'use client'
 
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  use,
-  useCallback,
-} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
   DetailData,
   DiscountDataDetail,
@@ -21,9 +14,7 @@ import {
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
 import Navbar from '@/components/ui/navbar/Navbar'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-import router from 'next/router'
+
 import { Container } from '@mui/material'
 
 export default function DetailPage({
@@ -123,61 +114,12 @@ function DetailPageContent({ data }: { data: DetailData }) {
     }
   }
 
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    searchResults,
-    setSearchResults,
-  } = useContext(SearchContext)
-
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-      console.log({ results })
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
-
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
-
   return (
     <div className="w-full bg-[#1A1A23] min-h-dvh">
       {/* company image and description section */}
       {/* kept only searchbar in container since i didn't want to affect the rest of the page's styling */}
       <Container disableGutters maxWidth="lg">
-        <Navbar
-          clearSearch={clearSearch}
-          handleSearch={handleSearch}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Navbar />
       </Container>
 
       <div className="mx-[120px] flex flex-row pt-[96px]">

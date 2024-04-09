@@ -1,11 +1,10 @@
 'use client'
 
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-import { useAuth } from '@clerk/nextjs'
 import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
 
 import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGroupForm'
@@ -14,10 +13,6 @@ import SingleGroupCard from './GroupCard'
 import CreateGroupCard from './CreateGroupCard'
 
 import EndArrow from '../icons/EndArrow'
-
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-
-import { SearchContext } from '@/contexts/SearchContext'
 
 import { Group, UserData } from '@/app/types/types'
 
@@ -32,45 +27,6 @@ const GroupsHomePage = ({
   const [open, setOpen] = useState(false)
 
   const router = useRouter()
-  const { getToken } = useAuth()
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    setSearchResults,
-  } = useContext(SearchContext)
-
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -144,10 +100,6 @@ const GroupsHomePage = ({
     }
   }
 
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
-
   if (userData.users[0].user_groups.length == 0) {
     return (
       <section className="w-full h-full">
@@ -156,12 +108,7 @@ const GroupsHomePage = ({
           sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
         >
           <Container disableGutters maxWidth="lg">
-            <Navbar
-              handleSearch={handleSearch}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              clearSearch={clearSearch}
-            />
+            <Navbar />
             <Typography
               className="font-urbanist"
               sx={{
@@ -215,12 +162,7 @@ const GroupsHomePage = ({
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
-        <Navbar
-          clearSearch={clearSearch}
-          handleSearch={handleSearch}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Navbar />
         <Box className="px-[18px] flex justify-between items-center">
           <Typography
             className="font-urbanist"
