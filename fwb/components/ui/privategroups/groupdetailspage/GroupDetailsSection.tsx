@@ -1,13 +1,14 @@
 'use client'
 import { Group, UserData } from '@/app/types/types'
-import { Avatar, Box, Button, Typography } from '@mui/material'
+import supabaseClient from '@/supabase'
+import { Box, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
-import MembersIcon from '../icons/membersicon.svg'
-import Pencil from '../icons/pencil.svg'
+import { ChangeEvent } from 'react'
 import InviteMemberIcon from '../icons/InviteMemberIcon'
-import LockIconYellow from '../icons/LockIconYellow'
 import LockIcon from '../icons/LockIcon'
+import LockIconYellow from '../icons/LockIconYellow'
+import Pencil from '../icons/pencil.svg'
 
 const GroupDetailsSection = ({
   groupData,
@@ -16,7 +17,25 @@ const GroupDetailsSection = ({
   groupData: Group
   userData: UserData[]
 }) => {
+  type FileEvent = ChangeEvent<HTMLInputElement> & {
+    target: EventTarget & { files: FileList }
+  }
+
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
+
+  const uploadFile = async (event: FileEvent) => {
+    const supabase = await supabaseClient()
+    const file = event.target.files[0]
+    const { data, error } = await supabase.storage
+      .from('group-avatars')
+      .upload(file.name, file)
+
+    if (error) {
+      alert('Error uploading file.')
+      return
+    }
+    console.log('File uploaded successfully: ', data)
+  }
 
   return (
     <Box className="h-2/3 w-full border-none my-10 flex flex-col">
@@ -33,13 +52,8 @@ const GroupDetailsSection = ({
       </Box>
       <div className="flex justify-between items-center relative px-4 bg-[#1a1a23]">
         <div className="absolute -top-16 left-36 transform -translate-x-1/2 rounded-full">
-          <Avatar
-            sx={{
-              width: 150,
-              height: 150,
-              border: '4px solid black',
-            }}
-          />
+          <h1>Upload Profile Photo</h1>
+          <input type="file" onChange={uploadFile} />
         </div>
         <div className="mt-36 flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-4 justify-between">
           <div className="text-white flex flex-col gap-3 xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[50%]">
