@@ -1,10 +1,10 @@
 'use client'
 import { Group, UserData } from '@/app/types/types'
 import supabaseClient from '@/supabase'
-import { Box, Button } from '@mui/material'
+import { Avatar, Box, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
@@ -22,20 +22,78 @@ const GroupDetailsSection = ({
   }
 
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
+  const [groupAvatarUrl, setGroupAvatarUrl] = useState<string | null>(
+    groupData.filePath || null
+  ) // The image url fro the file uploaded
 
+  // Add the filePath to the group
+  const storeFilePath = async (filePath: string) => {
+    const supabase = await supabaseClient()
+
+    const { data, error } = await supabase
+      .from('groups')
+      .update({ filePath: filePath })
+      .eq('id', groupData.id)
+
+    if (error) {
+      console.error('Error updating group filePath:', error)
+      return
+    }
+    console.log('Group filePath updated successfully:', data)
+  }
+
+  // Stores the file on supabase
   const uploadFile = async (event: FileEvent) => {
     const supabase = await supabaseClient()
     const file = event.target.files[0]
+    const filePath = file.name
     const { data, error } = await supabase.storage
       .from('group-avatars')
-      .upload(file.name, file)
+      .upload(filePath, file)
 
     if (error) {
-      alert('Error uploading file.')
+      console.log('Error uploading file.')
       return
     }
     console.log('File uploaded successfully: ', data)
+
+    await storeFilePath(filePath)
   }
+
+  useEffect(() => {
+    // Retrieve file from supabase
+    const downloadFile = async (filePath: string) => {
+      if (filePath) {
+        const supabase = await supabaseClient()
+        const { data, error } = await supabase.storage
+          .from('group-avatars')
+          .download(filePath)
+
+        if (error) {
+          console.error('Error downloading file:', error)
+          return null
+        }
+        return data
+      } else {
+        console.log('No file path found')
+        return
+      }
+    }
+
+    // Display the image
+    const fetchAndDisplayImage = async (filePath: string) => {
+      if (filePath) {
+        const fileData = await downloadFile(filePath)
+        // Convert the Blob to a URL for display
+        if (fileData) {
+          const url = URL.createObjectURL(fileData)
+          setGroupAvatarUrl(url)
+        }
+      }
+    }
+
+    fetchAndDisplayImage(groupData.filePath)
+  }, [])
 
   return (
     <Box className="h-2/3 w-full border-none my-10 flex flex-col">
@@ -52,8 +110,23 @@ const GroupDetailsSection = ({
       </Box>
       <div className="flex justify-between items-center relative px-4 bg-[#1a1a23]">
         <div className="absolute -top-16 left-36 transform -translate-x-1/2 rounded-full">
-          <h1>Upload Profile Photo</h1>
-          <input type="file" onChange={uploadFile} />
+          {groupAvatarUrl ? (
+            <div className='h-56 w-56'> 
+            <img src={groupAvatarUrl} alt="Avatar" />
+            <input type="file" onChange={uploadFile} />
+            </div>
+          ) : (
+            <div>
+              <Avatar
+                sx={{
+                  width: 150,
+                  height: 150,
+                  border: '4px solid black',
+                }}
+              />
+              <input type="file" onChange={uploadFile} />
+            </div>
+          )}
         </div>
         <div className="mt-36 flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-4 justify-between">
           <div className="text-white flex flex-col gap-3 xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[50%]">
