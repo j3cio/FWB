@@ -1,15 +1,19 @@
 'use client'
-import * as React from 'react'
-import Card from '@mui/material/Card'
+
+import { useContext, useState } from 'react'
+
+import { useRouter } from 'next/navigation'
+
+import { motion } from 'framer-motion'
+
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Avatar from '@mui/material/Avatar'
 import { CardActionArea } from '@mui/material'
-import { motion } from 'framer-motion'
 
-import { useRouter } from 'next/navigation'
+import { SearchContext } from '@/contexts/SearchContext'
 
 /**
  * Renders a discount component.
@@ -87,10 +91,20 @@ const Discount = ({
  * @returns JSX.Element
  */
 export default function ProductCard({ company }: { company: any }) {
-  const [isHovered, setIsHovered] = React.useState(false) // Indicates whether the card is being hovered
+  const [isHovered, setIsHovered] = useState(false) // Indicates whether the card is being hovered
+
+  const { setSearchQuery, setSearchResults } = useContext(SearchContext)
 
   const router = useRouter()
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
 
+  const handleClick = () => {
+    router.push(`/detail?name=${company.name}`)
+    clearSearch()
+  }
   return (
     <motion.div
       onHoverStart={() => setIsHovered(true)}
@@ -112,7 +126,7 @@ export default function ProductCard({ company }: { company: any }) {
           borderRadius: '20px',
           borderColor: isHovered ? '#F6FF82' : '#1A1A23',
         }}
-        onClick={() => router.push(`/detail?name=${company.name}`)}
+        onClick={() => handleClick()}
       >
         <CardActionArea sx={{ height: '100%' }}>
           {/* Card Image */}
