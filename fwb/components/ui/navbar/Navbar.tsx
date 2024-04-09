@@ -61,6 +61,12 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const handleExploreClick = () => {
+    clearSearch()
+    router.push('/explore')
+    setAnchorEl(null)
+  }
   const handleProfileClick = () => {
     clearSearch()
     router.push('/profile')
@@ -127,7 +133,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <IconButton
                   color="inherit"
-                  onClick={clearSearch}
+                  onClick={handleExploreClick}
                   sx={{
                     padding: '9.6px',
                     borderRadius: '50%',
