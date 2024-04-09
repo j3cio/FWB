@@ -7,7 +7,7 @@ import { DiscountData, GroupData, UserData } from '@/app/types/types'
 import Tabs from '@/components/ui/privategroups/groupdetailspage/Tabs'
 import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 import { useAuth } from '@clerk/nextjs'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 import { useContext } from 'react'
 import { SearchContext } from '@/contexts/SearchContext'
@@ -23,6 +23,7 @@ const GroupContent = ({
   groupData,
   discountData,
 }: GroupContentProps) => {
+  const router = useRouter()
   const {
     searchQuery,
     setSearchQuery,
@@ -36,7 +37,7 @@ const GroupContent = ({
   const handleSearch = async () => {
     try {
       const results = await fuzzySearch({ searchIndex, searchQuery })
-
+      console.log({ results })
       setSearchResults(results)
       router.push('/explore')
     } catch (error) {
