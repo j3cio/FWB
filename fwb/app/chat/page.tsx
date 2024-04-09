@@ -1,9 +1,11 @@
 'use client'
 
+import { useCallback, useContext, useEffect, useState } from 'react'
+
 import Navbar from '@/components/ui/navbar/Navbar'
 
 import './page.css'
-import { useUser } from '@clerk/nextjs'
+import { useAuth, useUser } from '@clerk/nextjs'
 import {
   Channel,
   ChannelHeader,
@@ -20,18 +22,17 @@ import ChatSideBar from './ChatSidebar'
 import MenuBar from './MenuBar'
 import useIntitialChatClient from './useIntializeChatClient'
 import Third from '@/components/ui/message/Third'
-import { useContext, useState } from 'react'
 import RightGroup from '@/components/ui/message/RightGroup'
 import RightGeneral from '@/components/ui/message/RightGeneral'
 import { Box, Container } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { SearchContext } from '@/contexts/SearchContext'
-
-//random
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 export default function ChatPage() {
   const [tab, setTab] = useState<'general' | 'groups'>('general')
 
+  const { getToken } = useAuth()
   const router = useRouter()
   const chatClient = useIntitialChatClient()
   const { user } = useUser()
@@ -44,6 +45,41 @@ export default function ChatPage() {
     setSearchResults,
   } = useContext(SearchContext)
 
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+
   if (!chatClient || !user) {
     return (
       <div className="h-screen flex items-center justify-center">
@@ -51,49 +87,6 @@ export default function ChatPage() {
       </div>
     )
   }
-
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
-  }
-
-  // TODO: uncomment once our fuzzy search in /chat PR is merged in
-
-  const clearSearch = () => {
-    // setSearchQuery('')
-    // setSearchResults([])
-  }
-
-  // const handleSearch = async () => {
-  //   try {
-  //     const results = await fuzzySearch({ searchIndex, searchQuery })
-
-  //     setSearchResults(results)
-  //     router.push('/explore')
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
-  // const fetchSearchIndex = useCallback(async () => {
-  //   try {
-  //     const bearerToken = await getToken()
-
-  //     if (bearerToken) {
-  //       const companiesIndex = await getSearchIndex({
-  //         bearer_token: bearerToken,
-  //       })
-  //       setSearchIndex(companiesIndex)
-  //     }
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }, [getToken, setSearchIndex])
-
-  // useEffect(() => {
-  //   fetchSearchIndex()
-  // }, [fetchSearchIndex])
-
   return (
     // <div className="w-8/12 h-screen mr-20">
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
