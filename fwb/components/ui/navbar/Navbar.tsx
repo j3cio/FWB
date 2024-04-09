@@ -40,7 +40,16 @@ const theme = createTheme({
   },
 })
 
-const Navbar = () => {
+// This is just in case for the future we want ot use custom handlers per-page. Realistically, we'd also have to customize our API calls for search indices and handling of search.
+interface NavbarProps {
+  customHandleSearch?: () => void
+  customFetchSearchIndex?: () => void
+}
+
+const Navbar = ({
+  customHandleSearch,
+  customFetchSearchIndex,
+}: NavbarProps) => {
   const { isSignedIn } = useUser()
 
   const router = useRouter()
@@ -53,39 +62,43 @@ const Navbar = () => {
   } = useContext(SearchContext)
   const { getToken } = useAuth()
 
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const handleSearch = customHandleSearch
+    ? customHandleSearch
+    : async () => {
+        try {
+          const results = await fuzzySearch({ searchIndex, searchQuery })
+          setSearchResults(results)
+          router.push('/explore')
+        } catch (error) {
+          console.error(error)
+        }
+      }
 
   const clearSearch = () => {
     setSearchQuery('')
     setSearchResults([])
   }
 
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
+  const fetchSearchIndex = customFetchSearchIndex
+    ? customFetchSearchIndex
+    : async () => {
+        try {
+          const bearerToken = await getToken()
 
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
+          if (bearerToken) {
+            const companiesIndex = await getSearchIndex({
+              bearer_token: bearerToken,
+            })
+            setSearchIndex(companiesIndex)
+          }
+        } catch (error) {
+          console.error(error)
+        }
       }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
 
   useEffect(() => {
     fetchSearchIndex()
-  }, [fetchSearchIndex])
+  }, [])
 
   if (isSignedIn) {
     return (
