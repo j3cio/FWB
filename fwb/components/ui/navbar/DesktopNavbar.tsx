@@ -36,7 +36,7 @@ const DesktopNavbar = ({
   const open = Boolean(anchorEl)
   const router = useRouter()
   const { signOut } = useClerk()
-  const { user, isSignedIn } = useUser()
+  const { user } = useUser()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -45,17 +45,11 @@ const DesktopNavbar = ({
     setAnchorEl(null)
   }
 
-  const handleExploreClick = () => {
+  const handleNavigation = (href: string) => {
     clearSearch()
-    router.push('/explore')
+    router.push(href)
     setAnchorEl(null)
   }
-  const handleProfileClick = () => {
-    clearSearch()
-    router.push('/profile')
-    setAnchorEl(null)
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <AppBar
@@ -73,7 +67,7 @@ const DesktopNavbar = ({
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          <button onClick={() => router.push('/profile')}>
+          <button onClick={() => handleNavigation('/profile')}>
             <Image
               priority
               className="mr-[4.6vw] w-44 h-full"
@@ -115,7 +109,7 @@ const DesktopNavbar = ({
             >
               <IconButton
                 color="inherit"
-                onClick={handleExploreClick}
+                onClick={() => handleNavigation('/explore')}
                 sx={{
                   padding: '9.6px',
                   borderRadius: '50%',
@@ -157,7 +151,7 @@ const DesktopNavbar = ({
                 color="inherit"
                 onClick={() => {
                   clearSearch()
-                  router.push('/groups')
+                  handleNavigation('/groups')
                 }}
                 sx={{
                   padding: '9.6px',
@@ -198,7 +192,7 @@ const DesktopNavbar = ({
                 color="inherit"
                 onClick={() => {
                   clearSearch()
-                  router.push('/chat')
+                  handleNavigation('/chat')
                 }}
                 sx={{
                   padding: '9.6px',
@@ -261,11 +255,11 @@ const DesktopNavbar = ({
                 marginTop: '10px',
               }}
             >
-              <MenuItem onClick={handleProfileClick}>
+              <MenuItem onClick={() => handleNavigation('/profile')}>
                 <PersonIcon style={{ marginRight: '8px' }} />
                 View Profile
               </MenuItem>
-              <MenuItem onClick={() => signOut(() => router.push('/'))}>
+              <MenuItem onClick={() => signOut(() => handleNavigation('/'))}>
                 <LogoutIcon style={{ marginRight: '8px' }} />
                 Logout
               </MenuItem>
