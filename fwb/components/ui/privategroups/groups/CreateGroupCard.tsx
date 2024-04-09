@@ -32,7 +32,6 @@ const CreateGroupCard = ({ handleOpen }: Props) => {
     >
       <Box className="flex flex-col text-[#F6FF82]">
         <Box className="ml-[10%] flex items-center gap-3 md:gap-6">
-
           <Typography className="font-urbanist text-[28px] sm-max:text-[48px] lg-max:text-[54px] xl-max:text-[64px] xxl-max:text-[64px] font-semibold">
             Create
           </Typography>
@@ -45,7 +44,6 @@ const CreateGroupCard = ({ handleOpen }: Props) => {
           />
         </Box>
         <Box className="relative mt-0 flex items-center">
-
           <span className="bg-[#F6FF82] rounded-r-full xxs-max:h-8 xs-max:h-8 h-12 xxs-max:w-32 xs-max:w-32 w-48"></span>
           <span className="bg-[#F6FF82] xxs-max:mx-1 xs-max:mx-1 mx-4 rounded-full xxs-max:w-8 xxs-max:h-8 xs-max:w-8 xs-max:h-8 h-12 w-12"></span>
           <Box className="flex gap-3 items-center">
