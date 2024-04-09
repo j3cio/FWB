@@ -6,6 +6,7 @@ import React, {
   createContext,
   useContext,
   use,
+  useCallback,
 } from 'react'
 import {
   DetailData,
@@ -19,6 +20,11 @@ import {
   DetailProvider,
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
+import Navbar from '@/components/ui/navbar/Navbar'
+import { SearchContext } from '@/contexts/SearchContext'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import router from 'next/router'
+import { Container } from '@mui/material'
 
 export default function DetailPage({
   company,
@@ -117,10 +123,64 @@ function DetailPageContent({ data }: { data: DetailData }) {
     }
   }
 
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    searchResults,
+    setSearchResults,
+  } = useContext(SearchContext)
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+      console.log({ results })
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+
   return (
-    <div className="w-full bg-[#1A1A23] pt-[96px]">
+    <div className="w-full bg-[#1A1A23] min-h-dvh">
       {/* company image and description section */}
-      <div className="mx-[120px] flex flex-row">
+      {/* kept only searchbar in container since i didn't want to affect the rest of the page's styling */}
+      <Container disableGutters maxWidth="lg">
+        <Navbar
+          clearSearch={clearSearch}
+          handleSearch={handleSearch}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+      </Container>
+
+      <div className="mx-[120px] flex flex-row pt-[96px]">
         <div
           className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] "
           style={{ backgroundImage: `url(${data.company.logo})` }}
