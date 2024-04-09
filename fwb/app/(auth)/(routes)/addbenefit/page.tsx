@@ -1,7 +1,8 @@
 'use client'
 
-import Navbar from '@/components/ui/profile/profile_navbar'
-import { useUser } from '@clerk/nextjs'
+import Navbar from '@/components/ui/navbar/Navbar'
+
+import { useAuth, useUser } from '@clerk/nextjs'
 import { Container, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
@@ -9,8 +10,17 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Slider from '@mui/material/Slider'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import './page.css'
+import { SearchContext } from '@/contexts/SearchContext'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 
 const theme = createTheme({
   components: {
@@ -58,12 +68,47 @@ export default function Intakeform() {
   const [description, setDescription] = useState('')
 
   const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
+  const { getToken } = useAuth()
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    searchResults,
+    setSearchResults,
+  } = useContext(SearchContext)
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
   }
+
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === 'number') {
@@ -141,15 +186,20 @@ export default function Intakeform() {
     setCategories(selectedCategories)
   }
 
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
           <div>
             <Navbar
+              clearSearch={clearSearch}
               handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
             />
           </div>
           <form

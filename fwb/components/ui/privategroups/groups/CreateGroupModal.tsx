@@ -1,24 +1,66 @@
-import Navbar from '@/components/ui/privategroups/groupdetailspage/groups_navbar'
+import { SearchContext } from '@/contexts/SearchContext'
+import Navbar from '../../navbar/Navbar'
 import { Box, Button, Container } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import { useAuth } from '@clerk/nextjs'
 
 const CreateGroupModal = () => {
   const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchResults,
+    setSearchIndex,
+  } = useContext(SearchContext)
+  const { getToken } = useAuth()
+
+  const handleSearch = async () => {
+    try {
+      const results = await fuzzySearch({ searchIndex, searchQuery })
+
+      setSearchResults(results)
+      router.push('/explore')
+    } catch (error) {
+      console.error(error)
+    }
   }
+
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
+  const fetchSearchIndex = useCallback(async () => {
+    try {
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        const companiesIndex = await getSearchIndex({
+          bearer_token: bearerToken,
+        })
+        setSearchIndex(companiesIndex)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }, [getToken, setSearchIndex])
+
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
         <Navbar
+          clearSearch={clearSearch}
           handleSearch={handleSearch}
-          companyQuery={companyQuery}
-          setCompanyQuery={setCompanyQuery}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
         <Box
           sx={{

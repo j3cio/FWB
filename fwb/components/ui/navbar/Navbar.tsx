@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import avatar from '@/components/ui/form/icons/avatar.svg'
 import groupIcon from '@/components/ui/explore/icons/group_24px.svg'
 import discountIcon from '@/components/ui/explore/icons/discount.svg'
 import messageIcon from '@/components/ui/explore/icons/message_24px.svg'
-import searchIcon from '@/components/ui/explore/icons/search_24px.svg'
 import { Image } from 'next/dist/client/image-component'
 import {
   TextField,
@@ -23,6 +21,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useClerk } from '@clerk/clerk-react'
 import { useUser } from '@clerk/nextjs'
+import SearchBar from './Searchbar'
 
 const theme = createTheme({
   components: {
@@ -38,82 +37,18 @@ const theme = createTheme({
   },
 })
 
-interface SearchBarProps {
-  handleSearch: (e: any) => void
-  companyQuery: string
-  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({
-  handleSearch,
-  companyQuery,
-  setCompanyQuery,
-}) => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'right',
-        borderRadius: '100px',
-        backgroundColor: 'white',
-        flexGrow: 1,
-        border: 'none',
-      }}
-    >
-      <TextField
-        fullWidth
-        placeholder="Search for companies with benefits"
-        style={{
-          flex: 1,
-          height: '48px',
-          borderRadius: '25px 0 0 25px',
-          justifyContent: 'center',
-        }}
-        sx={{
-          '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-          '&.MuiFormControl-root': { alignItems: 'flex-start' },
-        }}
-        value={companyQuery}
-        onChange={(e) => setCompanyQuery(e.target.value)}
-        onKeyUp={(e) => {
-          if (e.key === 'Enter') {
-            handleSearch(e)
-          }
-        }}
-      />
-      <IconButton
-        color="primary"
-        aria-label="search"
-        sx={{
-          backgroundColor: 'black',
-          padding: '10px',
-          border: 'none',
-          margin: '4px',
-          transition: 'backgroundColor 1s ease',
-          '&:hover': {
-            backgroundColor: '#8e94e9',
-          },
-        }}
-        onClick={handleSearch}
-      >
-        <Image src={searchIcon} alt="Search Icon" />
-      </IconButton>
-    </Box>
-  )
-}
-
 interface NavbarProps {
   handleSearch: (e: any) => void
   clearSearch: () => void
-  companyQuery: string
-  setCompanyQuery: React.Dispatch<React.SetStateAction<string>>
+  searchQuery: string
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   handleSearch,
   clearSearch,
-  companyQuery,
-  setCompanyQuery,
+  searchQuery,
+  setSearchQuery,
 }) => {
   const router = useRouter()
   const { signOut } = useClerk()
@@ -172,8 +107,8 @@ const Navbar: React.FC<NavbarProps> = ({
             >
               <SearchBar
                 handleSearch={handleSearch}
-                companyQuery={companyQuery}
-                setCompanyQuery={setCompanyQuery}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
               />
               <Tooltip
                 title="Explore"

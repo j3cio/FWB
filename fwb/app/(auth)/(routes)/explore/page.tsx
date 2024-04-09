@@ -9,7 +9,8 @@ import Button from '@mui/material/Button'
 import { Container, Box, Divider, Skeleton } from '@mui/material'
 
 import ResponsiveGrid from '@/components/ui/explore/products_grid'
-import Navbar from '@/components/ui/explore/explore_navbar'
+
+import Navbar from '@/components/ui/navbar/Navbar'
 import MostPopular from '@/components/ui/explore/most_popular'
 import Productfilters from '@/components/ui/explore/productfilters'
 import {
@@ -116,6 +117,11 @@ function ExplorePageContent() {
     }
   }
 
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
   const fetchData = async (concat: boolean) => {
     try {
       var myHeaders = new Headers()
@@ -162,11 +168,6 @@ function ExplorePageContent() {
       setIsLoading(false)
       console.error('Error fetching data:', error)
     }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
   }
 
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
@@ -224,8 +225,8 @@ function ExplorePageContent() {
           <Navbar
             handleSearch={handleSearch}
             clearSearch={clearSearch}
-            companyQuery={searchQuery}
-            setCompanyQuery={setSearchQuery}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
         )}
         {isLoading ? (

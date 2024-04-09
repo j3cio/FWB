@@ -1,28 +1,35 @@
 'use client'
 
 import { useCallback, useContext, useEffect, useState } from 'react'
-import Navbar from '@/components/ui/profile/profile_navbar'
-import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
-import { Box, Button, Container, Grid } from '@mui/material'
-//import AvatarIcon from "@mui/material/Avatar";
-import { useTheme } from '@mui/material/styles'
+
 import Image from 'next/image'
-import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
-//import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
-import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
-import { useUser, useAuth } from '@clerk/nextjs'
-import Avatar from '@mui/material/Avatar'
 import { useRouter } from 'next/navigation'
-import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
-import { UserData } from '../../../types/types'
+
+import { Box, Button, Container, Grid } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { useUser, useAuth } from '@clerk/nextjs'
+
+import Avatar from '@mui/material/Avatar'
 import EditProfileModal from './EditProfileModal'
 import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-import { DiscountData } from '../../../types/types'
 
+import Navbar from '@/components/ui/navbar/Navbar'
+
+import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
+import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
 import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
+//import AvatarIcon from "@mui/material/Avatar";
+//import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
+
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+
+import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+
+import { SearchContext } from '@/contexts/SearchContext'
+
+import { UserData } from '../../../types/types'
+import { DiscountData } from '../../../types/types'
 
 interface ProfileProps {
   userData: UserData
@@ -65,6 +72,11 @@ function Profile({ userData, discountData }: ProfileProps) {
     }
   }
 
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
   const fetchSearchIndex = useCallback(async () => {
     try {
       const bearerToken = await getToken()
@@ -88,9 +100,10 @@ function Profile({ userData, discountData }: ProfileProps) {
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
         <Navbar
+          clearSearch={clearSearch}
           handleSearch={handleSearch}
-          companyQuery={searchQuery}
-          setCompanyQuery={setSearchQuery}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
@@ -164,7 +177,6 @@ function Profile({ userData, discountData }: ProfileProps) {
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
-
                     <div className="font-semibold xxs-max:text-lg xs-max:text-lg sm-max:text-xl text-2xl">
                       Private Groups
                     </div>
@@ -207,18 +219,17 @@ function Profile({ userData, discountData }: ProfileProps) {
                         sx={{ gap: '64px', marginLeft: '14px' }}
                       >
                         {discountData.map((company: any, index: React.Key) => (
-                          <>
+                          <div key={`${company} - ${index}`}>
                             <Grid
                               item
                               xs={12}
                               sm={6}
                               md={3}
-                              key={index}
                               sx={{ width: '282px', height: '322px' }}
                             >
                               <DiscountCard company={company} />
                             </Grid>
-                          </>
+                          </div>
                         ))}
                       </Grid>
                     </Box>

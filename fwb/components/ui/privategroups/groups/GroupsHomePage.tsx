@@ -1,18 +1,25 @@
 'use client'
-import { Group, UserData } from '@/app/types/types'
-import Navbar from '@/components/ui/privategroups/groupdetailspage/groups_navbar'
-import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGroupForm'
-import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
+
+import { useCallback, useContext, useEffect, useState } from 'react'
+
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useCallback, useContext, useEffect, useState } from 'react'
-import EndArrow from '../icons/EndArrow'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-import { useAuth } from '@clerk/nextjs'
 
+import { useAuth } from '@clerk/nextjs'
+import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
+
+import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGroupForm'
+import Navbar from '../../navbar/Navbar'
 import SingleGroupCard from './GroupCard'
 import CreateGroupCard from './CreateGroupCard'
+
+import EndArrow from '../icons/EndArrow'
+
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+
+import { SearchContext } from '@/contexts/SearchContext'
+
+import { Group, UserData } from '@/app/types/types'
 
 // Type userData
 const GroupsHomePage = ({
@@ -45,6 +52,11 @@ const GroupsHomePage = ({
     }
   }
 
+  const clearSearch = () => {
+    setSearchQuery('')
+    setSearchResults([])
+  }
+
   const fetchSearchIndex = useCallback(async () => {
     try {
       const bearerToken = await getToken()
@@ -62,10 +74,6 @@ const GroupsHomePage = ({
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
 
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
@@ -136,6 +144,10 @@ const GroupsHomePage = ({
     }
   }
 
+  useEffect(() => {
+    fetchSearchIndex()
+  }, [fetchSearchIndex])
+
   if (userData.users[0].user_groups.length == 0) {
     return (
       <section className="w-full h-full">
@@ -146,8 +158,9 @@ const GroupsHomePage = ({
           <Container disableGutters maxWidth="lg">
             <Navbar
               handleSearch={handleSearch}
-              companyQuery={searchQuery}
-              setCompanyQuery={setSearchQuery}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              clearSearch={clearSearch}
             />
             <Typography
               className="font-urbanist"
@@ -203,9 +216,10 @@ const GroupsHomePage = ({
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <Navbar
+          clearSearch={clearSearch}
           handleSearch={handleSearch}
-          companyQuery={searchQuery}
-          setCompanyQuery={setSearchQuery}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
         <Box className="px-[18px] flex justify-between items-center">
           <Typography
