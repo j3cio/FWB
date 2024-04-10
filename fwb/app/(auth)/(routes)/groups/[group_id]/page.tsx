@@ -3,9 +3,10 @@ import GroupDetailsSection from '@/components/ui/privategroups/groupdetailspage/
 import Tabs from '@/components/ui/privategroups/groupdetailspage/Tabs'
 
 import { auth } from '@clerk/nextjs'
-import { Box, Container } from '@mui/material'
-import SingleGroupNavbar from './SingleGroupNavbar'
+
 import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
+import GroupContent from './GroupContent'
+import { Box } from '@mui/material'
 
 //TODOs:
 // Backend ---
@@ -131,25 +132,11 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
         minHeight: '100vh',
       }}
     >
-      <Container disableGutters maxWidth="lg">
-        <div className="bg-[#1A1A23' min-h-[112px]">
-          <SingleGroupNavbar />
-        </div>
-        <Box
-          sx={{
-            paddingX: '18px',
-            position: 'relative',
-            marginTop: '56px',
-            zIndex: 0,
-          }}
-        >
-          <GroupDetailsSection
-            userData={userData}
-            groupData={groupData.data[0]}
-          />
-          <Tabs userData={userData} discountData={discountData} />
-        </Box>
-      </Container>
+      <GroupContent
+        userData={userData}
+        groupData={groupData}
+        discountData={discountData}
+      />
     </Box>
   )
 }

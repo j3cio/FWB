@@ -9,7 +9,8 @@ import Button from '@mui/material/Button'
 import { Container, Box, Divider, Skeleton } from '@mui/material'
 
 import ResponsiveGrid from '@/components/ui/explore/products_grid'
-import Navbar from '@/components/ui/explore/explore_navbar'
+
+import Navbar from '@/components/ui/navbar/Navbar'
 import MostPopular from '@/components/ui/explore/most_popular'
 import Productfilters from '@/components/ui/explore/productfilters'
 import {
@@ -100,22 +101,6 @@ function ExplorePageContent() {
     }
   }, [companyRedirect])
 
-  const handleSearch = async (e: any) => {
-    e.preventDefault()
-
-    try {
-      const results = await fuzzySearch({
-        searchQuery,
-        searchIndex,
-      })
-
-      setSearchResults(results)
-    } catch (error) {
-      console.error('GET Company Discount API Failed', error)
-      setSearchedCompany(null)
-    }
-  }
-
   const fetchData = async (concat: boolean) => {
     try {
       var myHeaders = new Headers()
@@ -162,11 +147,6 @@ function ExplorePageContent() {
       setIsLoading(false)
       console.error('Error fetching data:', error)
     }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
   }
 
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
@@ -218,16 +198,7 @@ function ExplorePageContent() {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        {isLoading ? (
-          generateSkeletons({ type: 'NavBar' })
-        ) : (
-          <Navbar
-            handleSearch={handleSearch}
-            clearSearch={clearSearch}
-            companyQuery={searchQuery}
-            setCompanyQuery={setSearchQuery}
-          />
-        )}
+        {isLoading ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
