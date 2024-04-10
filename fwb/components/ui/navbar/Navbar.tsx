@@ -25,6 +25,7 @@ import SearchBar from './Searchbar'
 import { SearchContext } from '@/contexts/SearchContext'
 import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 import DesktopNavbar from './DesktopNavbar'
+import MobileNavbar from './MobileNavbar'
 
 const theme = createTheme({
   components: {
@@ -99,13 +100,26 @@ const Navbar = ({
   }, [])
 
   return (
-    <DesktopNavbar
-      handleSearch={handleSearch}
-      searchQuery={searchQuery}
-      clearSearch={clearSearch}
-      setSearchQuery={setSearchQuery}
-      theme={theme}
-    />
+    <>
+      <div className="block sm:hidden">
+        <MobileNavbar
+          handleSearch={handleSearch}
+          searchQuery={searchQuery}
+          clearSearch={clearSearch}
+          setSearchQuery={setSearchQuery}
+          theme={theme}
+        />
+      </div>
+      <div className="hidden sm:block">
+        <DesktopNavbar
+          handleSearch={handleSearch}
+          searchQuery={searchQuery}
+          clearSearch={clearSearch}
+          setSearchQuery={setSearchQuery}
+          theme={theme}
+        />
+      </div>
+    </>
   )
 }
 
