@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
 import SearchProvider from '@/contexts/SearchContext'
+import FWBChatProvider from '@/contexts/ChatContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,11 +26,13 @@ export default function RootLayout({
   return (
     <ThemeProvider theme={theme}>
       <ClerkProvider>
-        <html lang="en">
-          <body className={urbanist.className}>
-            <SearchProvider>{children}</SearchProvider>
-          </body>
-        </html>
+        <FWBChatProvider>
+          <html lang="en">
+            <body className={urbanist.className}>
+              <SearchProvider>{children}</SearchProvider>
+            </body>
+          </html>
+        </FWBChatProvider>
       </ClerkProvider>
     </ThemeProvider>
   )
