@@ -1,5 +1,6 @@
 import { auth } from '@clerk/nextjs'
 import UserFlowPage3 from './fre3'
+import { redirect } from 'next/navigation';
 
 async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers()
@@ -33,6 +34,26 @@ const page = async () => {
   const userId = await auth().userId
 
   const userData: any = await getUser(userId, supabase_jwt, bearer_token)
+
+  if (userData.users[0]) {
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+      redirect('/fre1')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/fre2')
+    } else if (
+      userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/profile')
+    }
+  } else {
+    redirect('/fre1')
+  }
 
   return (
     <div>

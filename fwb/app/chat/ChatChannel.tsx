@@ -1,28 +1,19 @@
-import {
-  Channel,
-  ChannelHeader,
-  MessageInput,
-  MessageList,
-  Thread,
-  Window,
-} from 'stream-chat-react'
-import avatar from '@/components/ui/message/icons/avatar.svg'
-import Image from '@/node_modules/next/image'
+import { Channel, MessageInput, MessageList, Thread } from 'stream-chat-react'
+
+import DesktopMessageListTopBar from '@/components/ui/chat/desktop/DesktopMessageListTopBar'
 
 export default function ChatChannel() {
   return (
-    <div
-      className="w-full rounded-lg bg-opacity-10 bg-white "
-      style={{ height: '771px' }}
-    >
+    <section className="w-full rounded-lg bg-[#313139] px-4 text-white md:w-[717px] lg:h-[771px] lg:max-h-[771px]">
+      <DesktopMessageListTopBar />
       <Channel>
-        <Window>
-          <ChannelHeader />
-          <MessageList />
+        {/* used section instead of window so that our loading skeletons don't overlap with our topBar. This approach was chosen since setting topBar to fixed also caused some oddities so this was the simplest solution  */}
+        <section className="flex h-full max-h-[500px] w-full flex-col md:max-h-[630px]">
+          <MessageList loadingMore={false} />
           <MessageInput />
-        </Window>
+        </section>
         <Thread />
       </Channel>
-    </div>
+    </section>
   )
 }

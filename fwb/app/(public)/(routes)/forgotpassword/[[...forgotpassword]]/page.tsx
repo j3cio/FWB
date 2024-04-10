@@ -78,18 +78,18 @@ export default function Page() {
     <div className="pageHeight">
       {width > 1201 && (
         <div className="big">
-          <div className="leftSigninContainer xl:!w-[400px]">
-            <div className="circle1 xl:!w-[134px] xl:!h-[136px]"></div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[293px] h-[150px] xl:w-[268px] xl:h-[134px]"></div>
+          <div className="leftSigninContainer xl-max:!w-[400px]">
+            <div className="circle1 xl-max:!w-[134px] xl-max:!h-[136px]"></div>
+            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[293px] h-[150px] xl-max:w-[268px] xl-max:h-[134px]"></div>
             <div className="flex">
               <div className="flex-col flex">
-                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl:w-[136px] xl:h-[136px]"></div>
-                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl:w-[136px] xl:h-[405px]"></div>
-                <div className="circle6 xl:!w-[134px] xl:!h-[136px]"></div>
+                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl-max:w-[136px] xl-max:h-[136px]"></div>
+                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl-max:w-[136px] xl-max:h-[405px]"></div>
+                <div className="circle6 xl-max:!w-[134px] xl-max:!h-[136px]"></div>
               </div>
-              <div className="flex-col flex w-[150px] xl:w-[136px]">
-                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl:w-[136px] xl:h-[425px]"></div>
-                <div className="w-[150px] h-[180px] xl:w-[140px]">
+              <div className="flex-col flex w-[150px] xl-max:w-[136px]">
+                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl-max:w-[136px] xl-max:h-[425px]"></div>
+                <div className="w-[150px] h-[180px] xl-max:w-[140px]">
                   <svg
                     viewBox="0 0 140 226"
                     fill="none"
@@ -124,7 +124,7 @@ export default function Page() {
               {!successfulCreation && !complete && (
                 <>
                   <div className="h-screen flex relative">
-                    <div className="passwordContainer xl:!border-0 xl:!bg-transparent xl:!shadow-none">
+                    <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
                       <svg
                         className="mail"
                         xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +192,7 @@ export default function Page() {
 
               {successfulCreation && !complete && (
                 <>
-                  <div className="passwordContainer xl:!border-0 xl:!bg-transparent xl:!shadow-none">
+                  <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
                     <div className="title">Reset Password</div>
                     <div className="explanation">
                       Enter new password with at least 8 charaters, contain at
@@ -252,7 +252,7 @@ export default function Page() {
               )}
 
               {complete && (
-                <div className="passwordContainer xl:!border-0 xl:!bg-transparent xl:!shadow-none">
+                <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
                   <div className="successImage">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

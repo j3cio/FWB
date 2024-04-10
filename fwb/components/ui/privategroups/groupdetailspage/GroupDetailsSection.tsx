@@ -8,6 +8,8 @@ import Pencil from '../icons/pencil.svg'
 import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import LockIcon from '../icons/LockIcon'
+import { useState } from 'react'
+import GroupInviteModal from './GroupInviteModal'
 
 const GroupDetailsSection = ({
   groupData,
@@ -17,9 +19,18 @@ const GroupDetailsSection = ({
   userData: UserData[]
 }) => {
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
+  const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+
+  const openGroupInviteModal = () => {
+    setIsGroupInviteModalOpen(true)
+  }
+
+  const closeGroupInviteModal = () => {
+    setIsGroupInviteModalOpen(false)
+  }
 
   return (
-    <Box className="h-2/3 w-full border-none my-10 flex flex-col">
+    <Box className="h-2/3 w-full border-none flex flex-col">
       <Box className="w-full relative">
         <Image
           priority
@@ -41,8 +52,8 @@ const GroupDetailsSection = ({
             }}
           />
         </div>
-        <div className="mt-36 flex xxs:flex-col xs:flex-col sm:flex-col gap-4 justify-between">
-          <div className="text-white flex flex-col gap-3 xxs:max-w-full xs:max-w-full sm:max-w-full max-w-[50%]">
+        <div className="mt-28 w-full flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-4 justify-between">
+          <div className="text-white flex flex-col gap-3 xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[50%]">
             <div className="flex items-start gap-1">
               <p className="text-2xl capitalize flex flex-col">
                 {groupData.name}
@@ -64,13 +75,12 @@ const GroupDetailsSection = ({
                 />
               </div>
             </div>
-            {groupData.description && (<div className="">
-              {' '}
-              {groupData?.description}
-            </div>)}
+            {groupData.description && (
+              <div className=""> {groupData?.description}</div>
+            )}
           </div>
 
-          <div className="text-white xxs:w-full xs:w-full sm:w-full flex flex-row-reverse justify-between items-center lg:flex-col xl:flex-col xxl:flex-col gap-3">
+          <div className="text-white xxs-max:w-full xs-max:w-full sm-max:w-full flex flex-row-reverse justify-between items-center lg-max:flex-col xl-max:flex-col xxl-max:flex-col gap-3">
             <div className="flex flex-col gap-1">
               <Image
                 src="/groups/AvatarContainer.svg"
@@ -86,12 +96,17 @@ const GroupDetailsSection = ({
                 endIcon={<InviteMemberIcon />}
                 variant="outlined"
                 className="rounded-2xl px-4 py-1 text-white border border-white"
+                onClick={openGroupInviteModal}
               >
                 Invite Members
               </Button>
             </div>
           </div>
         </div>
+        <GroupInviteModal
+            isOpen={isGroupInviteModalOpen}
+            onClose={closeGroupInviteModal}
+          />
       </div>
     </Box>
   )

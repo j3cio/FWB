@@ -1,20 +1,18 @@
 'use client'
 
-import './page.css'
-import Navbar from '@/components/ui/profile/profile_navbar'
-import Box from '@mui/material/Box'
-import { Typography, Container } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import Checkbox from '@mui/material/Checkbox'
-import Slider from '@mui/material/Slider'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+import Navbar from '@/components/ui/navbar/Navbar'
+
+import { useAuth, useUser } from '@clerk/nextjs'
+import { Container, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
+import Slider from '@mui/material/Slider'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
+import './page.css'
 
 const theme = createTheme({
   components: {
@@ -49,29 +47,24 @@ const theme = createTheme({
 })
 
 export default function Intakeform() {
-  const [discount, setDiscount] = useState(0)
-  const [discountAmount, setDiscountAmount] = useState('')
+  const { user } = useUser()
+  const [discountAmount, setDiscountAmount] = useState(0)
   const [emailAddress, setEmailAddress] = useState('')
   const [company, setCompany] = useState('')
-  const [discountRule, setDiscountRule] = useState('')
-  const [companyUrl, setCompanyUrl] = useState('')
+  const [shareableUrl, setShareableUrl] = useState('')
   const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
     'public'
   )
   const [categories, setCategories] = useState([])
   const [termsAndConditions, setTermsAndConditions] = useState(false)
+  const [description, setDescription] = useState('')
 
   const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
-
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
-  }
+  const { getToken } = useAuth()
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === 'number') {
-      setDiscount(newValue)
+      setDiscountAmount(newValue)
     }
   }
 
@@ -86,28 +79,48 @@ export default function Intakeform() {
       const bearerToken = await window.Clerk.session.getToken({
         template: 'testing_template',
       })
-
       const supabaseToken = await window.Clerk.session.getToken({
         template: 'supabase',
       })
-      const formData = new FormData()
-      formData.append('company', company)
-      formData.append('terms_and_conditions', `${termsAndConditions}`)
-      formData.append('categories', `{${categories.join(',')}}`)
-      formData.append('discount_amount', `${discount}`)
-      formData.append('company_url', companyUrl)
-      formData.append('public', 'true')
-      formData.append('email', emailAddress)
-      formData.append('discountRule', discountRule)
 
-      //email, discount rule
+      if (user) {
+        const formData = new FormData()
+        formData.append('user_id', user.id)
+        formData.append('terms_and_conditions', `${termsAndConditions}`) // TODO: This column is a text in supabase db, should be a boolean
+        formData.append('shareable_url', shareableUrl)
+        formData.append('discount_amount', `${discountAmount}`)
+        formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
+          formData.append('share_count', '0'),
+          formData.append('message_count', '0'),
+          formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
+        formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
+        // Name and company are the same thing
+        formData.append('Name', company)
+        formData.append('company', company)
 
-      formData.forEach((value, key) => {
-        console.log(key, value)
-      })
-      // for (const pair of formData.entries()) {
-      //   console.log(pair[0], pair[1]);
-      // }
+        formData.append('categories', `{${categories.join(',')}}`)
+        formData.append('description', description)
+        //formData.append('email', emailAddress)
+
+        const response = await fetch('/api/tempdiscounts', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+            supabase_jwt: supabaseToken,
+          },
+          body: formData,
+        })
+
+        if (response.ok) {
+          const discountData = await response.json()
+          console.log('Discount added successfully:', discountData)
+        } else {
+          const errorData = await response.json()
+          console.error('Error adding user:', errorData)
+        }
+      } else {
+        console.error('Error user not found')
+      }
     } catch (error) {
       console.error('Error adding discount:', error)
     }
@@ -130,11 +143,7 @@ export default function Intakeform() {
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
           <div>
-            <Navbar
-              handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
-            />
+            <Navbar />
           </div>
           <form
             id="discountForm"
@@ -188,10 +197,10 @@ export default function Intakeform() {
                   <input
                     className="inputUrl"
                     placeholder="/https:/abcdefgh.com"
-                    onChange={(e) => setCompanyUrl(e.target.value)}
+                    onChange={(e) => setShareableUrl(e.target.value)}
                     id="companyName"
                     name="companyName"
-                    value={companyUrl}
+                    value={shareableUrl}
                   />
                 </div>
               </div>
@@ -229,7 +238,7 @@ export default function Intakeform() {
                                     backgroundColor: 'white !important',
                                   },
                                 }}
-                                value={discount}
+                                value={discountAmount}
                                 onChange={handleSlide}
                                 valueLabelDisplay="auto"
                                 valueLabelFormat={valueLabelFormat}
@@ -237,7 +246,7 @@ export default function Intakeform() {
                               />
                             </div>
                           </ThemeProvider>
-                          <div className="discountName">{discount}</div>
+                          <div className="discountName">{discountAmount}</div>
                           <div className="percentage">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -311,7 +320,7 @@ export default function Intakeform() {
                       </div>
                     </div>
                     <div className="rule">
-                      <div className="discountRule">
+                      <div className="description">
                         Discount Rules* <p>& Conditions</p>
                       </div>
                       <div>
@@ -319,10 +328,10 @@ export default function Intakeform() {
                         <input
                           className="inputDiscount"
                           placeholder=""
-                          onChange={(e) => setDiscountRule(e.target.value)}
-                          id="discountRule"
-                          name="discountRule"
-                          value={discountRule}
+                          onChange={(e) => setDescription(e.target.value)}
+                          id="description"
+                          name="description"
+                          value={description}
                         />
                       </div>
                     </div>

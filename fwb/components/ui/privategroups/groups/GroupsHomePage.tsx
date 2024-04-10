@@ -1,23 +1,20 @@
 'use client'
-import { Group, UserData } from '@/app/types/types'
-import Navbar from '@/components/ui/privategroups/groupdetailspage/groups_navbar'
-import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGroupForm'
-import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
+
+import { useState } from 'react'
+
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useCallback, useContext, useEffect, useState } from 'react'
-import EndArrow from '../icons/EndArrow'
-import EndArrowWhite from '../icons/EndArrowWhite'
-import LockIcon from '../icons/LockIcon'
-import MoreIcon from '../icons/MoreIcon'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-import { useAuth } from '@clerk/nextjs'
 
+import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
+
+import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGroupForm'
+import Navbar from '../../navbar/Navbar'
 import SingleGroupCard from './GroupCard'
 import CreateGroupCard from './CreateGroupCard'
 
+import EndArrow from '../icons/EndArrow'
 
+import { Group, UserData } from '@/app/types/types'
 
 // Type userData
 const GroupsHomePage = ({
@@ -30,48 +27,10 @@ const GroupsHomePage = ({
   const [open, setOpen] = useState(false)
 
   const router = useRouter()
-  const { getToken } = useAuth()
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    setSearchResults,
-  } = useContext(SearchContext)
-
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
-    
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
       return true
@@ -149,18 +108,14 @@ const GroupsHomePage = ({
           sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
         >
           <Container disableGutters maxWidth="lg">
-            <Navbar
-              handleSearch={handleSearch}
-              companyQuery={searchQuery}
-              setCompanyQuery={setSearchQuery}
-            />
+            <Navbar />
             <Typography
               className="font-urbanist"
               sx={{
                 fontSize: 24,
                 color: '#FFFFFF',
                 marginY: 7,
-                paddingX: "18px",
+                paddingX: '18px',
                 fontWeight: 600,
               }}
             >
@@ -207,11 +162,7 @@ const GroupsHomePage = ({
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
-        <Navbar
-          handleSearch={handleSearch}
-          companyQuery={searchQuery}
-          setCompanyQuery={setSearchQuery}
-        />
+        <Navbar />
         <Box className="px-[18px] flex justify-between items-center">
           <Typography
             className="font-urbanist"
@@ -237,17 +188,21 @@ const GroupsHomePage = ({
             </Typography>
           </Button>
         </Box>
-        <Stack className="relative px-[18px] mt-16 z-0" direction="column" spacing={3}>
+        <Stack
+          className="relative px-[18px] mt-16 z-0"
+          direction="column"
+          spacing={3}
+        >
           {groupData.map((group: Group, index: number) => {
             return (
               <SingleGroupCard
-                handleDeleteGroup={handleDeleteGroup} 
-                group={group} 
-                key={group.id} 
-                index={index} 
+                handleDeleteGroup={handleDeleteGroup}
+                group={group}
+                key={group.id}
+                index={index}
                 isUserAdmin={isUserAdmin(group, userData.users[0].user_id)}
-                userGroups={userData.users[0].user_groups} 
-                />
+                userGroups={userData.users[0].user_groups}
+              />
             )
           })}
         </Stack>

@@ -1,13 +1,11 @@
-"use client";
+'use client'
 
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  use,
-} from 'react'
-import { DetailData, DiscountDataDetail, CompanyAndDiscounts } from "@/app/types/types";
+import React, { useEffect, useState, useContext } from 'react'
+import {
+  DetailData,
+  DiscountDataDetail,
+  CompanyAndDiscounts,
+} from '@/app/types/types'
 import DetailCard from '@/components/ui/detail/discount'
 import DetailFilters from '@/components/ui/explore/detailfilters'
 import {
@@ -15,13 +13,20 @@ import {
   DetailProvider,
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
+import Navbar from '@/components/ui/navbar/Navbar'
 
-export default function DetailPage({ company, }: { company: CompanyAndDiscounts }) {
+import { Container } from '@mui/material'
+
+export default function DetailPage({
+  company,
+}: {
+  company: CompanyAndDiscounts
+}) {
   const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
 
-  const discountIds = company.discounts.join(',');
+  const discountIds = company.discounts.join(',')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,17 +41,18 @@ export default function DetailPage({ company, }: { company: CompanyAndDiscounts 
         }
 
         const protocol = window.location.protocol
-        const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+        const response = await fetch(
+          `${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
           requestOptions
         )
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Network response was not ok')
         }
 
-        const responseData = await response.json();
+        const responseData = await response.json()
 
-        setDiscounts(responseData);
+        setDiscounts(responseData)
       } catch (error) {
         console.error('Error fetching data:', error)
       }
@@ -57,7 +63,6 @@ export default function DetailPage({ company, }: { company: CompanyAndDiscounts 
     }
   }, [discountIds])
 
-
   const combinedData: DetailData = { company, discounts }
 
   return (
@@ -67,9 +72,7 @@ export default function DetailPage({ company, }: { company: CompanyAndDiscounts 
   )
 }
 
-
-function DetailPageContent({ data, }: { data: DetailData; }) {
-
+function DetailPageContent({ data }: { data: DetailData }) {
   const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
@@ -80,7 +83,7 @@ function DetailPageContent({ data, }: { data: DetailData; }) {
     }
   }, [sortby, privateGroup])
 
-  const discountIds = data.company.discounts.join(',');
+  const discountIds = data.company.discounts.join(',')
 
   const fetchData = async () => {
     try {
@@ -94,26 +97,32 @@ function DetailPageContent({ data, }: { data: DetailData; }) {
       }
 
       const protocol = window.location.protocol
-      const response = await fetch(`${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+      const response = await fetch(
+        `${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
         requestOptions
       )
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok')
       }
 
-      const responseData = await response.json();
+      const responseData = await response.json()
 
-      setDiscounts(responseData);
+      setDiscounts(responseData)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
   }
 
   return (
-    <div className="w-full bg-[#1A1A23] pt-[96px]">
+    <div className="w-full bg-[#1A1A23] min-h-dvh">
       {/* company image and description section */}
-      <div className="mx-[120px] flex flex-row">
+      {/* kept only searchbar in container since i didn't want to affect the rest of the page's styling */}
+      <Container disableGutters maxWidth="lg">
+        <Navbar />
+      </Container>
+
+      <div className="mx-[120px] flex flex-row pt-[96px]">
         <div
           className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] "
           style={{ backgroundImage: `url(${data.company.logo})` }}
@@ -188,13 +197,15 @@ function DetailPageContent({ data, }: { data: DetailData; }) {
       </div>
 
       {/* discount listing section */}
-      <div className='mb-[50px] relative'>
-        {(discounts.length != 0 ? discounts : data.discounts)?.map((item: DiscountDataDetail) => (
-          <DetailCard data={item} key={item.discount_amount} />
-        ))}
+      <div className="mb-[50px] relative">
+        {(discounts.length != 0 ? discounts : data.discounts)?.map(
+          (item: DiscountDataDetail) => (
+            <DetailCard data={item} key={item.discount_amount} />
+          )
+        )}
       </div>
 
-      <div className='h-[200px]'></div>
+      <div className="h-[200px]"></div>
     </div>
-  );
+  )
 }

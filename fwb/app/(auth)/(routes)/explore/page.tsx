@@ -6,7 +6,8 @@ import { useAuth } from '@clerk/nextjs'
 import Button from '@mui/material/Button'
 import { Container, Box, Divider, Skeleton } from '@mui/material'
 import ResponsiveGrid from '@/components/ui/explore/products_grid'
-import Navbar from '@/components/ui/explore/explore_navbar'
+
+import Navbar from '@/components/ui/navbar/Navbar'
 import MostPopular from '@/components/ui/explore/most_popular'
 import Productfilters from '@/components/ui/explore/productfilters'
 import {

@@ -82,71 +82,13 @@ const Member = ({ user }: { user: User }) => {
 
 const MembersSection = ({ userData }: { userData: UserData[] }) => {
   return (
-    <div className="flex flex-row my-2">
-      <div className="flex-1 ml-24">
+    <div className="my-2">
+      <h1 className='my-7 text-[#F6FF82] text-2xl font-semibold font-urbanist'>Members</h1>
+      <div className="w-[60%]">
         <SearchBar />
         {userData.map((user: UserData, index: number) => (
           <Member key={index} user={user.users[0]} />
         ))}
-      </div>
-      <div className="flex-1 border-l-2 border-white pl-4 mr-40">
-        <div className="flex justify-between text-white my-4">
-          <div className="flex flex-row">
-            <div className="font-semibold text-4xl">About</div>
-            <div>
-              <Image
-                src={Pencil}
-                alt="Image Alt Text"
-                className="object-cover object-center"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  objectFit: 'cover',
-                }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <Image
-              src={MembersIcon}
-              alt="Image Alt Text"
-              className="object-cover object-center"
-              style={{
-                width: '100%',
-                height: 'auto',
-                objectFit: 'cover',
-              }}
-            />
-          </div>
-        </div>
-        <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quasi
-          provident ad, nulla voluptates dolores fugit similique saepe. Atque,
-          accusamus voluptates? Consequuntur numquam aspernatur saepe! Illum,
-          itaque. Non, assumenda accusantium.
-        </div>
-        <div className="flex text-white">
-          <div className="font-semibold text-4xl mt-24">Group Rules</div>
-          <div className="mt-24">
-            <Image
-              src={Pencil}
-              alt="Image Alt Text"
-              className="object-cover object-center"
-              style={{
-                width: '100%',
-                height: 'auto',
-                objectFit: 'cover',
-              }}
-            />
-          </div>
-        </div>
-        <div className="text-white">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          Reprehenderit explicabo, dolores iusto natus mollitia cumque nostrum
-          sunt maiores voluptates quam delectus molestiae ipsa repellendus
-          ullam! Aspernatur recusandae nam modi ratione!
-        </div>
       </div>
     </div>
   )
