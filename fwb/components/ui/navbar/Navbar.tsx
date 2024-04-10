@@ -50,8 +50,6 @@ const Navbar = ({
   customHandleSearch,
   customFetchSearchIndex,
 }: NavbarProps) => {
-  const { isSignedIn } = useUser()
-
   const router = useRouter()
   const {
     searchQuery,
@@ -100,15 +98,15 @@ const Navbar = ({
     fetchSearchIndex()
   }, [])
 
-    return (
-      <DesktopNavbar
-        handleSearch={handleSearch}
-        searchQuery={searchQuery}
-        clearSearch={clearSearch}
-        setSearchQuery={setSearchQuery}
-        theme={theme}
-      />
-    )
+  return (
+    <DesktopNavbar
+      handleSearch={handleSearch}
+      searchQuery={searchQuery}
+      clearSearch={clearSearch}
+      setSearchQuery={setSearchQuery}
+      theme={theme}
+    />
+  )
 }
 
 export default Navbar
