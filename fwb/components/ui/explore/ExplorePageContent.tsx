@@ -1,5 +1,5 @@
 'use client'
-import Navbar from '@/components/ui/explore/explore_navbar'
+//import Navbar from '@/components/ui/explore/explore_navbar'
 import { FilterContext } from '@/components/ui/explore/filter_context'
 import Productfilters from '@/components/ui/explore/productfilters'
 import ResponsiveGrid from '@/components/ui/explore/products_grid'
@@ -9,10 +9,10 @@ import { Box, Container, Skeleton } from '@mui/material'
 import Button from '@mui/material/Button'
 import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
-
 import { SearchContext } from '@/contexts/SearchContext'
 import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 import { createClient } from '@supabase/supabase-js'
+import Navbar from '../navbar/Navbar'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
