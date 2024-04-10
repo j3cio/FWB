@@ -1,7 +1,6 @@
 'use client'
 
-import { useContext, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
 
 import { Container } from '@mui/material'
 import { Chat, LoadingIndicator } from 'stream-chat-react'
@@ -10,9 +9,8 @@ import { useMediaQuery } from 'react-responsive'
 import ChatChannel from './ChatChannel'
 import ChatSideBar from './ChatSidebar'
 import ChannelDetails from './ChannelDetails'
-import Navbar from '@/components/ui/message/message_navbar'
+import Navbar from '@/components/ui/navbar/Navbar'
 import MobileChatNavigation from '@/components/ui/chat/mobile/MobileChatNavigation'
-import MobileTabsSelector from '@/components/ui/chat/mobile/MobileTabsSelector'
 import MobileChatList from '@/components/ui/chat/mobile/MobileChatList'
 
 import useIntitialChatClient from './useIntializeChatClient'
@@ -25,9 +23,6 @@ interface ChatPageProps {
 }
 
 const ChatPage = ({ userData, groupData }: ChatPageProps) => {
-  const [companyQuery, setCompanyQuery] = useState('')
-
-  const router = useRouter()
   const chatClient = useIntitialChatClient()
   const { showChatDetails, activeTab } = useContext(FWBChatContext)
 
@@ -45,21 +40,12 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
     )
   }
 
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
-  }
-
   return (
     <main className="h-full bg-[#1A1A23]">
       {isDesktop ? (
         <>
           <Container disableGutters maxWidth="lg">
-            <Navbar
-              handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
-            />
+            <Navbar />
           </Container>
           <div className="flex flex-col items-center overflow-y-hidden bg-[#1A1A23] pb-6 lg:pb-0">
             <Chat client={chatClient}>
