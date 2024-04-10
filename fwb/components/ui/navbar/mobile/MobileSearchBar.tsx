@@ -11,6 +11,7 @@ const MobileSearchBar = ({ handleSearch, handleClose }: MobileSearchProps) => {
   ) => {
     handleSearch()
     setSearchQuery('')
+    handleClose && handleClose()
   }
 
   return (

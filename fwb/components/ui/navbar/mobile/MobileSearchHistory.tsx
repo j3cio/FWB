@@ -33,6 +33,7 @@ const MobileSearchHistory = ({
   useEffect(() => {
     if (beginSearch && searchQuery) {
       handleSearch()
+      handleClose()
     }
   }, [beginSearch, searchQuery])
 
@@ -46,12 +47,12 @@ const MobileSearchHistory = ({
       <div>
         {searchHistory
           // shows either 4 or 10 items
-          .filter((item, index) => (isCollapsed ? index < 5 : index < 11))
+          .filter((item, index) => (isCollapsed ? index < 4 : index < 11))
           .map((search) => (
             <div
               className="py-1"
               key={search}
-              onClick={(event) => {
+              onClick={() => {
                 handleQuery(search)
               }}
             >
@@ -59,11 +60,16 @@ const MobileSearchHistory = ({
             </div>
           ))}
       </div>
-      <div className="w-full pb-3" onClick={() => setIsCollapsed(!isCollapsed)}>
-        <p className="text-center font-bold text-[#F6FF82]">
-          {isCollapsed ? 'Show more' : 'Show less'}
-        </p>
-      </div>
+      {searchHistory.length > 4 ? (
+        <div
+          className="w-full pb-3"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          <p className="text-center font-bold text-[#F6FF82]">
+            {isCollapsed ? 'Show more' : 'Show less'}
+          </p>
+        </div>
+      ) : null}
     </section>
   )
 }
