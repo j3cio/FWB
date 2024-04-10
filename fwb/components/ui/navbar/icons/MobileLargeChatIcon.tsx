@@ -1,4 +1,4 @@
-const MobileChatIcon = () => {
+const MobileLargeChatIcon = () => {
   return (
     <svg
       width="18"
@@ -15,4 +15,4 @@ const MobileChatIcon = () => {
   )
 }
 
-export default MobileChatIcon
+export default MobileLargeChatIcon

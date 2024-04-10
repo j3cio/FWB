@@ -58,14 +58,36 @@ const Navbar = ({
     searchIndex,
     setSearchIndex,
     setSearchResults,
+    searchHistory,
+    setSearchHistory,
   } = useContext(SearchContext)
   const { getToken } = useAuth()
+
+  const addToSearchHistory = (searchQuery: string) => {
+    const currentHistory = [...searchHistory]
+    const existingIndex = currentHistory.findIndex(
+      (query) => query === searchQuery
+    ) // look for dupes
+
+    // If the search query exists in the history, remove it from its position and place it at the beginning of the array
+    if (existingIndex !== -1) {
+      currentHistory.splice(existingIndex, 1)
+    }
+
+    currentHistory.unshift(searchQuery)
+    setSearchHistory(currentHistory)
+    // TODO: decide if we want our search history to persist
+  }
 
   const handleSearch = customHandleSearch
     ? customHandleSearch
     : async () => {
         try {
           const results = await fuzzySearch({ searchIndex, searchQuery })
+
+          if (results.length) {
+            addToSearchHistory(searchQuery)
+          }
           setSearchResults(results)
           router.push('/explore')
         } catch (error) {
@@ -102,13 +124,7 @@ const Navbar = ({
   return (
     <>
       <div className="block sm:hidden">
-        <MobileNavbar
-          handleSearch={handleSearch}
-          searchQuery={searchQuery}
-          clearSearch={clearSearch}
-          setSearchQuery={setSearchQuery}
-          theme={theme}
-        />
+        <MobileNavbar handleSearch={handleSearch} />
       </div>
       <div className="hidden sm:block">
         <DesktopNavbar
