@@ -19,7 +19,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 const ExplorePageContent = () => {
-
   const { getToken } = useAuth()
   const pathname = usePathname()
   const { sortby, category, privateGroup } = useContext(FilterContext)
@@ -186,7 +185,7 @@ const ExplorePageContent = () => {
       setIsLoading(false)
     }
   }, [companies])
-  
+
   // Fetch Data on Filter Change
   useEffect(() => {
     setPage(0)
@@ -224,16 +223,7 @@ const ExplorePageContent = () => {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        {isLoading ? (
-          generateSkeletons({ type: 'NavBar' })
-        ) : (
-          <Navbar
-            handleSearch={handleSearch}
-            clearSearch={clearSearch}
-            companyQuery={searchQuery}
-            setCompanyQuery={setSearchQuery}
-          />
-        )}
+        {isLoading ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
