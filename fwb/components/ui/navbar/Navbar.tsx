@@ -100,7 +100,6 @@ const Navbar = ({
     fetchSearchIndex()
   }, [])
 
-  if (isSignedIn) {
     return (
       <DesktopNavbar
         handleSearch={handleSearch}
@@ -110,7 +109,6 @@ const Navbar = ({
         theme={theme}
       />
     )
-  }
 }
 
 export default Navbar
