@@ -4,13 +4,14 @@ import supabaseClient from '@/supabase'
 import { Avatar, Box, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
-import React, { useRef } from 'react';
-import GroupInviteModal from './GroupInviteModal'
+
+
+//TODO: The changing of group profile picture should requre admin priviledges
 
 const GroupDetailsSection = ({
   groupData,
@@ -25,6 +26,7 @@ const GroupDetailsSection = ({
 
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+  const [refresh, setRefresh] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -58,16 +60,21 @@ const GroupDetailsSection = ({
       return
     }
     console.log('Group filePath updated successfully:', data)
+    setRefresh(!refresh)
   }
 
   // Stores the file on supabase
   const uploadFile = async (event: FileEvent) => {
+    if (groupData.filePath !== null) {
+      console.log('Deleting previous group avatar')
+      await deletePreviousGroupAvatar()
+    }
     const supabase = await supabaseClient()
     const file = event.target.files[0]
     const filePath = file.name
     const { data, error } = await supabase.storage
       .from('group-avatars')
-      .upload(filePath, file)
+      .upload(filePath, file) // TODO: This filepath should be unique
 
     if (error) {
       console.log('Error uploading file.')
@@ -97,6 +104,19 @@ const GroupDetailsSection = ({
     }
   }
 
+  // Delete previous picture from supabase storage
+  const deletePreviousGroupAvatar = async () => {
+    const oldFilePath = groupData.filePath
+    const supabase = await supabaseClient()
+    const { data, error } = await supabase.storage.from('group-avatars').remove([`${oldFilePath}`]);
+
+    if (error) {
+      console.error('Error downloading file:', error)
+      return null
+    }
+    console.log('Old File path deleted', data)
+    return
+  }
   // Display the image
   const fetchAndDisplayImage = async (filePath: string) => {
     if (filePath) {
@@ -108,6 +128,8 @@ const GroupDetailsSection = ({
       }
     }
   }
+
+
   useEffect(() => {
     fetchAndDisplayImage(groupData.filePath)
   }, [])
@@ -129,7 +151,7 @@ const GroupDetailsSection = ({
         <div className="absolute -top-16 left-36 transform -translate-x-1/2 rounded-full">
           {groupAvatarUrl ? (
             <div className='h-32 w-32'>
-            <img src={groupAvatarUrl} alt="Avatar" className="cursor-pointer" onClick={handleImageClick}/>
+            <img src={groupAvatarUrl || ''} alt="Avatar" className="cursor-pointer" onClick={handleImageClick}/>
             <input type="file" className="hidden" onChange={uploadFile} ref={fileInputRef} />
             </div>
           ) : (
