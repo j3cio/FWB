@@ -9,7 +9,7 @@ import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
-import { useState } from 'react'
+import React, { useRef } from 'react';
 import GroupInviteModal from './GroupInviteModal'
 
 const GroupDetailsSection = ({
@@ -25,6 +25,13 @@ const GroupDetailsSection = ({
 
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+ };
+
 
   const openGroupInviteModal = () => {
     setIsGroupInviteModalOpen(true)
@@ -71,38 +78,37 @@ const GroupDetailsSection = ({
     await storeFilePath(filePath)
   }
 
+  // Retrieve file from supabase
+  const downloadFile = async (filePath: string) => {
+    if (filePath) {
+      const supabase = await supabaseClient()
+      const { data, error } = await supabase.storage
+        .from('group-avatars')
+        .download(filePath)
+
+      if (error) {
+        console.error('Error downloading file:', error)
+        return null
+      }
+      return data
+    } else {
+      console.log('No file path found')
+      return
+    }
+  }
+
+  // Display the image
+  const fetchAndDisplayImage = async (filePath: string) => {
+    if (filePath) {
+      const fileData = await downloadFile(filePath)
+      // Convert the Blob to a URL for display
+      if (fileData) {
+        const url = URL.createObjectURL(fileData)
+        setGroupAvatarUrl(url)
+      }
+    }
+  }
   useEffect(() => {
-    // Retrieve file from supabase
-    const downloadFile = async (filePath: string) => {
-      if (filePath) {
-        const supabase = await supabaseClient()
-        const { data, error } = await supabase.storage
-          .from('group-avatars')
-          .download(filePath)
-
-        if (error) {
-          console.error('Error downloading file:', error)
-          return null
-        }
-        return data
-      } else {
-        console.log('No file path found')
-        return
-      }
-    }
-
-    // Display the image
-    const fetchAndDisplayImage = async (filePath: string) => {
-      if (filePath) {
-        const fileData = await downloadFile(filePath)
-        // Convert the Blob to a URL for display
-        if (fileData) {
-          const url = URL.createObjectURL(fileData)
-          setGroupAvatarUrl(url)
-        }
-      }
-    }
-
     fetchAndDisplayImage(groupData.filePath)
   }, [])
 
@@ -122,9 +128,9 @@ const GroupDetailsSection = ({
       <div className="flex justify-between items-center relative px-4 bg-[#1a1a23]">
         <div className="absolute -top-16 left-36 transform -translate-x-1/2 rounded-full">
           {groupAvatarUrl ? (
-            <div className='h-56 w-56'> 
-            <img src={groupAvatarUrl} alt="Avatar" />
-            <input type="file" onChange={uploadFile} />
+            <div className='h-32 w-32'>
+            <img src={groupAvatarUrl} alt="Avatar" className="cursor-pointer" onClick={handleImageClick}/>
+            <input type="file" className="hidden" onChange={uploadFile} ref={fileInputRef} />
             </div>
           ) : (
             <div>
@@ -135,7 +141,7 @@ const GroupDetailsSection = ({
                   border: '4px solid black',
                 }}
               />
-              <input type="file" onChange={uploadFile} />
+              <input type="file" className="hidden" onChange={uploadFile} />
             </div>
           )}
         </div>
