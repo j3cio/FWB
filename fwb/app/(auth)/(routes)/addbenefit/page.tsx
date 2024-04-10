@@ -1,7 +1,10 @@
 'use client'
 
-import Navbar from '@/components/ui/profile/profile_navbar'
-import { useUser } from '@clerk/nextjs'
+import { ChangeEvent, FormEvent, useState } from 'react'
+
+import Navbar from '@/components/ui/navbar/Navbar'
+
+import { useAuth, useUser } from '@clerk/nextjs'
 import { Container, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
@@ -9,7 +12,6 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Slider from '@mui/material/Slider'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, useState } from 'react'
 import './page.css'
 
 const theme = createTheme({
@@ -58,12 +60,7 @@ export default function Intakeform() {
   const [description, setDescription] = useState('')
 
   const router = useRouter()
-  const [companyQuery, setCompanyQuery] = useState('')
-
-  const handleSearch = (companyQuery: any) => {
-    const url = `/explore?company=${companyQuery}`
-    router.push(url)
-  }
+  const { getToken } = useAuth()
 
   const handleSlide = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === 'number') {
@@ -146,11 +143,7 @@ export default function Intakeform() {
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
           <div>
-            <Navbar
-              handleSearch={handleSearch}
-              companyQuery={companyQuery}
-              setCompanyQuery={setCompanyQuery}
-            />
+            <Navbar />
           </div>
           <form
             id="discountForm"

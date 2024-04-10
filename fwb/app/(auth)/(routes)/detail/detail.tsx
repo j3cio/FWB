@@ -1,12 +1,6 @@
 'use client'
 
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  use,
-} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import {
   DetailData,
   DiscountDataDetail,
@@ -19,6 +13,9 @@ import {
   DetailProvider,
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
+import Navbar from '@/components/ui/navbar/Navbar'
+
+import { Container } from '@mui/material'
 
 export default function DetailPage({
   company,
@@ -118,9 +115,14 @@ function DetailPageContent({ data }: { data: DetailData }) {
   }
 
   return (
-    <div className="w-full bg-[#1A1A23] pt-[96px]">
+    <div className="w-full bg-[#1A1A23] min-h-dvh">
       {/* company image and description section */}
-      <div className="mx-[120px] flex flex-row">
+      {/* kept only searchbar in container since i didn't want to affect the rest of the page's styling */}
+      <Container disableGutters maxWidth="lg">
+        <Navbar />
+      </Container>
+
+      <div className="mx-[120px] flex flex-row pt-[96px]">
         <div
           className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] "
           style={{ backgroundImage: `url(${data.company.logo})` }}

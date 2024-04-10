@@ -14,7 +14,7 @@ type Form1Props = Form1Data & {
 
 export function GroupForm1({ name, description, updateFields }: Form1Props) {
   return (
-    <Box className="font-urbanist xxs-max:min-w-[80vw] xs-max:min-w-[80vw] sm-max:min-w-[60vw] min-w-[50vw] px-[15%] flex flex-col gap-6">
+    <Box className="font-urbanist xxs-max:min-w-[80vw] xs-max:min-w-[80vw] sm-max:min-w-[60vw] min-w-[50vw] px-[20%] flex flex-col gap-6">
       <FormLabel className="flex justify-center">
         <Input
           className="hidden"
@@ -33,7 +33,7 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
         Group Name*
         <Box className="flex gap-2">
           <Input
-            className="font-urbanist bg-[#fff] w-full border-0 outline-none px-5 py-3 text-[#090A10] rounded-[2.5rem] focus:outline-[0px]  after:border-0 before:border-0"
+            className="font-urbanist bg-[#fff] w-full border-0 outline-none px-5 py-1 text-[#090A10] rounded-[2.5rem] focus:outline-[0px]  after:border-0 before:border-0"
             required
             type="text"
             placeholder="Group's Name"
@@ -49,7 +49,7 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
       <FormLabel className="font-urbanist flex flex-col gap-3 text-white">
         Add Description
         <Input
-          className="font-urbanist bg-[#fff] border-0 outline-none px-5 py-3 text-[#090A10] rounded-[2.5rem] focus:outline-none after:border-0 before:border-0"
+          className="font-urbanist bg-[#fff] border-0 outline-none px-5 py-1 text-[#090A10] rounded-[2.5rem] focus:outline-none after:border-0 before:border-0"
           required
           type="text"
           placeholder="Group's description"

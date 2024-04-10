@@ -1,28 +1,30 @@
 'use client'
 
-import { useCallback, useContext, useEffect, useState } from 'react'
-import Navbar from '@/components/ui/profile/profile_navbar'
-import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
-import { Box, Button, Container, Grid } from '@mui/material'
-//import AvatarIcon from "@mui/material/Avatar";
-import { useTheme } from '@mui/material/styles'
+import { useState } from 'react'
+
 import Image from 'next/image'
-import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
-//import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
-import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+
+import { Box, Button, Container, Grid } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { useUser, useAuth } from '@clerk/nextjs'
+
 import Avatar from '@mui/material/Avatar'
-import { useRouter } from 'next/navigation'
-import SaveIcon from '../../../../components/ui/profile/icons/save.svg'
-import { UserData } from '../../../types/types'
 import EditProfileModal from './EditProfileModal'
 import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-import { DiscountData } from '../../../types/types'
 
+import Navbar from '@/components/ui/navbar/Navbar'
+
+import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
+import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
 import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
+//import AvatarIcon from "@mui/material/Avatar";
+//import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
+
+import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+
+import { UserData } from '../../../types/types'
+import { DiscountData } from '../../../types/types'
 
 interface ProfileProps {
   userData: UserData
@@ -37,14 +39,6 @@ function Profile({ userData, discountData }: ProfileProps) {
   //Intialize the user to be in GetStream db
   const client = useIntitialChatClient()
   const { user } = useUser()
-  const router = useRouter()
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    setSearchResults,
-  } = useContext(SearchContext)
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
@@ -54,44 +48,10 @@ function Profile({ userData, discountData }: ProfileProps) {
     setIsEditProfileModalOpen(false)
   }
 
-  const handleSearch = async () => {
-    try {
-      const results = await fuzzySearch({ searchIndex, searchQuery })
-
-      setSearchResults(results)
-      router.push('/explore')
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const fetchSearchIndex = useCallback(async () => {
-    try {
-      const bearerToken = await getToken()
-
-      if (bearerToken) {
-        const companiesIndex = await getSearchIndex({
-          bearer_token: bearerToken,
-        })
-        setSearchIndex(companiesIndex)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }, [getToken, setSearchIndex])
-
-  useEffect(() => {
-    fetchSearchIndex()
-  }, [fetchSearchIndex])
-
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar
-          handleSearch={handleSearch}
-          companyQuery={searchQuery}
-          setCompanyQuery={setSearchQuery}
-        />
+        <Navbar />
         <div className="bg-[#1a1a23] min-h-screen">
           {/*Container div*/}
           <div className="flex flex-1 flex-col h-full w-full xxs-max:items-start xs-max:items-start sm-max:items-start items-center justify-center xxs-max:px-4 xs-max:px-6 sm-max:px-8 px-[120px]">
@@ -140,8 +100,7 @@ function Profile({ userData, discountData }: ProfileProps) {
             {/*Bargains div*/}
             <div className="flex flex-col w-full grow gap-6">
               <CreateDiscountCard />
-
-              <div className="md:hidden lg-max:hidden xl-max:hidden xxl-max:hidden flex w-full h-2/5">
+              <div className="lg-max:hidden xl-max:hidden xxl-max:hidden flex w-full h-2/5">
                 <a className="min-w-full" href="/intakeform">
                   <div className='flex rounded-[32px] bg-cover py-5 sm-max:py-[10%] bg-[url("/profilebanner-sm.svg")]'>
                     <div className="flex flex-col items-start gap-2 px-4 pt-8 pb-5">
@@ -161,7 +120,7 @@ function Profile({ userData, discountData }: ProfileProps) {
               </div>
               <div className="flex h-2/5 gap-6">
                 <a
-                  href="profile"
+                  href="groups"
                   className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
                 >
                   <div className="flex flex-col mx-6">
@@ -207,18 +166,17 @@ function Profile({ userData, discountData }: ProfileProps) {
                         sx={{ gap: '64px', marginLeft: '14px' }}
                       >
                         {discountData.map((company: any, index: React.Key) => (
-                          <>
+                          <div key={`${company} - ${index}`}>
                             <Grid
                               item
                               xs={12}
                               sm={6}
                               md={3}
-                              key={index}
                               sx={{ width: '282px', height: '322px' }}
                             >
                               <DiscountCard company={company} />
                             </Grid>
-                          </>
+                          </div>
                         ))}
                       </Grid>
                     </Box>

@@ -130,7 +130,7 @@ const CreateGroupForm = ({
   }
 
   return (
-    <form className="min-w-full px-[15%] flex flex-col items-center gap-8">
+    <form className="min-w-full px-[20%] flex flex-col items-center gap-8">
       <Box>
         {currentStepIndex == 0 && (
           <Image
@@ -160,7 +160,7 @@ const CreateGroupForm = ({
       <div> {step} </div>
 
       <Button
-        className="font-urbanist font-bold capitalize text-lg w-full py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
+        className="font-urbanist font-bold capitalize text-lg w-full mt-16 py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
         variant="text"
         disabled={data.name == '' && true}
         type="submit"
@@ -170,11 +170,11 @@ const CreateGroupForm = ({
       </Button>
       {isLastStep && (
         <Button
-          className="font-urbanist capitalize text-base w-full py-3 bg-none text-white"
+          className="font-urbanist font-semibold tracking-wider normal-case text-base w-full -mt-6 py-3 bg-none text-white"
           type="button"
           onClick={onSubmit}
         >
-          skip for now
+          Skip for now
         </Button>
       )}
     </form>

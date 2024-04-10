@@ -9,6 +9,8 @@ import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
+import { useState } from 'react'
+import GroupInviteModal from './GroupInviteModal'
 
 const GroupDetailsSection = ({
   groupData,
@@ -22,6 +24,15 @@ const GroupDetailsSection = ({
   }
 
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
+  const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+
+  const openGroupInviteModal = () => {
+    setIsGroupInviteModalOpen(true)
+  }
+
+  const closeGroupInviteModal = () => {
+    setIsGroupInviteModalOpen(false)
+  }
   const [groupAvatarUrl, setGroupAvatarUrl] = useState<string | null>(
     groupData.filePath || null
   ) // The image url fro the file uploaded

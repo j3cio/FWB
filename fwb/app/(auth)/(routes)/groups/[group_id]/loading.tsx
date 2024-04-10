@@ -5,14 +5,14 @@ import GroupTabsSkeleton from '@/components/ui/skeletons/variants/GroupTabsSkele
 
 const Loading = () => {
   return (
-    <Box sx={{ backgroundColor: '#1A1A23' }}>
+    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100dvh' }}>
       <Container disableGutters maxWidth="lg">
         <NavBarSkeleton />
         <Box
           sx={{
             paddingX: '18px',
             position: 'relative',
-            marginTop: '156px',
+            marginTop: '56px',
             zIndex: 0,
           }}
         >

@@ -13,6 +13,20 @@ type CompanyAndDiscounts = {
   views: number
 }
 
+type Company = {
+  created_at: string
+  name: string
+  description: string
+  logo: string | null
+  url: string
+  views: number
+  discounts: string[]
+  id: string
+  view_count: number
+  greatest_discount: number
+  discounts_updated_at: string
+}
+
 /**
  * Retrieves companies based on the provided query parameters.
  *
@@ -129,6 +143,20 @@ export async function GET(request: NextRequest) {
       console.error(companiesError)
       return NextResponse.json(
         { error: 'Failed to fetch public and private companies' },
+        { status: 500 }
+      )
+    }
+
+    // Query our private discounts. For now this won't work, but this is just a reference for our query in the future
+    let { data: privateDiscounts, error: discountsError } = await supabase
+      .from('discounts')
+      .select('id')
+      .neq('public', true)
+
+    if (discountsError) {
+      console.error(discountsError)
+      return NextResponse.json(
+        { error: 'Failed to fetch public and private discounts' },
         { status: 500 }
       )
     }

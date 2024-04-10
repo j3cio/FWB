@@ -147,7 +147,7 @@ const EditProfileModal = ({
       }}
     >
       <div
-        className="modal-content relative xs-max:h-screen xs-max:w-full sm-max:w-[80%] xs-max:rounded-none xs-max:border-none"
+        className="modal-content relative xxs-max:h-screen xs-max:w-full sm-max:w-[80%] xxs-max:rounded-none xxs-max:border-none xs-max:rounded-none xs-max:border-none"
         style={{
           borderRadius: '40px',
           border: '2px solid var(--Neutral-000, #FFF)',
@@ -159,10 +159,9 @@ const EditProfileModal = ({
           height: '722px',
         }}
       >
-        <div className="hidden xxs-max:flex xs-max:flex gap-2">
+        <button onClick={handleXClick} className="hidden xxs-max:flex xs-max:flex gap-2">
           <svg
             className="cursor-pointer"
-            onClick={handleXClick}
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -174,8 +173,8 @@ const EditProfileModal = ({
               fill="white"
             />
           </svg>
-          <h3 className="font-urbanist text-white font-medium">Edit Profile</h3>
-        </div>
+          <span className="font-urbanist text-white font-medium">Edit Profile</span>
+        </button>
         {/* X Button*/}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -349,6 +348,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -422,6 +422,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 placeholder={
                   userData.users[0].company
