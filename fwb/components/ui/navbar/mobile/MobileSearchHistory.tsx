@@ -33,6 +33,7 @@ const MobileSearchHistory = ({
   useEffect(() => {
     if (beginSearch && searchQuery) {
       handleSearch()
+      setSearchQuery('')
       handleClose()
     }
   }, [beginSearch, searchQuery])
