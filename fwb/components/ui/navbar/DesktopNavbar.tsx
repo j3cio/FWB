@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { usePathname, useRouter } from 'next/navigation'
+
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import avatar from '@/components/ui/form/icons/avatar.svg'
@@ -10,7 +12,6 @@ import { Image } from 'next/dist/client/image-component'
 
 import { IconButton, Box, Tooltip, Menu, MenuItem, Theme } from '@mui/material'
 import { ThemeProvider } from '@emotion/react'
-import { useRouter } from 'next/navigation'
 import PersonIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useClerk } from '@clerk/clerk-react'
@@ -33,6 +34,7 @@ const DesktopNavbar = ({
 }: DesktopNavbarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
+  const pathname = usePathname()
   const open = Boolean(anchorEl)
   const router = useRouter()
   const { signOut } = useClerk()
@@ -114,7 +116,7 @@ const DesktopNavbar = ({
                   padding: '9.6px',
                   borderRadius: '50%',
                   border: '2px solid white',
-                  borderColor: '#8e94e9',
+                  borderColor: pathname === '/explore' ? '#8e94e9' : '',
                   backgroundColor: '#1a1a23',
                   '&:hover': {
                     backgroundColor: '#8e94e9',
@@ -157,6 +159,8 @@ const DesktopNavbar = ({
                   padding: '9.6px',
                   borderRadius: '50%',
                   border: '2px solid white',
+                  borderColor: pathname === '/groups' ? '#8e94e9' : '',
+
                   '&:hover': {
                     backgroundColor: '#8e94e9',
                     borderColor: '#8e94e9',
@@ -198,6 +202,8 @@ const DesktopNavbar = ({
                   padding: '9.6px',
                   borderRadius: '50%',
                   border: '2px solid white',
+                  borderColor: pathname === '/chat' ? '#8e94e9' : '',
+
                   '&:hover': {
                     backgroundColor: '#8e94e9',
                     borderColor: '#8e94e9',
