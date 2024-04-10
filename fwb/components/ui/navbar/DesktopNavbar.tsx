@@ -232,6 +232,8 @@ const DesktopNavbar = ({
                 overflow: 'hidden',
                 borderRadius: '50%',
                 border: '2px solid white',
+                borderColor: pathname === '/profile' ? '#8e94e9' : '',
+
                 '&:hover': {
                   backgroundColor: '#8e94e9',
                   borderColor: '#8e94e9',
