@@ -8,6 +8,8 @@ import Pencil from '../icons/pencil.svg'
 import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import LockIcon from '../icons/LockIcon'
+import { useState } from 'react'
+import GroupInviteModal from './GroupInviteModal'
 
 const GroupDetailsSection = ({
   groupData,
@@ -17,6 +19,15 @@ const GroupDetailsSection = ({
   userData: UserData[]
 }) => {
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
+  const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+
+  const openGroupInviteModal = () => {
+    setIsGroupInviteModalOpen(true)
+  }
+
+  const closeGroupInviteModal = () => {
+    setIsGroupInviteModalOpen(false)
+  }
 
   return (
     <Box className="h-2/3 w-full border-none flex flex-col">
@@ -85,12 +96,17 @@ const GroupDetailsSection = ({
                 endIcon={<InviteMemberIcon />}
                 variant="outlined"
                 className="rounded-2xl px-4 py-1 text-white border border-white"
+                onClick={openGroupInviteModal}
               >
                 Invite Members
               </Button>
             </div>
           </div>
         </div>
+        <GroupInviteModal
+            isOpen={isGroupInviteModalOpen}
+            onClose={closeGroupInviteModal}
+          />
       </div>
     </Box>
   )
