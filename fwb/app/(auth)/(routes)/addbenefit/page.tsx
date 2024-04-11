@@ -11,6 +11,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import './page.css'
+import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 
 const theme = createTheme({
   components: {
@@ -133,14 +134,28 @@ export default function Intakeform() {
     return `${discount}%`
   }
 
-  const handleOptionChange = (option: 'public' | 'private') => {
+  /*const handleOptionChange = (option: 'public' | 'private') => {
     setSelectedOption(option)
-  }
+  }*/
+
+  const togglePrivacy = () => selectedOption === 'public'? setSelectedOption('private'):setSelectedOption('public')
+
+  console.log(selectedOption)
 
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories)
   }
 
+  const handleDiscountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value === '') {
+      setDiscountAmount(0)
+    } else {
+      setDiscountAmount(parseInt(event.target.value, 10))
+    }
+  }
+
+
+  console.log(discountAmount)
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
@@ -170,7 +185,7 @@ export default function Intakeform() {
                 </Typography>
               </div>
 
-              <div className="line1">
+              {/*<div className="line1">
                 <div className="email">Email*</div>
                 <div>
                   <input
@@ -183,7 +198,7 @@ export default function Intakeform() {
                     value={emailAddress}
                   />
                 </div>
-              </div>
+                </div>*/}
 
               <div className="line2">
                 <div className="company">Company Name*</div>
@@ -198,7 +213,7 @@ export default function Intakeform() {
                   />
                 </div>
               </div>
-              <div className="line3">
+              {/*<div className="line3">
                 <div className="url">Company URL*</div>
                 <div>
                   <input
@@ -210,12 +225,12 @@ export default function Intakeform() {
                     value={shareableUrl}
                   />
                 </div>
-              </div>
+                </div>*/}
             </div>
             <div>
               <div className="secondBox">
                 <div>
-                  <Typography
+                  {/*<Typography
                     sx={{
                       color: '#F6FF82',
                       fontWeight: '600',
@@ -223,7 +238,7 @@ export default function Intakeform() {
                     }}
                   >
                     Benefit Details
-                  </Typography>
+                  </Typography>*/}
                   <div>
                     <div>
                       <div>
@@ -233,7 +248,7 @@ export default function Intakeform() {
                             <div
                               className="slider"
                               style={{
-                                width: '240px',
+                                width: '220px',
                               }}
                             >
                               {/* <Typography gutterBottom>
@@ -253,7 +268,8 @@ export default function Intakeform() {
                               />
                             </div>
                           </ThemeProvider>
-                          <div className="discountName">{discountAmount}</div>
+                          <input className="discountName" value={`${discountAmount}`} onChange={ handleDiscountInputChange}>
+                          </input>
                           <div className="percentage">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -332,7 +348,7 @@ export default function Intakeform() {
                       </div>
                       <div>
                         {' '}
-                        <input
+                        <textarea
                           className="inputDiscount"
                           placeholder=""
                           onChange={(e) => setDescription(e.target.value)}
@@ -342,7 +358,7 @@ export default function Intakeform() {
                         />
                       </div>
                     </div>
-                    <div className="share">
+                    {/*<div className="share">
                       <label className="shareOn">Share on*</label>
 
                       <div
@@ -402,7 +418,17 @@ export default function Intakeform() {
                           <span>Lorem ipsum dolor sit amet consectetur</span>
                         </div>
                       </div>
+                      </div>*/}
+                     <div
+                      className="flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
+                      onClick={() => togglePrivacy()}
+                    >
+                      <CustomSwitchAddBenefits
+                        inputProps={{ 'aria-label': 'controlled Switch' }}
+                      />
+                      <p className="text-white">Keep private</p>
                     </div>
+                    
                   </div>
                 </div>
               </div>
