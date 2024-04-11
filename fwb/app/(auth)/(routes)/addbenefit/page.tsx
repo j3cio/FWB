@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import './page.css'
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
+import PercentageIcon from './icons/PercentageIcon'
 
 const theme = createTheme({
   components: {
@@ -47,7 +48,7 @@ const theme = createTheme({
 
 export default function Intakeform() {
   const { user } = useUser()
-  const [discountAmount, setDiscountAmount] = useState(0)
+  const [discountAmount, setDiscountAmount] = useState<number>(0)
   const [emailAddress, setEmailAddress] = useState('')
   const [company, setCompany] = useState('')
   const [shareableUrl, setShareableUrl] = useState('')
@@ -138,7 +139,10 @@ export default function Intakeform() {
     setSelectedOption(option)
   }*/
 
-  const togglePrivacy = () => selectedOption === 'public'? setSelectedOption('private'):setSelectedOption('public')
+  const togglePrivacy = () =>
+    selectedOption === 'public'
+      ? setSelectedOption('private')
+      : setSelectedOption('public')
 
   console.log(selectedOption)
 
@@ -153,7 +157,6 @@ export default function Intakeform() {
       setDiscountAmount(parseInt(event.target.value, 10))
     }
   }
-
 
   console.log(discountAmount)
   return (
@@ -176,7 +179,7 @@ export default function Intakeform() {
               <div className="share">
                 <Typography
                   sx={{
-                    color: '#F6FF82',
+                    color: 'white',
                     fontWeight: '600',
                     fontSize: '32px',
                   }}
@@ -268,44 +271,17 @@ export default function Intakeform() {
                               />
                             </div>
                           </ThemeProvider>
-                          <input className="discountName" value={`${discountAmount}`} onChange={ handleDiscountInputChange}>
-                          </input>
-                          <div className="percentage">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                            >
-                              <path
-                                d="M1.66797 12.3337L12.3346 1.66699L1.66797 12.3337Z"
-                                fill="white"
-                              />
-                              <path
-                                d="M1.66797 12.3337L12.3346 1.66699"
-                                stroke="white"
-                                strokeWidth="2.13333"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M2.73463 3.80033C3.32373 3.80033 3.8013 3.32276 3.8013 2.73366C3.8013 2.14456 3.32373 1.66699 2.73463 1.66699C2.14554 1.66699 1.66797 2.14456 1.66797 2.73366C1.66797 3.32276 2.14554 3.80033 2.73463 3.80033Z"
-                                fill="white"
-                                stroke="white"
-                                strokeWidth="2.13333"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                              <path
-                                d="M11.2678 12.334C11.8569 12.334 12.3345 11.8564 12.3345 11.2674C12.3345 10.6783 11.8569 10.2007 11.2678 10.2007C10.6787 10.2007 10.2012 10.6783 10.2012 11.2674C10.2012 11.8564 10.6787 12.334 11.2678 12.334Z"
-                                fill="white"
-                                stroke="white"
-                                strokeWidth="2.13333"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
+                          <div className="flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
+                            <input
+                              // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect how ever makes sense or leaving it,
+                              className="w-full bg-white rounded border-none outline-none"
+                              value={
+                                discountAmount ? discountAmount : undefined
+                              }
+                              placeholder="1-100"
+                              onChange={handleDiscountInputChange}
+                            />
+                            <PercentageIcon />
                           </div>
                         </div>
                       </div>
@@ -419,7 +395,7 @@ export default function Intakeform() {
                         </div>
                       </div>
                       </div>*/}
-                     <div
+                    <div
                       className="flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
                       onClick={() => togglePrivacy()}
                     >
@@ -428,7 +404,6 @@ export default function Intakeform() {
                       />
                       <p className="text-white">Keep private</p>
                     </div>
-                    
                   </div>
                 </div>
               </div>
