@@ -9,6 +9,7 @@ import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
+import { useRouter } from 'next/navigation'
 
 
 //TODO: The changing of group profile picture should requre admin priviledges
@@ -23,10 +24,9 @@ const GroupDetailsSection = ({
   type FileEvent = ChangeEvent<HTMLInputElement> & {
     target: EventTarget & { files: FileList }
   }
-
+  const router = useRouter()
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
-  const [refresh, setRefresh] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -60,7 +60,7 @@ const GroupDetailsSection = ({
       return
     }
     console.log('Group filePath updated successfully:', data)
-    setRefresh(!refresh)
+    window.location.reload(); // There might be a better way to rerender the page
   }
 
   // Stores the file on supabase
@@ -71,7 +71,11 @@ const GroupDetailsSection = ({
     }
     const supabase = await supabaseClient()
     const file = event.target.files[0]
-    const filePath = file.name
+    const fileExt = file.name.split('.').pop();
+    const timestamp = Date.now().toString();
+    const randomString = Math.random().toString(36).substring(2, 15);
+    const fileName = `${timestamp}-${randomString}.${fileExt}`;
+    const filePath = `group-avatars/${fileName}`;
     const { data, error } = await supabase.storage
       .from('group-avatars')
       .upload(filePath, file) // TODO: This filepath should be unique
