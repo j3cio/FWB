@@ -144,7 +144,6 @@ export default function Intakeform() {
       ? setSelectedOption('private')
       : setSelectedOption('public')
 
-  console.log(selectedOption)
 
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories)
@@ -157,8 +156,6 @@ export default function Intakeform() {
       setDiscountAmount(parseInt(event.target.value, 10))
     }
   }
-
-  console.log(discountAmount)
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
