@@ -40,9 +40,9 @@ const MobileSearchHistory = ({
 
   return (
     <section
-      className="flex flex-col justify-between pl-2 pt-4 text-xs"
+      className="flex flex-col justify-between py-4 pl-2 text-xs "
       style={{
-        height: 'calc(100% - 28px)',
+        maxHeight: 'calc(100% - 28px)',
       }}
     >
       <div>

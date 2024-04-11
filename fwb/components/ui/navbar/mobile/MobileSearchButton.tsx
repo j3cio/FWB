@@ -39,18 +39,26 @@ const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
         </Link>
       </article>
 
-      <Modal open={showSearchModal} onClose={handleClose}>
+      <Modal
+        open={showSearchModal}
+        onClose={handleClose}
+        sx={{ height: '100%' }}
+      >
         <AnimatePresence>
           <motion.article
-            initial={{ height: searchHistory.length ? '33vh' : '15vh' }}
+            initial={{
+              maxHeight: searchHistory.length ? '33vh' : '100%',
+              y: '-30%',
+            }}
             animate={{
-              height: isCollapsed
+              maxHeight: isCollapsed
                 ? searchHistory.length
                   ? '33vh'
-                  : '15vh'
+                  : '100%'
                 : '60vh',
+              y: '0%',
             }}
-            exit={{ height: '33vh' }}
+            exit={{ y: '-30%' }}
             transition={{ duration: 0.3 }}
             className={'flex-flex-col gap-3 bg-[#1A1A23] px-4 pt-6 text-white'}
           >
