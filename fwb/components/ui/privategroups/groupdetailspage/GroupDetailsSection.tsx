@@ -131,7 +131,9 @@ const GroupDetailsSection = ({
 
 
   useEffect(() => {
-    fetchAndDisplayImage(groupData.filePath)
+    if (groupData.filePath != null) {
+      fetchAndDisplayImage(groupData.filePath)
+    }
   }, [])
 
   return (
@@ -162,8 +164,9 @@ const GroupDetailsSection = ({
                   height: 150,
                   border: '4px solid black',
                 }}
+                onClick={handleImageClick}
               />
-              <input type="file" className="hidden" onChange={uploadFile} />
+              <input type="file" className="hidden" onChange={uploadFile} ref={fileInputRef}/>
             </div>
           )}
         </div>
