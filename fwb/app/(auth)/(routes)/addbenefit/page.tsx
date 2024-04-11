@@ -273,7 +273,7 @@ export default function Intakeform() {
                           </ThemeProvider>
                           <div className="flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
                             <input
-                              // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect how ever makes sense or leaving it,
+                              // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
                               className="w-full bg-white rounded border-none outline-none"
                               value={
                                 discountAmount ? discountAmount : undefined
