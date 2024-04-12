@@ -187,7 +187,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                       Be the wingman to a friend&apos;s wallet now!
                     </div>
                     <div className="mt-[24px] flex grow items-center justify-center">
-                      <a href="/intakeform">
+                      <a href="/addbenefit">
                         <Button
                           endIcon={<WhiteArrowForward />}
                           variant="contained"
