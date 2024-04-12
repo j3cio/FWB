@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { Modal } from '@mui/material'
@@ -23,15 +24,16 @@ const MobileSideBarButton = () => {
     <>
       <article className="flex items-center gap-4" onClick={() => handleOpen()}>
         <MobileHamburgerIcon />
-        <MobileLogoIcon />
+        <Image priority src="/fwb_logo.png" alt="logo" width={110} height={0} />
       </article>
 
-      <Modal open={showSidebar} onClose={handleClose}>
-        <AnimatePresence>
+      <AnimatePresence>
+        <Modal open={showSidebar} onClose={handleClose}>
           <motion.article
             initial={{ x: '-30%' }}
             animate={{ x: 0 }}
-            className="mobile__sidebar fixed left-0 top-0 z-10 flex h-dvh w-[180px] flex-col bg-[#1A1A23] px-4"
+            exit={{ x: '-30%' }}
+            className="mobile__sidebar fixed left-0 top-0 z-10 flex h-dvh w-[60vw] flex-col bg-[#1A1A23] px-4"
           >
             <section className="my-6">
               <div
@@ -81,8 +83,8 @@ const MobileSideBarButton = () => {
               </div>
             </div>
           </motion.article>
-        </AnimatePresence>
-      </Modal>
+        </Modal>
+      </AnimatePresence>
     </>
   )
 }
