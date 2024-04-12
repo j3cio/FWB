@@ -26,6 +26,7 @@ const Loading = () => {
               admins: '',
               public: false,
               description: 'Loading...',
+              filePath: ''
             }}
           />
           <GroupTabsSkeleton />
