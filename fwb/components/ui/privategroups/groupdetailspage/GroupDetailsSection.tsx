@@ -157,7 +157,7 @@ const GroupDetailsSection = ({
         <div className="absolute -top-16 left-36 transform -translate-x-1/2 rounded-full">
           {groupAvatarUrl ? (
             <div className='h-32 w-32'>
-            <img src={groupAvatarUrl || ''} alt="Avatar" className="cursor-pointer" onClick={handleImageClick}/>
+            <img src={groupAvatarUrl || ''} alt="Avatar" className="cursor-pointer rounded-full" onClick={handleImageClick}/>
             <input type="file" className="hidden" onChange={uploadFile} ref={fileInputRef} />
             </div>
           ) : (
