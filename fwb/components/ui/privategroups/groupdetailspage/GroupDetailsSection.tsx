@@ -156,8 +156,8 @@ const GroupDetailsSection = ({
       <div className="flex justify-between items-center relative px-4 bg-[#1a1a23]">
         <div className="absolute -top-16 left-36 transform -translate-x-1/2 rounded-full">
           {groupAvatarUrl ? (
-            <div className='h-32 w-32'>
-            <img src={groupAvatarUrl || ''} alt="Avatar" className="cursor-pointer rounded-full" onClick={handleImageClick}/>
+            <div className='h-32 w-32 overflow-hidden rounded-full'>
+            <img src={groupAvatarUrl || ''} alt="Avatar" className="cursor-pointer h-full w-full" onClick={handleImageClick}/>
             <input type="file" className="hidden" onChange={uploadFile} ref={fileInputRef} />
             </div>
           ) : (
