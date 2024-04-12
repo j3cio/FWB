@@ -14,24 +14,25 @@ const CreateDiscountCard = () => {
       <div className="pb-[27%] flex rounded-3xl items-center justify-center relative z-0 bg-no-repeat bg-center bg-contain bg-[url('/profileBanner.svg')]">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="flex flex-row-reverse w-5/6 mr-28">
-            <Button
-              endIcon={<BlueArrowForward />}
-              variant="contained"
-              sx={{
-                borderRadius: 28,
-                borderStyle: 'solid',
-                borderColor: 'white',
-                borderWidth: 2,
-                bgcolor: `${theme.palette.secondary.light}`,
-                color: `${theme.palette.primary.dark}`,
-                ':hover': {
-                  bgcolor: `${theme.palette.secondary.light}`, // Hover background color
-                  color: `${theme.palette.primary.dark}`, // Hover text color
-                },
-              }}
-            >
-              Share your discount
-            </Button>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              borderRadius: 28,
+              borderStyle: 'solid',
+              borderColor: 'white',
+              borderWidth: 2,
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.primary.dark,
+              padding: '5px 10px', 
+              cursor: 'pointer', 
+            }}
+          >
+            Share your discount
+            <span>
+              <BlueArrowForward style={{ marginLeft: '5px' }}/>
+            </span>
+          </div>
           </div>
         </div>
       </div>
