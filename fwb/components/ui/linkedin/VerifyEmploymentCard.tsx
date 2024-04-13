@@ -1,13 +1,10 @@
 'use client'
 
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import YellowVerifyIcon from './icons/YellowVerifyIcon'
 import NavigationArrowIcon from './icons/NavigationArrowIcon'
-import { useEffect } from 'react'
 
 const VerifyEmploymentCard = () => {
-  // we can change this as needed ofc, something like this: const redirect_UI = process.env.NODE_ENV !== "production" ?  'http://localhost:3000/linkedin' : "https://app.makefwb.com/linkedin", im just leaving it to localhost for debugging
-
   const router = useRouter()
 
   const linkedinClientId = process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID
@@ -30,51 +27,10 @@ const VerifyEmploymentCard = () => {
   })
 
   const handleVerification = async () => {
-    // STEP 1
-    // this is where we get our aothorization code--we need to physically go to our URL to sign in and auth our app
     router.push(
       `https://www.linkedin.com/oauth/v2/authorization?${authCodeParams}`
     )
-
-    // const response = await fetch('/api/linkedin')
-
-    // if (response.ok) {
-    //   console.log(await response.json())
-    // } else {
-    //   console.error('Something went wrong')
-    // }
   }
-
-  const searchParams = useSearchParams()
-  const authorizationCode = searchParams.get('code')
-  const authorizationState = searchParams.get('state')
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (authorizationCode && authorizationState) {
-  //       console.log('auth code found')
-  //       const accessTokenResponse = await fetch(
-  //         `/api/linkedin?authorizationCode=${authorizationCode}`,
-  //         { method: 'POST' }
-  //       )
-
-  //       console.log(accessTokenResponse)
-  //       // if (accessTokenResponse.ok) {
-  //       //   console.log('access token found', data.accessToken)
-  //       //   const accessToken = data.accessToken
-  //       //   const userDataResponse = await fetch(
-  //       //     `/api/linkedin?accessToken=${accessToken}`
-  //       //   )
-
-  //       //   const userData = await userDataResponse.json()
-  //       //   console.log(userData)
-  //       // }
-  //     } else {
-  //       console.log("Call not made since we didn't get the auth code yet")
-  //     }
-  //   }
-  //   fetchData()
-  // }, [])
 
   return (
     // Not responsive for the moment, this is just to save someone time when we implement this properly. Should be easy to implement since the width is hardcoded at the parent level.

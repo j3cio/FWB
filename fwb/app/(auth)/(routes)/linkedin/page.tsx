@@ -2,7 +2,7 @@
 
 import VerifyEmploymentCard from '@/components/ui/linkedin/VerifyEmploymentCard'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const LinkedinPage = () => {
   const [user, setUser] = useState()
@@ -11,14 +11,12 @@ const LinkedinPage = () => {
   const authorizationState = searchParams.get('state')
 
   const fetchData = async () => {
-    console.log('firing')
     const accessTokenResponse = await fetch(
       `/api/linkedin?authorizationCode=${authorizationCode}`,
       { method: 'POST' }
     )
     const data = await accessTokenResponse.json()
     if (accessTokenResponse.ok) {
-      console.log('access token found', data.data.access_token)
       const accessToken = data.data.access_token
       const userDataResponse = await fetch(
         `/api/linkedin?accessToken=${accessToken}`
@@ -29,9 +27,6 @@ const LinkedinPage = () => {
     }
   }
 
-  useEffect(() => {
-    console.log({ user })
-  }, [user])
   return (
     <div className="flex h-dvh flex-col items-center justify-center gap-4 bg-[#1A1A23]">
       <VerifyEmploymentCard />

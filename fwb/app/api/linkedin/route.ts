@@ -4,7 +4,6 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const accessToken = searchParams.get('accessToken')
 
-  console.log({ accessToken })
   try {
     const response = await fetch('https://api.linkedin.com/v2/me', {
       headers: {
