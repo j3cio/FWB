@@ -32,12 +32,7 @@ const VerifyEmploymentCard = () => {
     })
     // We need to first get an authorization code before we can do anything else.
     const authorizationCode = await fetch(
-      `https://www.linkedin.com/oauth/v2/authorization?${authCodeParams}`,
-      {
-        headers: {
-          mode: 'no-cors',
-        },
-      }
+      `https://www.linkedin.com/oauth/v2/authorization?${authCodeParams}`
     )
     // if (!authorizationCode) {
     //   console.log('something broke')
