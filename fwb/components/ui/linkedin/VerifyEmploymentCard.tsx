@@ -35,7 +35,7 @@ const VerifyEmploymentCard = () => {
       `https://www.linkedin.com/oauth/v2/authorization?${authCodeParams}`,
       {
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          mode: 'no-cors',
         },
       }
     )
