@@ -5,14 +5,9 @@ import YellowVerifyIcon from './icons/YellowVerifyIcon'
 import NavigationArrowIcon from './icons/NavigationArrowIcon'
 
 const VerifyEmploymentCard = () => {
-  const linkedinClientId =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID
-      : process.env.LINKEDIN_CLIENT_ID
-  const linkedinClientSecret =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_SECRET
-      : process.env.LINKEDIN_CLIENT_SECRET
+  const linkedinClientId = process.env.LINKEDIN_CLIENT_ID
+  const linkedinClientSecret = process.env.LINKEDIN_CLIENT_SECRET
+
   // we can change this as needed ofc, something like this: const redirect_UI = process.env.NODE_ENV !== "production" ?  'http://localhost:3000/linkedin' : "https://app.makefwb.com/linkedin", im just leaving it to localhost for debugging
   const redirect_UI =
     process.env.NODE_ENV !== 'production'
