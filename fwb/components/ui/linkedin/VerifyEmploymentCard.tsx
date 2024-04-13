@@ -3,7 +3,6 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import YellowVerifyIcon from './icons/YellowVerifyIcon'
 import NavigationArrowIcon from './icons/NavigationArrowIcon'
-import { getLinkedinAccessToken } from '@/app/api/linkedin/utils/linkedin_utils'
 import { useEffect } from 'react'
 
 const VerifyEmploymentCard = () => {
@@ -25,7 +24,7 @@ const VerifyEmploymentCard = () => {
   const authCodeParams = new URLSearchParams({
     response_type: 'code',
     client_id: linkedinClientId,
-    state: 'crypto.randomUUID()', // This is used to prevent CSRF, so it being random is important
+    state: crypto.randomUUID(), // This is used to prevent CSRF, so it being random is important
     redirect_uri,
     scope: 'r_basicprofile', // You normally use a chain of scopes, but for now this seems like all we need
   })
@@ -50,38 +49,32 @@ const VerifyEmploymentCard = () => {
   const authorizationCode = searchParams.get('code')
   const authorizationState = searchParams.get('state')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (authorizationCode && authorizationState) {
-        console.log('auth code found')
-        // const response = await getLinkedinAccessToken({
-        //   authorizationCode,
-        //   linkedinClientId,
-        //   linkedinClientSecret,
-        //   redirect_uri,
-        // })
-        const accessTokenResponse = await fetch(
-          `/api/linkedin?authorizationCode=${authorizationCode}`,
-          { method: 'POST' }
-        )
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (authorizationCode && authorizationState) {
+  //       console.log('auth code found')
+  //       const accessTokenResponse = await fetch(
+  //         `/api/linkedin?authorizationCode=${authorizationCode}`,
+  //         { method: 'POST' }
+  //       )
 
-        const data = await accessTokenResponse.json()
+  //       console.log(accessTokenResponse)
+  //       // if (accessTokenResponse.ok) {
+  //       //   console.log('access token found', data.accessToken)
+  //       //   const accessToken = data.accessToken
+  //       //   const userDataResponse = await fetch(
+  //       //     `/api/linkedin?accessToken=${accessToken}`
+  //       //   )
 
-        if (accessTokenResponse.ok) {
-          const accessToken = data.accessToken
-          const userDataResponse = await fetch(
-            `/api/linkedin?accessToken=${accessToken}`
-          )
-
-          const userData = await userDataResponse.json()
-          console.log(userData)
-        }
-      } else {
-        console.log("Call not made since we didn't get the auth code yet")
-      }
-    }
-    fetchData()
-  }, [])
+  //       //   const userData = await userDataResponse.json()
+  //       //   console.log(userData)
+  //       // }
+  //     } else {
+  //       console.log("Call not made since we didn't get the auth code yet")
+  //     }
+  //   }
+  //   fetchData()
+  // }, [])
 
   return (
     // Not responsive for the moment, this is just to save someone time when we implement this properly. Should be easy to implement since the width is hardcoded at the parent level.

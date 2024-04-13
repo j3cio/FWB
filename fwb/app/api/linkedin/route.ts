@@ -4,19 +4,8 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const accessToken = searchParams.get('accessToken')
 
-  const linkedinClientId = process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID
-  const linkedinClientSecret = process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_SECRET // change this from being NEXT_PUBLIC when using actual client config
-  const redirect_uri =
-    process.env.NODE_ENV !== 'production'
-      ? 'http://localhost:3000/linkedin'
-      : 'https://fwb-git-brandon-linkedin-button-j3cs-projects-612eefdf.vercel.app/linkedin'
-
+  console.log({ accessToken })
   try {
-    if (!linkedinClientId || !linkedinClientSecret) {
-      console.error('ENV VARIABLES MISMATCH')
-      throw new Error('Missing LinkedIn client ID or client secret.')
-    }
-
     const response = await fetch('https://api.linkedin.com/v2/me', {
       headers: {
         Authorization: 'Bearer ' + accessToken,
@@ -80,9 +69,7 @@ export async function POST(request: NextRequest) {
       throw new Error(`Failed to fetch access token: ${data.error_description}`)
     }
 
-    const accessToken = data.access_token
-
-    return NextResponse.json({ accessToken }, { status: 200 })
+    return NextResponse.json({ data }, { status: 200 })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ error }, { status: 500 })
