@@ -31,43 +31,6 @@ export async function GET(request: NextRequest) {
 
     // Now we can use the userData object containing the user information
     return NextResponse.json({ userData }, { status: 200 })
-
-    // STEP 2
-    // Once we get an auth code, our next step is to exchange our Authorization code for an access token. This is what we actually use for our calls.
-    // const accessTokenResponse = await fetch(
-    //   'https://www.linkedin.com/oauth/v2/accessToken',
-    //   {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //     body: new URLSearchParams({
-    //       grant_type: 'authorization_code',
-    //       code: authorizationCode,
-    //       client_id: linkedinClientId,
-    //       client_secret: linkedinClientSecret,
-    //       redirect_uri,
-    //     }),
-    //   }
-    // )
-
-    // const data = await accessTokenResponse.json()
-    // const accessToken = data.access_token
-
-    // return NextResponse.json({ data }, { status: 200 }) // test return for each stage
-    // if (!accessTokenResponse.ok) {
-    //   throw new Error('Access Token not generated.')
-    // }
-
-    // // STEP 2
-    // // Now we take our access token and use that in our actual API calls.
-    // const response = await fetch('https://api.linkedin.com/v2/me', {
-    //   headers: {
-    //     Authorization: 'Bearer ' + accessToken,
-    //   },
-    // })
-
-    // const userData = await response.json()
-
-    // return NextResponse.json({ userData }, { status: 200 })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ error }, { status: 500 })
@@ -96,17 +59,6 @@ export async function POST(request: NextRequest) {
       throw new Error('Missing LinkedIn Authorization code')
     }
 
-    // console.log({ authorizationCode })
-
-    // const response = await getLinkedinAccessToken({
-    //   authorizationCode,
-    //   linkedinClientId,
-    //   linkedinClientSecret,
-    //   redirect_uri,
-    // })
-
-    // console.log({ response })
-
     const accessTokenResponse = await fetch(
       'https://www.linkedin.com/oauth/v2/accessToken',
       {
@@ -131,43 +83,6 @@ export async function POST(request: NextRequest) {
     const accessToken = data.access_token
 
     return NextResponse.json({ accessToken }, { status: 200 })
-
-    // STEP 2
-    // Once we get an auth code, our next step is to exchange our Authorization code for an access token. This is what we actually use for our calls.
-    // const accessTokenResponse = await fetch(
-    //   'https://www.linkedin.com/oauth/v2/accessToken',
-    //   {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //     body: new URLSearchParams({
-    //       grant_type: 'authorization_code',
-    //       code: authorizationCode,
-    //       client_id: linkedinClientId,
-    //       client_secret: linkedinClientSecret,
-    //       redirect_uri,
-    //     }),
-    //   }
-    // )
-
-    // const data = await accessTokenResponse.json()
-    // const accessToken = data.access_token
-
-    // return NextResponse.json({ data }, { status: 200 }) // test return for each stage
-    // if (!accessTokenResponse.ok) {
-    //   throw new Error('Access Token not generated.')
-    // }
-
-    // // STEP 2
-    // // Now we take our access token and use that in our actual API calls.
-    // const response = await fetch('https://api.linkedin.com/v2/me', {
-    //   headers: {
-    //     Authorization: 'Bearer ' + accessToken,
-    //   },
-    // })
-
-    // const userData = await response.json()
-
-    // return NextResponse.json({ userData }, { status: 200 })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ error }, { status: 500 })
