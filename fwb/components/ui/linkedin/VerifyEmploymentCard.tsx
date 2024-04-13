@@ -54,13 +54,28 @@ const VerifyEmploymentCard = () => {
     const fetchData = async () => {
       if (authorizationCode && authorizationState) {
         console.log('auth code found')
-        const response = await getLinkedinAccessToken({
-          authorizationCode,
-          linkedinClientId,
-          linkedinClientSecret,
-          redirect_uri,
-        })
-        console.log({ response })
+        // const response = await getLinkedinAccessToken({
+        //   authorizationCode,
+        //   linkedinClientId,
+        //   linkedinClientSecret,
+        //   redirect_uri,
+        // })
+        const accessTokenResponse = await fetch(
+          `/api/linkedin?authorizationCode=${authorizationCode}`,
+          { method: 'POST' }
+        )
+
+        const data = await accessTokenResponse.json()
+
+        if (accessTokenResponse.ok) {
+          const accessToken = data.accessToken
+          const userDataResponse = await fetch(
+            `/api/linkedin?accessToken=${accessToken}`
+          )
+
+          const userData = await userDataResponse.json()
+          console.log(userData)
+        }
       } else {
         console.log("Call not made since we didn't get the auth code yet")
       }
