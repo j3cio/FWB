@@ -34,15 +34,15 @@ const Member = ({ user }: { user: User }) => {
   }
 
   return (
-    <div className="flex flex-row text-white justify-between bg-[#1a1a23] my-4">
+    <div className="my-4 flex flex-row justify-between bg-[#1a1a23] text-white">
       <div className="flex items-center justify-center">
         <AvatarIcon />
-        <div className="flex flex-col ml-2">
+        <div className="ml-2 flex flex-col">
           <div className="font-bold">{user.username}</div>
           <div className=" font-light">Company: {user.company}</div>
         </div>
       </div>
-      <div className="flex items-center justify-center mr-4">
+      <div className="mr-4 flex items-center justify-center">
         <div className="mr-2">
           <Image
             src={Settings}
@@ -83,7 +83,9 @@ const Member = ({ user }: { user: User }) => {
 const MembersSection = ({ userData }: { userData: UserData[] }) => {
   return (
     <div className="my-2">
-      <h1 className='my-7 text-[#F6FF82] text-2xl font-semibold font-urbanist'>Members</h1>
+      <h1 className="my-7 font-urbanist text-2xl font-semibold text-[#F6FF82]">
+        Members
+      </h1>
       <div className="w-[60%]">
         <SearchBar />
         {userData.map((user: UserData, index: number) => (

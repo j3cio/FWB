@@ -115,7 +115,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
   }
 
   return (
-    <div className="w-full bg-[#1A1A23] min-h-dvh">
+    <div className="min-h-dvh w-full bg-[#1A1A23]">
       {/* company image and description section */}
       {/* kept only searchbar in container since i didn't want to affect the rest of the page's styling */}
       <Container disableGutters maxWidth="lg">
@@ -124,15 +124,15 @@ function DetailPageContent({ data }: { data: DetailData }) {
 
       <div className="mx-[120px] flex flex-row pt-[96px]">
         <div
-          className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] "
+          className="mr-[30px] w-1/3 bg-cover bg-center bg-no-repeat pb-[20.25%] "
           style={{ backgroundImage: `url(${data.company.logo})` }}
         >
           {/* placeholder image */}
         </div>
-        <div className="w-2/3 flex flex-col">
-          <div className="mt-[45px] w-full flex flex-row">
+        <div className="flex w-2/3 flex-col">
+          <div className="mt-[45px] flex w-full flex-row">
             {/* Company Name div */}
-            <div className="text-[#F6FF82] text-[32px] font-bold">
+            <div className="text-[32px] font-bold text-[#F6FF82]">
               {data.company.name}
             </div>
             {/* link icon */}
@@ -170,8 +170,8 @@ function DetailPageContent({ data }: { data: DetailData }) {
             id ut id donec turpis.
           </div>
           {/* statisctics */}
-          <div className="mt-auto ml-auto w-full text-[15px] font flex justify-end text-white text-center">
-            <div className="flex flex-col mr-[45px] ">
+          <div className="font ml-auto mt-auto flex w-full justify-end text-center text-[15px] text-white">
+            <div className="mr-[45px] flex flex-col ">
               <div className="text-[15px]">Total Offers</div>
               <div className="text-center text-[23px]">
                 {data.discounts.length}
@@ -187,9 +187,9 @@ function DetailPageContent({ data }: { data: DetailData }) {
         </div>
       </div>
       {/* discounts offered section */}
-      <div className="mx-[120px] border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px]">
-        <div className="flex flex-row w-full justify-between">
-          <div className="text-[#F6FF82] text-[32px] font-bold mb-auto">
+      <div className="mx-[120px] mt-[50px] border-t-[2px] border-white pb-[72px] pt-[96px]">
+        <div className="flex w-full flex-row justify-between">
+          <div className="mb-auto text-[32px] font-bold text-[#F6FF82]">
             Discounts Offered
           </div>
           <DetailFilters />
@@ -197,7 +197,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
       </div>
 
       {/* discount listing section */}
-      <div className="mb-[50px] relative">
+      <div className="relative mb-[50px]">
         {(discounts.length != 0 ? discounts : data.discounts)?.map(
           (item: DiscountDataDetail) => (
             <DetailCard data={item} key={item.discount_amount} />

@@ -8,7 +8,7 @@ const ReturnToChat = () => {
   const router = useRouter()
   return (
     <div
-      className="pl-3 pt-6 cursor-pointer"
+      className="cursor-pointer pl-3 pt-6"
       onClick={() => router.push('/chat')}
     >
       <BackArrowIcon />

@@ -15,10 +15,10 @@ export const SmallScreen = () => {
   const { user } = useUser()
 
   return (
-    <div className="h-screen w-full flex flex-row">
-      <div className="inline-flex h-auto w-auto mx-auto sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px] z-10">
-        <div className="w-auto h-auto flex relative flex-col">
-          <div className="check mx-auto xxs-max:w-[20px] xxs-max:h-[20px] xs-max:w-[30px] xs-max:h-[30px] sm-max:w-[40px] sm-max:h-[40px]">
+    <div className="flex h-screen w-full flex-row">
+      <div className="z-10 mx-auto inline-flex h-auto w-auto sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
+        <div className="relative flex h-auto w-auto flex-col">
+          <div className="check mx-auto sm-max:h-[40px] sm-max:w-[40px] xs-max:h-[30px] xs-max:w-[30px] xxs-max:h-[20px] xxs-max:w-[20px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -32,7 +32,7 @@ export const SmallScreen = () => {
               />
             </svg>
           </div>
-          <div className="successWord xxs-max:text-[48px] xs-max:text-[80px]">
+          <div className="successWord xs-max:text-[80px] xxs-max:text-[48px]">
             Success!!
           </div>
           <div className="verifiedAccount xxs-max:text-[12px]">
@@ -40,13 +40,13 @@ export const SmallScreen = () => {
           </div>
           <Link
             href="/fre1"
-            className="startButton xxs-max:text-[16px] xxs-max:h-[36px] xxs-max:w-[272px] xs-max:text-[16px] xs-max:h-[40px] xs-max:w-[342px]"
+            className="startButton xs-max:h-[40px] xs-max:w-[342px] xs-max:text-[16px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
           >
             Lets Get Started!
           </Link>
         </div>
       </div>
-      <div className=" absolute top-[30%] left-0 w-full z-0 xxs-max:hidden">
+      <div className=" absolute left-0 top-[30%] z-0 w-full xxs-max:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"

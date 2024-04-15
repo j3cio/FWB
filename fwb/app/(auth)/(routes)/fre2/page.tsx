@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs'
 import UserFlowPage2 from './fre2'
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
 
 async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers()
@@ -54,7 +54,7 @@ const page = async () => {
   } else {
     redirect('/fre1')
   }
-  
+
   return (
     <div>
       <UserFlowPage2 userData={userData} />

@@ -89,15 +89,15 @@ export const LargeScreen = () => {
   }
 
   return (
-    <div className="h-screen w-full flex flex-row">
+    <div className="flex h-screen w-full flex-row">
       {!pendingVerification && (
-        <div className="h-screen w-full flex flex-row">
-          <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[70px]">
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[134px] h-[400px]"></div>
-            <div className="circle6 lg-max:w-[133px] lg-max:h-[133px] "></div>
+        <div className="flex h-screen w-full flex-row">
+          <div className="ml-auto mt-auto flex h-auto w-auto translate-y-[70px] flex-col">
+            <div className="h-[133px] w-[133px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat"></div>
+            <div className="h-[400px] w-[134px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat"></div>
+            <div className="circle6 lg-max:h-[133px] lg-max:w-[133px] "></div>
           </div>
-          <div className="signin h-[728px] w-[556px] my-auto">
+          <div className="signin my-auto h-[728px] w-[556px]">
             <div className="name">Create Account</div>
             <div className="buttons">
               <button className="googleButton" onClick={signUpWithGoogle}>
@@ -228,8 +228,8 @@ export const LargeScreen = () => {
               </div>
             </form>
           </div>
-          <div className="flex flex-col h-auto w-[133px] mb-auto mr-auto">
-            <div className="w-[133px] mt-[-50px]">
+          <div className="mb-auto mr-auto flex h-auto w-[133px] flex-col">
+            <div className="mt-[-50px] w-[133px]">
               <svg
                 width="100%"
                 height="100%"
@@ -258,9 +258,9 @@ export const LargeScreen = () => {
                 </g>
               </svg>
             </div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[260px] h-[133px] translate-x-[-50%]"></div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[133px] h-[420px]"></div>
-            <div className="lg-max:w-[133px] lg-max:h-[133px] lg-max:ml-0 circle1"></div>
+            <div className="h-[133px] w-[260px] translate-x-[-50%] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat"></div>
+            <div className="h-[420px] w-[133px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat"></div>
+            <div className="circle1 lg-max:ml-0 lg-max:h-[133px] lg-max:w-[133px]"></div>
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 export default function FirstRight() {
   return (
     <div
-      className="h-full w-full flex flex-col items-center gap-32 pt-6 pl-3 pr-3 pb-6 bg-opacity-10 mr-12 bg-white backdrop-blur-12.5 shadow-xl justify-start"
+      className="backdrop-blur-12.5 mr-12 flex h-full w-full flex-col items-center justify-start gap-32 bg-white bg-opacity-10 pb-6 pl-3 pr-3 pt-6 shadow-xl"
       style={{
         height: '770px',
         borderRadius: '10px',
@@ -30,14 +30,14 @@ export default function FirstRight() {
             />
           </svg>
         </div>
-        <div className="mt-5 text-2xl font-semibold text-white font-Urbanist">
+        <div className="font-Urbanist mt-5 text-2xl font-semibold text-white">
           Your Messages
         </div>
-        <div className="text-base font-normal leading-6 text-white font-Urbanist">
+        <div className="font-Urbanist text-base font-normal leading-6 text-white">
           Lorem ipusum dolar sit amet consectetuer
         </div>
         <div
-          className="flex flex-row mt-10 rounded-full"
+          className="mt-10 flex flex-row rounded-full"
           style={{
             background: '#8E94E9',
             width: '173px',
@@ -45,10 +45,10 @@ export default function FirstRight() {
             justifyContent: 'center',
           }}
         >
-          <button className="text-white font-Urbanist text-base font-bold leading-5 tracking-0.32">
+          <button className="font-Urbanist tracking-0.32 text-base font-bold leading-5 text-white">
             Send messages
           </button>
-          <div className="mt-1.5 ml-1">
+          <div className="ml-1 mt-1.5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="21"

@@ -7,67 +7,69 @@ import { useRouter } from 'next/navigation'
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 import { useUser } from '@clerk/nextjs'
 
-const MessageButton = ({ data }: { data: DiscountDataDetail },{ key }: { key: number }) => {
+const MessageButton = (
+  { data }: { data: DiscountDataDetail },
+  { key }: { key: number }
+) => {
   const { userId } = useAuth()
   const { client } = useChatContext()
   const router = useRouter()
 
-
-    // This function takes in the userId of the person you are starting a chat with and will create a chat with them.
-    async function startChat(userId: string | null | undefined) {
-      if (userId) {
-        try {
-          const channel = client.channel('messaging', {
-            members: [userId, data.user_id],
-          })
-          console.log(channel)
-          await channel.create()
-          router.push('/chat')
-        } catch (error) {
-          console.log('Error creating channel')
-          console.error(error)
-        }
+  // This function takes in the userId of the person you are starting a chat with and will create a chat with them.
+  async function startChat(userId: string | null | undefined) {
+    if (userId) {
+      try {
+        const channel = client.channel('messaging', {
+          members: [userId, data.user_id],
+        })
+        console.log(channel)
+        await channel.create()
+        router.push('/chat')
+      } catch (error) {
+        console.log('Error creating channel')
+        console.error(error)
       }
     }
+  }
 
   return (
     <div>
-            <div className="mr-[16px] my-auto">
-              <button onClick={() => startChat(userId)}>
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 50 50"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="1"
-                  y="1"
-                  width="45.9996"
-                  height="45.9996"
-                  rx="22.9998"
-                  stroke="#8E94E9"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M33.5998 11.9998H14.4C13.08 11.9998 12.012 13.0797 12.012 14.3997L12 35.9996L16.8 31.1996H33.5998C34.9198 31.1996 35.9998 30.1196 35.9998 28.7996V14.3997C35.9998 13.0797 34.9198 11.9998 33.5998 11.9998Z"
-                  fill="#8E94E9"
-                />
-              </svg>
-              </button>
-            </div>
+      <div className="my-auto mr-[16px]">
+        <button onClick={() => startChat(userId)}>
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 50 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="1"
+              y="1"
+              width="45.9996"
+              height="45.9996"
+              rx="22.9998"
+              stroke="#8E94E9"
+              strokeWidth="2"
+            />
+            <path
+              d="M33.5998 11.9998H14.4C13.08 11.9998 12.012 13.0797 12.012 14.3997L12 35.9996L16.8 31.1996H33.5998C34.9198 31.1996 35.9998 30.1196 35.9998 28.7996V14.3997C35.9998 13.0797 34.9198 11.9998 33.5998 11.9998Z"
+              fill="#8E94E9"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   )
 }
 
-
-export default function ProductCard({ data }: { data: DiscountDataDetail },{ key }: { key: number }) {
-
+export default function ProductCard(
+  { data }: { data: DiscountDataDetail },
+  { key }: { key: number }
+) {
   const chatClient = useIntitialChatClient()
   const { userId } = useAuth()
   const { user } = useUser()
-
 
   const copyShareURL = () => {
     const currentURL = window.location.href
@@ -82,10 +84,9 @@ export default function ProductCard({ data }: { data: DiscountDataDetail },{ key
       })
   }
 
-
   if (!chatClient || !user) {
     return (
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <LoadingIndicator size={40} />
       </div>
     )
@@ -93,22 +94,22 @@ export default function ProductCard({ data }: { data: DiscountDataDetail },{ key
 
   console.log(data.user_id)
   return (
-    <div className="mx-[120px] flex flex-row relative mb-[32px]">
-      <div className="w-[20%] bg-[#8E94E9] text-white flex rounded-l-[25px]">
-        <div className="text-[40px] font-bold w-[70px] m-auto">
+    <div className="relative mx-[120px] mb-[32px] flex flex-row">
+      <div className="flex w-[20%] rounded-l-[25px] bg-[#8E94E9] text-white">
+        <div className="m-auto w-[70px] text-[40px] font-bold">
           {data.discount_amount}% OFF
         </div>
       </div>
-      <div className="w-[80%] px-[40px] bg-white flex flex-col rounded-r-[25px]">
-        <div className="w-full flex justify-between py-[64px]">
+      <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px]">
+        <div className="flex w-full justify-between py-[64px]">
           <div>
             <div className="text-[24px] font-bold">
               Get {data.discount_amount}% off Shoes and Sandals
             </div>
             <div className="text-[14px]">*Terms & Conditions apply</div>
-            <div className="flex flex-row mt-[48px]">
+            <div className="mt-[48px] flex flex-row">
               <div
-                className="h-[24px] w-[24px] rounded-[24px] mr-[5px] bg-no-repeat bg-center bg-contain"
+                className="mr-[5px] h-[24px] w-[24px] rounded-[24px] bg-contain bg-center bg-no-repeat"
                 style={{
                   backgroundImage: `url(${data.user_image ? data.user_image : 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJjanBvRjl3OXpJTXRUM3JBak9vcTNBQkRIOCJ9'})`,
                 }}
@@ -118,13 +119,13 @@ export default function ProductCard({ data }: { data: DiscountDataDetail },{ key
               </div>
             </div>
           </div>
-          <div className="flex h-auto my-auto cursor-pointer">
+          <div className="my-auto flex h-auto cursor-pointer">
             {/* Chat message link */}
             <Chat client={chatClient}>
-           <MessageButton data={data}/>
+              <MessageButton data={data} />
             </Chat>
             {/* This is the sharable link */}
-            <div className="mr-[16px] my-auto cursor-pointer">
+            <div className="my-auto mr-[16px] cursor-pointer">
               <button onClick={copyShareURL}>
                 <svg
                   width="48"
@@ -173,9 +174,9 @@ export default function ProductCard({ data }: { data: DiscountDataDetail },{ key
         </div>
         {data.terms_and_conditions && (
           <div className="mb-[40px]">
-            <div className="w-full bg-[#ADB4D2] h-[1px] mb-[24px]"></div>
+            <div className="mb-[24px] h-[1px] w-full bg-[#ADB4D2]"></div>
             <div>
-              <div className="text-[16px] text-[#1A1A23] font-bold mb-[3px]">
+              <div className="mb-[3px] text-[16px] font-bold text-[#1A1A23]">
                 Terms & Conditions:
               </div>
               <div>{data.terms_and_conditions}</div>
