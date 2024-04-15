@@ -12,18 +12,21 @@ const MessageButton = ({ data }: { data: DiscountDataDetail },{ key }: { key: nu
   const { client } = useChatContext()
   const router = useRouter()
 
+
     // This function takes in the userId of the person you are starting a chat with and will create a chat with them.
-    async function startChat(userId: any) {
-      try {
-        const channel = client.channel('messaging', {
-          members: [userId, data.user_id],
-        })
-        console.log(channel)
-        await channel.create()
-        router.push('/chat')
-      } catch (error) {
-        console.log('Error creating channel')
-        console.error(error)
+    async function startChat(userId: string | null | undefined) {
+      if (userId) {
+        try {
+          const channel = client.channel('messaging', {
+            members: [userId, data.user_id],
+          })
+          console.log(channel)
+          await channel.create()
+          router.push('/chat')
+        } catch (error) {
+          console.log('Error creating channel')
+          console.error(error)
+        }
       }
     }
 
