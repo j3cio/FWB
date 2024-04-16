@@ -14,7 +14,7 @@ const GroupTabsSkeleton = () => {
     >
       <div className="my-10 flex flex-row items-center justify-evenly">
         <div
-          className={`} w-1/2 border-b-2 border-white text-3xl font-bold  text-white hover:border-b-2 hover:border-white
+          className={`w-1/2 border-b-2 border-white text-3xl font-bold text-white hover:border-b-2 hover:border-white
             hover:text-white`}
         >
           <Box textAlign="center">
