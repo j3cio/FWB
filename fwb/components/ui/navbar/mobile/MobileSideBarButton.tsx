@@ -13,6 +13,7 @@ import MobileExploreIcon from '../icons/MobileExploreIcon'
 import MobileGroupIcon from '../icons/MobileGroupIcon'
 import MobileSmallChatIcon from '../icons/MobileSmallChatIcon'
 import MobilePlusIcon from '../icons/MobilePlusIcon'
+import CustomModal from './CustomModal'
 
 const MobileSideBarButton = () => {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -27,64 +28,63 @@ const MobileSideBarButton = () => {
         <Image priority src="/fwb_logo.png" alt="logo" width={110} height={0} />
       </article>
 
-      <AnimatePresence>
-        <Modal open={showSidebar} onClose={handleClose}>
-          <motion.article
-            initial={{ x: '-30%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-30%' }}
-            className="mobile__sidebar fixed left-0 top-0 z-10 flex h-dvh w-[60vw] flex-col bg-[#1A1A23] px-4"
-          >
-            <section className="my-6">
-              <div
-                className="border-bg-white flex items-center gap-4"
-                onClick={() => handleClose()}
-              >
-                <MobileHamburgerIcon />
-                <MobileLogoIcon />
-              </div>
-              <div className="mt-[14px] h-[1.5px] bg-white opacity-25" />
+      <CustomModal
+        initial={{ x: '-30%' }}
+        animate={{ x: 0 }}
+        exit={{ x: '-100%' }}
+        showModal={showSidebar}
+        setShowModal={setShowSidebar}
+      >
+        <div className="mobile__sidebar flex h-dvh w-[60vw] flex-col bg-[#1A1A23] px-4">
+          <section className="my-6">
+            <div
+              className="border-bg-white flex items-center gap-4"
+              onClick={() => handleClose()}
+            >
+              <MobileHamburgerIcon />
+              <MobileLogoIcon />
+            </div>
+            <div className="mt-[14px] h-[1.5px] bg-white opacity-25" />
+          </section>
+
+          <div className="flex h-full flex-col justify-between">
+            <section className="flex flex-col gap-5">
+              <MobileNavLink
+                href={'/addbenefit'}
+                icon={<MobilePlusIcon />}
+                title="Share Benefits"
+                handleClose={handleClose}
+              />
+              <MobileNavLink
+                href={'/explore'}
+                icon={<MobileExploreIcon />}
+                title="Explore"
+                handleClose={handleClose}
+              />
+              <MobileNavLink
+                href={'/chat'}
+                icon={<MobileSmallChatIcon />}
+                title="Messages"
+                handleClose={handleClose}
+              />
+              <MobileNavLink
+                href={'/groups'}
+                icon={<MobileGroupIcon />}
+                title="Groups"
+                handleClose={handleClose}
+              />
             </section>
 
-            <div className="flex h-full flex-col justify-between">
-              <section className="flex flex-col gap-5">
-                <MobileNavLink
-                  href={'/addbenefit'}
-                  icon={<MobilePlusIcon />}
-                  title="Share Benefits"
-                  handleClose={handleClose}
-                />
-                <MobileNavLink
-                  href={'/explore'}
-                  icon={<MobileExploreIcon />}
-                  title="Explore"
-                  handleClose={handleClose}
-                />
-                <MobileNavLink
-                  href={'/chat'}
-                  icon={<MobileSmallChatIcon />}
-                  title="Messages"
-                  handleClose={handleClose}
-                />
-                <MobileNavLink
-                  href={'/groups'}
-                  icon={<MobileGroupIcon />}
-                  title="Groups"
-                  handleClose={handleClose}
-                />
-              </section>
-
-              <div className="mb-4 justify-self-end">
-                <MobileNavLink
-                  href={'/profile'}
-                  title="Profile"
-                  handleClose={handleClose}
-                />
-              </div>
+            <div className="mb-4 justify-self-end">
+              <MobileNavLink
+                href={'/profile'}
+                title="Profile"
+                handleClose={handleClose}
+              />
             </div>
-          </motion.article>
-        </Modal>
-      </AnimatePresence>
+          </div>
+        </div>
+      </CustomModal>
     </>
   )
 }
