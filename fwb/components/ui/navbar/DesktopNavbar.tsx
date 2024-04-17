@@ -96,6 +96,7 @@ const DesktopNavbar = ({
             />
             <Tooltip
               title="Explore"
+              disableInteractive={true}
               slotProps={{
                 popper: {
                   modifiers: [
@@ -136,6 +137,7 @@ const DesktopNavbar = ({
             </Tooltip>
             <Tooltip
               title="Groups"
+              disableInteractive={true}
               slotProps={{
                 popper: {
                   modifiers: [
@@ -179,6 +181,7 @@ const DesktopNavbar = ({
             </Tooltip>
             <Tooltip
               title="Messages"
+              disableInteractive={true}
               slotProps={{
                 popper: {
                   modifiers: [
