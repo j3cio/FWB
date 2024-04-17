@@ -42,7 +42,13 @@ const MobileSideBarButton = () => {
               onClick={() => handleClose()}
             >
               <MobileHamburgerIcon />
-              <MobileLogoIcon />
+              <Image
+                priority
+                src="/fwb_logo.png"
+                alt="logo"
+                width={110}
+                height={0}
+              />
             </div>
             <div className="mt-[14px] h-[1.5px] bg-white opacity-25" />
           </section>
