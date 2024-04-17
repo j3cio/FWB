@@ -1,9 +1,11 @@
-import { ChannelList } from 'stream-chat-react'
+import { ChannelList, useChatContext } from 'stream-chat-react'
 
 import DesktopTabsSelector from '@/components/ui/chat/desktop/DesktopTabsSelector'
 import DesktopChannelListTopBar from '@/components/ui/chat/desktop/DesktopChannelListTopBar'
 
 import { Group, User } from '@/app/types/types'
+import { useContext, useEffect, useState } from 'react'
+import { FWBChatContext } from '@/contexts/ChatContext'
 interface ChatSidebarProps {
   channelData: User | Group
 }
@@ -11,7 +13,13 @@ interface ChatSidebarProps {
 export default function ChatSideBar({ channelData }: ChatSidebarProps) {
   // See MobileChatList for more details on this function
   const isUser = (object: User | Group): object is User => 'user_id' in object
-  // const { client, channel, setActiveChannel } = useChatContext()
+  const { customActiveChannel } = useContext(FWBChatContext)
+  const { client, setActiveChannel } = useChatContext()
+
+  // Please note the `setActiveChannelOnMount` Prop as that's key to this approach
+  useEffect(() => {
+    setActiveChannel(client.channel('messaging', customActiveChannel))
+  }, [customActiveChannel, setActiveChannel, client])
 
   return (
     <section className="flex max-h-[500px] min-h-[300px] w-full flex-col rounded-lg bg-[#313139] px-4 text-white md:w-[717px] lg:h-[771px] lg:max-h-[771px] lg:w-[432px]">
@@ -33,8 +41,9 @@ export default function ChatSideBar({ channelData }: ChatSidebarProps) {
               ],
             },
           }}
-          sort={{ last_message_at: -1 }}
+          // sort={{ last_message_at: -1 }}
           options={{ state: true, presence: true, limit: 10 }}
+          setActiveChannelOnMount={customActiveChannel ? false : true}
           showChannelSearch
           additionalChannelSearchProps={{
             searchForChannels: true,
