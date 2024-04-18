@@ -25,21 +25,6 @@ export const SmallScreen = () => {
     setCode(code)
   }, [code])
 
-  const inputRefs: React.RefObject<HTMLInputElement>[]  = [
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-    useRef(null),
-];
-
-  const [error, setError] = useState<any>(null)
-  if (user) {
-    // Redirect authenticated user to the profile page
-    router.replace('/profile')
-    return null // You can also render a loading state or redirect message here
-  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!isLoaded) {
@@ -69,6 +54,16 @@ export const SmallScreen = () => {
     }
   }
 
+  const inputRefs: React.RefObject<HTMLInputElement>[]  = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+];
+
+
   //This allows User to sign in with Google
   const signUpWithGoogle = async () => {
     try {
@@ -95,6 +90,12 @@ export const SmallScreen = () => {
     } catch (error) {
       console.error('Error signing in with Discord', error)
     }
+  }
+  const [error, setError] = useState<any>(null)
+  if (user) {
+    // Redirect authenticated user to the profile page
+    router.replace('/profile')
+    return null // You can also render a loading state or redirect message here
   }
 
   //Verify code
