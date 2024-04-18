@@ -4,12 +4,12 @@ import supabaseClient from '@/supabase'
 import { Avatar, Box, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
-import { useRouter } from 'next/navigation'
 
 //TODO: The changing of group profile picture should requre admin priviledges
 
@@ -40,7 +40,7 @@ const GroupDetailsSection = ({
   const closeGroupInviteModal = () => {
     setIsGroupInviteModalOpen(false)
   }
-  const [groupAvatarUrl, setGroupAvatarUrl] = useState<string | null>(
+  const [filePath, setFilePath] = useState<string | null>(
     groupData.filePath || null
   ) // The image url fro the file uploaded
 
@@ -76,7 +76,7 @@ const GroupDetailsSection = ({
     const filePath = `group-avatars/${fileName}`
     const { data, error } = await supabase.storage
       .from('group-avatars')
-      .upload(filePath, file) // TODO: This filepath should be unique
+      .upload(filePath, file)
 
     if (error) {
       console.log('Error uploading file.')
@@ -128,7 +128,7 @@ const GroupDetailsSection = ({
       // Convert the Blob to a URL for display
       if (fileData) {
         const url = URL.createObjectURL(fileData)
-        setGroupAvatarUrl(url)
+        setFilePath(url)
       }
     }
   }
@@ -154,10 +154,10 @@ const GroupDetailsSection = ({
       </Box>
       <div className="relative flex items-center justify-between bg-[#1a1a23] px-4">
         <div className="absolute -top-16 left-36 -translate-x-1/2 transform rounded-full">
-          {groupAvatarUrl ? (
+          {filePath ? (
             <div className="h-32 w-32 overflow-hidden rounded-full">
               <img
-                src={groupAvatarUrl || ''}
+                src={filePath || ''}
                 alt="Avatar"
                 className="h-full w-full cursor-pointer"
                 onClick={handleImageClick}
