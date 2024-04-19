@@ -1,15 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import ChevronDownwardsIcon from './icons/ChevronDownwardsIcon'
 import MessageIcon from './icons/MessageIcon'
 import ShareIcon from './icons/ShareIcon'
 
 import { DiscountDataDetail } from '@/app/types/types'
+import ChevronUpwardsIcon from './icons/ChevronUpwardsIcon'
+import DiscountTermsAndConditions from './DiscountTermsAndConditions'
 
-export default function ProductCard(
-  { data }: { data: DiscountDataDetail },
-  { key }: { key: number }
-) {
+interface ProductCardProps {
+  data: DiscountDataDetail
+  key: number
+}
+
+export default function ProductCard({ data, key }: ProductCardProps) {
+  const [showDetails, setShowDetails] = useState<boolean>(false)
+
   const copyShareURL = () => {
     const currentURL = window.location.href
     // Copy URL to clipboard
@@ -59,27 +66,30 @@ export default function ProductCard(
                 <ShareIcon />
               </button>
             </div>
-            <div className="cursor-pointer">
-              <button className="ml-1 flex w-[212px] justify-between rounded-[30px] bg-[#8E94E9] px-3 py-2 text-xl font-semibold text-white">
-                <span className="pl-5">More Details</span>
-                <ChevronDownwardsIcon />
+            {data.terms_and_conditions ? (
+              <button
+                className="cursor-pointer"
+                onClick={() => setShowDetails(!showDetails)}
+              >
+                {showDetails ? (
+                  <div>
+                    <ChevronUpwardsIcon />
+                  </div>
+                ) : (
+                  <div className="ml-1 flex w-[212px] justify-between rounded-[30px] bg-[#8E94E9] px-3 py-2 text-xl font-semibold text-white">
+                    <span className="pl-5">More Details</span>
+                    <ChevronDownwardsIcon />
+                  </div>
+                )}
               </button>
-            </div>
+            ) : null}
           </div>
         </div>
 
         {/* Terms and Conditions block */}
-        {/* {data.terms_and_conditions && (
-          <div className="mb-[40px]">
-            <div className="mb-[24px] h-[1px] w-full bg-[#ADB4D2]"></div>
-            <div>
-              <div className="mb-[3px] text-[16px] font-bold text-[#1A1A23]">
-                Terms & Conditions:
-              </div>
-              <div>{data.terms_and_conditions}</div>
-            </div>
-          </div>
-        )} */}
+        {data.terms_and_conditions && showDetails ? (
+          <DiscountTermsAndConditions data={data} />
+        ) : null}
       </div>
     </div>
   )

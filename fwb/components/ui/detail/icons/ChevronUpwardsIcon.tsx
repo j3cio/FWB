@@ -1,4 +1,4 @@
-const ChevronDownwardsIcon = () => {
+const ChevronUpwardsIcon = () => {
   return (
     <svg
       width="48"
@@ -31,4 +31,4 @@ const ChevronDownwardsIcon = () => {
   )
 }
 
-export default ChevronDownwardsIcon
+export default ChevronUpwardsIcon
