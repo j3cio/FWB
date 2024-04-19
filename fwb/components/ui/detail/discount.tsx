@@ -65,16 +65,14 @@ export default function ProductCard({ data, key }: ProductCardProps) {
               </div>
             </div>
           </div>
-          <div className="my-auto flex h-auto cursor-pointer">
-            <div className="my-auto mr-[16px]">
+          <div className="my-auto flex h-auto cursor-pointer items-center gap-4">
+            <div className="my-auto">
               <MessageIcon />
             </div>
             {/* This is the sharable link */}
-            <div className="my-auto mr-[16px] cursor-pointer">
-              <button onClick={copyShareURL}>
-                <ShareIcon />
-              </button>
-            </div>
+            <button onClick={copyShareURL}>
+              <ShareIcon />
+            </button>
             {data.terms_and_conditions ? (
               <button
                 className="cursor-pointer"
