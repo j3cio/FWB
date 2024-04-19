@@ -2,18 +2,45 @@
 
 import { DiscountDataDetail } from '@/app/types/types'
 import { useAuth } from '@clerk/nextjs'
-import { Chat, LoadingIndicator, useChatContext } from 'stream-chat-react'
+import {
+  Chat,
+  LoadingIndicator,
+  useChatContext,
+  getChannel,
+} from 'stream-chat-react'
 import { useRouter } from 'next/navigation'
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 import { useUser } from '@clerk/nextjs'
+import { Event } from 'stream-chat'
+import { useContext } from 'react'
+import { FWBChatContext } from '@/contexts/ChatContext'
 
 const MessageButton = (
   { data }: { data: DiscountDataDetail },
   { key }: { key: number }
 ) => {
   const { userId } = useAuth()
-  const { client } = useChatContext()
+  const { client, channel, setActiveChannel } = useChatContext()
+  const { setCustomActiveChannel } = useContext(FWBChatContext)
   const router = useRouter()
+
+  // Should probably get renamed to be clearer since this has overlap with `setActiveChannel`
+  async function handleActiveChannel(channelId: string) {
+    let subscription: { unsubscribe: () => void } | undefined
+
+    subscription = client.on('channels.queried', (event: Event) => {
+      const loadedChannelData = event.queriedChannels?.channels.find(
+        (response) => response.channel.id === channelId
+      )
+
+      if (loadedChannelData) {
+        console.log('found channel', channelId)
+        setCustomActiveChannel(channelId)
+        subscription?.unsubscribe()
+        return
+      }
+    })
+  }
 
   // This function takes in the userId of the person you are starting a chat with and will create a chat with them.
   async function startChat(userId: string | null | undefined) {
@@ -23,7 +50,8 @@ const MessageButton = (
           members: [userId, data.user_id],
         })
         console.log(channel)
-        await channel.create()
+        const response = await channel.create()
+        handleActiveChannel(response.channel.id) // essentially we're just adding this channel id to our context if our channel is successfully created.
         router.push('/chat')
       } catch (error) {
         console.log('Error creating channel')
