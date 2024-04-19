@@ -22,7 +22,7 @@ const ProductCardSkeleton = () => {
         variant="rectangular"
         height={'72%'}
       />
-      <div className="flex flex-col items-center mt-2">
+      <div className="mt-2 flex flex-col items-center">
         <Skeleton
           variant="rectangular"
           width={'83%'}
@@ -33,7 +33,7 @@ const ProductCardSkeleton = () => {
           }}
         />
         <div
-          className="flex mt-1 justify-between items-center"
+          className="mt-1 flex items-center justify-between"
           style={{ width: '83%' }}
         >
           <div className="flex">

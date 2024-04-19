@@ -72,7 +72,7 @@ const DesktopNavbar = ({
           <button onClick={() => handleNavigation('/profile')}>
             <Image
               priority
-              className="mr-[4.6vw] w-44 h-full"
+              className="mr-[4.6vw] h-full w-44"
               src="/fwb_logo.png"
               alt="logo"
               width={900}
