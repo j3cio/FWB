@@ -62,13 +62,13 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
 
   return (
     <>
-      <FormLabel className="flex flex-col font-urbanist text-white xxs-max:min-w-[80vw] xs-max:min-w-[80vw] sm-max:min-w-[60vw] min-w-[50vw] px-[20%]">
+      <FormLabel className="flex min-w-[50vw] flex-col px-[20%] font-urbanist text-white sm-max:min-w-[60vw] xs-max:min-w-[80vw] xxs-max:min-w-[80vw]">
         Invite members*
-        <Box className="relative flex flex-col bg-white rounded min-h-[15vh] max-h-[40vh] font-urbanist w-full p-2">
+        <Box className="relative flex max-h-[40vh] min-h-[15vh] w-full flex-col rounded bg-white p-2 font-urbanist">
           <Stack direction="row" flexWrap="wrap" useFlexGap spacing={2}>
             {users.map((user, index) => (
               <Box
-                className="w-fit flex items-center lowercase font-urbanist bg-[#ADB4D2] rounded-lg p-2 text-white"
+                className="flex w-fit items-center rounded-lg bg-[#ADB4D2] p-2 font-urbanist lowercase text-white"
                 key={index}
               >
                 <Typography className="font-urbanist text-sm">
@@ -81,9 +81,9 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
               </Box>
             ))}
           </Stack>
-          <Box className="mb-auto relative">
+          <Box className="relative mb-auto">
             <Input
-              className="p-2 font-urbanist w-full bg-white border-none focus:outline-none after:border-0 before:border-none"
+              className="w-full border-none bg-white p-2 font-urbanist before:border-none after:border-0 focus:outline-none"
               placeholder="Invite your friends.."
               autoFocus
               required

@@ -9,6 +9,9 @@ import { DiscountDataDetail } from '@/app/types/types'
 import ChevronUpwardsIcon from './icons/ChevronUpwardsIcon'
 import DiscountTermsAndConditions from './DiscountTermsAndConditions'
 import { AnimatePresence, motion } from 'framer-motion'
+import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
+import { useAuth, useUser } from '@clerk/nextjs'
+import { LoadingIndicator } from 'stream-chat-react'
 
 interface ProductCardProps {
   data: DiscountDataDetail
@@ -18,6 +21,10 @@ interface ProductCardProps {
 export default function ProductCard({ data, key }: ProductCardProps) {
   const [showDetails, setShowDetails] = useState<boolean>(false)
   const [isAnimating, setIsAnimating] = useState<boolean>(false)
+
+  const chatClient = useIntitialChatClient()
+  const { userId } = useAuth()
+  const { user } = useUser()
 
   const copyShareURL = () => {
     const currentURL = window.location.href
@@ -30,6 +37,14 @@ export default function ProductCard({ data, key }: ProductCardProps) {
       .catch((err) => {
         console.error('Failed to copy URL: ', err)
       })
+  }
+
+  if (!chatClient || !user) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <LoadingIndicator size={40} />
+      </div>
+    )
   }
 
   return (

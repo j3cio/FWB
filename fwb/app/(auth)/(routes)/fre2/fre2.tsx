@@ -212,7 +212,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                     required
                   />
 
-                  <div className="flex justify-start flex-col">
+                  <div className="flex flex-col justify-start">
                     <div className="flex justify-start">
                       <h6 className="discountFormText">
                         Discount Amount (%) *
@@ -275,7 +275,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       required
                     />
                     <div
-                      className="flex items-center cursor-pointer select-none"
+                      className="flex cursor-pointer select-none items-center"
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitch
@@ -286,7 +286,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                     </div>
                   </div>
 
-                  <div className="flex justify-center mt-[60px]">
+                  <div className="mt-[60px] flex justify-center">
                     <button
                       type="submit"
                       className="share"
@@ -327,34 +327,34 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                 <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
               </svg>
             </div>
-            <h2 className="mainHeader mb-[0px] text-[24px] mt-[30px]">
+            <h2 className="mainHeader mb-[0px] mt-[30px] text-[24px]">
               Share your &quot;benefits&quot; 😏
             </h2>
-            <div className="mainHeader mb-[40px] text-[12px] mt-[5px] font-[500]">
+            <div className="mainHeader mb-[40px] mt-[5px] text-[12px] font-[500]">
               Lorem ipsum dolor sit amet consectetur.
             </div>
 
             {/* This is the form that will handle company user input  */}
-            <div className="relative w-screen px-[16px] relative">
+            <div className="relative relative w-screen px-[16px]">
               <form onSubmit={handleDiscountSubmit}>
                 <h6 className="discountFormText text-[12px]">Company Name *</h6>
                 <input
                   type="text"
-                  className="inputCompany w-full text-[12px] px-[12px] py-[5px] h-auto placeholder:text-[13px]"
+                  className="inputCompany h-auto w-full px-[12px] py-[5px] text-[12px] placeholder:text-[13px]"
                   placeholder="Company Name"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   required
                 />
 
-                <div className="flex justify-start flex-col">
+                <div className="flex flex-col justify-start">
                   <div className="">
                     <h6 className="discountFormText text-[12px]">
                       Discount Amount (%) *
                     </h6>
                     <input
                       type="number"
-                      className="inputDiscount mt-[5px] w-full text-[12px] px-[12px] py-[5px] h-auto mb-[12px]  placeholder:text-[13px]"
+                      className="inputDiscount mb-[12px] mt-[5px] h-auto w-full px-[12px] py-[5px] text-[12px]  placeholder:text-[13px]"
                       placeholder="1 - 100"
                       min="1"
                       max="100"
@@ -367,7 +367,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                   <div>
                     <h6 className="discountFormText text-[12px]">Category *</h6>
                     <select
-                      className="selectCategory text-[12px] px-[12px] py-[5px] h-auto  w-full  placeholder:text-[13px]"
+                      className="selectCategory h-auto w-full px-[12px] py-[5px]  text-[12px]  placeholder:text-[13px]"
                       onChange={(e) =>
                         handleCategoryChange(
                           Array.from(
@@ -399,7 +399,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                     Discount Rules & Conditions
                   </h6>
                   <textarea
-                    className="inputConditions text-[12px] w-full placeholder:text-[13px] pl-[8px] mb-0"
+                    className="inputConditions mb-0 w-full pl-[8px] text-[12px] placeholder:text-[13px]"
                     placeholder="Share any rules or limitations about your benefit"
                     value={termsAndConditions}
                     onChange={(e) => setTermsAndConditions(e.target.value)}
@@ -407,10 +407,10 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                   />
                 </div>
 
-                <div className="flex justify-center mt-[36px] mb-[8px]">
+                <div className="mb-[8px] mt-[36px] flex justify-center">
                   <button
                     type="submit"
-                    className="share w-[272px] h-auto text-[16px] m-0"
+                    className="share m-0 h-auto w-[272px] text-[16px]"
                     onClick={handleDiscountSubmit}
                   >
                     Share on Public
@@ -421,7 +421,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
 
             {/* This is the link functionality to carry user to stage 3  */}
             <div className="flex justify-center" onClick={updateUser}>
-              <div className="skip h-auto text-[16px] m-0">Skip for now</div>
+              <div className="skip m-0 h-auto text-[16px]">Skip for now</div>
             </div>
           </div>
         </div>

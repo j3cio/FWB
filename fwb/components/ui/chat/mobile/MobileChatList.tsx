@@ -10,8 +10,9 @@ import {
 import MobileMessageList from './MobileMessageList'
 
 import { Group, User } from '@/app/types/types'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import MobileTabsSelector from './MobileTabsSelector'
+import { FWBChatContext } from '@/contexts/ChatContext'
 
 interface MobileChatListProps {
   channelData: User | Group
@@ -21,6 +22,12 @@ const MobileChatList = ({ channelData }: MobileChatListProps) => {
   // Type guard function! Pretty cool way to type check our data for conditional rendering
   const isUser = (object: User | Group): object is User => 'user_id' in object
   const { client, channel, setActiveChannel } = useChatContext()
+  const { customActiveChannel } = useContext(FWBChatContext)
+
+  // Please note the `setActiveChannelOnMount` Prop as that's key to this approach
+  useEffect(() => {
+    setActiveChannel(client.channel('messaging', customActiveChannel))
+  }, [customActiveChannel, setActiveChannel, client])
 
   return (
     <div>
@@ -46,6 +53,7 @@ const MobileChatList = ({ channelData }: MobileChatListProps) => {
             sort={{ last_message_at: -1 }}
             options={{ state: true, presence: true, limit: 10 }}
             showChannelSearch
+            setActiveChannelOnMount={customActiveChannel ? false : true}
             additionalChannelSearchProps={{
               searchForChannels: true,
               searchQueryParams: {

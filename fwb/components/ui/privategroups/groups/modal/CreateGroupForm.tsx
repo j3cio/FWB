@@ -130,11 +130,11 @@ const CreateGroupForm = ({
   }
 
   return (
-    <form className="min-w-full px-[20%] flex flex-col items-center gap-8">
+    <form className="flex min-w-full flex-col items-center gap-8 px-[20%]">
       <Box>
         {currentStepIndex == 0 && (
           <Image
-            className="w-full h-2"
+            className="h-2 w-full"
             src="/groups/slide-nav1.svg"
             height={0}
             width={0}
@@ -143,7 +143,7 @@ const CreateGroupForm = ({
         )}
         {currentStepIndex == 1 && (
           <Image
-            className="w-full h-2"
+            className="h-2 w-full"
             src="/groups/slide-nav2.svg"
             height={0}
             width={0}
@@ -160,7 +160,7 @@ const CreateGroupForm = ({
       <div> {step} </div>
 
       <Button
-        className="font-urbanist font-bold capitalize text-lg w-full mt-16 py-3 rounded-[2rem] bg-[#F6FF82] text-[#8E94E9] disabled:opacity-50"
+        className="mt-16 w-full rounded-[2rem] bg-[#F6FF82] py-3 font-urbanist text-lg font-bold capitalize text-[#8E94E9] disabled:opacity-50"
         variant="text"
         disabled={data.name == '' && true}
         type="submit"
@@ -170,7 +170,7 @@ const CreateGroupForm = ({
       </Button>
       {isLastStep && (
         <Button
-          className="font-urbanist font-semibold tracking-wider normal-case text-base w-full -mt-6 py-3 bg-none text-white"
+          className="-mt-6 w-full bg-none py-3 font-urbanist text-base font-semibold normal-case tracking-wider text-white"
           type="button"
           onClick={onSubmit}
         >

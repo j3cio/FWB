@@ -14,7 +14,7 @@ type Form1Props = Form1Data & {
 
 export function GroupForm1({ name, description, updateFields }: Form1Props) {
   return (
-    <Box className="font-urbanist xxs-max:min-w-[80vw] xs-max:min-w-[80vw] sm-max:min-w-[60vw] min-w-[50vw] px-[20%] flex flex-col gap-6">
+    <Box className="flex min-w-[50vw] flex-col gap-6 px-[20%] font-urbanist sm-max:min-w-[60vw] xs-max:min-w-[80vw] xxs-max:min-w-[80vw]">
       <FormLabel className="flex justify-center">
         <Input
           className="hidden"
@@ -22,34 +22,34 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
           type="file"
         />
         <Image
-          className="w-20 h-20 overflow-visible rounded-full"
+          className="h-20 w-20 overflow-visible rounded-full"
           src="/groups/person.svg"
           width={0}
           height={0}
           alt="person"
         />
       </FormLabel>
-      <FormLabel className="font-urbanist flex flex-col gap-3 text-white">
+      <FormLabel className="flex flex-col gap-3 font-urbanist text-white">
         Group Name*
         <Box className="flex gap-2">
           <Input
-            className="font-urbanist bg-[#fff] w-full border-0 outline-none px-5 py-1 text-[#090A10] rounded-[2.5rem] focus:outline-[0px]  after:border-0 before:border-0"
+            className="w-full rounded-[2.5rem] border-0 bg-[#fff] px-5 py-1 font-urbanist text-[#090A10] outline-none before:border-0  after:border-0 focus:outline-[0px]"
             required
             type="text"
             placeholder="Group's Name"
             value={name}
             onChange={(e) => updateFields({ name: e.target.value })}
           />
-          <span className="flex text-sm items-center gap-1">
+          <span className="flex items-center gap-1 text-sm">
             Private
             <LockIconWhite />
           </span>
         </Box>
       </FormLabel>
-      <FormLabel className="font-urbanist flex flex-col gap-3 text-white">
+      <FormLabel className="flex flex-col gap-3 font-urbanist text-white">
         Add Description
         <Input
-          className="font-urbanist bg-[#fff] border-0 outline-none px-5 py-1 text-[#090A10] rounded-[2.5rem] focus:outline-none after:border-0 before:border-0"
+          className="rounded-[2.5rem] border-0 bg-[#fff] px-5 py-1 font-urbanist text-[#090A10] outline-none before:border-0 after:border-0 focus:outline-none"
           required
           type="text"
           placeholder="Group's description"
