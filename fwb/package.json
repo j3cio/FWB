@@ -35,6 +35,7 @@
     "react-hook-form": "^7.50.0",
     "react-responsive": "^10.0.0",
     "react-share": "^5.1.0",
+    "react-toastify": "^10.0.5",
     "stream-chat": "^8.23.0",
     "stream-chat-react": "^11.12.0",
     "tailwind-merge": "^1.14.0",

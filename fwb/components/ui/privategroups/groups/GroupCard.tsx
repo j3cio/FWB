@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -21,6 +21,7 @@ type Props = {
   isUserAdmin: boolean
   userGroups: string[]
   handleDeleteGroup: (groupId: string, userGroups: string[]) => Promise<any>
+  downloadFile: (filePath: string) => Promise<string | null | undefined>
 }
 
 const randomNumber = (index: number): number => {
@@ -36,9 +37,11 @@ const SingleGroupCard = ({
   isUserAdmin,
   userGroups,
   handleDeleteGroup,
+  downloadFile
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const openMenu = Boolean(anchorEl)
+  const [groupImage, setGroupImage] = useState<string>('')
   const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -49,6 +52,21 @@ const SingleGroupCard = ({
   const navigateToUserPage = (group_id: string) => {
     window.location.href = `/groups/${group_id}`
   }
+
+  // Display the image
+  const fetchAndDisplayImage = async () => {
+      const fileData = await downloadFile(group.filePath)
+      // Convert the Blob to a URL for display
+      if (fileData) {
+        setGroupImage(fileData)
+      }
+  }
+
+  useEffect(() => {
+    if ( group.filePath != null){
+      fetchAndDisplayImage()
+    }
+  }, [])
 
   return (
     <Box
@@ -72,8 +90,8 @@ const SingleGroupCard = ({
       <Box className="w-full px-7 py-4 xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-3 flex items-center justify-between">
         <Box className="xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[60%] flex xxs-max:items-start xs-max:items-start sm-max:items-start items-center gap-4">
           <Image
-            className="w-16 h-16 rounded-t-xl"
-            src="/groups/gp-avatar.svg"
+            className="w-16 h-16 rounded-full"
+            src={group.filePath ? groupImage : "/groups/gp-avatar.svg"}
             height={0}
             width={0}
             alt="pg-avatar"

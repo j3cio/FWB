@@ -10,15 +10,19 @@ import InviteMemberIcon from '../icons/InviteMemberIcon'
 import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
+//import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //TODO: The changing of group profile picture should requre admin priviledges
 
 const GroupDetailsSection = ({
   groupData,
   userData,
+  toast
 }: {
   groupData: Group
   userData: UserData[]
+  toast: any
 }) => {
   type FileEvent = ChangeEvent<HTMLInputElement> & {
     target: EventTarget & { files: FileList }
@@ -42,7 +46,7 @@ const GroupDetailsSection = ({
   }
   const [filePath, setFilePath] = useState<string | null>(
     groupData.filePath || null
-  ) // The image url fro the file uploaded
+  ) // The image url for the file uploaded
 
   // Add the filePath to the group
   const storeFilePath = async (filePath: string) => {
@@ -63,6 +67,7 @@ const GroupDetailsSection = ({
 
   // Stores the file on supabase
   const uploadFile = async (event: FileEvent) => {
+    toast.loading('uploading image..')
     if (groupData.filePath !== null) {
       console.log('Deleting previous group avatar')
       await deletePreviousGroupAvatar()
@@ -80,11 +85,13 @@ const GroupDetailsSection = ({
 
     if (error) {
       console.log('Error uploading file.')
+      toast.error('Failed to upload image!')
       return
     }
     console.log('File uploaded successfully: ', data)
 
     await storeFilePath(filePath)
+    toast.success('upload successful!')
   }
 
   // Retrieve file from supabase
@@ -164,6 +171,7 @@ const GroupDetailsSection = ({
               />
               <input
                 type="file"
+                accept='image/*'
                 className="hidden"
                 onChange={uploadFile}
                 ref={fileInputRef}
@@ -182,6 +190,7 @@ const GroupDetailsSection = ({
               />
               <input
                 type="file"
+                accept='image/*'
                 className="hidden"
                 onChange={uploadFile}
                 ref={fileInputRef}

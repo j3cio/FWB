@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
+import supabaseClient from '@/supabase'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -97,6 +97,24 @@ const GroupsHomePage = ({
     } catch (error) {
       console.error('Error updating data: ', error)
       throw error
+    }
+  }
+
+  const downloadFile = async (filePath: string) => {
+    if (filePath) {
+      const supabase = await supabaseClient()
+      const { data, error } = await supabase.storage
+        .from('group-avatars')
+        .download(filePath)
+
+      if (error) {
+        console.error('Error downloading file:', error)
+        return null
+      }
+      return URL.createObjectURL(data)
+    } else {
+      console.log('No file path found')
+      return
     }
   }
 
@@ -197,6 +215,7 @@ const GroupsHomePage = ({
             return (
               <SingleGroupCard
                 handleDeleteGroup={handleDeleteGroup}
+                downloadFile={downloadFile}
                 group={group}
                 key={group.id}
                 index={index}

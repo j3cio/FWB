@@ -1,6 +1,6 @@
 import { Box, FormLabel, Input } from '@mui/material'
 import Image from 'next/image'
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import LockIconWhite from '../../icons/LockIconWhite'
 
 type Form1Data = {
@@ -19,9 +19,20 @@ type FileEvent = ChangeEvent<HTMLInputElement> & {
 
 export function GroupForm1({ name, description, updateFields }: Form1Props) {
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
 
   const storeFile = async (event: FileEvent) => {
     updateFields({ file: event.target.files[0] })
+    generatePreview(event.target.files[0])
+  }
+
+  const generatePreview = (file: Blob | MediaSource) => {
+    try {
+      setImagePreview(URL.createObjectURL(file))
+    } catch (error) {
+      setImagePreview(null)
+      console.log(error)
+    }
   }
 
   return (
@@ -35,8 +46,8 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
           ref={fileInputRef}
         />
         <Image
-          className="h-20 w-20 overflow-visible rounded-full"
-          src="/groups/person.svg"
+          className={`h-20 w-20 rounded-full cursor-pointer ${imagePreview ? "overflow-hidden" : "overflow-visible"}`}
+          src={imagePreview ? imagePreview : "/groups/person.svg"}
           width={0}
           height={0}
           alt="person"
