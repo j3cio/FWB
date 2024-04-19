@@ -8,6 +8,7 @@ import ShareIcon from './icons/ShareIcon'
 import { DiscountDataDetail } from '@/app/types/types'
 import ChevronUpwardsIcon from './icons/ChevronUpwardsIcon'
 import DiscountTermsAndConditions from './DiscountTermsAndConditions'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface ProductCardProps {
   data: DiscountDataDetail
@@ -16,6 +17,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ data, key }: ProductCardProps) {
   const [showDetails, setShowDetails] = useState<boolean>(false)
+  const [isAnimating, setIsAnimating] = useState<boolean>(false)
 
   const copyShareURL = () => {
     const currentURL = window.location.href
@@ -31,7 +33,14 @@ export default function ProductCard({ data, key }: ProductCardProps) {
   }
 
   return (
-    <div className="relative mx-[120px] mb-[32px] flex flex-row">
+    <motion.div
+      className="relative mx-[120px] mb-[32px] flex flex-row"
+      initial={{ height: 'auto' }}
+      animate={{ height: showDetails ? 'auto' : '248px' }}
+      exit={{ height: '248px' }}
+      onAnimationStart={() => setIsAnimating(true)}
+      onAnimationComplete={() => setIsAnimating(false)}
+    >
       <div className="flex w-[20%] rounded-l-[25px] bg-[#8E94E9] text-white">
         <div className="m-auto w-[70px] text-[40px] font-bold">
           {data.discount_amount}% OFF
@@ -87,10 +96,19 @@ export default function ProductCard({ data, key }: ProductCardProps) {
         </div>
 
         {/* Terms and Conditions block */}
-        {data.terms_and_conditions && showDetails ? (
-          <DiscountTermsAndConditions data={data} />
-        ) : null}
+        <AnimatePresence>
+          {showDetails && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              {isAnimating ? null : <DiscountTermsAndConditions data={data} />}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   )
 }

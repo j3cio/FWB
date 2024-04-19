@@ -1,6 +1,7 @@
 import { DiscountDataDetail } from '@/app/types/types'
 import BookmarkIcon from './icons/BookmarkIcon'
 import ArrowIcon from './icons/ArrowIcon'
+import { motion } from 'framer-motion'
 
 interface DiscountTermsAndConditionsProps {
   data: DiscountDataDetail // electing to use entire data bundle here for potential future functionality like the bookmark function
