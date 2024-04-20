@@ -122,6 +122,7 @@ export default function Productfilters() {
         zIndex: 1,
         justifyContent: 'flex-end',
         display: 'flex',
+        paddingRight: '10px',
       }}
     >
       <Box

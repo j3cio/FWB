@@ -20,7 +20,7 @@ export default function ProductCard(
   }
 
   return (
-    <div className="mx-[120px] flex flex-row relative mb-[32px]">
+    <div className="w-full flex flex-row relative mb-[32px]">
       <div className="w-[20%] bg-[#8E94E9] text-white flex rounded-l-[25px]">
         <div className="text-[40px] font-bold w-[70px] m-auto">
           {data.discount_amount}% OFF
