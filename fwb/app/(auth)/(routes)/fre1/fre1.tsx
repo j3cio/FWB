@@ -235,7 +235,6 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
     }
   }
 
-
   //Initializes random username on the first render of webpage
   useEffect(() => {
     setRandomName(generateRandomUsername())
@@ -297,7 +296,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   {/*Container to allow users to upload a personal profile picture*/}
                   <div>
                     <div className="addPhoto">
-                      <div className="ml-4 mr-36 my-4 flex justify-center pl-32">
+                      <div className="my-4 ml-4 mr-36 flex justify-center pl-32">
                         <label
                           htmlFor="profilePicture"
                           className="customPhotoInput"
@@ -317,7 +316,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                 {/*Containers to allow user to pick amongst 8 default options */}
                 {/*SVG Icon is displayed on screen to maintain resolution but PNG is uploaded to Clerk */}
-                <div className="flex justify-center mt-4 space-x-4">
+                <div className="mt-4 flex justify-center space-x-4">
                   <button
                     type="button"
                     id="chooseProfilePicture"
@@ -356,7 +355,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   </button>
                 </div>
 
-                <div className="flex justify-center mt-4 space-x-4">
+                <div className="mt-4 flex justify-center space-x-4">
                   <button
                     type="button"
                     id="chooseProfilePicture"
@@ -468,10 +467,10 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
                 </svg>
               </div>
-              <h2 className="mainHeader text-[24px] mt-[28px]">
+              <h2 className="mainHeader mt-[28px] text-[24px]">
                 Welcome to <br></br> Friends with Benefits!
               </h2>
-              <h5 className="subtext text-[12px] mb-[28px]">
+              <h5 className="subtext mb-[28px] text-[12px]">
                 Let&apos;s create your profile.
               </h5>
 
@@ -503,7 +502,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                       <div className="my-4 flex justify-center">
                         <label
                           htmlFor="profilePicture"
-                          className="customPhotoInput rounded-none bg-transparent border-0 h-auto w-auto p-0 text-[12px]"
+                          className="customPhotoInput h-auto w-auto rounded-none border-0 bg-transparent p-0 text-[12px]"
                         >
                           <span>Add profile photo</span>
                           <input
@@ -520,7 +519,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                 {/*Containers to allow user to pick amongst 8 default options */}
                 {/*SVG Icon is displayed on screen to maintain resolution but PNG is uploaded to Clerk */}
-                <div className="flex justify-center mt-4 space-x-4 mx-[77px]">
+                <div className="mx-[77px] mt-4 flex justify-center space-x-4">
                   <button
                     type="button"
                     id="chooseProfilePicture"
@@ -559,7 +558,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   </button>
                 </div>
 
-                <div className="flex justify-center mt-4 space-x-4">
+                <div className="mt-4 flex justify-center space-x-4">
                   <button
                     type="button"
                     id="chooseProfilePicture"
@@ -609,7 +608,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   <input
                     type="text"
                     id="newUsername"
-                    className="inputusername w-[288px] text-[14px] h-[34px]"
+                    className="inputusername h-[34px] w-[288px] text-[14px]"
                     placeholder={randomName}
                     value={randomName}
                     onChange={(e) => setRandomName(e.target.value)}
@@ -617,7 +616,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                   {/* Random Username Generation Button when Clicked  */}
                   <button
-                    className="randomName w-[28px] h-[28px] py-[2px] px-[2px] ml-[-33px] mt-[35px]"
+                    className="randomName ml-[-33px] mt-[35px] h-[28px] w-[28px] px-[2px] py-[2px]"
                     type="button"
                     onClick={updateClerkWithRandomUsername}
                   >
@@ -644,7 +643,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                 <div className="button mx-auto">
                   <Link
                     href="/fre2"
-                    className="next w-[288px] text-[16px] h-auto py-[8px]"
+                    className="next h-auto w-[288px] py-[8px] text-[16px]"
                     onClick={handleSubmitUser}
                   >
                     Next

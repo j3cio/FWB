@@ -236,7 +236,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
         </div>
       )}
       {width < 400 && (
-        <div className="pageContent w-screen flex flex-col justify-normal">
+        <div className="pageContent flex w-screen flex-col justify-normal">
           <div className="progresscircles mt-[32px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +250,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
               <circle cx="52" cy="4" r="4" fill="#F6FF82" />
             </svg>
           </div>
-          <h2 className="mainHeader text-[24px] mt-[28px] mb-[0px]">
+          <h2 className="mainHeader mb-[0px] mt-[28px] text-[24px]">
             Share with Your Friends!
           </h2>
           <h5 className="subtext text-[12px]">
@@ -286,7 +286,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
 
           <form
             id="invitations"
-            className="emailForm w-[full] mx-[16px]"
+            className="emailForm mx-[16px] w-[full]"
             onSubmit={handleSubmit}
           >
             <div className="email-list">
@@ -334,17 +334,17 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
             </div>
           )}
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
-          <div className="shareButtons mt-[75px] mx-[16px]">
+          <div className="shareButtons mx-[16px] mt-[75px]">
             {/* <button className="next" type="submit" form="invitations"> */}
             <button
-              className="next w-full text-[16px] h-auto mt-[0px]"
+              className="next mt-[0px] h-auto w-full text-[16px]"
               type="button"
               onClick={handleShare}
             >
               Share with My Friends
             </button>
             {/* </Link> */}
-            <div className="skip text-[16px] h-auto" onClick={changeFRE}>
+            <div className="skip h-auto text-[16px]" onClick={changeFRE}>
               <div className="skipButton">Skip for now</div>
             </div>
           </div>

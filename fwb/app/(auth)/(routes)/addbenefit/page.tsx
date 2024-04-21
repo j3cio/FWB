@@ -141,7 +141,6 @@ export default function Intakeform() {
       ? setSelectedOption('private')
       : setSelectedOption('public')
 
-
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories)
   }
@@ -261,10 +260,10 @@ export default function Intakeform() {
                               />
                             </div>
                           </ThemeProvider>
-                          <div className="flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
+                          <div className="ml-3 flex h-8 w-[125px] items-center rounded bg-white px-4">
                             <input
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
-                              className="w-full bg-white rounded border-none outline-none"
+                              className="w-full rounded border-none bg-white outline-none"
                               value={
                                 discountAmount ? discountAmount : undefined
                               }
@@ -386,7 +385,7 @@ export default function Intakeform() {
                       </div>
                       </div>*/}
                     <div
-                      className="flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
+                      className="mb-[60px] ml-[154px] mt-[25px] flex cursor-pointer select-none items-center"
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits

@@ -19,6 +19,7 @@ import MobileLargeChatIcon from '../icons/MobileLargeChatIcon'
 
 import { MobileSearchProps } from '../types'
 import { SearchContext } from '@/contexts/SearchContext'
+import CustomModal from './CustomModal'
 
 const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
   const [showSearchModal, setShowSearchModal] = useState(false)
@@ -30,7 +31,7 @@ const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
 
   return (
     <>
-      <article className="flex items-center gap-4">
+      <article className="flex items-center gap-4 justify-self-end">
         <div onClick={() => handleOpen()}>
           <MobileSearchIcon />
         </div>
@@ -39,43 +40,41 @@ const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
         </Link>
       </article>
 
-      <Modal
-        open={showSearchModal}
-        onClose={handleClose}
-        sx={{ height: '100%' }}
+      <CustomModal
+        initial={{
+          maxHeight: searchHistory.length ? '' : '100%',
+          y: '-30%',
+        }}
+        animate={{
+          maxHeight: isCollapsed
+            ? searchHistory.length
+              ? '33vh'
+              : '100%'
+            : '60vh',
+          y: '0%',
+        }}
+        exit={{ y: '-100%' }}
+        showModal={showSearchModal}
+        setShowModal={setShowSearchModal}
       >
-        <AnimatePresence>
-          <motion.article
-            initial={{
-              maxHeight: searchHistory.length ? '33vh' : '100%',
-              y: '-30%',
-            }}
-            animate={{
-              maxHeight: isCollapsed
-                ? searchHistory.length
-                  ? '33vh'
-                  : '100%'
-                : '60vh',
-              y: '0%',
-            }}
-            exit={{ y: '-30%' }}
-            transition={{ duration: 0.3 }}
-            className={'flex-flex-col gap-3 bg-[#1A1A23] px-4 pt-6 text-white'}
-          >
-            <MobileSearchBar
-              handleSearch={handleSearch}
-              handleClose={handleClose}
-            />
+        <article
+          className={
+            'flex w-screen flex-col gap-3 bg-[#1A1A23] px-4 pt-6 text-white'
+          }
+        >
+          <MobileSearchBar
+            handleSearch={handleSearch}
+            handleClose={handleClose}
+          />
 
-            <MobileSearchHistory
-              handleSearch={handleSearch}
-              handleClose={handleClose}
-              setIsCollapsed={setIsCollapsed}
-              isCollapsed={isCollapsed}
-            />
-          </motion.article>
-        </AnimatePresence>
-      </Modal>
+          <MobileSearchHistory
+            handleSearch={handleSearch}
+            handleClose={handleClose}
+            setIsCollapsed={setIsCollapsed}
+            isCollapsed={isCollapsed}
+          />
+        </article>
+      </CustomModal>
     </>
   )
 }

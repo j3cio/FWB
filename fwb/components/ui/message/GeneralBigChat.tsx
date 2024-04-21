@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function GeneralBigChat() {
   return (
     <div
-      className="h-full w-full flex flex-col items-center pt-6 pl-3 pr-3 pb-6 bg-opacity-10 mr-12 bg-white backdrop-blur-12.5 shadow-xl justify-start"
+      className="backdrop-blur-12.5 mr-12 flex h-full w-full flex-col items-center justify-start bg-white bg-opacity-10 pb-6 pl-3 pr-3 pt-6 shadow-xl"
       style={{
         height: '770px',
         borderRadius: '10px',
@@ -12,7 +12,7 @@ export default function GeneralBigChat() {
       }}
     >
       <div
-        className="flex justify-between items-center font-urbanist font-semibold text-lg leading-125% text-white w-full bottom-border pb-4"
+        className="leading-125% bottom-border flex w-full items-center justify-between pb-4 font-urbanist text-lg font-semibold text-white"
         style={{ borderBottom: '1px solid #94A3B1' }}
       >
         <div className="flex">
@@ -24,7 +24,7 @@ export default function GeneralBigChat() {
             />
           </div>
 
-          <div className="flex items-center ml-3 font-urbanist font-semibold text-base leading-125%">
+          <div className="leading-125% ml-3 flex items-center font-urbanist text-base font-semibold">
             General
           </div>
         </div>
@@ -45,16 +45,16 @@ export default function GeneralBigChat() {
           </svg>
         </div>
       </div>
-      <div className="text-white w-full h-full flex-col justify-start ">
+      <div className="h-full w-full flex-col justify-start text-white ">
         <div
-          className="flex items-center mt-4 justify-center font-urbanist font-medium text-xs leading-150%"
+          className="leading-150% mt-4 flex items-center justify-center font-urbanist text-xs font-medium"
           style={{ fontFamily: 'Urbanist' }}
         >
           November 08 2023
         </div>
         <div className="flex flex-row justify-end">
           <div
-            className="flex flex-col items-end text-neutral-000 opacity-50"
+            className="text-neutral-000 flex flex-col items-end opacity-50"
             style={{ fontSize: '10px', fontFamily: 'Urbanist' }}
           >
             <div>Read</div>
@@ -63,7 +63,7 @@ export default function GeneralBigChat() {
             </div>
           </div>
           <div
-            className="pt-2 pb-2 pr-4 pl-4 ml-1"
+            className="ml-1 pb-2 pl-4 pr-4 pt-2"
             style={{
               background: '#8E94E9',
               borderRadius: '20px',
@@ -96,7 +96,7 @@ export default function GeneralBigChat() {
         </div>
       </div>
       <div
-        className="flex w-full h-1 top-border pb-4 pt-4 justify-between"
+        className="top-border flex h-1 w-full justify-between pb-4 pt-4"
         style={{ borderTop: '1px solid #94A3B1' }}
       >
         <div className="flex">
@@ -120,7 +120,7 @@ export default function GeneralBigChat() {
             <input
               type="text"
               placeholder="Write Messages..."
-              className="outline-none ml-4 text-xs font-normal leading-6 opacity-50"
+              className="ml-4 text-xs font-normal leading-6 opacity-50 outline-none"
               style={{ font: 'Urbanist' }}
             />
           </div>

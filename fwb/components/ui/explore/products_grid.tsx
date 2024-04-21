@@ -22,7 +22,7 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
     >
       <Grid container spacing={2} rowGap={2} sx={{ marginBottom: '60px' }}>
         {isLoading ? (
-          <div className="flex flex-wrap gap-x-4 ml-2">
+          <div className="ml-2 flex flex-wrap gap-x-4">
             {generateSkeletons({
               type: 'ProductCard',
               quantity: 20,

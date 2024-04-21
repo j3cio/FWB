@@ -27,7 +27,6 @@ import ExplorePageContent from '@/components/ui/explore/ExplorePageContent'
  */
 
 export default function ExplorePage() {
-
   return (
     <FilterProvider>
       <ExplorePageContent />
