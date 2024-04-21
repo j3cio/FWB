@@ -46,7 +46,7 @@ export default function ProductCard(
             </div>
           </div>
           <div className="flex h-auto my-auto cursor-pointer">
-            <div className="mr-[16px] my-auto">
+            <div className="mr-[16px]">
               <svg
                 width="48"
                 height="48"
@@ -70,7 +70,7 @@ export default function ProductCard(
               </svg>
             </div>
             {/* This is the sharable link */}
-            <div className="mr-[16px] my-auto cursor-pointer">
+            <div className="mr-[16px] cursor-pointer">
               <button onClick={copyShareURL}>
                 <svg
                   width="48"
