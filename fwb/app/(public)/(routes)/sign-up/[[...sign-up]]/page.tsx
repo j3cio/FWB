@@ -488,6 +488,13 @@ export default function Page() {
                   <div className="yellowBox xl-max:w-[134px] xl-max:h-[134px]"></div>
                 </div>
                 <div className="middleContainer h-screen w-[50%]">
+                
+                <div className={`border-box errorContainer w-full flex justify-center mb-[30px]`}>
+                  <div className={`error h-[4vh] w-[70%] bg-[#ED455D] flex justify-center items-center text-[2vh] text-white py-[15px] ${inputError ? 'flex' : 'hidden'}`}>
+                      <p>Invalid verification code, Please try again.</p>
+                  </div>
+                </div>
+                
                   <div className="signin h-[80%]">
                     <div className="verification flex flex-col text-white justify-center items-center">
                       <h1 className='text-[5vh] font-medium text-center'>Email Verification</h1>
