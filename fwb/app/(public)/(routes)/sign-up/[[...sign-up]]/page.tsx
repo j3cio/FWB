@@ -109,6 +109,8 @@ export default function Page() {
         router.push('/fre1')
       }
     } catch (err: any) {
+      setinputError(true)
+      resetCode()
       console.error(JSON.stringify(err, null, 2))
     }
   }
