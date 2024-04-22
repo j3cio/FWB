@@ -490,7 +490,7 @@ export default function Page() {
                 <div className="middleContainer h-screen w-[50%]">
                 
                 <div className={`border-box errorContainer w-full flex justify-center mb-[30px]`}>
-                  <div className={`error h-[4vh] w-[70%] bg-[#ED455D] flex justify-center items-center text-[2vh] text-white py-[15px] ${inputError ? 'flex' : 'hidden'}`}>
+                  <div className={`error h-[4vh] bg-[#ED455D] flex justify-center items-center text-[2vh] text-white py-[15px] ${inputError ? 'flex' : 'hidden'} absolute top-[50px] w-[35%] rounded-md`}>
                       <p>Invalid verification code, Please try again.</p>
                   </div>
                 </div>
@@ -748,7 +748,7 @@ export default function Page() {
         {pendingVerification && (
           <div className='w-full'>
             {inputError && 
-            <div className="error w-full h-[5vh] bg-[#ED455D] flex justify-center items-center text-[2vh] text-white py-[15px] z-10 absolute">
+            <div className="error w-full h-[5vh] bg-[#ED455D] flex justify-center items-center text-[2vh] text-white py-[15px] z-10">
                 Invalid verification code, Please try again.
             </div>}
             <div className="verification flex flex-col text-white justify-center items-center mt-[100px]">

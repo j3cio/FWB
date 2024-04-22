@@ -419,3 +419,103 @@ select {
   color: white
 }
 
+@media only screen and (max-width: 767px) {
+  /* Styles specific to mobile screens */
+  .share p {
+    font-size: 25px;
+  }
+
+  .share {
+    margin-bottom: 36px;
+    margin-top: 0;
+  }
+
+  .formContainer {
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .line1, .line2, .discount1, .rule {
+    flex-direction: column;
+  }
+
+  .line2 {
+    gap: 15px;
+  }
+
+  .inputCompany {
+    margin-left: 0;
+    width: 90vw;
+  }
+
+  .slider {
+    margin-left: 10px;
+    width: 85%;
+  }
+
+
+  .categories {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .percentage {
+    margin-left: 0 !important;
+  }
+
+  select, .inputDiscount {
+    margin-left: 0;
+    width: 90vw;
+  }
+
+  .description {
+    gap: 5px;
+  }
+
+  .rule {
+    gap: 10px;
+  }
+
+  .description {
+    display: flex;
+    gap: 5px;
+  }
+
+  .toggle {
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .secondBox {
+    border: 0px;
+  }
+  
+  .submit {
+    padding-right: 0;
+    padding-left: 20px;
+  }
+  
+  .submitButton {
+    display: flex;
+  }
+
+  .saveButton {
+    width: 60%;
+  }
+
+  .save, .cancel {
+    font-size: 15px;
+    width: 100%;
+  }
+  .cancelButton {
+    width: 30% !important;
+  }
+
+  .agree {
+    margin-bottom: 30px;
+  }
+}
+
+

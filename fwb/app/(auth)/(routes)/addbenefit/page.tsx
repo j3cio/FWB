@@ -242,6 +242,7 @@ export default function Intakeform() {
                               className="slider"
                               style={{
                                 width: '220px',
+                                marginTop: '10px',
                               }}
                             >
                               {/* <Typography gutterBottom>
@@ -261,7 +262,7 @@ export default function Intakeform() {
                               />
                             </div>
                           </ThemeProvider>
-                          <div className="flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
+                          <div className="percentage flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
                             <input
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
                               className="w-full bg-white rounded border-none outline-none"
@@ -386,7 +387,7 @@ export default function Intakeform() {
                       </div>
                       </div>*/}
                     <div
-                      className="flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
+                      className="toggle flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits
@@ -416,13 +417,13 @@ export default function Intakeform() {
               <span className="termAgree">I agree to the</span>{' '}
               <a className="terms">Terms & Privacy Policy</a>
             </div>
-            <div className="submitButtons">
-              <div>
+            <div className="submitButton flex">
+              <div className='saveButton'>
                 <button className="save" type="submit" form="discountForm">
                   Save and Share
                 </button>
               </div>
-              <div>
+              <div className='cancelButton'>
                 <button className="cancel">Cancel</button>
               </div>
             </div>
