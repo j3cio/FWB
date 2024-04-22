@@ -1,15 +1,24 @@
 import { Skeleton } from '@mui/material'
+import { useMediaQuery } from 'react-responsive'
 
 const ProductCardSkeleton = () => {
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 640px)',
+  })
+
   return (
     <div
       style={{
-        width: '282px',
-        height: '322px',
+        width: '48vw',
+        height: 'calc(48vw + (48vw * 0.142))', //maintaining our card's aspect ratio in mobile
+        maxWidth: '282px',
+        maxHeight: '322px',
+        minHeight: '168px',
+        minWidth: '140px',
         backgroundColor: 'white',
         borderRadius: 20,
         margin: 4,
-        marginTop: '20px',
+        marginBottom: '10px',
       }}
     >
       {/* the default variant is text, but that leads to some weird scaling, shifting to rectangular gives more direct styling control */}
@@ -22,11 +31,11 @@ const ProductCardSkeleton = () => {
         variant="rectangular"
         height={'72%'}
       />
-      <div className="mt-2 flex flex-col items-center">
+      <div className="mt-2 flex flex-col items-start pl-4 sm:items-center sm:pl-0">
         <Skeleton
           variant="rectangular"
-          width={'83%'}
-          height={26}
+          width={isDesktop ? '83%' : '60%'}
+          height={isDesktop ? 26 : 20}
           sx={{
             bgcolor: '#CED2E4',
             borderRadius: '5px',
@@ -36,7 +45,7 @@ const ProductCardSkeleton = () => {
           className="mt-1 flex items-center justify-between"
           style={{ width: '83%' }}
         >
-          <div className="flex">
+          <div className="hidden sm:flex">
             <Skeleton
               sx={{
                 bgcolor: '#CED2E4',
@@ -61,9 +70,13 @@ const ProductCardSkeleton = () => {
 
           <Skeleton
             variant="rectangular"
-            width={160}
-            height={18}
-            sx={{ bgcolor: '#CED2E4', borderRadius: '5px' }}
+            width={isDesktop ? 160 : 140}
+            height={isDesktop ? 18 : 16}
+            sx={{
+              bgcolor: '#CED2E4',
+              borderRadius: '5px',
+              marginBottom: isDesktop ? 0 : 10,
+            }}
           />
         </div>
       </div>

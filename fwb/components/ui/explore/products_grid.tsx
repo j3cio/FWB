@@ -34,27 +34,27 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
         rowGap={isDesktop ? 2 : 1}
         sx={{ marginBottom: '60px', justifyContent: 'center' }}
       >
-        {isLoading ? (
-          <div className="ml-2 flex flex-wrap gap-x-4">
-            {generateSkeletons({
-              type: 'ProductCard',
-              quantity: 20,
-            })}
-          </div>
-        ) : (
-          items.map((company: any, index: React.Key) => (
-            <Grid
-              item
-              xs={6}
-              sm={6}
-              md={3}
-              key={crypto.randomUUID()}
-              // sx={{ width: '282px', height: '322px' }}
-            >
-              <ProductCard company={company} />
-            </Grid>
-          ))
-        )}
+        {true
+          ? items.map((company: any, index: React.Key) => (
+              <Grid
+                item
+                xs={6}
+                sm={6}
+                md={3}
+                key={crypto.randomUUID()}
+                sx={{ marginTop: '14px' }}
+              >
+                {generateSkeletons({
+                  type: 'ProductCard',
+                  quantity: 20,
+                })}
+              </Grid>
+            ))
+          : items.map((company: any, index: React.Key) => (
+              <Grid item xs={6} sm={6} md={3} key={crypto.randomUUID()}>
+                <ProductCard company={company} />
+              </Grid>
+            ))}
       </Grid>
     </Box>
   )
