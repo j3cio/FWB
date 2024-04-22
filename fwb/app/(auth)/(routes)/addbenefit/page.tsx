@@ -153,6 +153,9 @@ export default function Intakeform() {
       setDiscountAmount(parseInt(event.target.value, 10))
     }
   }
+
+  const isDisabled = !(termsAndConditions && selectedOption === 'private' && discountAmount !== 0 && company !== '' && description !== '');
+
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
@@ -419,7 +422,7 @@ export default function Intakeform() {
             </div>
             <div className="submitButton flex">
               <div className='saveButton'>
-                <button className="save" type="submit" form="discountForm">
+              <button className={`save ${isDisabled && 'bg-[#ADB4D2] text-white'}`} type="submit" form="discountForm" disabled={isDisabled}>
                   Save and Share
                 </button>
               </div>
