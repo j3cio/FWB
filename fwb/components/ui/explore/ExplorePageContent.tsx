@@ -144,7 +144,6 @@ const ExplorePageContent = () => {
         )
           .then(async (res) => {
             const data = await res.json()
-            console.log(data)
             if (concat) {
               setCompanies([...companies].concat(data.result))
             } else {
