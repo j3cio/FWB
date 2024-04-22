@@ -10,6 +10,7 @@ import { Typography } from '@mui/material'
 import arrowIcon from '@/components/ui/explore/icons/expand_more_24px.svg'
 import Image from 'next/image'
 import { FilterContext } from './filter_context'
+import { filterCategories, groupLists, sortOptions } from './constants'
 
 function BasicSelect({
   name,
@@ -31,6 +32,7 @@ function BasicSelect({
     transform: flip ? 'rotate(180deg)' : 'rotate(0deg)',
   }
 
+  console.log({ options })
   return (
     <Box>
       <FormControl
@@ -110,20 +112,9 @@ function BasicSelect({
     </Box>
   )
 }
-export default function Productfilters() {
+export default function ProductFilters() {
   return (
-    <Box
-      sx={{
-        backgroundColor: '#1A1A23',
-        marginBottom: '32px',
-        position: 'sticky',
-        top: '112px',
-        height: '76px',
-        zIndex: 1,
-        justifyContent: 'flex-end',
-        display: 'flex',
-      }}
-    >
+    <div className="sticky top-[112px] z-[1] mb-8 hidden h-[76px] justify-end bg-[#1A1A23] sm:flex">
       <Box
         sx={{
           display: 'flex',
@@ -133,36 +124,20 @@ export default function Productfilters() {
       >
         <BasicSelect
           name="Sort by"
-          options={[
-            'Most Popular',
-            'Most Recent',
-            'Highest to Lowest Discounts',
-            'Lowest to Highest Discounts',
-          ]}
+          options={sortOptions}
           defaultValue="Most Popular"
         />
         <BasicSelect
           name="Private Group"
-          options={['All', 'Group 1', 'Group 2']}
+          options={groupLists}
           defaultValue="All"
         />
         <BasicSelect
           name="Category"
-          options={[
-            'All',
-            'Sports',
-            'Fashion',
-            'Electronic',
-            'Health',
-            'Home & Kitchen',
-            'Computer & Accessories',
-            'Beauty & Skincare',
-            'Books',
-            'Hobbies',
-          ]}
+          options={filterCategories}
           defaultValue="All"
         />
       </Box>
-    </Box>
+    </div>
   )
 }
