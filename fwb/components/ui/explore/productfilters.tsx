@@ -36,7 +36,7 @@ function BasicSelect({
     <Box>
       <FormControl
         fullWidth
-        sx={{ display: 'flex', minWidth: 246, height: '48px' }}
+        sx={{ display: 'flex', minWidth: 180, height: '48px' }}
       >
         <InputLabel
           id="simple-select-label"
