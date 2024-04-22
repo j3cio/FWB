@@ -10,7 +10,7 @@ interface AnimationCoordinates {
   maxHeight?: string
 }
 
-interface CustomModalProps {
+interface MobileCustomModalProps {
   initial: AnimationCoordinates
   animate: AnimationCoordinates // This can get changed to allow more animation types like opacity but for now x/y is all i need
   exit: AnimationCoordinates
@@ -19,14 +19,14 @@ interface CustomModalProps {
   children: ReactNode
 }
 
-const CustomModal = ({
+const MobileCustomModal = ({
   initial,
   animate,
   exit,
   showModal,
   setShowModal,
   children,
-}: CustomModalProps) => {
+}: MobileCustomModalProps) => {
   const handleClose = () => setShowModal(false)
 
   return (
@@ -55,4 +55,4 @@ const CustomModal = ({
   )
 }
 
-export default CustomModal
+export default MobileCustomModal
