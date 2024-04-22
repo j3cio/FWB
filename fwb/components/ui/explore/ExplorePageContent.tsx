@@ -233,6 +233,7 @@ const ExplorePageContent = () => {
             <MobileProductFilters />
           </>
         )}
+
         <ResponsiveGrid
           items={searchResults.length > 0 ? searchResults : companies}
           isLoading={isLoading}
