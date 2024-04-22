@@ -19,8 +19,7 @@ const ProductCardSkeleton = () => {
         minWidth: '140px',
         backgroundColor: 'white',
         borderRadius: 20,
-        margin: 4,
-        marginBottom: '10px',
+        margin: 2,
       }}
     >
       {/* the default variant is text, but that leads to some weird scaling, shifting to rectangular gives more direct styling control */}
