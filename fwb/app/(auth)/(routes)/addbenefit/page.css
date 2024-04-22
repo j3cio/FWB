@@ -452,7 +452,7 @@ select {
 
   .slider {
     margin-left: 10px;
-    width: 85%;
+    width: 85% !important;
   }
 
 
