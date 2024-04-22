@@ -5,7 +5,7 @@ export default function RightGroup() {
   return (
     <div>
       <div
-        className="flex justify-between ml-4 mr-4 mt-5 pb-2"
+        className="ml-4 mr-4 mt-5 flex justify-between pb-2"
         style={{
           borderBottom: '1px solid rgba(255, 255, 255, 0.20)',
         }}
@@ -29,7 +29,7 @@ export default function RightGroup() {
 
       <div className="flex flex-col justify-between">
         <div style={{ height: '270px' }}>
-          <div className="flex ml-4 mt-3 justify-between">
+          <div className="ml-4 mt-3 flex justify-between">
             <div className="flex">
               <div>
                 <Image
@@ -38,10 +38,10 @@ export default function RightGroup() {
                   style={{ width: '30px', height: '30px' }}
                 />
               </div>
-              <div className="flex ml-2 items-center justify-center">Name</div>
+              <div className="ml-2 flex items-center justify-center">Name</div>
             </div>
-            <div className="flex mr-4 mt-2">
-              <div className="flex mr-2">
+            <div className="mr-4 mt-2 flex">
+              <div className="mr-2 flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -74,7 +74,7 @@ export default function RightGroup() {
             </div>
           </div>
 
-          <div className="flex ml-4 mt-3 justify-between">
+          <div className="ml-4 mt-3 flex justify-between">
             <div className="flex">
               <div>
                 <Image
@@ -83,10 +83,10 @@ export default function RightGroup() {
                   style={{ width: '30px', height: '30px' }}
                 />
               </div>
-              <div className="flex ml-2 items-center justify-center">Name</div>
+              <div className="ml-2 flex items-center justify-center">Name</div>
             </div>
-            <div className="flex mr-4 mt-2">
-              <div className="flex mr-2">
+            <div className="mr-4 mt-2 flex">
+              <div className="mr-2 flex">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -120,9 +120,9 @@ export default function RightGroup() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center ml-4">
+        <div className="ml-4 flex flex-col justify-center">
           <div className="flex"></div>
-          <div className="flex mt-2">
+          <div className="mt-2 flex">
             <div className="flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@ export default function RightGroup() {
               Report
             </div>
           </div>
-          <div className="flex mt-2">
+          <div className="mt-2 flex">
             <div className="flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -12,6 +12,7 @@ import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
 //import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GroupInviteModal from './GroupInviteModal'
 
 //TODO: The changing of group profile picture should requre admin priviledges
 
@@ -198,7 +199,7 @@ const GroupDetailsSection = ({
             </div>
           )}
         </div>
-        <div className="mt-36 flex justify-between gap-4 sm-max:flex-col xs-max:flex-col xxs-max:flex-col">
+        <div className="mt-28 flex w-full justify-between gap-4 sm-max:flex-col xs-max:flex-col xxs-max:flex-col">
           <div className="flex max-w-[50%] flex-col gap-3 text-white sm-max:max-w-full xs-max:max-w-full xxs-max:max-w-full">
             <div className="flex items-start gap-1">
               <p className="flex flex-col text-2xl capitalize">
@@ -242,12 +243,17 @@ const GroupDetailsSection = ({
                 endIcon={<InviteMemberIcon />}
                 variant="outlined"
                 className="rounded-2xl border border-white px-4 py-1 text-white"
+                onClick={openGroupInviteModal}
               >
                 Invite Members
               </Button>
             </div>
           </div>
         </div>
+        <GroupInviteModal
+          isOpen={isGroupInviteModalOpen}
+          onClose={closeGroupInviteModal}
+        />
       </div>
     </Box>
   )

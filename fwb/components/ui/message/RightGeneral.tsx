@@ -1,7 +1,7 @@
 export default function RightGeneral() {
   return (
     <div className="flex flex-col">
-      <div className="flex ml-4 mt-4">
+      <div className="ml-4 mt-4 flex">
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@ export default function RightGeneral() {
           Share Profile
         </div>
       </div>
-      <div className="flex flex-col ml-4 mt-64">
+      <div className="ml-4 mt-64 flex flex-col">
         <div className="flex">
           <div className="flex items-center">
             <svg
@@ -47,7 +47,7 @@ export default function RightGeneral() {
             </svg>
           </div>
           <div
-            className="text-white ml-2"
+            className="ml-2 text-white"
             style={{
               fontFamily: 'Urbanist',
               fontSize: '14px',
@@ -57,7 +57,7 @@ export default function RightGeneral() {
           </div>
         </div>
 
-        <div className="flex mt-2">
+        <div className="mt-2 flex">
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ export default function RightGeneral() {
             Report
           </div>
         </div>
-        <div className="flex mt-2">
+        <div className="mt-2 flex">
           <div className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

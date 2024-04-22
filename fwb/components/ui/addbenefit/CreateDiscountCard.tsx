@@ -8,30 +8,31 @@ const CreateDiscountCard = () => {
 
   return (
     <a
-      className="xxs-max:hidden xs-max:hidden sm-max:hidden"
+      className="sm-max:hidden xs-max:hidden xxs-max:hidden"
       href="/addbenefit"
     >
-      <div className="pb-[27%] flex rounded-3xl items-center justify-center relative z-0 bg-no-repeat bg-center bg-contain bg-[url('/profileBanner.svg')]">
+      <div className="relative z-0 flex items-center justify-center rounded-3xl bg-[url('/profileBanner.svg')] bg-contain bg-center bg-no-repeat pb-[27%]">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="flex flex-row-reverse w-5/6 mr-28">
-            <Button
-              endIcon={<BlueArrowForward />}
-              variant="contained"
-              sx={{
+          <div className="mr-28 flex w-5/6 flex-row-reverse">
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
                 borderRadius: 28,
                 borderStyle: 'solid',
                 borderColor: 'white',
                 borderWidth: 2,
-                bgcolor: `${theme.palette.secondary.light}`,
-                color: `${theme.palette.primary.dark}`,
-                ':hover': {
-                  bgcolor: `${theme.palette.secondary.light}`, // Hover background color
-                  color: `${theme.palette.primary.dark}`, // Hover text color
-                },
+                backgroundColor: theme.palette.secondary.light,
+                color: theme.palette.primary.dark,
+                padding: '5px 10px',
+                cursor: 'pointer',
               }}
             >
               Share your discount
-            </Button>
+              <span>
+                <BlueArrowForward style={{ marginLeft: '5px' }} />
+              </span>
+            </div>
           </div>
         </div>
       </div>

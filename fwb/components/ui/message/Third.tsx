@@ -12,7 +12,7 @@ export default function Third({
   }
   return (
     <div
-      className="h-full w-full flex flex-col items-center pl-3 pr-3 pb-6 bg-opacity-10 mr-12 bg-white backdrop-blur-12.5 shadow-xl justify-start"
+      className="backdrop-blur-12.5 mr-12 flex h-full w-full flex-col items-center justify-start bg-white bg-opacity-10 pb-6 pl-3 pr-3 shadow-xl"
       style={{
         height: '770px',
         width: '314px',
@@ -20,15 +20,15 @@ export default function Third({
       }}
     >
       <div
-        className="flex justify-between items-center mt-10 font-urbanist font-semibold text-lg leading-125% text-white w-full bottom-border pb-4"
+        className="leading-125% bottom-border mt-10 flex w-full items-center justify-between pb-4 font-urbanist text-lg font-semibold text-white"
         style={{ borderBottom: '1px solid #94A3B1' }}
       >
         <div className="flex">
-          <div className="flex items-center ml-3 font-urbanist font-semibold text-base leading-125%">
+          <div className="leading-125% ml-3 flex items-center font-urbanist text-base font-semibold">
             Details
           </div>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -44,8 +44,8 @@ export default function Third({
         </div>
       </div>
 
-      <div className="flex flex-col mt-8 text-white">
-        <div className="flex flex-col justify-center items-center">
+      <div className="mt-8 flex flex-col text-white">
+        <div className="flex flex-col items-center justify-center">
           <div>
             <Image
               src={avatar}
@@ -64,7 +64,7 @@ export default function Third({
           </div>
         </div>
         <div
-          className="mt-8 pt-1 pb-1 ml-4 mr-4 flex justify-center items-center"
+          className="ml-4 mr-4 mt-8 flex items-center justify-center pb-1 pt-1"
           style={{
             background: '#8E94E9',
             borderRadius: '32px',
@@ -75,7 +75,7 @@ export default function Third({
           Open Profile
         </div>
         <div
-          className="flex justify-between w-full mt-5 ml-4"
+          className="ml-4 mt-5 flex w-full justify-between"
           style={{ width: '282px' }}
         >
           <div className="flex items-center">
@@ -102,7 +102,7 @@ export default function Third({
               Mute Messages
             </div>
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"

@@ -28,17 +28,8 @@
   flex-direction: column;
 } */
 
-.firstBox,
 .secondBox {
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.firstBox {
-  padding-bottom: 64px;
-}
-
-.secondBox {
-  padding-top: 40px;
 }
 
 .line1,
@@ -46,6 +37,10 @@
 .line3,
 .line4 {
   display: flex;
+}
+
+.line2 {
+  margin-bottom: 25px;
 }
 
 .email,
@@ -64,20 +59,11 @@
 .company,
 .url,
 .verify {
-  margin-top: 22px !important;
-}
-
-.email {
-  margin-left: 137px;
+  /*margin-top: 22px !important;*/
 }
 
 .url {
   margin-left: 76px;
-  margin-top: 16px;
-}
-
-.company {
-  margin-left: 60px;
   margin-top: 16px;
 }
 
@@ -98,13 +84,13 @@
   align-self: stretch;
   width: 364px;
   height: 32px;
-  margin-left: 24px;
+  margin-left: 43px;
   margin-top: -5px;
 }
 
 .inputCompany,
 .inputUrl {
-  margin-top: 16px;
+  /*margin-top: 16px;*/
 }
 
 input::placeholder {
@@ -158,11 +144,13 @@ input::placeholder {
   border-radius: 10px;
   background: var(--neutral-000, #fff);
   display: flex;
-  padding: 8px 4px 8px 16px;
+  padding: 8px 4px 8px 8px;
   gap: 8px;
-  width: 792px;
+  width: 365px;
   height: 160px;
-  margin-left: 23px;
+  margin-left: 57px;
+  border: none;
+  outline: none;
 }
 
 .amount {
@@ -173,15 +161,14 @@ input::placeholder {
   font-style: normal;
   font-weight: 600;
   line-height: 125%; /* 20px */
-  margin-left: 62px;
 }
 .slider {
-  margin-left: 30px;
+  margin-left: 45px;
 }
 .categories {
   display: flex;
   flex-direction: row;
-  margin-top: 32px;
+  margin-bottom: 25px;
 }
 
 .selectCategory {
@@ -203,10 +190,10 @@ select {
   color: white;
   border: #8e94e9 solid 2px;
   border-radius: 10px;
-  width: 386px;
+  width: 365px;
   height: 48px;
   padding: 9px 16px;
-  margin-left: 20px;
+  margin-left: 90px;
   padding-right: 50px;
 }
 
@@ -218,7 +205,6 @@ select {
   font-style: normal;
   font-weight: 600;
   line-height: 125%;
-  margin-left: 116px;
 }
 
 .all {
@@ -259,7 +245,10 @@ select {
 .rule {
   display: flex;
   flex-direction: row;
-  margin-top: 80px;
+}
+
+.discount1 {
+  margin-bottom: 25px;
 }
 
 .share {
@@ -269,8 +258,8 @@ select {
   margin-bottom: 72px;
 }
 .discountName {
-  margin-left: 80px;
-  width: 34px;
+  margin-left: 10px;
+  width: 115px;
   height: 32px;
   border-radius: 5px;
   background: var(--neutral-000, #fff);
@@ -351,11 +340,12 @@ select {
 .submit {
   padding-right: 40px;
   padding-left: 55px;
+  padding-bottom: 70px;
 }
 
 .agree {
   color: #fff;
-  margin-top: 64px;
+  margin-top: 35px;
   /* Body/16/regular */
   font-family: Urbanist;
   font-size: 16px;
@@ -416,4 +406,8 @@ select {
   line-height: 125%; /* 25px */
   letter-spacing: 0.4px;
   margin-left: 16px;
+}
+
+.description {
+  color: white;
 }

@@ -52,29 +52,29 @@ function Profile({ userData, discountData }: ProfileProps) {
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
         <Navbar />
-        <div className="bg-[#1a1a23] min-h-screen">
+        <div className="min-h-screen bg-[#1a1a23]">
           {/*Container div*/}
-          <div className="flex flex-1 flex-col h-full w-full xxs-max:items-start xs-max:items-start sm-max:items-start items-center justify-center xxs-max:px-4 xs-max:px-6 sm-max:px-8 px-[120px]">
+          <div className="flex h-full w-full flex-1 flex-col items-center justify-center px-[18px] sm-max:items-start sm-max:px-8 xs-max:items-start xs-max:px-6 xxs-max:items-start xxs-max:px-4">
             {/*Profile div*/}
-            <div className="flex xxs-max:flex-col xs-max:flex-col sm-max:flex-col w-full h-1/5 xxs-max:mt-4 xs-max:mt-6 sm-max:mt-8 mt-[95px] mb-[50px] xxs-max:gap-3 xs-max:gap-3 sm-max:gap-4 gap-10 border-b-2 border-slate-200 xxs-max:pb-4 xs-max:pb-4 sm-max:pb-6 pb-[95px]">
+            <div className="mb-[50px] mt-10 flex h-1/5 w-full gap-10 border-b-2 border-slate-200 pb-[95px] sm-max:mt-8 sm-max:flex-col sm-max:gap-4 sm-max:pb-6 xs-max:mt-6 xs-max:flex-col xs-max:gap-3 xs-max:pb-4 xxs-max:mt-4 xxs-max:flex-col xxs-max:gap-3 xxs-max:pb-4">
               <Avatar
                 alt="123"
                 src={`${user?.imageUrl}`}
-                className="flex xxs-max:h-[92px] xxs-max:w-[92px] xs-max:h-[92px] xs-max:w-[92px] sm-max:h-[102px] sm-max:w-[102px] h-[190px] w-48 rounded-full bg-slate-200 justify-center items-center"
+                className="flex h-[190px] w-48 items-center justify-center rounded-full bg-slate-200 sm-max:h-[102px] sm-max:w-[102px] xs-max:h-[92px] xs-max:w-[92px] xxs-max:h-[92px] xxs-max:w-[92px]"
               />
-              <div className="flex flex-col grow justify-center">
-                <div className="text-slate-200 xxs-max:text-[24px] xs-max:text-[24px] sm-max:text-[28px] text-[35px] mb-[4px] leading-none font-semibold">
+              <div className="flex grow flex-col justify-center">
+                <div className="mb-[4px] text-[35px] font-semibold leading-none text-slate-200 sm-max:text-[28px] xs-max:text-[24px] xxs-max:text-[24px]">
                   {userData.users[0].username}
                 </div>
                 {userData.users[0].company && (
-                  <div className="xxs-max:text-[12px] xs-max:text-[12px] sm-max:text-[14px] flex flex-row mb-[16px]">
+                  <div className="mb-[16px] flex flex-row sm-max:text-[14px] xs-max:text-[12px] xxs-max:text-[12px]">
                     <div className="mr-1 text-slate-200">Benefits from: </div>
                     <div className=" text-yellow-200">
                       {userData.users[0].company}
                     </div>
                   </div>
                 )}
-                <div className="flex my-2 gap-2">
+                <div className="my-2 flex gap-2">
                   <Button
                     endIcon={<WhiteArrowForward />}
                     variant="contained"
@@ -98,19 +98,19 @@ function Profile({ userData, discountData }: ProfileProps) {
               </div>
             </div>
             {/*Bargains div*/}
-            <div className="flex flex-col w-full grow gap-6">
+            <div className="flex w-full grow flex-col gap-6">
               <CreateDiscountCard />
-              <div className="lg-max:hidden xl-max:hidden xxl-max:hidden flex w-full h-2/5">
-                <a className="min-w-full" href="/intakeform">
-                  <div className='flex rounded-[32px] bg-cover py-5 sm-max:py-[10%] bg-[url("/profilebanner-sm.svg")]'>
-                    <div className="flex flex-col items-start gap-2 px-4 pt-8 pb-5">
-                      <h1 className="text-[#F6FF82] text-xl sm-max:text-3xl font-medium">
+              <div className="flex h-2/5 w-full xxl-max:hidden xl-max:hidden lg-max:hidden">
+                <a className="min-w-full" href="/addbenefit">
+                  <div className='flex rounded-[32px] bg-[url("/profilebanner-sm.svg")] bg-cover py-5 sm-max:py-[10%]'>
+                    <div className="flex flex-col items-start gap-2 px-4 pb-5 pt-8">
+                      <h1 className="text-xl font-medium text-[#F6FF82] sm-max:text-3xl">
                         Booty Call <br /> For Bargains!
                       </h1>
                       <Button
                         endIcon={<BlueArrowForward />}
                         variant="contained"
-                        className="rounded-[32px] font-medium text-sm sm-max:text-lg border-2 border-white text-[#8E94E9] bg-[#F6FF82] normal-case"
+                        className="rounded-[32px] border-2 border-white bg-[#F6FF82] text-sm font-medium normal-case text-[#8E94E9] sm-max:text-lg"
                       >
                         Share your discount
                       </Button>
@@ -121,17 +121,17 @@ function Profile({ userData, discountData }: ProfileProps) {
               <div className="flex h-2/5 gap-6">
                 <a
                   href="groups"
-                  className="flex flex-1 bg-white rounded-3xl items-center gap-6 h-[126px]"
+                  className="flex h-[126px] flex-1 items-center gap-6 rounded-3xl bg-white"
                 >
-                  <div className="flex flex-col mx-6">
-                    <div className="font-semibold xxs-max:text-lg xs-max:text-lg sm-max:text-xl text-2xl">
+                  <div className="mx-6 flex flex-col">
+                    <div className="text-2xl font-semibold sm-max:text-xl xs-max:text-lg xxs-max:text-lg">
                       Private Groups
                     </div>
-                    <div className="xxs-max:text-[10px] xs-max:text-[10px] sm-max:text-[10px] text-[14px]">
+                    <div className="text-[14px] sm-max:text-[10px] xs-max:text-[10px] xxs-max:text-[10px]">
                       Get intimate with discounts in private groups
                     </div>
                   </div>
-                  <div className="flex flex-row-reverse grow mx-10">
+                  <div className="mx-10 flex grow flex-row-reverse">
                     <Image
                       src={BlueGroupIcon}
                       alt="Group Icon"
@@ -144,13 +144,13 @@ function Profile({ userData, discountData }: ProfileProps) {
               </div>
             </div>
             {/*My Benefits div*/}
-            <div className="flex flex-col w-full h-1/5 xxs-max:my-6 xs-max:my-8 sm-max:my-10 my-[80px] rounded-lg">
-              <div className="flex flex-col h-full w-full">
-                <div className="flex h-2/5 border-b-2 border-slate-200 xxs-max:text-xl xs-max:text-xl sm-max:text-xl text-3xl text-white">
+            <div className="my-[80px] flex h-1/5 w-full flex-col rounded-lg sm-max:my-10 xs-max:my-8 xxs-max:my-6">
+              <div className="flex h-full w-full flex-col">
+                <div className="flex h-2/5 border-b-2 border-slate-200 text-3xl text-white sm-max:text-xl xs-max:text-xl xxs-max:text-xl">
                   My Benefits!
                 </div>
                 {discountData && discountData.length > 0 ? (
-                  <div className=" flex justify-center mt-12">
+                  <div className=" mt-12 flex justify-center">
                     <Box
                       sx={{
                         flexGrow: 1,
@@ -163,7 +163,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                         container
                         spacing={2}
                         rowGap={2}
-                        sx={{ gap: '64px', marginLeft: '14px' }}
+                        sx={{ gap: '64px', paddingLeft: '24px' }}
                       >
                         {discountData.map((company: any, index: React.Key) => (
                           <div key={`${company} - ${index}`}>
@@ -183,11 +183,11 @@ function Profile({ userData, discountData }: ProfileProps) {
                   </div>
                 ) : (
                   <>
-                    <div className="flex h-1/4 items-center justify-center text-yellow-200 xxs-max:mt-10 xs-max:mt-10 sm-max:mt-10 mt-[120px] xxs-max:text-xl xs-max:text-xl sm-max:text-xl text-3xl">
+                    <div className="mt-[120px] flex h-1/4 items-center justify-center text-3xl text-yellow-200 sm-max:mt-10 sm-max:text-xl xs-max:mt-10 xs-max:text-xl xxs-max:mt-10 xxs-max:text-xl">
                       Be the wingman to a friend&apos;s wallet now!
                     </div>
-                    <div className="flex grow items-center justify-center mt-[24px]">
-                      <a href="/intakeform">
+                    <div className="mt-[24px] flex grow items-center justify-center">
+                      <a href="/addbenefit">
                         <Button
                           endIcon={<WhiteArrowForward />}
                           variant="contained"

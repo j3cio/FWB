@@ -13,7 +13,7 @@ const DiscountsSection = ({
       <div className="w-11/12">
         <Productfilters />
       </div>
-      <div className=" flex justify-center ml-24">
+      <div className=" ml-24 flex justify-center">
         <Box
           sx={{
             flexGrow: 1,

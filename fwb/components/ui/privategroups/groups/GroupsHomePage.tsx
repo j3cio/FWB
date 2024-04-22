@@ -120,7 +120,7 @@ const GroupsHomePage = ({
 
   if (userData.users[0].user_groups.length == 0) {
     return (
-      <section className="w-full h-full">
+      <section className="h-full w-full">
         <Box
           className="font-urbanist"
           sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
@@ -149,13 +149,13 @@ const GroupsHomePage = ({
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] max-w-full min-w-fit min-h-[75vh]">
+              <Box className="absolute flex min-h-[75vh] min-w-fit max-w-full justify-center rounded-3xl border-2 border-[#fff] bg-[#8E94E9] py-14 text-white">
                 <Button
-                  className="text-white font-medium absolute top-2 right-0 text-xl"
+                  className="absolute right-0 top-2 text-xl font-medium text-white"
                   onClick={handleClose}
                 >
                   <Image
-                    className="w-8 h-8"
+                    className="h-8 w-8"
                     src="/groups/icon-close.svg"
                     height={0}
                     width={0}
@@ -181,7 +181,7 @@ const GroupsHomePage = ({
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <Navbar />
-        <Box className="px-[18px] flex justify-between items-center">
+        <Box className="flex items-center justify-between px-[18px]">
           <Typography
             className="font-urbanist"
             sx={{
@@ -194,12 +194,12 @@ const GroupsHomePage = ({
             Private Groups
           </Typography>
           <Button
-            className="flex items-center h-fit gap-3 px-5 rounded-3xl bg-[#F6FF82] text-[#8E94E9]"
+            className="flex h-fit items-center gap-3 rounded-3xl bg-[#F6FF82] px-5 text-[#8E94E9]"
             onClick={handleOpen}
             endIcon={<EndArrow />}
           >
             <Typography
-              className="text-sm normal-case font-bold font-urbanist"
+              className="font-urbanist text-sm font-bold normal-case"
               component="p"
             >
               Create new group
@@ -207,7 +207,7 @@ const GroupsHomePage = ({
           </Button>
         </Box>
         <Stack
-          className="relative px-[18px] mt-16 z-0"
+          className="relative z-0 mt-16 px-[18px]"
           direction="column"
           spacing={3}
         >
@@ -233,13 +233,13 @@ const GroupsHomePage = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="absolute bg-[#8E94E9] flex text-white justify-center py-14 rounded-3xl border-2 border-[#fff] min-w-fit max-w-full min-h-[75vh]">
+        <Box className="absolute flex min-h-[75vh] min-w-fit max-w-full justify-center rounded-3xl border-2 border-[#fff] bg-[#8E94E9] py-14 text-white">
           <Button
-            className="text-white font-medium absolute top-2 right-0 text-xl"
+            className="absolute right-0 top-2 text-xl font-medium text-white"
             onClick={handleClose}
           >
             <Image
-              className="w-8 h-8"
+              className="h-8 w-8"
               src="/groups/icon-close.svg"
               height={0}
               width={0}
