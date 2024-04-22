@@ -113,7 +113,7 @@ function BasicSelect({
 }
 export default function ProductFilters() {
   return (
-    <div className="sticky top-[112px] z-[1] mb-8 hidden h-[76px] justify-end bg-[#1A1A23] sm:flex">
+    <div className="sticky top-0 z-[1] mb-8 hidden h-[85px] justify-end bg-[#1A1A23] pt-3 sm:flex">
       <Box
         sx={{
           display: 'flex',
