@@ -47,9 +47,6 @@ const MobileProductFilters = () => {
     setActiveOptions(updatedOptions)
   }
 
-  useEffect(() => {
-    console.log(activeOptions)
-  }, [activeOptions])
   return (
     <div
       className="max-w-screen flex gap-1 overflow-x-auto 
