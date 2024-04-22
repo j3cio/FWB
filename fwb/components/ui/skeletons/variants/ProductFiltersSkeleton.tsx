@@ -63,7 +63,7 @@ const ProductFiltersSkeleton = () => {
         <div
           className="max-w-screen flex gap-1 overflow-x-auto 
     overflow-y-hidden
-    pb-[6px] text-white sm:hidden"
+    px-4 pb-[6px] text-white sm:hidden"
         >
           {sortOptions.map((option) => {
             const wordLength = option.length.toString() + 'ch'
