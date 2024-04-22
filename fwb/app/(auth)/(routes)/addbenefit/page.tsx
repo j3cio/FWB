@@ -154,7 +154,7 @@ export default function Intakeform() {
     }
   }
 
-  const isDisabled = !(termsAndConditions && selectedOption === 'private' && discountAmount !== 0 && company !== '' && description !== '');
+  const isDisabled = !(termsAndConditions && selectedOption !== 'public' && discountAmount !== 0 && company !== '' && description !== '');
 
   return (
     <div>
