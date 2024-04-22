@@ -33,19 +33,7 @@ const Discount = ({
       <div style={{ position: 'relative', fontFamily: 'inherit' }}>
         <motion.div
           animate={{ y: isHovered ? -10 : 0 }} // Move up 10 pixels when hovering
-          style={{
-            position: 'absolute',
-            top: -55,
-            left: 180,
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            backgroundColor: '#8e94e9',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontFamily: 'inherit',
-          }}
+          className="absolute left-[80%] top-[-50px] flex h-[35px] w-[35px] items-center justify-center rounded-full bg-[#8e94e9] sm:left-[180px] sm:top-[-55px] sm:h-[60px] sm:w-[60px]"
         >
           <Box
             sx={{
@@ -54,31 +42,12 @@ const Discount = ({
               fontFamily: 'inherit',
             }}
           >
-            <Typography
-              sx={{
-                color: '#F6FF82',
-                fontSize: '24px',
-                fontWeight: '600',
-                lineHeight: '20px',
-                fontFamily: 'inherit',
-                fontStyle: 'normal',
-              }}
-            >
+            <p className="text-xs font-semibold leading-3 text-[#F6FF82] sm:text-2xl sm:leading-5">
               {`${amount}%`}
-            </Typography>
-            <Typography
-              sx={{
-                color: '#F6FF82',
-                fontSize: '12px',
-                fontWeight: '400',
-                textAlign: 'right',
-                fontFamily: 'inherit',
-                fontStyle: 'normal',
-                lineHeight: '14px',
-              }}
-            >
+            </p>
+            <p className="text-right text-[8px] text-[#F6FF82] sm:text-xs sm:leading-4">
               off
-            </Typography>
+            </p>
           </Box>
         </motion.div>
       </div>
@@ -115,7 +84,7 @@ export default function ProductCard({ company }: { company: any }) {
       <Box
         sx={{
           width: '48vw',
-          height: 'calc(48vw + (48vw * 0.142))',
+          height: 'calc(48vw + (48vw * 0.142))', //maintaining our card's aspect ratio in mobile
           maxWidth: '282px',
           maxHeight: '322px',
           minHeight: '168px',
