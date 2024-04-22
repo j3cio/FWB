@@ -224,8 +224,8 @@ const ExplorePageContent = () => {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        {true ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
-        {true ? (
+        {isLoading ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
+        {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
           <>
@@ -238,7 +238,7 @@ const ExplorePageContent = () => {
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          {true ? (
+          {isLoading ? (
             <Skeleton
               variant="rectangular"
               width={87}

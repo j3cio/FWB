@@ -34,7 +34,7 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
         rowGap={isDesktop ? 2 : 1}
         sx={{ marginBottom: '60px', justifyContent: 'center' }}
       >
-        {true
+        {isLoading
           ? items.map((company: any, index: React.Key) => (
               <Grid
                 item
