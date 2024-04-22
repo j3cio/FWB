@@ -12,9 +12,10 @@ import {
 } from './constants'
 import MobileCustomModal from '../modals/MobileCustomModal'
 import FilterIconWhite from './icons/FilterIconWhite'
+import Link from 'next/link'
 
 const MobileProductFilters = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [activeOptions, setActiveOptions] = useState<FilterOptions>({
     sort: '',
     privateGroups: [],
@@ -109,7 +110,9 @@ const MobileProductFilters = () => {
               <div className="mb-14 flex flex-col">
                 <div className="flex justify-between text-sm font-semibold">
                   <p>Private Group</p>
-                  <button className="text-[#F6FF82]">Create Group</button>
+                  <Link href={'/groups'} className="text-[#F6FF82]">
+                    Create Group
+                  </Link>
                 </div>
                 <article className="flex flex-wrap gap-1 pt-3">
                   {groupLists.map((option) => (
