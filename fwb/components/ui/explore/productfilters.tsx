@@ -32,7 +32,6 @@ function BasicSelect({
     transform: flip ? 'rotate(180deg)' : 'rotate(0deg)',
   }
 
-  console.log({ options })
   return (
     <Box>
       <FormControl

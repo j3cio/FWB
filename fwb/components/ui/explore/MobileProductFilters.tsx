@@ -10,8 +10,10 @@ const MobileProductFilters = () => {
   const [open, setOpen] = useState(false)
   const [activeSort, setActiveSort] = useState<string>()
 
-  const openFilterModal = () => {}
-  const setActive = () => {}
+  const openFilterModal = () => {
+    setOpen(true)
+  }
+
   return (
     <div
       className="max-w-screen flex gap-1 overflow-x-auto 
@@ -23,7 +25,8 @@ const MobileProductFilters = () => {
         <MobileFilterButton
           text={option}
           key={crypto.randomUUID()}
-          handleClick={setActive}
+          handleClick={() => setActiveSort(option)}
+          activeSort={activeSort}
         />
       ))}
     </div>
