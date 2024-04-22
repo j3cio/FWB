@@ -4,14 +4,44 @@ import React, { useState } from 'react'
 
 import MobileFilterButton from './MobileFilterButton'
 
-import { sortOptions } from './constants'
+import { FilterOptions, sortOptions } from './constants'
 
 const MobileProductFilters = () => {
   const [open, setOpen] = useState(false)
-  const [activeSort, setActiveSort] = useState<string>()
+  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
+    sort: '',
+    privateGroups: [''],
+    categories: [''],
+  })
 
   const openFilterModal = () => {
     setOpen(true)
+  }
+
+  const activateOption = (
+    type: 'sort' | 'privateGroups' | 'categories',
+    option: string
+  ) => {
+    const updatedOptions: FilterOptions = { ...activeOptions }
+
+    if (type !== 'sort' && activeOptions[type].includes(option)) {
+      return
+    }
+
+    if (type === 'sort') {
+      updatedOptions.sort = option
+    } else {
+      if (updatedOptions[type].includes(option)) {
+        // Remove the option if it already exists
+        updatedOptions[type] = updatedOptions[type].filter(
+          (item) => item !== option
+        )
+      } else {
+        // Add the option if it doesn't exist
+        updatedOptions[type] = [...updatedOptions[type], option]
+      }
+    }
+    setActiveOptions(updatedOptions)
   }
 
   return (
@@ -25,8 +55,9 @@ const MobileProductFilters = () => {
         <MobileFilterButton
           text={option}
           key={crypto.randomUUID()}
-          handleClick={() => setActiveSort(option)}
-          activeSort={activeSort}
+          handleClick={() => activateOption('sort', option)}
+          activeOptions={activeOptions}
+          type="sort"
         />
       ))}
     </div>

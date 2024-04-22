@@ -20,3 +20,9 @@ export const filterCategories = [
   'Books',
   'Hobbies',
 ]
+
+export interface FilterOptions {
+  sort: string
+  privateGroups: string[]
+  categories: string[]
+}

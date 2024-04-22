@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { Typography } from '@mui/material'
+
 import arrowIcon from '@/components/ui/explore/icons/expand_more_24px.svg'
 import Image from 'next/image'
 import { FilterContext } from './filter_context'
