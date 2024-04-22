@@ -146,7 +146,7 @@ export default function ProductCard({ company }: { company: any }) {
               }}
             >
               <div className="relative hidden h-6 w-16 sm:block">
-                <div className="">
+                <div>
                   <Avatar
                     alt="man1"
                     src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
