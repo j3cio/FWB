@@ -270,7 +270,7 @@ export default function Intakeform() {
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
                               className="w-full bg-white rounded border-none outline-none"
                               value={
-                                discountAmount ? discountAmount : undefined
+                                discountAmount ? discountAmount : ''
                               }
                               placeholder="1-100"
                               onChange={handleDiscountInputChange}
