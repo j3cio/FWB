@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Skeleton } from '@mui/material'
 import { useMediaQuery } from 'react-responsive'
 import { sortOptions } from '../../explore/constants'

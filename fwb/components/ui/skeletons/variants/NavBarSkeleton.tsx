@@ -1,3 +1,5 @@
+'use client'
+
 import { AppBar, Box, Skeleton } from '@mui/material'
 import { useMediaQuery } from 'react-responsive'
 
