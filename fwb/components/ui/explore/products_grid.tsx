@@ -1,8 +1,12 @@
 'use client'
 
-import { Box, Paper, Grid, styled, Typography, Button } from '@mui/material'
 import * as React from 'react'
+
+import { useMediaQuery } from 'react-responsive'
+import { Box, Paper, Grid, styled, Typography, Button } from '@mui/material'
+
 import ProductCard from './product_card'
+
 import { generateSkeletons } from '../skeletons/generateSkeletons'
 
 interface ProductGridProps {
@@ -11,6 +15,10 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({ items, isLoading }: ProductGridProps) {
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 640px)',
+  })
+
   return (
     <Box
       sx={{
@@ -20,7 +28,12 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
         minHeight: '1706px',
       }}
     >
-      <Grid container spacing={2} rowGap={2} sx={{ marginBottom: '60px' }}>
+      <Grid
+        container
+        spacing={isDesktop ? 2 : 0}
+        rowGap={isDesktop ? 2 : 1}
+        sx={{ marginBottom: '60px', justifyContent: 'center' }}
+      >
         {isLoading ? (
           <div className="ml-2 flex flex-wrap gap-x-4">
             {generateSkeletons({
@@ -32,11 +45,11 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
           items.map((company: any, index: React.Key) => (
             <Grid
               item
-              xs={12}
+              xs={6}
               sm={6}
               md={3}
-              key={index}
-              sx={{ width: '282px', height: '322px' }}
+              key={crypto.randomUUID()}
+              // sx={{ width: '282px', height: '322px' }}
             >
               <ProductCard company={company} />
             </Grid>
