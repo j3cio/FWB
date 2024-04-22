@@ -109,16 +109,22 @@ export default function ProductCard({ company }: { company: any }) {
     <motion.div
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
+      className="flex justify-center"
     >
       {/* Card Component */}
       <Box
         sx={{
-          width: '282px',
-          height: '322px',
+          width: '48vw',
+          height: 'calc(48vw + (48vw * 0.142))',
+          maxWidth: '282px',
+          maxHeight: '322px',
+          minHeight: '168px',
+          minWidth: '140px',
           background: 'white',
           overflow: 'hidden',
           flexDirection: 'column',
           justifyContent: 'flex-start',
+
           alignItems: 'center',
           display: 'inline-flex',
           backgroundColor: 'transparent',
@@ -154,18 +160,7 @@ export default function ProductCard({ company }: { company: any }) {
             }}
           >
             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <Typography
-                sx={{
-                  fontSize: 24,
-                  fontWeight: '600',
-                  wordWrap: 'break-word',
-                  fontFamily: 'inherit',
-                  fontStyle: 'normal',
-                  lineHeight: '26.4px',
-                }}
-              >
-                {company.name}
-              </Typography>
+              <p className="font-semibold sm:text-2xl">{company.name}</p>
             </Box>
             <Discount
               isHovered={isHovered}
@@ -181,57 +176,45 @@ export default function ProductCard({ company }: { company: any }) {
                 alignItems: 'center',
               }}
             >
-              <div
-                style={{
-                  position: 'relative',
-                  width: '64px',
-                  height: '24px',
-                }}
-              >
-                <Avatar
-                  alt="man1"
-                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                  sx={{
-                    width: '24px',
-                    height: '24px',
-                    position: 'absolute',
-                    left: '0',
-                  }}
-                />
-                <Avatar
-                  alt="man1"
-                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                  sx={{
-                    width: '24px',
-                    height: '24px',
-                    position: 'absolute',
-                    left: '20px',
-                  }}
-                />
-                <Avatar
-                  alt="man1"
-                  src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
-                  sx={{
-                    width: '24px',
-                    height: '24px',
-                    position: 'absolute',
-                    left: '40px',
-                  }}
-                />
+              <div className="relative hidden h-6 w-16 sm:block">
+                <div className="">
+                  <Avatar
+                    alt="man1"
+                    src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                    sx={{
+                      width: '24px',
+                      height: '24px',
+                      position: 'absolute',
+                      left: '0',
+                    }}
+                  />
+                  <Avatar
+                    alt="man1"
+                    src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                    sx={{
+                      width: '24px',
+                      height: '24px',
+                      position: 'absolute',
+                      left: '20px',
+                    }}
+                  />
+                  <Avatar
+                    alt="man1"
+                    src="https://www.svgrepo.com/show/303108/google-icon-logo.svg"
+                    sx={{
+                      width: '24px',
+                      height: '24px',
+                      position: 'absolute',
+                      left: '40px',
+                    }}
+                  />
+                </div>
               </div>
-              <Typography
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: '400',
-                  fontFamily: 'inherit',
-                  fontStyle: 'normal',
-                  color: '#6B77AD',
-                  lineHeight: '18px',
-                  marginLeft: '6px',
-                }}
-              >
-                +{company.discounts.length} Benefits available
-              </Typography>
+              <p className="text-xs text-[#6B77AD] sm:ml-2">
+                +{company.discounts.length}{' '}
+                {company.discounts.length > 1 ? 'Benefits ' : 'Benefit '}
+                available
+              </p>
             </Box>
           </CardContent>
         </CardActionArea>
