@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { useSignIn, useUser } from '@clerk/nextjs'
@@ -28,12 +28,16 @@ export default function Page() {
   const [error, setError] = useState<any>(null)
   const { user } = useUser()
   const [userAction, setUserAction] = useState<any>()
+  const [redirectedFromExplorePage, setRedirectedFromExplorePage] =
+    useState<boolean>(false)
+  const [redirectedFromSignUp, setRedirectedFromSignUp] =
+    useState<boolean>(false)
+  const [accountDoesNotExist, setAccountDoesNotExist] = useState<boolean>(false)
 
   const width = useWindowDimensions()
 
   // Display error message based on url and previous webpage accessed
   const searchParams = useSearchParams()
-  const accountDoesntExist = searchParams.has('redirect_url')
 
   useEffect(() => {
     // Check if window and localStorage are defined before accessing them
@@ -41,17 +45,26 @@ export default function Page() {
       const storedUserAction = localStorage.getItem('userAction')
       setUserAction(storedUserAction)
     }
+
+    if (searchParams.getAll('redirect_url')[0]) {
+      // If redirected from explore page should contain 'detail'
+      setRedirectedFromExplorePage(
+        searchParams.getAll('redirect_url')[0].includes('detail')
+      )
+      // If redirected from signup should contain 'sso-callback'
+      setRedirectedFromSignUp(
+        searchParams.getAll('redirect_url')[0].includes('sso-callback')
+      )
+    }
   }, [])
 
-  //Conditional to render only one error message not both if coming from sign-up page
-  const redirectFromSignUp = accountDoesntExist && userAction === 'signup'
-
+  // Create a flag for checking if the user came from detail page
   //Use Effect to clear local storage if error message has already been displayed
   useEffect(() => {
-    if (redirectFromSignUp) {
+    if (redirectedFromSignUp) {
       localStorage.removeItem('userAction')
     }
-  }, [redirectFromSignUp])
+  }, [redirectedFromSignUp])
 
   if (user) {
     // Redirect authenticated user to the profile page
@@ -90,6 +103,7 @@ export default function Page() {
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
       console.error(JSON.stringify(err, null, 2))
       setError(err)
+      setAccountDoesNotExist(true)
     }
   }
 
@@ -170,13 +184,20 @@ export default function Page() {
           </div>
           <div className="rightSigninContainer">
             {/* <SignIn /> */}
-            {redirectFromSignUp && (
+            {/* When you redirect from explore page*/}
+            {redirectedFromExplorePage && (
+              <div className="mx-auto mb-6 flex w-3/4 justify-center rounded border-2 border-[#f6ff82] bg-[#bbbef2] xl-max:mx-0 xl-max:ml-28">
+                Please create an account to view this content.
+              </div>
+            )}
+            {/* When you sign-up and the account already exists */}
+            {redirectedFromSignUp && (
               <div className="mx-auto mb-6 flex w-3/4 justify-center rounded border-2 border-[#f6ff82] bg-[#bbbef2] xl-max:mx-0 xl-max:ml-28">
                 This account is already taken. Please try signing in below.
               </div>
             )}
-
-            {accountDoesntExist && !redirectFromSignUp && (
+            {/* When you sign-in and the account doesn't exist */}
+            {accountDoesNotExist && (
               <div className="mx-auto mb-6 flex w-3/4 justify-center rounded border-2 border-[#f6ff82] bg-[#bbbef2] xl-max:mx-0 xl-max:ml-28">
                 This account does not exist. Please create an account below.
               </div>
