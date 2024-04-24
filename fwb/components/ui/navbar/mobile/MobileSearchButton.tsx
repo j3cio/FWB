@@ -19,7 +19,7 @@ import MobileLargeChatIcon from '../icons/MobileLargeChatIcon'
 
 import { MobileSearchProps } from '../types'
 import { SearchContext } from '@/contexts/SearchContext'
-import CustomModal from './CustomModal'
+import MobileCustomModal from '../../modals/MobileCustomModal'
 
 const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
   const [showSearchModal, setShowSearchModal] = useState(false)
@@ -40,7 +40,7 @@ const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
         </Link>
       </article>
 
-      <CustomModal
+      <MobileCustomModal
         initial={{
           maxHeight: searchHistory.length ? '' : '100%',
           y: '-30%',
@@ -74,7 +74,7 @@ const MobileSearchButton = ({ handleSearch }: MobileSearchProps) => {
             isCollapsed={isCollapsed}
           />
         </article>
-      </CustomModal>
+      </MobileCustomModal>
     </>
   )
 }

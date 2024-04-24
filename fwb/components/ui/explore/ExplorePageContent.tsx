@@ -13,6 +13,8 @@ import { SearchContext } from '@/contexts/SearchContext'
 import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 import { createClient } from '@supabase/supabase-js'
 import Navbar from '../navbar/Navbar'
+import ProductFilters from '@/components/ui/explore/productfilters'
+import MobileProductFilters from './MobileProductFilters'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -142,7 +144,6 @@ const ExplorePageContent = () => {
         )
           .then(async (res) => {
             const data = await res.json()
-            console.log(data)
             if (concat) {
               setCompanies([...companies].concat(data.result))
             } else {
@@ -227,8 +228,12 @@ const ExplorePageContent = () => {
         {isLoading ? (
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
-          <Productfilters />
+          <>
+            <ProductFilters />
+            <MobileProductFilters />
+          </>
         )}
+
         <ResponsiveGrid
           items={searchResults.length > 0 ? searchResults : companies}
           isLoading={isLoading}
