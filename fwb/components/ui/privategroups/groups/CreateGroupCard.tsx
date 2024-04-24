@@ -32,7 +32,7 @@ const CreateGroupCard = ({ handleOpen }: Props) => {
     >
       <Box className="flex flex-col text-[#F6FF82]">
         <Box className="ml-[10%] flex items-center gap-3 md:gap-6">
-          <Typography className="font-urbanist text-[28px] font-semibold xxl-max:text-[64px] xl-max:text-[64px] lg-max:text-[54px] sm-max:text-[48px]">
+          <Typography className="font-urbanist text-[28px] sm-max:text-[48px] lg-max:text-[54px] xl-max:text-[64px] xxl-max:text-[64px] font-semibold">
             Create
           </Typography>
           <Image

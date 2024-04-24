@@ -24,6 +24,7 @@ const insertGroup = async (request: NextRequest) => {
         admins: [formData.get('admins')] || [],
         public: formData.get('public') === 'false' ? false : true, // There might be a way to use a boolean rather than having to type false?
         description: formData.get('description'),
+        filePath: formData.get('filePath'),
       }
       const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
       if (!supabase) {

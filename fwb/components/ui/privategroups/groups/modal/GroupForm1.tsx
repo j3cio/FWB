@@ -1,18 +1,40 @@
 import { Box, FormLabel, Input } from '@mui/material'
 import Image from 'next/image'
+import { ChangeEvent, useRef, useState } from 'react'
 import LockIconWhite from '../../icons/LockIconWhite'
-import LockIcon from '../../icons/LockIcon'
 
 type Form1Data = {
   name: string
   description: string
+  file: File | null
 }
 
 type Form1Props = Form1Data & {
   updateFields: (fields: Partial<Form1Data>) => void
 }
 
+type FileEvent = ChangeEvent<HTMLInputElement> & {
+  target: EventTarget & { files: FileList }
+}
+
 export function GroupForm1({ name, description, updateFields }: Form1Props) {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+
+  const storeFile = async (event: FileEvent) => {
+    updateFields({ file: event.target.files[0] })
+    generatePreview(event.target.files[0])
+  }
+
+  const generatePreview = (file: Blob | MediaSource) => {
+    try {
+      setImagePreview(URL.createObjectURL(file))
+    } catch (error) {
+      setImagePreview(null)
+      console.log(error)
+    }
+  }
+
   return (
     <Box className="flex min-w-[50vw] flex-col gap-6 px-[20%] font-urbanist sm-max:min-w-[60vw] xs-max:min-w-[80vw] xxs-max:min-w-[80vw]">
       <FormLabel className="flex justify-center">
@@ -20,10 +42,12 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
           className="hidden"
           inputProps={{ accept: 'image/*' }}
           type="file"
+          onChange={storeFile}
+          ref={fileInputRef}
         />
         <Image
-          className="h-20 w-20 overflow-visible rounded-full"
-          src="/groups/person.svg"
+          className={`h-20 w-20 rounded-full cursor-pointer ${imagePreview ? "overflow-hidden" : "overflow-visible"}`}
+          src={imagePreview ? imagePreview : "/groups/person.svg"}
           width={0}
           height={0}
           alt="person"

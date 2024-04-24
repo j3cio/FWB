@@ -10,6 +10,7 @@ export interface Group {
   public: boolean
   users: string[]
   description: string
+  filePath: string
 }
 export interface DiscountData {
   created_at: string
