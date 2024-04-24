@@ -54,12 +54,14 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
       }
 
       fetchData()
+  
     }
 
     return () => {
       subscribe = false
     }
   }, [recipient])
+
 
   return (
     <section
@@ -78,7 +80,7 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
                     alt={`profile picture for ${userDetails.username}`}
                     width={88}
                     height={88}
-                    className=" rounded-full"
+                    className="rounded-full"
                     priority
                   />
                   <h1 className="pt-2 font-semibold">{userDetails.username}</h1>
@@ -88,11 +90,11 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
                     </p>
                   ) : null}
                 </div>
-                <button className="h-9 w-full rounded-3xl bg-[#8E94E9] font-bold">
+                {/* <button className="h-9 w-full rounded-3xl bg-[#8E94E9] font-bold">
                   Open Profile
-                </button>
+                </button> */}
 
-                <div className="flex w-full flex-col pt-3 text-xs">
+                {/* <div className="flex w-full flex-col pt-3 text-xs">
                   <article
                     className="flex justify-between"
                     onClick={() => setMuteMessages(!muteMessages)}
@@ -106,7 +108,7 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
                   <CustomOption icon={<ShareIcon />}>
                     Share Profile
                   </CustomOption>
-                </div>
+                </div> */}
               </div>
 
               <div className="flex-col gap-1 self-start pb-11">
