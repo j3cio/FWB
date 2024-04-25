@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -17,32 +17,26 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { useClerk } from '@clerk/clerk-react'
 import { useUser } from '@clerk/nextjs'
 import SearchBar from './Searchbar'
+import { SearchContext } from '@/contexts/SearchContext'
 
 interface DesktopNavbarProps {
-  handleSearch: (e: any) => void
-  clearSearch: () => void
-  searchQuery: string
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
   theme: Theme
 }
-const DesktopNavbar = ({
-  handleSearch,
-  clearSearch,
-  searchQuery,
-  setSearchQuery,
-  theme,
-}: DesktopNavbarProps) => {
+const DesktopNavbar = ({ theme }: DesktopNavbarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const pathname = usePathname()
-  const open = Boolean(anchorEl)
   const router = useRouter()
   const { signOut } = useClerk()
   const { user } = useUser()
+  const { clearSearch } = useContext(SearchContext)
+
+  const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -52,6 +46,7 @@ const DesktopNavbar = ({
     router.push(href)
     setAnchorEl(null)
   }
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar
@@ -89,11 +84,7 @@ const DesktopNavbar = ({
               flexGrow: 1,
             }}
           >
-            <SearchBar
-              handleSearch={handleSearch}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
+            <SearchBar />
             <Tooltip
               title="Explore"
               disableInteractive={true}

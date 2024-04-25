@@ -1,15 +1,9 @@
-import MobileCustomModal from '@/components/ui/modals/MobileCustomModal'
-import Link from 'next/link'
-import Image from 'next/image'
 import React, { Dispatch, SetStateAction, useContext } from 'react'
-import MobileExploreIcon from '../../icons/MobileExploreIcon'
-import MobileGroupIcon from '../../icons/MobileGroupIcon'
-import MobileHamburgerIcon from '../../icons/MobileHamburgerIcon'
-import MobilePlusIcon from '../../icons/MobilePlusIcon'
-import MobileSmallChatIcon from '../../icons/MobileSmallChatIcon'
-import MobileNavLink from '../MobileNavLink'
+
+import MobileCustomModal from '@/components/ui/modals/MobileCustomModal'
 import MobileSearchBar from '../MobileSearchBar'
 import MobileSearchHistory from '../MobileSearchHistory'
+
 import { SearchContext } from '@/contexts/SearchContext'
 
 interface SideBarModalProps {

@@ -1,8 +1,8 @@
 'use client'
 
-import { modalClasses } from '@mui/base'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
+
 import { AnimatePresence, motion } from 'framer-motion'
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
 
 interface AnimationCoordinates {
   x?: string | number

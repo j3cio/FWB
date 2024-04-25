@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import MobileSearchIcon from '../icons/MobileSearchIcon'
-
-import { MobileSearchProps } from '../types'
-
 import MobileHamburgerIcon from '../icons/MobileHamburgerIcon'
+
 import SearchModal from './modals/SearchModal'
 import SideBarModal from './modals/SideBarModal'
 
-const MobileNavButtons = ({ handleSearch }: MobileSearchProps) => {
+import { SearchContext } from '@/contexts/SearchContext'
+
+const MobileNavButtons = () => {
   const [showSearchModal, setShowSearchModal] = useState(false)
   const [showSideBar, setShowSideBar] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
+
+  const { handleSearch, searchQuery } = useContext(SearchContext)
 
   const openSideBar = () => setShowSideBar(true)
   const openSearchModal = () => setShowSearchModal(true)
@@ -33,7 +35,7 @@ const MobileNavButtons = ({ handleSearch }: MobileSearchProps) => {
         setShowSearchModal={setShowSearchModal}
         isCollapsed={isCollapsed}
         setIsCollapsed={setIsCollapsed}
-        handleSearch={handleSearch}
+        handleSearch={() => handleSearch(searchQuery)}
       />
 
       <SideBarModal showSideBar={showSideBar} setShowSideBar={setShowSideBar} />
