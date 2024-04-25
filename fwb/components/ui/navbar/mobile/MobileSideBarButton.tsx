@@ -14,6 +14,7 @@ import MobileGroupIcon from '../icons/MobileGroupIcon'
 import MobileSmallChatIcon from '../icons/MobileSmallChatIcon'
 import MobilePlusIcon from '../icons/MobilePlusIcon'
 import MobileCustomModal from '../../modals/MobileCustomModal'
+import Link from 'next/link'
 
 const MobileSideBarButton = () => {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -23,9 +24,19 @@ const MobileSideBarButton = () => {
 
   return (
     <>
-      <article className="flex items-center gap-4" onClick={() => handleOpen()}>
-        <MobileHamburgerIcon />
-        <Image priority src="/fwb_logo.png" alt="logo" width={110} height={0} />
+      <article className="flex items-center gap-4">
+        <div onClick={() => handleOpen()}>
+          <MobileHamburgerIcon />
+        </div>
+        <Link href="/profile">
+          <Image
+            priority
+            src="/fwb_logo.png"
+            alt="logo"
+            width={110}
+            height={0}
+          />
+        </Link>
       </article>
 
       <MobileCustomModal
