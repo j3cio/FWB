@@ -129,6 +129,8 @@ export async function GET(request: NextRequest) {
           })
         }
       })
+
+      console.log({ result })
       return NextResponse.json({ result }, { status: 200 })
     }
 

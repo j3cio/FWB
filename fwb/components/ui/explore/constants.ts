@@ -1,8 +1,16 @@
+import { Dispatch, SetStateAction } from 'react'
+
+export enum SortOptionsEnum {
+  MostPopular = 'Most Popular',
+  MostRecent = 'Most Recent',
+  HighestToLowest = 'Highest to Lowest Discounts',
+  LowestToHighest = 'Lowest to Highest Discounts',
+}
 export const sortOptions = [
-  'Most Popular',
-  'Most Recent',
-  'Highest to Lowest Discounts',
-  'Lowest to Highest Discounts',
+  SortOptionsEnum.MostPopular,
+  SortOptionsEnum.MostRecent,
+  SortOptionsEnum.HighestToLowest,
+  SortOptionsEnum.LowestToHighest,
 ]
 
 // Temporary hardcoded, this should get pulled from our current user
@@ -25,4 +33,9 @@ export interface FilterOptions {
   sort: string
   privateGroups: string[]
   categories: string[]
+}
+
+export interface FilterState {
+  activeOptions: FilterOptions
+  setActiveOptions: Dispatch<SetStateAction<FilterOptions>>
 }

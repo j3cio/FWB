@@ -15,6 +15,7 @@ import { createClient } from '@supabase/supabase-js'
 import Navbar from '../navbar/Navbar'
 import ProductFilters from '@/components/ui/explore/productfilters'
 import MobileProductFilters from './MobileProductFilters'
+import { FilterOptions } from './constants'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -30,6 +31,11 @@ const ExplorePageContent = () => {
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
   const [searchedCompany, setSearchedCompany] = useState(null)
+  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
+    sort: '',
+    privateGroups: [],
+    categories: [],
+  })
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
@@ -221,6 +227,8 @@ const ExplorePageContent = () => {
       })
   }, [searchQuery, searchIndex])
 
+  console.log({ companies })
+
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
@@ -230,12 +238,15 @@ const ExplorePageContent = () => {
         ) : (
           <>
             <ProductFilters />
-            <MobileProductFilters />
+            <MobileProductFilters
+              activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}
+            />
           </>
         )}
 
         <ResponsiveGrid
-          items={searchResults.length > 0 ? searchResults : companies}
+          items={searchResults.length ? searchResults : companies}
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>

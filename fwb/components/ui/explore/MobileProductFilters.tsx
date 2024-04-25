@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 
 import MobileFilterButton from './MobileFilterButton'
 
 import {
   FilterOptions,
+  FilterState,
   filterCategories,
   groupLists,
   sortOptions,
@@ -14,13 +15,11 @@ import MobileCustomModal from '../modals/MobileCustomModal'
 import FilterIconWhite from './icons/FilterIconWhite'
 import Link from 'next/link'
 
-const MobileProductFilters = () => {
+const MobileProductFilters = ({
+  activeOptions,
+  setActiveOptions,
+}: FilterState) => {
   const [open, setOpen] = useState(false)
-  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
-    sort: '',
-    privateGroups: [],
-    categories: [],
-  })
 
   const openFilterModal = () => {
     setOpen(true)
