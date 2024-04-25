@@ -33,7 +33,7 @@ const SearchModal = ({
     <MobileCustomModal
       initial={{
         maxHeight: searchHistory.length ? '' : '100%',
-        y: '-30%',
+        y: '-10%',
       }}
       animate={{
         maxHeight: isCollapsed
