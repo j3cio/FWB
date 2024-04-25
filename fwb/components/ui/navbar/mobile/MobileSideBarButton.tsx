@@ -13,7 +13,7 @@ import MobileExploreIcon from '../icons/MobileExploreIcon'
 import MobileGroupIcon from '../icons/MobileGroupIcon'
 import MobileSmallChatIcon from '../icons/MobileSmallChatIcon'
 import MobilePlusIcon from '../icons/MobilePlusIcon'
-import CustomModal from './CustomModal'
+import MobileCustomModal from '../../modals/MobileCustomModal'
 
 const MobileSideBarButton = () => {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -28,7 +28,7 @@ const MobileSideBarButton = () => {
         <Image priority src="/fwb_logo.png" alt="logo" width={110} height={0} />
       </article>
 
-      <CustomModal
+      <MobileCustomModal
         initial={{ x: '-30%' }}
         animate={{ x: 0 }}
         exit={{ x: '-100%' }}
@@ -90,7 +90,7 @@ const MobileSideBarButton = () => {
             </div>
           </div>
         </div>
-      </CustomModal>
+      </MobileCustomModal>
     </>
   )
 }

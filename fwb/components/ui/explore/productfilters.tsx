@@ -6,10 +6,11 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { Typography } from '@mui/material'
+
 import arrowIcon from '@/components/ui/explore/icons/expand_more_24px.svg'
 import Image from 'next/image'
 import { FilterContext } from './filter_context'
+import { filterCategories, groupLists, sortOptions } from './constants'
 
 function BasicSelect({
   name,
@@ -35,7 +36,7 @@ function BasicSelect({
     <Box>
       <FormControl
         fullWidth
-        sx={{ display: 'flex', minWidth: 246, height: '48px' }}
+        sx={{ display: 'flex', minWidth: 180, height: '48px' }}
       >
         <InputLabel
           id="simple-select-label"
@@ -110,21 +111,9 @@ function BasicSelect({
     </Box>
   )
 }
-export default function Productfilters() {
+export default function ProductFilters() {
   return (
-    <Box
-      sx={{
-        backgroundColor: '#1A1A23',
-        marginBottom: '32px',
-        position: 'sticky',
-        top: '112px',
-        height: '76px',
-        zIndex: 1,
-        justifyContent: 'flex-end',
-        display: 'flex',
-        paddingRight: '10px',
-      }}
-    >
+    <div className="sticky top-0 z-[1] mb-8 hidden h-[85px] justify-end bg-[#1A1A23] pt-3 sm:flex">
       <Box
         sx={{
           display: 'flex',
@@ -134,36 +123,20 @@ export default function Productfilters() {
       >
         <BasicSelect
           name="Sort by"
-          options={[
-            'Most Popular',
-            'Most Recent',
-            'Highest to Lowest Discounts',
-            'Lowest to Highest Discounts',
-          ]}
+          options={sortOptions}
           defaultValue="Most Popular"
         />
         <BasicSelect
           name="Private Group"
-          options={['All', 'Group 1', 'Group 2']}
+          options={groupLists}
           defaultValue="All"
         />
         <BasicSelect
           name="Category"
-          options={[
-            'All',
-            'Sports',
-            'Fashion',
-            'Electronic',
-            'Health',
-            'Home & Kitchen',
-            'Computer & Accessories',
-            'Beauty & Skincare',
-            'Books',
-            'Hobbies',
-          ]}
+          options={filterCategories}
           defaultValue="All"
         />
       </Box>
-    </Box>
+    </div>
   )
 }

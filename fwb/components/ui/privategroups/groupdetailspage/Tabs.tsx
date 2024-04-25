@@ -36,7 +36,7 @@ const Tabs = ({
 
   if (!chatClient || !user) {
     return (
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <LoadingIndicator size={40} />
       </div>
     )
@@ -49,34 +49,34 @@ const Tabs = ({
         minHeight: '100vh',
       }}
     >
-      <div className="flex justify-evenly items-center my-10 ">
+      <div className="my-10 flex items-center justify-evenly ">
         <div
           onClick={showDiscountsTab}
-          className={`w-1/2 cursor-pointer hover:text-white border-b hover:border-white font-bold text-xl ${
+          className={`w-1/2 cursor-pointer border-b text-xl font-bold hover:border-white hover:text-white ${
             !showMembers
-              ? `text-white border-white`
-              : `text-gray-600 border-gray-600`
+              ? `border-white text-white`
+              : `border-gray-600 text-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button className="pb-2 items-center">
-              Discounts Offers
-            </Button>
+            <Button className="items-center pb-2">Discounts Offers</Button>
           </Box>
         </div>
         <div
           onClick={showMemberTab}
-          className={`w-1/2 cursor-pointer hover:text-white border-b hover:border-white font-bold text-xl ${
-            showMembers ? `text-white border-b border-white` : `text-gray-600 border-gray-600`
+          className={`w-1/2 cursor-pointer border-b text-xl font-bold hover:border-white hover:text-white ${
+            showMembers
+              ? `border-b border-white text-white`
+              : `border-gray-600 text-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button className="pb-2 items-center">Members</Button>
+            <Button className="items-center pb-2">Members</Button>
           </Box>
         </div>
       </div>
       <div className="">{showMembers ? <></> : <Bargains />}</div>
-      <div className="w-full h-screen">
+      <div className="h-screen w-full">
         {showMembers ? (
           <Chat client={chatClient}>
             <MembersSection userData={userData} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -21,6 +21,7 @@ type Props = {
   isUserAdmin: boolean
   userGroups: string[]
   handleDeleteGroup: (groupId: string, userGroups: string[]) => Promise<any>
+  downloadFile: (filePath: string) => Promise<string | null | undefined>
 }
 
 const randomNumber = (index: number): number => {
@@ -36,9 +37,11 @@ const SingleGroupCard = ({
   isUserAdmin,
   userGroups,
   handleDeleteGroup,
+  downloadFile
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const openMenu = Boolean(anchorEl)
+  const [groupImage, setGroupImage] = useState<string>('')
   const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -50,58 +53,73 @@ const SingleGroupCard = ({
     window.location.href = `/groups/${group_id}`
   }
 
+  // Display the image
+  const fetchAndDisplayImage = async () => {
+      const fileData = await downloadFile(group.filePath)
+      // Convert the Blob to a URL for display
+      if (fileData) {
+        setGroupImage(fileData)
+      }
+  }
+
+  useEffect(() => {
+    if ( group.filePath != null){
+      fetchAndDisplayImage()
+    }
+  }, [])
+
   return (
     <Box
       component="div"
-      className="bg-white border-4 overflow-hidden flex flex-col w-full rounded-xl"
+      className="flex w-full flex-col overflow-hidden rounded-xl border-4 bg-white"
       key={group.id}
     >
-      <Box className="w-full relative">
+      <Box className="relative w-full">
         <Image
           onClick={() => navigateToUserPage(group.id)}
           priority
-          className="w-full h-full cursor-pointer rounded-t-xl"
+          className="h-full w-full cursor-pointer rounded-t-xl"
           src={`/groups/pg-bg${randomNumber(index)}.png`}
           height={0}
           width={900}
           alt="group-img"
         />
-        <LockIcon className="absolute top-2 right-2 bg-[#fff] rounded-full p-3 w-fit" />
+        <LockIcon className="absolute right-2 top-2 w-fit rounded-full bg-[#fff] p-3" />
       </Box>
 
-      <Box className="w-full px-7 py-4 xxs-max:flex-col xs-max:flex-col sm-max:flex-col gap-3 flex items-center justify-between">
-        <Box className="xxs-max:max-w-full xs-max:max-w-full sm-max:max-w-full max-w-[60%] flex xxs-max:items-start xs-max:items-start sm-max:items-start items-center gap-4">
+      <Box className="flex w-full items-center justify-between gap-3 px-7 py-4 sm-max:flex-col xs-max:flex-col xxs-max:flex-col">
+        <Box className="flex max-w-[60%] items-center gap-4 sm-max:max-w-full sm-max:items-start xs-max:max-w-full xs-max:items-start xxs-max:max-w-full xxs-max:items-start">
           <Image
-            className="w-16 h-16 rounded-t-xl"
-            src="/groups/gp-avatar.svg"
+            className="w-16 h-16 rounded-full"
+            src={group.filePath ? groupImage : "/groups/gp-avatar.svg"}
             height={0}
             width={0}
             alt="pg-avatar"
           />
           <Box className="flex flex-col gap-2 text-[#1A1A23]">
-            <Box className="flex justify-between items-center">
+            <Box className="flex items-center justify-between">
               <Typography
                 onClick={() => navigateToUserPage(group.id)}
-                className="xxs-max:text-xl xs-max:text-xl sm-max:text-xl text-2xl font-semibold cursor-pointer font-urbanist"
+                className="cursor-pointer font-urbanist text-2xl font-semibold sm-max:text-xl xs-max:text-xl xxs-max:text-xl"
               >
                 {group.name}
               </Typography>
-              <span className="lg-max:hidden xl-max:hidden xxl-max:hidden text-[#656DE1] text-xs font-urbanist">
+              <span className="font-urbanist text-xs text-[#656DE1] xxl-max:hidden xl-max:hidden lg-max:hidden">
                 {group.discounts.length} benefits available
               </span>
             </Box>
-            <Typography className="opacity-50 text-sm font-urbanist">
+            <Typography className="font-urbanist text-sm opacity-50">
               {group.description}
             </Typography>
           </Box>
         </Box>
-        <Box className="relative xxs-max:w-full xs-max:w-full sm-max:w-full flex gap-4 items-center mt-auto">
-          <span className="xxs-max:hidden xs-max:hidden sm-max:hidden text-[#656DE1] text-xs absolute -top-5 right-2 font-urbanist">
+        <Box className="relative mt-auto flex items-center gap-4 sm-max:w-full xs-max:w-full xxs-max:w-full">
+          <span className="absolute -top-5 right-2 font-urbanist text-xs text-[#656DE1] sm-max:hidden xs-max:hidden xxs-max:hidden">
             {group.discounts.length} benefits available
           </span>
           <Button
             onClick={() => navigateToUserPage(group.id)}
-            className="flex xxs-max:w-full xs-max:w-full sm-max:w-full items-center h-fit gap-3 px-5 rounded-3xl font-urbanist text-white bg-[#8E94E9]"
+            className="flex h-fit items-center gap-3 rounded-3xl bg-[#8E94E9] px-5 font-urbanist text-white sm-max:w-full xs-max:w-full xxs-max:w-full"
             endIcon={<EndArrowWhite />}
           >
             Explore Group

@@ -141,7 +141,6 @@ export default function Intakeform() {
       ? setSelectedOption('private')
       : setSelectedOption('public')
 
-
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories)
   }
@@ -265,10 +264,11 @@ export default function Intakeform() {
                               />
                             </div>
                           </ThemeProvider>
+
                           <div className="percentage flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
                             <input
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
-                              className="w-full bg-white rounded border-none outline-none"
+                              className="w-full rounded border-none bg-white outline-none"
                               value={
                                 discountAmount ? discountAmount : ''
                               }

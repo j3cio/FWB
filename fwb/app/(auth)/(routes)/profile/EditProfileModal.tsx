@@ -147,7 +147,7 @@ const EditProfileModal = ({
       }}
     >
       <div
-        className="modal-content relative xxs-max:h-screen xs-max:w-full sm-max:w-[80%] xxs-max:rounded-none xxs-max:border-none xs-max:rounded-none xs-max:border-none"
+        className="modal-content relative sm-max:w-[80%] xs-max:h-screen xs-max:w-full xs-max:rounded-none xs-max:border-none xxs-max:h-screen xxs-max:rounded-none xxs-max:border-none"
         style={{
           borderRadius: '40px',
           border: '2px solid var(--Neutral-000, #FFF)',
@@ -159,7 +159,10 @@ const EditProfileModal = ({
           height: '722px',
         }}
       >
-        <button onClick={handleXClick} className="hidden xxs-max:flex xs-max:flex gap-2">
+        <button
+          onClick={handleXClick}
+          className="hidden gap-2 xs-max:flex xxs-max:flex"
+        >
           <svg
             className="cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
@@ -173,12 +176,13 @@ const EditProfileModal = ({
               fill="white"
             />
           </svg>
-          <span className="font-urbanist text-white font-medium">Edit Profile</span>
+          <span className="font-urbanist font-medium text-white">
+            Edit Profile
+          </span>
         </button>
         {/* X Button*/}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-
           className="xxs-max:hidden xs-max:hidden sm-max:ml-[85%]"
           width="40"
           height="40"
@@ -197,9 +201,9 @@ const EditProfileModal = ({
             fill="white"
           />
         </svg>
-        <div className="flex items-center justify-center flex-col">
+        <div className="flex flex-col items-center justify-center">
           <h2
-            className="font-urbanist xxs-max:hidden xs-max:hidden"
+            className="font-urbanist xs-max:hidden xxs-max:hidden"
             style={{
               color: 'var(--Neutral-000, #FFF)',
               textAlign: 'center',
@@ -212,19 +216,18 @@ const EditProfileModal = ({
           >
             Edit Profile
           </h2>
-          <div className="flex xxs-max:flex-col xs-max:flex-col items-center justify-center flex-row my-4">
+          <div className="my-4 flex flex-row items-center justify-center xs-max:flex-col xxs-max:flex-col">
             {/* Avatar */}
             <Avatar
               alt="123"
               src={`${user?.imageUrl}`}
-              className="flex bg-slate-200 xxs-max:h-36 xxs-max:w-36 xs-max:h-40 xs-max:w-40 h-48 w-48 rounded-full justify-center items-center"
+              className="flex h-48 w-48 items-center justify-center rounded-full bg-slate-200 xs-max:h-40 xs-max:w-40 xxs-max:h-36 xxs-max:w-36"
             />
             <div className="flex items-center justify-center flex-col m-4">
-
               <div className="hidden xs-max:flex xxs-max:flex font-urbanist font-semibold text-white text-sm">
                 Edit photo
               </div>
-              <div className="flex items-center justify-center flex-row m-4 gap-2">
+              <div className="m-4 flex flex-row items-center justify-center gap-2">
                 {/* First Row*/}
                 <button
                   type="button"
@@ -264,7 +267,7 @@ const EditProfileModal = ({
                 </button>
               </div>
               {/* Second Row */}
-              <div className="flex items-center justify-center flex-row gap-2">
+              <div className="flex flex-row items-center justify-center gap-2">
                 <button
                   type="button"
                   id="chooseProfilePicture"
@@ -305,7 +308,7 @@ const EditProfileModal = ({
             </div>
           </div>
           <div
-            className="font-urbanist xxs-max:hidden xs-max:hidden"
+            className="font-urbanist xs-max:hidden xxs-max:hidden"
             style={{
               color: '#FFF',
               textAlign: 'center',
@@ -445,7 +448,7 @@ const EditProfileModal = ({
           </div>
 
           <button
-            className="text-Purple-300 text-center font-Urbanist text-20 font-bold leading-125 tracking-0.4"
+            className="text-Purple-300 font-Urbanist text-20 leading-125 tracking-0.4 text-center font-bold"
             onClick={handleFormSubmit}
             style={{
               display: 'flex',

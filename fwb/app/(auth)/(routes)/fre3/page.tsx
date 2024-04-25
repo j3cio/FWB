@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs'
 import UserFlowPage3 from './fre3'
-import { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation'
 
 async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
   var myHeaders = new Headers()
