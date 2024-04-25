@@ -16,7 +16,7 @@ const CustomTooltip = ({
       {children}
 
       <div
-        className={`absolute left-[50%] top-[-75%] -translate-x-1/2 transform rounded bg-black p-2 text-xs text-white transition duration-300 ${showTooltip ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute left-[50%] top-[-85%] -translate-x-1/2 transform rounded bg-[#8E94E9]  p-2 text-xs text-white transition duration-300 ${showTooltip ? 'opacity-100' : 'opacity-0'}`}
       >
         {title}
       </div>
