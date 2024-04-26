@@ -38,13 +38,26 @@ const ExplorePageContent = () => {
     privateGroups: [],
     categories: [],
   })
+
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    searchResults,
+    setSearchResults,
+  } = useContext(SearchContext)
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
-  const filteredCompanies = useFilteredCompanies(activeOptions, companies)
+  const initialCompanies = [...companies]
+  const filteredCompanies = useFilteredCompanies(
+    activeOptions,
+    companies,
+    initialCompanies
+  )
 
-  // console.log({ filteredCompanies })
-
+  console.log({ filteredCompanies })
   const fetchPublicCompanies = async () => {
     let { data, error } = await supabase.from('companies').select('*')
 
@@ -61,15 +74,6 @@ const ExplorePageContent = () => {
     }
     return data
   }
-
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    searchResults,
-    setSearchResults,
-  } = useContext(SearchContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,22 +116,6 @@ const ExplorePageContent = () => {
       fetchData()
     }
   }, [companyRedirect])
-
-  const handleSearch = async (e: any) => {
-    e.preventDefault()
-
-    try {
-      const results = await fuzzySearch({
-        searchQuery,
-        searchIndex,
-      })
-
-      setSearchResults(results)
-    } catch (error) {
-      console.error('GET Company Discount API Failed', error)
-      setSearchedCompany(null)
-    }
-  }
 
   const fetchCompanies = async (concat: boolean) => {
     try {
@@ -245,7 +233,13 @@ const ExplorePageContent = () => {
         )}
 
         <ResponsiveGrid
-          items={searchResults.length ? searchResults : companies}
+          items={
+            searchResults.length
+              ? searchResults
+              : filteredCompanies.length
+                ? filteredCompanies
+                : companies
+          }
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>

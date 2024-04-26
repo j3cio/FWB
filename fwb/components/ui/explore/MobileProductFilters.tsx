@@ -32,7 +32,11 @@ const MobileProductFilters = ({
     const updatedOptions: FilterOptions = { ...activeOptions }
 
     if (type === 'sort') {
-      updatedOptions.sort = option
+      if (updatedOptions.sort === option) {
+        updatedOptions.sort = ''
+      } else {
+        updatedOptions.sort = option
+      }
     } else {
       const index = updatedOptions[type].indexOf(option)
       if (index !== -1) {

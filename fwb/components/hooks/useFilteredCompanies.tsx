@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FilterOptions, SortOptionsEnum } from '../ui/explore/constants'
 import { CompanyAndDiscounts } from '@/app/types/types'
 
 const useFilteredCompanies = (
   activeOptions: FilterOptions,
-  companies: Company[]
+  companies: CompanyAndDiscounts[],
+  initialCompanies: CompanyAndDiscounts[]
 ) => {
   const [filteredCompanies, setFilteredCompanies] = useState(companies)
 
@@ -48,53 +49,39 @@ const useFilteredCompanies = (
   }
 
   const sortCompanies = (companies: CompanyAndDiscounts[]) => {
-    console.log(companies)
     switch (activeOptions.sort) {
       case SortOptionsEnum.MostPopular:
-        // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
-        return companies.sort((a, b) => b.popularity - a.popularity)
+        return companies.sort((a, b) => b.views - a.views)
 
       case SortOptionsEnum.MostRecent:
-        console.log('sorting by most recent')
         return companies.sort(
-          // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
           (a, b) =>
-            new Date(a.discounts_updated_at).getTime() -
-            new Date(b.discounts_updated_at).getTime()
+            new Date(b.discounts_updated_at).getTime() -
+            new Date(a.discounts_updated_at).getTime()
         )
 
       case SortOptionsEnum.HighestToLowest:
         return companies.sort(
-          // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
           (a, b) => b.greatest_discount - a.greatest_discount
         )
 
       case SortOptionsEnum.LowestToHighest:
         return companies.sort(
-          // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
           (a, b) => a.greatest_discount - b.greatest_discount
         )
 
       default:
-        return companies
+        return companies.sort((a, b) => a.name.localeCompare(b.name))
     }
   }
 
-  // console.log({ activeOptions, companies })
+  let filtered: CompanyAndDiscounts[] = []
+  //   // let filtered = filterByCategory(companies)
+  //   // filtered = filterByGroup(filtered)
+  //   // filtered = sortCompanies(filtered)
+  filtered = sortCompanies(companies)
 
-  useEffect(() => {
-    let filtered: CompanyAndDiscounts[] = []
-
-    filtered = companies && sortCompanies(companies)
-    // let filtered = filterByCategory(companies)
-    // filtered = filterByGroup(filtered)
-    // filtered = sortCompanies(filtered)
-
-    setFilteredCompanies(filtered)
-  }, [activeOptions])
-
-  console.log({ companies, sortedCompanies: sortCompanies(companies) })
-  return filteredCompanies
+  return filtered
 }
 
 export default useFilteredCompanies
