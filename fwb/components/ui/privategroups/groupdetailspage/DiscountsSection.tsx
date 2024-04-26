@@ -1,17 +1,32 @@
-import { DiscountData } from '@/app/types/types'
-import Productfilters from '@/components/ui/explore/productfilters'
+'use client'
+
+import { useState } from 'react'
+
 import { Box, Grid } from '@mui/material'
+
 import DiscountCard from './DiscountCard'
+import Productfilters from '@/components/ui/explore/productfilters'
+
+import { FilterOptions } from '../../explore/constants'
+import { DiscountData } from '@/app/types/types'
 
 const DiscountsSection = ({
   discountData,
 }: {
   discountData: DiscountData[]
 }) => {
+  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
+    sort: '',
+    privateGroups: [],
+    categories: [],
+  })
   return (
     <div className="bg-[#1a1a23]">
       <div className="w-11/12">
-        <Productfilters />
+        <Productfilters
+          activeOptions={activeOptions}
+          setActiveOptions={setActiveOptions}
+        />
       </div>
       <div className=" ml-24 flex justify-center">
         <Box
