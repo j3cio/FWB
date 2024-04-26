@@ -479,7 +479,7 @@ select {
 
   .toggle {
     margin-bottom: 0 !important;
-    margin-left: 0 !important;
+    margin-left: -8px !important;
   }
 
   .secondBox {
@@ -488,7 +488,7 @@ select {
   
   .submit {
     padding-right: 0;
-    padding-left: 20px;
+    padding-left: 15px;
   }
   
   .submitButton {

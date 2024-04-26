@@ -153,7 +153,7 @@ export default function Intakeform() {
     }
   }
 
-  const isDisabled = !(termsAndConditions && selectedOption !== 'public' && discountAmount !== 0 && company !== '' && description !== '');
+  const isDisabled = !(termsAndConditions && selectedOption !== 'public' && discountAmount !== 0 && company !== '');
 
   return (
     <div>
@@ -280,7 +280,7 @@ export default function Intakeform() {
                         </div>
                       </div>
                       <div className="categories">
-                        <div className="category">Category*</div>
+                        <div className="category">Category</div>
                         {/* <div className="flex justify-start"> */}
                         {/* <div className="selectCategory"> */}
                         <select
@@ -314,7 +314,7 @@ export default function Intakeform() {
                     </div>
                     <div className="rule">
                       <div className="description">
-                        Discount Rules* <p>& Conditions</p>
+                        Discount Rules <p>& Conditions</p>
                       </div>
                       <div>
                         {' '}
