@@ -218,7 +218,10 @@ const ExplorePageContent = () => {
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
           <>
-            <ProductFilters />
+            <ProductFilters
+              activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}
+            />
             <MobileProductFilters
               activeOptions={activeOptions}
               setActiveOptions={setActiveOptions}
