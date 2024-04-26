@@ -80,6 +80,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
               </div>
             </div>
           </div>
+
           <div className="my-auto flex h-auto cursor-pointer items-center gap-4">
             <div className="my-auto">
               <MessageIcon />
@@ -92,6 +93,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
               <button
                 className="cursor-pointer"
                 onClick={() => setShowDetails(!showDetails)}
+
               >
                 {showDetails ? (
                   <div>
