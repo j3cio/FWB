@@ -50,14 +50,8 @@ const ExplorePageContent = () => {
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
-  const initialCompanies = [...companies]
-  const filteredCompanies = useFilteredCompanies(
-    activeOptions,
-    companies,
-    initialCompanies
-  )
+  const filteredCompanies = useFilteredCompanies(activeOptions, companies)
 
-  console.log({ filteredCompanies })
   const fetchPublicCompanies = async () => {
     let { data, error } = await supabase.from('companies').select('*')
 

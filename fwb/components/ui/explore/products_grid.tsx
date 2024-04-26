@@ -25,7 +25,7 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
         flexGrow: 1,
         paddingBottom: '20px',
         justifyContent: 'center',
-        minHeight: '1706px',
+        minHeight: '100%',
       }}
     >
       <Grid
