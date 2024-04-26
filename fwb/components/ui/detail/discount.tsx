@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { LoadingIndicator } from 'stream-chat-react'
+import CustomTooltip from '../tooltips/CustomTooltip'
 
 interface ProductCardProps {
   data: DiscountDataDetail
@@ -20,6 +21,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ data, key }: ProductCardProps) {
   const [showDetails, setShowDetails] = useState<boolean>(false)
+  const [showTooltip, setShowTooltip] = useState<boolean>(false)
   const [isAnimating, setIsAnimating] = useState<boolean>(false)
 
   const chatClient = useIntitialChatClient()
@@ -37,6 +39,11 @@ export default function ProductCard({ data, key }: ProductCardProps) {
       .catch((err) => {
         console.error('Failed to copy URL: ', err)
       })
+    setShowTooltip(true)
+
+    setTimeout(() => {
+      setShowTooltip(false)
+    }, 2000)
   }
 
   if (!chatClient || !user) {
@@ -82,13 +89,16 @@ export default function ProductCard({ data, key }: ProductCardProps) {
           </div>
 
           <div className="my-auto flex h-auto cursor-pointer items-center gap-4">
+            {/* This is the sharable link */}
+            <button onClick={copyShareURL}>
+              <CustomTooltip title="Copied!" showTooltip={showTooltip}>
+                <ShareIcon />
+              </CustomTooltip>
+            </button>
+
             <div className="my-auto">
               <MessageIcon />
             </div>
-            {/* This is the sharable link */}
-            <button onClick={copyShareURL}>
-              <ShareIcon />
-            </button>
             {data.terms_and_conditions ? (
               <button
                 className="cursor-pointer"
