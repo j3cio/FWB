@@ -60,6 +60,7 @@ export type CompanyAndDiscounts = {
   description: string
   logo: string
   url: string
+  discounts_updated_at: string
   greatest_discount: number
   discounts: string[]
   views: number

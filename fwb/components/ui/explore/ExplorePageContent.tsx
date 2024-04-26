@@ -16,6 +16,8 @@ import Navbar from '../navbar/Navbar'
 import ProductFilters from '@/components/ui/explore/productfilters'
 import MobileProductFilters from './MobileProductFilters'
 import { FilterOptions } from './constants'
+import useFilteredCompanies from '@/components/hooks/useFilteredCompanies'
+import { CompanyAndDiscounts } from '@/app/types/types'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -26,7 +28,7 @@ const ExplorePageContent = () => {
   const pathname = usePathname()
   const { sortby, category, privateGroup } = useContext(FilterContext)
   const [page, setPage] = useState(0)
-  const [companies, setCompanies] = useState<string[]>([])
+  const [companies, setCompanies] = useState<CompanyAndDiscounts[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
@@ -38,6 +40,10 @@ const ExplorePageContent = () => {
   })
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
+
+  const filteredCompanies = useFilteredCompanies(activeOptions, companies)
+
+  // console.log({ filteredCompanies })
 
   const fetchPublicCompanies = async () => {
     let { data, error } = await supabase.from('companies').select('*')
@@ -171,11 +177,6 @@ const ExplorePageContent = () => {
     }
   }
 
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
-  }
-
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
 
   useEffect(() => {
@@ -226,8 +227,6 @@ const ExplorePageContent = () => {
         searchIndex,
       })
   }, [searchQuery, searchIndex])
-
-  console.log({ companies })
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>

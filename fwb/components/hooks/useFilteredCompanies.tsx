@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { FilterOptions, SortOptionsEnum } from '../ui/explore/constants'
+import { CompanyAndDiscounts } from '@/app/types/types'
 
 const useFilteredCompanies = (
   activeOptions: FilterOptions,
-  companies: string[]
+  companies: Company[]
 ) => {
   const [filteredCompanies, setFilteredCompanies] = useState(companies)
 
   // TODO: fetchCompanies AUDIT. CHECK HOW WE'RE GETTING OUR DISCOUINTS INFO AND ADD ONTO IT
-  const filterByCategory = (companies: string[]) => {
+  const filterByCategory = (companies: CompanyAndDiscounts[]) => {
     if (activeOptions.categories.length) {
       return companies.filter(
         (company) =>
@@ -30,7 +31,7 @@ const useFilteredCompanies = (
   }
 
   // Possibly rename this to show that instead of filtering out, we're allowing highlighted group to be added.
-  const filterByGroup = (companies: string[]) => {
+  const filterByGroup = (companies: CompanyAndDiscounts[]) => {
     if (activeOptions.privateGroups.length) {
       return companies.filter(
         (company) =>
@@ -46,15 +47,21 @@ const useFilteredCompanies = (
     return companies
   }
 
-  const sortCompanies = (companies: string[]) => {
+  const sortCompanies = (companies: CompanyAndDiscounts[]) => {
+    console.log(companies)
     switch (activeOptions.sort) {
       case SortOptionsEnum.MostPopular:
         // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
         return companies.sort((a, b) => b.popularity - a.popularity)
 
       case SortOptionsEnum.MostRecent:
-        // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
-        return companies.sort((a, b) => b.date - a.date)
+        console.log('sorting by most recent')
+        return companies.sort(
+          // @ts-ignore -- TEMPORARY UNTIL I PROPERLY WORK OUT DATA SHAPE
+          (a, b) =>
+            new Date(a.discounts_updated_at).getTime() -
+            new Date(b.discounts_updated_at).getTime()
+        )
 
       case SortOptionsEnum.HighestToLowest:
         return companies.sort(
@@ -73,14 +80,20 @@ const useFilteredCompanies = (
     }
   }
 
+  // console.log({ activeOptions, companies })
+
   useEffect(() => {
-    let filtered = filterByCategory(companies)
-    filtered = filterByGroup(filtered)
-    filtered = sortCompanies(filtered)
+    let filtered: CompanyAndDiscounts[] = []
+
+    filtered = companies && sortCompanies(companies)
+    // let filtered = filterByCategory(companies)
+    // filtered = filterByGroup(filtered)
+    // filtered = sortCompanies(filtered)
 
     setFilteredCompanies(filtered)
   }, [activeOptions])
 
+  console.log({ companies, sortedCompanies: sortCompanies(companies) })
   return filteredCompanies
 }
 
