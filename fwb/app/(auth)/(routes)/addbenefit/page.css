@@ -146,9 +146,9 @@ input::placeholder {
   display: flex;
   padding: 8px 4px 8px 8px;
   gap: 8px;
-  width: 365px;
+  width: 370px;
   height: 160px;
-  margin-left: 57px;
+  margin-left: 60px;
   border: none;
   outline: none;
 }
@@ -190,10 +190,10 @@ select {
   color: white;
   border: #8e94e9 solid 2px;
   border-radius: 10px;
-  width: 365px;
+  width: 370px;
   height: 48px;
   padding: 9px 16px;
-  margin-left: 90px;
+  margin-left: 94px;
   padding-right: 50px;
 }
 
