@@ -1,8 +1,7 @@
 'use client'
 
-import { modalClasses } from '@mui/base'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
 
 interface AnimationCoordinates {
   x?: string | number
@@ -45,7 +44,8 @@ const MobileCustomModal = ({
               animate={{ opacity: '50%' }}
               exit={{ opacity: 0 }}
               transition={{ delay: 0.1 }}
-              className="fixed z-0 flex h-dvh w-screen bg-black"
+              // Making dimensions of our overlay be larger than our display to this degree prevents it from visibly shifting on close
+              className="fixed z-0 flex h-[250%] w-[250%] bg-black"
               onClick={handleClose}
             />
           </motion.div>

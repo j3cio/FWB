@@ -3,18 +3,12 @@ import Image from 'next/image'
 import { TextField, IconButton, Box } from '@mui/material'
 
 import searchIcon from '@/components/ui/explore/icons/search_24px.svg'
+import { useContext } from 'react'
+import { SearchContext } from '@/contexts/SearchContext'
 
-interface SearchBarProps {
-  handleSearch: (e: any) => void
-  searchQuery: string
-  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({
-  handleSearch,
-  searchQuery,
-  setSearchQuery,
-}) => {
+const SearchBar = () => {
+  const { handleSearch, searchQuery, setSearchQuery } =
+    useContext(SearchContext)
   return (
     <Box
       sx={{
@@ -43,7 +37,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
-            handleSearch(e)
+            handleSearch(searchQuery)
           }
         }}
       />
@@ -60,7 +54,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             backgroundColor: '#8e94e9',
           },
         }}
-        onClick={handleSearch}
+        onClick={() => handleSearch(searchQuery)}
       >
         <Image src={searchIcon} alt="Search Icon" />
       </IconButton>
