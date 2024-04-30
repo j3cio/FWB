@@ -26,7 +26,8 @@ const MobileChatList = ({ channelData }: MobileChatListProps) => {
 
   // Please note the `setActiveChannelOnMount` Prop as that's key to this approach
   useEffect(() => {
-    setActiveChannel(client.channel('messaging', customActiveChannel))
+    customActiveChannel &&
+      setActiveChannel(client.channel('messaging', customActiveChannel))
   }, [customActiveChannel, setActiveChannel, client])
 
   return (
@@ -34,9 +35,9 @@ const MobileChatList = ({ channelData }: MobileChatListProps) => {
       {!channel ? (
         <>
           {/* Tabs */}
-          {/* <MobileTabsSelector />  */} 
+          {/* <MobileTabsSelector />  */}
           <ChannelList
-            customActiveChannel="LEAVE_THIS_PROP_ALONE" // This prop allows us to set a default active channel. For now, we want this active channel to be invalid so that nothing stays selected by default on mobile, as this is pretty heavily what our mobile UX is based off of: We see our list of chats, we click one chat, and we "navigate" to said chat. However, due to that flow, we can't have any chats set to active by default, anjd using an empty string doesn't work
+            customActiveChannel="LEAVE_THIS_PROP_ALONE" // This prop allows us to set a default active channel. For now, we want this active channel to be invalid so that nothing stays selected by default on mobile, as this is pretty heavily what our mobile UX is based off of: We see our list of chats, we click one chat, and we "navigate" to said chat. However, due to that flow, we can't have any chats set to active by default, and using an empty string doesn't work
             filters={{
               type: 'messaging',
               members: {
