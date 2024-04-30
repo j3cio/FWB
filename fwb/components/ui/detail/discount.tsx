@@ -10,7 +10,6 @@ import DiscountTermsAndConditions from './DiscountTermsAndConditions'
 import { AnimatePresence, motion } from 'framer-motion'
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 import { useAuth, useUser } from '@clerk/nextjs'
-import { LoadingIndicator } from 'stream-chat-react'
 import CustomTooltip from '../tooltips/CustomTooltip'
 import { Chat, LoadingIndicator, useChatContext } from 'stream-chat-react'
 import { FWBChatContext } from '@/contexts/ChatContext'
@@ -90,8 +89,6 @@ const MessageButton = (
     </div>
   )
 }
-
-
 
 interface ProductCardProps {
   data: DiscountDataDetail
@@ -181,14 +178,10 @@ export default function ProductCard({ data, key }: ProductCardProps) {
               </CustomTooltip>
             </button>
 
-            <div className="my-auto">
-              <MessageIcon />
-            </div>
             {data.terms_and_conditions ? (
               <button
                 className="cursor-pointer"
                 onClick={() => setShowDetails(!showDetails)}
-
               >
                 {showDetails ? (
                   <div>
