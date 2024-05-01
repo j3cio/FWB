@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 
 import MobileFilterButton from './MobileFilterButton'
 
 import {
   FilterOptions,
+  FilterState,
   filterCategories,
   groupLists,
   sortOptions,
@@ -14,13 +15,11 @@ import MobileCustomModal from '../modals/MobileCustomModal'
 import FilterIconWhite from './icons/FilterIconWhite'
 import Link from 'next/link'
 
-const MobileProductFilters = () => {
+const MobileProductFilters = ({
+  activeOptions,
+  setActiveOptions,
+}: FilterState) => {
   const [open, setOpen] = useState(false)
-  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
-    sort: '',
-    privateGroups: [],
-    categories: [],
-  })
 
   const openFilterModal = () => {
     setOpen(true)
@@ -33,7 +32,11 @@ const MobileProductFilters = () => {
     const updatedOptions: FilterOptions = { ...activeOptions }
 
     if (type === 'sort') {
-      updatedOptions.sort = option
+      if (updatedOptions.sort === option) {
+        updatedOptions.sort = ''
+      } else {
+        updatedOptions.sort = option
+      }
     } else {
       const index = updatedOptions[type].indexOf(option)
       if (index !== -1) {
@@ -107,14 +110,15 @@ const MobileProductFilters = () => {
                   ))}
                 </article>
               </div>
-              <div className="mb-14 flex flex-col">
+              {/* change back to mb-14 when uncommenting  */}
+              <div className="mb-10 flex flex-col">
                 <div className="flex justify-between text-sm font-semibold">
                   <p>Private Group</p>
                   <Link href={'/groups'} className="text-[#F6FF82]">
                     Create Group
                   </Link>
                 </div>
-                <article className="flex flex-wrap gap-1 pt-3">
+                {/* <article className="flex flex-wrap gap-1 pt-3">
                   {groupLists.map((option) => (
                     <MobileFilterButton
                       text={option}
@@ -126,7 +130,7 @@ const MobileProductFilters = () => {
                       type="privateGroups"
                     />
                   ))}
-                </article>
+                </article> */}
               </div>
             </>
           </div>

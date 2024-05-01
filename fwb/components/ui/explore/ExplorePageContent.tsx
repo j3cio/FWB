@@ -15,6 +15,9 @@ import { createClient } from '@supabase/supabase-js'
 import Navbar from '../navbar/Navbar'
 import ProductFilters from '@/components/ui/explore/productfilters'
 import MobileProductFilters from './MobileProductFilters'
+import { FilterOptions } from './constants'
+import useFilteredCompanies from '@/components/hooks/useFilteredCompanies'
+import { CompanyAndDiscounts } from '@/app/types/types'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -25,13 +28,29 @@ const ExplorePageContent = () => {
   const pathname = usePathname()
   const { sortby, category, privateGroup } = useContext(FilterContext)
   const [page, setPage] = useState(0)
-  const [companies, setCompanies] = useState<string[]>([])
+  const [companies, setCompanies] = useState<CompanyAndDiscounts[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
   const [searchedCompany, setSearchedCompany] = useState(null)
+  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
+    sort: '',
+    privateGroups: [],
+    categories: [],
+  })
+
+  const {
+    searchQuery,
+    setSearchQuery,
+    searchIndex,
+    setSearchIndex,
+    searchResults,
+    setSearchResults,
+  } = useContext(SearchContext)
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
+
+  const filteredCompanies = useFilteredCompanies(activeOptions, companies)
 
   const fetchPublicCompanies = async () => {
     let { data, error } = await supabase.from('companies').select('*')
@@ -49,15 +68,6 @@ const ExplorePageContent = () => {
     }
     return data
   }
-
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    searchResults,
-    setSearchResults,
-  } = useContext(SearchContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,22 +110,6 @@ const ExplorePageContent = () => {
       fetchData()
     }
   }, [companyRedirect])
-
-  const handleSearch = async (e: any) => {
-    e.preventDefault()
-
-    try {
-      const results = await fuzzySearch({
-        searchQuery,
-        searchIndex,
-      })
-
-      setSearchResults(results)
-    } catch (error) {
-      console.error('GET Company Discount API Failed', error)
-      setSearchedCompany(null)
-    }
-  }
 
   const fetchCompanies = async (concat: boolean) => {
     try {
@@ -163,11 +157,6 @@ const ExplorePageContent = () => {
       setIsLoading(false)
       console.error('Error fetching data:', error)
     }
-  }
-
-  const clearSearch = () => {
-    setSearchQuery('')
-    setSearchResults([])
   }
 
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
@@ -229,13 +218,25 @@ const ExplorePageContent = () => {
           generateSkeletons({ type: 'ProductFilters' })
         ) : (
           <>
-            <ProductFilters />
-            <MobileProductFilters />
+            <ProductFilters
+              activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}
+            />
+            <MobileProductFilters
+              activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}
+            />
           </>
         )}
 
         <ResponsiveGrid
-          items={searchResults.length > 0 ? searchResults : companies}
+          items={
+            searchResults.length
+              ? searchResults
+              : filteredCompanies.length
+                ? filteredCompanies
+                : companies
+          }
           isLoading={isLoading}
         />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>

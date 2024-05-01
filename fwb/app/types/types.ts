@@ -58,9 +58,11 @@ export interface LoadingSkeletonProps {
 export type CompanyAndDiscounts = {
   id: number
   name: string
+  categories: string[]
   description: string
   logo: string
   url: string
+  discounts_updated_at: string
   greatest_discount: number
   discounts: string[]
   views: number

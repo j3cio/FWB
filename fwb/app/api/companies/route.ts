@@ -129,6 +129,7 @@ export async function GET(request: NextRequest) {
           })
         }
       })
+
       return NextResponse.json({ result }, { status: 200 })
     }
 
@@ -138,6 +139,30 @@ export async function GET(request: NextRequest) {
       .select('*')
       .order(sort_by, { ascending: ascending })
       .range(from, to)
+
+    // Fetch categories
+    const { data: categories } = await supabase.from('categories').select('*')
+
+    // Not performant in the long run,we should do some joins etc
+    if (!result || !categories) {
+      return NextResponse.json(
+        { error: 'Failed to fetch companies or categories' },
+        { status: 404 }
+      )
+    }
+
+    const companiesWithCategories = result.map((company) => {
+      const matches = categories.filter((category) => {
+        return company.discounts.some((id: string) =>
+          category.discounts.includes(id)
+        )
+      })
+
+      return {
+        ...company,
+        categories: matches.map((category) => category.name),
+      }
+    })
 
     if (companiesError) {
       console.error(companiesError)
@@ -161,7 +186,10 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    return NextResponse.json({ result }, { status: 200 })
+    return NextResponse.json(
+      { result: companiesWithCategories },
+      { status: 200 }
+    )
   }
 
   return NextResponse.json({ error: 'User not logged in' }, { status: 401 })

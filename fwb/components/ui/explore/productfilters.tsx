@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useState } from 'react'
+import React, { SetStateAction, useContext, useState, Dispatch } from 'react'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -10,26 +10,52 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import arrowIcon from '@/components/ui/explore/icons/expand_more_24px.svg'
 import Image from 'next/image'
 import { FilterContext } from './filter_context'
-import { filterCategories, groupLists, sortOptions } from './constants'
+import {
+  FilterOptions,
+  FilterState,
+  filterCategories,
+  groupLists,
+  sortOptions,
+} from './constants'
+
+interface BasicSelectProps {
+  name: string
+  options: string[]
+  defaultValue: string
+  activeOptions: FilterOptions
+  setActiveOptions: Dispatch<SetStateAction<FilterOptions>>
+}
 
 function BasicSelect({
   name,
   options,
   defaultValue,
-}: {
-  name: string
-  options: string[]
-  defaultValue: string
-}) {
+  activeOptions,
+  setActiveOptions,
+}: BasicSelectProps) {
   const [option, setOption] = useState(defaultValue)
   const [flip, setFlip] = useState(false)
-  const { setSortBy, setCategory, setPrivateGroup } = useContext(FilterContext)
 
   const arrowStyle = {
     color: 'white',
     width: '28.8px',
     height: '28.8px',
     transform: flip ? 'rotate(180deg)' : 'rotate(0deg)',
+  }
+
+  const activateOption = (
+    type: 'sort' | 'privateGroups' | 'categories',
+    option: string
+  ) => {
+    const updatedOptions: FilterOptions = { ...activeOptions }
+
+    if (type === 'sort') {
+      updatedOptions.sort = option
+    } else {
+      updatedOptions[type] = [option]
+    }
+
+    setActiveOptions(updatedOptions)
   }
 
   return (
@@ -58,17 +84,20 @@ function BasicSelect({
           onChange={(event: SelectChangeEvent) => {
             setOption(event.target.value as string)
             if (name === 'Sort by') {
-              setSortBy(event.target.value as string)
+              activateOption('sort', event.target.value)
             } else if (name === 'Category') {
-              setCategory(event.target.value as string)
+              activateOption(
+                'categories',
+                event.target.value === 'All' ? '' : event.target.value
+              )
             } else if (name === 'Private Group') {
-              setPrivateGroup(event.target.value as string)
+              activateOption('privateGroups', event.target.value)
             }
           }}
           onOpen={() => setFlip(true)}
           onClose={() => setFlip(false)}
           IconComponent={() => (
-            <Image src={arrowIcon} alt="arrow" style={arrowStyle} />
+            <Image src={arrowIcon} alt="arrow" style={arrowStyle} /> // setSortBy(event.target.value as string)
           )}
           inputProps={{
             MenuProps: {
@@ -111,7 +140,10 @@ function BasicSelect({
     </Box>
   )
 }
-export default function ProductFilters() {
+export default function ProductFilters({
+  activeOptions,
+  setActiveOptions,
+}: FilterState) {
   return (
     <div className="sticky top-0 z-[1] mb-8 hidden h-[85px] justify-end bg-[#1A1A23] pt-3 sm:flex">
       <Box
@@ -125,16 +157,22 @@ export default function ProductFilters() {
           name="Sort by"
           options={sortOptions}
           defaultValue="Most Popular"
+          activeOptions={activeOptions}
+          setActiveOptions={setActiveOptions}
         />
-        <BasicSelect
+        {/* <BasicSelect
           name="Private Group"
           options={groupLists}
           defaultValue="All"
-        />
+          activeOptions={activeOptions}
+          setActiveOptions={setActiveOptions}
+        /> */}
         <BasicSelect
           name="Category"
           options={filterCategories}
           defaultValue="All"
+          activeOptions={activeOptions}
+          setActiveOptions={setActiveOptions}
         />
       </Box>
     </div>
