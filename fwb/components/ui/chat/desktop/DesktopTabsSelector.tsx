@@ -7,8 +7,8 @@ const DesktopTabsSelector = () => {
   const { activeTab, setActiveTab } = useContext(FWBChatContext)
 
   return (
-    <section className="flex cursor-pointer font-semibold">
-      <article
+    <section className="flex font-semibold">
+      {/* <article
         className={`w-1/2 border-b pb-2 text-center ${activeTab === 'general' ? '' : ' opacity-25'}`}
         onClick={() => setActiveTab && setActiveTab('general')}
       >
@@ -19,7 +19,7 @@ const DesktopTabsSelector = () => {
         onClick={() => setActiveTab && setActiveTab('groups')}
       >
         Groups
-      </article>
+      </article> */}
     </section>
   )
 }

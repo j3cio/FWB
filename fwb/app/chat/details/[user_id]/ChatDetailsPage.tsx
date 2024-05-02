@@ -34,13 +34,13 @@ const ChatDetailsPage = ({ user }: { user: User }) => {
             <p className="text-center text-xs">Works at {user.company}</p>
           ) : null}
         </div>
-        <div className="w-full pb-6">
+        {/* <div className="w-full pb-6">
           <button className="h-9 w-full rounded-3xl bg-[#8E94E9] font-bold">
             Open Profile
           </button>
-        </div>
+        </div> */}
 
-        <div className="flex w-full flex-col text-xs">
+        {/* <div className="flex w-full flex-col text-xs">
           <article
             className="flex justify-between"
             onClick={() => setMuteMessages(!muteMessages)}
@@ -50,7 +50,7 @@ const ChatDetailsPage = ({ user }: { user: User }) => {
           </article>
 
           <CustomOption icon={<ShareIcon />}> Share Profile</CustomOption>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex-col gap-1 self-start pb-11">

@@ -236,7 +236,7 @@ const GroupDetailsSection = ({
                 width={0}
                 height={0}
               />
-              <p className="text-sm">+50 more members</p>
+              <p className="text-sm">{groupData?.users.length} member{groupData?.users.length > 1  ? 's' : ''}</p>
             </div>
             <div className="">
               <Button
