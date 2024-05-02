@@ -218,11 +218,11 @@ const EditProfileModal = ({
           </h2>
           <div className="my-4 flex flex-row items-center justify-center xs-max:flex-col xxs-max:flex-col">
             {/* Avatar */}
-            <Avatar
+            {user ? <Avatar
               alt="123"
               src={`${user?.imageUrl}`}
               className="flex h-48 w-48 items-center justify-center rounded-full bg-slate-200 xs-max:h-40 xs-max:w-40 xxs-max:h-36 xxs-max:w-36"
-            />
+            /> : <div> </div>}
             <div className="flex items-center justify-center flex-col m-4">
               <div className="hidden xs-max:flex xxs-max:flex font-urbanist font-semibold text-white text-sm">
                 Edit photo
