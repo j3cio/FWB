@@ -132,7 +132,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
 
   return (
     <motion.div
-      className="relative mx-[120px] mb-[32px] flex flex-row"
+      className="relative mr-[120px] mb-[32px] flex flex-row w-full"
       initial={{ height: 'auto' }}
       animate={{ height: showDetails ? 'auto' : '248px' }}
       exit={{ height: '248px' }}

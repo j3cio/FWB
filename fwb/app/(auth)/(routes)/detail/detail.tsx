@@ -121,18 +121,18 @@ function DetailPageContent({ data }: { data: DetailData }) {
       <Container disableGutters maxWidth="lg">
         <Navbar />
       </Container>
-      <div className="details max-w-[1170px] px-[18px]">
-        <div className="flex flex-row pt-[96px]">
+      <div className="details max-w-[1170px] px-[18px] xs-max:w-screen xxs-max:w-screen">
+        <div className="flex flex-row pt-[96px] xs-max:pt-0 xs-max:flex-col">
           <div
-            className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] "
+            className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] xs-max:mr-0 xs-max:w-auto xs-max:bg-auto xs-max:h-[250px] xxs-max:w-auto  xxs-max:bg-auto  xxs-max:h-[250px]"
             style={{ backgroundImage: `url(${data.company.logo})` }}
           >
             {/* placeholder image */}
           </div>
-          <div className="w-2/3 flex flex-col">
+          <div className="w-2/3 flex flex-col xs-max:w-auto xxs-max:w-auto">
             <div className="mt-[45px] w-full flex flex-row">
               {/* Company Name div */}
-              <div className="text-[#F6FF82] text-[32px] font-bold">
+              <div className="text-[#F6FF82] text-[32px] font-bold xs-max:font-normal xxs-max:font-normal">
                 {data.company.name}
               </div>
               {/* link icon */}
@@ -170,7 +170,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
               id ut id donec turpis.
             </div>
             {/* statisctics */}
-            <div className="mt-auto ml-auto w-full text-[15px] font flex justify-end text-white text-center">
+            <div className="mt-auto ml-auto w-full text-[15px] font flex justify-end text-white text-center xs-max:mt-[18px] xxs-max:mt-[18px]">
               <div className="flex flex-col mr-[45px] ">
                 <div className="text-[15px]">Total Offers</div>
                 <div className="text-center text-[23px]">
@@ -187,7 +187,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
           </div>
         </div>
         {/* discounts offered section */}
-        <div className="border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px]">
+        <div className="border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px] xs-max:mt-[20px] xxs-max:mt-[20px]">
           <div className="flex flex-row w-full justify-between">
             <div className="text-[#F6FF82] text-[32px] font-bold mb-auto">
               Discounts Offered
