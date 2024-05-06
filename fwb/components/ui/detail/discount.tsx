@@ -145,7 +145,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
           {data.discount_amount}% OFF
         </div>
       </div>
-      <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px] xs-max:rounded-r-none xxs-max:rounded-r-none xs-max:w-full xxs-max:w-full  xs-max:px-[12px] xxs-max:px-[12px]  xs-max:rounded-b-md  xxs-max:rounded-b-md">
+      <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px] xs-max:rounded-tr-none xxs-max:rounded-tr-none xs-max:w-full xxs-max:w-full  xs-max:px-[12px] xxs-max:px-[12px]  xs-max:rounded-b-md  xxs-max:rounded-b-md">
         <div className="flex w-full justify-between py-[64px] xs-max:flex-col xxs-max:flex-col xs-max:py-[12px] xxs-max:py-[12px]">
           <div>
             <div className="text-[24px] font-bold xs-max:font-normal xxs-max:font-normal">
