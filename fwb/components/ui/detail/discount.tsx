@@ -15,6 +15,7 @@ import { Chat, LoadingIndicator, useChatContext } from 'stream-chat-react'
 import { FWBChatContext } from '@/contexts/ChatContext'
 import { useRouter } from 'next/navigation'
 import { Event } from 'stream-chat'
+import { MobileDetailCard } from './MobileDetailCard'
 
 const MessageButton = (
   { data }: { data: DiscountDataDetail },
@@ -104,7 +105,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
   const { userId } = useAuth()
   const { user } = useUser()
 
-  const copyShareURL = () => {
+    const copyShareURL = () => {
     const currentURL = window.location.href
     // Copy URL to clipboard
     navigator.clipboard
@@ -132,26 +133,26 @@ export default function ProductCard({ data, key }: ProductCardProps) {
 
   return (
     <motion.div
-      className="relative mr-[120px] mb-[32px] flex flex-row w-full"
+      className="relative mr-[120px] mb-[32px] flex flex-row w-full xs-max:flex-col xxs-max:flex-col"
       initial={{ height: 'auto' }}
       animate={{ height: showDetails ? 'auto' : '248px' }}
       exit={{ height: '248px' }}
       onAnimationStart={() => setIsAnimating(true)}
       onAnimationComplete={() => setIsAnimating(false)}
     >
-      <div className="flex w-[20%] rounded-l-[25px] bg-[#8E94E9] text-white">
-        <div className="m-auto w-[70px] text-[40px] font-bold">
+      <div className="flex w-[20%] rounded-l-[25px] bg-[#8E94E9] text-white xs-max:rounded-t-md xs-max:rounded-l-none xs-max:w-full xxs-max:w-full xxs-max:rounded-t-md xxs-max:rounded-l-none xxs-max:w-full xxs-max:w-full xs-max:py-[28px] xxs-max:py-[28px] ">
+        <div className="m-auto w-[70px] text-[40px] font-bold xs-max:font-medium xxs-max:font-medium xs-max:text-[28px] xxs-max:text-[28px] xs-max:leading-[30px] xxs-max:leading-[30px]">
           {data.discount_amount}% OFF
         </div>
       </div>
-      <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px]">
-        <div className="flex w-full justify-between py-[64px]">
+      <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px] xs-max:rounded-r-none xxs-max:rounded-r-none xs-max:w-full xxs-max:w-full  xs-max:px-[12px] xxs-max:px-[12px]  xs-max:rounded-b-md  xxs-max:rounded-b-md">
+        <div className="flex w-full justify-between py-[64px] xs-max:flex-col xxs-max:flex-col xs-max:py-[12px] xxs-max:py-[12px]">
           <div>
-            <div className="text-[24px] font-bold">
+            <div className="text-[24px] font-bold xs-max:font-normal xxs-max:font-normal">
               Get {data.discount_amount}% off Shoes and Sandals
             </div>
             <div className="text-[14px]">*Terms & Conditions apply</div>
-            <div className="mt-[48px] flex flex-row">
+            <div className="mt-[48px] flex flex-row  xs-max:mt-[10px] xxs-max:mt-[10px]">
               <div
                 className="mr-[5px] h-[24px] w-[24px] rounded-[24px] bg-contain bg-center bg-no-repeat"
                 style={{
@@ -164,7 +165,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
             </div>
           </div>
 
-          <div className="my-auto flex h-auto cursor-pointer items-center gap-4">
+          <div className="my-auto flex h-auto cursor-pointer items-center gap-4 xs-max:hidden xxs-max:hidden">
             <div className="my-auto">
               <Chat client={chatClient}>
                 <MessageButton data={data} />
@@ -196,6 +197,7 @@ export default function ProductCard({ data, key }: ProductCardProps) {
               </button>
             ) : null}
           </div>
+          <MobileDetailCard />
         </div>
 
         {/* Terms and Conditions block */}

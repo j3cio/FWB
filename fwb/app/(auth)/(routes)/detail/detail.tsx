@@ -134,9 +134,9 @@ function DetailPageContent({ data }: { data: DetailData }) {
         <Navbar />
       </Container>
       <div className="details max-w-[1170px] px-[18px] xs-max:w-screen xxs-max:w-screen">
-        <div className="flex flex-row pt-[96px] xs-max:pt-0 xs-max:flex-col">
+        <div className="flex flex-row pt-[96px] xs-max:pt-0 xs-max:flex-col xxs-max:pt-0 xxs-max:flex-col xxs-max:pt-0">
           <div
-            className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] xs-max:mr-0 xs-max:w-auto xs-max:bg-auto xs-max:h-[250px] xxs-max:w-auto  xxs-max:bg-auto  xxs-max:h-[250px]"
+            className="bg-no-repeat bg-center bg-cover w-1/3 mr-[30px] pb-[20.25%] xs-max:mr-0 xs-max:w-auto xs-max:bg-auto xs-max:h-[250px] xxs-max:w-auto  xxs-max:bg-auto  xxs-max:h-[250px]  xxs-max:mr-0"
             style={{ backgroundImage: `url(${data.company.logo})` }}
           >
             {/* placeholder image */}
@@ -199,20 +199,21 @@ function DetailPageContent({ data }: { data: DetailData }) {
           </div>
         </div>
         {/* discounts offered section */}
-        <div className="border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px] xs-max:mt-[20px] xxs-max:mt-[20px] xs-max:pt-[18px] xxs-max:pt-[18px] ">
+        <div className="border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px] xs-max:mt-[20px] xxs-max:mt-[20px] xs-max:pt-[18px] xxs-max:pt-[18px]  xs-max:pb-0 xxs-max:pb-0">
           <div className="flex flex-row w-full justify-between xs-max:flex-col xxs-max:flex-col">
             <div className="text-[#F6FF82] text-[32px] font-bold mb-auto xs-max:font-normal xxs-max:font-normal xs-max:text-white xxs-max:text-white xs-max:text-[23px] xxs-max:text-[23px] xs-max:mb-[16px] xxs-max:mb-[16px]">
               Discounts Offered
             </div>
 
             {!isSmallScreen && <DetailFilters />}
-            {isSmallScreen && <FilterProvider><MobileDetailFilters/></FilterProvider>}
+            {isSmallScreen && <FilterProvider><MobileDetailFilters  activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}/></FilterProvider>}
           </div>
         </div>
        
 
         {/* discount listing section */}
-        <div className="mb-[50px] relative">
+        <div className="mb-[50px] relative xs-max:flex xs-max:flex-col xs-max:gap-[40px] xxs-max:flex xxs-max:flex-col xs-max:gap-[60px] xxs-max:gap-[60px]">
           {(discounts.length != 0 ? discounts : data.discounts)?.map(
             (item: DiscountDataDetail) => (
               <DetailCard data={item} key={item.discount_amount} />
