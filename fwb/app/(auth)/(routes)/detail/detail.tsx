@@ -14,8 +14,14 @@ import {
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
 import Navbar from '@/components/ui/navbar/Navbar'
-
+import { useMediaQuery } from '@mui/material'
 import { Container } from '@mui/material'
+import MobileDetailFilters from '@/components/ui/explore/MobileDetailFilters'
+import { FilterOptions } from '../../../../components/ui/explore/constants'
+import {
+  FilterContext,
+  FilterProvider,
+} from '@/components/ui/explore/filter_context'
 
 export default function DetailPage({
   company,
@@ -76,6 +82,12 @@ function DetailPageContent({ data }: { data: DetailData }) {
   const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
+  const isSmallScreen = useMediaQuery('(max-width:600px)')
+  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
+    sort: '',
+    privateGroups: [],
+    categories: [],
+  })
 
   useEffect(() => {
     if (data.discounts) {
@@ -187,14 +199,17 @@ function DetailPageContent({ data }: { data: DetailData }) {
           </div>
         </div>
         {/* discounts offered section */}
-        <div className="border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px] xs-max:mt-[20px] xxs-max:mt-[20px]">
-          <div className="flex flex-row w-full justify-between">
-            <div className="text-[#F6FF82] text-[32px] font-bold mb-auto">
+        <div className="border-t-[2px] border-white mt-[50px] pt-[96px] pb-[72px] xs-max:mt-[20px] xxs-max:mt-[20px] xs-max:pt-[18px] xxs-max:pt-[18px] ">
+          <div className="flex flex-row w-full justify-between xs-max:flex-col xxs-max:flex-col">
+            <div className="text-[#F6FF82] text-[32px] font-bold mb-auto xs-max:font-normal xxs-max:font-normal xs-max:text-white xxs-max:text-white xs-max:text-[23px] xxs-max:text-[23px] xs-max:mb-[16px] xxs-max:mb-[16px]">
               Discounts Offered
             </div>
-            <DetailFilters />
+
+            {!isSmallScreen && <DetailFilters />}
+            {isSmallScreen && <FilterProvider><MobileDetailFilters/></FilterProvider>}
           </div>
         </div>
+       
 
         {/* discount listing section */}
         <div className="mb-[50px] relative">
