@@ -7,7 +7,7 @@ const ChevronUpwardsIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_5686_30536)">
+      <g clipPath="url(#clip0_5686_30536)">
         <rect
           x="48"
           y="48"
