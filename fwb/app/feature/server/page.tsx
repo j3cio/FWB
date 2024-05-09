@@ -17,8 +17,6 @@ const FeatureFlagServerPage = async () => {
     'user distinct id'
   )
 
-  console.log({ flags: flags.test_server_page, flagEnabled })
-
   return (
     <div className="flex h-dvh w-screen flex-col items-center bg-slate-500 text-white">
       <h1 className="text-2xl">Server Page</h1>
