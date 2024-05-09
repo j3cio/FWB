@@ -31,6 +31,7 @@ const FeatureFlagClientPage = () => {
         )}
       </h2>
 
+      {/* @ts-ignore */}
       {flagEnabled ? <div className="pt-8">{payload?.message}</div> : null}
     </div>
   )

@@ -39,6 +39,7 @@ const FeatureFlagServerPage = async () => {
         )}
       </h2>
 
+      {/* @ts-ignore */}
       {flagEnabled ? <div>{payload?.message}</div> : null}
     </div>
   )
