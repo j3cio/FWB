@@ -11,6 +11,8 @@ const FeatureFlagClientPage = () => {
   const flagEnabled = useFeatureFlagEnabled('test_client_page')
   const payload = useFeatureFlagPayload('test_client_page')
 
+  console.log({ flagEnabled, payload })
+
   return (
     <div className="flex h-dvh w-screen flex-col items-center bg-slate-500 text-white">
       <h1 className="text-2xl">Client Page</h1>
