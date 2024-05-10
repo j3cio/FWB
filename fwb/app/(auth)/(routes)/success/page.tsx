@@ -25,7 +25,7 @@ export default function Page() {
   useEffect(() => {
     setTimeout(() => {
       router.push('/profile')
-    }, 2000)
+    }, 1000)
   })
 
   return (
