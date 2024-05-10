@@ -1,6 +1,6 @@
 'use client'
 import { SignUp, useSignUp } from '@clerk/nextjs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import './page.css'
 import Link from 'next/link'
@@ -21,6 +21,12 @@ export default function Page() {
   const [error, setError] = useState<any>(null)
 
   const width = useWindowDimensions()
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/profile')
+    }, 1000)
+  })
 
   return (
     <div className="relative block h-screen w-full overflow-hidden">
@@ -79,9 +85,9 @@ export default function Page() {
             <div className="verifiedAccount">
               You have successfully verified your account
             </div>
-            <Link href="/fre1" className="startButton">
+            {/* <Link href="/fre1" className="startButton">
               Lets Get Started!
-            </Link>
+            </Link> */}
           </div>
           <div className="rightContainer translate-y-[-50px]">
             <div className="rightHalfCircle xl-max:w-[134px]"></div>

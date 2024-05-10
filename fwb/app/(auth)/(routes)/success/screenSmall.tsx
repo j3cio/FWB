@@ -38,12 +38,12 @@ export const SmallScreen = () => {
           <div className="verifiedAccount xxs-max:text-[12px]">
             You have successfully verified your account
           </div>
-          <Link
+          {/* <Link
             href="/fre1"
             className="startButton xs-max:h-[40px] xs-max:w-[342px] xs-max:text-[16px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
           >
             Lets Get Started!
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className=" absolute left-0 top-[30%] z-0 w-full xxs-max:hidden">
