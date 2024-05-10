@@ -418,7 +418,7 @@ export default function Intakeform() {
                 />
               </span>
               <span className="termAgree">I agree to the</span>{' '}
-              <a className="terms">Terms & Privacy Policy</a>
+              <a className="terms" href='https://www.makefwb.com/terms-of-service'>Terms & Privacy Policy</a>
             </div>
             <div className="submitButton flex">
               <div className='saveButton'>

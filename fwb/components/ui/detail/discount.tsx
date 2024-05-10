@@ -16,6 +16,8 @@ import { FWBChatContext } from '@/contexts/ChatContext'
 import { useRouter } from 'next/navigation'
 import { Event } from 'stream-chat'
 import { MobileDetailCard } from './MobileDetailCard'
+import bookmark from '../../../public/bookmark.svg'
+import Image from 'next/image'
 
 const MessageButton = (
   { data }: { data: DiscountDataDetail },
@@ -133,14 +135,15 @@ export default function ProductCard({ data, key }: ProductCardProps) {
 
   return (
     <motion.div
-      className="relative mr-[120px] mb-[32px] flex flex-row w-full xs-max:flex-col xxs-max:flex-col"
+      className="relative mr-[120px] mb-[32px] flex flex-row w-full xs-max:flex-col xxs-max:flex-col xs-max:mb-0 xxs-max:mb-0"
       initial={{ height: 'auto' }}
       animate={{ height: showDetails ? 'auto' : '248px' }}
       exit={{ height: '248px' }}
       onAnimationStart={() => setIsAnimating(true)}
       onAnimationComplete={() => setIsAnimating(false)}
     >
-      <div className="flex w-[20%] rounded-l-[25px] bg-[#8E94E9] text-white xs-max:rounded-t-md xs-max:rounded-l-none xs-max:w-full xxs-max:w-full xxs-max:rounded-t-md xxs-max:rounded-l-none xxs-max:w-full xxs-max:w-full xs-max:py-[28px] xxs-max:py-[28px] ">
+      <div className="relative flex w-[20%] rounded-l-[25px] bg-[#8E94E9] text-white xs-max:rounded-t-md xs-max:rounded-l-none xs-max:w-full xxs-max:w-full xxs-max:rounded-t-md xxs-max:rounded-l-none xxs-max:w-full xxs-max:w-full xs-max:py-[28px] xxs-max:py-[28px] ">
+        <Image src={bookmark} alt='bookmark icon' className='[@media(min-width:600px)]:hidden absolute top-0 left-[10px] max-w-none w-[50px]'></Image>
         <div className="m-auto w-[70px] text-[40px] font-bold xs-max:font-medium xxs-max:font-medium xs-max:text-[28px] xxs-max:text-[28px] xs-max:leading-[30px] xxs-max:leading-[30px]">
           {data.discount_amount}% OFF
         </div>
@@ -148,18 +151,18 @@ export default function ProductCard({ data, key }: ProductCardProps) {
       <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px] xs-max:rounded-tr-none xxs-max:rounded-tr-none xs-max:w-full xxs-max:w-full  xs-max:px-[12px] xxs-max:px-[12px]  xs-max:rounded-b-md  xxs-max:rounded-b-md">
         <div className="flex w-full justify-between py-[64px] xs-max:flex-col xxs-max:flex-col xs-max:py-[12px] xxs-max:py-[12px]">
           <div>
-            <div className="text-[24px] font-bold xs-max:font-normal xxs-max:font-normal">
+            <div className="text-[24px] font-bold xs-max:font-medium xxs-max:font-medium xs-max:text-[20px] xxs-max:text-[20px] [@media(max-width:338px)]:text-[14px]">
               Get {data.discount_amount}% off Shoes and Sandals
             </div>
-            <div className="text-[14px]">*Terms & Conditions apply</div>
+            <div className="text-[14px] [@media(max-width:600px)]:hidden">*Terms & Conditions apply</div>
             <div className="mt-[48px] flex flex-row  xs-max:mt-[10px] xxs-max:mt-[10px]">
               <div
-                className="mr-[5px] h-[24px] w-[24px] rounded-[24px] bg-contain bg-center bg-no-repeat"
+                className="mr-[5px] h-[24px] w-[24px] rounded-[24px] bg-contain bg-center bg-no-repeat xs-max:w-[20px] xxs-max:w-[20px] xs-max:h-[20px] xxs-max:h-[20px]"
                 style={{
                   backgroundImage: `url(${data.user_image ? data.user_image : 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJjanBvRjl3OXpJTXRUM3JBak9vcTNBQkRIOCJ9'})`,
                 }}
               ></div>
-              <div>
+              <div className='xs-max:text-[14px] xxs-max:text-[12px] text-[#6B77AD]'>
                 by {data.user_username ? data.user_username : 'Unknown'}
               </div>
             </div>

@@ -29,7 +29,7 @@ export const MobileDetailCard = () => {
         <div className="flex w-full items-center justify-end gap-4">
           {/* <BookmarkIcon /> */}
           <button className="ml-1 flex rounded-[30px] bg-[#8E94E9] px-3 text-xl font-semibold text-white h-[35px] w-full justify-center py-[2px]">
-            <span className="pl-5 pr-2 text-[1rem] [@media(max-width:400px)]:text-[0.7rem]">Take Advantage</span>
+            <span className="pl-5 pr-2 text-[1rem] xs-max:text-[1rem] [@media(max-width:338px)]:text-[0.7rem]">Take Advantage</span>
             <div className="arrow pt-[4px]">
                 <ArrowIcon />
             </div>  
