@@ -54,14 +54,12 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
       }
 
       fetchData()
-  
     }
 
     return () => {
       subscribe = false
     }
   }, [recipient])
-
 
   return (
     <section

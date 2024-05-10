@@ -412,7 +412,6 @@ select {
   color: white;
 }
 
-
 @media only screen and (max-width: 767px) {
   /* Styles specific to mobile screens */
   .share p {
@@ -431,7 +430,10 @@ select {
     align-items: center;
   }
 
-  .line1, .line2, .discount1, .rule {
+  .line1,
+  .line2,
+  .discount1,
+  .rule {
     flex-direction: column;
   }
 
@@ -449,7 +451,6 @@ select {
     width: 85% !important;
   }
 
-
   .categories {
     flex-direction: column;
     gap: 10px;
@@ -459,7 +460,8 @@ select {
     margin-left: 0 !important;
   }
 
-  select, .inputDiscount {
+  select,
+  .inputDiscount {
     margin-left: 0;
     width: 90vw;
   }
@@ -485,12 +487,12 @@ select {
   .secondBox {
     border: 0px;
   }
-  
+
   .submit {
     padding-right: 0;
     padding-left: 15px;
   }
-  
+
   .submitButton {
     display: flex;
   }
@@ -499,7 +501,8 @@ select {
     width: 60%;
   }
 
-  .save, .cancel {
+  .save,
+  .cancel {
     font-size: 15px;
     width: 100%;
   }
@@ -511,6 +514,3 @@ select {
     margin-bottom: 30px;
   }
 }
-
-
-
