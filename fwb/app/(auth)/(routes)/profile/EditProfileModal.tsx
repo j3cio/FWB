@@ -183,7 +183,7 @@ const EditProfileModal = ({
         {/* X Button*/}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="xxs-max:hidden xs-max:hidden sm-max:ml-[85%]"
+          className="sm-max:ml-[85%] xs-max:hidden xxs-max:hidden"
           width="40"
           height="40"
           viewBox="0 0 40 40"
@@ -218,13 +218,17 @@ const EditProfileModal = ({
           </h2>
           <div className="my-4 flex flex-row items-center justify-center xs-max:flex-col xxs-max:flex-col">
             {/* Avatar */}
-            {user ? <Avatar
-              alt="123"
-              src={`${user?.imageUrl}`}
-              className="flex h-48 w-48 items-center justify-center rounded-full bg-slate-200 xs-max:h-40 xs-max:w-40 xxs-max:h-36 xxs-max:w-36"
-            /> : <div> </div>}
-            <div className="flex items-center justify-center flex-col m-4">
-              <div className="hidden xs-max:flex xxs-max:flex font-urbanist font-semibold text-white text-sm">
+            {user ? (
+              <Avatar
+                alt="123"
+                src={`${user?.imageUrl}`}
+                className="flex h-48 w-48 items-center justify-center rounded-full bg-slate-200 xs-max:h-40 xs-max:w-40 xxs-max:h-36 xxs-max:w-36"
+              />
+            ) : (
+              <div> </div>
+            )}
+            <div className="m-4 flex flex-col items-center justify-center">
+              <div className="hidden font-urbanist text-sm font-semibold text-white xs-max:flex xxs-max:flex">
                 Edit photo
               </div>
               <div className="m-4 flex flex-row items-center justify-center gap-2">

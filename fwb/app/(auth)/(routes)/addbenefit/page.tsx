@@ -151,7 +151,11 @@ export default function Intakeform() {
     }
   }
 
-  const isDisabled = !(termsAndConditions && discountAmount !== 0 && company !== '');
+  const isDisabled = !(
+    termsAndConditions &&
+    discountAmount !== 0 &&
+    company !== ''
+  )
 
   return (
     <div>
@@ -263,13 +267,11 @@ export default function Intakeform() {
                             </div>
                           </ThemeProvider>
 
-                          <div className="percentage flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
+                          <div className="percentage ml-3 flex h-8 w-[125px] items-center rounded bg-white px-4">
                             <input
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
                               className="w-full rounded border-none bg-white outline-none"
-                              value={
-                                discountAmount ? discountAmount : ''
-                              }
+                              value={discountAmount ? discountAmount : ''}
                               placeholder="1-100"
                               onChange={handleDiscountInputChange}
                             />
@@ -389,7 +391,7 @@ export default function Intakeform() {
                       </div>
                       </div>*/}
                     <div
-                      className="toggle flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
+                      className="toggle mb-[60px] ml-[154px] mt-[25px] flex cursor-pointer select-none items-center"
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits
@@ -420,12 +422,17 @@ export default function Intakeform() {
               <a className="terms">Terms & Privacy Policy</a>
             </div>
             <div className="submitButton flex">
-              <div className='saveButton'>
-              <button className={`save ${isDisabled && 'bg-[#ADB4D2] text-white'}`} type="submit" form="discountForm" disabled={isDisabled}>
+              <div className="saveButton">
+                <button
+                  className={`save ${isDisabled && 'bg-[#ADB4D2] text-white'}`}
+                  type="submit"
+                  form="discountForm"
+                  disabled={isDisabled}
+                >
                   Save and Share
                 </button>
               </div>
-              <div className='cancelButton'>
+              <div className="cancelButton">
                 <button className="cancel">Cancel</button>
               </div>
             </div>

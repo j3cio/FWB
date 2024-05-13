@@ -1,8 +1,8 @@
 import React, { useState, KeyboardEvent } from 'react'
 import { Box, FormLabel, Input, Stack, Typography } from '@mui/material'
 import RemoveIcon from '../../icons/RemoveIcon'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 type Form2Data = {
   users: string[]
@@ -96,12 +96,12 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
         </Box>
       </FormLabel>
       <ToastContainer
-          autoClose={3000}
-          toastClassName="bg-[#8E94E9]"
-          bodyClassName="text-white" 
-          theme="colored" 
-          position='top-center' 
-        />
+        autoClose={3000}
+        toastClassName="bg-[#8E94E9]"
+        bodyClassName="text-white"
+        theme="colored"
+        position="top-center"
+      />
     </>
   )
 }
