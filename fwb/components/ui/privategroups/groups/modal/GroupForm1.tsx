@@ -46,8 +46,8 @@ export function GroupForm1({ name, description, updateFields }: Form1Props) {
           ref={fileInputRef}
         />
         <Image
-          className={`h-20 w-20 rounded-full cursor-pointer ${imagePreview ? "overflow-hidden" : "overflow-visible"}`}
-          src={imagePreview ? imagePreview : "/groups/person.svg"}
+          className={`h-20 w-20 cursor-pointer rounded-full ${imagePreview ? 'overflow-hidden' : 'overflow-visible'}`}
+          src={imagePreview ? imagePreview : '/groups/person.svg'}
           width={0}
           height={0}
           alt="person"
