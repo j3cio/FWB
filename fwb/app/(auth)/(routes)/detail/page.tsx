@@ -6,6 +6,10 @@ import {
   CompanyAndDiscounts,
   DiscountDataDetail,
 } from '@/app/types/types'
+import {
+  FilterContext,
+  FilterProvider,
+} from '@/components/ui/explore/filter_context'
 
 const handleSearch = async (companyName: string) => {
   try {
@@ -61,7 +65,7 @@ const page = async ({
     )
 
     return (
-      <div>{data ? <DetailPage company={data} /> : <div>Loading...</div>}</div>
+      <div>{data ? <FilterProvider><DetailPage company={data} /></FilterProvider> : <div>Loading...</div>}</div>
     )
   } else {
     redirect('/explore')

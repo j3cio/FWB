@@ -57,7 +57,7 @@ const DesktopMessageListTopBar = ({
             className="flex cursor-pointer flex-row items-center gap-3"
             onClick={() => setShowChatDetails(!showChatDetails)}
           >
-            <InfoIcon />
+            {/*<InfoIcon />*/}
           </div>
         </>
       )}

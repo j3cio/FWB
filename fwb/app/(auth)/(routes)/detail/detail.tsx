@@ -206,8 +206,8 @@ function DetailPageContent({ data }: { data: DetailData }) {
             </div>
 
             {!isSmallScreen && <DetailFilters />}
-            {isSmallScreen && <FilterProvider><MobileDetailFilters  activeOptions={activeOptions}
-              setActiveOptions={setActiveOptions}/></FilterProvider>}
+            {isSmallScreen && <MobileDetailFilters  activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}/>}
           </div>
         </div>
        
