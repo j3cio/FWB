@@ -1,7 +1,8 @@
-import React, { useState, FormEvent, KeyboardEvent } from 'react'
-import { Box, FormLabel, Button, Input, Stack, Typography } from '@mui/material'
+import React, { useState, KeyboardEvent } from 'react'
+import { Box, FormLabel, Input, Stack, Typography } from '@mui/material'
 import RemoveIcon from '../../icons/RemoveIcon'
-import { TextareaAutosize as Textarea } from '@mui/base/TextareaAutosize'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type Form2Data = {
   users: string[]
@@ -29,17 +30,17 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
     let trimmedUser = user.trim()
     // check for empty input
     if (!trimmedUser) {
-      alert('input a user email..')
+      toast.error('input a user email..')
       return
     }
     // check for duplicate emails
     if (users.includes(trimmedUser)) {
-      alert('email already added!')
+      toast.error('email already added!')
       return
     }
     //validate the email before adding
     if (!validateEmail(trimmedUser)) {
-      alert('not a valid email')
+      toast.error('not a valid email')
       return
     } else {
       updateFields({ users: [...users, user] })
@@ -94,6 +95,13 @@ export function GroupForm2({ users, updateFields }: Form2Props) {
           </Box>
         </Box>
       </FormLabel>
+      <ToastContainer
+          autoClose={3000}
+          toastClassName="bg-[#8E94E9]"
+          bodyClassName="text-white" 
+          theme="colored" 
+          position='top-center' 
+        />
     </>
   )
 }
