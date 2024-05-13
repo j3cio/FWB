@@ -28,8 +28,8 @@ const GroupInvites = ({ invitations }: { invitations: boolean }) => {
               <Box
                 className="flex w-fit overflow-hidden px-5 gap-4"
               >
-                {[1,2,3,4,5,6,7,8].map((item) => (
-                  <Box key={item} className="bg-[#ffffff] border-[#fff] border-[1.5px] rounded-2xl overflow-hidden w-[15rem] sm:w-[18rem] md:w-[20rem] lg:w-[22rem]">
+                {Array.from(Array(5)).map((item, index) => (
+                  <Box key={index} className="bg-[#ffffff] border-[#fff] border-[1.5px] rounded-2xl overflow-hidden w-[15rem] sm:w-[18rem] md:w-[20rem] lg:w-[22rem]">
                     <Image
                       priority
                       className="w-full rounded-t-xl" 
