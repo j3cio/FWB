@@ -11,7 +11,7 @@ import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
 //import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 import GroupInviteModal from './GroupInviteModal'
 
 //TODO: The changing of group profile picture should requre admin priviledges
@@ -19,7 +19,7 @@ import GroupInviteModal from './GroupInviteModal'
 const GroupDetailsSection = ({
   groupData,
   userData,
-  toast
+  toast,
 }: {
   groupData: Group
   userData: UserData[]
@@ -172,7 +172,7 @@ const GroupDetailsSection = ({
               />
               <input
                 type="file"
-                accept='image/*'
+                accept="image/*"
                 className="hidden"
                 onChange={uploadFile}
                 ref={fileInputRef}
@@ -191,7 +191,7 @@ const GroupDetailsSection = ({
               />
               <input
                 type="file"
-                accept='image/*'
+                accept="image/*"
                 className="hidden"
                 onChange={uploadFile}
                 ref={fileInputRef}
@@ -236,7 +236,10 @@ const GroupDetailsSection = ({
                 width={0}
                 height={0}
               />
-              <p className="text-base text-end">{groupData?.users.length} member{groupData?.users.length > 1  ? 's' : ''}</p>
+              <p className="text-end text-base">
+                {groupData?.users.length} member
+                {groupData?.users.length > 1 ? 's' : ''}
+              </p>
             </div>
             <div className="">
               <Button

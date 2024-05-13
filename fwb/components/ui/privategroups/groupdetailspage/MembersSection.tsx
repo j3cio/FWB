@@ -69,7 +69,9 @@ const Member = ({ user }: { user: User }) => {
         <AvatarIcon />
         <div className="ml-2 flex flex-col">
           <div className="font-bold">{user.username}</div>
-          {user.company && (<div className=" font-light">Company: {user.company}</div>)}
+          {user.company && (
+            <div className=" font-light">Company: {user.company}</div>
+          )}
         </div>
       </div>
       <div className="mr-4 flex items-center justify-center">

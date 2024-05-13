@@ -52,11 +52,15 @@ function Profile({ userData, discountData }: ProfileProps) {
           <div className="flex h-full w-full flex-1 flex-col items-center justify-center px-[18px] sm-max:items-start sm-max:px-8 xs-max:items-start xs-max:px-6 xxs-max:items-start xxs-max:px-4">
             {/*Profile div*/}
             <div className="mb-[50px] mt-10 flex h-1/5 w-full gap-10 border-b-2 border-slate-200 pb-[95px] sm-max:mt-8 sm-max:flex-col sm-max:gap-4 sm-max:pb-6 xs-max:mt-6 xs-max:flex-col xs-max:gap-3 xs-max:pb-4 xxs-max:mt-4 xxs-max:flex-col xxs-max:gap-3 xxs-max:pb-4">
-              {user ? <Avatar
-                alt="123"
-                src={`${user?.imageUrl}`}
-                className="flex h-[190px] w-48 items-center justify-center rounded-full bg-slate-200 sm-max:h-[102px] sm-max:w-[102px] xs-max:h-[92px] xs-max:w-[92px] xxs-max:h-[92px] xxs-max:w-[92px]"
-              /> : <div> </div>}
+              {user ? (
+                <Avatar
+                  alt="123"
+                  src={`${user?.imageUrl}`}
+                  className="flex h-[190px] w-48 items-center justify-center rounded-full bg-slate-200 sm-max:h-[102px] sm-max:w-[102px] xs-max:h-[92px] xs-max:w-[92px] xxs-max:h-[92px] xxs-max:w-[92px]"
+                />
+              ) : (
+                <div> </div>
+              )}
               <div className="flex grow flex-col justify-center">
                 <div className="mb-[4px] text-[35px] font-semibold leading-none text-slate-200 sm-max:text-[28px] xs-max:text-[24px] xxs-max:text-[24px]">
                   {userData.users[0].username}
