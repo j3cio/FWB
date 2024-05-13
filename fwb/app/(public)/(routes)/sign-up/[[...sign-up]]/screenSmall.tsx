@@ -21,7 +21,7 @@ export const SmallScreen = () => {
   const router = useRouter()
   const { user } = useUser()
 
-  useEffect (() => {
+  useEffect(() => {
     setCode(code)
   }, [code])
 
@@ -54,15 +54,14 @@ export const SmallScreen = () => {
     }
   }
 
-  const inputRefs: React.RefObject<HTMLInputElement>[]  = [
+  const inputRefs: React.RefObject<HTMLInputElement>[] = [
     useRef(null),
     useRef(null),
     useRef(null),
     useRef(null),
     useRef(null),
     useRef(null),
-];
-
+  ]
 
   //This allows User to sign in with Google
   const signUpWithGoogle = async () => {
@@ -126,117 +125,108 @@ export const SmallScreen = () => {
     }
   }
 
-  //This handles user's input 
-  const handleInput = (input:string, index:number) => {
-
+  //This handles user's input
+  const handleInput = (input: string, index: number) => {
     setinputError(false)
-    const previousInput= inputRefs[index - 1];
-    const nextInput = inputRefs[index + 1];
+    const previousInput = inputRefs[index - 1]
+    const nextInput = inputRefs[index + 1]
 
-    const newCode = Array.from(code);
+    const newCode = Array.from(code)
 
     newCode[index] = input
-    setCode(newCode.join(''));
+    setCode(newCode.join(''))
 
     if (input === '') {
       // If the value is deleted, select previous input, if exists
       if (previousInput && previousInput.current) {
-          previousInput.current.focus();
+        previousInput.current.focus()
       }
-  } else if (nextInput && nextInput.current) {
+    } else if (nextInput && nextInput.current) {
       // Select next input on entry, if exists
-      nextInput.current.select();
-  }
-    
+      nextInput.current.select()
+    }
   }
 
   //This selects input when user clicks an input box
   const handleFocus = (e: React.FormEvent) => {
-    const target = e.target as HTMLInputElement;
+    const target = e.target as HTMLInputElement
     if (target.select) {
-        target.select();
+      target.select()
     }
   }
 
   //This handles keyboard events (e.g. Backspace, Enter)
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index:number) => {
-    const input = e.target as HTMLInputElement;
-    let previousInput = inputRefs[index - 1];
-    
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const input = e.target as HTMLInputElement
+    let previousInput = inputRefs[index - 1]
+
     if (e.key === 'Enter') {
       if (code.search(' ') !== -1 || code.length !== 6) {
-
       } else if (input.form) {
-          // If there is no next input, submit the form
-          handleVerify(e); 
-      } 
+        // If there is no next input, submit the form
+        handleVerify(e)
+      }
     }
-      
-    if ((e.key === 'Backspace' || e.key === 'Delete')) {
-      
-      e.preventDefault();
-     
+
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      e.preventDefault()
+
       // If there is a value in the current input, delete it
       if (input.value !== '') {
-       
-   
-        input.value = '';
-        setCode((prevCode) => prevCode.slice(0, index) + ' ' + prevCode.slice(index + 1));
- 
-       
-        e.preventDefault();
+        input.value = ''
+        setCode(
+          (prevCode) =>
+            prevCode.slice(0, index) + ' ' + prevCode.slice(index + 1)
+        )
 
-    } else if (previousInput && previousInput.current) {
+        e.preventDefault()
+      } else if (previousInput && previousInput.current) {
         previousInput.current.value = ''
-  
-        setCode((prevCode) => prevCode.slice(0, index - 1) + ' ' + prevCode.slice(index));
 
-    
-        
+        setCode(
+          (prevCode) =>
+            prevCode.slice(0, index - 1) + ' ' + prevCode.slice(index)
+        )
+
         //focus on previous box
-        previousInput.current.focus();
-  
-        
+        previousInput.current.focus()
       }
-
     }
-    
-
   }
 
   //This handles paste action
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     setinputError(false)
-    const pastedCode = e.clipboardData.getData('text');
+    const pastedCode = e.clipboardData.getData('text')
     if (pastedCode.length === 6) {
-      setCode(pastedCode);
+      setCode(pastedCode)
       inputRefs.forEach((inputRef, index) => {
         if (inputRef.current) {
-          inputRef.current.value = pastedCode.charAt(index);
-      }
-          
-      });
+          inputRef.current.value = pastedCode.charAt(index)
+        }
+      })
+    }
   }
 
-  }
-
-  //This resets the code 
+  //This resets the code
   const resetCode = () => {
-    inputRefs.forEach(ref => {
-      if (ref.current){
-        ref.current.value = '';
+    inputRefs.forEach((ref) => {
+      if (ref.current) {
+        ref.current.value = ''
       }
-      
-  });
-  if (inputRefs[0].current) {
-    inputRefs[0].current.focus();
-  }
-  
-  setCode('');
+    })
+    if (inputRefs[0].current) {
+      inputRefs[0].current.focus()
+    }
+
+    setCode('')
   }
 
   return (
-    <div className="h-screen w-screen flex flex-row">
+    <div className="flex h-screen w-screen flex-row">
       {!pendingVerification && (
         <div className="flex h-screen w-full flex-row">
           <div className="z-10 mx-auto inline-flex border-0 bg-none p-0 shadow-none sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
@@ -406,53 +396,71 @@ export const SmallScreen = () => {
       )}
 
       {pendingVerification && (
-        <div className='w-full'>
-          {inputError && 
-          <div className="error w-full h-[5vh] bg-[#ED455D] flex justify-center items-center text-[2vh] text-white py-[15px] z-10 absolute">
+        <div className="w-full">
+          {inputError && (
+            <div className="error absolute z-10 flex h-[5vh] w-full items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] text-white">
               Invalid verification code, Please try again.
-          </div>}
-          <div className="verification flex flex-col text-white justify-center items-center mt-[100px]">
-            <h1 className='text-[5vh] font-medium text-center'>Email Verification</h1>
-            <p className='text-[2vh] font-light w-[80%] text-center'>Please enter verification code that we sent you through email</p>
+            </div>
+          )}
+          <div className="verification mt-[100px] flex flex-col items-center justify-center text-white">
+            <h1 className="text-center text-[5vh] font-medium">
+              Email Verification
+            </h1>
+            <p className="w-[80%] text-center text-[2vh] font-light">
+              Please enter verification code that we sent you through email
+            </p>
           </div>
           <div className="verificationForm">
-          <form onSubmit={handleVerify} className='flex flex-col items-center'>
-            <div className="inputBox flex w-screen gap-[8px] justify-center mt-[150px] px-[15px]">
-              {[0,1,2,3,4,5].map((index) => (
-                <input 
-                className={`text-[22px] bg-white h-[13vw] w-[13vw] flex p-2 text-center border-[1px] rounded-md focus:bg-opacity-0 focus:outline-none focus:opacity-100 focus:text-white ${ Array.from(code)[index] && Array.from(code)[index] !== '' && Array.from(code)[index] !== ' ' ? 'bg-opacity-100 opacity-100 text-[#8E94E9]' : 'opacity-40 bg-opacity-40'} ${inputError ? 'border-red-500 !opacity-100' : 'border-white'}`}
-                key={index}
-                onChange={(e) => handleInput(e.target.value, index)}
-                ref={inputRefs[index]}
-                autoFocus={index === 0}
-                onFocus={handleFocus}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                onPaste={handlePaste}
-                maxLength={1}
-                />
-              ))}
-
-            </div>
-            {/*<label id="code">Code</label>
+            <form
+              onSubmit={handleVerify}
+              className="flex flex-col items-center"
+            >
+              <div className="inputBox mt-[150px] flex w-screen justify-center gap-[8px] px-[15px]">
+                {[0, 1, 2, 3, 4, 5].map((index) => (
+                  <input
+                    className={`flex h-[13vw] w-[13vw] rounded-md border-[1px] bg-white p-2 text-center text-[22px] focus:bg-opacity-0 focus:text-white focus:opacity-100 focus:outline-none ${Array.from(code)[index] && Array.from(code)[index] !== '' && Array.from(code)[index] !== ' ' ? 'bg-opacity-100 text-[#8E94E9] opacity-100' : 'bg-opacity-40 opacity-40'} ${inputError ? 'border-red-500 !opacity-100' : 'border-white'}`}
+                    key={index}
+                    onChange={(e) => handleInput(e.target.value, index)}
+                    ref={inputRefs[index]}
+                    autoFocus={index === 0}
+                    onFocus={handleFocus}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    onPaste={handlePaste}
+                    maxLength={1}
+                  />
+                ))}
+              </div>
+              {/*<label id="code">Code</label>
             <input
               value={code}
               id="code"
               name="code"
               onChange={(e) => setCode(e.target.value)}
             />*/}
-            {<button type="submit" className={`submit mt-[150px] w-[80%] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`} disabled={code.search(' ') === -1 && code.length === 6 ? false : true}>Submit</button>}
-          </form>
-          <div className="resend w-full flex text-white justify-center text-lg mt-[20px]">
-            <p className='font-light text-[2vh] pr-[7px]'>Didn’t get a verification code? </p>
-            <form onSubmit={handleSubmit}>
-              <button className='font-semibold text-[2vh]'>Resend code</button>
+              {
+                <button
+                  type="submit"
+                  className={`submit mt-[150px] w-[80%] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
+                  disabled={
+                    code.search(' ') === -1 && code.length === 6 ? false : true
+                  }
+                >
+                  Submit
+                </button>
+              }
             </form>
-            
+            <div className="resend mt-[20px] flex w-full justify-center text-lg text-white">
+              <p className="pr-[7px] text-[2vh] font-light">
+                Didn’t get a verification code?{' '}
+              </p>
+              <form onSubmit={handleSubmit}>
+                <button className="text-[2vh] font-semibold">
+                  Resend code
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-
-        </div>
-          
       )}
     </div>
   )

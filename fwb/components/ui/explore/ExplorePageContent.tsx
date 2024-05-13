@@ -141,7 +141,7 @@ const ExplorePageContent = () => {
             if (concat) {
               setCompanies([...companies].concat(data.result))
             } else {
-              setCompanies((await res.json()).result) // This line is giving an error
+              setCompanies(data.result) // This line is giving an error
             }
           })
           .catch((error) => console.error('error', error))

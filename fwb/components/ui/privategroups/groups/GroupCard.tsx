@@ -5,6 +5,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
@@ -19,6 +20,7 @@ type Props = {
   group: Group
   index: number
   isUserAdmin: boolean
+  loading: boolean
   userGroups: string[]
   handleDeleteGroup: (groupId: string, userGroups: string[]) => Promise<any>
   downloadFile: (filePath: string) => Promise<string | null | undefined>
@@ -35,12 +37,14 @@ const SingleGroupCard = ({
   group,
   index,
   isUserAdmin,
+  loading,
   userGroups,
   handleDeleteGroup,
-  downloadFile
+  downloadFile,
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const openMenu = Boolean(anchorEl)
+  const [shareGroupUrl, setShareGroupUrl] = useState(false)
   const [groupImage, setGroupImage] = useState<string>('')
   const handleClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -55,15 +59,28 @@ const SingleGroupCard = ({
 
   // Display the image
   const fetchAndDisplayImage = async () => {
-      const fileData = await downloadFile(group.filePath)
-      // Convert the Blob to a URL for display
-      if (fileData) {
-        setGroupImage(fileData)
-      }
+    const fileData = await downloadFile(group.filePath)
+    // Convert the Blob to a URL for display
+    if (fileData) {
+      setGroupImage(fileData)
+    }
+  }
+
+  const shareGroup = (group_id: string) => {
+    const base = window.location.origin
+
+    try {
+      navigator.clipboard.writeText(`${base}/groups/${group_id}`)
+      setShareGroupUrl(true)
+      handleCloseMenu()
+      setTimeout(() => setShareGroupUrl(false), 2000)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
-    if ( group.filePath != null){
+    if (group.filePath != null) {
       fetchAndDisplayImage()
     }
   }, [])
@@ -88,16 +105,16 @@ const SingleGroupCard = ({
       </Box>
 
       <Box className="flex w-full items-center justify-between gap-3 px-7 py-4 sm-max:flex-col xs-max:flex-col xxs-max:flex-col">
-        <Box className="flex max-w-[60%] items-center gap-4 sm-max:max-w-full sm-max:items-start xs-max:max-w-full xs-max:items-start xxs-max:max-w-full xxs-max:items-start">
+        <Box className="flex items-center gap-4 lg:max-w-[60%] sm-max:w-full sm-max:items-start xs-max:w-full xs-max:items-start xxs-max:w-full xxs-max:items-start">
           <Image
-            className="w-16 h-16 rounded-full"
-            src={group.filePath ? groupImage : "/groups/gp-avatar.svg"}
+            className="h-16 w-16 rounded-full"
+            src={group.filePath ? groupImage : '/groups/gp-avatars.svg'}
             height={0}
             width={0}
             alt="pg-avatar"
           />
-          <Box className="flex flex-col gap-2 text-[#1A1A23]">
-            <Box className="flex items-center justify-between">
+          <Box className="flex w-full flex-col gap-2 text-[#1A1A23]">
+            <Box className="flex w-full items-center justify-between">
               <Typography
                 onClick={() => navigateToUserPage(group.id)}
                 className="cursor-pointer font-urbanist text-2xl font-semibold sm-max:text-xl xs-max:text-xl xxs-max:text-xl"
@@ -147,13 +164,17 @@ const SingleGroupCard = ({
               marginTop: '10px',
             }}
           >
-            <MenuItem className="font-urbanist">
+            <MenuItem
+              onClick={() => shareGroup(group.id)}
+              className="font-urbanist"
+            >
               <ShareIcon style={{ marginRight: '8px' }} />
               Share Group
             </MenuItem>
             {isUserAdmin && (
               <MenuItem
                 className="font-urbanist text-[#ED455D]"
+                disabled={loading}
                 onClick={() => {
                   handleDeleteGroup(group.id, userGroups)
                   handleCloseMenu()
@@ -164,6 +185,17 @@ const SingleGroupCard = ({
               </MenuItem>
             )}
           </Menu>
+          {shareGroupUrl && (
+            <Tooltip
+              className="absolute bottom-[-20%] left-[80%] rounded bg-[#1A1A23] px-4 py-2 sm:left-[85%] md:left-[70%] lg:left-[70%]"
+              title="copied"
+              placement="right-end"
+            >
+              <Typography className="font-urbanist text-lg font-medium text-white">
+                Copied!
+              </Typography>
+            </Tooltip>
+          )}
         </Box>
       </Box>
     </Box>

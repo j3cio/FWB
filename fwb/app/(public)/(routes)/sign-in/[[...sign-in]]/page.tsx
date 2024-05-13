@@ -124,13 +124,11 @@ export default function Page() {
   //Sign in with Discord
   const signInWithDiscord = async () => {
     try {
-      const response = await signIn?.authenticateWithRedirect({
+      await signIn?.authenticateWithRedirect({
         strategy: 'oauth_discord',
         redirectUrl: '/sso-callback',
         redirectUrlComplete: '/profile', // redirect to this route if sign-in is successful
       })
-
-      console.log(response)
     } catch (error) {
       console.error('Error signing in with Discord', error)
     }

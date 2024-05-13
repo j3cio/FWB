@@ -95,10 +95,9 @@ const MessageButton = (
 
 interface ProductCardProps {
   data: DiscountDataDetail
-  key: number
 }
 
-export default function ProductCard({ data, key }: ProductCardProps) {
+export default function ProductCard({ data }: ProductCardProps) {
   const [showDetails, setShowDetails] = useState<boolean>(false)
   const [showTooltip, setShowTooltip] = useState<boolean>(false)
   const [isAnimating, setIsAnimating] = useState<boolean>(false)

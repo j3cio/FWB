@@ -4,7 +4,6 @@ import ChatPage from './ChatPage'
 
 import './page.css'
 import { Group, UserData } from '@/app/types/types'
-import { group } from 'console'
 
 export default async function Page() {
   async function getUser() {

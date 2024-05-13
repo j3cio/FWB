@@ -2,7 +2,7 @@ import { Box, Container } from '@mui/material'
 import NavBarSkeleton from '../../../../../components/ui/skeletons/variants/NavBarSkeleton'
 import GroupDetailsSection from '@/components/ui/privategroups/groupdetailspage/GroupDetailsSection'
 import GroupTabsSkeleton from '@/components/ui/skeletons/variants/GroupTabsSkeleton'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 const Loading = () => {
   return (
@@ -27,7 +27,7 @@ const Loading = () => {
               admins: '',
               public: false,
               description: 'Loading...',
-              filePath: ''
+              filePath: '',
             }}
             toast={toast}
           />
