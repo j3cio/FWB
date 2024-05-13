@@ -1,9 +1,7 @@
 'use client'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
-
 import Navbar from '@/components/ui/navbar/Navbar'
-
 import { useAuth, useUser } from '@clerk/nextjs'
 import { Container, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -57,7 +55,7 @@ export default function Intakeform() {
   const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
     'public'
   )
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState(false)
   const [description, setDescription] = useState('')
 
@@ -100,7 +98,7 @@ export default function Intakeform() {
         formData.append('Name', company)
         formData.append('company', company)
 
-        formData.append('categories', `{${categories.join(',')}}`)
+        formData.append('categories', `${categories}`)
         formData.append('description', description)
         //formData.append('email', emailAddress)
 
@@ -292,6 +290,7 @@ export default function Intakeform() {
                               )
                             )
                           }
+                          multiple={false}
                           value={categories}
                           required
                         >
