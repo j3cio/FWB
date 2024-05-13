@@ -51,7 +51,7 @@ const DesktopMessageListTopBar = ({
                 alt={`User ${recipientName} Profile Picture`}
               />
             ) : null}
-            <span className="font-semibold">General</span>
+            {/*<span className="font-semibold">General</span>*/}
           </div>
           <div
             className="flex cursor-pointer flex-row items-center gap-3"
