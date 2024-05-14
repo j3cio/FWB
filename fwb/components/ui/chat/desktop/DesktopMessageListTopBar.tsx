@@ -51,13 +51,13 @@ const DesktopMessageListTopBar = ({
                 alt={`User ${recipientName} Profile Picture`}
               />
             ) : null}
-            {/*<span className="font-semibold">General</span>*/}
+            {memberWithRoleMember? <span className="font-semibold">{memberWithRoleMember.user?.name}</span> : <span></span>}
           </div>
           <div
             className="flex cursor-pointer flex-row items-center gap-3"
             onClick={() => setShowChatDetails(!showChatDetails)}
           >
-            {/*<InfoIcon />*/}
+            {memberWithRoleMember? <InfoIcon /> : ''}
           </div>
         </>
       )}

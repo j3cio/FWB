@@ -215,7 +215,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
         </div>
 
         {/* discount listing section */}
-        <div className="relative mb-[50px] xs-max:flex xs-max:flex-col xs-max:gap-[40px] xs-max:gap-[40px] xxs-max:flex xxs-max:flex-col xxs-max:gap-[25px]">
+        <div className="relative mb-[50px] xs-max:flex xs-max:flex-col xs-max:gap-[40px] xs-max:gap-[40px] xs-max:mt-[30px] xxs-max:flex xxs-max:flex-col xxs-max:gap-[25px] xxs-max:mt-[30px]">
           {(discounts.length != 0 ? discounts : data.discounts)?.map(
             (item: DiscountDataDetail) => (
               <DetailCard data={item} key={item.discount_amount} />
