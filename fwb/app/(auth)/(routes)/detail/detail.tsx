@@ -204,7 +204,6 @@ function DetailPageContent({ data }: { data: DetailData }) {
             )
           )}
         </div>
-
         <div className="h-[200px]"></div>
       </div>
     </div>
