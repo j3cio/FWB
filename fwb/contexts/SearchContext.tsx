@@ -21,7 +21,7 @@ interface SearchContextInterface {
   setSearchResults: Dispatch<SetStateAction<any[]>>
   searchHistory: string[]
   setSearchHistory: Dispatch<SetStateAction<string[]>>
-  handleSearch: (searchQuery: string) => void
+  handleSearch: (searchQuery: string, noRedirect?: boolean) => void
   clearSearch: () => void
 }
 
@@ -70,7 +70,7 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
     // TODO: decide if we want our search history to persist
   }
 
-  const handleSearch = async (searchQuery: string) => {
+  const handleSearch = async (searchQuery: string, noRedirect?: boolean) => {
     try {
       const results = await fuzzySearch({ searchIndex, searchQuery })
 
@@ -78,7 +78,8 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
         addToSearchHistory(searchQuery)
       }
       setSearchResults(results)
-      router.push('/explore')
+
+      noRedirect ? null : router.push('/explore')
     } catch (error) {
       console.error(error)
     }

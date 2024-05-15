@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import Navbar from '@/components/ui/navbar/Navbar'
 import { useAuth, useUser } from '@clerk/nextjs'
 import { Container, Typography } from '@mui/material'
@@ -13,6 +13,8 @@ import { useRouter } from 'next/navigation'
 import './page.css'
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
+import { SearchContext } from '@/contexts/SearchContext'
+import Image from 'next/image'
 
 const theme = createTheme({
   components: {
@@ -55,10 +57,12 @@ export default function Intakeform() {
   const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
     'public'
   )
+  const [showCompaniesList, setShowCompaniesList] = useState(false)
   const [categories, setCategories] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState(false)
   const [description, setDescription] = useState('')
 
+  const { handleSearch, searchResults } = useContext(SearchContext)
   const router = useRouter()
   const { getToken } = useAuth()
 
@@ -157,6 +161,22 @@ export default function Intakeform() {
     company !== ''
   )
 
+  const queryCompany = async (event: ChangeEvent<HTMLInputElement>) => {
+    try {
+      const query = event.target.value
+      setCompany(query)
+      setTimeout(() => {
+        handleSearch(query, true)
+      }, 1000)
+      setTimeout(() => {
+        setShowCompaniesList(true)
+      }, 1500)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  console.log({ searchResults })
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
@@ -199,15 +219,43 @@ export default function Intakeform() {
 
               <div className="line2">
                 <div className="company">Company Name*</div>
-                <div>
+                <div className="relative flex flex-col items-end">
                   <input
                     className="inputCompany"
                     placeholder="Company Name"
-                    onChange={(e) => setCompany(e.target.value)}
+                    onChange={(e) => queryCompany(e)}
                     id="companyName"
                     name="companyName"
                     value={company}
                   />
+
+                  {showCompaniesList && searchResults.length ? (
+                    <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
+                      {searchResults.map((result) => (
+                        <div
+                          key={crypto.randomUUID()}
+                          className="my-1 flex items-center gap-1"
+                        >
+                          <Image
+                            src={result.logo ? result.logo : '/nologo.png'}
+                            alt={`${result.name} logo`}
+                            width={36}
+                            height={36}
+                          />
+
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setCompany(result.name)
+                              setShowCompaniesList(false)
+                            }}
+                          >
+                            {result.name}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               </div>
               {/*<div className="line3">
