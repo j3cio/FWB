@@ -9,10 +9,15 @@ import useMultistepForm from '../../../../hooks/useMultistepForm'
 import { GroupForm1 } from './GroupForm1'
 import { GroupForm2 } from './GroupForm2'
 
+type User = {
+  email: string
+  role: string
+}
+
 type FormData = {
   name: string
   description: string
-  users: string[]
+  users: User[]
   file: File | null
 }
 

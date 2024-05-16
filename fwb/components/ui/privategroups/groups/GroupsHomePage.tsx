@@ -123,9 +123,6 @@ const GroupsHomePage = ({
     }
   }
 
-  //use only one modal for the two group instances ('== 0' and '> 0')
-  //create loading state for when a group is being deleted
-
   return (
     <Box
       component="section"
