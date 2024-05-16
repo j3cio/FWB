@@ -163,40 +163,43 @@ export default function Intakeform() {
     company !== ''
   )
 
+  let debounceTimeout: ReturnType<typeof setTimeout> | null = null
+
   const queryCompany = async (event: ChangeEvent<HTMLInputElement>) => {
-    // const companyExistsInDb = searchResults.length && company.length
+    const query = event.target.value
+    setCompany(query)
 
-    try {
-      const query = event.target.value
-      setCompany(query)
+    // Clear any existing debounce timeout
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout)
+    }
 
+    // Set a new debounce timeout
+    debounceTimeout = setTimeout(async () => {
+      // Call the handleSearch function
+      await handleSearch(query, true)
+
+      // Check if searchResults is empty after a delay
       setTimeout(() => {
-        handleSearch(query, true)
-      }, 1000)
-      setTimeout(() => {
-        // if (searchResults.length === 0) {
         if (company.length && searchResults.length === 0) {
-          // Make an API call to a generic API with the company field
+          // Make an API call to the BrandFetch API with the company field
           fetch(`https://api.brandfetch.io/v2/search/${query}`)
             .then((response) => response.json())
             .then((data) => {
-              // Handle the response data from the generic API
+              // Handle the response data from the BrandFetch API
               setBrandfetchSearchResults(data)
-              console.log('Generic API response:', data)
+              console.log('BrandFetch API response:', data)
             })
             .catch((error) => {
-              console.error('Error fetching from generic API:', error)
+              console.error('Error fetching from BrandFetch API:', error)
             })
         }
 
         setShowCompaniesList(true)
-      }, 1500)
-    } catch (error) {
-      console.error(error)
-    }
+      }, 500) // Adjust this delay as needed
+    }, 500) // Adjust this debounce timeout as needed
   }
 
-  console.log({ searchResults })
   return (
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
