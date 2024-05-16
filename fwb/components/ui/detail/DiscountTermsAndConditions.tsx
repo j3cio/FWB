@@ -11,14 +11,14 @@ const DiscountTermsAndConditions = ({
 }: DiscountTermsAndConditionsProps) => {
   return (
     <div className="mb-[40px]">
-      <div className="mb-[24px] h-[1px] w-full bg-[#ADB4D2]"></div>
+      <div className="mb-[24px] h-[1px] w-full bg-[#ADB4D2] xs-max:hidden xxs-max:hidden"></div>
       <div>
-        <div className="mb-[3px] text-[16px] font-bold text-[#1A1A23]">
+        <div className="mb-[3px] text-[16px] font-bold text-[#1A1A23] xs-max:hidden xxs-max:hidden">
           Terms & Conditions:
         </div>
-        <div>{data.terms_and_conditions}</div>
+        <div className='xs-max:hidden xxs-max:hidden'>{data.terms_and_conditions}</div>
 
-        <div className="flex w-full items-center justify-end gap-4">
+        <div className="flex w-full items-center justify-end gap-4  xs-max:hidden xxs-max:hidden">
           {/* <BookmarkIcon /> */}
           <button className="ml-1 flex  justify-between rounded-[30px] bg-[#8E94E9] px-3 py-[10px] text-xl font-semibold text-white">
             <span className="pl-5 pr-2">Take Advantage 😉</span>

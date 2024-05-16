@@ -14,8 +14,14 @@ import {
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
 import Navbar from '@/components/ui/navbar/Navbar'
-
+import { useMediaQuery } from '@mui/material'
 import { Container } from '@mui/material'
+import MobileDetailFilters from '@/components/ui/explore/MobileDetailFilters'
+import { FilterOptions } from '../../../../components/ui/explore/constants'
+import {
+  FilterContext,
+  FilterProvider,
+} from '@/components/ui/explore/filter_context'
 
 export default function DetailPage({
   company,
@@ -76,6 +82,12 @@ function DetailPageContent({ data }: { data: DetailData }) {
   const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
+  const isSmallScreen = useMediaQuery('(max-width:600px)')
+  const [activeOptions, setActiveOptions] = useState<FilterOptions>({
+    sort: '',
+    privateGroups: [],
+    categories: [],
+  })
 
   useEffect(() => {
     if (data.discounts) {
@@ -107,7 +119,6 @@ function DetailPageContent({ data }: { data: DetailData }) {
       }
 
       const responseData = await response.json()
-
       setDiscounts(responseData)
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -121,18 +132,18 @@ function DetailPageContent({ data }: { data: DetailData }) {
       <Container disableGutters maxWidth="lg">
         <Navbar />
       </Container>
-      <div className="details max-w-[1170px] px-[18px]">
-        <div className="flex flex-row pt-[96px]">
+      <div className="details max-w-[1170px] px-[18px] xs-max:w-screen xxs-max:w-screen">
+        <div className="flex flex-row pt-[96px] xs-max:flex-col xs-max:pt-0 xxs-max:flex-col xxs-max:pt-0 xxs-max:pt-0">
           <div
-            className="mr-[30px] w-1/3 bg-cover bg-center bg-no-repeat pb-[20.25%] "
+            className="mr-[30px] w-1/3 bg-cover bg-center bg-no-repeat pb-[20.25%] xs-max:mr-0 xs-max:h-[250px] xs-max:w-auto xs-max:bg-auto xxs-max:mr-0  xxs-max:h-[250px]  xxs-max:w-auto  xxs-max:bg-auto"
             style={{ backgroundImage: `url(${data.company.logo})` }}
           >
             {/* placeholder image */}
           </div>
-          <div className="flex w-2/3 flex-col">
+          <div className="flex w-2/3 flex-col xs-max:w-auto xxs-max:w-auto">
             <div className="mt-[45px] flex w-full flex-row">
               {/* Company Name div */}
-              <div className="text-[32px] font-bold text-[#F6FF82]">
+              <div className="text-[32px] font-bold text-[#F6FF82] xs-max:font-normal xxs-max:font-normal">
                 {data.company.name}
               </div>
               {/* link icon */}
@@ -170,7 +181,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
               id ut id donec turpis.
             </div>
             {/* statisctics */}
-            <div className="font ml-auto mt-auto flex w-full justify-end text-center text-[15px] text-white">
+            <div className="font ml-auto mt-auto flex w-full justify-end text-center text-[15px] text-white xs-max:mt-[18px] xxs-max:mt-[18px]">
               <div className="mr-[45px] flex flex-col ">
                 <div className="text-[15px]">Total Offers</div>
                 <div className="text-center text-[23px]">
@@ -187,17 +198,24 @@ function DetailPageContent({ data }: { data: DetailData }) {
           </div>
         </div>
         {/* discounts offered section */}
-        <div className="mt-[50px] border-t-[2px] border-white pb-[72px] pt-[96px]">
-          <div className="flex w-full flex-row justify-between">
-            <div className="mb-auto text-[32px] font-bold text-[#F6FF82]">
+        <div className="mt-[50px] border-t-[2px] border-white pb-[72px] pt-[96px] xs-max:mt-[20px] xs-max:pb-0 xs-max:pt-[18px] xxs-max:mt-[20px]  xxs-max:pb-0 xxs-max:pt-[18px]">
+          <div className="flex w-full flex-row justify-between xs-max:flex-col xxs-max:flex-col">
+            <div className="mb-auto text-[32px] font-bold text-[#F6FF82] xs-max:mb-[16px] xs-max:text-[23px] xs-max:font-normal xs-max:text-white xxs-max:mb-[16px] xxs-max:text-[23px] xxs-max:font-normal xxs-max:text-white">
               Discounts Offered
             </div>
-            <DetailFilters />
+
+            {!isSmallScreen && <DetailFilters />}
+            {isSmallScreen && (
+              <MobileDetailFilters
+                activeOptions={activeOptions}
+                setActiveOptions={setActiveOptions}
+              />
+            )}
           </div>
         </div>
 
         {/* discount listing section */}
-        <div className="relative mb-[50px]">
+        <div className="relative mb-[50px] xs-max:flex xs-max:flex-col xs-max:gap-[40px] xs-max:gap-[40px] xs-max:mt-[30px] xxs-max:flex xxs-max:flex-col xxs-max:gap-[25px] xxs-max:mt-[30px]">
           {(discounts.length != 0 ? discounts : data.discounts)?.map(
             (item: DiscountDataDetail) => (
               <DetailCard data={item} key={item.discount_amount} />
