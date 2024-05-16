@@ -61,6 +61,8 @@ export default function Intakeform() {
   const [categories, setCategories] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState(false)
   const [description, setDescription] = useState('')
+  const [brandfetchSearchResults, setBrandfetchSearchResults] =
+    useState<any[]>()
 
   const { handleSearch, searchResults } = useContext(SearchContext)
   const router = useRouter()
@@ -162,13 +164,31 @@ export default function Intakeform() {
   )
 
   const queryCompany = async (event: ChangeEvent<HTMLInputElement>) => {
+    // const companyExistsInDb = searchResults.length && company.length
+
     try {
       const query = event.target.value
       setCompany(query)
+
       setTimeout(() => {
         handleSearch(query, true)
       }, 1000)
       setTimeout(() => {
+        // if (searchResults.length === 0) {
+        if (company.length && searchResults.length === 0) {
+          // Make an API call to a generic API with the company field
+          fetch(`https://api.brandfetch.io/v2/search/${query}`)
+            .then((response) => response.json())
+            .then((data) => {
+              // Handle the response data from the generic API
+              setBrandfetchSearchResults(data)
+              console.log('Generic API response:', data)
+            })
+            .catch((error) => {
+              console.error('Error fetching from generic API:', error)
+            })
+        }
+
         setShowCompaniesList(true)
       }, 1500)
     } catch (error) {
@@ -229,9 +249,38 @@ export default function Intakeform() {
                     value={company}
                   />
 
-                  {showCompaniesList && searchResults.length ? (
+                  {searchResults.length ? (
+                    // {showCompaniesList && searchResults.length ? (
                     <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
                       {searchResults.map((result) => (
+                        <div
+                          key={crypto.randomUUID()}
+                          className="my-1 flex items-center gap-1"
+                        >
+                          <Image
+                            src={result.logo ? result.logo : '/nologo.png'}
+                            alt={`${result.name} logo`}
+                            width={36}
+                            height={36}
+                          />
+
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setCompany(result.name)
+                              setShowCompaniesList(false)
+                            }}
+                          >
+                            {result.name}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : brandfetchSearchResults &&
+                    brandfetchSearchResults.length ? (
+                    <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
+                      {brandfetchSearchResults.map((result) => (
+                        // {searchResults.map((result) => (
                         <div
                           key={crypto.randomUUID()}
                           className="my-1 flex items-center gap-1"
