@@ -19,3 +19,68 @@ export interface BrandFetchSearchResponse {
   icon: string
   name: string
 }
+
+interface BrandFetchColor {
+  hex: string
+  type: 'dark' | 'light'
+  brightness: number
+}
+
+interface BrandFetchIndustry {
+  score: number
+  id: string
+  name: string
+  emoji: string
+  parent: {
+    emoji: string
+    id: string
+    name: string
+    slug: string
+  } | null
+  slug: string
+}
+
+interface BrandFetchCompany {
+  employees: number | null
+  foundedYear: null | number
+  industries: BrandFetchIndustry[]
+  kind: string
+}
+
+interface BrandFetchImage {
+  src: string
+  format: string
+  size: number
+  width: number
+}
+
+interface BrandFetchSocialMediaLinks {
+  name: string
+  url: string
+}
+
+interface BrandFetchLogo {
+  theme: 'dark' | 'light'
+  formats: {
+    format: string
+    size: number
+    src: string
+  }[]
+  tags: string[]
+  type: string
+}
+export interface BrandFetchRetrieveBrandResponse {
+  claimed: boolean
+  colors: BrandFetchColor[]
+  company: BrandFetchCompany
+  description: string
+  domain: string
+  id: string
+  images: BrandFetchImage[]
+  isNsfw: boolean
+  links: BrandFetchSocialMediaLinks[]
+  logos: BrandFetchLogo[]
+  longDescription: string
+  name: string
+  qualityScore: number
+}

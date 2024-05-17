@@ -15,7 +15,11 @@ import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
 import { SearchContext } from '@/contexts/SearchContext'
 import Image from 'next/image'
-import { BrandFetchSearchResponse, FuzzySearchResponse } from './types'
+import {
+  BrandFetchRetrieveBrandResponse,
+  BrandFetchSearchResponse,
+  FuzzySearchResponse,
+} from './types'
 
 const theme = createTheme({
   components: {
@@ -216,9 +220,12 @@ export default function Intakeform() {
         },
       }
     )
-    const brandData = await response.json()
+    const brandData: BrandFetchRetrieveBrandResponse = await response.json()
 
-    console.log({ brandData })
+    setCompany(brandData.name)
+    // setCategories(brandData.company.industries[0].name) once we normalize our categories we can deal with this
+
+    // Add our brandData to our Supabase after this is done. Can't do this just yet since we'll need to configure our tables for the schema we want.
   }
 
   return (
@@ -313,7 +320,7 @@ export default function Intakeform() {
                             }}
                           >
                             <Image
-                              src={result.icon}
+                              src={result.icon ? result.icon : '/nologo.png'}
                               alt={`${result.name} logo`}
                               width={36}
                               height={36}
