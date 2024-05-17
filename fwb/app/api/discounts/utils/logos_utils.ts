@@ -1,8 +1,13 @@
 import supabaseClient from '@/supabase'
 
 export const getNewLogoUrl = async (domain_name: string) => {
+  const brandfetchApiKey =
+    process.env.NODE_ENV === 'development'
+      ? process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY
+      : process.env.BRANDFETCH_API_KEY
+
   var myHeaders = new Headers()
-  myHeaders.append('Authorization', `Bearer ${process.env.BRANDFETCH_API_KEY}`)
+  myHeaders.append('Authorization', `Bearer ${brandfetchApiKey}`)
 
   var requestOptions: RequestInit = {
     method: 'GET',

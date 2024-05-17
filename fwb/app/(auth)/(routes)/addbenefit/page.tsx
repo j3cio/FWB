@@ -201,7 +201,25 @@ export default function Intakeform() {
     }, 500) // Adjust this debounce timeout as needed
   }
 
-  console.log({ searchResults })
+  const brandfetchApiKey =
+    process.env.NODE_ENV === 'development'
+      ? process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY
+      : process.env.BRANDFETCH_API_KEY
+
+  const addBrandFetchDetails = async (brandId: string) => {
+    const response = await fetch(
+      `
+    https://api.brandfetch.io/v2/brands/${brandId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${brandfetchApiKey}`,
+        },
+      }
+    )
+    const brandData = await response.json()
+
+    console.log({ brandData })
+  }
 
   return (
     <div>
@@ -289,8 +307,9 @@ export default function Intakeform() {
                             key={crypto.randomUUID()}
                             className="my-1 flex items-center gap-1"
                             onClick={() => {
-                              setCompany(result.name)
-                              setShowCompaniesList(false)
+                              // setCompany(result.name)
+                              // setShowCompaniesList(false)
+                              addBrandFetchDetails(result.brandId)
                             }}
                           >
                             <Image
