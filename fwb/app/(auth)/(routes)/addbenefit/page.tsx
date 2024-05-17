@@ -20,6 +20,7 @@ import {
   BrandFetchSearchResponse,
   FuzzySearchResponse,
 } from './types'
+import CloseIcon from '@/components/ui/chat/icons/CloseIcon'
 
 const theme = createTheme({
   components: {
@@ -226,6 +227,8 @@ export default function Intakeform() {
     // setCategories(brandData.company.industries[0].name) once we normalize our categories we can deal with this
 
     // Add our brandData to our Supabase after this is done. Can't do this just yet since we'll need to configure our tables for the schema we want.
+
+    setShowCompaniesList(false)
   }
 
   return (
@@ -278,10 +281,25 @@ export default function Intakeform() {
                     id="companyName"
                     name="companyName"
                     value={company}
+                    // onBlur={() => {
+                    //   setShowCompaniesList(false)
+                    // }}
                   />
 
+                  {company.length ? (
+                    <div
+                      className="absolute right-1 cursor-pointer opacity-60 hover:opacity-100"
+                      onClick={() => {
+                        setCompany('')
+                        setShowCompaniesList(false)
+                      }}
+                    >
+                      <CloseIcon fill="black" />
+                    </div>
+                  ) : null}
+
                   {/* Here is where we have different actions depending on if we're using brandfetch or our local DB.*/}
-                  {searchResults.length ? (
+                  {showCompaniesList && searchResults.length ? (
                     // {showCompaniesList && searchResults.length ? (
                     <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
                       {searchResults.map((result: FuzzySearchResponse) => (
@@ -305,6 +323,7 @@ export default function Intakeform() {
                       ))}
                     </div>
                   ) : brandFetchSearchResults &&
+                    showCompaniesList &&
                     brandFetchSearchResults.length ? (
                     <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
                       {brandFetchSearchResults.map(
