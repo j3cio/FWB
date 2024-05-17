@@ -252,6 +252,7 @@ export default function Intakeform() {
                     value={company}
                   />
 
+                  {/* Here is where we have different actions depending on if we're using brandfetch or our local DB.*/}
                   {searchResults.length ? (
                     // {showCompaniesList && searchResults.length ? (
                     <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
@@ -259,6 +260,10 @@ export default function Intakeform() {
                         <div
                           key={crypto.randomUUID()}
                           className="my-1 flex items-center gap-1"
+                          onClick={() => {
+                            setCompany(result.name)
+                            setShowCompaniesList(false)
+                          }}
                         >
                           <Image
                             src={result.logo ? result.logo : '/nologo.png'}
@@ -267,15 +272,7 @@ export default function Intakeform() {
                             height={36}
                           />
 
-                          <p
-                            className="cursor-pointer"
-                            onClick={() => {
-                              setCompany(result.name)
-                              setShowCompaniesList(false)
-                            }}
-                          >
-                            {result.name}
-                          </p>
+                          <p className="cursor-pointer">{result.name}</p>
                         </div>
                       ))}
                     </div>
@@ -287,6 +284,10 @@ export default function Intakeform() {
                         <div
                           key={crypto.randomUUID()}
                           className="my-1 flex items-center gap-1"
+                          onClick={() => {
+                            setCompany(result.name)
+                            setShowCompaniesList(false)
+                          }}
                         >
                           <Image
                             src={result.logo ? result.logo : '/nologo.png'}
@@ -295,15 +296,7 @@ export default function Intakeform() {
                             height={36}
                           />
 
-                          <p
-                            className="cursor-pointer"
-                            onClick={() => {
-                              setCompany(result.name)
-                              setShowCompaniesList(false)
-                            }}
-                          >
-                            {result.name}
-                          </p>
+                          <p className="cursor-pointer">{result.name}</p>
                         </div>
                       ))}
                     </div>
