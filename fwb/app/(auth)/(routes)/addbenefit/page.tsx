@@ -15,6 +15,7 @@ import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
 import { SearchContext } from '@/contexts/SearchContext'
 import Image from 'next/image'
+import { BrandFetchSearchResponse, FuzzySearchResponse } from './types'
 
 const theme = createTheme({
   components: {
@@ -61,7 +62,7 @@ export default function Intakeform() {
   const [categories, setCategories] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState(false)
   const [description, setDescription] = useState('')
-  const [brandfetchSearchResults, setBrandfetchSearchResults] =
+  const [brandFetchSearchResults, setBrandFetchSearchResults] =
     useState<any[]>()
 
   const { handleSearch, searchResults } = useContext(SearchContext)
@@ -180,25 +181,27 @@ export default function Intakeform() {
       await handleSearch(query, true)
 
       // Check if searchResults is empty after a delay
-      setTimeout(() => {
-        if (company.length && searchResults.length === 0) {
+      if (company.length && searchResults.length === 0) {
+        setTimeout(() => {
           // Make an API call to the BrandFetch API with the company field
           fetch(`https://api.brandfetch.io/v2/search/${query}`)
             .then((response) => response.json())
             .then((data) => {
               // Handle the response data from the BrandFetch API
-              setBrandfetchSearchResults(data)
+              setBrandFetchSearchResults(data)
               console.log('BrandFetch API response:', data)
             })
             .catch((error) => {
               console.error('Error fetching from BrandFetch API:', error)
             })
-        }
 
-        setShowCompaniesList(true)
-      }, 500) // Adjust this delay as needed
+          setShowCompaniesList(true)
+        }, 500) // Adjust this delay as needed
+      }
     }, 500) // Adjust this debounce timeout as needed
   }
+
+  console.log({ searchResults })
 
   return (
     <div>
@@ -256,7 +259,7 @@ export default function Intakeform() {
                   {searchResults.length ? (
                     // {showCompaniesList && searchResults.length ? (
                     <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
-                      {searchResults.map((result) => (
+                      {searchResults.map((result: FuzzySearchResponse) => (
                         <div
                           key={crypto.randomUUID()}
                           className="my-1 flex items-center gap-1"
@@ -276,29 +279,31 @@ export default function Intakeform() {
                         </div>
                       ))}
                     </div>
-                  ) : brandfetchSearchResults &&
-                    brandfetchSearchResults.length ? (
+                  ) : brandFetchSearchResults &&
+                    brandFetchSearchResults.length ? (
                     <div className="absolute top-6 z-10 mt-2 flex min-h-10 w-full max-w-[364px] flex-col justify-self-end rounded bg-slate-500 py-2 pl-4 text-white">
-                      {brandfetchSearchResults.map((result) => (
-                        // {searchResults.map((result) => (
-                        <div
-                          key={crypto.randomUUID()}
-                          className="my-1 flex items-center gap-1"
-                          onClick={() => {
-                            setCompany(result.name)
-                            setShowCompaniesList(false)
-                          }}
-                        >
-                          <Image
-                            src={result.logo ? result.logo : '/nologo.png'}
-                            alt={`${result.name} logo`}
-                            width={36}
-                            height={36}
-                          />
+                      {brandFetchSearchResults.map(
+                        (result: BrandFetchSearchResponse) => (
+                          // {searchResults.map((result) => (
+                          <div
+                            key={crypto.randomUUID()}
+                            className="my-1 flex items-center gap-1"
+                            onClick={() => {
+                              setCompany(result.name)
+                              setShowCompaniesList(false)
+                            }}
+                          >
+                            <Image
+                              src={result.icon}
+                              alt={`${result.name} logo`}
+                              width={36}
+                              height={36}
+                            />
 
-                          <p className="cursor-pointer">{result.name}</p>
-                        </div>
-                      ))}
+                            <p className="cursor-pointer">{result.name}</p>
+                          </div>
+                        )
+                      )}
                     </div>
                   ) : null}
                 </div>
