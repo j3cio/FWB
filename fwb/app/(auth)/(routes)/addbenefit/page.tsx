@@ -274,6 +274,15 @@ export default function Intakeform() {
               <div className="line2">
                 <div className="company">Company Name*</div>
                 <div className="relative flex flex-col items-end">
+                  <p className="absolute top-[-25px] cursor-pointer text-sm text-white">
+                    <a
+                      href="https://brandfetch.com"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Powered by Brandfetch
+                    </a>
+                  </p>
                   <input
                     className="inputCompany"
                     placeholder="Company Name"
