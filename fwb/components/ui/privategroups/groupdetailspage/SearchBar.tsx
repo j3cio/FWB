@@ -4,7 +4,7 @@ import { Image } from 'next/dist/client/image-component'
 
 const SearchBar = () => {
   return (
-    <div className="mr-4">
+    <div className="mr-4 sm-max:mr-0 xs-max:mr-0 xxs-max:mr-0">
       <Box
         sx={{
           display: 'flex',
@@ -14,6 +14,7 @@ const SearchBar = () => {
           flexGrow: 1,
           border: 'none',
         }}
+        className='xs-max:h-[40px] xxs-max:h-[40px]'
       >
         <TextField
           variant="outlined"
@@ -27,6 +28,10 @@ const SearchBar = () => {
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',
             },
+            '& .MuiInputBase-input': {
+              paddingTop: '10px',
+            },
+            fontFamily: 'Urbanist'
           }}
         />
         <IconButton
@@ -38,8 +43,9 @@ const SearchBar = () => {
             border: 'none',
             margin: '4px',
           }}
+          className='xs-max:w-[32px] xxs-max:w-[32px]'
         >
-          <Image src={searchIcon} alt="Search Icon" />
+          <Image src={searchIcon} alt="Search Icon" className='xs-max:h-[16px] xxs-max:h-[16px]'/>
         </IconButton>
       </Box>
     </div>

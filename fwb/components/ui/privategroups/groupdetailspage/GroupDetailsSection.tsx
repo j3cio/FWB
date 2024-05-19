@@ -11,15 +11,16 @@ import LockIcon from '../icons/LockIcon'
 import LockIconYellow from '../icons/LockIconYellow'
 import Pencil from '../icons/pencil.svg'
 //import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
 import GroupInviteModal from './GroupInviteModal'
+import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
 //TODO: The changing of group profile picture should requre admin priviledges
 
 const GroupDetailsSection = ({
   groupData,
   userData,
-  toast,
+  toast
 }: {
   groupData: Group
   userData: UserData[]
@@ -146,22 +147,29 @@ const GroupDetailsSection = ({
       fetchAndDisplayImage(groupData.filePath)
     }
   }, [])
-
+//for group detail branch
+  let mobile
+  if (typeof window !== 'undefined') {
+    mobile = window.innerWidth < 640;
+  }
+ //${mobile && 'mb-10 mt-0'}
+  console.log(mobile)
   return (
-    <Box className="my-10 flex h-2/3 w-full flex-col border-none">
+    typeof window !== 'undefined' && 
+    (<Box className={`my-10 flex h-2/3 w-full flex-col border-none xs-max:mb-10 xs-max:mt-0 xxs-max:mb-10 xxs-max:mt-0`}>
       <Box className="relative w-full">
         <Image
           priority
-          className="h-full w-full"
-          src={`/groups/pg-bg2.png`}
+          className="h-full w-full border-solid border-b-2 border-[#F6FF82]"
+          src={`${mobile ? '/groups/pg-bg1.png' : '/groups/pg-bg2.png'}`}
           height={0}
           width={1200}
           alt="group-img"
         />
-        <LockIcon className="absolute right-2 top-2 w-fit rounded-full bg-[#fff] p-3" />
+        <LockIcon className="absolute right-2 top-2 w-fit rounded-full bg-[#fff] p-3 xs-max:hidden xxs-max:hidden" />
       </Box>
       <div className="relative flex items-center justify-between bg-[#1a1a23] px-4">
-        <div className="absolute -top-16 left-36 -translate-x-1/2 transform rounded-full">
+        <div className={`absolute -top-16 left-36 -translate-x-1/2 transform rounded-full xxs-max:-top-[2rem] xxs-max:left-12 xs-max:-top-[2rem] xs-max:left-12`}>
           {filePath ? (
             <div className="h-32 w-32 overflow-hidden rounded-full">
               <Image
@@ -172,7 +180,7 @@ const GroupDetailsSection = ({
               />
               <input
                 type="file"
-                accept="image/*"
+                accept='image/*'
                 className="hidden"
                 onChange={uploadFile}
                 ref={fileInputRef}
@@ -182,16 +190,15 @@ const GroupDetailsSection = ({
             <div>
               <Avatar
                 sx={{
-                  width: 150,
-                  height: 150,
-                  border: '4px solid black',
+                  border: '2px solid black',
                   cursor: 'pointer',
                 }}
                 onClick={handleImageClick}
+                className='w-[150px] h-[150px] xs-max:w-[60px] xs-max:h-[60px] xxs-max:w-[60px] xxs-max:h-[60px]'
               />
               <input
                 type="file"
-                accept="image/*"
+                accept='image/*'
                 className="hidden"
                 onChange={uploadFile}
                 ref={fileInputRef}
@@ -199,10 +206,10 @@ const GroupDetailsSection = ({
             </div>
           )}
         </div>
-        <div className="mt-28 flex w-full justify-between gap-4 sm-max:flex-col xs-max:flex-col xxs-max:flex-col">
+        <div className={`mt-28 flex w-full justify-between gap-4 sm-max:flex-col xs-max:flex-col xxs-max:flex-col xs-max:mt-12 xxs-max:mt-8`}>
           <div className="flex max-w-[50%] flex-col gap-3 text-white sm-max:max-w-full xs-max:max-w-full xxs-max:max-w-full">
             <div className="flex items-start gap-1">
-              <p className="flex flex-col text-2xl capitalize">
+              <p className="flex flex-col text-2xl capitalize xs-max:text-[1.2rem] xxs-max:text-[1.2rem]">
                 {groupData.name}
                 <span className="flex items-center gap-1 text-xs text-yellow-300">
                   <LockIconYellow />
@@ -227,25 +234,22 @@ const GroupDetailsSection = ({
             )}
           </div>
 
-          <div className="flex flex-row-reverse items-end justify-between gap-3 text-white xxl-max:flex-col xl-max:flex-col lg-max:flex-col sm-max:w-full xs-max:w-full xxs-max:w-full">
-            <div className="flex flex-col gap-1">
+          <div className="flex flex-row-reverse items-center justify-between gap-3 text-white xxl-max:flex-col xl-max:flex-col lg-max:flex-col sm-max:w-full xs-max:w-full xxs-max:w-full">
+            <div className="flex flex-col gap-1 xs-max:w-[30%] items-end xs-max:gap-0 xxs-max:w-[30%] xxs-max:gap-0">
               <Image
                 src="/groups/AvatarContainer.svg"
                 alt="empty avatars"
-                className="w-full"
+                className="w-full xs-max:w-[80%] xxs-max:w-[80%] xs-max:pt-[5px] xxs-max:pt-[5px]"
                 width={0}
                 height={0}
               />
-              <p className="text-end text-base">
-                {groupData?.users.length} member
-                {groupData?.users.length > 1 ? 's' : ''}
-              </p>
+              <p className="text-sm xs-max:text-[0.7rem] xxs-max:text-[0.6rem]">+50 more members</p>
             </div>
-            <div className="">
+            <div className="xs-max:w-[70%] xxs-max:w-[70%]">
               <Button
                 endIcon={<InviteMemberIcon />}
                 variant="outlined"
-                className="rounded-2xl border border-white px-4 py-1 text-white"
+                className="rounded-2xl border border-white px-4 py-1 text-white xs-max:w-full xs-max:normal-case xs-max:border-[1.5px] xs-max:rounded-full xs-max:text-[17px] xs-max:mt-[-5px] xxs-max:w-full xxs-max:text-[13px] xxs-max:px-2 xxs-max:normal-case"
                 onClick={openGroupInviteModal}
               >
                 Invite Members
@@ -258,7 +262,7 @@ const GroupDetailsSection = ({
           onClose={closeGroupInviteModal}
         />
       </div>
-    </Box>
+    </Box>)
   )
 }
 

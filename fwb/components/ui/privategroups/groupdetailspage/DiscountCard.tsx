@@ -1,5 +1,4 @@
 'use client'
-import { FWBChatContext } from '@/contexts/ChatContext'
 import { CardActionArea } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -8,8 +7,6 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
 import * as React from 'react'
-import { useContext, useState } from 'react'
-import { useChatContext } from 'stream-chat-react'
 
 /**
  * Renders a discount component.
@@ -43,6 +40,7 @@ const Discount = ({
             alignItems: 'center',
             fontFamily: 'inherit',
           }}
+          className='xs-max:left-[110px] xxs-max:left-[100px] xs-max:w-[55px] xxs-max:w-[45px] xs-max:h-[55px] xxs-max:h-[45px] [@media(max-width:300px)]:w-[35px] [@media(max-width:300px)]:h-[35px] [@media(max-width:300px)]:left-[70px] [@media(max-width:300px)]:top-[-35px]'
         >
           <Box
             sx={{
@@ -60,6 +58,7 @@ const Discount = ({
                 fontFamily: 'inherit',
                 fontStyle: 'normal',
               }}
+              className='xs-max:font-normal xxs-max:font-normal xs-max:text-[20px] xxs-max:text-[15px] [@media(max-width:300px)]:text-[12px] [@media(max-width:300px)]:leading-[10px]'
             >
               {`${amount}%`}
             </Typography>
@@ -73,6 +72,7 @@ const Discount = ({
                 fontStyle: 'normal',
                 lineHeight: '14px',
               }}
+              className='xxs-max:text-[10px] [@media(max-width:300px)]:text-[8px]'
             >
               off
             </Typography>
@@ -88,9 +88,7 @@ const Discount = ({
  * @returns JSX.Element
  */
 export default function DiscountCard({ company }: { company: any }) {
-  const [isHovered, setIsHovered] = useState(false) // Indicates whether the card is being hovered
-  const { client, channel, setActiveChannel } = useChatContext()
-  const { customActiveChannel } = useContext(FWBChatContext)
+  const [isHovered, setIsHovered] = React.useState(false) // Indicates whether the card is being hovered
   return (
     <motion.div
       onHoverStart={() => setIsHovered(true)}
@@ -112,6 +110,7 @@ export default function DiscountCard({ company }: { company: any }) {
           borderRadius: '20px',
           borderColor: isHovered ? '#F6FF82' : '#1A1A23',
         }}
+        className='xs-max:p-0 xxs-max:p-0 xs-max:w-full xxs-max:w-full xs-max:h-[55vw] xxs-max:h-[55vw] xs-max:rounded-2xl xxs-max:rounded-2xl'
       >
         <CardActionArea sx={{ height: '100%' }}>
           {/* Card Image */}
@@ -136,6 +135,8 @@ export default function DiscountCard({ company }: { company: any }) {
               paddingRight: '24px',
               paddingBottom: '24px',
             }}
+            className='xs-max:pl-[10px] xxs-max:pl-[10px]'
+
           >
             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
               <Typography
@@ -147,6 +148,7 @@ export default function DiscountCard({ company }: { company: any }) {
                   fontStyle: 'normal',
                   lineHeight: '26.4px',
                 }}
+                className='xs-max:text-[17px] xxs-max:text-[17px] [@media(max-width:300px)]:text-[13px] [@media(max-width:300px)]:leading-[10px]'
               >
                 {company.name}
               </Typography>
@@ -168,6 +170,7 @@ export default function DiscountCard({ company }: { company: any }) {
                   width: '64px',
                   height: '24px',
                 }}
+                className='xs-max:hidden xxs-max:hidden'
               >
                 <Avatar
                   alt="man1"
@@ -178,6 +181,7 @@ export default function DiscountCard({ company }: { company: any }) {
                     position: 'absolute',
                     left: '0',
                   }}
+                  className='xs-max:hidden xxs-max:hidden'
                 />
                 <Avatar
                   alt="man1"
@@ -188,6 +192,7 @@ export default function DiscountCard({ company }: { company: any }) {
                     position: 'absolute',
                     left: '20px',
                   }}
+                  className='xs-max:hidden xxs-max:hidden'
                 />
                 <Avatar
                   alt="man1"
@@ -198,6 +203,7 @@ export default function DiscountCard({ company }: { company: any }) {
                     position: 'absolute',
                     left: '40px',
                   }}
+                  className='xs-max:hidden xxs-max:hidden'
                 />
               </div>
               <Typography
@@ -210,6 +216,7 @@ export default function DiscountCard({ company }: { company: any }) {
                   lineHeight: '18px',
                   marginLeft: '6px',
                 }}
+                className='xs-max:ml-0 xxs-max:ml-0 xs-max:leading-[4px] xxs-max:leading-[4px] [@media(max-width:300px)]:leading-[10px] [@media(max-width:300px)]:text-[10px]'
               >
                 + Benefits available
               </Typography>
