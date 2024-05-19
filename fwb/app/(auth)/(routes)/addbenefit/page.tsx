@@ -1,7 +1,9 @@
 'use client'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
+
 import Navbar from '@/components/ui/navbar/Navbar'
+
 import { useAuth, useUser } from '@clerk/nextjs'
 import { Container, Typography } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -13,6 +15,9 @@ import { useRouter } from 'next/navigation'
 import './page.css'
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
+import { Group, UserData } from '@/app/types/types'
+import { updateDiscount } from '@/app/api-wrappers/discounts'
+
 
 const theme = createTheme({
   components: {
@@ -46,8 +51,78 @@ const theme = createTheme({
   },
 })
 
+async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
+
+  var myHeaders = new Headers()
+  myHeaders.append('supabase_jwt', supabaseToken)
+  myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
+      requestOptions
+    )
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const result = await response.json()
+    return result // This returns the result object
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+    throw error // This re-throws the error to be handled by the caller
+  }
+}
+
+export async function getGroupData(groupId: string, bearerToken:string, supabaseToken:string) {
+
+  if (groupId) {
+    var myHeaders = new Headers()
+    myHeaders.append('supabase_jwt', supabaseToken)
+    myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    }
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${groupId}`, // add to .env
+        requestOptions
+      )
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const result = await response.json()
+      return result // This returns the result object
+    } catch (error) {
+      console.error('Error fetching data: ', error)
+      throw error // This re-throws the error to be handled by the caller
+    }
+  } else {
+    return {
+      success: false,
+      data: [
+        {
+          id: '',
+          name: 'No group id',
+          discounts: [],
+          admins: ['123'],
+          public: false,
+          users: [],
+        },
+      ],
+    }
+  }
+}
+
 export default function Intakeform() {
   const { user } = useUser()
+  console.log(user)
   const [discountAmount, setDiscountAmount] = useState<number>(0)
   const [emailAddress, setEmailAddress] = useState('')
   const [company, setCompany] = useState('')
@@ -55,7 +130,7 @@ export default function Intakeform() {
   const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
     'public'
   )
-  const [categories, setCategories] = useState('')
+  const [categories, setCategories] = useState([])
   const [termsAndConditions, setTermsAndConditions] = useState(false)
   const [description, setDescription] = useState('')
 
@@ -90,15 +165,15 @@ export default function Intakeform() {
         formData.append('shareable_url', shareableUrl)
         formData.append('discount_amount', `${discountAmount}`)
         formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
-          formData.append('share_count', '0'),
-          formData.append('message_count', '0'),
-          formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
+        formData.append('share_count', '0'),
+        formData.append('message_count', '0'),
+        formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
         formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
         // Name and company are the same thing
-        formData.append('Name', company)
+        formData.append('name', company)
         formData.append('company', company)
 
-        formData.append('categories', `${categories}`)
+        formData.append('categories', `{${categories.join(',')}}`)
         formData.append('description', description)
         //formData.append('email', emailAddress)
 
@@ -114,6 +189,67 @@ export default function Intakeform() {
         if (response.ok) {
           const discountData = await response.json()
           console.log('Discount added successfully:', discountData)
+          const discountObject  = discountData.data[0]
+          console.log(discountObject)
+
+          // add new discount to my account
+          const patchResponse = await fetch('/api/tempdiscounts', {
+            method: 'PATCH',
+            headers: {
+              Authorization: `Bearer ${bearerToken}`,
+              supabase_jwt: supabaseToken,
+            },
+            body: JSON.stringify(discountObject),
+          })
+
+          if (patchResponse.ok) {
+            console.log('User discounts updated successfully');
+
+            // get my groups 
+            // add new discount to each group
+            const userData: UserData = await getUserData(user.id, bearerToken, supabaseToken)
+            console.log('userData', userData)
+            const groupData: Group[] = await Promise.all(
+              userData.users[0].user_groups.map(async (group_id) => {
+                // Simulate async operation
+                const singleGroupData = await getGroupData(group_id, bearerToken, supabaseToken)
+                console.log('ADDBENEFIT SINGLE', singleGroupData)
+                
+
+                const groupDataBody = singleGroupData.data[0]
+                const discountId = discountData.data[0].id;
+
+                const requestBody = {
+                  ...groupDataBody,
+                  discountId: discountId // Add discountId as a separate field
+                };
+
+                const groupPatchResponse = await fetch('/api/groupdiscount', {
+                  method: 'PATCH',
+                  headers: {
+                    Authorization: `Bearer ${bearerToken}`,
+                    supabase_jwt: supabaseToken,
+                  },
+                  body: JSON.stringify(requestBody)
+                });
+                
+                if (groupPatchResponse.ok) {
+                  // Handle success if needed
+                  console.log(`Group ${singleGroupData.data[0].id} successfully updated`);
+                  return singleGroupData
+                
+                } else {
+                  // Handle error if needed
+                  console.error(`Failed to update group ${singleGroupData.data[0].id}`);
+                }
+              })
+            )
+            console.log('pushing to profile page');
+            router.push('/profile');
+          } else {
+            const errorData = await patchResponse.json();
+            console.error('Error updating user discounts:', errorData);
+          }
         } else {
           const errorData = await response.json()
           console.error('Error adding user:', errorData)
@@ -151,11 +287,7 @@ export default function Intakeform() {
     }
   }
 
-  const isDisabled = !(
-    termsAndConditions &&
-    discountAmount !== 0 &&
-    company !== ''
-  )
+  const isDisabled = !(termsAndConditions && discountAmount !== 0 && company !== '');
 
   return (
     <div>
@@ -267,11 +399,13 @@ export default function Intakeform() {
                             </div>
                           </ThemeProvider>
 
-                          <div className="percentage ml-3 flex h-8 w-[125px] items-center rounded bg-white px-4">
+                          <div className="percentage flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
                             <input
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
                               className="w-full rounded border-none bg-white outline-none"
-                              value={discountAmount ? discountAmount : ''}
+                              value={
+                                discountAmount ? discountAmount : ''
+                              }
                               placeholder="1-100"
                               onChange={handleDiscountInputChange}
                             />
@@ -292,7 +426,6 @@ export default function Intakeform() {
                               )
                             )
                           }
-                          multiple={false}
                           value={categories}
                           required
                         >
@@ -391,7 +524,7 @@ export default function Intakeform() {
                       </div>
                       </div>*/}
                     <div
-                      className="toggle mb-[60px] ml-[154px] mt-[25px] flex cursor-pointer select-none items-center"
+                      className="toggle flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits
@@ -422,17 +555,12 @@ export default function Intakeform() {
               <a className="terms" href='https://www.makefwb.com/terms-of-service'>Terms & Privacy Policy</a>
             </div>
             <div className="submitButton flex">
-              <div className="saveButton">
-                <button
-                  className={`save ${isDisabled && 'bg-[#ADB4D2] text-white'}`}
-                  type="submit"
-                  form="discountForm"
-                  disabled={isDisabled}
-                >
+              <div className='saveButton'>
+              <button className={`save ${isDisabled && 'bg-[#ADB4D2] text-white'}`} type="submit" form="discountForm" disabled={isDisabled}>
                   Save and Share
                 </button>
               </div>
-              <div className="cancelButton">
+              <div className='cancelButton'>
                 <button className="cancel">Cancel</button>
               </div>
             </div>

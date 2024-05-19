@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { useUser } from '@clerk/nextjs'
+import { useUser, auth, currentUser } from '@clerk/nextjs'
 
 import UpdateUser from '@/components/hooks/updateUser'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
@@ -80,6 +80,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     e.preventDefault()
 
     try {
+
       const bearerToken = await window.Clerk.session.getToken({
         template: 'testing_template',
       })
@@ -87,9 +88,11 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       const supabaseToken = await window.Clerk.session.getToken({
         template: 'supabase',
       })
-
-      const formData = new FormData()
+      if (user) {
+        const formData = new FormData()
+      formData.append('user_id', user.id)
       formData.append('company', company)
+      formData.append('name', company)
       formData.append('terms_and_conditions', termsAndConditions)
       formData.append('discount_amount', discountAmount)
       formData.append('categories', `${categories}`)
@@ -102,7 +105,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       // A little unfortunate, but that's just some classic UI and DB decoupling, and i prefer the table to have PUBLIC rather than PRIVATE as default
 
       // POST Fetch Request to Discounts API
-      const response = await fetch('/api/discounts', {
+      const response = await fetch('/api/tempdiscounts', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${bearerToken}`,
@@ -117,13 +120,16 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       // })
       if (response.ok) {
         const data = await response.json()
-        const discountId = data.data[0].id
-        addDiscountToUser(discountId, bearerToken, supabaseToken)
+        const discountObject = data.data[0]
+        addDiscountToUser(discountObject, bearerToken, supabaseToken)
         updateUser()
       } else {
         const errorData = await response.json()
         console.error('Error adding discount:', errorData)
       }
+        
+      }
+      
     } catch (error) {
       console.error('Error using discount API:', error)
     }
@@ -147,10 +153,11 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   }
 
   const addDiscountToUser = async (
-    discountId: string,
+    discountObject: object,
     bearerToken: string,
     supabaseToken: string
   ) => {
+    console.log(discountObject)
     try {
       await fetch('/api/tempdiscounts', {
         method: 'PATCH',
@@ -158,7 +165,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
           Authorization: `Bearer ${bearerToken}`,
           supabase_jwt: supabaseToken,
         },
-        body: JSON.stringify({ discountId }),
+        body: JSON.stringify(discountObject),
       })
     } catch (error) {
       console.error(error)

@@ -102,7 +102,9 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   const { userId } = auth()
   const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
   const data = await request.json()
-  const discountId = data.discountId
+  const discountId = data.id
+  console.log(data)
+  console.log(discountId)
 
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -130,11 +132,12 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   }
 
   let updatedDiscounts = userData.user_discounts || []
+  console.log('aoejfaoif', updatedDiscounts)
 
   // Duplicate discount prevention
   if (!updatedDiscounts.includes(discountId)) {
     updatedDiscounts.push(discountId)
-  }
+  } 
 
   const { error: updateError } = await supabase
     .from('users')
@@ -147,5 +150,11 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
       { error: 'Failed to update user data' },
       { status: 500 }
     )
+  } else {
+    return NextResponse.json(
+      { message: 'User data updated successfully' },
+      { status: 200 }
+    )
   }
 }
+
