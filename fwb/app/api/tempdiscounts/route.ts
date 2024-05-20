@@ -91,6 +91,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
 
         // Get the discounts of the company
   const company_url = formData.get('company_url')
+  const company_name = formData.get('name')
   let { data: companyData, error: companyDataError } = await supabase
     .from('companies')
     .select('discounts')
@@ -134,7 +135,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   const { data: company, error: companyError } = await supabase
     .from('companies')
     .update({ discounts: updatedDiscounts })
-    .eq('url', company_url)
+    .eq('name', company_name)
     .select()
 
   if (companyError) {
@@ -149,7 +150,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   let { data: greatestDiscount, error: greatestDiscountsError } = await supabase
     .from('companies')
     .select('greatest_discount')
-    .eq('url', company_url)
+    .eq('name', company_name)
     .single()
   if (greatestDiscountsError) {
     console.error(greatestDiscountsError)
@@ -168,7 +169,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       ),
       discounts_updated_at: new Date(),
     })
-    .eq('url', company_url)
+    .eq('name', company_name)
     .select()
   if (updatedCompanyError) {
     console.error(updatedCompanyError)

@@ -24,11 +24,13 @@ const DiscountsSection = ({
               setActiveOptions={setActiveOptions}/>
       </div>
       <div className='xs-max:w-full xxs-max:w-full xs-max:flex xxs-max:flex xs-max:flex-col xxs-max:flex-col xs-max:gap-[1.5rem] xxs-max:gap-[1.5rem]'>
-        <SearchBar />
+        <div className='md:hidden'>
+          <SearchBar />
+        </div>
         <MobileDiscountFilters activeOptions={activeOptions}
               setActiveOptions={setActiveOptions}/>
       </div>
-      <div className=" ml-24 flex justify-center xs-max:ml-0 xxs-max:ml-0">
+      <div className="flex justify-center xs-max:ml-0 xxs-max:ml-0 xs-max:mt-[30px] xxs-max:mt-[30px]">
         <Box
           sx={{
             flexGrow: 1,

@@ -30,8 +30,8 @@ const SearchBar = () => {
             },
             '& .MuiInputBase-input': {
               paddingTop: '10px',
+              fontFamily: "__Urbanist_4806ca"
             },
-            fontFamily: 'Urbanist'
           }}
         />
         <IconButton

@@ -72,54 +72,54 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
   
     const router = useRouter()
     const { getToken } = useAuth()
-    
+    console.log(selectedOption)
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Retrieve the authentication token
-                const token = await getToken();
-    
-                // Construct headers with the token
-                const myHeaders = new Headers();
-                myHeaders.append('Authorization', `Bearer ${token}`);
-    
-                // Configure request options
-                const requestOptions = {
-                    method: 'GET',
-                    headers: myHeaders,
-                    redirect: 'follow' as RequestRedirect,
-                };
-    
-                // Construct the URL with the correct benefit_id parameter
-                const protocol = window.location.protocol;
-                const url = `${protocol}//${window.location.host}/api/tempdiscounts?discount_id=${params.benefit_id}`;
-    
-                // Fetch data from the API
-                const response = await fetch(url, requestOptions);
-    
-                // Check if response is ok
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-    
-                // Parse response data
-                const responseData = await response.json();
-    
-                // Set the fetched data
-                setDiscount(responseData.data[0]);
-                setDiscountAmount(responseData.data[0].discount_amount); 
-                setCompany(responseData.data[0].company);
-                if (responseData.data[0].description !== "No description provided") {
-                    setDescription(responseData.data[0].description)
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
+      const fetchData = async () => {
+      try {
+        // Retrieve the authentication token
+        const token = await getToken();
+
+        // Construct headers with the token
+        const myHeaders = new Headers();
+        myHeaders.append('Authorization', `Bearer ${token}`);
+
+        // Configure request options
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow' as RequestRedirect,
         };
-    
-        // Call the fetchData function
-        fetchData();
+
+        // Construct the URL with the correct benefit_id parameter
+        const protocol = window.location.protocol;
+        const url = `${protocol}//${window.location.host}/api/tempdiscounts?discount_id=${params.benefit_id}`;
+
+        // Fetch data from the API
+        const response = await fetch(url, requestOptions);
+
+        // Check if response is ok
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        // Parse response data
+        const responseData = await response.json();
+
+        // Set the fetched data
+        setDiscount(responseData.data[0]);
+        setDiscountAmount(responseData.data[0].discount_amount); 
+        setCompany(responseData.data[0].company);
+        if (responseData.data[0].description !== "No description provided") {
+            setDescription(responseData.data[0].description)
+        }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+      };
+  
+      // Call the fetchData function
+      fetchData();
     }, []);
     console.log(discount)
 
@@ -135,55 +135,48 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
     }
   
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-  
+      event.preventDefault();
+    
       try {
         const bearerToken = await window.Clerk.session.getToken({
           template: 'testing_template',
-        })
+        });
         const supabaseToken = await window.Clerk.session.getToken({
           template: 'supabase',
-        })
-  
+        });
+    
         if (user) {
-          const formData = new FormData()
-          formData.append('user_id', user.id)
-          formData.append('terms_and_conditions', `${termsAndConditions}`) // TODO: This column is a text in supabase db, should be a boolean
-          formData.append('shareable_url', shareableUrl)
-          formData.append('discount_amount', `${discountAmount}`)
-          formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
-          formData.append('share_count', '0'),
-          formData.append('message_count', '0'),
-          formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
-          formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
-          // Name and company are the same thing
-          formData.append('name', company)
-          formData.append('company', company)
-  
+          const formData = new FormData();
+          formData.append('discount_id', params.benefit_id);
+          formData.append('user_id', user.id);
+          formData.append('discount_amount', `${discountAmount}`);
+          formData.append('public', `${selectedOption}`);
+          formData.append('name', company);
+          formData.append('company', company);
           formData.append('categories', `{${categories.join(',')}}`)
-          formData.append('description', description)
-          //formData.append('email', emailAddress)
-  
-          const response = await fetch('/api/tempdiscounts', {
-            method: 'POST',
+          formData.append('description', description);
+
+          const response = await fetch(`/api/tempdiscounts/editDiscount`, {
+            method: 'PATCH',
             headers: {
               Authorization: `Bearer ${bearerToken}`,
               supabase_jwt: supabaseToken,
             },
             body: formData,
-          })
-  
+          });
+    
           if (response.ok) {
-
-              console.log('pushing to profile page');
-              router.push('/profile');
-            } 
-          } 
-        } catch (error) {
-        console.error('Error adding discount:', error)
+            console.log('pushing to profile page');
+            router.push('/profile?refresh=${Date.now()}');
+          } else {
+            throw new Error('Failed to update discount');
+          }
+        }
+      } catch (error) {
+        console.error('Error updating discount:', error);
       }
-    }
-  
+    };
+    
     const valueLabelFormat = (discount: number) => {
       return `${discount}%`
     }
@@ -260,6 +253,7 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
                     onChange={(e) => setCompany(e.target.value)}
                     id="companyName"
                     name="companyName"
+                    value={company}
                   />
                 </div>
               </div>

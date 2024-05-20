@@ -122,7 +122,6 @@ export async function getGroupData(groupId: string, bearerToken:string, supabase
 
 export default function Intakeform() {
   const { user } = useUser()
-  console.log(user)
   const [discountAmount, setDiscountAmount] = useState<number>(0)
   const [emailAddress, setEmailAddress] = useState('')
   const [company, setCompany] = useState('')

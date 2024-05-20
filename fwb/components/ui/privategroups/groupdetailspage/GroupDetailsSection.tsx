@@ -153,7 +153,6 @@ const GroupDetailsSection = ({
     mobile = window.innerWidth < 640;
   }
  //${mobile && 'mb-10 mt-0'}
-  console.log(mobile)
   return (
     typeof window !== 'undefined' && 
     (<Box className={`my-10 flex h-2/3 w-full flex-col border-none xs-max:mb-10 xs-max:mt-0 xxs-max:mb-10 xxs-max:mt-0`}>
