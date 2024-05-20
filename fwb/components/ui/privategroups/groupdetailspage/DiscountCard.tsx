@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
 import * as React from 'react'
-
+import ConditionalLink from './ConditionalLink'
 /**
  * Renders a discount component.
  * @param {boolean} isHovered - Indicates whether the component is being hovered.
@@ -87,7 +87,7 @@ const Discount = ({
  * Renders a product card component.
  * @returns JSX.Element
  */
-export default function DiscountCard({ company }: { company: any }) {
+export default function DiscountCard({ company }: { company:any }) {
   const [isHovered, setIsHovered] = React.useState(false) // Indicates whether the card is being hovered
   return (
     <motion.div
@@ -95,6 +95,7 @@ export default function DiscountCard({ company }: { company: any }) {
       onHoverEnd={() => setIsHovered(false)}
     >
       {/* Card Component */}
+      <ConditionalLink targetPage={`/addbenefit/${company.id}`}>
       <Box
         sx={{
           width: '282px',
@@ -224,6 +225,7 @@ export default function DiscountCard({ company }: { company: any }) {
           </CardContent>
         </CardActionArea>
       </Box>
+      </ConditionalLink>
     </motion.div>
   )
 }

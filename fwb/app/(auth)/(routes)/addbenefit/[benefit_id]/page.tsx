@@ -1,5 +1,5 @@
 'use client'
-
+import Intakeform from "../page"
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 import Navbar from '@/components/ui/navbar/Navbar'
@@ -12,291 +12,213 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Slider from '@mui/material/Slider'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-import './page.css'
+import '../page.css'
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
-import PercentageIcon from './icons/PercentageIcon'
+import PercentageIcon from '../icons/PercentageIcon'
 import { Group, UserData } from '@/app/types/types'
-import { updateDiscount } from '@/app/api-wrappers/discounts'
-
+import { useEffect } from "react"
 
 export const theme = createTheme({
-  components: {
-    MuiSlider: {
-      styleOverrides: {
-        root: {
-          height: 8, // Thickness
-        },
-        thumb: {
-          backgroundColor: '#8E94E9',
-        },
-        track: {
-          backgroundColor: '#8E94E9',
-        },
-        // '& .MuiSlider-rail': {
-        //   opacity: 0.5,
-        //   backgroundColor: 'red',
-        // },
-        rail: {
-          backgroundColor: 'white !important',
-        },
-        valueLabel: {
-          backgroundColor: '#FFF', // Label background color
-          color: '#000', // Label text color
-        },
-        valueLabelLabel: {
-          color: '#000', // Label text color
+    components: {
+      MuiSlider: {
+        styleOverrides: {
+          root: {
+            height: 8, // Thickness
+          },
+          thumb: {
+            backgroundColor: '#8E94E9',
+          },
+          track: {
+            backgroundColor: '#8E94E9',
+          },
+          // '& .MuiSlider-rail': {
+          //   opacity: 0.5,
+          //   backgroundColor: 'red',
+          // },
+          rail: {
+            backgroundColor: 'white !important',
+          },
+          valueLabel: {
+            backgroundColor: '#FFF', // Label background color
+            color: '#000', // Label text color
+          },
+          valueLabelLabel: {
+            color: '#000', // Label text color
+          },
         },
       },
     },
-  },
-})
+  })
+  
 
-async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
+export default function EditBenefit({ params}: { params: { benefit_id: string } }) {
 
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabaseToken)
-  myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+    console.log('params',params)
 
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-  }
+    const [discount, setDiscount] = useState<any>(null);
 
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
-      requestOptions
+    const { user } = useUser()
+    console.log(user)
+    const [discountAmount, setDiscountAmount] = useState<number>(0)
+    const [emailAddress, setEmailAddress] = useState('')
+    const [company, setCompany] = useState('')
+    const [shareableUrl, setShareableUrl] = useState('')
+    const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
+      'public'
     )
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    const result = await response.json()
-    return result // This returns the result object
-  } catch (error) {
-    console.error('Error fetching data: ', error)
-    throw error // This re-throws the error to be handled by the caller
-  }
-}
+    const [categories, setCategories] = useState([])
+    const [termsAndConditions, setTermsAndConditions] = useState(false)
+    const [description, setDescription] = useState('')
+  
+    const router = useRouter()
+    const { getToken } = useAuth()
+    
 
-export async function getGroupData(groupId: string, bearerToken:string, supabaseToken:string) {
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Retrieve the authentication token
+                const token = await getToken();
+    
+                // Construct headers with the token
+                const myHeaders = new Headers();
+                myHeaders.append('Authorization', `Bearer ${token}`);
+    
+                // Configure request options
+                const requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow' as RequestRedirect,
+                };
+    
+                // Construct the URL with the correct benefit_id parameter
+                const protocol = window.location.protocol;
+                const url = `${protocol}//${window.location.host}/api/tempdiscounts?discount_id=${params.benefit_id}`;
+    
+                // Fetch data from the API
+                const response = await fetch(url, requestOptions);
+    
+                // Check if response is ok
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+    
+                // Parse response data
+                const responseData = await response.json();
+    
+                // Set the fetched data
+                setDiscount(responseData.data[0]);
+                setDiscountAmount(responseData.data[0].discount_amount); 
+                setCompany(responseData.data[0].company);
+                if (responseData.data[0].description !== "No description provided") {
+                    setDescription(responseData.data[0].description)
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        // Call the fetchData function
+        fetchData();
+    }, []);
+    console.log(discount)
 
-  if (groupId) {
-    var myHeaders = new Headers()
-    myHeaders.append('supabase_jwt', supabaseToken)
-    myHeaders.append('Authorization', `Bearer ${bearerToken}`)
-
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-    }
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${groupId}`, // add to .env
-        requestOptions
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+  
+    const handleSlide = (event: Event, newValue: number | number[]) => {
+      if (typeof newValue === 'number') {
+        setDiscountAmount(newValue)
       }
-      const result = await response.json()
-      return result // This returns the result object
-    } catch (error) {
-      console.error('Error fetching data: ', error)
-      throw error // This re-throws the error to be handled by the caller
     }
-  } else {
-    return {
-      success: false,
-      data: [
-        {
-          id: '',
-          name: 'No group id',
-          discounts: [],
-          admins: ['123'],
-          public: false,
-          users: [],
-        },
-      ],
+  
+    const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
+      setTermsAndConditions(event.target?.checked)
     }
-  }
-}
-
-export default function Intakeform() {
-  const { user } = useUser()
-  console.log(user)
-  const [discountAmount, setDiscountAmount] = useState<number>(0)
-  const [emailAddress, setEmailAddress] = useState('')
-  const [company, setCompany] = useState('')
-  const [shareableUrl, setShareableUrl] = useState('')
-  const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
-    'public'
-  )
-  const [categories, setCategories] = useState([])
-  const [termsAndConditions, setTermsAndConditions] = useState(false)
-  const [description, setDescription] = useState('')
-
-  const router = useRouter()
-  const { getToken } = useAuth()
-
-  const handleSlide = (event: Event, newValue: number | number[]) => {
-    if (typeof newValue === 'number') {
-      setDiscountAmount(newValue)
-    }
-  }
-
-  const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
-    setTermsAndConditions(event.target?.checked)
-  }
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    try {
-      const bearerToken = await window.Clerk.session.getToken({
-        template: 'testing_template',
-      })
-      const supabaseToken = await window.Clerk.session.getToken({
-        template: 'supabase',
-      })
-
-      if (user) {
-        const formData = new FormData()
-        formData.append('user_id', user.id)
-        formData.append('terms_and_conditions', `${termsAndConditions}`) // TODO: This column is a text in supabase db, should be a boolean
-        formData.append('shareable_url', shareableUrl)
-        formData.append('discount_amount', `${discountAmount}`)
-        formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
-        formData.append('share_count', '0'),
-        formData.append('message_count', '0'),
-        formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
-        formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
-        // Name and company are the same thing
-        formData.append('name', company)
-        formData.append('company', company)
-
-        formData.append('categories', `{${categories.join(',')}}`)
-        formData.append('description', description)
-        //formData.append('email', emailAddress)
-
-        const response = await fetch('/api/tempdiscounts', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-            supabase_jwt: supabaseToken,
-          },
-          body: formData,
+  
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+  
+      try {
+        const bearerToken = await window.Clerk.session.getToken({
+          template: 'testing_template',
         })
-
-        if (response.ok) {
-          const discountData = await response.json()
-          console.log('Discount added successfully:', discountData)
-          const discountObject  = discountData.data[0]
-          console.log(discountObject)
-
-          // add new discount to my account
-          const patchResponse = await fetch('/api/tempdiscounts', {
-            method: 'PATCH',
+        const supabaseToken = await window.Clerk.session.getToken({
+          template: 'supabase',
+        })
+  
+        if (user) {
+          const formData = new FormData()
+          formData.append('user_id', user.id)
+          formData.append('terms_and_conditions', `${termsAndConditions}`) // TODO: This column is a text in supabase db, should be a boolean
+          formData.append('shareable_url', shareableUrl)
+          formData.append('discount_amount', `${discountAmount}`)
+          formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
+          formData.append('share_count', '0'),
+          formData.append('message_count', '0'),
+          formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
+          formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
+          // Name and company are the same thing
+          formData.append('name', company)
+          formData.append('company', company)
+  
+          formData.append('categories', `{${categories.join(',')}}`)
+          formData.append('description', description)
+          //formData.append('email', emailAddress)
+  
+          const response = await fetch('/api/tempdiscounts', {
+            method: 'POST',
             headers: {
               Authorization: `Bearer ${bearerToken}`,
               supabase_jwt: supabaseToken,
             },
-            body: JSON.stringify(discountObject),
+            body: formData,
           })
+  
+          if (response.ok) {
 
-          if (patchResponse.ok) {
-            console.log('User discounts updated successfully');
-
-            // get my groups 
-            // add new discount to each group
-            const userData: UserData = await getUserData(user.id, bearerToken, supabaseToken)
-            console.log('userData', userData)
-            const groupData: Group[] = await Promise.all(
-              userData.users[0].user_groups.map(async (group_id) => {
-                // Simulate async operation
-                const singleGroupData = await getGroupData(group_id, bearerToken, supabaseToken)
-                console.log('ADDBENEFIT SINGLE', singleGroupData)
-                
-
-                const groupDataBody = singleGroupData.data[0]
-                const discountId = discountData.data[0].id;
-
-                const requestBody = {
-                  ...groupDataBody,
-                  discountId: discountId // Add discountId as a separate field
-                };
-
-                const groupPatchResponse = await fetch('/api/groupdiscount', {
-                  method: 'PATCH',
-                  headers: {
-                    Authorization: `Bearer ${bearerToken}`,
-                    supabase_jwt: supabaseToken,
-                  },
-                  body: JSON.stringify(requestBody)
-                });
-                
-                if (groupPatchResponse.ok) {
-                  // Handle success if needed
-                  console.log(`Group ${singleGroupData.data[0].id} successfully updated`);
-                  return singleGroupData
-                
-                } else {
-                  // Handle error if needed
-                  console.error(`Failed to update group ${singleGroupData.data[0].id}`);
-                }
-              })
-            )
-            console.log('pushing to profile page');
-            router.push('/profile');
-          } else {
-            const errorData = await patchResponse.json();
-            console.error('Error updating user discounts:', errorData);
-          }
-        } else {
-          const errorData = await response.json()
-          console.error('Error adding user:', errorData)
-        }
-      } else {
-        console.error('Error user not found')
+              console.log('pushing to profile page');
+              router.push('/profile');
+            } 
+          } 
+        } catch (error) {
+        console.error('Error adding discount:', error)
       }
-    } catch (error) {
-      console.error('Error adding discount:', error)
     }
-  }
-
-  const valueLabelFormat = (discount: number) => {
-    return `${discount}%`
-  }
-
-  /*const handleOptionChange = (option: 'public' | 'private') => {
-    setSelectedOption(option)
-  }*/
-
-  const togglePrivacy = () =>
-    selectedOption === 'public'
-      ? setSelectedOption('private')
-      : setSelectedOption('public')
-
-  const handleCategoryChange = (selectedCategories: any) => {
-    setCategories(selectedCategories)
-  }
-
-  const handleDiscountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === '') {
-      setDiscountAmount(0)
-    } else {
-      setDiscountAmount(parseInt(event.target.value, 10))
+  
+    const valueLabelFormat = (discount: number) => {
+      return `${discount}%`
     }
-  }
-
-  const isDisabled = !(termsAndConditions && discountAmount !== 0 && company !== '');
-
-  return (
-    <div>
+  
+    /*const handleOptionChange = (option: 'public' | 'private') => {
+      setSelectedOption(option)
+    }*/
+  
+    const togglePrivacy = () =>
+      selectedOption === 'public'
+        ? setSelectedOption('private')
+        : setSelectedOption('public')
+  
+    const handleCategoryChange = (selectedCategories: any) => {
+      setCategories(selectedCategories)
+    }
+  
+    const handleDiscountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target.value === '') {
+        setDiscountAmount(0)
+      } else {
+        setDiscountAmount(parseInt(event.target.value, 10))
+      }
+    }
+  
+    const isDisabled = !(termsAndConditions && discountAmount !== 0 && company !== '');
+  
+    return (
+        <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
           <div>
             <Navbar />
           </div>
-          <form
+          {discount && <form
             id="discountForm"
             onSubmit={handleSubmit}
             className="formContainer"
@@ -338,7 +260,6 @@ export default function Intakeform() {
                     onChange={(e) => setCompany(e.target.value)}
                     id="companyName"
                     name="companyName"
-                    value={company}
                   />
                 </div>
               </div>
@@ -536,8 +457,8 @@ export default function Intakeform() {
                 </div>
               </div>
             </div>
-          </form>
-          <div className="submit">
+          </form> }
+            <div className="submit">
             <div className="agree">
               <span>
                 <FormControlLabel
@@ -567,6 +488,6 @@ export default function Intakeform() {
           </div>
         </Container>
       </Box>
-    </div>
-  )
+        </div>
+    )
 }

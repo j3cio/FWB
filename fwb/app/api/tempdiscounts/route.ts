@@ -1,9 +1,12 @@
 import supabaseClient from '@/supabase'
 import { auth, currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from 'next/server'
+import { getNewLogoUrl } from '../discounts/utils/logos_utils'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   let discount_id = request.nextUrl.searchParams.get('discount_id')
+
+  console.log('DISCOUNT ID',discount_id)
   try {
     // Fetch all public groups
     const supabase = await supabaseClient()
@@ -84,9 +87,130 @@ export async function POST(request: NextRequest, response: NextResponse) {
           },
           { status: 500 }
         )
-      } else {
-        return NextResponse.json({ data: data }, { status: 200 })
-      }
+      } 
+
+        // Get the discounts of the company
+  const company_url = formData.get('company_url')
+  let { data: companyData, error: companyDataError } = await supabase
+    .from('companies')
+    .select('discounts')
+    .eq('url', company_url)
+    .single()
+
+  const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
+  const companyUrl = formData.get('company_url')
+  const formattedUrl = companyUrl?.toString().replace(/\s/g, '') // stripped out any inner whitespace
+  // Create a new company if the company does not exist
+  if (companyDataError) {
+    const newCompany = {
+      discounts: [],
+      name: formData.get('company'),
+      url: formattedUrl,
+      description: '',
+      logo: logoUrl,
+    }
+    // Insert the company into the companies table
+    const { data: insertedCompany, error: insertError } = await supabase
+      .from('companies')
+      .insert([newCompany])
+      .single()
+
+    companyData = insertedCompany
+
+    if (insertError) {
+      console.error(insertError)
+      return NextResponse.json(
+        { error: 'Failed to insert new company in supabase' },
+        { status: 500 }
+      )
+    }
+  }
+
+  // Insert the discount into the company's discounts array
+  const updatedDiscounts = [
+    ...(companyData?.discounts || []),
+    String(data[0].id),
+  ]
+  const { data: company, error: companyError } = await supabase
+    .from('companies')
+    .update({ discounts: updatedDiscounts })
+    .eq('url', company_url)
+    .select()
+
+  if (companyError) {
+    console.error(companyError)
+    return NextResponse.json(
+      { error: 'Failed to insert discount into company' },
+      { status: 500 }
+    )
+  }
+
+  // Update the greatest discount of the company and the discounts_updated_at timestamp
+  let { data: greatestDiscount, error: greatestDiscountsError } = await supabase
+    .from('companies')
+    .select('greatest_discount')
+    .eq('url', company_url)
+    .single()
+  if (greatestDiscountsError) {
+    console.error(greatestDiscountsError)
+    return NextResponse.json(
+      { error: 'Failed to get greatest discount of company' },
+      { status: 500 }
+    )
+  }
+
+  const { data: updatedCompany, error: updatedCompanyError } = await supabase
+    .from('companies')
+    .update({
+      greatest_discount: Math.max(
+        Number(formData.get('discount_amount')),
+        greatestDiscount?.greatest_discount || 0
+      ),
+      discounts_updated_at: new Date(),
+    })
+    .eq('url', company_url)
+    .select()
+  if (updatedCompanyError) {
+    console.error(updatedCompanyError)
+    return NextResponse.json(
+      { error: 'Failed to update greatest discount of company' },
+      { status: 500 }
+    )
+  }
+
+  // Insert the discount into the categories' discounts arrays
+  const categories = String(formData.get('categories')).split(',')
+  categories.forEach(async (category) => {
+    let { data: categoryData, error: categoryDataError } = await supabase
+      .from('categories')
+      .select('discounts')
+      .eq('name', category.toLowerCase())
+      .single()
+
+    // Insert the discount into the category's discounts array
+    const updatedDiscounts = [
+      ...(categoryData?.discounts || []),
+      String(data[0].id),
+    ]
+
+    const { data: categoryUpdated, error: categoryUpdatedError } =
+      await supabase
+        .from('categories')
+        .update({ discounts: updatedDiscounts })
+        .eq('name', category.toLowerCase())
+        .select()
+
+    if (categoryUpdatedError) {
+      console.error(categoryUpdatedError)
+      return NextResponse.json(
+        { error: 'Failed to insert discount into category' },
+        { status: 500 }
+      )
+    }
+  })
+
+
+      return NextResponse.json({ data: data }, { status: 200 })
     } else {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -96,6 +220,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       { status: 500 }
     )
   }
+  
 }
 
 export async function PATCH(request: NextRequest, response: NextResponse) {
