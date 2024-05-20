@@ -148,13 +148,13 @@ export default function ProductCard({ data }: ProductCardProps) {
         </div>
       </div>
       <div className="flex w-[80%] flex-col rounded-r-[25px] bg-white px-[40px] xs-max:rounded-tr-none xxs-max:rounded-tr-none xs-max:w-full xxs-max:w-full  xs-max:px-[12px] xxs-max:px-[12px]  xs-max:rounded-b-md  xxs-max:rounded-b-md">
-        <div className="flex w-full justify-between py-[64px] xs-max:flex-col xxs-max:flex-col xs-max:py-[12px] xxs-max:py-[12px]">
+        <div className="flex w-full justify-between py-[64px] xs-max:flex-col xxs-max:flex-col xs-max:py-[12px] xxs-max:py-[12px] sm-max:pt-[14px]">
           <div>
             <div className="text-[24px] font-bold xs-max:font-medium xxs-max:font-medium xs-max:text-[20px] xxs-max:text-[20px] [@media(max-width:338px)]:text-[14px]">
               Get {data.discount_amount}% off Shoes and Sandals
             </div>
             <div className="text-[14px] [@media(max-width:600px)]:hidden">*Terms & Conditions apply</div>
-            <div className="mt-[48px] flex flex-row  xs-max:mt-[10px] xxs-max:mt-[10px]">
+            <div className="mt-[48px] flex flex-row  xs-max:mt-[10px] xxs-max:mt-[10px] sm-max:mt-[28px]">
               <div
                 className="mr-[5px] h-[24px] w-[24px] rounded-[24px] bg-contain bg-center bg-no-repeat xs-max:w-[20px] xxs-max:w-[20px] xs-max:h-[20px] xxs-max:h-[20px]"
                 style={{
