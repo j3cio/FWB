@@ -18,7 +18,7 @@ import PercentageIcon from '../icons/PercentageIcon'
 import { Group, UserData } from '@/app/types/types'
 import { useEffect } from "react"
 
-export const theme = createTheme({
+const theme = createTheme({
     components: {
       MuiSlider: {
         styleOverrides: {
@@ -52,8 +52,6 @@ export const theme = createTheme({
   
 
 export default function EditBenefit({ params}: { params: { benefit_id: string } }) {
-
-    console.log('params',params)
 
     const [discount, setDiscount] = useState<any>(null);
 
