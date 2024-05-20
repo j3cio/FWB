@@ -206,6 +206,36 @@ export default function Intakeform() {
     }, 500) // Adjust this debounce timeout as needed
   }
 
+  const addCompanyToSupabase = async (
+    brandData: BrandFetchRetrieveBrandResponse
+  ) => {
+    const bearerToken = await window.Clerk.session.getToken({
+      template: 'testing_template',
+    })
+    const supabaseToken = await window.Clerk.session.getToken({
+      template: 'supabase',
+    })
+
+    try {
+      const response = await fetch('/api/companies', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+          supabase_jwt: supabaseToken,
+        },
+        body: JSON.stringify(brandData),
+      })
+
+      const data = await response.json()
+
+      console.log({ data })
+
+      return
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const brandfetchApiKey =
     process.env.NODE_ENV === 'development'
       ? process.env.NEXT_PUBLIC_BRANDFETCH_API_KEY
@@ -224,9 +254,11 @@ export default function Intakeform() {
     const brandData: BrandFetchRetrieveBrandResponse = await response.json()
 
     setCompany(brandData.name)
-    // setCategories(brandData.company.industries[0].name) once we normalize our categories we can deal with this
+    // setCategories(brandData.company.industries[0].name) once we normalize our categories we can uncomment this--for now brandfetch uses categories that we don't have by default
 
     // Add our brandData to our Supabase after this is done. Can't do this just yet since we'll need to configure our tables for the schema we want.
+
+    addCompanyToSupabase(brandData)
 
     setShowCompaniesList(false)
   }

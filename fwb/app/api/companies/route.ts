@@ -194,3 +194,43 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({ error: 'User not logged in' }, { status: 401 })
 }
+
+export async function POST(request: NextRequest) {
+  const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
+  const body = await request.json()
+
+  const {
+    name,
+    description,
+    longDescription,
+    domain,
+    logos,
+    links,
+    images,
+    company,
+  } = body
+
+  const { error } = await supabase.from('companies').insert({
+    name,
+    description,
+    url: domain,
+    // longDescription,
+    logo: logos[0].formats[0].src,
+    // bannerSrc: images[0].formats[0].src,
+    // links,
+    // industry: {
+    //   name: company.industries[0].name,
+    //   emoji: company.industries[0].emoji,
+    //   parent: company.industries[0].parent.name,
+    // },
+
+    discounts: [],
+    public: true,
+  })
+
+  if (error) {
+    return NextResponse.json({ error }, { status: 500 })
+  }
+
+  return NextResponse.json({ body }, { status: 200 })
+}
