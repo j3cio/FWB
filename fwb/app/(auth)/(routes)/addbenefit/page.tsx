@@ -194,7 +194,6 @@ export default function Intakeform() {
             .then((data) => {
               // Handle the response data from the BrandFetch API
               setBrandFetchSearchResults(data)
-              console.log('BrandFetch API response:', data)
             })
             .catch((error) => {
               console.error('Error fetching from BrandFetch API:', error)
