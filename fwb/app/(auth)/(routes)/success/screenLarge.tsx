@@ -19,10 +19,10 @@ export const LargeScreen = () => {
       <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[60px]">
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[134px] h-[400px]"></div>
-        <div className="circle6 lg:!w-[133px] lg:!h-[133px]"></div>
+        <div className="inline-flex flex-col justify-center items-center shrink-0 rounded-xl relative lg:!w-[133px] lg:!h-[133px]"></div>
       </div>
-      <div className="signin flex p-0 max-w-[556px] h-[728px] mx-0 my-auto w-2/3">
-        <div className="check mx-auto">
+      <div className="inline-flex flex-col justify-center items-center shrink-0 rounded-xl relative p-0 max-w-[556px] h-[728px] mx-0 my-auto w-2/3">
+        <div className="flex w-[60px] h-[60px] rounded-[75px] border-[2.25px] border-white mx-auto">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="60"
@@ -36,13 +36,18 @@ export const LargeScreen = () => {
             />
           </svg>
         </div>
-        <div className="successWord">Success!!</div>
-        <div className="verifiedAccount">
+        <div className="text-white text-center font-urbanist text-[120px] self-stretch font-normal leading-tight tracking-tight">
+          Success!!
+        </div>
+        <div className="self-stretch text-white text-center mb-[72px] font-urbanist text-[18px] font-normal leading-[22.5px]">
           You have successfully verified your account
         </div>
-        {/* <Link href="/fre1" className="startButton">
+        <Link
+          href="/fre1"
+          className="w-[380px] h-[48px] pt-[10px] justify-center items-center gap-2 rounded-3xl border bg-[#f6ff82] text-center text-[#8e94e9] font-urbanist text-[20px] font-medium leading-tight mx-auto tracking-wide"
+        >
           Lets Get Started!
-        </Link> */}
+        </Link>
       </div>
       <div className="flex flex-col h-auto w-[133px] mb-auto mr-auto">
         <div className="w-[133px] mt-[-50px]">
@@ -76,7 +81,7 @@ export const LargeScreen = () => {
         </div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[260px] h-[133px] translate-x-[-50%]"></div>
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[133px] h-[420px]"></div>
-        <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 circle1"></div>
+        <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 w-[150px] h-[150px] shrink-0 rounded-[156.25px] border-t-[5px] ml-[150px]"></div>
       </div>
     </div>
   )

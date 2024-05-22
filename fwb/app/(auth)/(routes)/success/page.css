@@ -1,9 +1,10 @@
+/*
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swa);
 
 .container {
   background: var(--purple-300, #8e94e9);
-  /* width: 1440px;
-  height: 931px; */
+  /* width: 1440px; 
+  height: 931px;
   display: flex;
   justify-content: space-between;
 }
@@ -15,7 +16,7 @@
   align-items: center;
   flex-shrink: 0;
   border-radius: 60px;
-  /* opacity: 75%; */
+  /* opacity: 75%; 
   position: relative;
 }
 
@@ -27,6 +28,9 @@
   background: var(--yellow-300, #f6ff82);
 }
 
+
+
+
 .circle1 {
   width: 150px;
   height: 150px;
@@ -36,61 +40,72 @@
   margin-left: 150px;
 }
 
+
+
 .leftContainer {
   display: flex;
   flex-direction: column;
 }
+
+
 
 .circles {
   display: flex;
   flex-direction: column;
 }
 
+
+
 .halfCircle1 {
   border-radius: 0 0 156.25px 156.25px;
   border: 3px solid var(--neutral-000, #fff);
   width: 150px;
   height: 130px;
-  /* height: 738px; */
+  /* height: 738px; 
   flex-shrink: 0;
   opacity: 0.25;
   border-top: none;
 }
+
 
 .halfCircle2 {
   border-radius: 0 0 156.25px 156.25px;
   border: 3px solid var(--neutral-000, #fff);
   width: 150px;
   height: 170px;
-  /* height: 738px; */
+  /* height: 738px; 
   flex-shrink: 0;
   opacity: 0.5;
   margin-top: -100px;
   border-top: none;
 }
 
+
 .halfCircle3 {
   border-radius: 0 0 156.25px 156.25px;
   border: 3px solid var(--neutral-000, #fff);
   width: 150px;
   height: 305px;
-  /* height: 738px; */
+  /* height: 738px;
   flex-shrink: 0;
   border-top: none;
   margin-top: -225px;
 }
+
+
 
 .circle3 {
   display: flex;
   width: 150px;
   height: 150px;
   flex-direction: column;
-  /* padding: 37px 23.498px 23.753px 23px; */
+  /* padding: 37px 23.498px 23.753px 23px; 
   justify-content: center;
   align-items: center;
   border-radius: 156.25px;
   border: 5px solid var(--neutral-000, #fff);
 }
+
 
 .hiLetter {
   color: var(--purple-300, #8e94e9);
@@ -99,7 +114,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 125%;
-  /* 40px */
+  /* 40px 
   position: absolute;
   z-index: 1;
   transform: rotate(10deg);
@@ -112,6 +127,8 @@
   flex-shrink: 0;
   position: relative;
 }
+
+
 
 .circle5 {
   width: 150px;
@@ -127,6 +144,7 @@
   flex-direction: column;
   margin-top: 140.4px;
 }
+
 
 .circleLetter {
   color: var(--neutral-000, #fff);
@@ -145,6 +163,8 @@
   flex-shrink: 0;
 }
 
+
+
 .subBox {
   margin-top: 6px;
   width: 140px;
@@ -155,6 +175,8 @@
   border-bottom-right-radius: 66px;
 }
 
+
+
 .yellowBox {
   border-radius: 156.25px 156.25px 156.25px 156.25px;
   background: var(--yellow-300, #f6ff82);
@@ -163,12 +185,16 @@
   flex-shrink: 0;
 }
 
+
+
 .middleContainer {
   display: flex;
   text-align: center;
   justify-content: center;
   flex-direction: column;
 }
+
+
 
 .check {
   width: 60px;
@@ -177,23 +203,26 @@
   border: 2.25px solid var(--neutral-000, #fff);
   display: flex;
   margin: 0 auto;
-  /* need to figure out center align */
+  /* need to figure out center align 
 }
+
+
 
 .successWord {
   color: var(--neutral-000, #fff);
   text-align: center;
-  /* Display/D1 */
+  /* Display/D1 
   font-family: Urbanist;
   font-size: 120px;
   font-style: normal;
   font-weight: 500;
   line-height: 125%;
-  /* 150px */
+  /* 150px 
   letter-spacing: -4.8px;
   align-self: stretch;
   align-self: stretch;
 }
+
 
 .verifiedAccount {
   align-self: stretch;
@@ -201,14 +230,17 @@
   text-align: center;
   margin-bottom: 72px;
 
-  /* Heading/H5 */
+  /* Heading/H5 
   font-family: Urbanist;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: 125%;
-  /* 22.5px */
+  /* 22.5px 
 }
+
+
+
 
 .startButton {
   width: 380px;
@@ -221,16 +253,16 @@
   background: var(--yellow-300, #f6ff82);
   color: var(--purple-300, #8e94e9);
   text-align: center;
-  /* Label/20/bold */
+  /* Label/20/bold 
   font-family: Urbanist;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
-  /* 25px */
+  /* 25px 
   letter-spacing: 0.4px;
   margin: 0 auto;
-}
+} 
 
 .rightHalfCircle {
   width: 150px;
@@ -239,6 +271,8 @@
   border-top: none;
   border: 3px solid var(--neutral-000, #fff);
 }
+
+
 
 .bagIcon {
   display: flex;
@@ -253,6 +287,8 @@
   background: var(--neutral-000, #fff);
 }
 
+
+
 .circle4 {
   width: 150px;
   height: 474px;
@@ -265,9 +301,11 @@
   align-items: center;
 }
 
+
+
 .letterCircle4 {
   color: var(--purple-500, #656de1);
-  /* Heading/H4 */
+  /* Heading/H4 
   font-family: Urbanist;
   font-size: 24px;
   font-style: normal;
@@ -276,10 +314,14 @@
   padding-top: 100px;
 }
 
+
+
 .boyPhoto {
   margin-bottom: -37px;
   padding-top: 28px;
 }
+
+
 
 .subCircle4Box {
   width: 140px;
@@ -290,15 +332,20 @@
   border-bottom-right-radius: 66px;
 }
 
+
+
+
 .circle7 {
   width: 150px;
-  /* height: 205px; */
-  /* height: 270px; */
+  /* height: 205px; 
+  /* height: 270px; 
   flex-shrink: 0;
   border-radius: 156.25px 156.25px 0px 0px;
   border: 3px solid var(--neutral-000, #fff);
-  /* margin-top: -128px; */
+  /* margin-top: -128px; 
 }
+
+
 
 .circle7second {
   width: 149px;
@@ -310,6 +357,8 @@
   opacity: 0.5;
 }
 
+
+
 .circle7third {
   height: 80px;
   width: 150px;
@@ -319,3 +368,4 @@
   opacity: 0.25;
   margin-top: -60px;
 }
+*/

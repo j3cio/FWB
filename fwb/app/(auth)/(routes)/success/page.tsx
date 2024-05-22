@@ -25,8 +25,8 @@ export default function Page() {
   return (
     <div className="w-full h-screen block relative overflow-hidden">
       {width > 1201 && (
-        <div className="container overflow-hidden">
-          <div className="leftContainer translate-y-[-30px]">
+        <div className="flex justify-between bg-[#8e94e9] h-[931px] container overflow-hidden">
+          <div className="flex flex-col translate-y-[-30px]">
             <div className="w-[133px]">
               <svg
                 width="100%"
@@ -58,10 +58,10 @@ export default function Page() {
             </div>
             <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl:w-[136px] xl:h-[136px]"></div>
             <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl:w-[136px] xl:h-[405px]"></div>
-            <div className="yellowBox xl:w-[134px] xl:h-[134px]"></div>
+            <div className="rounded-full bg-[#f6ff82] w-[150px] h-[150px] shrink-0 xl:w-[134px] xl:h-[134px]"></div>
           </div>
-          <div className="middleContainer h-screen">
-            <div className="check">
+          <div className="flex flex-col text-center justify-center h-screen">
+            <div className="flex w-[60px] h-[60px] rounded-[75px] border-[2.25px] border-white mx-auto">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="60"
@@ -75,17 +75,22 @@ export default function Page() {
                 />
               </svg>
             </div>
-            <div className="successWord">Success!!</div>
-            <div className="verifiedAccount">
+            <div className="text-white text-center font-urbanist text-[120px] self-stretch font-normal leading-tight tracking-tight">
+              Success!!
+            </div>
+            <div className="self-stretch text-white text-center mb-[72px] font-urbanist text-[18px] font-normal leading-[22.5px]">
               You have successfully verified your account
             </div>
-            <Link href="/fre1" className="startButton">
+            <Link
+              href="/fre1"
+              className="w-[380px] h-[48px] pt-[10px] justify-center items-center gap-2 rounded-3xl border bg-[#f6ff82] text-center text-[#8e94e9] font-urbanist text-[20px] font-medium leading-tight mx-auto tracking-wide"
+            >
               Lets Get Started!
             </Link>
           </div>
-          <div className="rightContainer translate-y-[-50px]">
-            <div className="rightHalfCircle xl:w-[134px]"></div>
-            <div className="bagIcon xl:w-[134px] xl:h-[134px]">
+          <div className="translate-y-[-50px]">
+            <div className="w-[150px] h-[166px] rounded-b-full border-[3px] border-white xl:w-[134px]"></div>
+            <div className="flex w-[150px] h-[150px] p-7 pr-[27.25px] pl-[26.75px] justify-center items-center shrink-0 rounded-full bg-white xl:w-[134px] xl:h-[134px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="97"
@@ -105,9 +110,9 @@ export default function Page() {
             </div>
             <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl:w-[136px] xl:h-[425px]"></div>
 
-            <div className="circle7">
-              <div className="circle7second"></div>
-              <div className="circle7third"></div>
+            <div className="w-[150px] shrink-0 rounded-t-[156.25px] rounded-b-none border-[3px] border-white">
+              <div className="w-[149px] h-[100px] flex-shrink-0 rounded-tr-[165px] rounded-tl-[162px] rounded-b-none border-t-[3px] border-t-neutral-000 mt-[42px] opacity-50"></div>
+              <div className="w-[150px] h-20 flex-shrink-0 rounded-t-[156.25px] rounded-b-none border-t-[3px] border-t-neutral-000 opacity-25 -mt-[60px]"></div>
             </div>
           </div>
         </div>
