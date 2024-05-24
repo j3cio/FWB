@@ -35,25 +35,25 @@ const page = async () => {
 
   const userData: any = await getUser(userId, supabase_jwt, bearer_token)
 
-  if (userData.users[0]) {
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      redirect('/fre1')
-    } else if (
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0] &&
-      !userData.users[0].hasCompletedFRE[2]
-    ) {
-      redirect('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      redirect('/profile')
-    }
-  } else {
-    redirect('/fre1')
-  }
+  // if (userData.users[0]) {
+  //   if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+  //     redirect('/fre1')
+  //   } else if (
+  //     userData.users[0].hasCompletedFRE[1] &&
+  //     userData.users[0].hasCompletedFRE[0] &&
+  //     !userData.users[0].hasCompletedFRE[2]
+  //   ) {
+  //     redirect('/fre3')
+  //   } else if (
+  //     userData.users[0].hasCompletedFRE[2] &&
+  //     userData.users[0].hasCompletedFRE[1] &&
+  //     userData.users[0].hasCompletedFRE[0]
+  //   ) {
+  //     redirect('/profile')
+  //   }
+  // } else {
+  //   redirect('/fre1')
+  // }
 
   return (
     <div>

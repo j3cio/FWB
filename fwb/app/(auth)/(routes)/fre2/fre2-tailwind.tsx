@@ -157,7 +157,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       {width > 400 && (
         <div className="flex h-screen justify-between overflow-hidden">
           <IllustrationThree />
-          <div className="flex w-screen flex-col items-center justify-center px-36">
+          <div className="flex flex-col justify-center px-36">
             <div className="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

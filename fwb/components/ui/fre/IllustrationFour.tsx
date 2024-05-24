@@ -2,12 +2,11 @@ import React from 'react'
 
 export default function IllustrationFour() {
   return (
-    <div className="illustrationFour">
+    <div className="mr-[108px] hidden h-full shrink-0 xl:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="156"
-        height="931"
-        viewBox="0 0 156 931"
+        className="h-full w-full"
+        viewBox="0 0 176 931"
         fill="none"
       >
         <g clipPath="url(#clip0_1223_8562)">
