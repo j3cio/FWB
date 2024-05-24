@@ -1,14 +1,17 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
+
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
+
 import UpdateUser from '@/components/hooks/updateUser'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
 import IllustrationFour from '@/components/ui/fre/IllustrationFour'
-import { UserData } from '../../../types/types'
 import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
+
+import { UserData } from '../../../types/types'
 
 declare global {
   interface Window {
