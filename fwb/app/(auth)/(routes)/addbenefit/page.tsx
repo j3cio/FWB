@@ -78,7 +78,7 @@ async function getUserData(userId:string, bearerToken:string, supabaseToken:stri
   }
 }
 
-export async function getGroupData(groupId: string, bearerToken:string, supabaseToken:string) {
+async function getGroupData(groupId: string, bearerToken:string, supabaseToken:string) {
 
   if (groupId) {
     var myHeaders = new Headers()
