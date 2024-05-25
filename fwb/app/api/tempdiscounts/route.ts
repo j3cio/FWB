@@ -95,7 +95,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   let { data: companyData, error: companyDataError } = await supabase
     .from('companies')
     .select('discounts')
-    .eq('url', company_url)
+    .eq('url', company_url) //fix to 
     .single()
 
   const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
@@ -128,6 +128,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   }
 
   // Insert the discount into the company's discounts array
+  // PATCH request to just append the single discount to the array
   const updatedDiscounts = [
     ...(companyData?.discounts || []),
     String(data[0].id),

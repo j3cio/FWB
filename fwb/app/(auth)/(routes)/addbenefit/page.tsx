@@ -19,7 +19,7 @@ import { Group, UserData } from '@/app/types/types'
 import { updateDiscount } from '@/app/api-wrappers/discounts'
 
 
-export const theme = createTheme({
+const theme = createTheme({
   components: {
     MuiSlider: {
       styleOverrides: {
