@@ -4,7 +4,6 @@ import 'dotenv/config'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import './page.css'
 
 export const SmallScreen = () => {
   const { isLoaded, signIn, setActive } = useSignIn()

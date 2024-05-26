@@ -2,7 +2,6 @@
 import { SignUp, useSignUp } from '@clerk/nextjs'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import './page.css'
 import Link from 'next/link'
 
 //For responsiveness
