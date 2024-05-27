@@ -23,10 +23,10 @@ import { DiscountData, UserData } from '../../../types/types'
 interface ProfileProps {
   userData: UserData
   discountData: DiscountData[]
-  public: boolean
+  isPublic: boolean
 }
 
-function Profile({ userData, discountData }: ProfileProps) {
+function Profile({ userData, discountData, isPublic }: ProfileProps) {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
@@ -73,7 +73,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                     </div>
                   </div>
                 )}
-                <div className="my-2 flex gap-2">
+                {!isPublic ? <div className="my-2 flex gap-2">
                   <Button
                     endIcon={<WhiteArrowForward />}
                     variant="contained"
@@ -93,11 +93,11 @@ function Profile({ userData, discountData }: ProfileProps) {
                   >
                     Edit Profile
                   </Button>
-                </div>
+                </div> : <div></div>}
               </div>
             </div>
             {/*Bargains div*/}
-            <div className="flex w-full grow flex-col gap-6">
+            {!isPublic ? <div className="flex w-full grow flex-col gap-6">
               <CreateDiscountCard />
               <div className="flex h-2/5 w-full xxl-max:hidden xl-max:hidden lg-max:hidden">
                 <a className="min-w-full" href="/addbenefit">
@@ -141,7 +141,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                   </div>
                 </a>
               </div>
-            </div>
+            </div>: <div> </div>}
             {/*My Benefits div*/}
             <div className="my-[80px] flex h-1/5 w-full flex-col rounded-lg sm-max:my-10 xs-max:my-8 xxs-max:my-6">
               <div className="flex h-full w-full flex-col">
