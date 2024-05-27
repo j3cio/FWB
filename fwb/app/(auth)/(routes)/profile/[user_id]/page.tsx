@@ -28,7 +28,6 @@ async function getUser(
       throw new Error(`HTTP error! status: ${response.status}`)
     }
     const result = await response.json()
-    console.log('result is: ', result)
     return result // This returns the result object
   } catch (error) {
     console.error('Error fetching data: ', error)
@@ -46,7 +45,7 @@ const page = async ({ params }: { params: { user_id: string } }) => {
       : undefined
   return (
     <div>
-      <Profile userData={userData} discountData={discountData} public={true} />
+      <Profile userData={userData} discountData={discountData} isPublic={true} />
     </div>
   )
 }
