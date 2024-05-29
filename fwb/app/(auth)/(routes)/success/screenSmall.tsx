@@ -37,12 +37,12 @@ export const SmallScreen = () => {
           <div className="self-stretch text-white text-center mb-[72px] font-urbanist text-[18px] font-normal leading-[22.5px] xxs:text-[12px]">
             You have successfully verified your account
           </div>
-          <Link
+          {/* <Link
             href="/fre1"
             className="w-[380px] h-[48px] sm:pt-[10px] pt-[8px] justify-center items-center gap-2 rounded-3xl border bg-[#f6ff82] text-center text-[#8e94e9] font-urbanist text-[20px] font-medium leading-tight mx-auto tracking-wide xxs:text-[16px] xxs:h-[36px] xxs:w-[272px] xs:text-[16px] xs:h-[40px] xs:w-[342px]"
           >
             Lets Get Started!
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="absolute top-[30%] left-0 w-full z-0 xxs:hidden">

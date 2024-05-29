@@ -41,12 +41,12 @@ export const LargeScreen = () => {
         <div className="self-stretch text-white text-center mb-[72px] font-urbanist text-[18px] font-normal leading-[22.5px]">
           You have successfully verified your account
         </div>
-        <Link
+        {/* <Link
           href="/fre1"
           className="w-[380px] h-[48px] pt-[10px] justify-center items-center gap-2 rounded-3xl border bg-[#f6ff82] text-center text-[#8e94e9] font-urbanist text-[20px] font-medium leading-tight mx-auto tracking-wide"
         >
           Lets Get Started!
-        </Link>
+        </Link> */}
       </div>
       <div className="flex flex-col h-auto w-[133px] mb-auto mr-auto">
         <div className="w-[133px] mt-[-50px]">
