@@ -174,7 +174,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                 <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
               </svg>
             </div>
-            <h2 className="mb-[65px] mt-[36px] text-center text-4xl font-semibold text-white">
+            <h2 className="mb-[65px] mt-[36px] text-center text-[40px] font-semibold leading-[110%] text-white">
               Share your &quot;benefits&quot; 😏
             </h2>
 
@@ -215,7 +215,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       Category *
                     </h6>
                     <select
-                      className="mb-5 w-52 rounded-full bg-[#8e94e9] px-3 py-2 text-white"
+                      className="mb-5 w-52 rounded-full border bg-[#8e94e9] px-3 py-2 text-white"
                       onChange={(e) =>
                         handleCategoryChange(
                           Array.from(
@@ -343,7 +343,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                     />
                   </div>
                   <div>
-                    <h6 className="mb-1 text-sm font-medium text-white">
+                    <h6 className="mb-1 border text-sm font-medium text-white">
                       Category *
                     </h6>
                     <select
@@ -379,7 +379,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                     Discount Rules & Conditions
                   </h6>
                   <textarea
-                    className="mb-9 w-full rounded-lg bg-white px-3 py-2 text-sm placeholder:text-gray-400"
+                    className="mb-9 h-[103px] w-full rounded-lg bg-white px-3 py-2 text-sm placeholder:text-gray-400"
                     placeholder="Share any rules or limitations about your benefit"
                     value={termsAndConditions}
                     onChange={(e) => setTermsAndConditions(e.target.value)}
@@ -400,7 +400,9 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
             </div>
 
             <div className="flex justify-center" onClick={updateUser}>
-              <div className="skip m-0 h-auto text-[16px]">Skip for now</div>
+              <div className="skip m-0 h-auto text-[16px] text-white">
+                Skip for now
+              </div>
             </div>
           </div>
         </div>
