@@ -48,5 +48,8 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
+      - name: Install modules
+        run: cd fwb && npm install
+
       - name: Run Tests
         run: cd fwb && npm run test
