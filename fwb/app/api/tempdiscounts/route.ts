@@ -5,8 +5,6 @@ import { getNewLogoUrl } from '../discounts/utils/logos_utils'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   let discount_id = request.nextUrl.searchParams.get('discount_id')
-
-  console.log('DISCOUNT ID',discount_id)
   try {
     // Fetch all public groups
     const supabase = await supabaseClient()
@@ -90,12 +88,12 @@ export async function POST(request: NextRequest, response: NextResponse) {
       } 
 
         // Get the discounts of the company
-  const company_url = formData.get('company_url')
+  //const company_url = formData.get('company_url')
   const company_name = formData.get('name')
   let { data: companyData, error: companyDataError } = await supabase
     .from('companies')
     .select('discounts')
-    .eq('url', company_url) //fix to 
+    .eq('name', company_name) 
     .single()
 
   const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
@@ -230,8 +228,6 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
   const data = await request.json()
   const discountId = data.id
-  console.log(data)
-  console.log(discountId)
 
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -259,7 +255,6 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   }
 
   let updatedDiscounts = userData.user_discounts || []
-  console.log('aoejfaoif', updatedDiscounts)
 
   // Duplicate discount prevention
   if (!updatedDiscounts.includes(discountId)) {

@@ -56,7 +56,6 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
     const [discount, setDiscount] = useState<any>(null);
 
     const { user } = useUser()
-    console.log(user)
     const [discountAmount, setDiscountAmount] = useState<number>(0)
     const [emailAddress, setEmailAddress] = useState('')
     const [company, setCompany] = useState('')
@@ -70,7 +69,6 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
   
     const router = useRouter()
     const { getToken } = useAuth()
-    console.log(selectedOption)
 
     useEffect(() => {
       const fetchData = async () => {
@@ -119,7 +117,7 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
       // Call the fetchData function
       fetchData();
     }, []);
-    console.log(discount)
+
 
   
     const handleSlide = (event: Event, newValue: number | number[]) => {

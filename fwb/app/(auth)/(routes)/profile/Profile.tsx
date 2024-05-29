@@ -42,7 +42,6 @@ function Profile({ userData, discountData }: ProfileProps) {
   const closeEditProfileModal = () => {
     setIsEditProfileModalOpen(false)
   }
-  console.log('discountData', discountData)
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>

@@ -38,7 +38,6 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
     // Extract the form data
     const formData = await request.formData()
 
-    console.log('FORMDATA', formData)
     const updatedDiscount: any = {}
   
     const discount_id = formData.get('discount_id')

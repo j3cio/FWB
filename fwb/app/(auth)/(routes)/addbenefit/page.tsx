@@ -189,7 +189,6 @@ export default function Intakeform() {
           const discountData = await response.json()
           console.log('Discount added successfully:', discountData)
           const discountObject  = discountData.data[0]
-          console.log(discountObject)
 
           // add new discount to my account
           const patchResponse = await fetch('/api/tempdiscounts', {
@@ -207,14 +206,10 @@ export default function Intakeform() {
             // get my groups 
             // add new discount to each group
             const userData: UserData = await getUserData(user.id, bearerToken, supabaseToken)
-            console.log('userData', userData)
             const groupData: Group[] = await Promise.all(
               userData.users[0].user_groups.map(async (group_id) => {
                 // Simulate async operation
                 const singleGroupData = await getGroupData(group_id, bearerToken, supabaseToken)
-                console.log('ADDBENEFIT SINGLE', singleGroupData)
-                
-
                 const groupDataBody = singleGroupData.data[0]
                 const discountId = discountData.data[0].id;
 
@@ -233,12 +228,10 @@ export default function Intakeform() {
                 });
                 
                 if (groupPatchResponse.ok) {
-                  // Handle success if needed
                   console.log(`Group ${singleGroupData.data[0].id} successfully updated`);
                   return singleGroupData
                 
                 } else {
-                  // Handle error if needed
                   console.error(`Failed to update group ${singleGroupData.data[0].id}`);
                 }
               })
