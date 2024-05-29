@@ -20,7 +20,7 @@ jobs:
 
       - name: Install modules
         run: cd fwb && npm install
-        
+
       - name: Prettify Code
         run: cd fwb && npm run format
 
@@ -32,12 +32,21 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-          
 
       - name: Install modules
         run: cd fwb && npm install
-        
+
       - name: Lint Code
         run: cd fwb && npm run lint
 
+  tests:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Run Tests
+        run: cd fwb && npm run test
