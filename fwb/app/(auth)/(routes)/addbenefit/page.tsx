@@ -17,6 +17,7 @@ import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
 import { Group, UserData } from '@/app/types/types'
 import { updateDiscount } from '@/app/api-wrappers/discounts'
+import { getGroupData, getUserData } from './apiUtils'
 
 
 const theme = createTheme({
@@ -51,7 +52,7 @@ const theme = createTheme({
   },
 })
 
-async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
+/*async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
 
   var myHeaders = new Headers()
   myHeaders.append('supabase_jwt', supabaseToken)
@@ -71,10 +72,10 @@ async function getUserData(userId:string, bearerToken:string, supabaseToken:stri
       throw new Error(`HTTP error! status: ${response.status}`)
     }
     const result = await response.json()
-    return result // This returns the result object
+    return result 
   } catch (error) {
     console.error('Error fetching data: ', error)
-    throw error // This re-throws the error to be handled by the caller
+    throw error 
   }
 }
 
@@ -98,10 +99,10 @@ async function getGroupData(groupId: string, bearerToken:string, supabaseToken:s
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       const result = await response.json()
-      return result // This returns the result object
+      return result 
     } catch (error) {
       console.error('Error fetching data: ', error)
-      throw error // This re-throws the error to be handled by the caller
+      throw error 
     }
   } else {
     return {
@@ -119,6 +120,7 @@ async function getGroupData(groupId: string, bearerToken:string, supabaseToken:s
     }
   }
 }
+*/
 
 export default function Intakeform() {
   const { user } = useUser()
@@ -201,8 +203,6 @@ export default function Intakeform() {
           })
 
           if (patchResponse.ok) {
-            console.log('User discounts updated successfully');
-
             // get my groups 
             // add new discount to each group
             const userData: UserData = await getUserData(user.id, bearerToken, supabaseToken)
