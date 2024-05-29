@@ -211,7 +211,10 @@ const ExplorePageContent = () => {
   }, [searchQuery, searchIndex])
 
   return (
-    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
+    <Box
+      data-testid="explore-page-content"
+      sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
+    >
       <Container disableGutters maxWidth="lg">
         {isLoading ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
         {isLoading ? (

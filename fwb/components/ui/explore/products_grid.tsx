@@ -39,15 +39,15 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
         }}
       >
         {isLoading
-          ? Array.apply(null, Array(8)).map((_) => (
-              <Grid item xs={6} sm={6} md={3} key={crypto.randomUUID()}>
+          ? Array.apply(null, Array(8)).map((_, index) => (
+              <Grid item xs={6} sm={6} md={3} key={index}>
                 {generateSkeletons({
                   type: 'ProductCard',
                 })}
               </Grid>
             ))
-          : items.map((company: any) => (
-              <Grid item xs={6} sm={6} md={3} key={crypto.randomUUID()}>
+          : items.map((company: any, index) => (
+              <Grid item xs={6} sm={6} md={3} key={index}>
                 <ProductCard company={company} />
               </Grid>
             ))}
