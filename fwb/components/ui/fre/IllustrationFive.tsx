@@ -2,11 +2,7 @@ import React from 'react'
 
 export default function IllustrationFive() {
   return (
-<<<<<<< HEAD
     <div className="illustrationFive ml-[108px] shrink-0 h-full">
-=======
-    <div className="illustrationFive">
->>>>>>> 258e13b1f05c9d639cb0c885a7e8c5b06f7ae604
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="176"
