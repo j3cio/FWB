@@ -6,6 +6,7 @@ const ShareIcon = () => {
       viewBox="0 0 50 50"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="xs-max:w-[35px] xxs-max:w-[35px] xxs-max:h-[35px] xxs-max:h-[35px]"
     >
       <rect
         x="1"

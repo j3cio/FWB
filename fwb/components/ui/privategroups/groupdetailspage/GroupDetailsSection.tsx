@@ -164,7 +164,7 @@ const GroupDetailsSection = ({
         <div className="absolute -top-16 left-36 -translate-x-1/2 transform rounded-full">
           {filePath ? (
             <div className="h-32 w-32 overflow-hidden rounded-full">
-              <img
+              <Image
                 src={filePath || ''}
                 alt="Avatar"
                 className="h-full w-full cursor-pointer"
