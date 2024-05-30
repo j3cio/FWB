@@ -1,0 +1,225 @@
+@import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
+
+.pageContent {
+  /* max-width: 1440px;
+  max-height: 931px; */
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.middleSpacing {
+  flex-shrink: 0;
+  padding-left: 142px;
+  padding-right: 150px;
+}
+
+.illustrationThree {
+  margin-left: 108px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.illustrationFour {
+  margin-right: 120px;
+  flex-shrink: 0;
+}
+
+.progresscircles {
+  display: flex;
+  justify-content: center;
+  margin-top: 103px;
+}
+
+.mainHeader {
+  color: var(--neutral-000, #fff);
+  text-align: center;
+  /* Heading/H2 */
+  font-family: Urbanist;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+  /* 44px */
+  margin-top: 104px;
+  margin-bottom: 41px;
+  letter-spacing: 0.1rem;
+}
+
+.discountFormText {
+  color: var(--neutral-000, #fff);
+  text-align: center;
+  /* Heading/H5 */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 125%;
+  /* 22.5px */
+  display: flex;
+  margin-right: 24px;
+}
+
+input::placeholder {
+  color: var(--neutral-900, #000000);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+  opacity: 0.3;
+  vertical-align: text-top;
+}
+
+.inputCompany {
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 384px;
+  height: 32px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.inputDiscount {
+  border-radius: 100px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 148px;
+  height: 32px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 20px;
+  margin-top: 8px;
+  margin-right: 24px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+.selectCategory {
+  border-radius: 100px;
+  background: #8e94e9;
+  color: #fff;
+  border: 1.5px solid #fff;
+  display: flex;
+  width: 212px;
+  height: 32px;
+  padding-left: 12px;
+  gap: 8px;
+  margin-bottom: 20px;
+  margin-top: 8px;
+}
+
+option {
+  color: var(--neutral-900, #ffffff);
+  /* Body/16/regular */
+  font-family: Urbanist;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 24px */
+  opacity: 0.3;
+}
+
+.inputConditions {
+  border-radius: 10px;
+  background: var(--neutral-000, #fff);
+  display: flex;
+  width: 384px;
+  height: 103px;
+  padding: 8px 8px 8px 24px;
+  gap: 8px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+}
+
+.submitButton {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  display: flex;
+  width: 200px;
+  height: 32px;
+  padding: 3px;
+  justify-content: center;
+  gap: 8px;
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 30px */
+  letter-spacing: 1.1px;
+  margin-bottom: 8px;
+  margin-left: 90px;
+}
+
+.share {
+  border-radius: 30px;
+  background: var(--yellow-300, #f6ff82);
+  display: flex;
+  width: 367px;
+  height: 48px;
+  padding: 10px 24px;
+  justify-content: center;
+  gap: 8px;
+  color: var(--purple-300, #8e94e9);
+  text-align: center;
+  /* Label/24/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 30px */
+  letter-spacing: 1.1px;
+  /* margin-top: 114px; */
+  margin-bottom: 8px;
+  margin-right: 46px;
+}
+
+.skip {
+  color: var(--neutral-000, #fff);
+  /* Label/16/bold */
+  font-family: Urbanist;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%;
+  /* 20px */
+  letter-spacing: 1.1px;
+  margin-top: 19.5px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.shareButtons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 61px;
+  align-items: center;
+}
+
+.skipButton {
+  margin-top: 18px;
+}

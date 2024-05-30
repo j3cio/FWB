@@ -1,24 +1,24 @@
-"use client";
-import { useSignIn, useUser } from "@clerk/nextjs";
-import "dotenv/config";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import "./page.css";
+'use client'
+import { useSignIn, useUser } from '@clerk/nextjs'
+import 'dotenv/config'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import './page.css'
 
 export const SmallScreen = () => {
-  const { isLoaded, signIn, setActive } = useSignIn();
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const [error, setError] = useState<any>(null);
-  const { user } = useUser();
+  const { isLoaded, signIn, setActive } = useSignIn()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
+  const [error, setError] = useState<any>(null)
+  const { user } = useUser()
 
   return (
-    <div className="h-screen w-full flex flex-row">
-      <div className="inline-flex h-auto w-auto mx-auto sm:mt-[160px] xs:mt-[80px] xxs:mt-[64px] z-10">
-        <div className="w-auto h-auto flex relative flex-col">
-          <div className="check mx-auto xxs:w-[20px] xxs:h-[20px] xs:w-[30px] xs:h-[30px] sm:w-[40px] sm:h-[40px]">
+    <div className="flex h-screen w-full flex-row">
+      <div className="z-10 mx-auto inline-flex h-auto w-auto sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
+        <div className="relative flex h-auto w-auto flex-col">
+          <div className="check mx-auto sm-max:h-[40px] sm-max:w-[40px] xs-max:h-[30px] xs-max:w-[30px] xxs-max:h-[20px] xxs-max:w-[20px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -32,21 +32,21 @@ export const SmallScreen = () => {
               />
             </svg>
           </div>
-          <div className="successWord xxs:text-[48px] xs:text-[80px]">
+          <div className="successWord xs-max:text-[80px] xxs-max:text-[48px]">
             Success!!
           </div>
-          <div className="verifiedAccount xxs:text-[12px]">
+          <div className="verifiedAccount xxs-max:text-[12px]">
             You have successfully verified your account
           </div>
-          <Link
+          {/* <Link
             href="/fre1"
-            className="startButton xxs:text-[16px] xxs:h-[36px] xxs:w-[272px] xs:text-[16px] xs:h-[40px] xs:w-[342px]"
+            className="startButton xs-max:h-[40px] xs-max:w-[342px] xs-max:text-[16px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
           >
             Lets Get Started!
-          </Link>
+          </Link> */}
         </div>
       </div>
-      <div className=" absolute top-[30%] left-0 w-full z-0 xxs:hidden">
+      <div className=" absolute left-0 top-[30%] z-0 w-full xxs-max:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
@@ -64,5 +64,5 @@ export const SmallScreen = () => {
         </svg>
       </div>
     </div>
-  );
-};
+  )
+}
