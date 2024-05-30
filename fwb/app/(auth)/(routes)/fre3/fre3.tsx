@@ -220,11 +220,11 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
                 {/* <Link href="/profile" className="next"> */}
 
                 {/* <button className="next" type="submit" form="invitations"> */}
-                <button className="rounded-[30px] bg-[#f6ff82] flex w-[367px] h-[48px] px-[24px] py-[10px] justify-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[125%] tracking-[0.2px] mt-[114px] mb-[8px]" type="button" onClick={handleShare}>
+                <button className="rounded-[30px] bg-[#f6ff82] flex w-[367px] h-[48px] px-[24px] py-[10px] justify-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.2px] mt-[114px] mb-[8px]" type="button" onClick={handleShare}>
                   Share with My Friends
                 </button>
                 {/* </Link> */}
-                <div className="text-white font-urbanist text-[20px] font-bold leading-[125%] tracking-[0.8px] mt-[1px] mr-[8px]" onClick={changeFRE}>
+                <div className="text-white font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.8px] mt-[1px] mr-[8px]" onClick={changeFRE}>
                   <div className="text-white flex w-[150px] h-[48px] py-[10px] text-center gap-[8px] cursor-pointer m-0 justify-center">Skip for now</div>
                 </div>
               </div>
@@ -335,14 +335,14 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
           <div className="flex flex-col items-center mx-[16px] mt-[75px]">
             {/* <button className="next" type="submit" form="invitations"> */}
             <button
-              className="rounded-[30px] bg-[#f6ff82] flex px-[24px] py-[10px] justify-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-lg font-bold leading-[125%] tracking-[0.4px] mb-[8px] mt-[0px] h-auto w-full text-[16px]"
+              className="rounded-[30px] bg-[#f6ff82] flex px-[24px] py-[10px] justify-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-lg font-semibold leading-[125%] tracking-[0.4px] mb-[8px] mt-[0px] h-auto w-full text-[16px]"
               type="button"
               onClick={handleShare}
             >
               Share with My Friends
             </button>
             {/* </Link> */}
-            <div className="text-white font-urbanist text-lg font-bold leading-[125%] tracking-[1.1px] mt-[1px] mr-[8px] h-auto text-[16px]" onClick={changeFRE}>
+            <div className="text-white font-urbanist text-lg font-semibold leading-[125%] tracking-[1.1px] mt-[1px] mr-[8px] h-auto text-[16px]" onClick={changeFRE}>
               <div className="text-white flex w-[150px] h-[48px] py-[10px] text-center gap-[8px] cursor-pointer m-0 justify-center">Skip for now</div>
             </div>
           </div>
