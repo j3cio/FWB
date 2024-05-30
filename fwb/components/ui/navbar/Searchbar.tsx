@@ -11,24 +11,12 @@ const SearchBar = () => {
     useContext(SearchContext)
   return (
     <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'right',
-        borderRadius: '100px',
-        backgroundColor: 'white',
-        flexGrow: 1,
-        border: 'none',
-      }}
+      className="flex items-end rounded-[100px] bg-white flex-grow border-none"
     >
       <TextField
         fullWidth
         placeholder="Search for companies with benefits"
-        style={{
-          flex: 1,
-          height: '48px',
-          borderRadius: '25px 0 0 25px',
-          justifyContent: 'center',
-        }}
+        className='flex-[1] h-[48px] justify-center rounded-tr-[25px] rounded-bl-[25px] items-start border-none focus:outline-none'
         sx={{
           '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
           '&.MuiFormControl-root': { alignItems: 'flex-start' },
@@ -44,16 +32,7 @@ const SearchBar = () => {
       <IconButton
         color="primary"
         aria-label="search"
-        sx={{
-          backgroundColor: 'black',
-          padding: '10px',
-          border: 'none',
-          margin: '4px',
-          transition: 'backgroundColor 1s ease',
-          '&:hover': {
-            backgroundColor: '#8e94e9',
-          },
-        }}
+        className='bg-[#000] p-[10px] border-none m-[4px] hover:bg-[#8e94e9] transition duration-100 ease-in-out'
         onClick={() => handleSearch(searchQuery)}
       >
         <Image src={searchIcon} alt="Search Icon" />
