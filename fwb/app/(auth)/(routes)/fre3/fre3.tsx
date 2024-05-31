@@ -134,7 +134,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
                 </svg>
               </div>
               <h2 className="text-white text-center font-urbanist text-[40px] font-semibold leading-[110%] mt-[135px] mb-[16px] tracking-[0.1rem]">Share with Your Friends!</h2>
-              <h5 className="text-white text-center font-urbanist text-[18px] font-medium mt-[8px] leading-[125%]">
+              <h5 className="text-white text-center font-urbanist text-[16px] font-normal mt-[8px] leading-[125%]">
                 Spread the love and be the wingman to someone else&apos;s
                 wallet!
               </h5>
@@ -251,7 +251,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
           <h2 className="text-white text-center font-urbanist font-semibold leading-[110%] tracking-[0.05rem] mb-[0px] mt-[28px] text-[24px]">
             Share with Your Friends!
           </h2>
-          <h5 className="text-white text-center font-urbanist font-medium mt-[8px] leading-[125%] text-[12px]">
+          <h5 className="text-white text-center font-urbanist font-normal mt-[8px] leading-[125%] text-[12px]">
             Spread the love and be the wingman to <br></br> someone else&apos;s
             wallet!
           </h5>
