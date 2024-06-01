@@ -17,7 +17,6 @@ import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
 import { Group, UserData } from '@/app/types/types'
 import { updateDiscount } from '@/app/api-wrappers/discounts'
-import { getGroupData, getUserData } from './apiUtils'
 
 
 const theme = createTheme({
@@ -52,7 +51,7 @@ const theme = createTheme({
   },
 })
 
-/*async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
+async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
 
   var myHeaders = new Headers()
   myHeaders.append('supabase_jwt', supabaseToken)
@@ -120,7 +119,7 @@ async function getGroupData(groupId: string, bearerToken:string, supabaseToken:s
     }
   }
 }
-*/
+
 
 export default function Intakeform() {
   const { user } = useUser()
