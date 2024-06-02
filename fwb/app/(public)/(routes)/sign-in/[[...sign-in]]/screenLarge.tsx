@@ -104,16 +104,16 @@ export const LargeScreen = () => {
       <div className="ml-auto mt-auto flex h-auto w-auto translate-y-[70px] flex-col">
         <div className="h-[133px] w-[133px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat"></div>
         <div className="h-[400px] w-[134px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="circle6 lg-max:h-[133px] lg-max:w-[133px]"></div>
+        <div className="circle6 w-[150px] h-[150px] flex-shrink-0 rounded-full bg-yellow-300 lg-max:h-[133px] lg-max:w-[133px]"></div>
       </div>
-      <div className="signin mx-0 my-auto flex h-[728px] w-2/3 max-w-[556px] p-0">
+      <div className=" signin flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_0px_rgba(255,255,255,0.25)] relative mx-0 my-auto flex h-[728px] w-2/3 max-w-[556px] p-0">
         <div className="pn-[30px] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
-          <div className="name">Sign In</div>
-          <div className="buttons">
-            <button className="googleButton" onClick={signInWithGoogle}>
+          <div className="name text-white text-center font-urbanist text-[40px] font-medium leading-[110%] mb-[80px]">Sign In</div>
+          <div className="buttons flex items-center justify-center mb-[16px]">
+            <button className="googleButton w-[45.216px] h-[45.216px] pb-[1px] pl-[8px] justify-center items-center rounded-[28.26px] border-[1.413px] border-white mr-[22.6px]" onClick={signInWithGoogle}>
               <Image src={GooglePic} alt="Google Icon" />
             </button>
-            <button className="discordButton" onClick={signInWithDiscord}>
+            <button className="discordButton w-[45.216px] h-[45.216px] p-[7px] justify-center items-center rounded-[28.26px] border-[1.413px] border-white" onClick={signInWithDiscord}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
@@ -128,13 +128,13 @@ export const LargeScreen = () => {
               </svg>
             </button>
           </div>
-          <div className="or">Or</div>
+          <div className="or text-white font-urbanist text-[16px] font-medium leading-[150%] items-center flex justify-center mb-[16px]">Or</div>
 
           <form onSubmit={handleSubmit}>
             <div>
               {/* <label htmlFor="email">Email</label> */}
               <input
-                className="input"
+                className="input rounded-[100px] bg-white flex w-[367px] p-[8px_8px_8px_24px] items-center gap-[8px] mb-[16px] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                 placeholder="Email@address.com"
                 onChange={(e) => setEmailAddress(e.target.value)}
                 id="email"
@@ -148,7 +148,7 @@ export const LargeScreen = () => {
                   .filter((err: any) => err.meta.paramName === 'email_address')
                   .map((passwordError: any) => (
                     <div
-                      className="errorMessage"
+                      className="errorMessage  text-white flex text-left font-urbanist text-[16px] font-normal mt-[-5px] mb-[5px]"
                       key={passwordError.meta.paramName}
                     >
                       <svg
@@ -157,21 +157,21 @@ export const LargeScreen = () => {
                         height="16"
                         viewBox="0 0 16 17"
                         fill="none"
-                        className="errorImage"
+                        className="errorImage bg-red-500 rounded-[50%]"
                       >
                         <path
                           d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                           fill="white"
                         />
                       </svg>{' '}
-                      <div className="message">{passwordError.message}</div>
+                      <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{passwordError.message}</div>
                     </div>
                   ))}
             </div>
             <div>
               {/* <label htmlFor="password">Password</label> */}
               <input
-                className="input"
+                className="input rounded-[100px] bg-white flex w-[367px] p-[8px_8px_8px_24px] items-center gap-[8px] mb-[16px] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 id="password"
@@ -185,7 +185,7 @@ export const LargeScreen = () => {
                 .filter((err: any) => err.meta.paramName === 'password')
                 .map((passwordError: any) => (
                   <div
-                    className="errorMessage"
+                    className="errorMessage  text-white flex text-left font-urbanist text-[16px] font-normal mt-[-5px] mb-[5px]"
                     key={passwordError.meta.paramName}
                   >
                     <svg
@@ -194,29 +194,29 @@ export const LargeScreen = () => {
                       height="16"
                       viewBox="0 0 16 17"
                       fill="none"
-                      className="errorImage"
+                      className="errorImage bg-red-500 rounded-[50%]"
                     >
                       <path
                         d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                         fill="white"
                       />
                     </svg>{' '}
-                    <div className="message">{passwordError.message}</div>
+                    <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{passwordError.message}</div>
                   </div>
                 ))}
 
-            <div className="password">
-              <Link href="/forgotpassword" className="forgetPassword">
+            <div className="password flex justify-end mb-[32px]">
+              <Link href="/forgotpassword" className="forgetPassword  text-white font-urbanist text-[16px] font-normal leading-[150%]">
                 Forgot Password?
               </Link>
             </div>
 
-            <button className="submit" type="submit">
+            <button className="submit rounded-[30px] bg-[#f6ff82] flex w-[366px] h-[48px] p-[10px_24px] justify-center items-center gap-[8px] text-center text-[#8e94e9] font-urbanist font-semibold text-[24px] leading-[125%] tracking-[0.48px]" type="submit">
               Submit
             </button>
-            <div className="signup">
-              <div className="detail">Don&apos;t have an account? </div>
-              <Link href="/sign-up" className="signupButton">
+            <div className="signup flex justify-center items-center">
+              <div className="detail pr-[5px] text-white font-urbanist text-[16px] font-medium leading-[150%]">Don&apos;t have an account? </div>
+              <Link href="/sign-up" className="signupButton flex h-[36px] px-0 py-[8px] justify-center items-center gap-[4px] text-white font-urbanist font-semibold text-[16px] leading-[125%] tracking-[0.32px]">
                 Create Account
               </Link>
             </div>
@@ -255,7 +255,7 @@ export const LargeScreen = () => {
         </div>
         <div className="h-[133px] w-[260px] translate-x-[-50%] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat"></div>
         <div className="h-[420px] w-[133px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="circle1 lg-max:ml-0 lg-max:h-[133px] lg-max:w-[133px]"></div>
+        <div className="w-[150px] h-[150px] flex-shrink-0 rounded-full border-[5px] border-white ml-[150px] lg-max:ml-0 lg-max:h-[133px] lg-max:w-[133px]"></div>
       </div>
     </div>
   )

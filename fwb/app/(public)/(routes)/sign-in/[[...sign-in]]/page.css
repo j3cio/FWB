@@ -4,27 +4,24 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-.pageHeight {
+/*.pageHeight {
   height: 100vh;
   overflow: hidden;
   width: 100%;
   display: grid;
   position: relative;
-}
+}*/
 
-.big {
-  /* max-width: 1440px;
-  max-height: 931px; */
+/*.big {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   background-color: #8e94e9;
-}
+}*/
 
-.signin {
+/*.signin {
   display: inline-flex;
-  /* height: 728px; */
   padding: 110px 161px 109.48px 162px;
   width: 690px;
   height: 728px;
@@ -35,30 +32,28 @@
   border-radius: 60px;
   border: 2px solid var(--neutral-000, #fff);
   background: rgba(255, 255, 255, 0.15);
-  /* opacity: 75%; */
   box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.25);
   position: relative;
-}
+}*/
 
-.leftSigninContainer {
+/*.leftSigninContainer {
   width: 549px;
-  /* background-color: red; */
   background-color: #8e94e9;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+}*/
 
-.circle1 {
+/*.circle1 {
   width: 150px;
   height: 150px;
   flex-shrink: 0;
   border-radius: 156.25px;
   border: 5px solid var(--neutral-000, #fff);
   margin-left: 150px;
-}
+}*/
 
-.circle2 {
+/*.circle2 {
   width: 293px;
   height: 150px;
   display: flex;
@@ -97,7 +92,6 @@
 
 .letter {
   color: var(--purple-500, #656de1);
-  /* Heading/H4 */
   font-family: Urbanist;
   font-size: 22px;
   font-style: normal;
@@ -109,11 +103,9 @@
   width: 142px;
   height: 142px;
   margin-right: -16px;
-  /* margin-left: 10%; */
   background-color: #8e94e9;
   display: flex;
   border-radius: 156.25px;
-  /* padding: 27px 27.25px 27px 26.75px; */
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
@@ -134,7 +126,6 @@
   width: 150px;
   height: 150px;
   flex-direction: column;
-  /* padding: 37px 23.498px 23.753px 23px; */
   justify-content: center;
   align-items: center;
   border-radius: 156.25px;
@@ -148,7 +139,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: 125%;
-  /* 40px */
   position: absolute;
   z-index: 1;
   transform: rotate(10deg);
@@ -176,7 +166,6 @@
 
 .letterCircle4 {
   color: var(--purple-500, #656de1);
-  /* Heading/H4 */
   font-family: Urbanist;
   font-size: 24px;
   font-style: normal;
@@ -240,17 +229,19 @@
   background: #8e94e9;
   border-bottom-left-radius: 66px;
   border-bottom-right-radius: 66px;
-}
+}*/
 
-.circle6 {
+/*.circle6 {
   width: 150px;
   height: 150px;
   flex-shrink: 0;
   border-radius: 156.25px;
   background: var(--yellow-300, #f6ff82);
 }
+*/
 
-.circle7 {
+
+/*.circle7 {
   width: 150px;
   height: 280px;
   border-radius: 156.25px 156.25px 0px 0px;
@@ -279,29 +270,28 @@
 
 .three {
   display: flex;
-}
+}*/
 
-.buttons {
+/*.buttons {
   display: flex;
   align-items: center;
   margin-bottom: 16px;
   justify-content: center;
-}
+}*/
 
-.googleButton {
+/*.googleButton {
   width: 45.216px;
   height: 45.216px;
   padding-bottom: 1px;
   padding-left: 8px;
-  /* padding: 12.696px 9.85px 12.832px 9.932px; */
   justify-content: center;
   align-items: center;
   border-radius: 28.26px;
   border: 1.413px solid #fff;
   margin-right: 22.6px;
-}
+}*/
 
-.discordButton {
+/*.discordButton {
   width: 45.216px;
   height: 45.216px;
   padding: 7px;
@@ -309,9 +299,9 @@
   align-items: center;
   border-radius: 28.26px;
   border: 1.413px solid #fff;
-}
+}*/
 
-.or {
+/*.or {
   color: #fff;
   font-family: Urbanist;
   font-size: 16px;
@@ -322,22 +312,21 @@
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
-}
+}*/
 
-.name {
+/*.name {
   color: var(--neutral-000, #fff);
   text-align: center;
-  /* Heading/H2 */
+
   font-family: Urbanist;
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
   line-height: 110%;
-  /* 44px */
   margin-bottom: 80px;
-}
+}*/
 
-.input {
+/*.input {
   border-radius: 100px;
   background: var(--neutral-000, #fff);
   display: flex;
@@ -346,57 +335,54 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 16px;
-}
+}*/
 
-input::placeholder {
+/*input::placeholder {
   color: var(--neutral-900, #090a10);
-  /* Body/16/regular */
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  /* 24px */
   opacity: 0.3;
-}
+}*/
 
-.password {
+/*.password {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 32px;
-}
+}*/
 
-.forgetPassword {
+/*.forgetPassword {
   color: var(--neutral-000, #fff);
-  /* Body/16/regular */
+ 
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  /* 24px */
-}
+ 
+}*/
 
-.errorMessage {
+/*.errorMessage {
   color: var(--neutral-000, #fff);
-  /* max-width: 367px; */
-  /* word-wrap:break-word; */
+
   display: flex;
   text-align: left;
-  /* Body/16/regular */
+
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   margin-top: -5px;
   margin-bottom: 5px;
-}
+}*/
 
-.errorImage {
+/*.errorImage {
   background-color: red;
   border-radius: 50%;
-}
+}*/
 
-.message {
+/*.message {
   margin-left: 5px;
   margin-top: -5px;
   text-align: left;
@@ -405,8 +391,8 @@ input::placeholder {
   font-style: normal;
   word-wrap: break-word;
 }
-
-.submit {
+*/
+/*.submit {
   border-radius: 30px;
   background: var(--yellow-300, #f6ff82);
   display: flex;
@@ -418,17 +404,17 @@ input::placeholder {
   gap: 8px;
   color: var(--purple-300, #8e94e9);
   text-align: center;
-  /* Label/24/bold */
+  
   font-family: Urbanist;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
-  /* 30px */
-  letter-spacing: 0.48px;
-}
 
-.detail {
+  letter-spacing: 0.48px;
+}*/
+
+/*.detail {
   padding-right: 5px;
   color: #fff;
   font-family: Urbanist;
@@ -436,17 +422,17 @@ input::placeholder {
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
-}
+}*/
 
 /* 24px */
 
-.signup {
+/*.signup {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+}*/
 
-.signupButton {
+/*.signupButton {
   display: flex;
   height: 36px;
   padding: 8px 0px;
@@ -454,17 +440,17 @@ input::placeholder {
   align-items: center;
   gap: 4px;
   color: var(--neutral-000, #fff);
-  /* Label/16/bold */
+
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
-  /* 20px */
-  letter-spacing: 0.32px;
-}
 
-.error {
+  letter-spacing: 0.32px;
+}*/
+
+/*.error {
   color: #ff0000;
 
   font-family: Urbanist;
@@ -474,3 +460,4 @@ input::placeholder {
   line-height: 150%;
   margin-bottom: 10px;
 }
+*/

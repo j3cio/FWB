@@ -73,7 +73,7 @@ export const SmallScreen = () => {
                 <div className="relative flex h-screen">
                   <div className="relative flex flex-col border-0 bg-transparent shadow-none">
                     <svg
-                      className="mail sm-max:h-[40px] sm-max:w-[40px] xs-max:h-[40px] xs-max:w-[40px] xxs-max:h-[24px] xxs-max:w-[24px]"
+                      className="mail my-0 mx-auto mb-[24px] sm-max:h-[40px] sm-max:w-[40px] xs-max:h-[40px] xs-max:w-[40px] xxs-max:h-[24px] xxs-max:w-[24px]"
                       xmlns="http://www.w3.org/2000/svg"
                       width="41"
                       height="41"
@@ -88,19 +88,19 @@ export const SmallScreen = () => {
                       />
                     </svg>
 
-                    <div className="title mb-[16px] mt-[24px] xs-max:text-[32px] xxs-max:text-[24px]">
+                    <div className="title text-white text-center font-urbanist text-[40px] font-normal font-semibold leading-[110%] mx-auto mb-[16px] mb-[16px] mt-[24px] xs-max:text-[32px] xxs-max:text-[24px]">
                       Forgot Password?
                     </div>
-                    <div className="explanation xs-max:text-[14px] xxs-max:text-[12px]">
+                    <div className="explanation  text-white text-center font-urbanist text-[18px] font-medium leading-[1.25] xs-max:text-[14px] xxs-max:text-[12px]">
                       Dont worry! Enter your email address and we
                     </div>
-                    <div className="explanation2 mb-[130px] xs-max:mb-[150px] xs-max:text-[14px] xxs-max:text-[12px]">
+                    <div className="explanation2 text-white text-center font-urbanist text-[18px] font-medium leading-[1.25] mb-[130px] xs-max:mb-[150px] xs-max:text-[14px] xxs-max:text-[12px]">
                       will send a link to reset your password
                     </div>
                     {/* <label htmlFor='email'>Please provide identifier</label> */}
                     <input
                       type="email"
-                      className="inputEmail xss:text-[14px] xs-max:h-[40px] xs-max:w-[338px] xs-max:text-[14px] xxs-max:h-[36px] xxs-max:w-[273px]"
+                      className="inputEmail rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] mx-auto mb-[12px] xss:text-[14px] xs-max:h-[40px] xs-max:w-[338px] xs-max:text-[14px] xxs-max:h-[36px] xxs-max:w-[273px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                       placeholder="takeadvantage@address.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -108,32 +108,32 @@ export const SmallScreen = () => {
 
                     <div>
                       {error && (
-                        <div className="errorMessage max-w-[80%]">
+                        <div className="errorMessage text-white flex text-left font-urbanist text-[16px] font-normal mx-auto mt-[-5px] mb-[5px] max-w-[80%]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
                             height="16"
                             viewBox="0 0 16 17"
                             fill="none"
-                            className="errorImage"
+                            className="errorImage bg-red-600 rounded-[50%]"
                           >
                             <path
                               d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                               fill="white"
                             />
                           </svg>{' '}
-                          <div className="message">{error}</div>
+                          <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{error}</div>
                         </div>
                       )}
                     </div>
 
-                    <button className="sendEmail xs-max:w-[338px] xs-max:text-[16px] xxs-max:w-[273px] xxs-max:text-[16px]">
+                    <button className="sendEmail rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px] xs-max:w-[338px] xs-max:text-[16px] xxs-max:w-[273px] xxs-max:text-[16px]">
                       Send Email
                     </button>
-                    <div className="help xs-max:text-[12px] xxs-max:text-[12px]">
+                    <div className="help text-white font-urbanist text-[16px] font-medium leading-[150%] mx-auto xs-max:text-[12px] xxs-max:text-[12px]">
                       Having problems? Email us at{' '}
                       <a
-                        className="helpEmail xs-max:text-[12px] xxs-max:text-[12px]"
+                        className="helpEmail text-white font-urbanist text-[14px] font-bold leading-[125%] tracking-[0.32px] xs-max:text-[12px] xxs-max:text-[12px]"
                         href="mailto:help@makefwb.com"
                       >
                         help@makefwb.com
@@ -146,18 +146,18 @@ export const SmallScreen = () => {
 
             {successfulCreation && !complete && (
               <>
-                <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
-                  <div className="title">Reset Password</div>
-                  <div className="explanation text-[14px] xxs-max:text-[12px]">
+                <div className="passwordContainer  inline-flex h-[728px] w-[698px] p-[110px_161px_109.48px_162px] flex flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_rgba(255,255,255,0.25)] backdrop-blur-[12.5px] m-auto xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
+                  <div className="title text-white text-center font-urbanist text-[40px] font-normal font-semibold leading-[110%] mx-auto mb-[16px]">Reset Password</div>
+                  <div className="explanation  text-white text-center font-urbanist font-medium leading-[1.25] text-[14px] xxs-max:text-[12px]">
                     Enter new password with at least 8 charaters, contain at
                     least 1 number and 1 uppercase
                   </div>
-                  <div className="explanation2 mb-[40px] text-[14px] xs-max:mb-[87px] xxs-max:mb-[36px] xxs-max:text-[12px]">
+                  <div className="explanation2 text-white text-center font-urbanist font-medium leading-[1.25]  mb-[40px] text-[14px] xs-max:mb-[87px] xxs-max:mb-[36px] xxs-max:text-[12px]">
                     will send a link to reset your password
                   </div>
                   {/* <label htmlFor="password" className="newPassword">New password</label> */}
                   <input
-                    className="inputPassword xs-max:w-[338px] xxs-max:w-[273px]"
+                    className="inputPassword rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] mx-auto mb-[12px] xs-max:w-[338px] xxs-max:w-[273px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder="New password"
                     type="password"
                     value={password}
@@ -166,7 +166,7 @@ export const SmallScreen = () => {
 
                   {/* <label className="passwordCode"htmlFor="password">Reset password code</label> */}
                   <input
-                    className="inputPasswordCode xs-max:w-[338px] xxs-max:w-[273px]"
+                    className="inputPasswordCode mb-[60px] rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] xs-max:w-[338px] xxs-max:w-[273px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder="Reset Password code"
                     type="text"
                     value={code}
@@ -175,34 +175,34 @@ export const SmallScreen = () => {
 
                   <div>
                     {error && (
-                      <div className="errorMessage">
+                      <div className="errorMessage text-white flex text-left font-urbanist text-[16px] font-normal mx-auto mt-[-5px] mb-[5px]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
                           viewBox="0 0 16 17"
                           fill="none"
-                          className="errorImage"
+                          className="errorImage bg-red-600 rounded-[50%]"
                         >
                           <path
                             d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                             fill="white"
                           />
                         </svg>{' '}
-                        <div className="message text-[14px] xxs-max:text-[12px]">
+                        <div className="message ml-[5px] mt-[-5px] text-left font-urbanist font-normal break-words text-[14px] xxs-max:text-[12px]">
                           {error}
                         </div>
                       </div>
                     )}
                   </div>
 
-                  <button className="reset px-[16px] py-[8px] text-[16px] xs-max:w-[338px] xs-max:text-[14px] xxs-max:w-[273px] xxs-max:px-[12px] xxs-max:py-[6px] xxs-max:text-[12px]">
+                  <button className="reset rounded-[30px] bg-[#f6ff82] flex w-[367px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px] px-[16px] py-[8px] text-[16px] xs-max:w-[338px] xs-max:text-[14px] xxs-max:w-[273px] xxs-max:px-[12px] xxs-max:py-[6px] xxs-max:text-[12px]">
                     Reset
                   </button>
-                  <div className="help text-[16px] xxs-max:text-[12px]">
+                  <div className="help text-white font-urbanist text-[16px] font-medium leading-[150%] mx-auto text-[16px] xxs-max:text-[12px]">
                     Having problems? Email us at{' '}
                     <a
-                      className="helpEmail text-[14px] xxs-max:text-[12px]"
+                      className="helpEmail text-white font-urbanist font-bold leading-[125%] tracking-[0.32px] text-[14px] xxs-max:text-[12px]"
                       href="mailto:help@makefwb.com"
                     >
                       help@makefwb.com
@@ -213,8 +213,8 @@ export const SmallScreen = () => {
             )}
 
             {complete && (
-              <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
-                <div className="successImage">
+              <div className="passwordContainer inline-flex h-[728px] w-[698px] p-[110px_161px_109.48px_162px] flex flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_rgba(255,255,255,0.25)] backdrop-blur-[12.5px] m-auto   xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
+                <div className="successImage rounded-[50%]  border border-white border-[1px] mb-[20px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="33"
@@ -228,13 +228,13 @@ export const SmallScreen = () => {
                     />
                   </svg>
                 </div>
-                <div className="success text-[32px] ">Success!!</div>
-                <div className="successMessage text-[32px] xxs-max:text-[24px]">
+                <div className="success text-white text-center font-urbanist font-normal leading-[110%] mb-[4px] text-[32px] ">Success!!</div>
+                <div className="successMessage text-white text-center font-urbanist font-medium leading-[125%] mb-[64px] text-[32px] xxs-max:text-[24px]">
                   Yeyyy... You have successfully change your password
                 </div>
                 <Link
                   href="/sign-in"
-                  className="reset px-[16px] py-[8px] text-[16px] xs-max:w-[338px] xs-max:text-[14px] xxs-max:w-[273px] xxs-max:px-[12px] xxs-max:py-[6px] xxs-max:text-[12px]"
+                  className="reset rounded-[30px] bg-[#f6ff82] flex w-[367px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px] px-[16px] py-[8px] text-[16px] xs-max:w-[338px] xs-max:text-[14px] xxs-max:w-[273px] xxs-max:px-[12px] xxs-max:py-[6px] xxs-max:text-[12px]"
                 >
                   Go to Sign In Page
                 </Link>
