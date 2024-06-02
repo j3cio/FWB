@@ -1,8 +1,7 @@
 @import url(https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=Noto+Sans&family=Nunito+Sans&family=Outfit&family=Playfair+Display&family=Poppins:wght@300&family=Urbanist&family=Yantramanav:wght@100;300;400&display=swap);
 
-.pageContent {
-  /* max-width: 1440px;
-  max-height: 931px; */
+
+/*.pageContent {
   display: flex;
   justify-content: space-between;
   height: 100vh;
@@ -13,61 +12,47 @@
   flex-shrink: 0;
   padding-left: 142px;
   padding-right: 143px;
-}
+}*/
 
-.illustrationOne {
-  margin-left: 108px;
-  height: 100%;
-  flex-shrink: 0;
-}
 
-.illustrationTwo {
-  margin-right: 120px;
-  padding: 12px;
-  flex-shrink: 0;
-}
 
-.progresscircles {
+/*.progresscircles {
   display: flex;
   justify-content: center;
   margin-top: 103px;
-}
+}*/
 
-.mainHeader {
+/*.mainHeader {
   color: var(--neutral-000, #fff);
   text-align: center;
-  /* Heading/H2 */
   font-family: Urbanist;
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
   line-height: 110%;
-  /* 44px */
   margin-top: 61px;
   letter-spacing: 0.1rem;
-}
+}*/
 
-.subtext {
+/*.subtext {
   color: var(--neutral-000, #fff);
   text-align: center;
-  /* Heading/H5 */
   font-family: Urbanist;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: 125%;
-  /* 22.5px */
   margin-top: 8px;
   margin-bottom: 32px;
-}
+}*/
 
-.image {
+/*.image {
   border-radius: 50%;
   background-image: url('/profilepics/PNG/WomanOne.png');
   background-position: center;
-}
+}*/
 
-.customPhotoInput {
+/*.customPhotoInput {
   border-radius: 30px;
   background: #8e94e9;
   border: 2px solid #fff;
@@ -78,37 +63,35 @@
   justify-content: center;
   gap: 8px;
   color: var(--neutral-000, #fff);
-  /* Label/16/bold */
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
-  /* 20px */
   letter-spacing: 0.32px;
-}
+}*/
 
-.customPhotoInput input {
+/*.customPhotoInput input {
   position: absolute;
   font-size: 100px;
   right: 0;
   top: 0;
   opacity: 0;
-}
+}*/
 
-.addPhoto {
+/*.addPhoto {
   color: var(--neutral-000, #fff);
-  /* Label/16/bold */
+ 
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
-  /* 20px */
+ 
   letter-spacing: 0.32px;
-}
+}*/
 
-.inputusername {
+/*.inputusername {
   border-radius: 100px;
   background: var(--neutral-000, #fff);
   display: flex;
@@ -118,23 +101,23 @@
   gap: 8px;
   margin-bottom: 13.53px;
   margin-top: 32px;
-}
+}*/
 
-input::placeholder {
+/*input::placeholder {
   color: var(--neutral-900, #090a10);
-  /* Body/16/regular */
+  
   font-family: Urbanist;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
-  /* 24px */
+ 
   opacity: 0.3;
-}
+}*/
 
-.next {
+/*.next {
   border-radius: 30px;
-  background: var(--yellow-300, #f6ff82);
+  background: var(--yellow-300, c);
   display: flex;
   width: 420px;
   height: 48px;
@@ -143,19 +126,19 @@ input::placeholder {
   gap: 8px;
   color: var(--purple-300, #8e94e9);
   text-align: center;
-  /* Label/24/bold */
+
   font-family: Urbanist;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
-  /* 30px */
+
   letter-spacing: 0.4px;
   margin-bottom: 12px;
   margin-top: 0px;
-}
+}*/
 
-.randomName {
+/*.randomName {
   padding: 8px 9px 8px 10px;
   margin-top: 36px;
   margin-left: -46.5px;
@@ -163,25 +146,25 @@ input::placeholder {
   border-radius: 123.35px;
   height: 40px;
   width: 40px;
-}
+}*/
 
 /* #usernameForm{
   width: 420px;
   height: 48px;
 } */
 
-.userForm {
+/*.userForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+}*/
 
-.button {
+/*.button {
   margin-top: 13.53px;
   margin-left: 110px;
 }
-
-#newUsername {
+*/
+/*#newUsername {
   width: 420px;
   height: 48px;
-}
+}*/
