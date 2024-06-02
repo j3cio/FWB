@@ -252,10 +252,10 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
     return (
       <div>
         {width > 400 && (
-          <div className="pageContent">
+          <div className="flex justify-between h-screen overflow-hidden">
             <IllustrationOne />
-            <div className="middleSpacing">
-              <div className="progresscircles">
+            <div className="flex-shrink-0 pl-[142px] pr-[143px]">
+              <div className="flex justify-center mt-[103px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="56"
@@ -268,8 +268,8 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
                 </svg>
               </div>
-              <h2 className="mainHeader">Welcome to Friends with Benefits!</h2>
-              <h5 className="subtext">Let&apos;s create your profile.</h5>
+              <h2 className="text-white text-center font-urbanist text-[40px] font-medium leading-[110%] mt-[61px] tracking-[0.1rem]">Welcome to Friends with Benefits!</h2>
+              <h5 className=" mb-[28px] text-[18px] text-white text-center font-medium leading-[125%] mt-[8px]">Let&apos;s create your profile.</h5>
 
               {/*Container for the entire Profile Picture Feature */}
               <div>
@@ -288,18 +288,19 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                         src={optimisticImageUrl || user.imageUrl}
                         alt=""
                         fill
-                        className="image"
+                        className="image rounded-full bg-center"
+                        style={{ backgroundImage: "url('/profilepics/PNG/WomanOne.png')" }}
                       />
                     </div>
                   </div>
 
                   {/*Container to allow users to upload a personal profile picture*/}
                   <div>
-                    <div className="addPhoto">
+                    <div className=" text-white font-urbanist text-[16px] font-medium  leading-[125%] tracking-[0.32px]">
                       <div className="my-4 ml-4 mr-36 flex justify-center pl-32">
                         <label
                           htmlFor="profilePicture"
-                          className="customPhotoInput"
+                          className="rounded-[30px] bg-[#8e94e9] border-2 border-white flex w-[213px] h-[45px] py-[10px] px-[24px] justify-center gap-[8px] text-white font-urbanist text-[16px]  font-medium leading-[125%] tracking-[0.32px]"
                         >
                           <span>Add profile photo</span>
                           <input
@@ -307,6 +308,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                             id="profilePicture"
                             accept="image/*"
                             onChange={updateProfilePicture}
+                            className='absolute text-[100px] right-0 top-0 opacity-0'
                           />
                         </label>
                       </div>
@@ -396,7 +398,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
               </div>
 
               {/* This is the form that will handle username input  */}
-              <div className="userForm">
+              <div className="userForm flex flex-col justify-center">
                 <form
                   id="usernameForm"
                   className="flex justify-center"
@@ -405,7 +407,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   <input
                     type="text"
                     id="newUsername"
-                    className="inputusername"
+                    className="rounded-full bg-white flex w-[420px] h-[48px] py-[8px] pr-[8px] pl-[24px] gap-[8px] mb-[13.53px] mt-[32px] placeholder:w-full  placeholder:bg-transparent placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-lg placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder={randomName}
                     value={randomName}
                     onChange={(e) => setRandomName(e.target.value)}
@@ -413,7 +415,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                   {/* Random Username Generation Button when Clicked  */}
                   <button
-                    className="randomName"
+                    className="randomName p-[8px_9px_8px_10px] mt-[36px] ml-[-46.5px] bg-[#8e94e9] rounded-[123.35px] h-[40px] w-[40px]"
                     type="button"
                     onClick={updateClerkWithRandomUsername}
                   >
@@ -437,10 +439,10 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                 {/* This is the link functionality to carry user to stage 2 & update username  */}
                 {/* <div className="flex justify-center"> */}
-                <div className="button">
+                <div className="button mx-auto mt-[13.53px] ml-[110px]">
                   <Link
                     href="/fre2"
-                    className="next"
+                    className="next rounded-[30px] bg-[#f6ff82] flex w-[420px] h-[48px] px-[24px] py-[10px] justify-center gap-[8px] text-center text-[#8e94e9] font-bold font-[Urbanist] text-[20px] leading-[1.25] tracking-[0.4px] mb-[12px] mt-0"
                     onClick={handleSubmitUser}
                   >
                     Next
@@ -452,9 +454,9 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
           </div>
         )}
         {width < 400 && (
-          <div className="pageContent">
+          <div className="flex justify-between h-screen overflow-hidden">
             <div className="relative w-full">
-              <div className="progresscircles mt-[32px]">
+              <div className="flex justify-center mt-[32px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="56"
@@ -467,10 +469,10 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                   <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
                 </svg>
               </div>
-              <h2 className="mainHeader mt-[28px] text-[24px]">
+              <h2 className="text-white text-center font-urbanist text-[24px] font-medium leading-[110%] mt-[28px] tracking-[0.1rem]">
                 Welcome to <br></br> Friends with Benefits!
               </h2>
-              <h5 className="subtext mb-[28px] text-[12px]">
+              <h5 className=" mb-[28px] text-[12px] text-white text-center font-medium leading-[125%] mt-[8px]">
                 Let&apos;s create your profile.
               </h5>
 
@@ -491,18 +493,19 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                         src={optimisticImageUrl || user.imageUrl}
                         alt=""
                         fill
-                        className="image"
+                        className="image rounded-full bg-center"
+                        style={{ backgroundImage: "url('/profilepics/PNG/WomanOne.png')" }}
                       />
                     </div>
                   </div>
 
                   {/*Container to allow users to upload a personal profile picture*/}
                   <div>
-                    <div className="addPhoto">
+                    <div className="text-white font-urbanist text-[16px] font-medium  leading-[125%] tracking-[0.32px]">
                       <div className="my-4 flex justify-center">
                         <label
                           htmlFor="profilePicture"
-                          className="customPhotoInput h-auto w-auto rounded-none border-0 bg-transparent p-0 text-[12px]"
+                          className=" h-auto w-auto rounded-none border-0 bg-transparent p-0 text-[12px]"
                         >
                           <span>Add profile photo</span>
                           <input
@@ -510,6 +513,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                             id="profilePicture"
                             accept="image/*"
                             onChange={updateProfilePicture}
+                            className='absolute text-[100px] right-0 top-0 opacity-0'
                           />
                         </label>
                       </div>
@@ -599,7 +603,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
               </div>
 
               {/* This is the form that will handle username input  */}
-              <div className="userForm">
+              <div className="userForm flex flex-col justify-center">
                 <form
                   id="usernameForm"
                   className="flex justify-center"
@@ -607,8 +611,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                 >
                   <input
                     type="text"
-                    id="newUsername"
-                    className="inputusername h-[34px] w-[288px] text-[14px]"
+                    className="rounded-full bg-white flex py-[8px] pr-[8px] pl-[24px] gap-[8px] mb-[13.53px] mt-[32px] h-[34px] w-[288px] text-[14px] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder={randomName}
                     value={randomName}
                     onChange={(e) => setRandomName(e.target.value)}
@@ -616,7 +619,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                   {/* Random Username Generation Button when Clicked  */}
                   <button
-                    className="randomName ml-[-33px] mt-[35px] h-[28px] w-[28px] px-[2px] py-[2px]"
+                    className="rounded-[123.35px] bg-[#8e94e9] ml-[-33px] mt-[35px] h-[28px] w-[28px] px-[2px] py-[2px]"
                     type="button"
                     onClick={updateClerkWithRandomUsername}
                   >
@@ -640,10 +643,10 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
 
                 {/* This is the link functionality to carry user to stage 2 & update username  */}
                 {/* <div className="flex justify-center"> */}
-                <div className="button mx-auto">
+                <div className="button mx-auto mt-[13.53px]">
                   <Link
                     href="/fre2"
-                    className="next h-auto w-[288px] py-[8px] text-[16px]"
+                    className="next rounded-[30px] flex px-[24px] justify-center gap-[8px] text-center text-[#8e94e9] leading-[125%] mb-[12px] mt-0 bg-[#f6ff82] h-auto w-[288px] py-[8px] text-[16px]"
                     onClick={handleSubmitUser}
                   >
                     Next
