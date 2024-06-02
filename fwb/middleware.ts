@@ -5,8 +5,20 @@ import { NextResponse } from 'next/server'
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 
-const publicRoutes = ['/', '/forgotpassword', '/sign-in', 'sign-up']
-const protectedRoutes = ['/profile', '/api', '/api/discounts', '/dashboard']
+const publicRoutes = [
+  '/',
+  '/forgotpassword',
+  '/sign-in',
+  '/sign-up',
+  '/public-explore',
+]
+const protectedRoutes = [
+  '/profile',
+  '/api',
+  '/api/discounts',
+  '/dashboard',
+  '/fre1',
+]
 
 export default authMiddleware({
   publicRoutes,
@@ -17,7 +29,7 @@ export default authMiddleware({
     }
     // If the user is logged in and trying to access a protected route, allow them to access route
     if (auth.userId && auth.isPublicRoute) {
-      return NextResponse.redirect(new URL('/profile', req.url))
+      return NextResponse.redirect(new URL('/fre1', req.url))
     }
     // Allow users visiting public routes to access them
     return NextResponse.next()

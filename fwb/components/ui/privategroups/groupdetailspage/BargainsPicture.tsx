@@ -1,5 +1,5 @@
 import theme from '@/app/theme'
-import BlueArrowForward from '@/components/ui/intakeform/BlueArrowForward'
+import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
 import { Button } from '@mui/material'
 import Image from 'next/image'
 import BargainBackgroundImage from '../../../public/bargain1700x350.png'
@@ -42,7 +42,7 @@ const bargains_picture = () => {
       </div>
     </div>*/
 
-    <div className="rounded-3xl items-center justify-center relative z-0"></div>
+    <div className="relative z-0 items-center justify-center rounded-3xl"></div>
   )
 }
 

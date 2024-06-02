@@ -64,18 +64,18 @@ export const LargeScreen = () => {
   }
 
   return (
-    <div className="h-screen w-full flex flex-row">
-      <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[70px]">
-        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
-        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[134px] h-[400px]"></div>
-        <div className="circle6 lg:!w-[133px] lg:!h-[133px]"></div>
+    <div className="flex h-screen w-full flex-row">
+      <div className="ml-auto mt-auto flex h-auto w-auto translate-y-[70px] flex-col">
+        <div className="h-[133px] w-[133px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat"></div>
+        <div className="h-[400px] w-[134px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat"></div>
+        <div className="circle6 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
       </div>
-      <div className="signin flex p-0 max-w-[556px] h-[728px] mx-0 my-auto w-2/3">
-        <div className="absolute top-[50%] left-[50%] pn-[30px] translate-x-[-50%] translate-y-[-50%]">
+      <div className="signin mx-0 my-auto flex h-[728px] w-2/3 max-w-[556px] p-0">
+        <div className="pn-[30px] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
           <form onSubmit={!successfulCreation ? create : reset}>
             {!successfulCreation && !complete && (
               <>
-                <div className="h-screen flex relative">
+                <div className="relative flex h-screen">
                   <div className="passwordContainer border-0 bg-transparent shadow-none">
                     <svg
                       className="mail"
@@ -144,7 +144,7 @@ export const LargeScreen = () => {
 
             {successfulCreation && !complete && (
               <>
-                <div className="passwordContainer xl:!border-0 xl:!bg-transparent xl:!shadow-none">
+                <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
                   <div className="title">Reset Password</div>
                   <div className="explanation">
                     Enter new password with at least 8 charaters, contain at
@@ -204,7 +204,7 @@ export const LargeScreen = () => {
             )}
 
             {complete && (
-              <div className="passwordContainer xl:!border-0 xl:!bg-transparent xl:!shadow-none">
+              <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
                 <div className="successImage">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -234,8 +234,8 @@ export const LargeScreen = () => {
           </form>
         </div>
       </div>
-      <div className="flex flex-col h-auto w-[133px] mb-auto mr-auto">
-        <div className="w-[133px] mt-[-50px]">
+      <div className="mb-auto mr-auto flex h-auto w-[133px] flex-col">
+        <div className="mt-[-50px] w-[133px]">
           <svg
             width="100%"
             height="100%"
@@ -264,9 +264,9 @@ export const LargeScreen = () => {
             </g>
           </svg>
         </div>
-        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[260px] h-[133px] translate-x-[-50%]"></div>
-        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[133px] h-[420px]"></div>
-        <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 circle1"></div>
+        <div className="h-[133px] w-[260px] translate-x-[-50%] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat"></div>
+        <div className="h-[420px] w-[133px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat"></div>
+        <div className="circle1 lg-max:!ml-0 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
       </div>
     </div>
   )

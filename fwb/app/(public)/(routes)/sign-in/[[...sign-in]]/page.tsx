@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 import { useSignIn, useUser } from '@clerk/nextjs'
@@ -28,12 +28,16 @@ export default function Page() {
   const [error, setError] = useState<any>(null)
   const { user } = useUser()
   const [userAction, setUserAction] = useState<any>()
+  const [redirectedFromExplorePage, setRedirectedFromExplorePage] =
+    useState<boolean>(false)
+  const [redirectedFromSignUp, setRedirectedFromSignUp] =
+    useState<boolean>(false)
+  const [accountDoesNotExist, setAccountDoesNotExist] = useState<boolean>(false)
 
   const width = useWindowDimensions()
 
   // Display error message based on url and previous webpage accessed
   const searchParams = useSearchParams()
-  const accountDoesntExist = searchParams.has('redirect_url')
 
   useEffect(() => {
     // Check if window and localStorage are defined before accessing them
@@ -41,21 +45,30 @@ export default function Page() {
       const storedUserAction = localStorage.getItem('userAction')
       setUserAction(storedUserAction)
     }
+
+    if (searchParams.getAll('redirect_url')[0]) {
+      // If redirected from explore page should contain 'detail'
+      setRedirectedFromExplorePage(
+        searchParams.getAll('redirect_url')[0].includes('detail')
+      )
+      // If redirected from signup should contain 'sso-callback'
+      setRedirectedFromSignUp(
+        searchParams.getAll('redirect_url')[0].includes('sso-callback')
+      )
+    }
   }, [])
 
-  //Conditional to render only one error message not both if coming from sign-up page
-  const redirectFromSignUp = accountDoesntExist && userAction === 'signup'
-
+  // Create a flag for checking if the user came from detail page
   //Use Effect to clear local storage if error message has already been displayed
   useEffect(() => {
-    if (redirectFromSignUp) {
+    if (redirectedFromSignUp) {
       localStorage.removeItem('userAction')
     }
-  }, [redirectFromSignUp])
+  }, [redirectedFromSignUp])
 
   if (user) {
     // Redirect authenticated user to the profile page
-    router.replace('/profile')
+    router.replace('/fre1')
     return null // You can also render a loading state or redirect message here
   }
 
@@ -75,6 +88,7 @@ export default function Page() {
       })
 
       if (result.status === 'complete') {
+        localStorage.removeItem('userAction')
         // If complete, user exists and provided password match -- set session active
         await setActive({ session: result.createdSessionId })
         // Redirect the user to a post sign-in route
@@ -89,6 +103,7 @@ export default function Page() {
       // See https://clerk.com/docs/custom-flows/error-handling to learn about error handling
       console.error(JSON.stringify(err, null, 2))
       setError(err)
+      setAccountDoesNotExist(true)
     }
   }
 
@@ -109,13 +124,11 @@ export default function Page() {
   //Sign in with Discord
   const signInWithDiscord = async () => {
     try {
-      const response = await signIn?.authenticateWithRedirect({
+      await signIn?.authenticateWithRedirect({
         strategy: 'oauth_discord',
         redirectUrl: '/sso-callback',
         redirectUrlComplete: '/profile', // redirect to this route if sign-in is successful
       })
-
-      console.log(response)
     } catch (error) {
       console.error('Error signing in with Discord', error)
     }
@@ -126,18 +139,18 @@ export default function Page() {
       {width > 1201 && (
         // Render components for small screens
         <div className="big">
-          <div className="leftSigninContainer xl:w-fit">
-            <div className="circle1 xl:w-[134px] xl:h-[136px]"></div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[293px] h-[150px] xl:w-[268px] xl:h-[134px]"></div>
+          <div className="leftSigninContainer xl-max:w-fit">
+            <div className="circle1 xl-max:h-[136px] xl-max:w-[134px]"></div>
+            <div className="h-[150px] w-[293px] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[134px] xl-max:w-[268px]"></div>
             <div className="flex">
-              <div className="flex-col flex">
-                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl:w-[136px] xl:h-[136px]"></div>
-                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl:w-[136px] xl:h-[405px]"></div>
-                <div className="circle6 xl:w-[134px] xl:h-[136px]"></div>
+              <div className="flex flex-col">
+                <div className="h-[150px] w-[150px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[136px] xl-max:w-[136px]"></div>
+                <div className="h-[452px] w-[150px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[405px] xl-max:w-[136px]"></div>
+                <div className="circle6 xl-max:h-[136px] xl-max:w-[134px]"></div>
               </div>
-              <div className="flex-col flex w-[150px] xl:w-[136px]">
-                <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl:w-[136px] xl:h-[425px]"></div>
-                <div className="w-[150px] h-[180px] xl:w-[140px]">
+              <div className="flex w-[150px] flex-col xl-max:w-[136px]">
+                <div className="h-[474px] w-[150px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[425px] xl-max:w-[136px]"></div>
+                <div className="h-[180px] w-[150px] xl-max:w-[140px]">
                   <svg
                     viewBox="0 0 140 226"
                     fill="none"
@@ -169,18 +182,25 @@ export default function Page() {
           </div>
           <div className="rightSigninContainer">
             {/* <SignIn /> */}
-            {redirectFromSignUp && (
-              <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 mx-auto xl:ml-28 xl:mx-0">
+            {/* When you redirect from explore page*/}
+            {redirectedFromExplorePage && (
+              <div className="mx-auto mb-6 flex w-3/4 justify-center rounded border-2 border-[#f6ff82] bg-[#bbbef2] xl-max:mx-0 xl-max:ml-28">
+                Please create an account to view this content.
+              </div>
+            )}
+            {/* When you sign-up and the account already exists */}
+            {redirectedFromSignUp && (
+              <div className="mx-auto mb-6 flex w-3/4 justify-center rounded border-2 border-[#f6ff82] bg-[#bbbef2] xl-max:mx-0 xl-max:ml-28">
                 This account is already taken. Please try signing in below.
               </div>
             )}
-
-            {accountDoesntExist && !redirectFromSignUp && (
-              <div className="flex justify-center w-3/4 bg-[#bbbef2] border-2 border-[#f6ff82] rounded mb-6 mx-auto xl:ml-28 xl:mx-0">
+            {/* When you sign-in and the account doesn't exist */}
+            {accountDoesNotExist && (
+              <div className="mx-auto mb-6 flex w-3/4 justify-center rounded border-2 border-[#f6ff82] bg-[#bbbef2] xl-max:mx-0 xl-max:ml-28">
                 This account does not exist. Please create an account below.
               </div>
             )}
-            <div className="signin xl:border-0 xl:bg-transparent xl:shadow-none">
+            <div className="signin xl-max:border-0 xl-max:bg-transparent xl-max:shadow-none">
               <div>
                 <div className="name">Sign In</div>
                 <div className="buttons">

@@ -1,21 +1,12 @@
 'use client'
-import { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-
 import { useSignUp, useUser } from '@clerk/nextjs'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
-
-import { VerifyPhoto1 } from './VerifyPhoto1'
-import { VerifyPhoto2 } from './VerifyPhoto2'
-import { VerifyPhoto3 } from './VerifyPhoto3'
-import { VerifyPhoto4 } from './VerifyPhoto4'
-import { VerifyPhoto5 } from './VerifyPhoto5'
-
 import GooglePic from '@/public/google.png'
-import TwitterPic from '@/public/twitter.png'
 
 import './page.css'
 
@@ -25,15 +16,15 @@ export const SmallScreen = () => {
   const [password, setPassword] = useState('')
   const [pendingVerification, setPendingVerification] = useState(false)
   const [code, setCode] = useState('')
+  const [inputError, setinputError] = useState(false)
+
   const router = useRouter()
   const { user } = useUser()
 
-  const [error, setError] = useState<any>(null)
-  if (user) {
-    // Redirect authenticated user to the profile page
-    router.replace('/profile')
-    return null // You can also render a loading state or redirect message here
-  }
+  useEffect(() => {
+    setCode(code)
+  }, [code])
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!isLoaded) {
@@ -47,18 +38,30 @@ export const SmallScreen = () => {
         password,
       })
 
+      // send the email.
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+
       // change the UI to our pending section.
       setPendingVerification(true)
 
-      const magicLinkFlow = signUp.createEmailLinkFlow()
+      /*const magicLinkFlow = signUp.createEmailLinkFlow()
       await magicLinkFlow.startEmailLinkFlow({
         redirectUrl: 'https://staging.app.makefwb.com/success',
-      }) // local development: http://localhost:3000/success
+      }) // local development: http://localhost:3000/success*/
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2))
       setError(err)
     }
   }
+
+  const inputRefs: React.RefObject<HTMLInputElement>[] = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ]
 
   //This allows User to sign in with Google
   const signUpWithGoogle = async () => {
@@ -87,25 +90,159 @@ export const SmallScreen = () => {
       console.error('Error signing in with Discord', error)
     }
   }
+  const [error, setError] = useState<any>(null)
+  if (user) {
+    // Redirect authenticated user to the profile page
+    router.replace('/profile')
+    return null // You can also render a loading state or redirect message here
+  }
+
+  //Verify code
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!isLoaded) {
+      return
+    }
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code,
+      })
+      if (completeSignUp.status !== 'complete') {
+        /*  investigate the response, to see if there was an error
+         or if the user needs to complete more steps.*/
+        console.log(JSON.stringify(completeSignUp, null, 2))
+      }
+      if (completeSignUp.status === 'complete') {
+        await setActive({ session: completeSignUp.createdSessionId })
+        console.log('pushing to fre1')
+        router.push('/fre1')
+      }
+    } catch (err: any) {
+      setinputError(true)
+      resetCode()
+      console.error(JSON.stringify(err, null, 2))
+    }
+  }
+
+  //This handles user's input
+  const handleInput = (input: string, index: number) => {
+    setinputError(false)
+    const previousInput = inputRefs[index - 1]
+    const nextInput = inputRefs[index + 1]
+
+    const newCode = Array.from(code)
+
+    newCode[index] = input
+    setCode(newCode.join(''))
+
+    if (input === '') {
+      // If the value is deleted, select previous input, if exists
+      if (previousInput && previousInput.current) {
+        previousInput.current.focus()
+      }
+    } else if (nextInput && nextInput.current) {
+      // Select next input on entry, if exists
+      nextInput.current.select()
+    }
+  }
+
+  //This selects input when user clicks an input box
+  const handleFocus = (e: React.FormEvent) => {
+    const target = e.target as HTMLInputElement
+    if (target.select) {
+      target.select()
+    }
+  }
+
+  //This handles keyboard events (e.g. Backspace, Enter)
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const input = e.target as HTMLInputElement
+    let previousInput = inputRefs[index - 1]
+
+    if (e.key === 'Enter') {
+      if (code.search(' ') !== -1 || code.length !== 6) {
+      } else if (input.form) {
+        // If there is no next input, submit the form
+        handleVerify(e)
+      }
+    }
+
+    if (e.key === 'Backspace' || e.key === 'Delete') {
+      e.preventDefault()
+
+      // If there is a value in the current input, delete it
+      if (input.value !== '') {
+        input.value = ''
+        setCode(
+          (prevCode) =>
+            prevCode.slice(0, index) + ' ' + prevCode.slice(index + 1)
+        )
+
+        e.preventDefault()
+      } else if (previousInput && previousInput.current) {
+        previousInput.current.value = ''
+
+        setCode(
+          (prevCode) =>
+            prevCode.slice(0, index - 1) + ' ' + prevCode.slice(index)
+        )
+
+        //focus on previous box
+        previousInput.current.focus()
+      }
+    }
+  }
+
+  //This handles paste action
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    setinputError(false)
+    const pastedCode = e.clipboardData.getData('text')
+    if (pastedCode.length === 6) {
+      setCode(pastedCode)
+      inputRefs.forEach((inputRef, index) => {
+        if (inputRef.current) {
+          inputRef.current.value = pastedCode.charAt(index)
+        }
+      })
+    }
+  }
+
+  //This resets the code
+  const resetCode = () => {
+    inputRefs.forEach((ref) => {
+      if (ref.current) {
+        ref.current.value = ''
+      }
+    })
+    if (inputRefs[0].current) {
+      inputRefs[0].current.focus()
+    }
+
+    setCode('')
+  }
 
   return (
-    <div className="h-screen w-full flex flex-row">
+    <div className="flex h-screen w-screen flex-row">
       {!pendingVerification && (
-        <div className="h-screen w-full flex flex-row">
-          <div className="inline-flex p-0 border-0 bg-none z-10 shadow-none mx-auto sm:mt-[160px] xs:mt-[80px] xxs:mt-[64px]">
+        <div className="flex h-screen w-full flex-row">
+          <div className="z-10 mx-auto inline-flex border-0 bg-none p-0 shadow-none sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
             <div className="signInContent">
-              <div className="name small:mb-[40px] xxs:text-[24px]">
+              <div className="name xxs-max:text-[24px] small-max:mb-[40px]">
                 Create Account
               </div>
               <div className="buttons">
                 <button
-                  className="googleButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px]"
+                  className="googleButton xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
                   onClick={signUpWithGoogle}
                 >
                   <Image src={GooglePic} alt="Google Icon" />
                 </button>
                 <button
-                  className="discordButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px] xs:p-[7px] sm:p-[7px]"
+                  className="discordButton sm-max:p-[7px] xs-max:p-[7px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
                   onClick={signUpWithDiscord}
                 >
                   <svg
@@ -126,7 +263,7 @@ export const SmallScreen = () => {
               <form onSubmit={handleSubmit}>
                 <div>
                   <input
-                    className="input sm:w-[387px] xs:w-[341px] xxs:w-[272px]"
+                    className="input sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
                     placeholder="Email@address.com"
                     onChange={(e) => setEmailAddress(e.target.value)}
                     id="email"
@@ -164,7 +301,7 @@ export const SmallScreen = () => {
                 </div>
                 <div>
                   <input
-                    className="input sm:w-[387px] xs:w-[341px] xxs:w-[272px]"
+                    className="input sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
                     placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
                     id="password"
@@ -196,9 +333,9 @@ export const SmallScreen = () => {
                         <div className="message">{passwordError.message}</div>
                       </div>
                     ))}
-                <div className="remember mb-[64px] xs:mb-[80px] xxs:mb-[42px]">
+                <div className="remember mb-[64px] xs-max:mb-[80px] xxs-max:mb-[42px]">
                   <FormControlLabel
-                    style={{ height: '24px' }}
+                    sx={{ height: '24px' }}
                     label={
                       <Typography
                         style={{
@@ -212,25 +349,25 @@ export const SmallScreen = () => {
                     control={
                       <Checkbox
                         value="remember"
-                        style={{ color: '#fff' }}
+                        sx={{ color: '#fff' }}
                       ></Checkbox>
                     }
                   ></FormControlLabel>
                 </div>
                 <ul></ul>
                 <button
-                  className="submit sm:w-[387px] xs:w-[341px] xxs:w-[272px] xxs:text-[16px] xxs:h-[36px]"
+                  className="submit sm-max:w-[387px] xs-max:w-[341px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
                   type="submit"
                 >
                   Submit
                 </button>
                 <div className="signup">
-                  <div className="detail xxs:text-[12px]">
+                  <div className="detail xxs-max:text-[12px]">
                     Already have an account?{' '}
                   </div>
                   <Link
                     href="/sign-in"
-                    className="signupButton xxs:text-[12px]"
+                    className="signupButton xxs-max:text-[12px]"
                   >
                     Sign In
                   </Link>
@@ -238,7 +375,7 @@ export const SmallScreen = () => {
               </form>
             </div>
           </div>
-          <div className=" absolute top-[30%] left-0 w-full z-0 xxs:hidden">
+          <div className=" absolute left-0 top-[30%] z-0 w-full xxs-max:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -250,8 +387,8 @@ export const SmallScreen = () => {
                 opacity="0.1"
                 d="M2419 270.808C2055.64 432.28 1977.33 22.903 1742.24 239.744C1628.22 344.903 1793.32 501.159 1878.97 302.189C1964.05 104.525 1607.83 14.999 1430.54 218.721C1257.78 417.247 1151.34 397.121 1057.68 249.322C964.022 101.523 1187.33 37.162 1144.67 234.998C1132.9 289.593 1102.84 356.512 1077.74 384.795C994.817 478.219 752.143 615.404 443.763 416.756C154.046 230.13 -227.152 298.53 -300.874 384.795C-474 587.376 234.241 540.174 177.766 272.111C164.183 207.638 56.1332 142.758 4.55475 117.8C4.55475 117.8 -191.254 20.2077 -397 36.9266"
                 stroke="white"
-                stroke-width="70"
-                stroke-linecap="round"
+                strokeWidth="70"
+                strokeLinecap="round"
               />
             </svg>
           </div>
@@ -259,203 +396,68 @@ export const SmallScreen = () => {
       )}
 
       {pendingVerification && (
-        <div className="processContainer  h-screen">
-          <div className="verify m-auto">
-            <div className="verifyPhotos">
-              <div className="verifyPhotos1">
-                <VerifyPhoto1 />
-              </div>
-              <div className="verifyPhoto2">
-                <VerifyPhoto2 />
-              </div>
-              <div className="verifyPhoto3">
-                <VerifyPhoto3 />
-              </div>
-              <div className="verifyPhoto4">
-                <VerifyPhoto4 />
-              </div>
-              <div className="verifyPhoto5">
-                <VerifyPhoto5 />
-              </div>
+        <div className="w-full">
+          {inputError && (
+            <div className="error absolute z-10 flex h-[5vh] w-full items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] text-white">
+              Invalid verification code, Please try again.
             </div>
-            <div className="rightCircle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="204"
-                height="204"
-                viewBox="0 0 204 204"
-                fill="none"
-              >
-                <circle
-                  cx="102"
-                  cy="102"
-                  r="80.7022"
-                  stroke="url(#paint0_linear_916_10370)"
-                  stroke-width="0.595588"
-                />
-                <circle
-                  cx="102"
-                  cy="102"
-                  r="101.625"
-                  stroke="url(#paint1_linear_916_10370)"
-                  stroke-width="0.75"
-                />
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_916_10370"
-                    x1="30"
-                    y1="102"
-                    x2="136.875"
-                    y2="180.375"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
-                  </linearGradient>
-                  <linearGradient
-                    id="paint1_linear_916_10370"
-                    x1="45.375"
-                    y1="67.125"
-                    x2="156.75"
-                    y2="213"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-
-            <form>
-              <div className="signupProcess">
-                <div className="signupTitle">You&apos;re almost there!</div>
-                <div className="signupContent">
-                  Hey! You&apos;re almost ready to start making Friends
-                  <br></br>
-                  with Benefits.Simply click the button below to <br></br>
-                  verify your email address
-                </div>
-                <button type="submit" className="verifyButton">
-                  <Link href="/success">Verify Now!</Link>
-                </button>
-              </div>
-            </form>
-
-            <div className="leftCircle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="244"
-                height="274"
-                viewBox="0 0 244 274"
-                fill="none"
-              >
-                <circle
-                  cx="107"
-                  cy="137"
-                  r="80.7022"
-                  transform="rotate(-25.7188 107 137)"
-                  stroke="url(#paint0_linear_916_10371)"
-                  stroke-width="0.595588"
-                />
-                <circle
-                  cx="107"
-                  cy="137"
-                  r="101.625"
-                  transform="rotate(-25.7188 107 137)"
-                  stroke="url(#paint1_linear_916_10371)"
-                  stroke-width="0.75"
-                />
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_916_10371"
-                    x1="35.0001"
-                    y1="137"
-                    x2="141.875"
-                    y2="215.375"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
-                  </linearGradient>
-                  <linearGradient
-                    id="paint1_linear_916_10371"
-                    x1="50.375"
-                    y1="102.125"
-                    x2="161.75"
-                    y2="248"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="white" />
-                    <stop offset="1" stop-color="white" stop-opacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+          )}
+          <div className="verification mt-[100px] flex flex-col items-center justify-center text-white">
+            <h1 className="text-center text-[5vh] font-medium">
+              Email Verification
+            </h1>
+            <p className="w-[80%] text-center text-[2vh] font-light">
+              Please enter verification code that we sent you through email
+            </p>
           </div>
-          <div className="stayinContainer">
-            <div className="stayWords">Stay in touch with us!</div>
-            <div className="socialMedia">
-              <div className="twitter">
-                <button className="twitterButton">
-                  <Image src={TwitterPic} alt="Twitter Icon" />
-                </button>
-              </div>
-              <div className="instagram">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="19"
-                  height="19"
-                  viewBox="0 0 19 19"
-                  fill="none"
-                >
-                  <g clip-path="url(#clip0_916_10345)">
-                    <path
-                      d="M9.70166 5.82715C8.83971 5.82715 8.01306 6.16956 7.40356 6.77905C6.79407 7.38855 6.45166 8.21519 6.45166 9.07715C6.45166 9.9391 6.79407 10.7658 7.40356 11.3752C8.01306 11.9847 8.83971 12.3271 9.70166 12.3271C10.5636 12.3271 11.3903 11.9847 11.9998 11.3752C12.6093 10.7658 12.9517 9.9391 12.9517 9.07715C12.9517 8.21519 12.6093 7.38855 11.9998 6.77905C11.3903 6.16956 10.5636 5.82715 9.70166 5.82715Z"
-                      fill="white"
-                    />
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M4.47148 0.159092C7.9475 -0.226208 11.4555 -0.226208 14.9315 0.159092C16.8305 0.371092 18.3615 1.86609 18.5845 3.77209C18.9967 7.29675 18.9967 10.8574 18.5845 14.3821C18.3615 16.2881 16.8305 17.7831 14.9325 17.9961C11.4561 18.3815 7.94783 18.3815 4.47148 17.9961C2.57248 17.7831 1.04148 16.2881 0.818481 14.3831C0.406209 10.8581 0.406209 7.29708 0.818481 3.77209C1.04148 1.86609 2.57248 0.371092 4.47148 0.159092ZM14.7015 3.07709C14.4363 3.07709 14.1819 3.18245 13.9944 3.36999C13.8068 3.55752 13.7015 3.81188 13.7015 4.07709C13.7015 4.34231 13.8068 4.59666 13.9944 4.7842C14.1819 4.97173 14.4363 5.07709 14.7015 5.07709C14.9667 5.07709 15.2211 4.97173 15.4086 4.7842C15.5961 4.59666 15.7015 4.34231 15.7015 4.07709C15.7015 3.81188 15.5961 3.55752 15.4086 3.36999C15.2211 3.18245 14.9667 3.07709 14.7015 3.07709ZM4.95148 9.07709C4.95148 7.81731 5.45193 6.60913 6.34272 5.71833C7.23352 4.82754 8.4417 4.32709 9.70148 4.32709C10.9613 4.32709 12.1694 4.82754 13.0602 5.71833C13.951 6.60913 14.4515 7.81731 14.4515 9.07709C14.4515 10.3369 13.951 11.5451 13.0602 12.4358C12.1694 13.3266 10.9613 13.8271 9.70148 13.8271C8.4417 13.8271 7.23352 13.3266 6.34272 12.4358C5.45193 11.5451 4.95148 10.3369 4.95148 9.07709Z"
-                      fill="white"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_916_10345">
-                      <rect
-                        width="18"
-                        height="18"
-                        fill="white"
-                        transform="translate(0.70166 0.0771484)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div className="linkedin">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="23"
-                  viewBox="0 0 25 23"
-                  fill="none"
-                >
-                  <path
-                    d="M21.9014 20.0002H17.9014V13.2502C17.9014 12.1902 16.7114 11.3102 15.6514 11.3102C14.5914 11.3102 13.9014 12.1902 13.9014 13.2502V20.0002H9.90137V8.00024H13.9014V10.0002C14.5614 8.93024 16.2614 8.24024 17.4014 8.24024C19.9014 8.24024 21.9014 10.2802 21.9014 12.7502V20.0002ZM7.90137 20.0002H3.90137V8.00024H7.90137V20.0002ZM5.90137 2.00024C6.16401 2.00024 6.42408 2.05198 6.66673 2.15248C6.90939 2.25299 7.12986 2.40031 7.31558 2.58603C7.5013 2.77175 7.64862 2.99223 7.74913 3.23488C7.84964 3.47753 7.90137 3.7376 7.90137 4.00024C7.90137 4.26289 7.84964 4.52296 7.74913 4.76561C7.64862 5.00826 7.5013 5.22874 7.31558 5.41446C7.12986 5.60018 6.90939 5.74749 6.66673 5.848C6.42408 5.94851 6.16401 6.00024 5.90137 6.00024C5.63872 6.00024 5.37865 5.94851 5.136 5.848C4.89335 5.74749 4.67287 5.60018 4.48715 5.41446C4.30144 5.22874 4.15412 5.00826 4.05361 4.76561C3.9531 4.52296 3.90137 4.26289 3.90137 4.00024C3.90137 3.46981 4.11208 2.9611 4.48715 2.58603C4.86223 2.21096 5.37093 2.00024 5.90137 2.00024Z"
-                    fill="white"
+          <div className="verificationForm">
+            <form
+              onSubmit={handleVerify}
+              className="flex flex-col items-center"
+            >
+              <div className="inputBox mt-[150px] flex w-screen justify-center gap-[8px] px-[15px]">
+                {[0, 1, 2, 3, 4, 5].map((index) => (
+                  <input
+                    className={`flex h-[13vw] w-[13vw] rounded-md border-[1px] bg-white p-2 text-center text-[22px] focus:bg-opacity-0 focus:text-white focus:opacity-100 focus:outline-none ${Array.from(code)[index] && Array.from(code)[index] !== '' && Array.from(code)[index] !== ' ' ? 'bg-opacity-100 text-[#8E94E9] opacity-100' : 'bg-opacity-40 opacity-40'} ${inputError ? 'border-red-500 !opacity-100' : 'border-white'}`}
+                    key={index}
+                    onChange={(e) => handleInput(e.target.value, index)}
+                    ref={inputRefs[index]}
+                    autoFocus={index === 0}
+                    onFocus={handleFocus}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    onPaste={handlePaste}
+                    maxLength={1}
                   />
-                </svg>
+                ))}
               </div>
-            </div>
-            <div className="problemContact text-[16px] xs:text-[12px] xxs:text-[12px]">
-              Having Problems? Email us at{' '}
-              <a
-                className="helpEmail text-[16px] xs:text-[12px] xxs:text-[12px]"
-                href="help@makefwb.com"
-              >
-                help@makefwb.com
-              </a>
+              {/*<label id="code">Code</label>
+            <input
+              value={code}
+              id="code"
+              name="code"
+              onChange={(e) => setCode(e.target.value)}
+            />*/}
+              {
+                <button
+                  type="submit"
+                  className={`submit mt-[150px] w-[80%] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
+                  disabled={
+                    code.search(' ') === -1 && code.length === 6 ? false : true
+                  }
+                >
+                  Submit
+                </button>
+              }
+            </form>
+            <div className="resend mt-[20px] flex w-full justify-center text-lg text-white">
+              <p className="pr-[7px] text-[2vh] font-light">
+                Didn’t get a verification code?{' '}
+              </p>
+              <form onSubmit={handleSubmit}>
+                <button className="text-[2vh] font-semibold">
+                  Resend code
+                </button>
+              </form>
             </div>
           </div>
         </div>

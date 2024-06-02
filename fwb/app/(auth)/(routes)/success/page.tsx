@@ -1,4 +1,5 @@
 'use client'
+import { SignUp, useSignUp } from '@clerk/nextjs'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -29,7 +30,7 @@ export default function Page() {
   })
 
   return (
-    <div className="w-full h-screen block relative overflow-hidden">
+    <div className="relative block h-screen w-full overflow-hidden">
       {width > 1201 && (
         <div className="flex justify-between bg-[#8e94e9] h-[931px] container overflow-hidden">
           <div className="flex flex-col translate-y-[-30px]">
@@ -62,6 +63,7 @@ export default function Page() {
                 </g>
               </svg>
             </div>
+
             <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl:w-[136px] xl:h-[136px]"></div>
             <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl:w-[136px] xl:h-[405px]"></div>
             <div className="rounded-full bg-[#f6ff82] w-[150px] h-[150px] shrink-0 xl:w-[134px] xl:h-[134px]"></div>
@@ -114,7 +116,7 @@ export default function Page() {
                 />
               </svg>
             </div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[150px] h-[474px] xl:w-[136px] xl:h-[425px]"></div>
+            <div className="h-[474px] w-[150px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[425px] xl-max:w-[136px]"></div>
 
             <div className="w-[150px] shrink-0 rounded-t-[156.25px] rounded-b-none border-[3px] border-white">
               <div className="w-[149px] h-[100px] flex-shrink-0 rounded-tr-[165px] rounded-tl-[162px] rounded-b-none border-t-[3px] border-t-neutral-000 mt-[42px] opacity-50"></div>

@@ -4,7 +4,7 @@ import { Box, Container } from '@mui/material'
 const Loading = () => {
   // Skeleton left extremely unfinished here since this Groups UI isn't created yet
   return (
-    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
+    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100dvh' }}>
       <Container disableGutters maxWidth="lg">
         <NavBarSkeleton />
         <Box sx={{ position: 'relative', marginTop: '156px', zIndex: 0 }}>

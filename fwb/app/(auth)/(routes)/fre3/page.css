@@ -39,7 +39,8 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 44px */
+  line-height: 110%;
+  /* 44px */
   margin-top: 135px;
   margin-bottom: 16px;
   letter-spacing: 0.1rem;
@@ -53,7 +54,8 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 22.5px */
+  line-height: 125%;
+  /* 22.5px */
   margin-top: 8px;
 }
 
@@ -65,7 +67,8 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 22.5px */
+  line-height: 125%;
+  /* 22.5px */
   margin-top: 24px;
   margin-bottom: 24px;
 }
@@ -86,7 +89,8 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 30px */
+  line-height: 125%;
+  /* 30px */
   letter-spacing: 0.4px;
   margin-top: 114px;
   margin-bottom: 8px;
@@ -107,7 +111,8 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   opacity: 0.3;
 }
 
@@ -118,11 +123,13 @@ input::placeholder {
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
+  /* 20px */
   letter-spacing: 1.1px;
   margin-top: 1px;
   margin-right: 8px;
 }
+
 /* letter-spacing: 0.32px;
   margin-top: 19.5px;
 } */
@@ -139,7 +146,7 @@ input::placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0;
+  margin-top: 1px;
 }
 
 .skipButton {
@@ -192,7 +199,8 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   margin-right: 5px;
   margin-bottom: 5px;
 }

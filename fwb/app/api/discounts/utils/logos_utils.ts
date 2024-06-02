@@ -15,8 +15,11 @@ export const getNewLogoUrl = async (domain_name: string) => {
     requestOptions
   )
 
+  // Created more graceful error to prevent our api from closing down
   if (!res.ok) {
-    throw new Error('Failed to fetch brand data')
+    // throw new Error('Failed to fetch brand data')
+    console.error('Error: Failed to fetch brand data. Returning a null value')
+    return null
   }
 
   let brandLogo

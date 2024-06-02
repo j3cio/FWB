@@ -147,7 +147,7 @@ const EditProfileModal = ({
       }}
     >
       <div
-        className="modal-content"
+        className="modal-content relative sm-max:w-[80%] xs-max:h-screen xs-max:w-full xs-max:rounded-none xs-max:border-none xxs-max:h-screen xxs-max:rounded-none xxs-max:border-none"
         style={{
           borderRadius: '40px',
           border: '2px solid var(--Neutral-000, #FFF)',
@@ -159,14 +159,37 @@ const EditProfileModal = ({
           height: '722px',
         }}
       >
+        <button
+          onClick={handleXClick}
+          className="hidden gap-2 xs-max:flex xxs-max:flex"
+        >
+          <svg
+            className="cursor-pointer"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="M15.6594 9.17343H6.35107L10.4177 5.10676C10.7427 4.78176 10.7427 4.24843 10.4177 3.92343C10.262 3.76738 10.0507 3.67969 9.83024 3.67969C9.60981 3.67969 9.39843 3.76738 9.24274 3.92343L3.75107 9.41509C3.42607 9.74009 3.42607 10.2651 3.75107 10.5901L9.24274 16.0818C9.56774 16.4068 10.0927 16.4068 10.4177 16.0818C10.7427 15.7568 10.7427 15.2318 10.4177 14.9068L6.35107 10.8401H15.6594C16.1177 10.8401 16.4927 10.4651 16.4927 10.0068C16.4927 9.54843 16.1177 9.17343 15.6594 9.17343Z"
+              fill="white"
+            />
+          </svg>
+          <span className="font-urbanist font-medium text-white">
+            Edit Profile
+          </span>
+        </button>
         {/* X Button*/}
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          className="sm-max:ml-[85%] xs-max:hidden xxs-max:hidden"
           width="40"
           height="40"
           viewBox="0 0 40 40"
           fill="none"
           style={{
+            position: 'absolute',
             marginTop: '20px',
             marginLeft: '680px',
             cursor: 'pointer',
@@ -178,9 +201,9 @@ const EditProfileModal = ({
             fill="white"
           />
         </svg>
-        <div className="flex items-center justify-center flex-col">
+        <div className="flex flex-col items-center justify-center">
           <h2
-            className="font-urbanist"
+            className="font-urbanist xs-max:hidden xxs-max:hidden"
             style={{
               color: 'var(--Neutral-000, #FFF)',
               textAlign: 'center',
@@ -193,16 +216,22 @@ const EditProfileModal = ({
           >
             Edit Profile
           </h2>
-          <div className="flex items-center justify-center flex-row my-4">
+          <div className="my-4 flex flex-row items-center justify-center xs-max:flex-col xxs-max:flex-col">
             {/* Avatar */}
-            <Avatar
-              alt="123"
-              src={`${user?.imageUrl}`}
-              className="flex bg-slate-200 w-48 rounded-full justify-center items-center"
-              sx={{ width: '140px', height: '180px' }}
-            />
-            <div className="flex items-center justify-center flex-col m-4">
-              <div className="flex items-center justify-center flex-row m-4 gap-2">
+            {user ? (
+              <Avatar
+                alt="123"
+                src={`${user?.imageUrl}`}
+                className="flex h-48 w-48 items-center justify-center rounded-full bg-slate-200 xs-max:h-40 xs-max:w-40 xxs-max:h-36 xxs-max:w-36"
+              />
+            ) : (
+              <div> </div>
+            )}
+            <div className="m-4 flex flex-col items-center justify-center">
+              <div className="hidden font-urbanist text-sm font-semibold text-white xs-max:flex xxs-max:flex">
+                Edit photo
+              </div>
+              <div className="m-4 flex flex-row items-center justify-center gap-2">
                 {/* First Row*/}
                 <button
                   type="button"
@@ -211,7 +240,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanOne.png')
                   }
                 >
-                  <FemaleOneSVG />
+                  <FemaleOneSVG width={50} height={50} />
                 </button>
                 <button
                   type="button"
@@ -220,7 +249,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanTwo.png')
                   }
                 >
-                  <FemaleTwoSVG />
+                  <FemaleTwoSVG width={50} height={50} />
                 </button>
                 <button
                   type="button"
@@ -229,7 +258,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanThree.png')
                   }
                 >
-                  <FemaleThreeSVG />
+                  <FemaleThreeSVG width={50} height={50} />
                 </button>
                 <button
                   type="button"
@@ -238,11 +267,11 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/WomanFour.png')
                   }
                 >
-                  <FemaleFourSVG />
+                  <FemaleFourSVG width={50} height={50} />
                 </button>
               </div>
               {/* Second Row */}
-              <div className="flex items-center justify-center flex-row gap-2">
+              <div className="flex flex-row items-center justify-center gap-2">
                 <button
                   type="button"
                   id="chooseProfilePicture"
@@ -250,7 +279,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManOne.png')
                   }
                 >
-                  <MaleOneSVG />
+                  <MaleOneSVG width={50} height={50} />
                 </button>
                 <button
                   type="button"
@@ -259,7 +288,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManTwo.png')
                   }
                 >
-                  <MaleTwoSVG />
+                  <MaleTwoSVG width={50} height={50} />
                 </button>
                 <button
                   type="button"
@@ -268,7 +297,7 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManThree.png')
                   }
                 >
-                  <MaleThreeSVG />
+                  <MaleThreeSVG width={50} height={50} />
                 </button>
                 <button
                   type="button"
@@ -277,13 +306,13 @@ const EditProfileModal = ({
                     chooseProfilePicture('/profilepics/PNG/ManFour.png')
                   }
                 >
-                  <MaleFourSVG />
+                  <MaleFourSVG width={50} height={50} />
                 </button>
               </div>
             </div>
           </div>
           <div
-            className="font-urbanist"
+            className="font-urbanist xs-max:hidden xxs-max:hidden"
             style={{
               color: '#FFF',
               textAlign: 'center',
@@ -328,6 +357,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -401,6 +431,7 @@ const EditProfileModal = ({
               }}
             >
               <input
+                className="placeholder-black"
                 type="text"
                 placeholder={
                   userData.users[0].company
@@ -421,7 +452,7 @@ const EditProfileModal = ({
           </div>
 
           <button
-            className="text-Purple-300 text-center font-Urbanist text-20 font-bold leading-125 tracking-0.4"
+            className="text-Purple-300 font-Urbanist text-20 leading-125 tracking-0.4 text-center font-bold"
             onClick={handleFormSubmit}
             style={{
               display: 'flex',

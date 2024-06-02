@@ -7,10 +7,10 @@ export default function MenuBar() {
   const [tab, setTab] = useState<'general' | 'groups'>('general')
   return (
     <div
-      className="flex flex-row ml-14 rounded-10 bg-opacity-10 bg-white shadow-xl backdrop-blur-12.5"
+      className="rounded-10 backdrop-blur-12.5 ml-14 flex flex-row bg-white bg-opacity-10 shadow-xl"
       style={{ width: '4px' }}
     >
-      <div className="flex flex-col max-h-[771px] rounded-lg overflow-y-auto items-center gap-32 pt-6 mr-7 pl-3 pr-3 pb-6 flex-shrink-0 bg-opacity-10 bg-white backdrop-blur-12.5 shadow-xl justify-start">
+      <div className="backdrop-blur-12.5 mr-7 flex max-h-[771px] flex-shrink-0 flex-col items-center justify-start gap-32 overflow-y-auto rounded-lg bg-white bg-opacity-10 pb-6 pl-3 pr-3 pt-6 shadow-xl">
         <div
           className="flex flex-row justify-between"
           style={{ width: '400px', height: '26px' }}
@@ -54,11 +54,11 @@ export default function MenuBar() {
           </div>
         </div>
         <div
-          className="flex flex-row justify-between -mt-24"
+          className="-mt-24 flex flex-row justify-between"
           style={{ width: '400px', height: '26px' }}
         >
           <div
-            className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125"
+            className="border-b-1 font-Urbanist text-16 leading-125 border-white text-center font-semibold text-white"
             style={{
               width: '200px',
               height: '26px',
@@ -70,7 +70,7 @@ export default function MenuBar() {
             General
           </div>
           <div
-            className="font-semibold text-center text-white border-white border-b-1 font-Urbanist text-16 leading-125 "
+            className="border-b-1 font-Urbanist text-16 leading-125 border-white text-center font-semibold text-white "
             style={{
               width: '200px',
               height: '26px',

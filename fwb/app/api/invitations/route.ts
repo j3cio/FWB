@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       // Create a new invitation
       await clerkClient.invitations.createInvitation({
         emailAddress: email,
-        redirectUrl: 'http://localhost:3000/sign-up',
+        redirectUrl: `${process.env.SIGNUP_REDIRECT_LINK}`,
       })
     } catch (error) {
       console.log(error)
