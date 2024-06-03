@@ -51,9 +51,14 @@
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
     "postcss": "^8",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.0",
     "prettier-plugin-tailwindcss": "^0.5.13",
+    "pretty-quick": "^4.0.0",
+    "simple-git-hooks": "^2.11.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pretty-quick --staged"
   }
 }
