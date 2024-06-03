@@ -156,7 +156,7 @@ export default function ProductFilters({
         <BasicSelect
           name="Sort by"
           options={sortOptions}
-          defaultValue="Most Popular"
+          defaultValue="Most Recent"
           activeOptions={activeOptions}
           setActiveOptions={setActiveOptions}
         />

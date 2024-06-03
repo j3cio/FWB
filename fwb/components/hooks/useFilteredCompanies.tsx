@@ -36,8 +36,8 @@ const useFilteredCompanies = (
 
   const sortCompanies = (companies: CompanyAndDiscounts[]) => {
     switch (activeOptions.sort) {
-      case SortOptionsEnum.MostPopular:
-        return companies.sort((a, b) => b.views - a.views)
+      // case SortOptionsEnum.MostPopular:
+      //   return companies.sort((a, b) => b.views - a.views)
 
       case SortOptionsEnum.MostRecent:
         return companies.sort(

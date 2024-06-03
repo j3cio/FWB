@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from 'react'
 
 export enum SortOptionsEnum {
-  MostPopular = 'Most Popular',
+  // MostPopular = 'Most Popular',
   MostRecent = 'Most Recent',
   HighestToLowest = 'Highest to Lowest Discounts',
   LowestToHighest = 'Lowest to Highest Discounts',
 }
 export const sortOptions = [
-  SortOptionsEnum.MostPopular,
+  // SortOptionsEnum.MostPopular,
   SortOptionsEnum.MostRecent,
   SortOptionsEnum.HighestToLowest,
   SortOptionsEnum.LowestToHighest,
