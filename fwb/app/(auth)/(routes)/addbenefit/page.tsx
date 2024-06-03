@@ -12,7 +12,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Slider from '@mui/material/Slider'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-import './page.css'
+
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
 import { Group, UserData } from '@/app/types/types'
@@ -291,16 +291,17 @@ export default function Intakeform() {
           <form
             id="discountForm"
             onSubmit={handleSubmit}
-            className="formContainer"
+            className="formContainer flex flex-col px-[55px] sm-max: pl-[50px] sm-max:items-center xs-max: pl-[50px] xs-max:items-center xxs-max: pl-[50px] xxs-max:items-center"
           >
             <div className="firstBox">
-              <div className="share">
+              <div className="share font-urbanist font-normal leading-[110%] flex mt-[24px] mb-[72px] sm-max:mb-[36px] sm-max:mt-0 xs-max:mb-[36px] xs-max:mt-0 xxs-max:mb-[36px] xxs-max:mt-0">
                 <Typography
                   sx={{
                     color: 'white',
                     fontWeight: '600',
                     fontSize: '32px',
                   }}
+                  className='sm-max:text-[25px] xs-max:text-[25px] xxs-max:text-[25px] font-urbanist'
                 >
                   Share My Benefits
                 </Typography>
@@ -321,11 +322,11 @@ export default function Intakeform() {
                 </div>
                 </div>*/}
 
-              <div className="line2">
-                <div className="company">Company Name*</div>
+              <div className="line2 flex sm-max:flex-col xs-max:flex-col xxs-max:flex-col mb-[25px] sm-max:gap-[15px] xs-max:gap-[15px] xxs-max:gap-[15px]">
+                <div className="company text-white font-urbanist text-[16px] font-semibold leading-[125%]">Company Name*</div>
                 <div>
                   <input
-                    className="inputCompany"
+                    className="inputCompany flex items-center gap-[8px] self-stretch w-[364px] h-[32px] ml-[43px] mt-[-5px] p-[4px_4px_4px_16px] rounded-[5px] bg-white sm-max:ml-0 sm-max:w-[90vw] xs-max:ml-0 xs-max:w-[90vw] xxs-max:ml-0 xxs-max:w-[90vw] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder="Company Name"
                     onChange={(e) => setCompany(e.target.value)}
                     id="companyName"
@@ -363,11 +364,11 @@ export default function Intakeform() {
                   <div>
                     <div>
                       <div>
-                        <div className="discount1">
-                          <div className="amount">Discount Amount*</div>
+                        <div className="discount1 flex mb-[25px] sm-max:flex-col xs-max:flex-col xxs-max:flex-col">
+                          <div className="amount font-urbanist text-white text-[16px] font-semibold leading-[125%]">Discount Amount*</div>
                           <ThemeProvider theme={theme}>
                             <div
-                              className="slider"
+                              className="slider ml-[45px] sm-max:ml-[10px] sm-max:!w-[85%] xs-max:ml-[10px] xs-max:!w-[85%] xxs-max:ml-[10px] xxs-max:!w-[85%]"
                               style={{
                                 width: '220px',
                                 marginTop: '10px',
@@ -391,10 +392,10 @@ export default function Intakeform() {
                             </div>
                           </ThemeProvider>
 
-                          <div className="percentage flex bg-white h-8 ml-3 items-center rounded px-4 w-[125px]">
+                          <div className="percentage flex py-[2.666px] justify-center mt-[9px] bg-white h-8 ml-3 items-center rounded px-4 w-[125px] sm-max:ml-0 xs-max:ml-0 xxs-max:ml-0 ">
                             <input
                               // className="discountName" -- Removed this styling for now, feel free to re-enable after replicating this UI effect if desired
-                              className="w-full rounded border-none bg-white outline-none"
+                              className="w-full rounded border-none bg-white outline-none placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                               value={
                                 discountAmount ? discountAmount : ''
                               }
@@ -405,8 +406,8 @@ export default function Intakeform() {
                           </div>
                         </div>
                       </div>
-                      <div className="categories">
-                        <div className="category">Category</div>
+                      <div className="categories flex mb-[25px] sm-max:flex-col sm-max:gap-[10px] xs-max:flex-col xs-max:gap-[10px] xxs-max:flex-col xxs-max:gap-[10px]">
+                        <div className="category font-urbanist text-white text-[16px] font-semibold leading-[125%]">Category</div>
                         {/* <div className="flex justify-start"> */}
                         {/* <div className="selectCategory"> */}
                         <select
@@ -420,6 +421,7 @@ export default function Intakeform() {
                           }
                           value={categories}
                           required
+                          className='ml-[25px] bg-black text-white border-[#8e94e9] border-[2px] rounded-[10px] w-[370px] h-[48px] px-[16px] py-[9px] ml-[94px] pr-[50px] sm-max:ml-0 sm-max:w-[90vw] xs-max:ml-0 xs-max:w-[90vw] xxs-max:ml-0 xxs-max:w-[90vw]'
                         >
                           <option value="All">All </option>
                           <option value="Sports">Sports</option>
@@ -438,14 +440,14 @@ export default function Intakeform() {
                         </select>
                       </div>
                     </div>
-                    <div className="rule">
-                      <div className="description">
+                    <div className="rule flex sm-max:flex-col xs-max:flex-col xxs-max:flex-col sm-max:gap-[10px] xs-max:gap-[10px] xxs-max:gap-[10px]">
+                      <div className="description sm-max:flex sm-max:gap-[5px] xs-max:flex xs-max:gap-[5px] xxs-max:flex xxs-max:gap-[5px] text-white">
                         Discount Rules <p>& Conditions</p>
                       </div>
                       <div>
                         {' '}
                         <textarea
-                          className="inputDiscount"
+                          className="inputDiscount flex flex-col w-[370px] h-[160px] ml-[60px] rounded-[10px] bg-white p-[8px_4px_8px_8px] gap-[8px] sm-max:ml-0 sm-max:w-[90vw] xs-max:ml-0 xs-max:w-[90vw] xxs-max:ml-0 xxs-max:w-[90vw] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                           placeholder=""
                           onChange={(e) => setDescription(e.target.value)}
                           id="description"
@@ -516,7 +518,7 @@ export default function Intakeform() {
                       </div>
                       </div>*/}
                     <div
-                      className="toggle flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px]"
+                      className="toggle flex items-center cursor-pointer select-none mt-[25px] ml-[154px] mb-[60px] sm-max:!mb-0 sm-max:!ml-[-8px] xs-max:!mb-0 xs-max:!ml-[-8px] xxs-max:!mb-0 xxs-max:!ml-[-8px]"
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits
@@ -529,8 +531,8 @@ export default function Intakeform() {
               </div>
             </div>
           </form>
-          <div className="submit">
-            <div className="agree">
+          <div className="submit pr-[40px] pl-[55px] pb-[70px] sm-max:pr-0 sm-max:pl-[4vw] xs-max:pr-0 xs-max:pl-[4vw] xxs-max:pr-0 xxs-max:pl-[4vw]">
+            <div className="agree font-urbanist text-white mt-[35px] text-[16px] leading-[150%] sm-max:mb-[30px] xs-max:mb-[30px] xxs-max:mb-[30px]">
               <span>
                 <FormControlLabel
                   control={
@@ -543,17 +545,17 @@ export default function Intakeform() {
                   label=""
                 />
               </span>
-              <span className="termAgree">I agree to the</span>{' '}
-              <a className="terms" href='https://www.makefwb.com/terms-of-service'>Terms & Privacy Policy</a>
+              <span className="termAgree ml-[-20px]">I agree to the</span>{' '}
+              <a className="terms text-[#8e94e9]" href='https://www.makefwb.com/terms-of-service'>Terms & Privacy Policy</a>
             </div>
             <div className="submitButton flex">
-              <div className='saveButton'>
-              <button className={`save ${isDisabled && 'bg-[#ADB4D2] text-white'}`} type="submit" form="discountForm" disabled={isDisabled}>
+              <div className='saveButton sm-max:w-[60%] xs-max:w-[60%] xxs-max:w-[60%]'>
+              <button className={`save font-urbanist text-[#8e94e9] text-center text-[20px] font-bold leading-[125%] tracking-[0.4px] rounded-[30px] bg-[#f6ff82] flex items-center justify-center gap-[8px] h-[48px] px-[24px] py-[10px] sm-max:text-[15px] sm-max:w-full xs-max:text-[15px] xs-max:w-full xxs-max:text-[15px] xxs-max:w-full ${isDisabled && 'bg-[#ADB4D2] text-white'}`} type="submit" form="discountForm" disabled={isDisabled}>
                   Save and Share
                 </button>
               </div>
-              <div className='cancelButton'>
-                <button className="cancel">Cancel</button>
+              <div className='cancelButton sm-max:!w-[30%]  xs-max:!w-[30%]  xxs-max:!w-[30%]'>
+                <button className="cancel flex h-[48px] px-[24px] py-[10px] justify-center items-center gap-[8px] rounded-[32px] border-[1.5px] border-white text-white  text-center font-urbanist text-[20px] font-bold leading-[125%] tracking-[0.4px] ml-[16px] sm-max:text-[15px] sm-max:w-full xs-max:text-[15px] xs-max:w-full xxs-max:text-[15px] xxs-max:w-full">Cancel</button>
               </div>
             </div>
           </div>
