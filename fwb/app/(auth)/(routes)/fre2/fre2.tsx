@@ -134,7 +134,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     supabaseToken: string
   ) => {
     try {
-      await fetch('/api/tempdiscounts', {
+      await fetch('/api/discounts', {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${bearerToken}`,
