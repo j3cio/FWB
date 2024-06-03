@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function IllustrationSix() {
   return (
-    <div className="illustrationSix">
+    <div className="illustrationSix mr-[120px] shrink-0">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="156"
