@@ -1,10 +1,7 @@
 'use client'
-import { SignUp, useSignUp } from '@clerk/nextjs'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 
-import { SignUp, useSignUp } from '@clerk/nextjs'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 //For responsiveness
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
@@ -13,14 +10,7 @@ import { LargeScreen } from './screenLarge'
 import { SmallScreen } from './screenSmall'
 
 export default function Page() {
-  const { isLoaded, signUp, setActive } = useSignUp()
-  const [emailAddress, setEmailAddress] = useState('')
-  const [password, setPassword] = useState('')
-  const [pendingVerification, setPendingVerification] = useState(false)
-  const [code, setCode] = useState('')
   const router = useRouter()
-  const [error, setError] = useState<any>(null)
-
   const width = useWindowDimensions()
 
   useEffect(() => {
@@ -32,8 +22,8 @@ export default function Page() {
   return (
     <div className="relative block h-screen w-full overflow-hidden">
       {width > 1201 && (
-        <div className="flex justify-between bg-[#8e94e9] h-[931px] container overflow-hidden">
-          <div className="flex flex-col translate-y-[-30px]">
+        <div className="container flex h-[931px] justify-between overflow-hidden bg-[#8e94e9]">
+          <div className="flex translate-y-[-30px] flex-col">
             <div className="w-[133px]">
               <svg
                 width="100%"
@@ -64,12 +54,12 @@ export default function Page() {
               </svg>
             </div>
 
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[150px] h-[150px] xl:w-[136px] xl:h-[136px]"></div>
-            <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[150px] h-[452px] xl:w-[136px] xl:h-[405px]"></div>
-            <div className="rounded-full bg-[#f6ff82] w-[150px] h-[150px] shrink-0 xl:w-[134px] xl:h-[134px]"></div>
+            <div className="h-[150px] w-[150px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat xl:h-[136px] xl:w-[136px]"></div>
+            <div className="h-[452px] w-[150px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat xl:h-[405px] xl:w-[136px]"></div>
+            <div className="h-[150px] w-[150px] shrink-0 rounded-full bg-[#f6ff82] xl:h-[134px] xl:w-[134px]"></div>
           </div>
-          <div className="flex flex-col text-center justify-center h-screen">
-            <div className="flex w-[60px] h-[60px] rounded-[75px] border-[2.25px] border-white mx-auto">
+          <div className="flex h-screen flex-col justify-center text-center">
+            <div className="mx-auto flex h-[60px] w-[60px] rounded-[75px] border-[2.25px] border-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="60"
@@ -83,10 +73,10 @@ export default function Page() {
                 />
               </svg>
             </div>
-            <div className="text-white text-center font-urbanist text-[120px] self-stretch font-normal leading-tight tracking-tight">
+            <div className="self-stretch text-center font-urbanist text-[120px] font-normal leading-tight tracking-tight text-white">
               Success!!
             </div>
-            <div className="self-stretch text-white text-center mb-[72px] font-urbanist text-[18px] font-normal leading-[22.5px]">
+            <div className="mb-[72px] self-stretch text-center font-urbanist text-[18px] font-normal leading-[22.5px] text-white">
               You have successfully verified your account
             </div>
             {/* <Link
@@ -97,8 +87,8 @@ export default function Page() {
             </Link> */}
           </div>
           <div className="translate-y-[-50px]">
-            <div className="w-[150px] h-[166px] rounded-b-full border-[3px] border-white xl:w-[134px]"></div>
-            <div className="flex w-[150px] h-[150px] p-7 pr-[27.25px] pl-[26.75px] justify-center items-center shrink-0 rounded-full bg-white xl:w-[134px] xl:h-[134px]">
+            <div className="h-[166px] w-[150px] rounded-b-full border-[3px] border-white xl:w-[134px]"></div>
+            <div className="flex h-[150px] w-[150px] shrink-0 items-center justify-center rounded-full bg-white p-7 pl-[26.75px] pr-[27.25px] xl:h-[134px] xl:w-[134px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="97"
@@ -118,9 +108,9 @@ export default function Page() {
             </div>
             <div className="h-[474px] w-[150px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[425px] xl-max:w-[136px]"></div>
 
-            <div className="w-[150px] shrink-0 rounded-t-[156.25px] rounded-b-none border-[3px] border-white">
-              <div className="w-[149px] h-[100px] flex-shrink-0 rounded-tr-[165px] rounded-tl-[162px] rounded-b-none border-t-[3px] border-t-neutral-000 mt-[42px] opacity-50"></div>
-              <div className="w-[150px] h-20 flex-shrink-0 rounded-t-[156.25px] rounded-b-none border-t-[3px] border-t-neutral-000 opacity-25 -mt-[60px]"></div>
+            <div className="w-[150px] shrink-0 rounded-b-none rounded-t-[156.25px] border-[3px] border-white">
+              <div className="border-t-neutral-000 mt-[42px] h-[100px] w-[149px] flex-shrink-0 rounded-b-none rounded-tl-[162px] rounded-tr-[165px] border-t-[3px] opacity-50"></div>
+              <div className="border-t-neutral-000 -mt-[60px] h-20 w-[150px] flex-shrink-0 rounded-b-none rounded-t-[156.25px] border-t-[3px] opacity-25"></div>
             </div>
           </div>
         </div>
