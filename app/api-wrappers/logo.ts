@@ -16,6 +16,7 @@
  */
 function fetchLogo(auth_token: string, domain_name: string) {
   var myHeaders = new Headers()
+
   myHeaders.append('Authorization', `Bearer ${auth_token}`)
 
   var requestOptions = {
