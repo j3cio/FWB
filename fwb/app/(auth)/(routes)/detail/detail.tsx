@@ -48,7 +48,7 @@ export default function DetailPage({
 
         const protocol = window.location.protocol
         const response = await fetch(
-          `${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+          `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
           requestOptions
         )
 
@@ -110,7 +110,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
 
       const protocol = window.location.protocol
       const response = await fetch(
-        `${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+        `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
         requestOptions
       )
 
