@@ -12,6 +12,7 @@ declare module '@mui/material/styles' {
       n500: string
       n400: string
       n300: string
+
       n200: string
       n100: string
     }
