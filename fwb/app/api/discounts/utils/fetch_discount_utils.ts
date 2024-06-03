@@ -19,7 +19,7 @@ async function getDiscount(
   try {
     if (discount_id !== '') {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/tempdiscounts?discount_id=${discount_id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/discounts?discount_id=${discount_id}`,
         requestOptions
       )
       if (!response.ok) {
