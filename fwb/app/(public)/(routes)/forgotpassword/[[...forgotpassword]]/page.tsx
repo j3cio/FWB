@@ -2,12 +2,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useSignIn } from '@clerk/nextjs'
 import type { NextPage } from 'next'
-import './page.css'
 import Link from 'next/link'
-
-//CSS page
-import './page.css'
-
 //For responsiveness
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 

@@ -25,8 +25,6 @@ import { UserData } from '../../../types/types'
 
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
-import './page.css'
-
 export default function UserFlowPage1({ userData }: { userData: UserData }) {
   //TODO: Username verification feature, onChange run code to show user Username is available (possibly grey out Next Option)
 
@@ -442,7 +440,7 @@ export default function UserFlowPage1({ userData }: { userData: UserData }) {
                 <div className="button mx-auto mt-[13.53px] ml-[110px]">
                   <Link
                     href="/fre2"
-                    className="next rounded-[30px] bg-[#f6ff82] flex w-[420px] h-[48px] px-[24px] py-[10px] justify-center gap-[8px] text-center text-[#8e94e9] font-bold font-[Urbanist] text-[20px] leading-[1.25] tracking-[0.4px] mb-[12px] mt-0"
+                    className="next font-urbanist rounded-[30px] bg-[#f6ff82] flex w-[420px] h-[48px] px-[24px] py-[10px] justify-center gap-[8px] text-center text-[#8e94e9] font-bold font-[Urbanist] text-[20px] leading-[1.25] tracking-[0.4px] mb-[12px] mt-0"
                     onClick={handleSubmitUser}
                   >
                     Next

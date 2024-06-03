@@ -12,7 +12,6 @@ import GooglePic from '@/public/google.png'
 
 import 'dotenv/config'
 
-import './page.css'
 
 export const LargeScreen = () => {
   const { isLoaded, signIn, setActive } = useSignIn()

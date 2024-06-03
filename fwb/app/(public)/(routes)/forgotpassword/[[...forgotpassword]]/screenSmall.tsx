@@ -2,7 +2,6 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useSignIn } from '@clerk/nextjs'
 import type { NextPage } from 'next'
-import './page.css'
 import Link from 'next/link'
 
 export const SmallScreen = () => {

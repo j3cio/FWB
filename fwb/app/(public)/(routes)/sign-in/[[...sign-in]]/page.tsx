@@ -17,9 +17,6 @@ import GooglePic from '@/public/google.png'
 import { LargeScreen } from './screenLarge'
 import { SmallScreen } from './screenSmall'
 
-//CSS page
-import './page.css'
-
 export default function Page() {
   const { isLoaded, signIn, setActive } = useSignIn()
   const [emailAddress, setEmailAddress] = useState('')

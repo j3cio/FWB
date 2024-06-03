@@ -12,8 +12,6 @@ import GooglePic from '@/public/google.png'
 
 import 'dotenv/config'
 
-import './page.css'
-
 export const SmallScreen = () => {
   const { isLoaded, signIn, setActive } = useSignIn()
   const [emailAddress, setEmailAddress] = useState('')
