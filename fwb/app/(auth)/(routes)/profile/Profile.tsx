@@ -1,33 +1,33 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { Box, Button, Container, Grid } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import { useUser, useAuth } from '@clerk/nextjs'
-import Avatar from '@mui/material/Avatar'
-import EditProfileModal from './EditProfileModal'
+import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
 import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
 import Navbar from '@/components/ui/navbar/Navbar'
-import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
-import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
-import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
+import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
+import { useAuth, useUser } from '@clerk/nextjs'
+import { Box, Button, Container, Grid } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import { useTheme } from '@mui/material/styles'
+import Image from 'next/image'
+import { useState } from 'react'
+import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
+import EditProfileModal from './EditProfileModal'
 //import AvatarIcon from "@mui/material/Avatar";
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 
 
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 
-import { UserData } from '../../../types/types'
-import { DiscountData } from '../../../types/types'
+import { DiscountData, UserData } from '../../../types/types'
 
 interface ProfileProps {
   userData: UserData
   discountData: DiscountData[]
+  isPublic: boolean
 }
 
-function Profile({ userData, discountData }: ProfileProps) {
+function Profile({ userData, discountData, isPublic }: ProfileProps) {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
@@ -59,7 +59,7 @@ function Profile({ userData, discountData }: ProfileProps) {
               {user ? (
                 <Avatar
                   alt="123"
-                  src={`${user?.imageUrl}`}
+                  src={`${userData.users[0].profile_picture_url}`}
                   className="flex h-[190px] w-48 items-center justify-center rounded-full bg-slate-200 sm-max:h-[102px] sm-max:w-[102px] xs-max:h-[92px] xs-max:w-[92px] xxs-max:h-[92px] xxs-max:w-[92px]"
                 />
               ) : (
@@ -78,7 +78,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                     </div>
                   </div>
                 )}
-                <div className="my-2 flex gap-2">
+                {!isPublic ? <div className="my-2 flex gap-2">
                   <Button
                     endIcon={<WhiteArrowForward />}
                     variant="contained"
@@ -98,11 +98,11 @@ function Profile({ userData, discountData }: ProfileProps) {
                   >
                     Edit Profile
                   </Button>
-                </div>
+                </div> : <div></div>}
               </div>
             </div>
             {/*Bargains div*/}
-            <div className="flex w-full grow flex-col gap-6">
+            {!isPublic ? <div className="flex w-full grow flex-col gap-6">
               <CreateDiscountCard />
               <div className="flex h-2/5 w-full xxl-max:hidden xl-max:hidden lg-max:hidden">
                 <a className="min-w-full" href="/addbenefit">
@@ -146,7 +146,7 @@ function Profile({ userData, discountData }: ProfileProps) {
                   </div>
                 </a>
               </div>
-            </div>
+            </div>: <div> </div>}
             {/*My Benefits div*/}
             <div className="my-[80px] flex h-1/5 w-full flex-col rounded-lg sm-max:my-10 xs-max:my-8 xxs-max:my-6">
               <div className="flex h-full w-full flex-col">
