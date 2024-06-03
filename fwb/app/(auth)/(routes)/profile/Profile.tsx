@@ -16,6 +16,7 @@ import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
 //import AvatarIcon from "@mui/material/Avatar";
 //import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 
+
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 
 import { UserData } from '../../../types/types'
@@ -33,7 +34,9 @@ function Profile({ userData, discountData }: ProfileProps) {
   const { getToken } = useAuth()
   //Intialize the user to be in GetStream db
   const client = useIntitialChatClient()
+
   const { user } = useUser()
+
 
   const openEditProfileModal = () => {
     setIsEditProfileModalOpen(true)
@@ -51,6 +54,7 @@ function Profile({ userData, discountData }: ProfileProps) {
           {/*Container div*/}
           <div className="flex h-full w-full flex-1 flex-col items-center justify-center px-[18px] sm-max:items-start sm-max:px-8 xs-max:items-start xs-max:px-6 xxs-max:items-start xxs-max:px-4">
             {/*Profile div*/}
+
             <div className="mb-[50px] mt-10 flex h-1/5 w-full gap-10 border-b-2 border-slate-200 pb-[95px] sm-max:mt-8 sm-max:flex-col sm-max:gap-4 sm-max:pb-6 xs-max:mt-6 xs-max:flex-col xs-max:gap-3 xs-max:pb-4 xxs-max:mt-4 xxs-max:flex-col xxs-max:gap-3 xxs-max:pb-4">
               {user ? (
                 <Avatar
@@ -63,6 +67,7 @@ function Profile({ userData, discountData }: ProfileProps) {
               )}
               <div className="flex grow flex-col justify-center">
                 <div className="mb-[4px] text-[35px] font-semibold leading-none text-slate-200 sm-max:text-[28px] xs-max:text-[24px] xxs-max:text-[24px]">
+
                   {userData.users[0].username}
                 </div>
                 {userData.users[0].company && (

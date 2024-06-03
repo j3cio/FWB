@@ -12,6 +12,7 @@ import DiscountsSection from './DiscountsSection'
 import MembersSection from './MembersSection'
 import CreateDiscountCard from '../../addbenefit/CreateDiscountCard'
 
+
 const Tabs = ({
   userData,
   discountData,
