@@ -16,7 +16,7 @@ export default function useIntitialChatClient() {
       .connectUser(
         {
           id: user.id,
-          name: user.fullName || user.id,
+          name: user.username || user.id,
           image: user.imageUrl,
         },
         async () => {
@@ -38,7 +38,7 @@ export default function useIntitialChatClient() {
         .catch((error) => console.error('Failed to disconnect user', error))
         .then(() => console.log('Connection closed'))
     }
-  }, [user?.id, user?.fullName, user?.imageUrl])
+  }, [user?.id, user?.fullName, user?.imageUrl, user?.username])
 
   return chatClient // This is the chat client that allows us to use chat features
 }

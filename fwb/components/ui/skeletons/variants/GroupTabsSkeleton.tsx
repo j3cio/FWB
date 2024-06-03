@@ -12,29 +12,29 @@ const GroupTabsSkeleton = () => {
         minHeight: '100vh',
       }}
     >
-      <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
+      <div className="my-10 flex flex-row items-center justify-evenly">
         <div
-          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl  text-white border-b-2 border-white
-            }`}
+          className={`w-1/2 border-b-2 border-white text-3xl font-bold text-white hover:border-b-2 hover:border-white
+            hover:text-white`}
         >
           <Box textAlign="center">
-            <Typography className=" items-center font-bold text-3xl">
+            <Typography className=" items-center font-urbanist text-3xl font-bold">
               Discounts Offers
             </Typography>
           </Box>
         </div>
         <div
-          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl text-gray-600
-            }`}
+          className={`} w-1/2 text-3xl font-bold text-gray-600 hover:border-b-2 hover:border-white
+            hover:text-white`}
         >
           <Box textAlign="center">
-            <Typography className=" items-center font-bold text-3xl">
+            <Typography className=" items-center font-urbanist text-3xl font-bold">
               Members
             </Typography>
           </Box>
         </div>
       </div>
-      <div className="ml-24 mr-24"></div>
+      <div className=""></div>
       <div className="w-full">
         <div className="bg-[#1a1a23]">
           <div className="w-11/12 bg-white">
@@ -55,7 +55,7 @@ const GroupTabsSkeleton = () => {
                 rowGap={2}
                 sx={{ marginBottom: '60px' }}
               >
-                <div className="flex flex-wrap gap-x-4 ml-2">
+                <div className="ml-2 flex flex-wrap gap-x-4">
                   {generateSkeletons({
                     type: 'ProductCard',
                     quantity: 20,

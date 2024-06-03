@@ -41,7 +41,8 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 600;
-  line-height: 110%; /* 44px */
+  line-height: 110%;
+  /* 44px */
   margin-top: 61px;
   letter-spacing: 0.1rem;
 }
@@ -54,7 +55,8 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 125%; /* 22.5px */
+  line-height: 125%;
+  /* 22.5px */
   margin-top: 8px;
   margin-bottom: 32px;
 }
@@ -81,7 +83,8 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
+  /* 20px */
   letter-spacing: 0.32px;
 }
 
@@ -100,7 +103,8 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 20px */
+  line-height: 125%;
+  /* 20px */
   letter-spacing: 0.32px;
 }
 
@@ -123,7 +127,8 @@ input::placeholder {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 24px */
+  line-height: 150%;
+  /* 24px */
   opacity: 0.3;
 }
 
@@ -143,7 +148,8 @@ input::placeholder {
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 125%; /* 30px */
+  line-height: 125%;
+  /* 30px */
   letter-spacing: 0.4px;
   margin-bottom: 12px;
   margin-top: 0px;

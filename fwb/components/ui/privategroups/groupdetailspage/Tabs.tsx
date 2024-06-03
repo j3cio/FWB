@@ -10,7 +10,8 @@ import { Chat, LoadingIndicator } from 'stream-chat-react'
 import Bargains from './BargainsPicture'
 import DiscountsSection from './DiscountsSection'
 import MembersSection from './MembersSection'
-import CreateDiscountCard from '../../intakeform/CreateDiscountCard'
+import CreateDiscountCard from '../../addbenefit/CreateDiscountCard'
+
 
 const Tabs = ({
   userData,
@@ -36,7 +37,7 @@ const Tabs = ({
 
   if (!chatClient || !user) {
     return (
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <LoadingIndicator size={40} />
       </div>
     )
@@ -49,32 +50,34 @@ const Tabs = ({
         minHeight: '100vh',
       }}
     >
-      <div className="flex flex-row justify-evenly items-center mt-10 mb-10 ml-24 mr-40">
+      <div className="my-10 flex items-center justify-evenly ">
         <div
-          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
+          onClick={showDiscountsTab}
+          className={`w-1/2 cursor-pointer border-b text-xl font-bold hover:border-white hover:text-white ${
             !showMembers
-              ? `text-white border-b-2 border-white`
-              : `text-gray-600`
+              ? `border-white text-white`
+              : `border-gray-600 text-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button onClick={showDiscountsTab} className=" items-center">
-              Discounts Offers
-            </Button>
+            <Button className="items-center pb-2">Discounts Offers</Button>
           </Box>
         </div>
         <div
-          className={`w-1/2 hover:text-white hover:border-b-2 hover:border-white font-bold text-3xl ${
-            showMembers ? `text-white border-b-2 border-white` : `text-gray-600`
+          onClick={showMemberTab}
+          className={`w-1/2 cursor-pointer border-b text-xl font-bold hover:border-white hover:text-white ${
+            showMembers
+              ? `border-b border-white text-white`
+              : `border-gray-600 text-gray-600`
           }`}
         >
           <Box textAlign="center">
-            <Button onClick={showMemberTab}>Members</Button>
+            <Button className="items-center pb-2">Members</Button>
           </Box>
         </div>
       </div>
-      <div className="ml-24 mr-24">{showMembers ? <></> : <Bargains />}</div>
-      <div className="w-full h-screen">
+      <div className="">{showMembers ? <></> : <Bargains />}</div>
+      <div className="h-screen w-full">
         {showMembers ? (
           <Chat client={chatClient}>
             <MembersSection userData={userData} />

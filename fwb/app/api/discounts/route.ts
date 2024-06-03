@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
     shareable_url: '', //TODO: Generate shareable URL
     discount_amount: formData.get('discount_amount'),
     public: formData.get('public') === 'true' ? true : false,
+    name: formData.get('company'),
   }
 
   // Insert the new discount into the database
@@ -65,14 +66,17 @@ export async function POST(request: NextRequest) {
     .eq('url', company_url)
     .single()
 
+  const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
+  const companyUrl = formData.get('company_url')
+  const formattedUrl = companyUrl?.toString().replace(/\s/g, '') // stripped out any inner whitespace
   // Create a new company if the company does not exist
   if (companyDataError) {
     const newCompany = {
       discounts: [],
       name: formData.get('company'),
-      url: formData.get('company_url'),
+      url: formattedUrl,
       description: '',
-      logo: await getNewLogoUrl(String(formData.get('company_url'))),
+      logo: logoUrl,
     }
     // Insert the company into the companies table
     const { data: insertedCompany, error: insertError } = await supabase

@@ -2,16 +2,18 @@ import { Box, Container } from '@mui/material'
 import NavBarSkeleton from '../../../../../components/ui/skeletons/variants/NavBarSkeleton'
 import GroupDetailsSection from '@/components/ui/privategroups/groupdetailspage/GroupDetailsSection'
 import GroupTabsSkeleton from '@/components/ui/skeletons/variants/GroupTabsSkeleton'
+import { toast } from 'react-toastify'
 
 const Loading = () => {
   return (
-    <Box sx={{ backgroundColor: '#1A1A23' }}>
+    <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100dvh' }}>
       <Container disableGutters maxWidth="lg">
         <NavBarSkeleton />
         <Box
           sx={{
+            paddingX: '18px',
             position: 'relative',
-            paddingTop: '156px',
+            marginTop: '56px',
             zIndex: 0,
           }}
         >
@@ -22,10 +24,12 @@ const Loading = () => {
               name: 'Loading...',
               users: [],
               discounts: [],
-              admins: [],
+              admins: '',
               public: false,
               description: 'Loading...',
+              filePath: '',
             }}
+            toast={toast}
           />
           <GroupTabsSkeleton />
         </Box>

@@ -1,57 +1,107 @@
-'use client'
-import Navbar from '@/components/ui/message/Navbar'
+import { auth } from '@clerk/nextjs'
+
+import ChatPage from './ChatPage'
 
 import './page.css'
-import { useUser } from '@clerk/nextjs'
-import {
-  Channel,
-  ChannelHeader,
-  ChannelList,
-  Chat,
-  LoadingIndicator,
-  MessageInput,
-  MessageList,
-  Thread,
-  Window,
-} from 'stream-chat-react'
-import ChatChannel from './ChatChannel'
-import ChatSideBar from './ChatSidebar'
-import MenuBar from './MenuBar'
-import useIntitialChatClient from './useIntializeChatClient'
-import Third from '@/components/ui/message/Third'
-import { useState } from 'react'
-import RightGroup from '@/components/ui/message/RightGroup'
-import RightGeneral from '@/components/ui/message/RightGeneral'
-//random
+import { Group, UserData } from '@/app/types/types'
 
-export default function ChatPage() {
-  const chatClient = useIntitialChatClient()
-  const { user } = useUser()
-  const [tab, setTab] = useState<'general' | 'groups'>('general')
-  if (!chatClient || !user) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <LoadingIndicator size={40} />
-      </div>
-    )
+export default async function Page() {
+  async function getUser() {
+    const bearer_token = await auth().getToken({ template: 'testing_template' })
+    const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
+    if (!supabase_jwt) {
+      console.log('Not signed in')
+      return
+    }
+
+    const userId = await auth().userId
+
+    var myHeaders = new Headers()
+    myHeaders.append('supabase_jwt', supabase_jwt)
+    myHeaders.append('Authorization', `Bearer ${bearer_token}`)
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
+        requestOptions
+      )
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const result = await response.json()
+      return result // This returns the result object
+    } catch (error) {
+      console.error('Error fetching data: ', error)
+      throw error // This re-throws the error to be handled by the caller
+    }
   }
+
+  async function getGroupData(groupId: string) {
+    const bearer_token = await auth().getToken({ template: 'testing_template' })
+    const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
+    if (!supabase_jwt) {
+      console.log('Not signed in')
+      return
+    }
+
+    if (groupId) {
+      var myHeaders = new Headers()
+      myHeaders.append('supabase_jwt', supabase_jwt)
+      myHeaders.append('Authorization', `Bearer ${bearer_token}`)
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+      }
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${groupId}`, // add to .env
+          requestOptions
+        )
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const result = await response.json()
+        return result // This returns the result object
+      } catch (error) {
+        console.error('Error fetching data: ', error)
+        throw error // This re-throws the error to be handled by the caller
+      }
+    } else {
+      return {
+        success: false,
+        data: [
+          {
+            id: '',
+            name: 'No group id',
+            discounts: [],
+            admins: ['123'],
+            public: false,
+            users: [],
+          },
+        ],
+      }
+    }
+  }
+  const userData: UserData = await getUser()
+  //const groupData = await getGroupData(userData.users[0].user_groups[0])
+
+  const groupData: Group[] = await Promise.all(
+    userData.users[0].user_groups.map(async (group_id) => {
+      const singleGroupData = await getGroupData(group_id)
+      return singleGroupData.data[0]
+    })
+  )
 
   return (
     // <div className="w-8/12 h-screen mr-20">
-
-    <div style={{ background: '#1A1A23', paddingBottom: '80px' }}>
-      <Navbar></Navbar>
-      <Chat client={chatClient}>
-        {/* <Chat theme={"str-chat__theme-dark"} client={chatClient}> */}
-        {/* The channel list shows only channels that the currently loggeed in user is a member (filters prop) */}
-        <div className="flex flex-row h-full" style={{ marginTop: '40px' }}>
-          <ChatSideBar user={user} />
-          <ChatChannel />
-        </div>
-        {/* <Third name={tab === "general" ? "Name" : "GroupName"}>
-          {tab === "general" ? <RightGeneral /> : <RightGroup />}
-        </Third> */}
-      </Chat>
-    </div>
+    <ChatPage userData={userData} groupData={groupData} />
   )
 }

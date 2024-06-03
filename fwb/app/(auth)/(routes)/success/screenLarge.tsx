@@ -14,6 +14,7 @@ export const LargeScreen = () => {
   const [error, setError] = useState<any>(null)
 
   return (
+
     <div className="h-screen w-full flex flex-row overflow-hidden">
       <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[60px]">
         <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
@@ -48,8 +49,8 @@ export const LargeScreen = () => {
           Lets Get Started!
         </Link> */}
       </div>
-      <div className="flex flex-col h-auto w-[133px] mb-auto mr-auto">
-        <div className="w-[133px] mt-[-50px]">
+      <div className="mb-auto mr-auto flex h-auto w-[133px] flex-col">
+        <div className="mt-[-50px] w-[133px]">
           <svg
             width="100%"
             height="100%"

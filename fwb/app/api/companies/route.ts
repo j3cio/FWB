@@ -13,6 +13,20 @@ type CompanyAndDiscounts = {
   views: number
 }
 
+type Company = {
+  created_at: string
+  name: string
+  description: string
+  logo: string | null
+  url: string
+  views: number
+  discounts: string[]
+  id: string
+  view_count: number
+  greatest_discount: number
+  discounts_updated_at: string
+}
+
 /**
  * Retrieves companies based on the provided query parameters.
  *
@@ -26,18 +40,18 @@ export async function GET(request: NextRequest) {
   let category = request.nextUrl.searchParams.get('category')
   let page_num = request.nextUrl.searchParams.get('page')
 
-  let accending = true
+  let ascending = true
 
   // Interpret sort_by. Default to "view_count".
   if (sort_by === null) sort_by = 'view_count'
   if (sort_by === 'Most Popular') sort_by = 'view_count'
   if (sort_by === 'Highest to Lowest Discounts') {
     sort_by = 'greatest_discount'
-    accending = false
+    ascending = false
   }
   if (sort_by === 'Most Recent') {
     sort_by = 'discounts_updated_at'
-    accending = false
+    ascending = false
   }
   if (sort_by === 'Lowest to Highest Discounts') sort_by = 'greatest_discount'
 
@@ -84,7 +98,7 @@ export async function GET(request: NextRequest) {
       let { data: companies, error: companiesError } = await supabase
         .from('companies')
         .select('*')
-        .order(sort_by, { ascending: accending })
+        .order(sort_by, { ascending: ascending })
         .range(from, to)
 
       if (companiesError) {
@@ -115,6 +129,7 @@ export async function GET(request: NextRequest) {
           })
         }
       })
+
       return NextResponse.json({ result }, { status: 200 })
     }
 
@@ -122,18 +137,59 @@ export async function GET(request: NextRequest) {
     let { data: result, error: companiesError } = await supabase
       .from('companies')
       .select('*')
-      .order(sort_by, { ascending: accending })
+      .order(sort_by, { ascending: ascending })
       .range(from, to)
 
+    // Fetch categories
+    const { data: categories } = await supabase.from('categories').select('*')
+
+    // Not performant in the long run,we should do some joins etc
+    if (!result || !categories) {
+      return NextResponse.json(
+        { error: 'Failed to fetch companies or categories' },
+        { status: 404 }
+      )
+    }
+
+    const companiesWithCategories = result.map((company) => {
+      const matches = categories.filter((category) => {
+        return company.discounts.some((id: string) =>
+          category.discounts.includes(id)
+        )
+      })
+
+      return {
+        ...company,
+        categories: matches.map((category) => category.name),
+      }
+    })
+
     if (companiesError) {
-      console.log(companiesError)
+      console.error(companiesError)
       return NextResponse.json(
         { error: 'Failed to fetch public and private companies' },
         { status: 500 }
       )
     }
 
-    return NextResponse.json({ result }, { status: 200 })
+    // Query our private discounts. For now this won't work, but this is just a reference for our query in the future
+    let { data: privateDiscounts, error: discountsError } = await supabase
+      .from('discounts')
+      .select('id')
+      .neq('public', true)
+
+    if (discountsError) {
+      console.error(discountsError)
+      return NextResponse.json(
+        { error: 'Failed to fetch public and private discounts' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json(
+      { result: companiesWithCategories },
+      { status: 200 }
+    )
   }
 
   return NextResponse.json({ error: 'User not logged in' }, { status: 401 })

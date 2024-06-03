@@ -100,19 +100,21 @@ export const SmallScreen = () => {
   }
 
   return (
-    <div className="h-screen w-full flex flex-row">
-      <div className="inline-flex p-0 border-0 bg-none z-10 shadow-none mx-auto sm:mt-[160px] xs:mt-[80px] xxs:mt-[64px]">
+    <div className="flex h-screen w-full flex-row">
+      <div className="z-10 mx-auto inline-flex border-0 bg-none p-0 shadow-none sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
         <div className="signInContent">
-          <div className="name small:mb-[40px] xxs:text-[24px]">Sign In</div>
+          <div className="name xxs-max:text-[24px] small-max:mb-[40px]">
+            Sign In
+          </div>
           <div className="buttons">
             <button
-              className="googleButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px]"
+              className="googleButton xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
               onClick={signInWithGoogle}
             >
               <Image src={GooglePic} alt="Google Icon" />
             </button>
             <button
-              className="discordButton xxs:w-[30px] xxs:h-[30px] xxs:p-[5px] xs:p-[7px] sm:p-[7px]"
+              className="discordButton sm-max:p-[7px] xs-max:p-[7px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
               onClick={signInWithDiscord}
             >
               <svg
@@ -135,7 +137,7 @@ export const SmallScreen = () => {
             <div>
               {/* <label htmlFor="email">Email</label> */}
               <input
-                className="input sm:w-[387px] xs:w-[341px] xxs:w-[272px]"
+                className="input sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
                 placeholder="Email@address.com"
                 onChange={(e) => setEmailAddress(e.target.value)}
                 id="email"
@@ -172,7 +174,7 @@ export const SmallScreen = () => {
             <div>
               {/* <label htmlFor="password">Password</label> */}
               <input
-                className="input sm:w-[387px] xs:w-[341px] xxs:w-[272px] xxs:mb-[4px]"
+                className="input sm-max:w-[387px] xs-max:w-[341px] xxs-max:mb-[4px] xxs-max:w-[272px]"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 id="password"
@@ -206,30 +208,33 @@ export const SmallScreen = () => {
                   </div>
                 ))}
 
-            <div className="password sm:mb-[64px] xs:mb-[80px] xxs:mb-[48px]">
+            <div className="password sm-max:mb-[64px] xs-max:mb-[80px] xxs-max:mb-[48px]">
               <Link href="/forgotpassword" className="forgetPassword">
                 Forgot Password?
               </Link>
             </div>
 
             <button
-              className="submit sm:w-[387px] xs:w-[341px] xxs:w-[272px] xxs:text-[16px] xxs:h-[36px]"
+              className="submit sm-max:w-[387px] xs-max:w-[341px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
               type="submit"
             >
               Submit
             </button>
             <div className="signup">
-              <div className="detail xxs:text-[12px]">
+              <div className="detail xxs-max:text-[12px]">
                 Don&apos;t have an account?{' '}
               </div>
-              <Link href="/sign-up" className="signupButton xxs:text-[12px]">
+              <Link
+                href="/sign-up"
+                className="signupButton xxs-max:text-[12px]"
+              >
                 Create Account
               </Link>
             </div>
           </form>
         </div>
       </div>
-      <div className=" absolute top-[30%] left-0 w-full z-0 xxs:hidden">
+      <div className=" absolute left-0 top-[30%] z-0 w-full xxs-max:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
