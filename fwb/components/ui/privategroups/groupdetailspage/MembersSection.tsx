@@ -66,7 +66,9 @@ const Member = ({ user }: { user: User }) => {
   return (
     <div className="my-4 flex flex-row justify-between bg-[#1a1a23] text-white">
       <div className="flex items-center justify-center">
+        <div onClick={() => {router.push(`/profile/${user.user_id}`)}}>
         <AvatarIcon />
+        </div>
         <div className="ml-2 flex flex-col">
           <div className="font-bold">{user.username}</div>
           {user.company && (

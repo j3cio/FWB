@@ -19,8 +19,7 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
   const [userDetails, setUserDetails] = useState<User>()
   const [muteMessages, setMuteMessages] = useState(false) // Temporarily just modifies state for now. In future there should be some kind of async action here. Maybe on getstream itself once we're done doing UI.
 
-  const { channel } = useChatContext()
-
+  const { channel, client } = useChatContext()
   const currentUserId = user.user_id
   const recipients = channel?.state.members
   const membersArray = recipients && Object.values(recipients)
@@ -60,6 +59,25 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
       subscribe = false
     }
   }, [recipient])
+
+  
+  // client.userID - ID of user logged in
+  // userDetails.user_id - ID of chat that was clicked on
+
+  // const blockUser = async () => {
+  //   await client.blockUser() 
+  //   console.log('Blocked user')
+  // }
+
+  // const unblockUser = async () => {
+  //   await client.unBlockUser(userDetails?.user_id);
+  //   console.log('Unblocked user')
+  // }
+
+  const deleteUserChat = () => {
+    const destroy = channel?.delete()
+    console.log(`Chat with ${userDetails?.username}`, destroy)
+  }
 
   return (
     <section
@@ -110,21 +128,21 @@ const ChannelDetails = ({ user }: ChannelDetailsProps) => {
               </div>
 
               <div className="flex-col gap-1 self-start pb-11">
-                <CustomOption
+                {/* <CustomOption
                   icon={<BlockIcon />}
-                  handleClick={() => console.log('blocking')}
+                  handleClick={blockUser}
                 >
                   Block
                 </CustomOption>
                 <CustomOption
                   icon={<ReportRedIcon />}
-                  handleClick={() => console.log('Reporting')}
+                  handleClick={unblockUser}
                 >
-                  Report
-                </CustomOption>
+                  Unblock
+                </CustomOption> */}
                 <CustomOption
                   icon={<DeleteRedIcon />}
-                  handleClick={() => console.log('Delete')}
+                  handleClick={deleteUserChat}
                 >
                   Delete Messages
                 </CustomOption>

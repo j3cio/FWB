@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import '../../../../(auth)/(routes)/success/page.css'
 import { useSignUp, useUser } from '@clerk/nextjs'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
 

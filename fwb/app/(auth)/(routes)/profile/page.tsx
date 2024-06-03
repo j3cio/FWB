@@ -73,7 +73,7 @@ const page = async () => {
 
   return (
     <div>
-      <Profile userData={userData} discountData={discountData} />
+      <Profile userData={userData} discountData={discountData} isPublic={false} />
     </div>
   )
 }
