@@ -2,7 +2,6 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useSignIn } from '@clerk/nextjs'
 import type { NextPage } from 'next'
-import './page.css'
 import Link from 'next/link'
 
 export const LargeScreen = () => {
@@ -15,14 +14,15 @@ export const LargeScreen = () => {
   const [error, setError] = useState<any>(null)
 
   return (
-    <div className="flex h-screen w-full flex-row overflow-hidden">
-      <div className="ml-auto mt-auto flex h-auto w-auto translate-y-[60px] flex-col">
-        <div className="h-[133px] w-[133px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="h-[400px] w-[134px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="circle6 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
+
+    <div className="h-screen w-full flex flex-row overflow-hidden">
+      <div className="flex w-auto h-auto flex-col mt-auto ml-auto translate-y-[60px]">
+        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleHi.svg')] w-[133px] h-[133px]"></div>
+        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleGirl.svg')] w-[134px] h-[400px]"></div>
+        <div className="inline-flex flex-col justify-center items-center shrink-0 rounded-xl relative lg:!w-[133px] lg:!h-[133px]"></div>
       </div>
-      <div className="signin mx-0 my-auto flex h-[728px] w-2/3 max-w-[556px] p-0">
-        <div className="check mx-auto">
+      <div className="inline-flex flex-col justify-center items-center shrink-0 rounded-xl relative p-0 max-w-[556px] h-[728px] mx-0 my-auto w-2/3">
+        <div className="flex w-[60px] h-[60px] rounded-[75px] border-[2.25px] border-white mx-auto">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="60"
@@ -36,11 +36,16 @@ export const LargeScreen = () => {
             />
           </svg>
         </div>
-        <div className="successWord">Success!!</div>
-        <div className="verifiedAccount">
+        <div className="text-white text-center font-urbanist text-[120px] self-stretch font-normal leading-tight tracking-tight">
+          Success!!
+        </div>
+        <div className="self-stretch text-white text-center mb-[72px] font-urbanist text-[18px] font-normal leading-[22.5px]">
           You have successfully verified your account
         </div>
-        {/* <Link href="/fre1" className="startButton">
+        {/* <Link
+          href="/fre1"
+          className="w-[380px] h-[48px] pt-[10px] justify-center items-center gap-2 rounded-3xl border bg-[#f6ff82] text-center text-[#8e94e9] font-urbanist text-[20px] font-medium leading-tight mx-auto tracking-wide"
+        >
           Lets Get Started!
         </Link> */}
       </div>
@@ -74,9 +79,9 @@ export const LargeScreen = () => {
             </g>
           </svg>
         </div>
-        <div className="h-[133px] w-[260px] translate-x-[-50%] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="h-[420px] w-[133px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="circle1 lg-max:!ml-0 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
+        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleFriend.svg')] w-[260px] h-[133px] translate-x-[-50%]"></div>
+        <div className="bg-no-repeat bg-center bg-contain bg-[url('/fre0/BubbleBoy.svg')] w-[133px] h-[420px]"></div>
+        <div className="lg:!w-[133px] lg:!h-[133px] lg:!ml-0 w-[150px] h-[150px] shrink-0 rounded-[156.25px] border-t-[5px] ml-[150px]"></div>
       </div>
     </div>
   )

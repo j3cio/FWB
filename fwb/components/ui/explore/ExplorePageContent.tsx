@@ -34,7 +34,7 @@ const ExplorePageContent = () => {
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
   const [searchedCompany, setSearchedCompany] = useState(null)
   const [activeOptions, setActiveOptions] = useState<FilterOptions>({
-    sort: '',
+    sort: 'Most Recent',
     privateGroups: [],
     categories: [],
   })

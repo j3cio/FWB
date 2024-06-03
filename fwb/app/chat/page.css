@@ -121,3 +121,7 @@
 /* Chat Message input*/
 .str-chat__message-input {
 }
+
+button[data-testid='search-bar-button'] {
+  display: none;
+}
