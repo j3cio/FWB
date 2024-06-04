@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useMemo } from 'react'
 
 import MobileCustomModal from '@/components/ui/modals/MobileCustomModal'
 import MobileSearchBar from '../MobileSearchBar'
@@ -33,21 +33,35 @@ const SearchModal = ({
     setShowSearchModal(true)
   }
 
+  const initialHeight = useMemo(() => {
+    return {
+      maxHeight: searchHistory.length ? '' : '100%',
+      y: '-10%',
+    }
+  }, [searchHistory.length])
+
+  const animateHeight = useMemo(() => {
+    return {
+      maxHeight: isCollapsed
+        ? searchHistory.length
+          ? '33vh'
+          : '100%'
+        : '60vh',
+      y: '0%',
+    }
+  }, [isCollapsed, searchHistory.length])
+
+  const exitY = useMemo(() => {
+    return {
+      y: '-100%',
+    }
+  }, [])
+
   return (
     <MobileCustomModal
-      initial={{
-        maxHeight: searchHistory.length ? '' : '100%',
-        y: '-10%',
-      }}
-      animate={{
-        maxHeight: isCollapsed
-          ? searchHistory.length
-            ? '33vh'
-            : '100%'
-          : '60vh',
-        y: '0%',
-      }}
-      exit={{ y: '-100%' }}
+      initial={initialHeight}
+      animate={animateHeight}
+      exit={exitY}
       showModal={showSearchModal}
       setShowModal={setShowSearchModal}
     >
