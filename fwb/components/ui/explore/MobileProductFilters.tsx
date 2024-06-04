@@ -1,6 +1,12 @@
 'use client'
 
-import React, { Dispatch, useEffect, useState } from 'react'
+import React, {
+  Dispatch,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 
 import MobileFilterButton from './MobileFilterButton'
 
@@ -21,35 +27,45 @@ const MobileProductFilters = ({
 }: FilterState) => {
   const [open, setOpen] = useState(false)
 
-  const openFilterModal = () => {
+  const openFilterModal = useCallback(() => {
     setOpen(true)
-  }
+  }, [])
 
-  const activateOption = (
-    type: 'sort' | 'privateGroups' | 'categories',
-    option: string
-  ) => {
-    const updatedOptions: FilterOptions = { ...activeOptions }
+  const activateOption = useCallback(
+    (type: 'sort' | 'privateGroups' | 'categories', option: string) => {
+      const updatedOptions: FilterOptions = { ...activeOptions }
 
-    if (type === 'sort') {
-      if (updatedOptions.sort === option) {
-        updatedOptions.sort = ''
+      if (type === 'sort') {
+        if (updatedOptions.sort === option) {
+          updatedOptions.sort = ''
+        } else {
+          updatedOptions.sort = option
+        }
       } else {
-        updatedOptions.sort = option
+        const index = updatedOptions[type].indexOf(option)
+        if (index !== -1) {
+          // Remove the option if it already exists
+          updatedOptions[type].splice(index, 1)
+        } else {
+          // Add the option if it doesn't exist
+          updatedOptions[type] = [...updatedOptions[type], option]
+        }
       }
-    } else {
-      const index = updatedOptions[type].indexOf(option)
-      if (index !== -1) {
-        // Remove the option if it already exists
-        updatedOptions[type].splice(index, 1)
-      } else {
-        // Add the option if it doesn't exist
-        updatedOptions[type] = [...updatedOptions[type], option]
-      }
-    }
 
-    setActiveOptions(updatedOptions)
-  }
+      setActiveOptions(updatedOptions)
+    },
+    []
+  )
+
+  const initial = useMemo(() => {
+    return { y: '10%' }
+  }, [])
+  const animate = useMemo(() => {
+    return { y: '0%' }
+  }, [])
+  const exit = useMemo(() => {
+    return { y: '100%' }
+  }, [])
 
   return (
     <div
@@ -69,9 +85,9 @@ const MobileProductFilters = ({
       ))}
 
       <MobileCustomModal
-        initial={{ y: '10%' }}
-        animate={{ y: '0%' }}
-        exit={{ y: '100%' }}
+        initial={initial}
+        animate={animate}
+        exit={exit}
         showModal={open}
         setShowModal={setOpen}
       >

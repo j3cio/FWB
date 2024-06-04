@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import ChevronDownwardsIcon from './icons/ChevronDownwardsIcon'
 import ShareIcon from './icons/ShareIcon'
 
@@ -128,6 +128,36 @@ export default function ProductCard({ data }: ProductCardProps) {
     }, 2000)
   }
 
+  const initialProductCardHeight = useMemo(() => {
+    return { height: 'auto' }
+  }, [])
+
+  const animateProductCardHeight = useMemo(() => {
+    return { height: showDetails ? 'auto' : '248px' }
+  }, [])
+
+  const exitProductCardHeight = useMemo(() => {
+    return { height: '248px' }
+  }, [])
+
+  const animateOpacity0 = useMemo(() => {
+    return {
+      opacity: 0,
+    }
+  }, [])
+
+  const animateOpacity1 = useMemo(() => {
+    return {
+      opacity: 0,
+    }
+  }, [])
+
+  const transitionDuration = useMemo(() => {
+    return {
+      duration: 0.15,
+    }
+  }, [])
+
   if (!chatClient || !user) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -139,9 +169,9 @@ export default function ProductCard({ data }: ProductCardProps) {
   return (
     <motion.div
       className="relative mb-[32px] mr-[120px] flex w-full flex-row xs-max:mb-0 xs-max:flex-col xxs-max:mb-0 xxs-max:flex-col"
-      initial={{ height: 'auto' }}
-      animate={{ height: showDetails ? 'auto' : '248px' }}
-      exit={{ height: '248px' }}
+      initial={initialProductCardHeight}
+      animate={animateProductCardHeight}
+      exit={exitProductCardHeight}
       onAnimationStart={() => setIsAnimating(true)}
       onAnimationComplete={() => setIsAnimating(false)}
     >
@@ -216,10 +246,10 @@ export default function ProductCard({ data }: ProductCardProps) {
         <AnimatePresence>
           {showDetails && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              initial={animateOpacity0}
+              animate={animateOpacity1}
+              exit={animateOpacity0}
+              transition={transitionDuration}
             >
               {isAnimating ? null : <DiscountTermsAndConditions data={data} />}
             </motion.div>
