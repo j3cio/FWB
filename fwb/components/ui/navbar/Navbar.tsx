@@ -31,7 +31,6 @@ const Navbar = ({
   customHandleSearch,
   customFetchSearchIndex,
 }: NavbarProps) => {
-  const router = useRouter()
   const setSearchIndex = useContextSelector(
     SearchContext,
     (context) => context.setSearchIndex

@@ -18,6 +18,7 @@ import MobileProductFilters from './MobileProductFilters'
 import { FilterOptions } from './constants'
 import useFilteredCompanies from '@/components/hooks/useFilteredCompanies'
 import { CompanyAndDiscounts } from '@/app/types/types'
+import { useContextSelector } from 'use-context-selector'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -38,15 +39,27 @@ const ExplorePageContent = () => {
     privateGroups: [],
     categories: [],
   })
+  const searchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.searchQuery
+  )
+  const searchResults = useContextSelector(
+    SearchContext,
+    (context) => context.searchResults
+  )
+  const setSearchResults = useContextSelector(
+    SearchContext,
+    (context) => context.setSearchResults
+  )
+  const searchIndex = useContextSelector(
+    SearchContext,
+    (context) => context.searchIndex
+  )
+  const setSearchIndex = useContextSelector(
+    SearchContext,
+    (context) => context.setSearchIndex
+  )
 
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchIndex,
-    setSearchIndex,
-    searchResults,
-    setSearchResults,
-  } = useContext(SearchContext)
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 

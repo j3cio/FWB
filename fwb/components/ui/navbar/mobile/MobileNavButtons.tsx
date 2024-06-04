@@ -7,13 +7,21 @@ import SearchModal from './modals/SearchModal'
 import SideBarModal from './modals/SideBarModal'
 
 import { SearchContext } from '@/contexts/SearchContext'
+import { useContextSelector } from 'use-context-selector'
 
 const MobileNavButtons = () => {
   const [showSearchModal, setShowSearchModal] = useState(false)
   const [showSideBar, setShowSideBar] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true)
 
-  const { handleSearch, searchQuery } = useContext(SearchContext)
+  const handleSearch = useContextSelector(
+    SearchContext,
+    (context) => context.handleSearch
+  )
+  const searchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.searchQuery
+  )
 
   const openSideBar = () => setShowSideBar(true)
   const openSearchModal = () => setShowSearchModal(true)
