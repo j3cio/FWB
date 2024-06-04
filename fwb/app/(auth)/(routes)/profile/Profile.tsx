@@ -13,8 +13,6 @@ import Image from 'next/image'
 import { useState } from 'react'
 import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 import EditProfileModal from './EditProfileModal'
-//import AvatarIcon from "@mui/material/Avatar";
-//import LinkedInIcon from "../../components/ui/profile/icons/linkedin.svg";
 
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 
