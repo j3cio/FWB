@@ -1,5 +1,4 @@
 'use client'
-import { FWBChatContext } from '@/contexts/ChatContext'
 import { CardActionArea } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -8,8 +7,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
 import * as React from 'react'
-import { useContext, useState } from 'react'
-import { useChatContext } from 'stream-chat-react'
+import { useState } from 'react'
 
 /**
  * Renders a discount component.
@@ -89,8 +87,6 @@ const Discount = ({
  */
 export default function DiscountCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = useState(false) // Indicates whether the card is being hovered
-  const { client, channel, setActiveChannel } = useChatContext()
-  const { customActiveChannel } = useContext(FWBChatContext)
   return (
     <motion.div
       onHoverStart={() => setIsHovered(true)}

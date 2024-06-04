@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar'
 import { CardActionArea } from '@mui/material'
 
 import { SearchContext } from '@/contexts/SearchContext'
+import { useContextSelector } from 'use-context-selector'
 
 /**
  * Renders a discount component.
@@ -62,7 +63,14 @@ const Discount = ({
 export default function ProductCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = useState(false) // Indicates whether the card is being hovered
 
-  const { setSearchQuery, setSearchResults } = useContext(SearchContext)
+  const setSearchResults = useContextSelector(
+    SearchContext,
+    (context) => context.setSearchResults
+  )
+  const setSearchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.setSearchQuery
+  )
 
   const router = useRouter()
   const clearSearch = () => {

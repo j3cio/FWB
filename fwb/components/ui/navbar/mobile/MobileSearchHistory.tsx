@@ -8,6 +8,7 @@ import {
 } from 'react'
 import { MobileSearchProps } from '../types'
 import { SearchContext } from '@/contexts/SearchContext'
+import { useContextSelector } from 'use-context-selector'
 
 interface MobileSearchHistoryProps {
   handleSearch: () => void
@@ -22,8 +23,18 @@ const MobileSearchHistory = ({
   setIsCollapsed,
 }: MobileSearchHistoryProps) => {
   const [beginSearch, setBeginSearch] = useState(false)
-  const { searchHistory, setSearchQuery, searchQuery } =
-    useContext(SearchContext)
+  const setSearchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.setSearchQuery
+  )
+  const searchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.searchQuery
+  )
+  const searchHistory = useContextSelector(
+    SearchContext,
+    (context) => context.searchHistory
+  )
 
   const handleQuery = async (query: string) => {
     setSearchQuery(query)

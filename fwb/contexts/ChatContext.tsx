@@ -1,12 +1,7 @@
 'use client'
 
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState,
-} from 'react'
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+import { createContext } from 'use-context-selector'
 
 interface ChatContextInterface {
   showChatDetails: boolean

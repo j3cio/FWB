@@ -1,10 +1,11 @@
-import React, { Dispatch, SetStateAction, useContext } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 import MobileCustomModal from '@/components/ui/modals/MobileCustomModal'
 import MobileSearchBar from '../MobileSearchBar'
 import MobileSearchHistory from '../MobileSearchHistory'
 
 import { SearchContext } from '@/contexts/SearchContext'
+import { useContextSelector } from 'use-context-selector'
 
 interface SideBarModalProps {
   showSearchModal: boolean
@@ -20,7 +21,10 @@ const SearchModal = ({
   setIsCollapsed,
   handleSearch,
 }: SideBarModalProps) => {
-  const { searchHistory } = useContext(SearchContext)
+  const searchHistory = useContextSelector(
+    SearchContext,
+    (context) => context.searchHistory
+  )
 
   const handleClose = () => {
     setShowSearchModal(false)
