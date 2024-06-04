@@ -31,6 +31,7 @@ const GroupDetailsSection = ({
   const router = useRouter()
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+  const [groupImageURL, setGroupImageURL] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -136,7 +137,7 @@ const GroupDetailsSection = ({
       // Convert the Blob to a URL for display
       if (fileData) {
         const url = URL.createObjectURL(fileData)
-        setFilePath(url)
+        setGroupImageURL(url)
       }
     }
   }
@@ -162,13 +163,14 @@ const GroupDetailsSection = ({
       </Box>
       <div className="relative flex items-center justify-between bg-[#1a1a23] px-4">
         <div className="absolute -top-16 left-36 -translate-x-1/2 transform rounded-full">
-          {filePath ? (
+          {groupImageURL ? (
             <div className="h-32 w-32 overflow-hidden rounded-full">
               <Image
-                src={filePath || ''}
+                src={filePath ? groupImageURL : '/groups/gp-avatars.svg'}
                 alt="Avatar"
-                className="h-full w-full cursor-pointer"
+                className="h-full w-full cursor-pointer rounded-full"
                 onClick={handleImageClick}
+                fill
               />
               <input
                 type="file"
