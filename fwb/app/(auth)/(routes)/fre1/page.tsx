@@ -35,7 +35,6 @@ const page = async () => {
 
   const userData: any = await getUser(userId, supabase_jwt, bearer_token)
 
-  console.log('asidfasodinfaoi' + userData)
   //Error handling for if user tries to access page not signed in or Clerk isn't ready
   if (userData.users[0]) {
     if (
