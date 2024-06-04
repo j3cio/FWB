@@ -16,6 +16,7 @@ import MobileChatList from '@/components/ui/chat/mobile/MobileChatList'
 import useIntitialChatClient from './useIntializeChatClient'
 import { UserData, Group } from '@/app/types/types'
 import { FWBChatContext } from '@/contexts/ChatContext'
+import { useContextSelector } from 'use-context-selector'
 
 interface ChatPageProps {
   userData: UserData
@@ -24,8 +25,14 @@ interface ChatPageProps {
 
 const ChatPage = ({ userData, groupData }: ChatPageProps) => {
   const chatClient = useIntitialChatClient()
-  const { showChatDetails, activeTab } = useContext(FWBChatContext)
-
+  const showChatDetails = useContextSelector(
+    FWBChatContext,
+    (context) => context.showChatDetails
+  )
+  const activeTab = useContextSelector(
+    FWBChatContext,
+    (context) => context.activeTab
+  )
   const user = userData.users[0]
 
   const isDesktop = useMediaQuery({

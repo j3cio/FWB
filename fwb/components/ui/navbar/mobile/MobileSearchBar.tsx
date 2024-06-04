@@ -1,11 +1,18 @@
 import { SearchContext } from '@/contexts/SearchContext'
-import { SyntheticEvent, useContext } from 'react'
+import { SyntheticEvent } from 'react'
 import MobileSmallSearchIcon from '../icons/MobileSmallSearchIcon'
 import { MobileSearchProps } from '../types'
+import { useContextSelector } from 'use-context-selector'
 
 const MobileSearchBar = ({ handleSearch, handleClose }: MobileSearchProps) => {
-  const { searchQuery, setSearchQuery } = useContext(SearchContext)
-
+  const setSearchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.setSearchQuery
+  )
+  const searchQuery = useContextSelector(
+    SearchContext,
+    (context) => context.searchQuery
+  )
   const handleQuery = (
     event: SyntheticEvent<HTMLInputElement | MouseEvent | HTMLDivElement>
   ) => {
