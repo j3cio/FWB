@@ -1,10 +1,17 @@
 'use client'
 
 import { FWBChatContext } from '@/contexts/ChatContext'
-import { useContext } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 const DesktopTabsSelector = () => {
-  const { activeTab, setActiveTab } = useContext(FWBChatContext)
+  const activeTab = useContextSelector(
+    FWBChatContext,
+    (context) => context.activeTab
+  )
+  const setActiveTab = useContextSelector(
+    FWBChatContext,
+    (context) => context.setActiveTab
+  )
 
   return (
     <section className="flex font-semibold">
