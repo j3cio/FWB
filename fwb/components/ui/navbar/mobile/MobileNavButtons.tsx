@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 
 import MobileSearchIcon from '../icons/MobileSearchIcon'
 import MobileHamburgerIcon from '../icons/MobileHamburgerIcon'
@@ -7,7 +8,6 @@ import SearchModal from './modals/SearchModal'
 import SideBarModal from './modals/SideBarModal'
 
 import { SearchContext } from '@/contexts/SearchContext'
-import { useContextSelector } from 'use-context-selector'
 
 const MobileNavButtons = () => {
   const [showSearchModal, setShowSearchModal] = useState(false)
@@ -29,15 +29,14 @@ const MobileNavButtons = () => {
   return (
     <>
       <article className="flex items-center gap-4 justify-self-end">
-        <div onClick={() => openSearchModal()}>
+        <div onClick={openSearchModal}>
           <MobileSearchIcon />
         </div>
-        <div onClick={() => openSideBar()}>
+        <div onClick={openSideBar}>
           <MobileHamburgerIcon />
         </div>
       </article>
 
-      {/* Adding some minor prop drilling with our handleSearch */}
       <SearchModal
         showSearchModal={showSearchModal}
         setShowSearchModal={setShowSearchModal}
