@@ -31,7 +31,7 @@ export const filterCategories = [
 
 export interface FilterOptions {
   sort: string
-  privateGroups?: string[]
+  privateGroups: string[]
   categories: string[]
 }
 

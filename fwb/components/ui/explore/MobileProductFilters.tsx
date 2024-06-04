@@ -42,7 +42,9 @@ const MobileProductFilters = ({
           updatedOptions.sort = option
         }
       } else {
-        const index = updatedOptions[type].indexOf(option)
+        const index = updatedOptions[type]
+          ? updatedOptions[type].indexOf(option)
+          : -1
         if (index !== -1) {
           // Remove the option if it already exists
           updatedOptions[type].splice(index, 1)
