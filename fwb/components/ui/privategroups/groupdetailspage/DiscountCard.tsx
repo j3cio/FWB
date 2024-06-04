@@ -1,5 +1,4 @@
 'use client'
-import { FWBChatContext } from '@/contexts/ChatContext'
 import { CardActionArea } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
@@ -8,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
 import * as React from 'react'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 /**
  * Renders a discount component.
