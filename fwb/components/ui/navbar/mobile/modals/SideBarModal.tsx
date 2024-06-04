@@ -1,7 +1,7 @@
 import MobileCustomModal from '@/components/ui/modals/MobileCustomModal'
 import Link from 'next/link'
 import Image from 'next/image'
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction, useMemo } from 'react'
 import MobileExploreIcon from '../../icons/MobileExploreIcon'
 import MobileGroupIcon from '../../icons/MobileGroupIcon'
 import MobileHamburgerIcon from '../../icons/MobileHamburgerIcon'
@@ -18,11 +18,28 @@ const SideBarModal = ({ showSideBar, setShowSideBar }: SideBarModalProps) => {
     setShowSideBar(false)
   }
 
+  const initialX = useMemo(() => {
+    return {
+      x: '-30%',
+    }
+  }, [])
+
+  const animateX = useMemo(() => {
+    return {
+      x: 0,
+    }
+  }, [])
+  const exitX = useMemo(() => {
+    return {
+      x: '-100%',
+    }
+  }, [])
+
   return (
     <MobileCustomModal
-      initial={{ x: '-30%' }}
-      animate={{ x: 0 }}
-      exit={{ x: '-100%' }}
+      initial={initialX}
+      animate={animateX}
+      exit={exitX}
       showModal={showSideBar}
       setShowModal={setShowSideBar}
     >
