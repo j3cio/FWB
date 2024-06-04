@@ -10,7 +10,7 @@ import { Box, Button, Container, Grid } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import { useTheme } from '@mui/material/styles'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 import EditProfileModal from './EditProfileModal'
 
@@ -35,13 +35,12 @@ function Profile({ userData, discountData, isPublic }: ProfileProps) {
 
   const { user } = useUser()
 
-  const openEditProfileModal = () => {
+  const openEditProfileModal = useCallback(() => {
     setIsEditProfileModalOpen(true)
-  }
-
-  const closeEditProfileModal = () => {
+  }, [])
+  const closeEditProfileModal = useCallback(() => {
     setIsEditProfileModalOpen(false)
-  }
+  }, [])
 
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
