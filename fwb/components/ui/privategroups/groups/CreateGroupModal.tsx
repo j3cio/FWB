@@ -5,7 +5,6 @@ const CreateGroupModal = () => {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
         <Box
           sx={{
             borderRadius: 28,

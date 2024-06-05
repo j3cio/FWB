@@ -20,10 +20,7 @@ const GroupContent = ({
   discountData,
 }: GroupContentProps) => {
   return (
-    <Container disableGutters maxWidth="lg">
-      <div className="bg-[#1A1A23' min-h-[112px]">
-        <Navbar />
-      </div>
+    <Container disableGutters maxWidth="lg" sx={{ paddingTop: 1 }}>
       <Box
         sx={{
           paddingX: '18px',
