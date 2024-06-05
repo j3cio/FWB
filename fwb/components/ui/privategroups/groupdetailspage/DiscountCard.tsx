@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { motion } from 'framer-motion'
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, memo } from 'react'
 
 /**
  * Renders a discount component.
@@ -85,7 +85,7 @@ const Discount = ({
  * Renders a product card component.
  * @returns JSX.Element
  */
-export default function DiscountCard({ company }: { company: any }) {
+export default memo(function DiscountCard({ company }: { company: any }) {
   const [isHovered, setIsHovered] = useState(false) // Indicates whether the card is being hovered
   return (
     <motion.div
@@ -215,4 +215,4 @@ export default function DiscountCard({ company }: { company: any }) {
       </Box>
     </motion.div>
   )
-}
+})
