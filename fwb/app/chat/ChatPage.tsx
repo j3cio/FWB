@@ -41,7 +41,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
 
   if (!chatClient || !user) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center bg-[#1A1A23]">
         <LoadingIndicator size={40} />
       </div>
     )

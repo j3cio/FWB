@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { useAuth } from '@clerk/nextjs'
 
