@@ -20,7 +20,7 @@ const GroupContent = ({
   discountData,
 }: GroupContentProps) => {
   return (
-    <Container disableGutters maxWidth="lg">
+    <Container disableGutters maxWidth="lg" sx={{ paddingTop: 1 }}>
       <Box
         sx={{
           paddingX: '18px',

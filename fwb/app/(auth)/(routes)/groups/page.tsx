@@ -99,11 +99,7 @@ const page = async () => {
     })
   )
 
-  return (
-    <div>
-      <GroupsHomePage userData={userData} groupData={groupData} />
-    </div>
-  )
+  return <GroupsHomePage userData={userData} groupData={groupData} />
 }
 
 export default page
