@@ -4,9 +4,9 @@ import Image from 'next/image'
 
 import { useChatContext } from 'stream-chat-react'
 import InfoIcon from '../icons/InfoIcon'
-import { useContext } from 'react'
 import { FWBChatContext } from '@/contexts/ChatContext'
 import CloseIcon from '../icons/CloseIcon'
+import { useContextSelector } from 'use-context-selector'
 
 interface DesktopMessageListTopBarProps {
   isDetails?: boolean
@@ -15,8 +15,15 @@ const DesktopMessageListTopBar = ({
   isDetails,
 }: DesktopMessageListTopBarProps) => {
   const { channel, client } = useChatContext()
-  const { showChatDetails, setShowChatDetails } = useContext(FWBChatContext)
 
+  const showChatDetails = useContextSelector(
+    FWBChatContext,
+    (context) => context.showChatDetails
+  )
+  const setShowChatDetails = useContextSelector(
+    FWBChatContext,
+    (context) => context.setShowChatDetails
+  )
   const currentChatUser = client._user?.id
   const recipient = channel?.state.members
   const membersArray = recipient && Object.values(recipient)
@@ -51,13 +58,19 @@ const DesktopMessageListTopBar = ({
                 alt={`User ${recipientName} Profile Picture`}
               />
             ) : null}
-            {memberWithRoleMember? <span className="font-semibold">{memberWithRoleMember.user?.name}</span> : <span></span>}
+            {memberWithRoleMember ? (
+              <span className="font-semibold">
+                {memberWithRoleMember.user?.name}
+              </span>
+            ) : (
+              <span></span>
+            )}
           </div>
           <div
             className="flex cursor-pointer flex-row items-center gap-3"
             onClick={() => setShowChatDetails(!showChatDetails)}
           >
-            {memberWithRoleMember? <InfoIcon /> : ''}
+            {memberWithRoleMember ? <InfoIcon /> : ''}
           </div>
         </>
       )}

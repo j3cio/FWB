@@ -4,10 +4,6 @@ import { Skeleton } from '@mui/material'
 import { useMediaQuery } from 'react-responsive'
 
 const ProductCardSkeleton = () => {
-  const isDesktop = useMediaQuery({
-    query: '(min-width: 640px)',
-  })
-
   return (
     <div
       style={{
@@ -35,8 +31,8 @@ const ProductCardSkeleton = () => {
       <div className="mt-2 flex flex-col items-start pl-4 sm:items-center sm:pl-0">
         <Skeleton
           variant="rectangular"
-          width={isDesktop ? '83%' : '60%'}
-          height={isDesktop ? 26 : 20}
+          width={'83%'}
+          height={26}
           sx={{
             bgcolor: '#CED2E4',
             borderRadius: '5px',
@@ -71,12 +67,12 @@ const ProductCardSkeleton = () => {
 
           <Skeleton
             variant="rectangular"
-            width={isDesktop ? 160 : 140}
-            height={isDesktop ? 18 : 16}
+            width={160}
+            height={18}
             sx={{
               bgcolor: '#CED2E4',
               borderRadius: '5px',
-              marginBottom: isDesktop ? 0 : 10,
+              marginBottom: 0,
             }}
           />
         </div>

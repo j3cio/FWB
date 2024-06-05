@@ -175,9 +175,6 @@ export default function Intakeform() {
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
-          <div>
-            <Navbar />
-          </div>
           <form
             id="discountForm"
             onSubmit={handleSubmit}

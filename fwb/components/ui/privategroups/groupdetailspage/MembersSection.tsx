@@ -1,7 +1,5 @@
 'use client'
 
-import { useContext } from 'react'
-
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -22,6 +20,7 @@ import MembersIcon from '../icons/membersicon.svg'
 import Pencil from '../icons/pencil.svg'
 import Settings from '../icons/settings.svg'
 import SearchBar from './SearchBar'
+import { useContextSelector } from 'use-context-selector'
 
 const Member = ({ user }: { user: User }) => {
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
@@ -29,7 +28,10 @@ const Member = ({ user }: { user: User }) => {
   const { userId } = useAuth()
   const router = useRouter()
 
-  const { setCustomActiveChannel } = useContext(FWBChatContext)
+  const setCustomActiveChannel = useContextSelector(
+    FWBChatContext,
+    (context) => context.setCustomActiveChannel
+  )
 
   async function handleActiveChannel(channelId: string) {
     let subscription: { unsubscribe: () => void } | undefined
@@ -66,8 +68,12 @@ const Member = ({ user }: { user: User }) => {
   return (
     <div className="my-4 flex flex-row justify-between bg-[#1a1a23] text-white">
       <div className="flex items-center justify-center">
-        <div onClick={() => {router.push(`/profile/${user.user_id}`)}}>
-        <AvatarIcon />
+        <div
+          onClick={() => {
+            router.push(`/profile/${user.user_id}`)
+          }}
+        >
+          <AvatarIcon />
         </div>
         <div className="ml-2 flex flex-col">
           <div className="font-bold">{user.username}</div>
