@@ -21,9 +21,6 @@ const GroupContent = ({
 }: GroupContentProps) => {
   return (
     <Container disableGutters maxWidth="lg">
-      <div className="bg-[#1A1A23' min-h-[112px]">
-        <Navbar />
-      </div>
       <Box
         sx={{
           paddingX: '18px',

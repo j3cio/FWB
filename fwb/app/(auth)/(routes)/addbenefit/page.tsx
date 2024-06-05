@@ -161,9 +161,6 @@ export default function Intakeform() {
     <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
-          <div>
-            <Navbar />
-          </div>
           <form
             id="discountForm"
             onSubmit={handleSubmit}
@@ -419,7 +416,12 @@ export default function Intakeform() {
                 />
               </span>
               <span className="termAgree">I agree to the</span>{' '}
-              <a className="terms" href='https://www.makefwb.com/terms-of-service'>Terms & Privacy Policy</a>
+              <a
+                className="terms"
+                href="https://www.makefwb.com/terms-of-service"
+              >
+                Terms & Privacy Policy
+              </a>
             </div>
             <div className="submitButton flex">
               <div className="saveButton">

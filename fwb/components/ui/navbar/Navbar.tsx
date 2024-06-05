@@ -1,7 +1,11 @@
+'use client'
+
 import React, { useEffect } from 'react'
-import { useContextSelector } from 'use-context-selector'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+
 import { useAuth } from '@clerk/nextjs'
+
+import { useContextSelector } from 'use-context-selector'
 import { SearchContext } from '@/contexts/SearchContext'
 import { getSearchIndex } from '@/lib/utils'
 import DesktopNavbar from './DesktopNavbar'
@@ -35,6 +39,18 @@ const Navbar = ({
     SearchContext,
     (context) => context.setSearchIndex
   )
+  const pathname = usePathname()
+
+  const excludedRoutes = [
+    '/sign-in',
+    '/sign-up',
+    '/forgotpassword',
+    '/fre1',
+    '/fre2',
+    '/fre3',
+  ]
+
+  const shouldRenderNavbar = !excludedRoutes.includes(pathname)
   const { getToken } = useAuth()
 
   const fetchSearchIndex = customFetchSearchIndex
@@ -57,6 +73,10 @@ const Navbar = ({
   useEffect(() => {
     fetchSearchIndex()
   }, [])
+
+  if (!shouldRenderNavbar) {
+    return null
+  }
 
   return (
     <>

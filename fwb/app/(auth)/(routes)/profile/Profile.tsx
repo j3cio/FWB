@@ -46,7 +46,6 @@ function Profile({ userData, discountData, isPublic }: ProfileProps) {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        <Navbar />
         <div className="min-h-screen bg-[#1a1a23]">
           {/*Container div*/}
           <div className="flex h-full w-full flex-1 flex-col items-center justify-center px-[18px] sm-max:items-start sm-max:px-8 xs-max:items-start xs-max:px-6 xxs-max:items-start xxs-max:px-4">

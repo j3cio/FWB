@@ -51,9 +51,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
     <main className="h-full bg-[#1A1A23]">
       {isDesktop ? (
         <>
-          <Container disableGutters maxWidth="lg">
-            <Navbar />
-          </Container>
+          <Container disableGutters maxWidth="lg"></Container>
           <div className="flex flex-col items-center overflow-y-hidden bg-[#1A1A23] pb-6 lg:pb-0">
             <Chat client={chatClient}>
               {/* The channel list shows only channels that the currently logged in user is a member (filters prop) */}

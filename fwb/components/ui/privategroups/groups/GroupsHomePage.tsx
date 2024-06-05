@@ -132,7 +132,6 @@ const GroupsHomePage = ({
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
-        <Navbar />
         <GroupInvites invitations={invitations} />
         {userData.users[0].user_groups.length > 0 && (
           <>

@@ -226,21 +226,16 @@ const ExplorePageContent = () => {
   return (
     <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
       <Container disableGutters maxWidth="lg">
-        {isLoading ? generateSkeletons({ type: 'NavBar' }) : <Navbar />}
-        {isLoading ? (
-          generateSkeletons({ type: 'ProductFilters' })
-        ) : (
-          <>
-            <ProductFilters
-              activeOptions={activeOptions}
-              setActiveOptions={setActiveOptions}
-            />
-            <MobileProductFilters
-              activeOptions={activeOptions}
-              setActiveOptions={setActiveOptions}
-            />
-          </>
-        )}
+        <>
+          <ProductFilters
+            activeOptions={activeOptions}
+            setActiveOptions={setActiveOptions}
+          />
+          <MobileProductFilters
+            activeOptions={activeOptions}
+            setActiveOptions={setActiveOptions}
+          />
+        </>
 
         <ResponsiveGrid
           items={
