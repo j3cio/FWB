@@ -5,10 +5,16 @@ import { UserData, DiscountData } from '@/app/types/types'
 import React from 'react'
 import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 import ShareDiscountButton from './ShareDiscountButton'
+import { getUser } from '@/app/(auth)/(routes)/profile/page'
 
-const Benefits = async ({ userData }: { userData: UserData }) => {
+const Benefits = async () => {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
+  const userData: UserData =
+    bearer_token && supabase_jwt
+      ? await getUser(bearer_token, supabase_jwt)
+      : undefined
   const discountIdArray = userData ? userData.users[0].user_discounts : ['']
   const discountData: DiscountData[] =
     userData && bearer_token && supabase_jwt

@@ -8,7 +8,7 @@ import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import Benefits from '@/components/ui/profile/Benefits'
 
-async function getUser(bearer_token: string, supabase_jwt: string) {
+export async function getUser(bearer_token: string, supabase_jwt: string) {
   const userId = await auth().userId
   if (!supabase_jwt) {
     console.log('Not signed in')
@@ -41,34 +41,38 @@ async function getUser(bearer_token: string, supabase_jwt: string) {
 }
 
 const page = async () => {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
-  const userData: UserData =
-    bearer_token && supabase_jwt
-      ? await getUser(bearer_token, supabase_jwt)
-      : undefined
+  // if (
+  //   userData.users[0].hasCompletedFRE[0] &&
+  //   userData.users[0].hasCompletedFRE[1] &&
+  //   userData.users[0].hasCompletedFRE[2]
+  // ) {
+  // } else {
+  //   if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+  //     redirect('/fre1')
+  //   } else if (
+  //     !userData.users[0].hasCompletedFRE[2] &&
+  //     !userData.users[0].hasCompletedFRE[1] &&
+  //     userData.users[0].hasCompletedFRE[0]
+  //   ) {
+  //     redirect('/fre2')
+  //   } else if (
+  //     !userData.users[0].hasCompletedFRE[2] &&
+  //     userData.users[0].hasCompletedFRE[1] &&
+  //     userData.users[0].hasCompletedFRE[0]
+  //   ) {
+  //     redirect('/fre3')
+  //   }
+  // }
 
-  if (
-    userData.users[0].hasCompletedFRE[0] &&
-    userData.users[0].hasCompletedFRE[1] &&
-    userData.users[0].hasCompletedFRE[2]
-  ) {
-  } else {
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      redirect('/fre1')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      !userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      redirect('/fre2')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      redirect('/fre3')
-    }
+  const AsyncProfile = async () => {
+    const bearer_token = await auth().getToken({ template: 'testing_template' })
+    const supabase_jwt = await auth().getToken({ template: 'supabase' })
+    const userData: UserData =
+      bearer_token && supabase_jwt
+        ? await getUser(bearer_token, supabase_jwt)
+        : undefined
+
+    return <Profile userData={userData} isPublic={false} />
   }
 
   return (
@@ -78,7 +82,11 @@ const page = async () => {
     >
       <Container disableGutters maxWidth="lg">
         <div>
-          <Profile userData={userData} isPublic={false} />
+          <Suspense
+            fallback={<div className="text-3xl text-red-500">Loading</div>}
+          >
+            <AsyncProfile />
+          </Suspense>
           <DiscountButtons />
 
           <div className="my-[80px] flex h-2/5 border-b-2 border-slate-200 text-3xl text-white sm-max:text-xl xs-max:text-xl xxs-max:text-xl">
@@ -94,7 +102,7 @@ const page = async () => {
               </div>
             }
           >
-            <Benefits userData={userData} />
+            <Benefits />
           </Suspense>
         </div>
       </Container>
