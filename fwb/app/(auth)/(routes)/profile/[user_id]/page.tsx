@@ -71,7 +71,7 @@ const page = async ({ params }: { params: { user_id: string } }) => {
               </div>
             }
           >
-            <Benefits userData={userData} />
+            <Benefits />
           </Suspense>
         </div>
       </Container>
