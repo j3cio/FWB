@@ -41,29 +41,6 @@ export async function getUser(bearer_token: string, supabase_jwt: string) {
 }
 
 const page = async () => {
-  // if (
-  //   userData.users[0].hasCompletedFRE[0] &&
-  //   userData.users[0].hasCompletedFRE[1] &&
-  //   userData.users[0].hasCompletedFRE[2]
-  // ) {
-  // } else {
-  //   if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-  //     redirect('/fre1')
-  //   } else if (
-  //     !userData.users[0].hasCompletedFRE[2] &&
-  //     !userData.users[0].hasCompletedFRE[1] &&
-  //     userData.users[0].hasCompletedFRE[0]
-  //   ) {
-  //     redirect('/fre2')
-  //   } else if (
-  //     !userData.users[0].hasCompletedFRE[2] &&
-  //     userData.users[0].hasCompletedFRE[1] &&
-  //     userData.users[0].hasCompletedFRE[0]
-  //   ) {
-  //     redirect('/fre3')
-  //   }
-  // }
-
   const AsyncProfile = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
@@ -71,6 +48,29 @@ const page = async () => {
       bearer_token && supabase_jwt
         ? await getUser(bearer_token, supabase_jwt)
         : undefined
+
+    if (
+      userData.users[0].hasCompletedFRE[0] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[2]
+    ) {
+    } else {
+      if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+        redirect('/fre1')
+      } else if (
+        !userData.users[0].hasCompletedFRE[2] &&
+        !userData.users[0].hasCompletedFRE[1] &&
+        userData.users[0].hasCompletedFRE[0]
+      ) {
+        redirect('/fre2')
+      } else if (
+        !userData.users[0].hasCompletedFRE[2] &&
+        userData.users[0].hasCompletedFRE[1] &&
+        userData.users[0].hasCompletedFRE[0]
+      ) {
+        redirect('/fre3')
+      }
+    }
 
     return <Profile userData={userData} isPublic={false} />
   }
