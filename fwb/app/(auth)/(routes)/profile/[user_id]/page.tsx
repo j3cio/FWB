@@ -1,6 +1,11 @@
-import Profile from '@/app/(auth)/(routes)/profile/Profile'
 import { DiscountData, UserData } from '@/app/types/types'
 import { auth } from '@clerk/nextjs'
+import { Box, Container } from '@mui/material'
+import { Suspense } from 'react'
+import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
+import DiscountButtons from '@/components/ui/profile/DiscountButtons'
+import Benefits from '@/components/ui/profile/Benefits'
+import Profile from '../Profile'
 
 async function getUser(
   bearer_token: string,
@@ -44,9 +49,33 @@ const page = async ({ params }: { params: { user_id: string } }) => {
       ? await getUser(bearer_token, supabase_jwt, params.user_id)
       : undefined
   return (
-    <div>
-      <Profile userData={userData} discountData={discountData} isPublic={true} />
-    </div>
+    <Box
+      sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
+      className="px-[18px] sm-max:items-start sm-max:px-8 xs-max:items-start xs-max:px-6 xxs-max:items-start xxs-max:px-4"
+    >
+      <Container disableGutters maxWidth="lg">
+        <div>
+          <Profile userData={userData} isPublic={false} />
+          <DiscountButtons />
+
+          <div className="my-[80px] flex h-2/5 border-b-2 border-slate-200 text-3xl text-white sm-max:text-xl xs-max:text-xl xxs-max:text-xl">
+            My Benefits!
+          </div>
+
+          <Suspense
+            fallback={
+              <div className="flex w-full justify-center">
+                <div className="flex flex-wrap justify-start gap-4">
+                  {generateSkeletons({ type: 'ProductCard', quantity: 8 })}
+                </div>
+              </div>
+            }
+          >
+            <Benefits userData={userData} />
+          </Suspense>
+        </div>
+      </Container>
+    </Box>
   )
 }
 
