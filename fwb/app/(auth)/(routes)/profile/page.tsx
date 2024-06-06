@@ -7,6 +7,7 @@ import { Suspense } from 'react'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import Benefits from '@/components/ui/profile/Benefits'
+import ProfileSkeleton from '@/components/ui/skeletons/variants/ProfileSkeleton'
 
 export async function getUser(bearer_token: string, supabase_jwt: string) {
   const userId = await auth().userId
@@ -82,9 +83,7 @@ const page = async () => {
     >
       <Container disableGutters maxWidth="lg">
         <div>
-          <Suspense
-            fallback={<div className="text-3xl text-red-500">Loading</div>}
-          >
+          <Suspense fallback={<ProfileSkeleton />}>
             <AsyncProfile />
           </Suspense>
           <DiscountButtons />

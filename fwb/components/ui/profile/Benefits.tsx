@@ -11,7 +11,7 @@ const Benefits = async () => {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
-  // While this seems like we're making multiple calls, Next's caching should use the data in the cache instead of actually making this API call.
+  // While this seems like we're making excessive calls to getUser(), Next's caching should use the data in the cache instead, so this is safe and performant.
   const userData: UserData =
     bearer_token && supabase_jwt
       ? await getUser(bearer_token, supabase_jwt)
