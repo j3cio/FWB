@@ -51,7 +51,12 @@ export interface User {
 }
 
 export interface LoadingSkeletonProps {
-  type: 'ProductCard' | 'TitleAndButtons' | 'NavBar' | 'ProductFilters'
+  type:
+    | 'ProductCard'
+    | 'TitleAndButtons'
+    | 'NavBar'
+    | 'ProductFilters'
+    | 'GroupCard'
   quantity?: number
 }
 

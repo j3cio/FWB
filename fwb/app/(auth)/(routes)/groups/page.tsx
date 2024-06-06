@@ -1,6 +1,7 @@
 import { Group, UserData } from '@/app/types/types'
 import CreateGroupsHeader from '@/components/ui/privategroups/groups/CreateGroupHeader'
 import GroupsHomePage from '@/components/ui/privategroups/groups/GroupsHomePage'
+import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 import GroupPageSkeleton from '@/components/ui/skeletons/pages/GroupPageSkeleton'
 import { UserProvider } from '@/contexts/UserContext'
 import { auth } from '@clerk/nextjs'
@@ -114,9 +115,7 @@ const page = async () => {
           <CreateGroupsHeader />
         </Container>
 
-        <Suspense fallback={<GroupPageSkeleton />}>
-          <GroupsHomePage userData={userData} groupData={groupData} />
-        </Suspense>
+        <GroupsHomePage userData={userData} groupData={groupData} />
       </Box>
     </UserProvider>
   )
