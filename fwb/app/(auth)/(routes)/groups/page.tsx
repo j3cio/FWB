@@ -1,6 +1,11 @@
 import { Group, UserData } from '@/app/types/types'
+import CreateGroupsHeader from '@/components/ui/privategroups/groups/CreateGroupHeader'
 import GroupsHomePage from '@/components/ui/privategroups/groups/GroupsHomePage'
+import GroupPageSkeleton from '@/components/ui/skeletons/pages/GroupPageSkeleton'
+import { UserProvider } from '@/contexts/UserContext'
 import { auth } from '@clerk/nextjs'
+import { Box, Container } from '@mui/material'
+import { Suspense } from 'react'
 
 async function getUser() {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
@@ -99,7 +104,22 @@ const page = async () => {
     })
   )
 
-  return <GroupsHomePage userData={userData} groupData={groupData} />
+  return (
+    <UserProvider initialUserData={userData}>
+      <Box
+        component="section"
+        sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
+      >
+        <Container disableGutters maxWidth="lg">
+          <CreateGroupsHeader />
+        </Container>
+
+        <Suspense fallback={<GroupPageSkeleton />}>
+          <GroupsHomePage userData={userData} groupData={groupData} />
+        </Suspense>
+      </Box>
+    </UserProvider>
+  )
 }
 
 export default page
