@@ -7,6 +7,7 @@ import { UserProvider } from '@/contexts/UserContext'
 import { auth } from '@clerk/nextjs'
 import { Box, Container } from '@mui/material'
 import { Suspense } from 'react'
+import { User } from 'stream-chat'
 
 async function getUser() {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
@@ -93,17 +94,19 @@ async function getGroupData(groupId: string) {
   }
 }
 
-const page = async () => {
-  const userData: UserData = await getUser()
-  //const groupData = await getGroupData(userData.users[0].user_groups[0])
-
+async function GroupCards({ userData }: { userData: UserData }) {
   const groupData: Group[] = await Promise.all(
     userData.users[0].user_groups.map(async (group_id) => {
-      // Simulate async operation
       const singleGroupData = await getGroupData(group_id)
       return singleGroupData.data[0]
     })
   )
+
+  return <GroupsHomePage userData={userData} groupData={groupData} />
+}
+
+const page = async () => {
+  const userData: UserData = await getUser()
 
   return (
     <UserProvider initialUserData={userData}>
@@ -113,9 +116,16 @@ const page = async () => {
       >
         <Container disableGutters maxWidth="lg">
           <CreateGroupsHeader />
+          <Suspense
+            fallback={
+              <div className="mt-16">
+                {generateSkeletons({ type: 'GroupCard', quantity: 3 })}
+              </div>
+            }
+          >
+            <GroupCards userData={userData} />
+          </Suspense>
         </Container>
-
-        <GroupsHomePage userData={userData} groupData={groupData} />
       </Box>
     </UserProvider>
   )

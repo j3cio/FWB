@@ -18,7 +18,7 @@ export const UserContext = createContext<UserContextProps>({
 
 interface UserProviderProps {
   children: ReactNode
-  initialUserData: UserData
+  initialUserData: UserData | null
 }
 
 export const UserProvider = ({
