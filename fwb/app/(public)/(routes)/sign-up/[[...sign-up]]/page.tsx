@@ -20,8 +20,6 @@ import TwitterPic from '@/public/twitter.png'
 import { LargeScreen } from './screenLarge'
 import { SmallScreen } from './screenSmall'
 
-import './page.css'
-
 export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const [emailAddress, setEmailAddress] = useState('')
@@ -242,19 +240,19 @@ export default function Page() {
   }
 
   return (
-    <div className="pageHeight">
+    <div className="h-screen overflow-hidden">
       {width > 1201 && (
         <div>
           {!pendingVerification && (
-            <div className="big">
-              <div className="leftSigninContainer xl-max:w-[350px]">
-                <div className="circle1 xl-max:h-[136px] xl-max:w-[134px]"></div>
+            <div className="flex h-screen items-center justify-center">
+              <div className="flex w-[549px] flex-col justify-center bg-[#8e94e9] xl-max:w-[350px]">
+                <div className="ml-[150px] h-[150px] w-[150px] shrink-0 rounded-[156.25px] border-[5px] border-white xl-max:h-[136px] xl-max:w-[134px]"></div>
                 <div className="h-[150px] w-[293px] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[134px] xl-max:w-[268px]"></div>
                 <div className="flex">
                   <div className="flex flex-col">
                     <div className="h-[150px] w-[150px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[136px] xl-max:w-[136px]"></div>
                     <div className="h-[452px] w-[150px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[405px] xl-max:w-[136px]"></div>
-                    <div className="circle6 xl-max:h-[136px] xl-max:w-[134px]"></div>
+                    <div className="h-[150px] w-[150px] shrink-0 rounded-[156.25px] bg-[#f6ff82] xl-max:h-[136px] xl-max:w-[134px]"></div>
                   </div>
                   <div className="flex w-[150px] flex-col xl-max:w-[136px]">
                     <div className="h-[474px] w-[150px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[425px] xl-max:w-[136px]"></div>
@@ -289,15 +287,20 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className="rightSigninContainer">
-                <div className="signin xl-max:border-0 xl-max:bg-transparent xl-max:shadow-none">
-                  <div className="name">Create Account</div>
+              <div className="bg-[#8e94e9]">
+                <div className="inline-flex shrink-0 flex-col items-center justify-center rounded-[60px] border-2 border-white bg-white/15 px-[161px] py-[110px] shadow-md sm:px-[162px] sm:py-[109.48px] xl-max:border-0 xl-max:bg-transparent xl-max:shadow-none">
+                  <div className="mb-[80px] overflow-hidden whitespace-nowrap text-center font-urbanist text-[40px] font-normal leading-[110%] text-white ">
+                    Create Account
+                  </div>
                   <div className="buttons">
-                    <button className="googleButton" onClick={signUpWithGoogle}>
+                    <button
+                      className="mr-[22.6px] h-[45.216px] w-[45.216px] items-center justify-center rounded-[28.26px] border-[1.413px] border-white pb-[1px] pl-[8px]"
+                      onClick={signUpWithGoogle}
+                    >
                       <Image src={GooglePic} alt="Google Icon" />
                     </button>
                     <button
-                      className="discordButton"
+                      className="h-[45.216px] w-[45.216px] items-center justify-center rounded-full border border-white p-[5px]"
                       onClick={signUpWithDiscord}
                     >
                       <svg
@@ -314,11 +317,13 @@ export default function Page() {
                       </svg>
                     </button>
                   </div>
-                  <div className="or">Or</div>
+                  <div className="mb-4 flex items-center justify-center font-urbanist text-[16px] font-medium leading-[150%] text-white">
+                    Or
+                  </div>
                   <form onSubmit={handleSubmit}>
                     <div>
                       <input
-                        className="input"
+                        className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px]"
                         placeholder="Email@address.com"
                         onChange={(e) => setEmailAddress(e.target.value)}
                         id="email"
@@ -334,7 +339,7 @@ export default function Page() {
                           )
                           .map((passwordError: any) => (
                             <div
-                              className="errorMessage"
+                              className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
                               key={passwordError.meta.paramName}
                             >
                               <svg
@@ -343,7 +348,7 @@ export default function Page() {
                                 height="16"
                                 viewBox="0 0 16 17"
                                 fill="none"
-                                className="errorImage"
+                                className="rounded-full bg-red-600"
                               >
                                 <path
                                   d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
@@ -358,7 +363,7 @@ export default function Page() {
                     </div>
                     <div>
                       <input
-                        className="input"
+                        className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px]"
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
                         id="password"
@@ -371,7 +376,7 @@ export default function Page() {
                         .filter((err: any) => err.meta.paramName === 'password')
                         .map((passwordError: any) => (
                           <div
-                            className="errorMessage"
+                            className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
                             key={passwordError.meta.paramName}
                           >
                             <svg
@@ -380,14 +385,14 @@ export default function Page() {
                               height="16"
                               viewBox="0 0 16 17"
                               fill="none"
-                              className="errorImage"
+                              className="rounded-full bg-red-600"
                             >
                               <path
                                 d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                                 fill="white"
                               />
                             </svg>{' '}
-                            <div className="message">
+                            <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
                               {passwordError.message.length > 50 ? (
                                 <>
                                   {passwordError.message.substring(0, 50)}
@@ -401,7 +406,7 @@ export default function Page() {
                             </div>
                           </div>
                         ))}
-                    <div className="remember">
+                    <div className="mb-[32px] flex">
                       <FormControlLabel
                         sx={{ height: '24px' }}
                         label={
@@ -425,12 +430,20 @@ export default function Page() {
                       ></FormControlLabel>
                     </div>
                     <ul></ul>
-                    <button className="submit" type="submit">
+                    <button
+                      className="flex h-[48px] w-[366px] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9]"
+                      type="submit"
+                    >
                       Submit
                     </button>
-                    <div className="signup">
-                      <div className="detail">Already have an account? </div>
-                      <Link href="/sign-in" className="signupButton">
+                    <div className="flex items-center justify-center">
+                      <div className="pr-[5px] font-urbanist text-[16px] font-normal leading-[150%] text-white">
+                        Already have an account?
+                      </div>
+                      <Link
+                        href="/sign-in"
+                        className="flex h-[36px] items-center justify-center gap-1 py-2 font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px] text-white"
+                      >
                         Sign In
                       </Link>
                     </div>
@@ -487,7 +500,7 @@ export default function Page() {
                     </div>
                   </div>
 
-                  <div className="signin h-[80%]">
+                  <div className="my-auto inline-flex h-[728px] h-[80%] w-[556px] shrink-0 flex-col items-center justify-center rounded-[60px] border-2 border-white bg-white/15 px-[161px] py-[110px]  shadow-md">
                     <div className="verification flex flex-col items-center justify-center text-white">
                       <h1 className="text-center text-[5vh] font-medium">
                         Email Verification
@@ -529,7 +542,7 @@ export default function Page() {
                         {
                           <button
                             type="submit"
-                            className={`submit mt-[150px] w-[20%] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
+                            className={`mt-[150px] flex h-[48px] w-[20%] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
                             disabled={
                               code.search(' ') === -1 && code.length === 6
                                 ? false
@@ -575,9 +588,9 @@ export default function Page() {
                   </div>
                   <div className="h-[474px] w-[150px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[425px] xl-max:w-[136px]"></div>
 
-                  <div className="circle7">
-                    <div className="circle7second"></div>
-                    <div className="circle7third"></div>
+                  <div className="-mt-[128px] w-[150px] shrink-0 rounded-bl-none rounded-br-none rounded-tl-[156.25px] rounded-tr-[156.25px] border-[3px] border-white">
+                    <div className="border-t-neutral-000 mt-[42px] h-[100px] w-[149px] flex-shrink-0 rounded-bl-none rounded-br-none rounded-tl-[162px] rounded-tr-[165px] border-t-[3px] opacity-50"></div>
+                    <div className="border-t-neutral-000 -mt-[60px] h-[80px] w-[150px] flex-shrink-0 rounded-bl-none rounded-br-none rounded-tl-[156.25px] rounded-tr-[156.25px] border-t-[3px] opacity-25"></div>
                   </div>
                 </div>
               </div>
@@ -592,18 +605,18 @@ export default function Page() {
             <div className="flex h-screen w-full flex-row">
               <div className="z-10 mx-auto inline-flex border-0 bg-none p-0 shadow-none sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
                 <div className="signInContent">
-                  <div className="name xxs-max:text-[24px] small-max:mb-[40px]">
+                  <div className="mb-[80px] overflow-hidden whitespace-nowrap text-center font-urbanist text-[40px] font-normal leading-[110%] text-white xxs-max:text-[24px] small-max:mb-[40px]">
                     Create Account
                   </div>
-                  <div className="buttons">
+                  <div className="mb-4 flex items-center justify-center">
                     <button
-                      className="googleButton xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
+                      className="mr-[22.6px] h-[45.216px] w-[45.216px] items-center justify-center rounded-[28.26px] border-[1.413px] border-white pb-[1px] pl-[8px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
                       onClick={signUpWithGoogle}
                     >
                       <Image src={GooglePic} alt="Google Icon" />
                     </button>
                     <button
-                      className="discordButton sm-max:p-[7px] xs-max:p-[7px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
+                      className="h-[45.216px] w-[45.216px] items-center justify-center rounded-full border-[1.413px] border-white p-[5px] sm-max:p-[7px] xs-max:p-[7px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
                       onClick={signUpWithDiscord}
                     >
                       <svg
@@ -620,11 +633,13 @@ export default function Page() {
                       </svg>
                     </button>
                   </div>
-                  <div className="or">Or</div>
+                  <div className="mb-4 flex items-center justify-center font-urbanist text-[16px] font-medium leading-[150%] text-white">
+                    Or
+                  </div>
                   <form onSubmit={handleSubmit}>
                     <div>
                       <input
-                        className="input sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
+                        className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px] sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
                         placeholder="Email@address.com"
                         onChange={(e) => setEmailAddress(e.target.value)}
                         id="email"
@@ -640,7 +655,7 @@ export default function Page() {
                           )
                           .map((passwordError: any) => (
                             <div
-                              className="errorMessage"
+                              className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
                               key={passwordError.meta.paramName}
                             >
                               <svg
@@ -649,14 +664,14 @@ export default function Page() {
                                 height="16"
                                 viewBox="0 0 16 17"
                                 fill="none"
-                                className="errorImage"
+                                className="rounded-full bg-red-600"
                               >
                                 <path
                                   d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                                   fill="white"
                                 />
                               </svg>{' '}
-                              <div className="message">
+                              <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
                                 {passwordError.message}
                               </div>
                             </div>
@@ -664,7 +679,7 @@ export default function Page() {
                     </div>
                     <div>
                       <input
-                        className="input sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
+                        className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px] sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
                         id="password"
@@ -677,7 +692,7 @@ export default function Page() {
                         .filter((err: any) => err.meta.paramName === 'password')
                         .map((passwordError: any) => (
                           <div
-                            className="errorMessage"
+                            className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
                             key={passwordError.meta.paramName}
                           >
                             <svg
@@ -686,19 +701,19 @@ export default function Page() {
                               height="16"
                               viewBox="0 0 16 17"
                               fill="none"
-                              className="errorImage"
+                              className="rounded-full bg-red-600"
                             >
                               <path
                                 d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                                 fill="white"
                               />
                             </svg>{' '}
-                            <div className="message">
+                            <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
                               {passwordError.message}
                             </div>
                           </div>
                         ))}
-                    <div className="remember mb-[64px] xs-max:mb-[80px] xxs-max:mb-[42px]">
+                    <div className="mb-[64px] flex xs-max:mb-[80px] xxs-max:mb-[42px]">
                       <FormControlLabel
                         sx={{ height: '24px' }}
                         label={
@@ -707,6 +722,7 @@ export default function Page() {
                               color: '#fff',
                               fontFamily: 'Urbanist',
                             }}
+
                           >
                             Remember me
                           </Typography>
@@ -721,18 +737,18 @@ export default function Page() {
                     </div>
                     <ul></ul>
                     <button
-                      className="submit sm-max:w-[387px] xs-max:w-[341px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
+                      className=" flex h-[48px] w-[366px] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] sm-max:w-[387px] xs-max:w-[341px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
                       type="submit"
                     >
                       Submit
                     </button>
-                    <div className="signup">
-                      <div className="detail xxs-max:text-[12px]">
-                        Already have an account?{' '}
+                    <div className="flex items-center justify-center">
+                      <div className="pr-[5px] font-urbanist text-[16px] font-normal leading-[150%] text-white xxs-max:text-[12px]">
+                        Already have an account?
                       </div>
                       <Link
                         href="/sign-in"
-                        className="signupButton xxs-max:text-[12px]"
+                        className="flex h-[36px] items-center justify-center gap-1 py-2 font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px] text-white xxs-max:text-[12px]"
                       >
                         Sign In
                       </Link>
@@ -805,7 +821,7 @@ export default function Page() {
                   {
                     <button
                       type="submit"
-                      className={`submit mt-[150px] w-[80%] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
+                      className={`mt-[150px] flex h-[48px] w-[80%] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
                       disabled={
                         code.search(' ') === -1 && code.length === 6
                           ? false
