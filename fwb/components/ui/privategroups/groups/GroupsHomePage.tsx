@@ -134,53 +134,26 @@ const GroupsHomePage = ({
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <GroupInvites invitations={invitations} />
         {userData.users[0].user_groups.length > 0 && (
-          <>
-            <Box className="flex items-center justify-between px-[18px]">
-              <Typography
-                className="font-urbanist"
-                sx={{
-                  fontSize: 24,
-                  color: '#FFFFFF',
-                  marginY: 3,
-                  fontWeight: 600,
-                }}
-              >
-                Private Groups
-              </Typography>
-              <Button
-                className="flex h-fit items-center gap-3 rounded-3xl bg-[#F6FF82] px-5 text-[#8E94E9]"
-                onClick={handleOpen}
-                endIcon={<EndArrow />}
-              >
-                <Typography
-                  className="font-urbanist text-sm font-bold normal-case"
-                  component="p"
-                >
-                  Create new group
-                </Typography>
-              </Button>
-            </Box>
-            <Stack
-              className="relative z-0 mt-16 px-[18px]"
-              direction="column"
-              spacing={3}
-            >
-              {groupData.map((group: Group, index: number) => {
-                return (
-                  <SingleGroupCard
-                    loading={loading}
-                    handleDeleteGroup={handleDeleteGroup}
-                    downloadFile={downloadFile}
-                    group={group}
-                    key={group.id}
-                    index={index}
-                    isUserAdmin={isUserAdmin(group, userData.users[0].user_id)}
-                    userGroups={userData.users[0].user_groups}
-                  />
-                )
-              })}
-            </Stack>
-          </>
+          <Stack
+            className="relative z-0 mt-16 px-[18px]"
+            direction="column"
+            spacing={3}
+          >
+            {groupData.map((group: Group, index: number) => {
+              return (
+                <SingleGroupCard
+                  loading={loading}
+                  handleDeleteGroup={handleDeleteGroup}
+                  downloadFile={downloadFile}
+                  group={group}
+                  key={group.id}
+                  index={index}
+                  isUserAdmin={isUserAdmin(group, userData.users[0].user_id)}
+                  userGroups={userData.users[0].user_groups}
+                />
+              )
+            })}
+          </Stack>
         )}
         {userData.users[0].user_groups.length == 0 && (
           <section className="h-full w-full">
@@ -201,32 +174,6 @@ const GroupsHomePage = ({
             </Box>
           </section>
         )}
-        <Modal
-          className="flex items-center justify-center"
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className="absolute flex min-h-[75vh] min-w-fit max-w-full justify-center rounded-3xl border-2 border-[#fff] bg-[#8E94E9] py-14 text-white">
-            <Button
-              className="absolute right-0 top-2 text-xl font-medium text-white"
-              onClick={handleClose}
-            >
-              <Image
-                className="h-8 w-8"
-                src="/groups/icon-close.svg"
-                height={0}
-                width={0}
-                alt="icon-close"
-              />
-            </Button>
-            <CreateGroupForm
-              userGroups={userData.users[0].user_groups}
-              handleClose={handleClose}
-            />
-          </Box>
-        </Modal>
       </Container>
     </Box>
   )

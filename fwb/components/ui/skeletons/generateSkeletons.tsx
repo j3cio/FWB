@@ -4,6 +4,7 @@ import ProductCardSkeleton from './variants/ProductCardSkeleton'
 import TitleAndButtonsSkeleton from './variants/TitleAndButtonsSkeleton'
 import NavBarSkeleton from './variants/NavBarSkeleton'
 import ProductFiltersSkeleton from './variants/ProductFiltersSkeleton'
+import GroupCardSkeleton from './variants/GroupCardSkeleton'
 
 export const generateSkeletons = ({ type, quantity }: LoadingSkeletonProps) => {
   const skeletons = Array.from({ length: quantity || 1 }, () => (
@@ -28,6 +29,9 @@ const CustomSkeleton = ({ type }: LoadingSkeletonProps) => {
 
     case 'ProductFilters':
       return <ProductFiltersSkeleton />
+
+    case 'GroupCard':
+      return <GroupCardSkeleton />
 
     default:
       return
