@@ -208,12 +208,7 @@ export const LargeScreen = () => {
                 <FormControlLabel
                   sx={{ height: '24px' }}
                   label={
-                    <Typography
-                      style={{
-                        color: '#fff',
-                        fontFamily: 'Urbanist',
-                      }}
-                    >
+                    <Typography className="font-urbanist text-white">
                       Remember me
                     </Typography>
                   }
