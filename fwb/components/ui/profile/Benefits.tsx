@@ -11,7 +11,9 @@ const Benefits = async () => {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
-  // While this seems like we're making excessive calls to getUser(), Next's caching should use the data in the cache instead, so this is safe and performant.
+  // While this seems like we're making excessive calls to getUser(), Next's caching should use the data in the cache instead since this route handler isn't a POST request, so this is safe and performant.
+  // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#caching-data
+  // https://nextjs.org/docs/app/building-your-application/caching#data-cache
   const userData: UserData =
     bearer_token && supabase_jwt
       ? await getUser(bearer_token, supabase_jwt)
