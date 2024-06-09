@@ -1,14 +1,11 @@
-'use client'
-
-import { useState } from 'react'
-
-import { Box, Grid } from '@mui/material'
-
-import DiscountCard from './DiscountCard'
-import Productfilters from '@/components/ui/explore/productfilters'
-
-import { FilterOptions } from '../../explore/constants'
 import { DiscountData } from '@/app/types/types'
+import Productfilters from '@/components/ui/explore/productfilters'
+import { Box, Grid } from '@mui/material'
+import DiscountCard from './DiscountCard'
+import MobileDiscountFilters from './MobileDiscountFilters'
+import SearchBar from './SearchBar'
+import { useState } from 'react'
+import { FilterOptions } from '../../explore/constants'
 
 const DiscountsSection = ({
   discountData,
@@ -21,14 +18,19 @@ const DiscountsSection = ({
     categories: [],
   })
   return (
-    <div className="bg-[#1a1a23]">
-      <div className="w-11/12">
-        <Productfilters
-          activeOptions={activeOptions}
-          setActiveOptions={setActiveOptions}
-        />
+    <div className="bg-[#1a1a23] xs-max:flex xs-max:flex-col xs-max:items-center xxs-max:flex xxs-max:flex-col xxs-max:items-center">
+      <div className="w-11/12 xs-max:w-full xxs-max:w-full">
+        <Productfilters activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}/>
       </div>
-      <div className=" ml-24 flex justify-center">
+      <div className='xs-max:w-full xxs-max:w-full xs-max:flex xxs-max:flex xs-max:flex-col xxs-max:flex-col xs-max:gap-[1.5rem] xxs-max:gap-[1.5rem]'>
+        <div className='md:hidden'>
+          <SearchBar />
+        </div>
+        <MobileDiscountFilters activeOptions={activeOptions}
+              setActiveOptions={setActiveOptions}/>
+      </div>
+      <div className="flex justify-center xs-max:ml-0 xxs-max:ml-0 xs-max:mt-[30px] xxs-max:mt-[30px]">
         <Box
           sx={{
             flexGrow: 1,
@@ -37,15 +39,16 @@ const DiscountsSection = ({
             minHeight: '100%',
           }}
         >
-          <Grid container spacing={14} rowGap={2} sx={{ marginBottom: '60px' }}>
+          <Grid container spacing={14} rowGap={2} sx={{ marginBottom: '60px' }} className='xs-max:m-0 xxs-max:m-0 xs-max:w-[90vw] xxs-max:w-[90vw]'>
             {discountData.map((company: any, index: React.Key) => (
               <Grid
                 item
-                xs={12}
+                xs={6}
                 sm={6}
                 md={3}
                 key={index}
                 sx={{ width: '282px', height: '322px' }}
+                className='xs-max:p-0 xxs-max:p-0 xs-max:h-[55vw] xxs-max:h-[55vw]'
               >
                 <DiscountCard company={company} />
               </Grid>
