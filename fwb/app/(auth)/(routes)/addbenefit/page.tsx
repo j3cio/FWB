@@ -14,6 +14,7 @@ import './page.css'
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
 import PercentageIcon from './icons/PercentageIcon'
 
+
 const theme = createTheme({
   components: {
     MuiSlider: {
