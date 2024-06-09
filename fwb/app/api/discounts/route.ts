@@ -1,8 +1,7 @@
 import supabaseClient from '@/supabase'
 import { auth, currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from 'next/server'
-import { getNewLogoUrl } from './utils/logos_utils'
-
+import { getNewLogoUrl } from '../discounts/utils/logos_utils'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   let discount_id = request.nextUrl.searchParams.get('discount_id')
@@ -41,68 +40,60 @@ export async function GET(request: NextRequest, response: NextResponse) {
   }
 }
 
+export async function POST(request: NextRequest, response: NextResponse) {
+  try {
+    const { userId } = auth()
+    const user = await currentUser()
 
-/**
- * Handles the POST request for creating a new discount.
- *
- * @param request - The NextRequest object representing the incoming request.
- * @returns A NextResponse object containing the response data.
- */
-export async function POST(request: NextRequest) {
-  const { userId } = auth()
+    if (userId && user) {
+      const formData = await request.formData()
+      const newDiscount = {
+        user_id: formData.get('user_id'),
+        shareable_url: formData.get('shareable_url') || 'No url provided',
+        discount_amount: formData.get('discount_amount') || 0,
+        view_count: formData.get('view_count') || 0,
+        share_count: formData.get('share_count') || 0,
+        message_count: formData.get('message_count') || 0,
+        terms_and_conditions:
+          formData.get('terms_and_conditions') === 'false' ? false : true,
+        public: formData.get('public') === 'private' ? false : true, // There might be a way to use a boolean rather than having to type false?
+        logo: formData.get('logo') || 'No logo provided',
+        name: formData.get('name') || 'No name provided',
+        company: formData.get('company') || 'No company provided',
+        description: formData.get('description') || 'No description provided',
+      }
+      const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
 
-  // Check if the user is logged in
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-  const user = await currentUser()
-  if (!user) {
-    return NextResponse.json(
-      { error: 'Unauthorized. Failed to obtain current User' },
-      { status: 401 }
-    )
-  }
+      if (!supabase) {
+        return NextResponse.json(
+          { error: 'Could not create supabase access token' },
+          { status: 401 }
+        )
+      }
 
-  // Create a supabase client
-  // DEV NOTE: This is a temporary fix to get around the fact that we can't create a supabase_jwt with a long-lived session token
-  const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
-  if (!supabase) {
-    return NextResponse.json(
-      { error: 'Could not create supabase client' },
-      { status: 401 }
-    )
-  }
+      // Insert the new discount into the discounts table in supabase
+      const { data, error } = await supabase
+        .from('discounts')
+        .insert([newDiscount])
+        .select()
+      // Check for error and return response
+      if (error) {
+        return NextResponse.json(
+          {
+            error: 'Failed to create new group',
+            details: error.message,
+          },
+          { status: 500 }
+        )
+      } 
 
-  const formData = await request.formData()
-  // Extract the form data
-  const newDiscount = {
-    user_id: user.id,
-    terms_and_conditions: formData.get('terms_and_conditions'),
-    shareable_url: '', //TODO: Generate shareable URL
-    discount_amount: formData.get('discount_amount'),
-    public: formData.get('public') === 'true' ? true : false,
-    name: formData.get('company'),
-  }
-
-  // Insert the new discount into the database
-  const { data: discount, error } = await supabase
-    .from('discounts')
-    .insert([newDiscount])
-    .select()
-  if (error) {
-    console.error(error)
-    return NextResponse.json(
-      { error: 'Failed to insert discount in supabase' },
-      { status: 500 }
-    )
-  }
-
-  // Get the discounts of the company
-  const company_url = formData.get('company_url')
+        // Get the discounts of the company
+  //const company_url = formData.get('company_url')
+  const company_name = formData.get('name')
   let { data: companyData, error: companyDataError } = await supabase
     .from('companies')
     .select('discounts')
-    .eq('url', company_url)
+    .eq('name', company_name) 
     .single()
 
   const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
@@ -135,14 +126,15 @@ export async function POST(request: NextRequest) {
   }
 
   // Insert the discount into the company's discounts array
+  // PATCH request to just append the single discount to the array
   const updatedDiscounts = [
     ...(companyData?.discounts || []),
-    String(discount[0].id),
+    String(data[0].id),
   ]
   const { data: company, error: companyError } = await supabase
     .from('companies')
     .update({ discounts: updatedDiscounts })
-    .eq('url', company_url)
+    .eq('name', company_name)
     .select()
 
   if (companyError) {
@@ -157,7 +149,7 @@ export async function POST(request: NextRequest) {
   let { data: greatestDiscount, error: greatestDiscountsError } = await supabase
     .from('companies')
     .select('greatest_discount')
-    .eq('url', company_url)
+    .eq('name', company_name)
     .single()
   if (greatestDiscountsError) {
     console.error(greatestDiscountsError)
@@ -176,7 +168,7 @@ export async function POST(request: NextRequest) {
       ),
       discounts_updated_at: new Date(),
     })
-    .eq('url', company_url)
+    .eq('name', company_name)
     .select()
   if (updatedCompanyError) {
     console.error(updatedCompanyError)
@@ -198,7 +190,7 @@ export async function POST(request: NextRequest) {
     // Insert the discount into the category's discounts array
     const updatedDiscounts = [
       ...(categoryData?.discounts || []),
-      String(discount[0].id),
+      String(data[0].id),
     ]
 
     const { data: categoryUpdated, error: categoryUpdatedError } =
@@ -217,15 +209,25 @@ export async function POST(request: NextRequest) {
     }
   })
 
-  return NextResponse.json({ data: discount }, { status: 200 })
-}
 
+      return NextResponse.json({ data: data }, { status: 200 })
+    } else {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    )
+  }
+  
+}
 
 export async function PATCH(request: NextRequest, response: NextResponse) {
   const { userId } = auth()
   const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
   const data = await request.json()
-  const discountId = data.discountId
+  const discountId = data.id
 
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -257,7 +259,7 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   // Duplicate discount prevention
   if (!updatedDiscounts.includes(discountId)) {
     updatedDiscounts.push(discountId)
-  }
+  } 
 
   const { error: updateError } = await supabase
     .from('users')
@@ -270,5 +272,11 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
       { error: 'Failed to update user data' },
       { status: 500 }
     )
+  } else {
+    return NextResponse.json(
+      { message: 'User data updated successfully' },
+      { status: 200 }
+    )
   }
 }
+
