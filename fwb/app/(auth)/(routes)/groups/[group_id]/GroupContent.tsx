@@ -28,6 +28,7 @@ const GroupContent = ({
           marginTop: '56px',
           zIndex: 0,
         }}
+        className='px-[18px] xs-max:px-[0px] xxs-max:px-[0px] mt-[56px] xs-max:mt-0 xxs-max:mt-0'
       >
         <GroupDetailsSection
           userData={userData}

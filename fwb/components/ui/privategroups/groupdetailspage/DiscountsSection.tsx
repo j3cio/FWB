@@ -48,7 +48,7 @@ const DiscountsSection = ({
                 md={3}
                 key={index}
                 sx={{ width: '282px', height: '322px' }}
-                className='xs-max:p-0 xxs-max:p-0 xs-max:h-[55vw] xxs-max:h-[55vw]'
+                className='xs-max:p-0 xxs-max:p-0 xs-max:w-[30vw] xxs-max:w-[30vw] xs-max:h-[55vw] xxs-max:h-[55vw]'
               >
                 <DiscountCard company={company} />
               </Grid>

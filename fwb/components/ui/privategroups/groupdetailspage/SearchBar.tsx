@@ -30,15 +30,15 @@ const SearchBar = () => {
             },
             '& .MuiInputBase-input': {
               paddingTop: '10px',
+              fontFamily: "__Urbanist_4806ca"
             },
-            fontFamily: 'Urbanist'
           }}
         />
         <IconButton
           color="primary"
           aria-label="search"
           sx={{
-            backgroundColor: 'black',
+            backgroundColor: 'black !important',
             padding: '10px',
             border: 'none',
             margin: '4px',
