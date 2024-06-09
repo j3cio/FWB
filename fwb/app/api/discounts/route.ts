@@ -146,6 +146,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   }
 
   // Update the greatest discount of the company and the discounts_updated_at timestamp
+  /*
   let { data: greatestDiscount, error: greatestDiscountsError } = await supabase
     .from('companies')
     .select('greatest_discount')
@@ -176,7 +177,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       { error: 'Failed to update greatest discount of company' },
       { status: 500 }
     )
-  }
+  }*/
 
   // Insert the discount into the categories' discounts arrays
   const categories = String(formData.get('categories')).split(',')
