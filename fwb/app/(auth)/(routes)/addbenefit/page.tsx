@@ -51,75 +51,6 @@ const theme = createTheme({
   },
 })
 
-async function getUserData(userId:string, bearerToken:string, supabaseToken:string) {
-
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabaseToken)
-  myHeaders.append('Authorization', `Bearer ${bearerToken}`)
-
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-  }
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
-      requestOptions
-    )
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    const result = await response.json()
-    return result 
-  } catch (error) {
-    console.error('Error fetching data: ', error)
-    throw error 
-  }
-}
-
-async function getGroupData(groupId: string, bearerToken:string, supabaseToken:string) {
-
-  if (groupId) {
-    var myHeaders = new Headers()
-    myHeaders.append('supabase_jwt', supabaseToken)
-    myHeaders.append('Authorization', `Bearer ${bearerToken}`)
-
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-    }
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${groupId}`, // add to .env
-        requestOptions
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const result = await response.json()
-      return result 
-    } catch (error) {
-      console.error('Error fetching data: ', error)
-      throw error 
-    }
-  } else {
-    return {
-      success: false,
-      data: [
-        {
-          id: '',
-          name: 'No group id',
-          discounts: [],
-          admins: ['123'],
-          public: false,
-          users: [],
-        },
-      ],
-    }
-  }
-}
-
 
 export default function Intakeform() {
   const { user } = useUser()
@@ -147,6 +78,78 @@ export default function Intakeform() {
   const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
     setTermsAndConditions(event.target?.checked)
   }
+  const fetchUserData = async (userId:string, bearerToken:string, supabaseToken:string) => {
+    try {
+      var myHeaders = new Headers()
+      myHeaders.append('supabase_jwt', supabaseToken)
+      myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+      }
+
+      const protocol = window.location.protocol;
+      const response = await fetch(
+        `${protocol}//${window.location.host}/api/users/${userId}`,
+        requestOptions
+      )
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const result = await response.json()
+      return result 
+      
+      
+    } catch (error) {
+      console.error('Error fetching data: ', error)
+      throw error 
+    }
+  }
+  const fetchGroupData = async (groupId: string, bearerToken:string, supabaseToken:string) => {
+    if (groupId) {
+      var myHeaders = new Headers()
+      myHeaders.append('supabase_jwt', supabaseToken)
+      myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+  
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+      }
+      try {
+        const protocol = window.location.protocol;
+        const response = await fetch(
+          
+          `${protocol}//${window.location.host}/api/groups?group_id=${groupId}`, // add to .env
+          requestOptions
+        )
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const result = await response.json()
+        return result 
+      } catch (error) {
+        console.error('Error fetching data: ', error)
+        throw error 
+      }
+    } else {
+      return {
+        success: false,
+        data: [
+          {
+            id: '',
+            name: 'No group id',
+            discounts: [],
+            admins: ['123'],
+            public: false,
+            users: [],
+          },
+        ],
+      }
+    }
+
+  }
+
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -205,11 +208,11 @@ export default function Intakeform() {
           if (patchResponse.ok) {
             // get my groups 
             // add new discount to each group
-            const userData: UserData = await getUserData(user.id, bearerToken, supabaseToken)
+            const userData: UserData = await fetchUserData(user.id, bearerToken, supabaseToken)
             const groupData: Group[] = await Promise.all(
               userData.users[0].user_groups.map(async (group_id) => {
                 // Simulate async operation
-                const singleGroupData = await getGroupData(group_id, bearerToken, supabaseToken)
+                const singleGroupData = await fetchGroupData(group_id, bearerToken, supabaseToken)
                 const groupDataBody = singleGroupData.data[0]
                 const discountId = discountData.data[0].id;
 

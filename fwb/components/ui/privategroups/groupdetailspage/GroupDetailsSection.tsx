@@ -32,6 +32,7 @@ const GroupDetailsSection = ({
   const router = useRouter()
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
+  const [groupImageURL, setGroupImageURL] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -137,7 +138,7 @@ const GroupDetailsSection = ({
       // Convert the Blob to a URL for display
       if (fileData) {
         const url = URL.createObjectURL(fileData)
-        setFilePath(url)
+        setGroupImageURL(url)
       }
     }
   }
@@ -165,18 +166,21 @@ const GroupDetailsSection = ({
           height={0}
           width={1200}
           alt="group-img"
+          suppressHydrationWarning
         />
         <LockIcon className="absolute right-2 top-2 w-fit rounded-full bg-[#fff] p-3 xs-max:hidden xxs-max:hidden" />
       </Box>
       <div className="relative flex items-center justify-between bg-[#1a1a23] px-4">
         <div className={`absolute -top-16 left-36 -translate-x-1/2 transform rounded-full xxs-max:-top-[2rem] xxs-max:left-12 xs-max:-top-[2rem] xs-max:left-12`}>
-          {filePath ? (
+          {groupImageURL ? (
             <div className="h-32 w-32 overflow-hidden rounded-full">
-              <img
-                src={filePath || ''}
+              <Image
+                src={filePath ? groupImageURL : '/groups/gp-avatars.svg'}
                 alt="Avatar"
-                className="h-full w-full cursor-pointer"
+                className="h-full w-full cursor-pointer rounded-full"
                 onClick={handleImageClick}
+                fill
+                suppressHydrationWarning
               />
               <input
                 type="file"
@@ -226,6 +230,7 @@ const GroupDetailsSection = ({
                     height: 'auto',
                     objectFit: 'cover',
                   }}
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -242,6 +247,7 @@ const GroupDetailsSection = ({
                 className="w-full xs-max:w-[80%] xxs-max:w-[80%] xs-max:pt-[5px] xxs-max:pt-[5px]"
                 width={0}
                 height={0}
+                suppressHydrationWarning
               />
               <p className="text-sm xs-max:text-[0.7rem] xxs-max:text-[0.6rem]">+50 more members</p>
             </div>
