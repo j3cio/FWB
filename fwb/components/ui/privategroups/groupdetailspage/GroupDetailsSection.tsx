@@ -156,18 +156,28 @@ const GroupDetailsSection = ({
  //${mobile && 'mb-10 mt-0'}
   console.log(mobile)
   return (
-    typeof window !== 'undefined' && 
+    
     (<Box className={`my-10 flex h-2/3 w-full flex-col border-none xs-max:mb-10 xs-max:mt-0 xxs-max:mb-10 xxs-max:mt-0`}>
       <Box className="relative w-full">
-        <Image
+        {/*<Image
           priority
           className="h-full w-full border-solid border-b-2 border-[#F6FF82]"
           src={`${mobile ? '/groups/pg-bg1.png' : '/groups/pg-bg2.png'}`}
           height={0}
           width={1200}
           alt="group-img"
-          suppressHydrationWarning
-        />
+        />*/}
+
+      <Box
+          component="img"
+          sx={{
+              content: {
+                  xs: `url(/groups/pg-bg1.png)`, //img src from xs up to md
+                  sm: `url(/groups/pg-bg2.png)`,  //img src from md and up
+              }
+          }}
+          alt="Logo"
+      />
         <LockIcon className="absolute right-2 top-2 w-fit rounded-full bg-[#fff] p-3 xs-max:hidden xxs-max:hidden" />
       </Box>
       <div className="relative flex items-center justify-between bg-[#1a1a23] px-4">
@@ -180,7 +190,6 @@ const GroupDetailsSection = ({
                 className="h-full w-full cursor-pointer rounded-full"
                 onClick={handleImageClick}
                 fill
-                suppressHydrationWarning
               />
               <input
                 type="file"
@@ -230,7 +239,6 @@ const GroupDetailsSection = ({
                     height: 'auto',
                     objectFit: 'cover',
                   }}
-                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -247,7 +255,6 @@ const GroupDetailsSection = ({
                 className="w-full xs-max:w-[80%] xxs-max:w-[80%] xs-max:pt-[5px] xxs-max:pt-[5px]"
                 width={0}
                 height={0}
-                suppressHydrationWarning
               />
               <p className="text-sm xs-max:text-[0.7rem] xxs-max:text-[0.6rem]">+50 more members</p>
             </div>
