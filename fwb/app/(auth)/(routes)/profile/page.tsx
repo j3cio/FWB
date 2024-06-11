@@ -92,17 +92,8 @@ const page = async () => {
             My Benefits!
           </div>
 
-          <Suspense
-            fallback={
-              <div className="flex w-full justify-center">
-                <div className="flex flex-wrap justify-start gap-4">
-                  {generateSkeletons({ type: 'ProductCard', quantity: 8 })}
-                </div>
-              </div>
-            }
-          >
+
             <Benefits />
-          </Suspense>
         </div>
       </Container>
     </Box>
