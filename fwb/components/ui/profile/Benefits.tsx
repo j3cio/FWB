@@ -34,7 +34,7 @@ const Benefits = async () => {
         <div className="flex w-full justify-center">
           <div className="flex flex-wrap justify-start gap-4 pl-2">
             {filteredDiscountData.map((company: any, index: React.Key) => (
-              <DiscountCard company={company} key={crypto.randomUUID()} />
+              <DiscountCard company={company} key={company.id} />
             ))}
           </div>
         </div>
