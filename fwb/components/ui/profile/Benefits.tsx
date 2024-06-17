@@ -23,7 +23,7 @@ const Benefits = async () => {
     userData && bearer_token && supabase_jwt
       ? await getAllDiscountsData(discountIdArray, bearer_token, supabase_jwt)
       : []
-//fixes
+
 
   const filteredDiscountData = discountData.filter(
     (company) => company !== undefined
