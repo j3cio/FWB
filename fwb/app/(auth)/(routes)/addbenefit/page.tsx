@@ -52,9 +52,8 @@ export default function Intakeform() {
   const [emailAddress, setEmailAddress] = useState('')
   const [company, setCompany] = useState('')
   const [shareableUrl, setShareableUrl] = useState('')
-  const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
-    'public'
-  )
+  const [isPrivate, setIsPrivate] = useState(false)
+
   const [categories, setCategories] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState(false)
   const [description, setDescription] = useState('')
@@ -92,17 +91,18 @@ export default function Intakeform() {
         formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
           formData.append('share_count', '0'),
           formData.append('message_count', '0'),
-          formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
+          formData.append('public', JSON.stringify(!isPrivate))
         formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
         // Name and company are the same thing
         formData.append('Name', company)
         formData.append('company', company)
+        formData.append('company_url', `www.${company}.com`.toLowerCase()) // TODO: replace this once we implement brandfetch properly
 
         formData.append('categories', `${categories}`)
         formData.append('description', description)
         //formData.append('email', emailAddress)
 
-        const response = await fetch('/api/tempdiscounts', {
+        const response = await fetch('/api/discounts', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${bearerToken}`,
@@ -112,8 +112,25 @@ export default function Intakeform() {
         })
 
         if (response.ok) {
-          const discountData = await response.json()
-          console.log('Discount added successfully:', discountData)
+          const data = await response.json()
+          const discountId = data.data[0].id
+
+          try {
+            const response = await fetch('/api/discounts', {
+              method: 'PATCH',
+              headers: {
+                Authorization: `Bearer ${bearerToken}`,
+                supabase_jwt: supabaseToken,
+              },
+              body: JSON.stringify({ discountId }),
+            })
+
+            if (response) {
+              router.push('/profile')
+            }
+          } catch (error) {
+            console.error(error)
+          }
         } else {
           const errorData = await response.json()
           console.error('Error adding user:', errorData)
@@ -134,10 +151,7 @@ export default function Intakeform() {
     setSelectedOption(option)
   }*/
 
-  const togglePrivacy = () =>
-    selectedOption === 'public'
-      ? setSelectedOption('private')
-      : setSelectedOption('public')
+  const togglePrivacy = () => setIsPrivate(!isPrivate)
 
   const handleCategoryChange = (selectedCategories: any) => {
     setCategories(selectedCategories)
