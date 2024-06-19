@@ -2,13 +2,9 @@
 
 import { fuzzySearch } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState,
-} from 'react'
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react'
+
+import { createContext } from 'use-context-selector'
 
 interface SearchContextInterface {
   searchQuery: string

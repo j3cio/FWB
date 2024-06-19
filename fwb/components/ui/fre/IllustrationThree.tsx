@@ -2,11 +2,10 @@ import React from 'react'
 
 export default function IllustrationThree() {
   return (
-    <div className="illustrationThree">
+    <div className="ml-[108px] hidden shrink-0 xl:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="176"
-        height="931"
+        className="h-full w-full"
         viewBox="0 0 176 931"
         fill="none"
       >

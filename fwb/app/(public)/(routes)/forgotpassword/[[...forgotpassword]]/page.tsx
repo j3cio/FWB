@@ -2,12 +2,7 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useSignIn } from '@clerk/nextjs'
 import type { NextPage } from 'next'
-import './page.css'
 import Link from 'next/link'
-
-//CSS page
-import './page.css'
-
 //For responsiveness
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
@@ -75,17 +70,17 @@ export default function Page() {
   }
 
   return (
-    <div className="pageHeight">
+    <div className="pageHeight h-screen overflow-hidden w-full grid relative">
       {width > 1201 && (
-        <div className="big">
-          <div className="leftSigninContainer xl-max:!w-[400px]">
-            <div className="circle1 xl-max:!h-[136px] xl-max:!w-[134px]"></div>
+        <div className="big flex items-center justify-center h-screen">
+          <div className="leftSigninContainer w-[549px] bg-[#8e94e9] flex flex-col justify-center xl-max:!w-[400px]">
+            <div className="circle1 w-[150px] h-[150px] flex-shrink-0 rounded-[156.25px] border-[5px] border-white ml-[150px] xl-max:!h-[136px] xl-max:!w-[134px]"></div>
             <div className="h-[150px] w-[293px] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[134px] xl-max:w-[268px]"></div>
             <div className="flex">
               <div className="flex flex-col">
                 <div className="h-[150px] w-[150px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[136px] xl-max:w-[136px]"></div>
                 <div className="h-[452px] w-[150px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[405px] xl-max:w-[136px]"></div>
-                <div className="circle6 xl-max:!h-[136px] xl-max:!w-[134px]"></div>
+                <div className="circle6 w-[150px] h-[150px] shrink-0 rounded-[156.25px] bg-[#f6ff82] xl-max:!h-[136px] xl-max:!w-[134px]"></div>
               </div>
               <div className="flex w-[150px] flex-col xl-max:w-[136px]">
                 <div className="h-[474px] w-[150px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[425px] xl-max:w-[136px]"></div>
@@ -119,14 +114,14 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="rightContainer">
+          <div className="h-screen relative flex">
             <form onSubmit={!successfulCreation ? create : reset}>
               {!successfulCreation && !complete && (
                 <>
                   <div className="relative flex h-screen">
-                    <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
+                    <div className="passwordContainer inline-flex h-[728px] w-[698px] p-[110px_161px_109.48px_162px] flex flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_rgba(255,255,255,0.25)] backdrop-blur-[12.5px] m-auto xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
                       <svg
-                        className="mail"
+                        className="mail mb-[24px] mx-auto"
                         xmlns="http://www.w3.org/2000/svg"
                         width="41"
                         height="41"
@@ -141,17 +136,17 @@ export default function Page() {
                         />
                       </svg>
 
-                      <div className="title">Forgot Password?</div>
-                      <div className="explanation">
+                      <div className="title text-white text-center font-urbanist text-[40px] font-normal font-semibold leading-[110%] mx-auto mb-[16px]">Forgot Password?</div>
+                      <div className="explanation text-white text-center font-urbanist text-[18px] font-medium leading-[1.25]">
                         Dont worry! Enter your email address and we
                       </div>
-                      <div className="explanation2">
+                      <div className="explanation2 text-white text-center font-urbanist text-[18px] font-medium leading-[1.25] mb-[48px]">
                         will send a link to reset your password
                       </div>
                       {/* <label htmlFor='email'>Please provide identifier</label> */}
                       <input
                         type="email"
-                        className="inputEmail"
+                        className="inputEmail rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] mx-auto mb-[12px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                         placeholder="takeadvantage@address.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -159,29 +154,29 @@ export default function Page() {
 
                       <div>
                         {error && (
-                          <div className="errorMessage">
+                          <div className="errorMessage text-white flex text-left font-urbanist text-[16px] font-normal mx-auto mt-[-5px] mb-[5px]">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="16"
                               height="16"
                               viewBox="0 0 16 17"
                               fill="none"
-                              className="errorImage"
+                              className="errorImage bg-red-600 rounded-[50%]"
                             >
                               <path
                                 d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                                 fill="white"
                               />
                             </svg>{' '}
-                            <div className="message">{error}</div>
+                            <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{error}</div>
                           </div>
                         )}
                       </div>
 
-                      <button className="sendEmail">Send Email</button>
-                      <div className="help">
+                      <button className="sendEmail rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px]">Send Email</button>
+                      <div className="help text-white font-urbanist text-[16px] font-medium leading-[150%] mx-auto">
                         Having problems? Email us at{' '}
-                        <a className="helpEmail" href="mailto:help@makefwb.com">
+                        <a className="helpEmail text-white font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px]" href="mailto:help@makefwb.com">
                           help@makefwb.com
                         </a>
                       </div>
@@ -192,18 +187,18 @@ export default function Page() {
 
               {successfulCreation && !complete && (
                 <>
-                  <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
-                    <div className="title">Reset Password</div>
-                    <div className="explanation">
+                  <div className="passwordContainer inline-flex h-[728px] w-[698px] p-[110px_161px_109.48px_162px] flex flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_rgba(255,255,255,0.25)] backdrop-blur-[12.5px] m-auto  xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
+                    <div className="title text-white text-center font-urbanist text-[40px] font-normal font-semibold leading-[110%] mx-auto mb-[16px]">Reset Password</div>
+                    <div className="explanation text-white text-center font-urbanist text-[18px] font-medium leading-[1.25]">
                       Enter new password with at least 8 charaters, contain at
                       least 1 number and 1 uppercase
                     </div>
-                    <div className="explanation2">
+                    <div className="explanation2 text-white text-center font-urbanist text-[18px] font-medium leading-[1.25] mb-[48px]">
                       will send a link to reset your password
                     </div>
                     {/* <label htmlFor="password" className="newPassword">New password</label> */}
                     <input
-                      className="inputPassword"
+                      className="inputPassword rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] mx-auto mb-[12px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                       placeholder="New password"
                       type="password"
                       value={password}
@@ -212,7 +207,7 @@ export default function Page() {
 
                     {/* <label className="passwordCode"htmlFor="password">Reset password code</label> */}
                     <input
-                      className="inputPasswordCode"
+                      className="inputPasswordCode mb-[60px] rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                       placeholder="Reset Password code"
                       type="text"
                       value={code}
@@ -221,29 +216,29 @@ export default function Page() {
 
                     <div>
                       {error && (
-                        <div className="errorMessage">
+                        <div className="errorMessage text-white flex text-left font-urbanist text-[16px] font-normal mx-auto mt-[-5px] mb-[5px]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
                             height="16"
                             viewBox="0 0 16 17"
                             fill="none"
-                            className="errorImage"
+                            className="errorImage bg-red-600 rounded-[50%]"
                           >
                             <path
                               d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                               fill="white"
                             />
                           </svg>{' '}
-                          <div className="message">{error}</div>
+                          <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{error}</div>
                         </div>
                       )}
                     </div>
 
-                    <button className="reset">Reset</button>
-                    <div className="help">
+                    <button className="reset rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px]">Reset</button>
+                    <div className="help text-white font-urbanist text-[16px] font-medium leading-[150%] mx-auto">
                       Having problems? Email us at{' '}
-                      <a className="helpEmail" href="mailto:help@makefwb.com">
+                      <a className="helpEmail text-white font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px]" href="mailto:help@makefwb.com">
                         help@makefwb.com
                       </a>
                     </div>
@@ -252,8 +247,8 @@ export default function Page() {
               )}
 
               {complete && (
-                <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
-                  <div className="successImage">
+                <div className="passwordContainer inline-flex h-[728px] w-[698px] p-[110px_161px_109.48px_162px] flex flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_rgba(255,255,255,0.25)] backdrop-blur-[12.5px] m-auto xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
+                  <div className="successImage rounded-[50%]  border border-white border-[1px] mb-[20px]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="33"
@@ -267,11 +262,11 @@ export default function Page() {
                       />
                     </svg>
                   </div>
-                  <div className="success">Success!!</div>
-                  <div className="successMessage">
+                  <div className="success text-white text-center font-urbanist text-[40px] font-medium leading-[110%] mb-[4px]">Success!!</div>
+                  <div className="successMessage text-white text-center font-urbanist text-[18px] font-medium leading-[125%] mb-[64px]">
                     Yeyyy... You have successfully change your password
                   </div>
-                  <Link href="/sign-in" className="reset">
+                  <Link href="/sign-in" className="reset rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px]">
                     Go to Sign In Page
                   </Link>
                 </div>

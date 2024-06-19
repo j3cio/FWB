@@ -1,26 +1,22 @@
-// useWindowDimensions.tsx
-'use client'
-
 import { useEffect, useState } from 'react'
 
 const useWindowDimensions = () => {
-  const getWindowWidth = () => window.innerWidth
-
-  const [windowWidth, setWindowWidth] = useState(getWindowWidth)
+  const [windowWidth, setWindowWidth] = useState(0)
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(getWindowWidth())
+    // Check if the window object is available
+    if (typeof window !== 'undefined') {
+      // Set the initial window width
+      setWindowWidth(window.innerWidth)
+
+      // Add an event listener to update the window width on resize
+      const handleResize = () => setWindowWidth(window.innerWidth)
+      window.addEventListener('resize', handleResize)
+
+      // Clean up the event listener on component unmount
+      return () => window.removeEventListener('resize', handleResize)
     }
-
-    handleResize()
-
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, []) // No dependencies
+  }, [])
 
   return windowWidth
 }

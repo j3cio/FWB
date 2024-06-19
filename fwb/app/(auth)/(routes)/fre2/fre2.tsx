@@ -1,23 +1,18 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 
 import { useRouter } from 'next/navigation'
-
 import { useUser } from '@clerk/nextjs'
 
 import UpdateUser from '@/components/hooks/updateUser'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
 import IllustrationFour from '@/components/ui/fre/IllustrationFour'
+import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
+import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
 import { UserData } from '../../../types/types'
 
-import './page.css'
-import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
-
-import useWindowDimensions from '@/components/hooks/useWindowDimensions'
-
-// Setting Clerk as Global Variable to access Clerk / Supabase Session Keys
 declare global {
   interface Window {
     Clerk: any
@@ -32,7 +27,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
 
   const width = useWindowDimensions()
 
-  //Set State of All Categories
   const allCategories = [
     'sports',
     'fashion',
@@ -46,9 +40,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   ]
   const [categories, setCategories] = useState<string[]>(allCategories)
 
-  //TODO: Handle User Routing Once Form is Submitted
   const router = useRouter()
-  //Update user info based on provided company of Employment
   const { isSignedIn, user, isLoaded } = useUser()
 
   const togglePrivacy = () => setIsPrivate(!isPrivate)
@@ -75,7 +67,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       router.replace('profile')
     }
   }, [isLoaded, isSignedIn, router, userData])
-  //Handle Discount Submission
+
   const handleDiscountSubmit = async (e: any) => {
     e.preventDefault()
 
@@ -95,13 +87,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       formData.append('categories', `${categories}`)
       formData.append('company_url', `www.${company}.com`.toLowerCase())
       formData.append('public', JSON.stringify(!isPrivate))
-      // While slightly confusing, the default value of our Switch selector is public, which means that our checked state and our public status will always be inverted:
-      //
-      // isPrivate === true ? then public === false
-      //
-      // A little unfortunate, but that's just some classic UI and DB decoupling, and i prefer the table to have PUBLIC rather than PRIVATE as default
 
-      // POST Fetch Request to Discounts API
       const response = await fetch('/api/discounts', {
         method: 'POST',
         headers: {
@@ -111,10 +97,6 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
         body: formData,
       })
 
-      // Log each entry in the FormData separately
-      // formData.forEach((value, key) => {
-      //   console.log(`${key}: ${value}`)
-      // })
       if (response.ok) {
         const data = await response.json()
         const discountId = data.data[0].id
@@ -152,7 +134,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     supabaseToken: string
   ) => {
     try {
-      await fetch('/api/tempdiscounts', {
+      await fetch('/api/discounts', {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${bearerToken}`,
@@ -165,9 +147,7 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
     }
   }
 
-  //Function to handle Array Property of Categories Column in Supabase
   const handleCategoryChange = (selectedCategories: string[]) => {
-    // Set the state to the selected categories
     if (selectedCategories.includes('All')) {
       setCategories(allCategories)
     } else {
@@ -178,143 +158,10 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   return (
     <div>
       {width > 400 && (
-        <div className="pageContent">
+        <div className="flex h-screen justify-between overflow-hidden">
           <IllustrationThree />
-          <div className="middleSpacing">
-            <div className="flex-col justify-center">
-              <div className="progresscircles">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="56"
-                  height="8"
-                  viewBox="0 0 56 8"
-                  fill="none"
-                >
-                  <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
-                  <circle cx="28" cy="4" r="4" fill="#F6FF82" />
-                  <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
-                </svg>
-              </div>
-              <h2 className="mainHeader mb-[65px] mt-[36px]">
-                Share your &quot;benefits&quot; 😏
-              </h2>
-
-              {/* This is the form that will handle company user input  */}
-              <div className="ml-9">
-                <form onSubmit={handleDiscountSubmit}>
-                  <h6 className="discountFormText">Company Name *</h6>
-                  <input
-                    type="text"
-                    className="inputCompany"
-                    placeholder="Company Name"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    required
-                  />
-
-                  <div className="flex flex-col justify-start">
-                    <div className="flex justify-start">
-                      <h6 className="discountFormText">
-                        Discount Amount (%) *
-                      </h6>
-                      <h6 className="discountFormText">Category *</h6>
-                    </div>
-
-                    <div className="flex justify-start">
-                      <input
-                        type="number"
-                        className="inputDiscount"
-                        placeholder="1 - 100"
-                        min="1"
-                        max="100"
-                        step="1"
-                        value={discountAmount}
-                        onChange={(e) => setDiscountAmount(e.target.value)}
-                        required
-                      />
-
-                      {/* This will Need to be updated with Map function for all Categories */}
-                      <select
-                        className="selectCategory"
-                        onChange={(e) =>
-                          handleCategoryChange(
-                            Array.from(
-                              e.target.selectedOptions,
-                              (option) => option.value
-                            )
-                          )
-                        }
-                        value={categories[0]}
-                        required
-                      >
-                        <option value="All">All</option>
-                        <option value="Sports">Sports</option>
-                        <option value="Fashion">Fashion</option>
-                        <option value="Electronic">Electronic</option>
-                        <option value="Health">Health</option>
-                        <option value="HomeAndKitchen">Home & Kitchen</option>
-                        <option value="ComputerAndAccessories">
-                          Computer & Accessories
-                        </option>
-                        <option value="BeautyAndSkincare">
-                          Beauty & Skincare
-                        </option>
-                        <option value="Books">Books</option>
-                        <option value="Hobbies">Hobbies</option>
-                      </select>
-                    </div>
-
-                    <h6 className="discountFormText">
-                      Discount Rules & Conditions
-                    </h6>
-                    <textarea
-                      className="inputConditions"
-                      placeholder="Share any rules or limitations about your benefit"
-                      value={termsAndConditions}
-                      onChange={(e) => setTermsAndConditions(e.target.value)}
-                      required
-                    />
-                    <div
-                      className="flex cursor-pointer select-none items-center"
-                      onClick={() => togglePrivacy()}
-                    >
-                      <CustomSwitch
-                        checked={isPrivate}
-                        inputProps={{ 'aria-label': 'controlled Switch' }}
-                      />
-                      <p className="text-white">Keep private</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-[60px] flex justify-center">
-                    <button
-                      type="submit"
-                      className="share"
-                      onClick={handleDiscountSubmit}
-                    >
-                      Share
-                    </button>
-                  </div>
-                </form>
-              </div>
-
-              {/* This is the link functionality to carry user to stage 3  */}
-              <div
-                className="flex justify-center"
-                style={{ marginTop: '-10px' }}
-                onClick={updateUser}
-              >
-                <div className="skip">Skip for now</div>
-              </div>
-            </div>
-          </div>
-          <IllustrationFour />
-        </div>
-      )}
-      {width < 400 && (
-        <div className="pageContent w-full">
-          <div className="flex-col justify-center">
-            <div className="progresscircles mt-[32px]">
+          <div className="flex w-screen flex-col items-center justify-center px-36">
+            <div className="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="56"
@@ -327,34 +174,32 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                 <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
               </svg>
             </div>
-            <h2 className="mainHeader mb-[0px] mt-[30px] text-[24px]">
+            <h2 className="mb-[65px] mt-[36px] text-center text-[40px] font-semibold leading-[110%] text-white">
               Share your &quot;benefits&quot; 😏
             </h2>
-            <div className="mainHeader mb-[40px] mt-[5px] text-[12px] font-[500]">
-              Lorem ipsum dolor sit amet consectetur.
-            </div>
 
-            {/* This is the form that will handle company user input  */}
-            <div className="relative relative w-screen px-[16px]">
+            <div>
               <form onSubmit={handleDiscountSubmit}>
-                <h6 className="discountFormText text-[12px]">Company Name *</h6>
+                <h6 className="mb-2 text-sm font-medium text-white">
+                  Company Name *
+                </h6>
                 <input
                   type="text"
-                  className="inputCompany h-auto w-full px-[12px] py-[5px] text-[12px] placeholder:text-[13px]"
+                  className="mb-3 w-96 rounded-full bg-white px-6 py-2 placeholder:text-gray-400"
                   placeholder="Company Name"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   required
                 />
 
-                <div className="flex flex-col justify-start">
-                  <div className="">
-                    <h6 className="discountFormText text-[12px]">
+                <div className="flex justify-start">
+                  <div className="mr-6">
+                    <h6 className="mb-2 text-sm font-medium text-white">
                       Discount Amount (%) *
                     </h6>
                     <input
                       type="number"
-                      className="inputDiscount mb-[12px] mt-[5px] h-auto w-full px-[12px] py-[5px] text-[12px]  placeholder:text-[13px]"
+                      className="mb-5 w-36 rounded-full bg-white px-6 py-2 placeholder:text-gray-400"
                       placeholder="1 - 100"
                       min="1"
                       max="100"
@@ -364,10 +209,13 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       required
                     />
                   </div>
+
                   <div>
-                    <h6 className="discountFormText text-[12px]">Category *</h6>
+                    <h6 className="mb-2 text-sm font-medium text-white">
+                      Category *
+                    </h6>
                     <select
-                      className="selectCategory h-auto w-full px-[12px] py-[5px]  text-[12px]  placeholder:text-[13px]"
+                      className="mb-5 w-52 rounded-full border bg-[#8e94e9] px-3 py-2 text-white"
                       onChange={(e) =>
                         handleCategoryChange(
                           Array.from(
@@ -395,11 +243,143 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                       <option value="Hobbies">Hobbies</option>
                     </select>
                   </div>
-                  <h6 className="discountFormText text-[12px]">
+                </div>
+
+                <h6 className="mb-2 text-sm font-medium text-white">
+                  Discount Rules & Conditions
+                </h6>
+                <textarea
+                  className="mb-3 w-full rounded-lg bg-white px-6 py-2 placeholder:text-gray-400"
+                  placeholder="Share any rules or limitations about your benefit"
+                  value={termsAndConditions}
+                  onChange={(e) => setTermsAndConditions(e.target.value)}
+                  required
+                />
+                <div
+                  className="mb-12 flex cursor-pointer select-none items-center"
+                  onClick={() => togglePrivacy()}
+                >
+                  <CustomSwitch
+                    checked={isPrivate}
+                    inputProps={{ 'aria-label': 'controlled Switch' }}
+                  />
+                  <p className="ml-2 text-white">Keep private</p>
+                </div>
+
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="w-full rounded-3xl bg-[#F6FF82] px-6 py-3 text-lg font-bold text-[#8e94e9]"
+                    onClick={handleDiscountSubmit}
+                  >
+                    Share
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div
+              className="mt-4 flex cursor-pointer justify-center"
+              onClick={updateUser}
+            >
+              <div className="text-lg font-bold text-white">Skip for now</div>
+            </div>
+          </div>
+          <IllustrationFour />
+        </div>
+      )}
+      {width < 400 && (
+        <div className="w-full">
+          <div className="flex flex-col justify-center">
+            <div className="mt-8 flex justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="56"
+                height="8"
+                viewBox="0 0 56 8"
+                fill="none"
+              >
+                <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
+                <circle cx="28" cy="4" r="4" fill="#F6FF82" />
+                <circle cx="52" cy="4" r="4" fill="#ADB4D2" />
+              </svg>
+            </div>
+            <h2 className="mb-1 mt-7 text-center text-2xl font-semibold text-white">
+              Share your &quot;benefits&quot; 😏
+            </h2>
+            <div className="mb-10 text-center text-sm font-medium text-white">
+              Lorem ipsum dolor sit amet consectetur.
+            </div>
+
+            <div className="relative px-4">
+              <form onSubmit={handleDiscountSubmit}>
+                <h6 className="mb-1 text-sm font-medium text-white">
+                  Company Name *
+                </h6>
+                <input
+                  type="text"
+                  className="mb-3 w-full rounded-full bg-white px-3 py-1 text-sm placeholder:text-gray-400"
+                  placeholder="Company Name"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  required
+                />
+
+                <div className="flex flex-col justify-start">
+                  <div>
+                    <h6 className="mb-1 text-sm font-medium text-white">
+                      Discount Amount (%) *
+                    </h6>
+                    <input
+                      type="number"
+                      className="mb-3 w-full rounded-full bg-white px-3 py-1 text-sm placeholder:text-gray-400"
+                      placeholder="1 - 100"
+                      min="1"
+                      max="100"
+                      step="1"
+                      value={discountAmount}
+                      onChange={(e) => setDiscountAmount(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <h6 className="mb-1 border text-sm font-medium text-white">
+                      Category *
+                    </h6>
+                    <select
+                      className="mb-3 w-full rounded-full bg-[#8e94e9] px-3 py-1 text-sm text-white"
+                      onChange={(e) =>
+                        handleCategoryChange(
+                          Array.from(
+                            e.target.selectedOptions,
+                            (option) => option.value
+                          )
+                        )
+                      }
+                      value={categories[0]}
+                      required
+                    >
+                      <option value="All">All</option>
+                      <option value="Sports">Sports</option>
+                      <option value="Fashion">Fashion</option>
+                      <option value="Electronic">Electronic</option>
+                      <option value="Health">Health</option>
+                      <option value="HomeAndKitchen">Home & Kitchen</option>
+                      <option value="ComputerAndAccessories">
+                        Computer & Accessories
+                      </option>
+                      <option value="BeautyAndSkincare">
+                        Beauty & Skincare
+                      </option>
+                      <option value="Books">Books</option>
+                      <option value="Hobbies">Hobbies</option>
+                    </select>
+                  </div>
+                  <h6 className="mb-1 text-sm font-medium text-white">
                     Discount Rules & Conditions
                   </h6>
                   <textarea
-                    className="inputConditions mb-0 w-full pl-[8px] text-[12px] placeholder:text-[13px]"
+                    className="mb-9 h-[103px] w-full rounded-lg bg-white px-3 py-2 text-sm placeholder:text-gray-400"
                     placeholder="Share any rules or limitations about your benefit"
                     value={termsAndConditions}
                     onChange={(e) => setTermsAndConditions(e.target.value)}
@@ -407,10 +387,10 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
                   />
                 </div>
 
-                <div className="mb-[8px] mt-[36px] flex justify-center">
+                <div className="mb-2 flex justify-center">
                   <button
                     type="submit"
-                    className="share m-0 h-auto w-[272px] text-[16px]"
+                    className="w-72 rounded-3xl bg-[#F6FF82] px-6 py-3 text-base font-bold text-[#8e94e9]"
                     onClick={handleDiscountSubmit}
                   >
                     Share on Public
@@ -419,9 +399,10 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
               </form>
             </div>
 
-            {/* This is the link functionality to carry user to stage 3  */}
             <div className="flex justify-center" onClick={updateUser}>
-              <div className="skip m-0 h-auto text-[16px]">Skip for now</div>
+              <div className="skip m-0 h-auto text-[16px] text-white">
+                Skip for now
+              </div>
             </div>
           </div>
         </div>

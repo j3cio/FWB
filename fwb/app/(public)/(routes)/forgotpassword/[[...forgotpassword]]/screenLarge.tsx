@@ -2,7 +2,6 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { useSignIn } from '@clerk/nextjs'
 import type { NextPage } from 'next'
-import './page.css'
 import Link from 'next/link'
 
 export const LargeScreen = () => {
@@ -68,15 +67,15 @@ export const LargeScreen = () => {
       <div className="ml-auto mt-auto flex h-auto w-auto translate-y-[70px] flex-col">
         <div className="h-[133px] w-[133px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat"></div>
         <div className="h-[400px] w-[134px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="circle6 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
+        <div className="circle6 w-[150px] h-[150px] shrink-0 rounded-[156.25px] bg-[#f6ff82] lg-max:!h-[133px] lg-max:!w-[133px]"></div>
       </div>
-      <div className="signin mx-0 my-auto flex h-[728px] w-2/3 max-w-[556px] p-0">
+      <div className="signin mx-0 my-auto flex flex-col justify-center items-center rounded-[60px]  border-[2px] border-white bg-[rgba(255,255,255,0.15)] shadow-[0px_4px_4px_0px_rgba(255,255,255,0.25)] h-[728px] w-2/3 max-w-[556px] p-0">
         <div className="pn-[30px] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
           <form onSubmit={!successfulCreation ? create : reset}>
             {!successfulCreation && !complete && (
               <>
                 <div className="relative flex h-screen">
-                  <div className="passwordContainer border-0 bg-transparent shadow-none">
+                  <div className="passwordContainer  inline-flex h-[728px] w-[698px] p-[110px_161px_109.48px_162px] flex flex-col justify-center items-center flex-shrink-0 rounded-[60px] border-white m-auto  border-0 bg-transparent shadow-none">
                     <svg
                       className="mail"
                       xmlns="http://www.w3.org/2000/svg"
@@ -93,17 +92,17 @@ export const LargeScreen = () => {
                       />
                     </svg>
 
-                    <div className="title">Forgot Password?</div>
-                    <div className="explanation">
+                    <div className="title text-white text-center font-urbanist text-[40px] font-normal font-semibold leading-[110%] mx-auto mb-[16px]">Forgot Password?</div>
+                    <div className="explanation text-white text-center font-urbanist text-[18px] font-medium leading-[1.25]">
                       Dont worry! Enter your email address and we
                     </div>
-                    <div className="explanation2">
+                    <div className="explanation2 text-white text-center font-urbanist text-[18px] font-medium leading-[1.25] mb-[48px]">
                       will send a link to reset your password
                     </div>
                     {/* <label htmlFor='email'>Please provide identifier</label> */}
                     <input
                       type="email"
-                      className="inputEmail"
+                      className="inputEmail rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] mx-auto mb-[12px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                       placeholder="takeadvantage@address.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -111,29 +110,29 @@ export const LargeScreen = () => {
 
                     <div>
                       {error && (
-                        <div className="errorMessage">
+                        <div className="errorMessage text-white flex text-left font-urbanist text-[16px] font-normal mx-auto mt-[-5px] mb-[5px]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
                             height="16"
                             viewBox="0 0 16 17"
                             fill="none"
-                            className="errorImage"
+                            className="errorImage bg-red-600 rounded-[50%]"
                           >
                             <path
                               d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                               fill="white"
                             />
                           </svg>{' '}
-                          <div className="message">{error}</div>
+                          <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{error}</div>
                         </div>
                       )}
                     </div>
 
-                    <button className="sendEmail">Send Email</button>
-                    <div className="help">
+                    <button className="sendEmail rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px]">Send Email</button>
+                    <div className="help text-white font-urbanist text-[16px] font-medium leading-[150%] mx-auto my-0">
                       Having problems? Email us at{' '}
-                      <a className="helpEmail" href="mailto:help@makefwb.com">
+                      <a className="helpEmail text-white font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px]" href="mailto:help@makefwb.com">
                         help@makefwb.com
                       </a>
                     </div>
@@ -145,17 +144,17 @@ export const LargeScreen = () => {
             {successfulCreation && !complete && (
               <>
                 <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
-                  <div className="title">Reset Password</div>
-                  <div className="explanation">
+                  <div className="title text-white text-center font-urbanist text-[40px] font-normal font-semibold leading-[110%] mx-auto mb-[16px]">Reset Password</div>
+                  <div className="explanation text-white text-center font-urbanist text-[18px] font-medium leading-[1.25]">
                     Enter new password with at least 8 charaters, contain at
                     least 1 number and 1 uppercase
                   </div>
-                  <div className="explanation2">
+                  <div className="explanation2 text-white text-center font-urbanist text-[18px] font-medium leading-[1.25] mb-[48px]">
                     will send a link to reset your password
                   </div>
                   {/* <label htmlFor="password" className="newPassword">New password</label> */}
                   <input
-                    className="inputPassword"
+                    className="inputPassword rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px] mx-auto mb-[12px] placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder="New password"
                     type="password"
                     value={password}
@@ -164,7 +163,7 @@ export const LargeScreen = () => {
 
                   {/* <label className="passwordCode"htmlFor="password">Reset password code</label> */}
                   <input
-                    className="inputPasswordCode"
+                    className="inputPasswordCode mb-[60px] rounded-[100px] bg-white flex w-[367px] h-[47.472px] p-[8px_8px_8px_24px] items-center gap-[8px]  mx-auto placeholder:color-#090a10 placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                     placeholder="Reset Password code"
                     type="text"
                     value={code}
@@ -173,29 +172,29 @@ export const LargeScreen = () => {
 
                   <div>
                     {error && (
-                      <div className="errorMessage">
+                      <div className="errorMessage text-white flex text-left font-urbanist text-[16px] font-normal mx-auto mt-[-5px] mb-[5px] justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
                           height="16"
                           viewBox="0 0 16 17"
                           fill="none"
-                          className="errorImage"
+                          className="errorImage bg-red-600 rounded-[50%]"
                         >
                           <path
                             d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                             fill="white"
                           />
                         </svg>{' '}
-                        <div className="message">{error}</div>
+                        <div className="message ml-[5px] mt-[-5px] text-left font-urbanist text-[16px] font-normal break-words">{error}</div>
                       </div>
                     )}
                   </div>
 
-                  <button className="reset">Reset</button>
-                  <div className="help">
+                  <button className="reset rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px]">Reset</button>
+                  <div className="help text-white font-urbanist text-[16px] font-medium leading-[150%] mx-auto">
                     Having problems? Email us at{' '}
-                    <a className="helpEmail" href="mailto:help@makefwb.com">
+                    <a className="helpEmail text-white font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px]" href="mailto:help@makefwb.com">
                       help@makefwb.com
                     </a>
                   </div>
@@ -205,7 +204,7 @@ export const LargeScreen = () => {
 
             {complete && (
               <div className="passwordContainer xl-max:!border-0 xl-max:!bg-transparent xl-max:!shadow-none">
-                <div className="successImage">
+                <div className="successImage rounded-[50%]  border border-white border-[1px] mb-[20px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="33"
@@ -219,11 +218,11 @@ export const LargeScreen = () => {
                     />
                   </svg>
                 </div>
-                <div className="success">Success!!</div>
-                <div className="successMessage">
+                <div className="success text-white text-center font-urbanist text-[40px] font-medium leading-[110%] mb-[4px]">Success!!</div>
+                <div className="successMessage text-white text-center font-urbanist text-[18px] font-medium leading-[125%] mb-[64px]">
                   Yeyyy... You have successfully change your password
                 </div>
-                <Link href="/sign-in" className="reset">
+                <Link href="/sign-in" className="reset rounded-[30px] bg-[#f6ff82] flex w-[367px] p-[10px_24px] justify-center items-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-bold leading-[1.25] tracking-[0.4px] mx-auto mb-[12px]">
                   Go to Sign In Page
                 </Link>
               </div>
@@ -266,7 +265,7 @@ export const LargeScreen = () => {
         </div>
         <div className="h-[133px] w-[260px] translate-x-[-50%] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat"></div>
         <div className="h-[420px] w-[133px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat"></div>
-        <div className="circle1 lg-max:!ml-0 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
+        <div className="circle1  w-[150px] h-[150px] flex-shrink-0 rounded-[156.25px] border-[5px] border-white ml-[150px] lg-max:!ml-0 lg-max:!h-[133px] lg-max:!w-[133px]"></div>
       </div>
     </div>
   )

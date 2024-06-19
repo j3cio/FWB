@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { Dispatch, ReactNode, SetStateAction, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 interface AnimationCoordinates {
@@ -28,6 +28,24 @@ const MobileCustomModal = ({
 }: MobileCustomModalProps) => {
   const handleClose = () => setShowModal(false)
 
+  const opacity0 = useMemo(() => {
+    return {
+      opacity: 0,
+    }
+  }, [])
+
+  const opacity50 = useMemo(() => {
+    return {
+      opacity: '50%',
+    }
+  }, [])
+
+  const delay = useMemo(() => {
+    return {
+      delay: 0.1,
+    }
+  }, [])
+
   return (
     <>
       <AnimatePresence>
@@ -40,10 +58,10 @@ const MobileCustomModal = ({
           >
             <div className="fixed left-0 top-0 z-10">{children}</div>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: '50%' }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: 0.1 }}
+              initial={opacity0}
+              animate={opacity50}
+              exit={opacity0}
+              transition={delay}
               // Making dimensions of our overlay be larger than our display to this degree prevents it from visibly shifting on close
               className="fixed z-0 flex h-[250%] w-[250%] bg-black"
               onClick={handleClose}

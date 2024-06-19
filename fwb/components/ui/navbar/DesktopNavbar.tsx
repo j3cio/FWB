@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -18,6 +18,7 @@ import { useClerk } from '@clerk/clerk-react'
 import { useUser } from '@clerk/nextjs'
 import SearchBar from './Searchbar'
 import { SearchContext } from '@/contexts/SearchContext'
+import { useContextSelector } from 'use-context-selector'
 
 interface DesktopNavbarProps {
   theme: Theme
@@ -29,7 +30,10 @@ const DesktopNavbar = ({ theme }: DesktopNavbarProps) => {
   const router = useRouter()
   const { signOut } = useClerk()
   const { user } = useUser()
-  const { clearSearch } = useContext(SearchContext)
+  const clearSearch = useContextSelector(
+    SearchContext,
+    (context) => context.clearSearch
+  )
 
   const open = Boolean(anchorEl)
 

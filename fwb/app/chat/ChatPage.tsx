@@ -16,6 +16,7 @@ import MobileChatList from '@/components/ui/chat/mobile/MobileChatList'
 import useIntitialChatClient from './useIntializeChatClient'
 import { UserData, Group } from '@/app/types/types'
 import { FWBChatContext } from '@/contexts/ChatContext'
+import { useContextSelector } from 'use-context-selector'
 
 interface ChatPageProps {
   userData: UserData
@@ -24,8 +25,14 @@ interface ChatPageProps {
 
 const ChatPage = ({ userData, groupData }: ChatPageProps) => {
   const chatClient = useIntitialChatClient()
-  const { showChatDetails, activeTab } = useContext(FWBChatContext)
-
+  const showChatDetails = useContextSelector(
+    FWBChatContext,
+    (context) => context.showChatDetails
+  )
+  const activeTab = useContextSelector(
+    FWBChatContext,
+    (context) => context.activeTab
+  )
   const user = userData.users[0]
 
   const isDesktop = useMediaQuery({
@@ -34,7 +41,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
 
   if (!chatClient || !user) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center bg-[#1A1A23]">
         <LoadingIndicator size={40} />
       </div>
     )
@@ -44,9 +51,7 @@ const ChatPage = ({ userData, groupData }: ChatPageProps) => {
     <main className="h-full bg-[#1A1A23]">
       {isDesktop ? (
         <>
-          <Container disableGutters maxWidth="lg">
-            <Navbar />
-          </Container>
+          <Container disableGutters maxWidth="lg"></Container>
           <div className="flex flex-col items-center overflow-y-hidden bg-[#1A1A23] pb-6 lg:pb-0">
             <Chat client={chatClient}>
               {/* The channel list shows only channels that the currently logged in user is a member (filters prop) */}

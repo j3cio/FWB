@@ -48,7 +48,7 @@ export default function DetailPage({
 
         const protocol = window.location.protocol
         const response = await fetch(
-          `${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+          `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
           requestOptions
         )
 
@@ -110,7 +110,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
 
       const protocol = window.location.protocol
       const response = await fetch(
-        `${protocol}//${window.location.host}/api/tempdiscounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+        `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
         requestOptions
       )
 
@@ -128,10 +128,6 @@ function DetailPageContent({ data }: { data: DetailData }) {
   return (
     <div className="m-0 flex min-h-dvh w-full flex-col items-center bg-[#1A1A23] p-0">
       {/* company image and description section */}
-      {/* kept only searchbar in container since i didn't want to affect the rest of the page's styling */}
-      <Container disableGutters maxWidth="lg">
-        <Navbar />
-      </Container>
       <div className="details max-w-[1170px] px-[18px] xs-max:w-screen xxs-max:w-screen">
         <div className="flex flex-row pt-[96px] xs-max:flex-col xs-max:pt-0 xxs-max:flex-col xxs-max:pt-0 xxs-max:pt-0">
           <div
@@ -215,7 +211,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
         </div>
 
         {/* discount listing section */}
-        <div className="relative mb-[50px] xs-max:flex xs-max:flex-col xs-max:gap-[40px] xs-max:gap-[40px] xs-max:mt-[30px] xxs-max:flex xxs-max:flex-col xxs-max:gap-[25px] xxs-max:mt-[30px]">
+        <div className="relative mb-[50px] xs-max:mt-[30px] xs-max:flex xs-max:flex-col xs-max:gap-[40px] xs-max:gap-[40px] xxs-max:mt-[30px] xxs-max:flex xxs-max:flex-col xxs-max:gap-[25px]">
           {(discounts.length != 0 ? discounts : data.discounts)?.map(
             (item: DiscountDataDetail) => (
               <DetailCard data={item} key={item.discount_amount} />
