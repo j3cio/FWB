@@ -12,7 +12,7 @@ const getSingleUser = async (request: NextRequest) => {
   //Extract the clerk user_id from the url path
   const urlObject = new URL(request.url)
   const userIdPathVariable = urlObject.pathname.split('/').pop()
-
+  
   try {
     const { userId, getToken } = auth()
     const user = await currentUser()
@@ -27,7 +27,7 @@ const getSingleUser = async (request: NextRequest) => {
       }
 
       let { data: users, error } = await supabase
-        .from('users')
+        .from('test_users')
         .select('*')
         .eq('user_id', userIdPathVariable)
 

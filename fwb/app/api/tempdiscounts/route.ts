@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     if (discount_id) {
       // If discount_id return specific discount
       let { data, error } = await supabase
-        .from('discounts')
+        .from('test_discounts')
         .select('*')
         .eq('id', discount_id)
       if (error) {
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
       }
       return NextResponse.json({ success: true, data }, { status: 200 })
     } else {
-      let { data, error } = await supabase.from('discounts').select('*')
+      let { data, error } = await supabase.from('test_discounts').select('*')
       if (error) {
         // Else return all groups
         return NextResponse.json(
