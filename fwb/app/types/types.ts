@@ -13,18 +13,19 @@ export interface Group {
   filePath: string
 }
 export interface DiscountData {
-  created_at: string
-  user_id: string
-  terms_and_conditions: string
-  shareable_url: string
-  discount_amount: number
-  view_count: number
-  share_count: number
-  message_count: number
-  public: true
   id: string
-  logo: string
+  created_at: string
+  public: true
   name: string
+  company: string
+  description: string
+  logo: string
+  discount_amount: number
+  //terms_and_conditions: string
+  //shareable_url: string
+  //view_count: number
+  //share_count: number
+  //message_count: number
 }
 
 export interface UserData {
@@ -34,19 +35,19 @@ export interface UserData {
 ;[]
 
 export interface User {
-  blocked_users: string[]
+  //blocked_users: string[]
   company: string
   id: string
   created_at: string
   user_id: string
   username: string
-  email: string[]
-  user_discounts: string[]
-  user_groups: string[]
-  user_messages: string[]
+  //email: string[]
+  //user_discounts: string[]
+  //user_groups: string[]
+  //user_messages: string[]
   verified: false
-  reported_users: string[]
-  profile_picture_url: string
+  //reported_users: string[]
+  // profile_picture_url: string
   hasCompletedFRE: boolean[]
 }
 
@@ -88,4 +89,11 @@ export interface DiscountDataDetail {
   name: string
   user_image: string
   user_username: string
+}
+
+export interface UserToDiscounts {
+  id: number
+  created_at: string
+  userId: string
+  discountId: string
 }
