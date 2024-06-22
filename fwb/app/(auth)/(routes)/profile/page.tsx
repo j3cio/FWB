@@ -42,6 +42,8 @@ export async function getUser(bearer_token: string, supabase_jwt: string) {
 }
 
 const page = async () => {
+
+  
   const AsyncProfile = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
