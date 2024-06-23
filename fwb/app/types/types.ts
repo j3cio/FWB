@@ -99,5 +99,5 @@ export interface UserToDiscounts {
   id: number
   created_at: string
   userId: string
-  discountId: string
+  discount_id: string
 }

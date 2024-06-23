@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { auth, currentUser } from '@clerk/nextjs'
 import supabaseClient from '@/supabase'
+import { auth, currentUser } from '@clerk/nextjs'
+import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Retrieves users registered through Clerk.
@@ -27,7 +27,7 @@ const getSingleUser = async (request: NextRequest) => {
       }
 
       let { data: users, error } = await supabase
-        .from('users')
+        .from('test_users')
         .select('*')
         .eq('user_id', userIdPathVariable)
 
