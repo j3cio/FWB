@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 import { DiscountData } from '@/app/types/types'
 import AddBenefitCTA from './AddBenefitCTA'
@@ -10,9 +10,17 @@ interface CustomerBenefitListProps {
 }
 
 const CustomerBenefitList = ({ discountData }: CustomerBenefitListProps) => {
-  const filteredDiscountData = discountData.filter(
-    (company) => company !== undefined
-  )
+  const [filteredDiscountData, setFilteredDiscountData] = useState<
+    DiscountData[]
+  >([])
+
+  useEffect(() => {
+    const parseDiscountData = discountData.filter(
+      (company) => company !== undefined
+    )
+
+    setFilteredDiscountData(parseDiscountData)
+  }, [])
 
   return (
     <div>
