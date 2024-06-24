@@ -94,29 +94,6 @@ const page = async () => {
     return <Profile userData={userData} isPublic={false} />
   }
 
-  const AsyncBenefits = async () => {
-    // Repeated calls here are fine since this should be cached data from our above call.
-
-    const bearer_token = await auth().getToken({ template: 'testing_template' })
-    const supabase_jwt = await auth().getToken({ template: 'supabase' })
-    const userData: UserData =
-      bearer_token && supabase_jwt
-        ? await getUser(bearer_token, supabase_jwt)
-        : undefined
-
-    const discountIdArray = userData ? userData.users[0].user_discounts : ['']
-    const discountData: DiscountData[] =
-      userData && bearer_token && supabase_jwt
-        ? await getAllDiscountsData(discountIdArray, bearer_token, supabase_jwt)
-        : []
-
-    const filteredDiscountData = discountData.filter(
-      (company) => company !== undefined
-    )
-
-    return <BenefitsClient filteredDiscountData={filteredDiscountData} />
-  }
-
   return (
     <Box
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
@@ -142,7 +119,7 @@ const page = async () => {
               </div>
             }
           >
-            <AsyncBenefits />
+            <BenefitsClient filteredDiscountData={filteredDiscountData} />
           </Suspense>
         </div>
       </Container>
