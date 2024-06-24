@@ -34,7 +34,7 @@ const Benefits = async () => {
   if (filteredDiscountData.length > 0) {
     return (
       <>
-        <CustomerBenefitList discountData={discountData} />
+        <CustomerBenefitList />
       </>
     )
   }
