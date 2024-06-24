@@ -6,6 +6,8 @@ import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_ut
 
 import { UserData, DiscountData } from '@/app/types/types'
 import BenefitsClient from './BenefitsClient'
+import CustomerBenefitList from './CustomerBenefitList'
+import AddBenefitCTA from './AddBenefitCTA'
 
 const Benefits = async () => {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
@@ -28,7 +30,15 @@ const Benefits = async () => {
     (company) => company !== undefined
   )
 
-  return <BenefitsClient filteredDiscountData={filteredDiscountData} />
+  return (
+    <>
+      {filteredDiscountData && filteredDiscountData.length > 0 ? (
+        <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
+      ) : (
+        <AddBenefitCTA />
+      )}
+    </>
+  )
 }
 
 export default Benefits
