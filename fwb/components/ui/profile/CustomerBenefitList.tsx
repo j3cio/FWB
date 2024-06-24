@@ -30,6 +30,7 @@ const CustomerBenefitList = () => {
         method: 'GET',
         headers: myHeaders,
       }
+
       try {
         const response = await fetch(`/api/users/${userId}`, requestOptions)
         if (!response.ok) {
