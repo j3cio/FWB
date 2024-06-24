@@ -1,37 +1,29 @@
 'use client'
 
-import { DiscountData } from '@/app/types/types'
-import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
-import ShareDiscountButton from './ShareDiscountButton'
+import React, { Suspense } from 'react'
+import { auth } from '@clerk/nextjs'
+import { cookies } from 'next/headers'
 
-interface BenefitsClientData {
-  filteredDiscountData?: DiscountData[]
+import { getUser } from '@/app/(auth)/(routes)/profile/page'
+import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
+
+import { UserData, DiscountData } from '@/app/types/types'
+import CustomerBenefitList from './CustomerBenefitList'
+import AddBenefitCTA from './AddBenefitCTA'
+
+interface BenefitsClientProps {
+  filteredDiscountData: DiscountData[]
 }
 
-const BenefitsClient = ({ filteredDiscountData }: BenefitsClientData) => {
+const BenefitsClient = ({ filteredDiscountData }: BenefitsClientProps) => {
   return (
-    <div>
+    <>
       {filteredDiscountData && filteredDiscountData.length > 0 ? (
-        <div className="flex w-full justify-center">
-          <div className="flex flex-wrap justify-start gap-4 pl-2">
-            {filteredDiscountData.map((company: any, index: React.Key) => (
-              <DiscountCard company={company} key={crypto.randomUUID()} />
-            ))}
-          </div>
-        </div>
+        <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
       ) : (
-        <>
-          <div className="mt-[120px] flex h-1/4 items-center justify-center text-3xl text-yellow-200 sm-max:mt-10 sm-max:text-xl xs-max:mt-10 xs-max:text-xl xxs-max:mt-10 xxs-max:text-xl">
-            Be the wingman to a friend&apos;s wallet now!
-          </div>
-          <div className="mt-[24px] flex grow items-center justify-center">
-            <a href="/addbenefit">
-              <ShareDiscountButton />
-            </a>
-          </div>
-        </>
+        <AddBenefitCTA />
       )}
-    </div>
+    </>
   )
 }
 

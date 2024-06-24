@@ -6,7 +6,6 @@ import { getUser } from '@/app/(auth)/(routes)/profile/page'
 import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
 
 import { UserData, DiscountData } from '@/app/types/types'
-import BenefitsClient from './BenefitsClient'
 import CustomerBenefitList from './CustomerBenefitList'
 import AddBenefitCTA from './AddBenefitCTA'
 
@@ -32,14 +31,17 @@ const Benefits = async () => {
     (company) => company !== undefined
   )
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      {filteredDiscountData && filteredDiscountData.length > 0 ? (
+  if (filteredDiscountData.length > 0) {
+    return (
+      <>
         <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
-      ) : (
-        <AddBenefitCTA />
-      )}
-    </Suspense>
+      </>
+    )
+  }
+  return (
+    <>
+      <AddBenefitCTA />
+    </>
   )
 }
 
