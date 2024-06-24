@@ -46,18 +46,6 @@ export async function getUser(bearer_token: string, supabase_jwt: string) {
 }
 
 const page = async () => {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
-  const userData: UserData =
-    bearer_token && supabase_jwt
-      ? await getUser(bearer_token, supabase_jwt)
-      : undefined
-  const discountIdArray = userData ? userData.users[0].user_discounts : ['']
-  const discountData: DiscountData[] =
-    userData && bearer_token && supabase_jwt
-      ? await getAllDiscountsData(discountIdArray, bearer_token, supabase_jwt)
-      : []
-
   const AsyncProfile = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
@@ -117,7 +105,7 @@ const page = async () => {
             }
           > */}
           {/* </Suspense> */}
-          <CustomerBenefitList discountData={discountData} />
+          <CustomerBenefitList />
         </div>
       </Container>
     </Box>
