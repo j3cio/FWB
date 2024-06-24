@@ -1,15 +1,19 @@
+'use client'
+
 import React from 'react'
 import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 import { DiscountData } from '@/app/types/types'
 import AddBenefitCTA from './AddBenefitCTA'
 
 interface CustomerBenefitListProps {
-  filteredDiscountData: DiscountData[]
+  discountData: DiscountData[]
 }
 
-const CustomerBenefitList = ({
-  filteredDiscountData,
-}: CustomerBenefitListProps) => {
+const CustomerBenefitList = ({ discountData }: CustomerBenefitListProps) => {
+  const filteredDiscountData = discountData.filter(
+    (company) => company !== undefined
+  )
+
   return (
     <div>
       {filteredDiscountData.length ? (

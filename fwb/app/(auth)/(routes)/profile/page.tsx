@@ -58,9 +58,6 @@ const page = async () => {
       ? await getAllDiscountsData(discountIdArray, bearer_token, supabase_jwt)
       : []
 
-  const filteredDiscountData = discountData.filter(
-    (company) => company !== undefined
-  )
   const AsyncProfile = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
@@ -119,7 +116,7 @@ const page = async () => {
               </div>
             }
           >
-            <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
+            <CustomerBenefitList discountData={discountData} />
           </Suspense>
         </div>
       </Container>
