@@ -1,7 +1,5 @@
 'use client'
 
-import { useContext } from 'react'
-
 import { Container } from '@mui/material'
 import { Chat, LoadingIndicator } from 'stream-chat-react'
 import { useMediaQuery } from 'react-responsive'
@@ -9,7 +7,6 @@ import { useMediaQuery } from 'react-responsive'
 import ChatChannel from './ChatChannel'
 import ChatSideBar from './ChatSidebar'
 import ChannelDetails from './ChannelDetails'
-import Navbar from '@/components/ui/navbar/Navbar'
 import MobileChatNavigation from '@/components/ui/chat/mobile/MobileChatNavigation'
 import MobileChatList from '@/components/ui/chat/mobile/MobileChatList'
 

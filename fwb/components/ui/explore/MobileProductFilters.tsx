@@ -79,7 +79,7 @@ const MobileProductFilters = ({
       {sortOptions.map((option) => (
         <MobileFilterButton
           text={option}
-          key={crypto.randomUUID()}
+          key={option}
           handleClick={() => activateOption('sort', option)}
           activeOptions={activeOptions}
           type="sort"
@@ -106,7 +106,7 @@ const MobileProductFilters = ({
                   {sortOptions.map((option) => (
                     <MobileFilterButton
                       text={option}
-                      key={crypto.randomUUID()}
+                      key={option}
                       handleClick={() => activateOption('sort', option)}
                       activeOptions={activeOptions}
                       type="sort"
@@ -120,7 +120,7 @@ const MobileProductFilters = ({
                   {filterCategories.map((option) => (
                     <MobileFilterButton
                       text={option}
-                      key={crypto.randomUUID()}
+                      key={option}
                       handleClick={() => activateOption('categories', option)}
                       activeOptions={activeOptions}
                       type="categories"
@@ -140,7 +140,7 @@ const MobileProductFilters = ({
                   {groupLists.map((option) => (
                     <MobileFilterButton
                       text={option}
-                      key={crypto.randomUUID()}
+                      key={option}
                       handleClick={() =>
                         activateOption('privateGroups', option)
                       }

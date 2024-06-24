@@ -12,13 +12,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { SearchContext } from '@/contexts/SearchContext'
 import { fuzzySearch, getSearchIndex } from '@/lib/utils'
 import { createClient } from '@supabase/supabase-js'
-import Navbar from '../navbar/Navbar'
 import ProductFilters from '@/components/ui/explore/productfilters'
 import MobileProductFilters from './MobileProductFilters'
 import { FilterOptions } from './constants'
 import useFilteredCompanies from '@/components/hooks/useFilteredCompanies'
 import { CompanyAndDiscounts } from '@/app/types/types'
 import { useContextSelector } from 'use-context-selector'
+import {
+  useSearchIndex,
+  useSearchQuery,
+  useSearchResults,
+  useSetSearchIndex,
+  useSetSearchResults,
+} from '@/components/hooks/SearchQuery'
+import { fetchData } from './utils/fetchData'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -39,27 +46,13 @@ const ExplorePageContent = () => {
     privateGroups: [],
     categories: [],
   })
-  const searchQuery = useContextSelector(
-    SearchContext,
-    (context) => context.searchQuery
-  )
-  const searchResults = useContextSelector(
-    SearchContext,
-    (context) => context.searchResults
-  )
-  const setSearchResults = useContextSelector(
-    SearchContext,
-    (context) => context.setSearchResults
-  )
-  const searchIndex = useContextSelector(
-    SearchContext,
-    (context) => context.searchIndex
-  )
-  const setSearchIndex = useContextSelector(
-    SearchContext,
-    (context) => context.setSearchIndex
-  )
+  const searchQuery = useSearchQuery()
+  const searchResults = useSearchResults()
+  const setSearchResults = useSetSearchResults()
+  const searchIndex = useSearchIndex()
+  const setSearchIndex = useSetSearchIndex()
 
+  console.log({ searchQuery, searchResults, searchIndex, setSearchIndex })
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
@@ -83,45 +76,14 @@ const ExplorePageContent = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const bearerToken = await window.Clerk.session.getToken({
-          template: 'testing_template',
-        })
-        const supabaseToken = await window.Clerk.session.getToken({
-          template: 'supabase',
-        })
-
-        const response = await fetch(
-          `api/companies/search?companyQuery=${companyRedirect}`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${bearerToken}`,
-              supabase_jwt: supabaseToken,
-            },
-          }
-        )
-
-        if (response.ok) {
-          const data = await response.json()
-          console.log('Searching for Discount was Successful', data)
-          setSearchedCompany(data)
-        } else {
-          const errorData = await response.json()
-          console.error('Error Finding a Discount', errorData)
-          alert('There are no discounts for that company!')
-          setSearchedCompany(null)
-        }
-      } catch (error) {
-        console.error('GET Company Discount API Failed', error)
-        setSearchedCompany(null)
+    const fetchCompanies = async () => {
+      if (companyRedirect) {
+        const companies = await fetchData(companyRedirect)
+        setCompanies(companies)
       }
+      return
     }
-
-    if (companyRedirect) {
-      fetchData()
-    }
+    fetchCompanies()
   }, [companyRedirect])
 
   const fetchCompanies = async (concat: boolean) => {
