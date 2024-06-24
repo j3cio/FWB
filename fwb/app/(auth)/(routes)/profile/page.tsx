@@ -119,7 +119,13 @@ const page = async () => {
               </div>
             }
           >
-            <BenefitsClient filteredDiscountData={filteredDiscountData} />
+            {filteredDiscountData.length ? (
+              <CustomerBenefitList
+                filteredDiscountData={filteredDiscountData}
+              />
+            ) : (
+              <AddBenefitCTA />
+            )}
           </Suspense>
         </div>
       </Container>

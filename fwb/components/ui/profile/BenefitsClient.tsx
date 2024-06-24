@@ -18,11 +18,7 @@ interface BenefitsClientProps {
 const BenefitsClient = ({ filteredDiscountData }: BenefitsClientProps) => {
   return (
     <>
-      {filteredDiscountData && filteredDiscountData.length > 0 ? (
-        <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
-      ) : (
-        <AddBenefitCTA />
-      )}
+      <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
     </>
   )
 }
