@@ -74,9 +74,13 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
       try {
         // Retrieve the authentication token
         const token = await getToken();
+        const supabaseToken = await window.Clerk.session.getToken({
+          template: 'supabase',
+        })
 
         // Construct headers with the token
         const myHeaders = new Headers();
+        myHeaders.append('supabase_jwt', supabaseToken)
         myHeaders.append('Authorization', `Bearer ${token}`);
 
         // Configure request options
@@ -100,14 +104,15 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
 
         // Parse response data
         const responseData = await response.json();
-
+        console.log(responseData)
         // Set the fetched data
         setDiscount(responseData.data[0]);
         setDiscountAmount(responseData.data[0].discount_amount); 
-        setCompany(responseData.data[0].company);
+        setCompany(responseData.data[0].name);
         if (responseData.data[0].description !== "No description provided") {
             setDescription(responseData.data[0].description)
         }
+        setSelectedOption(responseData.data[0].public === false ? 'private' : 'public')
       } catch (error) {
           console.error('Error fetching data:', error);
       }
@@ -117,7 +122,7 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
       fetchData();
     }, []);
 
-
+    console.log(selectedOption)
   
     const handleSlide = (event: Event, newValue: number | number[]) => {
       if (typeof newValue === 'number') {
@@ -437,6 +442,7 @@ export default function EditBenefit({ params}: { params: { benefit_id: string } 
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits
+                      checked={selectedOption === 'private'}
                         inputProps={{ 'aria-label': 'controlled Switch' }}
                       />
                       <p className="text-white">Keep private</p>

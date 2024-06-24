@@ -550,7 +550,7 @@ export default function Intakeform() {
             </div>
             <div className="submitButton flex">
               <div className='saveButton sm-max:w-[60%] xs-max:w-[60%] xxs-max:w-[60%]'>
-              <button className={`save font-urbanist text-[#8e94e9] text-center text-[20px] font-bold leading-[125%] tracking-[0.4px] rounded-[30px] bg-[#f6ff82] flex items-center justify-center gap-[8px] h-[48px] px-[24px] py-[10px] sm-max:text-[15px] sm-max:w-full xs-max:text-[15px] xs-max:w-full xxs-max:text-[15px] xxs-max:w-full ${isDisabled && 'bg-[#ADB4D2] text-white'}`} type="submit" form="discountForm" disabled={isDisabled}>
+              <button className={`save font-urbanist text-[#8e94e9] text-center text-[20px] font-bold leading-[125%] tracking-[0.4px] rounded-[30px] flex items-center justify-center gap-[8px] h-[48px] px-[24px] py-[10px] sm-max:text-[15px] sm-max:w-full xs-max:text-[15px] xs-max:w-full xxs-max:text-[15px] xxs-max:w-full ${isDisabled ? 'bg-[#ADB4D2] text-white' : 'bg-[#f6ff82]'}`} type="submit" form="discountForm" disabled={isDisabled}>
                   Save and Share
                 </button>
               </div>
