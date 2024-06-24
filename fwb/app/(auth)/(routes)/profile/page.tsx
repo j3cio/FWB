@@ -107,7 +107,7 @@ const page = async () => {
             My Benefits!
           </div>
 
-          <Suspense
+          {/* <Suspense
             fallback={
               <div className="flex w-full justify-center">
                 <div className="flex flex-wrap justify-start gap-4">
@@ -115,9 +115,9 @@ const page = async () => {
                 </div>
               </div>
             }
-          >
-            <CustomerBenefitList discountData={discountData} />
-          </Suspense>
+          > */}
+          {/* </Suspense> */}
+          <CustomerBenefitList discountData={discountData} />
         </div>
       </Container>
     </Box>
