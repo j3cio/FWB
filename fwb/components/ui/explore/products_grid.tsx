@@ -22,7 +22,7 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        // flexGrow: 1,
         paddingBottom: '20px',
         justifyContent: 'center',
         minHeight: '100%',
@@ -35,7 +35,7 @@ export default function ProductGrid({ items, isLoading }: ProductGridProps) {
         sx={{
           marginBottom: '60px',
           justifyContent: 'center',
-          marginTop: isLoading ? '14px' : 0,
+          marginTop: 0,
         }}
       >
         {isLoading
