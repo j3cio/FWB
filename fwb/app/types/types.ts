@@ -32,8 +32,29 @@ export interface UserData {
   users: User[]
 }
 ;[]
+export interface TestUserData {
+  success: boolean
+  users: TestUser[]
+}
+;[]
 
 export interface User {
+  id: string
+  created_at: string
+  user_id: string
+  username: string
+  email: string[]
+  company: string
+  verified: false
+  profile_picture_url: string
+  hasCompletedFRE: boolean[]
+  blocked_users: string[]
+  user_discounts: string[]
+  user_groups: string[]
+  user_messages: string[]
+  reported_users: string[]
+}
+export interface TestUser {
   id: string
   created_at: string
   user_id: string

@@ -1,4 +1,4 @@
-import { UserData, UserToDiscounts } from '@/app/types/types'
+import { TestUserData, UserToDiscounts } from '@/app/types/types'
 import Benefits from '@/components/ui/profile/Benefits'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
@@ -85,7 +85,7 @@ const page = async () => {
   const AsyncProfile = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
-    const userData: UserData =
+    const userData: TestUserData =
       bearer_token && supabase_jwt
         ? await getUser(bearer_token, supabase_jwt)
         : undefined
