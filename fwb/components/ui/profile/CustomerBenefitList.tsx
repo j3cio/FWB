@@ -28,7 +28,7 @@ const CustomerBenefitList = ({ discountData }: CustomerBenefitListProps) => {
         <div className="flex w-full justify-center">
           <div className="flex flex-wrap justify-start gap-4 pl-2">
             {filteredDiscountData.map((company: any, index: React.Key) => (
-              <DiscountCard company={company} key={company.name} />
+              <DiscountCard company={company} key={index} />
             ))}
           </div>
         </div>
