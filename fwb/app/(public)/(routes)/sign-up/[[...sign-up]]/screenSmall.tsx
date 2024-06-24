@@ -397,11 +397,11 @@ export const SmallScreen = () => {
       {pendingVerification && (
         <div className="w-full">
           {inputError && (
-            <div className="error absolute z-10 flex h-[5vh] w-full items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] text-white">
+            <div className="absolute z-10 flex h-[5vh] w-full items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] text-white">
               Invalid verification code, Please try again.
             </div>
           )}
-          <div className="verification mt-[100px] flex flex-col items-center justify-center text-white">
+          <div className="mt-[100px] flex flex-col items-center justify-center text-white">
             <h1 className="text-center text-[5vh] font-medium">
               Email Verification
             </h1>
@@ -409,12 +409,12 @@ export const SmallScreen = () => {
               Please enter verification code that we sent you through email
             </p>
           </div>
-          <div className="verificationForm">
+          <div>
             <form
               onSubmit={handleVerify}
               className="flex flex-col items-center"
             >
-              <div className="inputBox mt-[150px] flex w-screen justify-center gap-[8px] px-[15px]">
+              <div className="mt-[150px] flex w-screen justify-center gap-[8px] px-[15px]">
                 {[0, 1, 2, 3, 4, 5].map((index) => (
                   <input
                     className={`flex h-[13vw] w-[13vw] rounded-md border-[1px] bg-white p-2 text-center text-[22px] focus:bg-opacity-0 focus:text-white focus:opacity-100 focus:outline-none ${Array.from(code)[index] && Array.from(code)[index] !== '' && Array.from(code)[index] !== ' ' ? 'bg-opacity-100 text-[#8E94E9] opacity-100' : 'bg-opacity-40 opacity-40'} ${inputError ? 'border-red-500 !opacity-100' : 'border-white'}`}
@@ -448,7 +448,7 @@ export const SmallScreen = () => {
                 </button>
               }
             </form>
-            <div className="resend mt-[20px] flex w-full justify-center text-lg text-white">
+            <div className="mt-[20px] flex w-full justify-center text-lg text-white">
               <p className="pr-[7px] text-[2vh] font-light">
                 Didn’t get a verification code?{' '}
               </p>

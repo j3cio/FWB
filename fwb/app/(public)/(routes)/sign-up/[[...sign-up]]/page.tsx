@@ -240,7 +240,7 @@ export default function Page() {
   }
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="relative grid h-screen w-full overflow-hidden">
       {width > 1201 && (
         <div>
           {!pendingVerification && (
@@ -447,10 +447,15 @@ export default function Page() {
               </div>
             </div>
           )}
+
+          {/* default verfication 
+            NOTE: Container class in tailwind does not have any aditional styling 
+          */}
+
           {pendingVerification && (
             <div className="relative block h-screen w-full overflow-hidden">
-              <div className="container overflow-hidden">
-                <div className="leftContainer translate-y-[-30px]">
+              <div className="container ml-auto mr-auto flex w-full justify-between overflow-hidden pl-[2rem] pr-[2rem]">
+                <div className="flex translate-y-[-30px] flex-col">
                   <div className="w-[133px]">
                     <svg
                       width="100%"
@@ -482,21 +487,21 @@ export default function Page() {
                   </div>
                   <div className="h-[150px] w-[150px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[136px] xl-max:w-[136px]"></div>
                   <div className="h-[452px] w-[150px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat xl-max:h-[405px] xl-max:w-[136px]"></div>
-                  <div className="yellowBox xl-max:h-[134px] xl-max:w-[134px]"></div>
+                  <div className="h-[150px] w-[150px] flex-shrink-0 rounded-full bg-[#f6ff82] xl-max:h-[134px] xl-max:w-[134px]"></div>
                 </div>
-                <div className="middleContainer h-screen w-[50%]">
+                <div className="flex h-screen w-[50%] flex-col justify-center text-center">
                   <div
-                    className={`border-box errorContainer mb-[30px] flex w-full justify-center`}
+                    className={`border-box mb-[30px] flex w-full justify-center`}
                   >
                     <div
-                      className={`error flex h-[4vh] items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] text-white ${inputError ? 'flex' : 'hidden'} absolute top-[50px] w-[35%] rounded-md`}
+                      className={`flex h-[4vh] items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] font-medium leading-[150%] text-white ${inputError ? 'flex' : 'hidden'} absolute top-[50px] w-[35%] rounded-md`}
                     >
                       <p>Invalid verification code, Please try again.</p>
                     </div>
                   </div>
 
-                  <div className="my-auto inline-flex h-[728px] h-[80%] w-[556px] shrink-0 flex-col items-center justify-center rounded-[60px] border-2 border-white bg-white/15 px-[161px] py-[110px]  shadow-md">
-                    <div className="verification flex flex-col items-center justify-center text-white">
+                  <div className="inline-flex h-[80%] flex-shrink-0 flex-col items-center justify-center rounded-[60px] border-2 border-[#fff] bg-white/15 px-[161px] py-[110px] pb-[109.48px] shadow-[0px_4px_4px_0px_rgba(255,255,255,0.25)]">
+                    <div className="flex flex-col items-center justify-center text-white">
                       <h1 className="text-center text-[5vh] font-medium">
                         Email Verification
                       </h1>
@@ -505,12 +510,12 @@ export default function Page() {
                         email
                       </p>
                     </div>
-                    <div className="verificationForm">
+                    <div>
                       <form
                         onSubmit={handleVerify}
                         className="flex flex-col items-center"
                       >
-                        <div className="inputBox mt-[100px] flex w-screen justify-center gap-[8px] px-[15px]">
+                        <div className="mt-[100px] flex w-full justify-center gap-[8px] px-[15px]">
                           {[0, 1, 2, 3, 4, 5].map((index) => (
                             <input
                               className={`flex h-[4vw] w-[4vw] rounded-md border-[1px] bg-white p-2 text-center text-[22px] focus:bg-opacity-0 focus:text-white focus:opacity-100 focus:outline-none ${Array.from(code)[index] && Array.from(code)[index] !== '' && Array.from(code)[index] !== ' ' ? 'bg-opacity-100 text-[#8E94E9] opacity-100' : 'bg-opacity-40 opacity-40'} ${inputError ? 'border-red-500 !opacity-100' : 'border-white'}`}
@@ -537,7 +542,7 @@ export default function Page() {
                         {
                           <button
                             type="submit"
-                            className={`mt-[150px] flex h-[48px] w-[20%] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
+                            className={`mt-[150px] flex h-[48px] w-[336px] items-center justify-center gap-2 rounded-[30px] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : 'bg-[#f6ff82]'}`}
                             disabled={
                               code.search(' ') === -1 && code.length === 6
                                 ? false
@@ -548,9 +553,9 @@ export default function Page() {
                           </button>
                         }
                       </form>
-                      <div className="resend mt-[20px] flex w-full justify-center text-lg text-white">
+                      <div className="mt-[20px] flex w-full justify-center text-lg text-white">
                         <p className="pr-[7px] text-[2vh] font-light">
-                          Didn’t get a verification code?{' '}
+                          Didn’t get a verification code?
                         </p>
                         <form onSubmit={handleSubmit}>
                           <button className="text-[2vh] font-semibold">
@@ -561,9 +566,9 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
-                <div className="rightContainer translate-y-[-50px]">
-                  <div className="rightHalfCircle xl-max:w-[134px]"></div>
-                  <div className="bagIcon xl-max:h-[134px] xl-max:w-[134px]">
+                <div className="flex translate-y-[-50px] flex-col">
+                  <div className="h-[166px] w-[150px] rounded-[0_0_156.25px_156.25px] border-[3px] border-t-0 border-white xl-max:w-[134px]"></div>
+                  <div className="flex h-[150px] w-[150px] flex-shrink-0 items-center justify-center rounded-[156.25px] bg-white p-[27px_27.25px_27px_26.75px] xl-max:h-[134px] xl-max:w-[134px]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="97"
@@ -585,7 +590,7 @@ export default function Page() {
 
                   <div className="-mt-[128px] w-[150px] shrink-0 rounded-bl-none rounded-br-none rounded-tl-[156.25px] rounded-tr-[156.25px] border-[3px] border-white">
                     <div className="border-t-neutral-000 mt-[42px] h-[100px] w-[149px] flex-shrink-0 rounded-bl-none rounded-br-none rounded-tl-[162px] rounded-tr-[165px] border-t-[3px] opacity-50"></div>
-                    <div className="border-t-neutral-000 -mt-[60px] h-[80px] w-[150px] flex-shrink-0 rounded-bl-none rounded-br-none rounded-tl-[156.25px] rounded-tr-[156.25px] border-t-[3px] opacity-25"></div>
+                    <div className="border-t-neutral-000 -mt-[60px] h-[280px] w-[150px] flex-shrink-0 rounded-bl-none rounded-br-none rounded-tl-[156.25px] rounded-tr-[156.25px] border-t-[3px] opacity-25"></div>
                   </div>
                 </div>
               </div>
@@ -593,249 +598,9 @@ export default function Page() {
           )}
         </div>
       )}
-      {width > 901 && width < 1200 && <LargeScreen />}
-      {width < 901 && (
-        <div>
-          {!pendingVerification && (
-            <div className="flex h-screen w-full flex-row">
-              <div className="z-10 mx-auto inline-flex border-0 bg-none p-0 shadow-none sm-max:mt-[160px] xs-max:mt-[80px] xxs-max:mt-[64px]">
-                <div className="signInContent">
-                  <div className="mb-[80px] overflow-hidden whitespace-nowrap text-center font-urbanist text-[40px] font-normal leading-[110%] text-white xxs-max:text-[24px] small-max:mb-[40px]">
-                    Create Account
-                  </div>
-                  <div className="mb-4 flex items-center justify-center">
-                    <button
-                      className="mr-[22.6px] h-[45.216px] w-[45.216px] items-center justify-center rounded-[28.26px] border-[1.413px] border-white pb-[1px] pl-[8px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
-                      onClick={signUpWithGoogle}
-                    >
-                      <Image src={GooglePic} alt="Google Icon" />
-                    </button>
-                    <button
-                      className="h-[45.216px] w-[45.216px] items-center justify-center rounded-full border-[1.413px] border-white p-[5px] sm-max:p-[7px] xs-max:p-[7px] xxs-max:h-[30px] xxs-max:w-[30px] xxs-max:p-[5px]"
-                      onClick={signUpWithDiscord}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="100%"
-                        height="100%"
-                        viewBox="0 0 27 21"
-                        fill="none"
-                      >
-                        <path
-                          d="M22.5638 2.45395C20.9174 1.68365 19.157 1.12382 17.3166 0.805054C17.0905 1.2137 16.8265 1.76335 16.6444 2.20059C14.688 1.90636 12.7495 1.90636 10.8291 2.20059C10.647 1.76335 10.377 1.2137 10.1489 0.805054C8.30648 1.12382 6.54406 1.6857 4.89768 2.45803C1.57691 7.47615 0.6767 12.3696 1.1268 17.1936C3.32932 18.8384 5.46381 19.8376 7.56229 20.4914C8.08042 19.7783 8.54251 19.0203 8.9406 18.2214C8.18243 17.9333 7.45627 17.5778 6.77013 17.165C6.95216 17.0302 7.13021 16.8892 7.30223 16.7441C11.4872 18.7015 16.0343 18.7015 20.1692 16.7441C20.3433 16.8892 20.5213 17.0302 20.7013 17.165C20.0132 17.5798 19.285 17.9353 18.5268 18.2234C18.9249 19.0203 19.385 19.7804 19.9052 20.4934C22.0057 19.8396 24.1421 18.8405 26.3446 17.1936C26.8728 11.6014 25.4424 6.75285 22.5638 2.45395ZM9.51074 14.2269C8.25446 14.2269 7.22421 13.0541 7.22421 11.6259C7.22421 10.1977 8.23246 9.02286 9.51074 9.02286C10.7891 9.02286 11.8193 10.1956 11.7973 11.6259C11.7993 13.0541 10.7891 14.2269 9.51074 14.2269ZM17.9607 14.2269C16.7044 14.2269 15.6742 13.0541 15.6742 11.6259C15.6742 10.1977 16.6824 9.02286 17.9607 9.02286C19.239 9.02286 20.2692 10.1956 20.2472 11.6259C20.2472 13.0541 19.239 14.2269 17.9607 14.2269Z"
-                          fill="white"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <div className="mb-4 flex items-center justify-center font-urbanist text-[16px] font-medium leading-[150%] text-white">
-                    Or
-                  </div>
-                  <form onSubmit={handleSubmit}>
-                    <div>
-                      <input
-                        className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px] sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
-                        placeholder="Email@address.com"
-                        onChange={(e) => setEmailAddress(e.target.value)}
-                        id="email"
-                        name="email"
-                        type="email"
-                      />
-                    </div>
-                    <div>
-                      {error &&
-                        error.errors
-                          .filter(
-                            (err: any) => err.meta.paramName === 'email_address'
-                          )
-                          .map((passwordError: any) => (
-                            <div
-                              className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
-                              key={passwordError.meta.paramName}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 17"
-                                fill="none"
-                                className="rounded-full bg-red-600"
-                              >
-                                <path
-                                  d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
-                                  fill="white"
-                                />
-                              </svg>{' '}
-                              <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
-                                {passwordError.message}
-                              </div>
-                            </div>
-                          ))}
-                    </div>
-                    <div>
-                      <input
-                        className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px] sm-max:w-[387px] xs-max:w-[341px] xxs-max:w-[272px]"
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        id="password"
-                        name="password"
-                        type="password"
-                      />
-                    </div>
-                    {error &&
-                      error.errors
-                        .filter((err: any) => err.meta.paramName === 'password')
-                        .map((passwordError: any) => (
-                          <div
-                            className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
-                            key={passwordError.meta.paramName}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 17"
-                              fill="none"
-                              className="rounded-full bg-red-600"
-                            >
-                              <path
-                                d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
-                                fill="white"
-                              />
-                            </svg>{' '}
-                            <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
-                              {passwordError.message}
-                            </div>
-                          </div>
-                        ))}
-                    <div className="mb-[64px] flex xs-max:mb-[80px] xxs-max:mb-[42px]">
-                      <FormControlLabel
-                        sx={{ height: '24px' }}
-                        label={
-                          <Typography className="font-urbanist text-white">
-                            Remember me
-                          </Typography>
-                        }
-                        control={
-                          <Checkbox
-                            value="remember"
-                            sx={{ color: '#fff' }}
-                          ></Checkbox>
-                        }
-                      ></FormControlLabel>
-                    </div>
-                    <ul></ul>
-                    <button
-                      className=" flex h-[48px] w-[366px] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] sm-max:w-[387px] xs-max:w-[341px] xxs-max:h-[36px] xxs-max:w-[272px] xxs-max:text-[16px]"
-                      type="submit"
-                    >
-                      Submit
-                    </button>
-                    <div className="flex items-center justify-center">
-                      <div className="pr-[5px] font-urbanist text-[16px] font-normal leading-[150%] text-white xxs-max:text-[12px]">
-                        Already have an account?
-                      </div>
-                      <Link
-                        href="/sign-in"
-                        className="flex h-[36px] items-center justify-center gap-1 py-2 font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px] text-white xxs-max:text-[12px]"
-                      >
-                        Sign In
-                      </Link>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div className=" absolute left-0 top-[30%] z-0 w-full xxs-max:hidden">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="100%"
-                  height="30%"
-                  viewBox="0 0 600 554"
-                  fill="none"
-                >
-                  <path
-                    opacity="0.1"
-                    d="M2419 270.808C2055.64 432.28 1977.33 22.903 1742.24 239.744C1628.22 344.903 1793.32 501.159 1878.97 302.189C1964.05 104.525 1607.83 14.999 1430.54 218.721C1257.78 417.247 1151.34 397.121 1057.68 249.322C964.022 101.523 1187.33 37.162 1144.67 234.998C1132.9 289.593 1102.84 356.512 1077.74 384.795C994.817 478.219 752.143 615.404 443.763 416.756C154.046 230.13 -227.152 298.53 -300.874 384.795C-474 587.376 234.241 540.174 177.766 272.111C164.183 207.638 56.1332 142.758 4.55475 117.8C4.55475 117.8 -191.254 20.2077 -397 36.9266"
-                    stroke="white"
-                    strokeWidth="70"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          )}
 
-          {pendingVerification && (
-            <div className="w-full">
-              {inputError && (
-                <div className="error z-10 flex h-[5vh] w-full items-center justify-center bg-[#ED455D] py-[15px] text-[2vh] text-white">
-                  Invalid verification code, Please try again.
-                </div>
-              )}
-              <div className="verification mt-[100px] flex flex-col items-center justify-center text-white">
-                <h1 className="text-center text-[5vh] font-medium">
-                  Email Verification
-                </h1>
-                <p className="w-[80%] text-center text-[2vh] font-light">
-                  Please enter verification code that we sent you through email
-                </p>
-              </div>
-              <div className="verificationForm">
-                <form
-                  onSubmit={handleVerify}
-                  className="flex flex-col items-center"
-                >
-                  <div className="inputBox mt-[150px] flex w-screen justify-center gap-[8px] px-[15px]">
-                    {[0, 1, 2, 3, 4, 5].map((index) => (
-                      <input
-                        className={`flex h-[13vw] w-[13vw] rounded-md border-[1px] bg-white p-2 text-center text-[22px] focus:bg-opacity-0 focus:text-white focus:opacity-100 focus:outline-none ${Array.from(code)[index] && Array.from(code)[index] !== '' && Array.from(code)[index] !== ' ' ? 'bg-opacity-100 text-[#8E94E9] opacity-100' : 'bg-opacity-40 opacity-40'} ${inputError ? 'border-red-500 !opacity-100' : 'border-white'}`}
-                        key={index}
-                        onChange={(e) => handleInput(e.target.value, index)}
-                        ref={inputRefs[index]}
-                        autoFocus={index === 0}
-                        onFocus={handleFocus}
-                        onKeyDown={(e) => handleKeyDown(e, index)}
-                        onPaste={handlePaste}
-                        maxLength={1}
-                      />
-                    ))}
-                  </div>
-                  {/*<label id="code">Code</label>
-              <input
-                value={code}
-                id="code"
-                name="code"
-                onChange={(e) => setCode(e.target.value)}
-              />*/}
-                  {
-                    <button
-                      type="submit"
-                      className={`mt-[150px] flex h-[48px] w-[80%] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9] ${code.search(' ') !== -1 || code.length !== 6 ? 'bg-[#ADB4D2] text-[#CED2E4]' : ''}`}
-                      disabled={
-                        code.search(' ') === -1 && code.length === 6
-                          ? false
-                          : true
-                      }
-                    >
-                      Submit
-                    </button>
-                  }
-                </form>
-                <div className="resend mt-[20px] flex w-full justify-center text-lg text-white">
-                  <p className="pr-[7px] text-[2vh] font-light">
-                    Didn’t get a verification code?{' '}
-                  </p>
-                  <form onSubmit={handleSubmit}>
-                    <button className="text-[2vh] font-semibold">
-                      Resend code
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      {width > 901 && width < 1200 && <LargeScreen />}
+      {width < 901 && <SmallScreen />}
     </div>
   )
 }
