@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { auth } from '@clerk/nextjs'
 import { cookies } from 'next/headers'
 
@@ -35,13 +35,13 @@ const Benefits = async () => {
   )
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       {filteredDiscountData && filteredDiscountData.length > 0 ? (
         <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
       ) : (
         <AddBenefitCTA />
       )}
-    </>
+    </Suspense>
   )
 }
 
