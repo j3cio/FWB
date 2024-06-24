@@ -28,10 +28,10 @@ type FileEvent = ChangeEvent<HTMLInputElement> & {
 }
 
 const CreateGroupForm = ({
-  userGroups,
+  // userGroups,
   handleClose,
 }: {
-  userGroups: string[]
+  //userGroups: string[]
   handleClose: () => void
 }) => {
   const { userId } = useAuth()
@@ -52,79 +52,79 @@ const CreateGroupForm = ({
     })
   }
 
-  async function handleCreateGroup(data: FormData) {
-    const bearerToken = await window.Clerk.session.getToken({
-      template: 'testing_template',
-    })
-    const supabaseToken = await window.Clerk.session.getToken({
-      template: 'supabase',
-    })
-    // This adds the group to the "groups" table in supabase
-    try {
-      const formData = new FormData()
-      formData.append('name', `${data.name}`)
-      formData.append('users', `${userId}`)
-      formData.append('discounts', '')
-      formData.append('admins', `${userId}`)
-      formData.append('description', `${data.description}`)
+  // async function handleCreateGroup(data: FormData) {
+  //   const bearerToken = await window.Clerk.session.getToken({
+  //     template: 'testing_template',
+  //   })
+  //   const supabaseToken = await window.Clerk.session.getToken({
+  //     template: 'supabase',
+  //   })
+  //   // This adds the group to the "groups" table in supabase
+  //   try {
+  //     const formData = new FormData()
+  //     formData.append('name', `${data.name}`)
+  //     formData.append('users', `${userId}`)
+  //     formData.append('discounts', '')
+  //     formData.append('admins', `${userId}`)
+  //     formData.append('description', `${data.description}`)
 
-      // POST Fetch Request to add the group into groups table
-      const response = await fetch('/api/groups', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-          supabase_jwt: supabaseToken,
-        },
-        body: formData,
-      })
+  //     // POST Fetch Request to add the group into groups table
+  //     const response = await fetch('/api/groups', {
+  //       method: 'POST',
+  //       headers: {
+  //         Authorization: `Bearer ${bearerToken}`,
+  //         supabase_jwt: supabaseToken,
+  //       },
+  //       body: formData,
+  //     })
 
-      if (response.ok) {
-        if (userGroups == undefined) {
-          userGroups = []
-        }
-        const groupData = await response.json()
-        userGroups.push(groupData.data[0].id)
-        console.log('Group added successfully:', groupData.data[0].id)
-        if (data.file) {
-          await uploadFile(data.file, groupData.data[0].id)
-        }
-      } else {
-        const errorData = await response.json()
-        console.error('Error adding user:', errorData)
-      }
-    } catch (error) {
-      console.error('Error add user:', error)
-    }
+  //     if (response.ok) {
+  //       if (userGroups == undefined) {
+  //         userGroups = []
+  //       }
+  //       const groupData = await response.json()
+  //       userGroups.push(groupData.data[0].id)
+  //       console.log('Group added successfully:', groupData.data[0].id)
+  //       if (data.file) {
+  //         await uploadFile(data.file, groupData.data[0].id)
+  //       }
+  //     } else {
+  //       const errorData = await response.json()
+  //       console.error('Error adding user:', errorData)
+  //     }
+  //   } catch (error) {
+  //     console.error('Error add user:', error)
+  //   }
 
-    // This updates the user's groups column
-    try {
-      let newGroup = `{${userGroups.join(',')}}`
-      const groupFormData = new FormData()
-      groupFormData.append('user_id', `${userId}`)
-      groupFormData.append('user_groups', `${newGroup}`)
-      const res = await fetch('/api/users', {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-          supabase_jwt: supabaseToken,
-        },
-        body: groupFormData,
-      })
+  //   // This updates the user's groups column
+  //   try {
+  //     let newGroup = `{${userGroups.join(',')}}`
+  //     const groupFormData = new FormData()
+  //     groupFormData.append('user_id', `${userId}`)
+  //     groupFormData.append('user_groups', `${newGroup}`)
+  //     const res = await fetch('/api/users', {
+  //       method: 'PATCH',
+  //       headers: {
+  //         Authorization: `Bearer ${bearerToken}`,
+  //         supabase_jwt: supabaseToken,
+  //       },
+  //       body: groupFormData,
+  //     })
 
-      if (res.ok) {
-        const data = await res.json()
-        console.log('Group added successfully to users groups:', data)
-        router.refresh()
-        // If you want to redirect to new group made use this else just refresh the page...
-        //router.push(`/groups/${userGroups[userGroups.length-1]}`)
-      } else {
-        const errorData = await res.json()
-        console.error('Error adding user:', errorData)
-      }
-    } catch (error) {
-      console.error('Error adding user group:', error)
-    }
-  }
+  //     if (res.ok) {
+  //       const data = await res.json()
+  //       console.log('Group added successfully to users groups:', data)
+  //       router.refresh()
+  //       // If you want to redirect to new group made use this else just refresh the page...
+  //       //router.push(`/groups/${userGroups[userGroups.length-1]}`)
+  //     } else {
+  //       const errorData = await res.json()
+  //       console.error('Error adding user:', errorData)
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding user group:', error)
+  //   }
+  // }
   // Add the filePath to the group
   const storeFilePath = async (filePath: string, group_id: string) => {
     const supabase = await supabaseClient()
@@ -164,7 +164,7 @@ const CreateGroupForm = ({
     if (isLastStep) {
       return handleClose()
     }
-    await handleCreateGroup(data)
+    //await handleCreateGroup(data)
     next()
   }
 

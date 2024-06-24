@@ -42,9 +42,9 @@ export default function CreateGroupModal({
           />
         </Button>
         <CreateGroupForm
-          userGroups={
-            userData?.users[0].user_groups ? userData?.users[0].user_groups : []
-          }
+          // userGroups={
+          //   userData?.users[0].user_groups ? userData?.users[0].user_groups : []
+          // }
           handleClose={onClose}
         />
       </Box>

@@ -14,25 +14,26 @@ import CreateGroupCard from './CreateGroupCard'
 
 import EndArrow from '../icons/EndArrow'
 
-import { Group, UserData } from '@/app/types/types'
+import { Group, TestUserData, UserData, UserToGroups } from '@/app/types/types'
 import GroupInvites from './GroupInvites'
 
 // Type userData
 const GroupsHomePage = ({
   userData,
   groupData,
+  userToGroupsTable
 }: {
-  userData: UserData
+  userData: TestUserData
   groupData: Group[]
+  userToGroupsTable: UserToGroups[]
 }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [invitations, setInvitations] = useState(false)
   const router = useRouter()
-
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
+  console.log(groupData)
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
       return true
@@ -133,7 +134,7 @@ const GroupsHomePage = ({
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <GroupInvites invitations={invitations} />
-        {userData.users[0].user_groups.length > 0 && (
+        {groupData.length > 0 && (
           <Stack
             className="relative z-0 mt-16 px-[18px]"
             direction="column"
@@ -143,19 +144,19 @@ const GroupsHomePage = ({
               return (
                 <SingleGroupCard
                   loading={loading}
-                  handleDeleteGroup={handleDeleteGroup}
+                  //handleDeleteGroup={handleDeleteGroup}
                   downloadFile={downloadFile}
                   group={group}
                   key={group.id}
                   index={index}
-                  isUserAdmin={isUserAdmin(group, userData.users[0].user_id)}
-                  userGroups={userData.users[0].user_groups}
+                  isUserAdmin={true} // Need to fix this
+                  userToGroupsTable={userToGroupsTable}
                 />
               )
             })}
           </Stack>
         )}
-        {userData.users[0].user_groups.length == 0 && (
+        {groupData.length == 0 && (
           <section className="h-full w-full">
             <Typography
               className="font-urbanist"
