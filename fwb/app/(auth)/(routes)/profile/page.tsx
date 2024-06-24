@@ -119,13 +119,7 @@ const page = async () => {
               </div>
             }
           >
-            {filteredDiscountData.length ? (
-              <CustomerBenefitList
-                filteredDiscountData={filteredDiscountData}
-              />
-            ) : (
-              <AddBenefitCTA />
-            )}
+            <CustomerBenefitList filteredDiscountData={filteredDiscountData} />
           </Suspense>
         </div>
       </Container>
