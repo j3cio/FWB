@@ -1,17 +1,13 @@
-import { DiscountData, UserData } from '@/app/types/types'
+import { UserData } from '@/app/types/types'
 import { auth } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 import Profile from './Profile'
 import { Box, Container } from '@mui/material'
 import { Suspense } from 'react'
-import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
-import Benefits from '@/components/ui/profile/Benefits'
 import ProfileSkeleton from '@/components/ui/skeletons/variants/ProfileSkeleton'
-import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
-import AddBenefitCTA from '@/components/ui/profile/AddBenefitCTA'
+
 import CustomerBenefitList from '@/components/ui/profile/CustomerBenefitList'
-import BenefitsClient from '@/components/ui/profile/BenefitsClient'
 
 export async function getUser(bearer_token: string, supabase_jwt: string) {
   const userId = await auth().userId
