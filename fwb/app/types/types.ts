@@ -122,3 +122,9 @@ export interface UserToDiscounts {
   userId: string
   discount_id: string
 }
+export interface UserToGroups {
+  id: number
+  created_at: string
+  userId: string
+  group_id: string
+}
