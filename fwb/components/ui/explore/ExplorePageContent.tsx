@@ -48,11 +48,9 @@ const ExplorePageContent = () => {
   })
   const searchQuery = useSearchQuery()
   const searchResults = useSearchResults()
-  const setSearchResults = useSetSearchResults()
   const searchIndex = useSearchIndex()
   const setSearchIndex = useSetSearchIndex()
 
-  console.log({ searchQuery, searchResults, searchIndex, setSearchIndex })
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
