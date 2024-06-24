@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 import { DiscountData } from '@/app/types/types'
-import AddBenefitCTA from './AddBenefitCTA'
+import AddBenefitCTA from '@/components/ui/profile/AddBenefitCTA'
+import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 
 interface CustomerBenefitListProps {
   discountData: DiscountData[]
