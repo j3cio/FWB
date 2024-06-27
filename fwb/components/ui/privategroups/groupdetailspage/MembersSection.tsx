@@ -130,7 +130,7 @@ const MembersSection = ({ userData }: { userData: UserData[] }) => {
       <h1 className="my-7 font-urbanist text-2xl font-semibold text-[#F6FF82] xs-max:hidden xxs-max:hidden">
         Members
       </h1>
-      <div className="w-[60%] xs-max:w-auto xxs-max:w-auto xs-max:flex  xs-max:flex-col  xxs-max:flex xs-max:flex-col">
+      <div className="w-[60%] xs-max:w-auto xxs-max:w-auto xs-max:flex  xs-max:flex-col  xxs-max:flex xs-max:flex-col xxs-max:flex-col">
         <SearchBar />
         {userData.map((user: UserData, index: number) => (
           <Member key={index} user={user.users[0]} />
