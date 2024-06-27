@@ -30,11 +30,6 @@ const insertUser = async (request: NextRequest) => {
           false,
           false,
         ],
-        //user_discounts: formData.get('user_discounts') || [],
-        //user_groups: formData.get('user_groups') || [],
-        //user_messages: formData.get('user_messages') || [],
-        //blocked_users: formData.get('blocked_users') || [],
-        //reported_users: formData.get('reported_users') || [],
       }
 
       const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
@@ -222,7 +217,7 @@ const updateUser = async (request: NextRequest) => {
       }
 
       const { data, error } = await supabase
-        .from('users')
+        .from('test_users')
         .update(updatedUser)
         .eq('user_id', userId)
         .select()
