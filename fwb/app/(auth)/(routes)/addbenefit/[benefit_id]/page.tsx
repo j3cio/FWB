@@ -1,5 +1,5 @@
 'use client'
-
+import Intakeform from "../page"
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 import Navbar from '@/components/ui/navbar/Navbar'
@@ -12,289 +12,209 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Slider from '@mui/material/Slider'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useRouter } from 'next/navigation'
-
 import { CustomSwitchAddBenefits } from '@/components/ui/fre/CustomSwitch'
-import PercentageIcon from './icons/PercentageIcon'
+import PercentageIcon from '../icons/PercentageIcon'
 import { Group, UserData } from '@/app/types/types'
-import { updateDiscount } from '@/app/api-wrappers/discounts'
-
+import { useEffect } from "react"
 
 const theme = createTheme({
-  components: {
-    MuiSlider: {
-      styleOverrides: {
-        root: {
-          height: 8, // Thickness
-        },
-        thumb: {
-          backgroundColor: '#8E94E9',
-        },
-        track: {
-          backgroundColor: '#8E94E9',
-        },
-        // '& .MuiSlider-rail': {
-        //   opacity: 0.5,
-        //   backgroundColor: 'red',
-        // },
-        rail: {
-          backgroundColor: 'white !important',
-        },
-        valueLabel: {
-          backgroundColor: '#FFF', // Label background color
-          color: '#000', // Label text color
-        },
-        valueLabelLabel: {
-          color: '#000', // Label text color
+    components: {
+      MuiSlider: {
+        styleOverrides: {
+          root: {
+            height: 8, // Thickness
+          },
+          thumb: {
+            backgroundColor: '#8E94E9',
+          },
+          track: {
+            backgroundColor: '#8E94E9',
+          },
+          // '& .MuiSlider-rail': {
+          //   opacity: 0.5,
+          //   backgroundColor: 'red',
+          // },
+          rail: {
+            backgroundColor: 'white !important',
+          },
+          valueLabel: {
+            backgroundColor: '#FFF', // Label background color
+            color: '#000', // Label text color
+          },
+          valueLabelLabel: {
+            color: '#000', // Label text color
+          },
         },
       },
     },
-  },
-})
-
-
-export default function Intakeform() {
-  const { user } = useUser()
+  })
   
-  const [discountAmount, setDiscountAmount] = useState<number>(0)
-  const [emailAddress, setEmailAddress] = useState('')
-  const [company, setCompany] = useState('')
-  const [shareableUrl, setShareableUrl] = useState('')
-  const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
-    'public'
-  )
-  const [categories, setCategories] = useState([])
-  const [termsAndConditions, setTermsAndConditions] = useState(false)
-  const [description, setDescription] = useState('')
 
-  const router = useRouter()
-  const { getToken } = useAuth()
+export default function EditBenefit({ params}: { params: { benefit_id: string } }) {
 
-  const handleSlide = (event: Event, newValue: number | number[]) => {
-    if (typeof newValue === 'number') {
-      setDiscountAmount(newValue)
-    }
-  }
+    const [discount, setDiscount] = useState<any>(null);
 
-  const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
-    setTermsAndConditions(event.target?.checked)
-  }
-  const fetchUserData = async (userId:string, bearerToken:string, supabaseToken:string) => {
-    try {
-      var myHeaders = new Headers()
-      myHeaders.append('supabase_jwt', supabaseToken)
-      myHeaders.append('Authorization', `Bearer ${bearerToken}`)
-
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-      }
-
-      const protocol = window.location.protocol;
-      const response = await fetch(
-        `${protocol}//${window.location.host}/api/users/${userId}`,
-        requestOptions
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const result = await response.json()
-      return result 
-      
-      
-    } catch (error) {
-      console.error('Error fetching data: ', error)
-      throw error 
-    }
-  }
-  const fetchGroupData = async (groupId: string, bearerToken:string, supabaseToken:string) => {
-    if (groupId) {
-      var myHeaders = new Headers()
-      myHeaders.append('supabase_jwt', supabaseToken)
-      myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+    const { user } = useUser()
+    const [discountAmount, setDiscountAmount] = useState<number>(0)
+    const [emailAddress, setEmailAddress] = useState('')
+    const [company, setCompany] = useState('')
+    const [shareableUrl, setShareableUrl] = useState('')
+    const [selectedOption, setSelectedOption] = useState<'public' | 'private'>(
+      'public'
+    )
+    const [categories, setCategories] = useState([])
+    const [termsAndConditions, setTermsAndConditions] = useState(false)
+    const [description, setDescription] = useState('')
   
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-      }
+    const router = useRouter()
+    const { getToken } = useAuth()
+
+    useEffect(() => {
+      const fetchData = async () => {
       try {
-        const protocol = window.location.protocol;
-        const response = await fetch(
-          
-          `${protocol}//${window.location.host}/api/groups?group_id=${groupId}`, // add to .env
-          requestOptions
-        )
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const result = await response.json()
-        return result 
-      } catch (error) {
-        console.error('Error fetching data: ', error)
-        throw error 
-      }
-    } else {
-      return {
-        success: false,
-        data: [
-          {
-            id: '',
-            name: 'No group id',
-            discounts: [],
-            admins: ['123'],
-            public: false,
-            users: [],
-          },
-        ],
-      }
-    }
-
-  }
-
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    try {
-      const bearerToken = await window.Clerk.session.getToken({
-        template: 'testing_template',
-      })
-      const supabaseToken = await window.Clerk.session.getToken({
-        template: 'supabase',
-      })
-
-      if (user) {
-        const formData = new FormData()
-        formData.append('user_id', user.id)
-        formData.append('terms_and_conditions', `${termsAndConditions}`) // TODO: This column is a text in supabase db, should be a boolean
-        formData.append('shareable_url', shareableUrl)
-        formData.append('discount_amount', `${discountAmount}`)
-        formData.append('view_count', '0'), // I don't think we will need these 3 params for a while..
-        formData.append('share_count', '0'),
-        formData.append('message_count', '0'),
-        formData.append('public', `${selectedOption}`) // DISCUSS: True if public, False if private
-        formData.append('logo', 'No logo for now') // TODO: Get logos for discounts
-        // Name and company are the same thing
-        formData.append('name', company)
-        formData.append('company', company)
-
-        formData.append('categories', `{${categories.join(',')}}`)
-        formData.append('description', description)
-        //formData.append('email', emailAddress)
-
-        const response = await fetch('/api/discounts', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-            supabase_jwt: supabaseToken,
-          },
-          body: formData,
+        // Retrieve the authentication token
+        const token = await getToken();
+        const supabaseToken = await window.Clerk.session.getToken({
+          template: 'supabase',
         })
 
-        if (response.ok) {
-          const discountData = await response.json()
-          console.log('Discount added successfully:', discountData)
-          const discountObject  = discountData.data[0]
+        // Construct headers with the token
+        const myHeaders = new Headers();
+        myHeaders.append('supabase_jwt', supabaseToken)
+        myHeaders.append('Authorization', `Bearer ${token}`);
 
-          // add new discount to my account
-          const patchResponse = await fetch('/api/discounts', {
+        // Configure request options
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow' as RequestRedirect,
+        };
+
+        // Construct the URL with the correct benefit_id parameter
+        const protocol = window.location.protocol;
+        const url = `${protocol}//${window.location.host}/api/discounts?discount_id=${params.benefit_id}`;
+
+        // Fetch data from the API
+        const response = await fetch(url, requestOptions);
+
+        // Check if response is ok
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        // Parse response data
+        const responseData = await response.json();
+        console.log(responseData)
+        // Set the fetched data
+        setDiscount(responseData.data[0]);
+        setDiscountAmount(responseData.data[0].discount_amount); 
+        setCompany(responseData.data[0].name);
+        if (responseData.data[0].description !== "No description provided") {
+            setDescription(responseData.data[0].description)
+        }
+        setSelectedOption(responseData.data[0].public === false ? 'private' : 'public')
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+      };
+  
+      // Call the fetchData function
+      fetchData();
+    }, []);
+
+    console.log(selectedOption)
+  
+    const handleSlide = (event: Event, newValue: number | number[]) => {
+      if (typeof newValue === 'number') {
+        setDiscountAmount(newValue)
+      }
+    }
+  
+    const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
+      setTermsAndConditions(event.target?.checked)
+    }
+  
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+    
+      try {
+        const bearerToken = await window.Clerk.session.getToken({
+          template: 'testing_template',
+        });
+        const supabaseToken = await window.Clerk.session.getToken({
+          template: 'supabase',
+        });
+    
+        if (user) {
+          const formData = new FormData();
+          formData.append('discount_id', params.benefit_id);
+          formData.append('user_id', user.id);
+          formData.append('discount_amount', `${discountAmount}`);
+          formData.append('public', `${selectedOption}`);
+          formData.append('name', company);
+          formData.append('company', company);
+          formData.append('categories', `{${categories.join(',')}}`)
+          formData.append('description', description);
+
+          const response = await fetch(`/api/discounts/editDiscount`, {
             method: 'PATCH',
             headers: {
               Authorization: `Bearer ${bearerToken}`,
               supabase_jwt: supabaseToken,
             },
-            body: JSON.stringify(discountObject),
-          })
-
-          if (patchResponse.ok) {
-            // get my groups 
-            // add new discount to each group
-            const userData: UserData = await fetchUserData(user.id, bearerToken, supabaseToken)
-            const groupData: Group[] = await Promise.all(
-              userData.users[0].user_groups.map(async (group_id) => {
-                // Simulate async operation
-                const singleGroupData = await fetchGroupData(group_id, bearerToken, supabaseToken)
-                const groupDataBody = singleGroupData.data[0]
-                const discountId = discountData.data[0].id;
-
-                const requestBody = {
-                  ...groupDataBody,
-                  discountId: discountId // Add discountId as a separate field
-                };
-
-                const groupPatchResponse = await fetch('/api/groupdiscount', {
-                  method: 'PATCH',
-                  headers: {
-                    Authorization: `Bearer ${bearerToken}`,
-                    supabase_jwt: supabaseToken,
-                  },
-                  body: JSON.stringify(requestBody)
-                });
-                
-                if (groupPatchResponse.ok) {
-                  console.log(`Group ${singleGroupData.data[0].id} successfully updated`);
-                  return singleGroupData
-                
-                } else {
-                  console.error(`Failed to update group ${singleGroupData.data[0].id}`);
-                }
-              })
-            )
+            body: formData,
+          });
+    
+          if (response.ok) {
             console.log('pushing to profile page');
-            router.push('/profile');
+            router.push('/profile?refresh=${Date.now()}');
           } else {
-            const errorData = await patchResponse.json();
-            console.error('Error updating user discounts:', errorData);
+            throw new Error('Failed to update discount');
           }
-        } else {
-          const errorData = await response.json()
-          console.error('Error adding user:', errorData)
         }
-      } else {
-        console.error('Error user not found')
+      } catch (error) {
+        console.error('Error updating discount:', error);
       }
-    } catch (error) {
-      console.error('Error adding discount:', error)
+    };
+    
+    const valueLabelFormat = (discount: number) => {
+      return `${discount}%`
     }
-  }
-
-  const valueLabelFormat = (discount: number) => {
-    return `${discount}%`
-  }
-
-  /*const handleOptionChange = (option: 'public' | 'private') => {
-    setSelectedOption(option)
-  }*/
-
-  const togglePrivacy = () =>
-    selectedOption === 'public'
-      ? setSelectedOption('private')
-      : setSelectedOption('public')
-
-  const handleCategoryChange = (selectedCategories: any) => {
-    setCategories(selectedCategories)
-  }
-
-  const handleDiscountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === '') {
-      setDiscountAmount(0)
-    } else {
-      setDiscountAmount(parseInt(event.target.value, 10))
+  
+    /*const handleOptionChange = (option: 'public' | 'private') => {
+      setSelectedOption(option)
+    }*/
+  
+    const togglePrivacy = () =>
+      selectedOption === 'public'
+        ? setSelectedOption('private')
+        : setSelectedOption('public')
+  
+    const handleCategoryChange = (selectedCategories: any) => {
+      setCategories(selectedCategories)
     }
-  }
-
-  const isDisabled = !(termsAndConditions && discountAmount !== 0 && company !== '');
-
-  return (
-    <div>
+  
+    const handleDiscountInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target.value === '') {
+        setDiscountAmount(0)
+      } else {
+        setDiscountAmount(parseInt(event.target.value, 10))
+      }
+    }
+  
+    const isDisabled = !(termsAndConditions && discountAmount !== 0 && company !== '');
+  
+    return (
+        <div>
       <Box sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}>
         <Container disableGutters maxWidth="lg">
-          <form
+          {discount && <form
             id="discountForm"
             onSubmit={handleSubmit}
-            className="formContainer flex flex-col px-[55px] sm-max: pl-[50px] sm-max:items-center xs-max: pl-[50px] xs-max:items-center xxs-max: pl-[50px] xxs-max:items-center"
+            className="formContainer flex flex-col px-[55px]  sm-max: pl-[50px] sm-max:items-center xs-max: pl-[50px] xs-max:items-center xxs-max: pl-[50px] xxs-max:items-center"
           >
             <div className="firstBox">
-              <div className="share font-urbanist font-normal leading-[110%] flex mt-[24px] mb-[72px] sm-max:mb-[36px] sm-max:mt-0 xs-max:mb-[36px] xs-max:mt-0 xxs-max:mb-[36px] xxs-max:mt-0">
+              <div className="share share font-urbanist font-normal leading-[110%] flex mt-[24px] mb-[72px] sm-max:mb-[36px] sm-max:mt-0 xs-max:mb-[36px] xs-max:mt-0 xxs-max:mb-[36px] xxs-max:mt-0">
                 <Typography
                   sx={{
                     color: 'white',
@@ -322,7 +242,7 @@ export default function Intakeform() {
                 </div>
                 </div>*/}
 
-              <div className="line2 flex sm-max:flex-col xs-max:flex-col xxs-max:flex-col mb-[25px] sm-max:gap-[15px] xs-max:gap-[15px] xxs-max:gap-[15px]">
+              <div className="line2  flex sm-max:flex-col xs-max:flex-col xxs-max:flex-col mb-[25px] sm-max:gap-[15px] xs-max:gap-[15px] xxs-max:gap-[15px]">
                 <div className="company text-white font-urbanist text-[16px] font-semibold leading-[125%]">Company Name*</div>
                 <div>
                   <input
@@ -368,7 +288,7 @@ export default function Intakeform() {
                           <div className="amount font-urbanist text-white text-[16px] font-semibold leading-[125%]">Discount Amount*</div>
                           <ThemeProvider theme={theme}>
                             <div
-                              className="slider ml-[45px] sm-max:ml-[10px] sm-max:!w-[85%] xs-max:ml-[10px] xs-max:!w-[85%] xxs-max:ml-[10px] xxs-max:!w-[85%]"
+                              className="slider  ml-[45px] sm-max:ml-[10px] sm-max:!w-[85%] xs-max:ml-[10px] xs-max:!w-[85%] xxs-max:ml-[10px] xxs-max:!w-[85%]"
                               style={{
                                 width: '220px',
                                 marginTop: '10px',
@@ -447,7 +367,7 @@ export default function Intakeform() {
                       <div>
                         {' '}
                         <textarea
-                          className="inputDiscount flex flex-col w-[370px] h-[160px] ml-[60px] rounded-[10px] bg-white p-[8px_4px_8px_8px] gap-[8px] sm-max:ml-0 sm-max:w-[90vw] xs-max:ml-0 xs-max:w-[90vw] xxs-max:ml-0 xxs-max:w-[90vw] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
+                          className="inputDiscount  flex flex-col w-[370px] h-[160px] ml-[60px] rounded-[10px] bg-white p-[8px_4px_8px_8px] gap-[8px] sm-max:ml-0 sm-max:w-[90vw] xs-max:ml-0 xs-max:w-[90vw] xxs-max:ml-0 xxs-max:w-[90vw] placeholder:text-[#090a10] placeholder:font-urbanist placeholder:text-[16px] placeholder:font-normal placeholder:leading-[150%] placeholder:opacity-30"
                           placeholder=""
                           onChange={(e) => setDescription(e.target.value)}
                           id="description"
@@ -522,6 +442,7 @@ export default function Intakeform() {
                       onClick={() => togglePrivacy()}
                     >
                       <CustomSwitchAddBenefits
+                      checked={selectedOption === 'private'}
                         inputProps={{ 'aria-label': 'controlled Switch' }}
                       />
                       <p className="text-white">Keep private</p>
@@ -530,8 +451,8 @@ export default function Intakeform() {
                 </div>
               </div>
             </div>
-          </form>
-          <div className="submit pr-[40px] pl-[55px] pb-[70px] sm-max:pr-0 sm-max:pl-[4vw] xs-max:pr-0 xs-max:pl-[4vw] xxs-max:pr-0 xxs-max:pl-[4vw]">
+          </form> }
+            <div className="submit pr-[40px] pl-[55px] pb-[70px] sm-max:pr-0 sm-max:pl-[4vw] xs-max:pr-0 xs-max:pl-[4vw] xxs-max:pr-0 xxs-max:pl-[4vw]">
             <div className="agree font-urbanist text-white mt-[35px] text-[16px] leading-[150%] sm-max:mb-[30px] xs-max:mb-[30px] xxs-max:mb-[30px]">
               <span>
                 <FormControlLabel
@@ -561,6 +482,6 @@ export default function Intakeform() {
           </div>
         </Container>
       </Box>
-    </div>
-  )
+        </div>
+    )
 }

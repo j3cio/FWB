@@ -1,14 +1,13 @@
 import supabaseClient from '@/supabase'
 import { auth, currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from 'next/server'
-import { getNewLogoUrl } from './utils/logos_utils'
-
+import { getNewLogoUrl } from '../discounts/utils/logos_utils'
 
 export async function GET(request: NextRequest, response: NextResponse) {
   let discount_id = request.nextUrl.searchParams.get('discount_id')
   try {
     // Fetch all public groups
-    const supabase = await supabaseClient()
+    const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
     if (discount_id) {
       // If discount_id return specific discount
       let { data, error } = await supabase
@@ -41,13 +40,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
   }
 }
 
-
-/**
- * Handles the POST request for creating a new discount.
- *
- * @param request - The NextRequest object representing the incoming request.
- * @returns A NextResponse object containing the response data.
- */
 export async function POST(request: NextRequest) {
   const { userId } = auth()
 
@@ -80,7 +72,7 @@ export async function POST(request: NextRequest) {
     terms_and_conditions: formData.get('terms_and_conditions'),
     shareable_url: '', //TODO: Generate shareable URL
     discount_amount: formData.get('discount_amount'),
-    public: formData.get('public') === 'true' ? true : false,
+    public: formData.get('public') === 'private' ? false : true,
     name: formData.get('company'),
   }
 
@@ -99,10 +91,11 @@ export async function POST(request: NextRequest) {
 
   // Get the discounts of the company
   const company_url = formData.get('company_url')
+  const company_name = formData.get('name')
   let { data: companyData, error: companyDataError } = await supabase
     .from('companies')
     .select('discounts')
-    .eq('url', company_url)
+    .eq('name', company_name) 
     .single()
 
   const logoUrl = await getNewLogoUrl(String(formData.get('company_url')))
@@ -142,8 +135,8 @@ export async function POST(request: NextRequest) {
   const { data: company, error: companyError } = await supabase
     .from('companies')
     .update({ discounts: updatedDiscounts })
-    .eq('url', company_url)
-    .select()
+    .eq('name', company_name)
+    .single()
 
   if (companyError) {
     console.error(companyError)
@@ -154,6 +147,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Update the greatest discount of the company and the discounts_updated_at timestamp
+  /*
   let { data: greatestDiscount, error: greatestDiscountsError } = await supabase
     .from('companies')
     .select('greatest_discount')
@@ -184,7 +178,7 @@ export async function POST(request: NextRequest) {
       { error: 'Failed to update greatest discount of company' },
       { status: 500 }
     )
-  }
+  }*/
 
   // Insert the discount into the categories' discounts arrays
   const categories = String(formData.get('categories')).split(',')
@@ -225,7 +219,7 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   const { userId } = auth()
   const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
   const data = await request.json()
-  const discountId = data.discountId
+  const discountId = data.id
 
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -257,7 +251,7 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
   // Duplicate discount prevention
   if (!updatedDiscounts.includes(discountId)) {
     updatedDiscounts.push(discountId)
-  }
+  } 
 
   const { error: updateError } = await supabase
     .from('users')
@@ -270,5 +264,11 @@ export async function PATCH(request: NextRequest, response: NextResponse) {
       { error: 'Failed to update user data' },
       { status: 500 }
     )
+  } else {
+    return NextResponse.json(
+      { message: 'User data updated successfully' },
+      { status: 200 }
+    )
   }
 }
+
