@@ -42,7 +42,7 @@ export async function getUser(bearer_token: string, supabase_jwt: string) {
   }
 }
 
-async function getUserDiscountTable(
+export async function getUserDiscountTable(
   bearer_token: string,
   supabase_jwt: string
 ) {
@@ -76,7 +76,7 @@ async function getUserDiscountTable(
   }
 }
 
-function getDiscountIdsArray(userToDiscountsTable: UserToDiscounts[]) {
+export function getDiscountIdsArray(userToDiscountsTable: UserToDiscounts[]) {
   var discountIds: any = []
   userToDiscountsTable.map((item) => discountIds.push(item.discount_id))
   return discountIds
