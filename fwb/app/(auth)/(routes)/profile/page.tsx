@@ -121,17 +121,21 @@ const page = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
-    const userToDiscountsTable: UserToDiscounts[] =
-      bearer_token && supabase_jwt
-        ? await getUserDiscountTable(bearer_token, supabase_jwt)
-        : []
+    if (!bearer_token || !supabase_jwt) {
+      return null
+    }
+    const userToDiscountsTable: UserToDiscounts[] = await getUserDiscountTable(
+      bearer_token,
+      supabase_jwt
+    )
 
     const discountIds = getDiscountIdsArray(userToDiscountsTable)
 
-    const discountData =
-      discountIds.length && bearer_token && supabase_jwt
-        ? await getAllDiscountsData(discountIds, bearer_token, supabase_jwt)
-        : []
+    const discountData = getAllDiscountsData(
+      discountIds,
+      bearer_token,
+      supabase_jwt
+    )
 
     return <Benefits discountData={discountData} />
   }
