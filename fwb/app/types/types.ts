@@ -32,22 +32,43 @@ export interface UserData {
   users: User[]
 }
 ;[]
+export interface TestUserData {
+  success: boolean
+  users: TestUser[]
+}
+;[]
 
 export interface User {
-  blocked_users: string[]
-  company: string
   id: string
   created_at: string
   user_id: string
   username: string
   email: string[]
+  company: string
+  verified: false
+  profile_picture_url: string
+  hasCompletedFRE: boolean[]
+  blocked_users: string[]
   user_discounts: string[]
   user_groups: string[]
   user_messages: string[]
-  verified: false
   reported_users: string[]
+}
+export interface TestUser {
+  id: string
+  created_at: string
+  user_id: string
+  username: string
+  email: string[]
+  company: string
+  verified: false
   profile_picture_url: string
   hasCompletedFRE: boolean[]
+  //blocked_users: string[]
+  //user_discounts: string[]
+  //user_groups: string[]
+  //user_messages: string[]
+  //reported_users: string[]
 }
 
 export interface LoadingSkeletonProps {
@@ -93,4 +114,17 @@ export interface DiscountDataDetail {
   name: string
   user_image: string
   user_username: string
+}
+
+export interface UserToDiscounts {
+  id: number
+  created_at: string
+  userId: string
+  discount_id: string
+}
+export interface UserToGroups {
+  id: number
+  created_at: string
+  userId: string
+  group_id: string
 }

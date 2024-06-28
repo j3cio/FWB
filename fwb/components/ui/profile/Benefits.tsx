@@ -1,39 +1,22 @@
-import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
-import { auth } from '@clerk/nextjs'
+'use client'
 
-import { UserData, DiscountData } from '@/app/types/types'
-import React from 'react'
+import { DiscountData } from '@/app/types/types'
+import React, { use } from 'react'
 import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 import ShareDiscountButton from './ShareDiscountButton'
-import { getUser } from '@/app/(auth)/(routes)/profile/page'
 
-const Benefits = async () => {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
-
-  // While this seems like we're making excessive calls to getUser(), Next's caching should use the data in the cache instead since this route handler isn't a POST request, so this is safe and performant.
-  // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#caching-data
-  // https://nextjs.org/docs/app/building-your-application/caching#data-cache
-  const userData: UserData =
-    bearer_token && supabase_jwt
-      ? await getUser(bearer_token, supabase_jwt)
-      : undefined
-  const discountIdArray = userData ? userData.users[0].user_discounts : ['']
-  const discountData: DiscountData[] =
-    userData && bearer_token && supabase_jwt
-      ? await getAllDiscountsData(discountIdArray, bearer_token, supabase_jwt)
-      : []
-
-  const filteredDiscountData = discountData.filter(
-    (company) => company !== undefined
-  )
+interface BenefitsProps {
+  discountData: Promise<any[]>
+}
+const Benefits = ({ discountData }: BenefitsProps) => {
+  const discounts = use(discountData)
 
   return (
     <div>
-      {filteredDiscountData.length > 0 ? (
+      {discounts.length > 0 ? (
         <div className="flex w-full justify-center">
           <div className="flex flex-wrap justify-start gap-4 pl-2">
-            {filteredDiscountData.map((company: any, index: React.Key) => (
+            {discounts.map((company: any, index: React.Key) => (
               <DiscountCard company={company} key={company.id} />
             ))}
           </div>

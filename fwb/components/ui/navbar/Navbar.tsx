@@ -44,6 +44,7 @@ const Navbar = ({
   const excludedRoutes = [
     '/sign-in',
     '/sign-up',
+    '/success',
     '/forgotpassword',
     '/fre1',
     '/fre2',

@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material'
 import Image from 'next/image'
-import { Group } from '@/app/types/types'
+import { Group, UserToGroups } from '@/app/types/types'
 import LockIcon from '../icons/LockIcon'
 import EndArrowWhite from '../icons/EndArrowWhite'
 import ShareIcon from '@mui/icons-material/Share'
@@ -21,8 +21,8 @@ type Props = {
   index: number
   isUserAdmin: boolean
   loading: boolean
-  userGroups: string[]
-  handleDeleteGroup: (groupId: string, userGroups: string[]) => Promise<any>
+  userToGroupsTable: UserToGroups[]
+  //handleDeleteGroup: (groupId: string, userToGroupsTable: UserToGroups[]) => Promise<any>
   downloadFile: (filePath: string) => Promise<string | null | undefined>
 }
 
@@ -38,8 +38,8 @@ const SingleGroupCard = ({
   index,
   isUserAdmin,
   loading,
-  userGroups,
-  handleDeleteGroup,
+  userToGroupsTable,
+  //handleDeleteGroup,
   downloadFile,
 }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -122,7 +122,7 @@ const SingleGroupCard = ({
                 {group.name}
               </Typography>
               <span className="font-urbanist text-xs text-[#656DE1] xxl-max:hidden xl-max:hidden lg-max:hidden">
-                {group.discounts.length} benefits available
+                {/* {group.discounts.length} benefits available */}
               </span>
             </Box>
             <Typography className="font-urbanist text-sm opacity-50">
@@ -132,7 +132,7 @@ const SingleGroupCard = ({
         </Box>
         <Box className="relative mt-auto flex items-center gap-4 sm-max:w-full xs-max:w-full xxs-max:w-full">
           <span className="absolute -top-5 right-2 font-urbanist text-xs text-[#656DE1] sm-max:hidden xs-max:hidden xxs-max:hidden">
-            {group.discounts.length} benefits available
+            {/* {group.discounts.length} benefits available */}
           </span>
           <Button
             onClick={() => navigateToUserPage(group.id)}
@@ -176,7 +176,7 @@ const SingleGroupCard = ({
                 className="font-urbanist text-[#ED455D]"
                 disabled={loading}
                 onClick={() => {
-                  handleDeleteGroup(group.id, userGroups)
+                  //handleDeleteGroup(group.id, userToGroupsTable)
                   handleCloseMenu()
                 }}
               >

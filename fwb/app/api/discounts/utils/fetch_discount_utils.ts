@@ -46,6 +46,5 @@ export async function getAllDiscountsData(
   )
   const discounts = await Promise.all(discountPromises)
   const filteredResults = discounts.filter((discount) => discount !== null)
-
   return filteredResults
 }

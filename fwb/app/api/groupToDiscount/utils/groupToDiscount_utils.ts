@@ -3,18 +3,16 @@ import { auth, currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**
- * Retrieves users registered through Clerk.
+ * Retrieves all discounts that belong to a single group
  *
  * @param request - The NextRequest object containing the query parameters.
  * @returns A NextResponse object containing the fetched users or an error response.
- */
-const getSingleUser = async (request: NextRequest) => {
-  //Extract the clerk user_id from the url path
-  const urlObject = new URL(request.url)
-  const userIdPathVariable = urlObject.pathname.split('/').pop()
+ **/
 
+const getGroupDiscounts = async (request: NextRequest) => {
+    let group_id = request.nextUrl.searchParams.get('group_id')
   try {
-    const { userId, getToken } = auth()
+    const { userId } = auth()
     const user = await currentUser()
     // If the user is logged in, fetch all other users on the platform
     if (userId && user) {
@@ -25,19 +23,18 @@ const getSingleUser = async (request: NextRequest) => {
           { status: 401 }
         )
       }
-
-      let { data: users, error } = await supabase
-        .from('test_users')
-        .select('*')
-        .eq('user_id', userIdPathVariable)
+      let { data: discounts, error } = await supabase
+        .from('GroupToDiscounts')
+        .select('discount_id')
+        .eq('group_id', group_id)
 
       if (error) {
         return NextResponse.json(
-          { error: 'Failed to fetch users' },
+          { error: 'Failed to fetch user discounts' },
           { status: 500 }
         )
       }
-      return NextResponse.json({ success: true, users }, { status: 200 })
+      return NextResponse.json({ success: true, discounts }, { status: 200 })
     }
   } catch (error) {
     return NextResponse.json(
@@ -47,4 +44,4 @@ const getSingleUser = async (request: NextRequest) => {
   }
 }
 
-export { getSingleUser }
+export { getGroupDiscounts }

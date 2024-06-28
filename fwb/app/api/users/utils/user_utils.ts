@@ -22,19 +22,14 @@ const insertUser = async (request: NextRequest) => {
         user_id: user.id,
         username: user.username,
         email: [user.emailAddresses[0].emailAddress],
-        profile_picture_url: user.imageUrl,
-        user_discounts: formData.get('user_discounts') || [],
-        user_groups: formData.get('user_groups') || [],
-        user_messages: formData.get('user_messages') || [],
         company: formData.get('company'),
         verified: formData.get('verified') === 'false' ? false : true,
+        profile_picture_url: user.imageUrl,
         hasCompletedFRE: formData.get('hasCompletedFRE') || [
           false,
           false,
           false,
         ],
-        blocked_users: formData.get('blocked_users') || [],
-        reported_users: formData.get('reported_users') || [],
       }
 
       const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
@@ -47,7 +42,7 @@ const insertUser = async (request: NextRequest) => {
 
       // Insert the new user into the user table in supabase
       const { data, error } = await supabase
-        .from('users')
+        .from('test_users')
         .insert([newUser])
         .select()
 
@@ -95,7 +90,7 @@ const getUsers = async (request: NextRequest) => {
         )
       }
 
-      let { data: users, error } = await supabase.from('users').select('*')
+      let { data: users, error } = await supabase.from('test_users').select('*')
 
       if (error) {
         return NextResponse.json(
@@ -135,7 +130,7 @@ const deleteUser = async (request: NextRequest) => {
       const supabase = await supabaseClient(token)
 
       const { error } = await supabase
-        .from('users')
+        .from('test_users')
         .delete()
         .eq('user_id', user_id)
 
@@ -222,7 +217,7 @@ const updateUser = async (request: NextRequest) => {
       }
 
       const { data, error } = await supabase
-        .from('users')
+        .from('test_users')
         .update(updatedUser)
         .eq('user_id', userId)
         .select()
