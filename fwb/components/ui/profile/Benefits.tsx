@@ -28,7 +28,6 @@ const Benefits = async () => {
     (company) => company !== undefined
   )
 
-  console.log(filteredDiscountData)
 
   return (
     <div>
