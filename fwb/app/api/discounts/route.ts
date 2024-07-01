@@ -8,7 +8,16 @@ export async function GET(request: NextRequest, response: NextResponse) {
   let discount_id = request.nextUrl.searchParams.get('discount_id')
   try {
     // Fetch all public groups
-    const supabase = await supabaseClient()
+    const token = request.headers.get('supabase_jwt');
+    console.log('Received token:', token); // Log the token to verify
+    const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'No token provided' },
+        { status: 401 }
+      );
+    }
     if (discount_id) {
       // If discount_id return specific discount
       let { data, error } = await supabase

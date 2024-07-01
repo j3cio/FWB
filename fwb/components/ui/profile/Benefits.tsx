@@ -28,6 +28,7 @@ const Benefits = async () => {
     (company) => company !== undefined
   )
 
+
   return (
     <div>
       {filteredDiscountData.length > 0 ? (
