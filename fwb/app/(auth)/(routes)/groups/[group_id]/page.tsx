@@ -236,6 +236,7 @@ const Page = async ({ params }: { params: { group_id: string } }) => {
         userData={userData}
         groupData={groupData}
         discountData={discountData}
+        userIdArray={userIdArray.groups}
       />
     </Box>
   )

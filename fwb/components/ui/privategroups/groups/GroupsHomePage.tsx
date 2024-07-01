@@ -1,27 +1,22 @@
 'use client'
 
-import { useState } from 'react'
 import supabaseClient from '@/supabase'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
-import { Box, Button, Container, Modal, Stack, Typography } from '@mui/material'
+import { Box, Container, Stack, Typography } from '@mui/material'
 
-import CreateGroupForm from '@/components/ui/privategroups/groups/modal/CreateGroupForm'
-import Navbar from '../../navbar/Navbar'
-import SingleGroupCard from './GroupCard'
 import CreateGroupCard from './CreateGroupCard'
+import SingleGroupCard from './GroupCard'
 
-import EndArrow from '../icons/EndArrow'
-
-import { Group, TestUserData, UserData, UserToGroups } from '@/app/types/types'
+import { Group, TestUserData, UserToGroups } from '@/app/types/types'
 import GroupInvites from './GroupInvites'
 
 // Type userData
 const GroupsHomePage = ({
   userData,
   groupData,
-  userToGroupsTable
+  userToGroupsTable,
 }: {
   userData: TestUserData
   groupData: Group[]
@@ -33,7 +28,6 @@ const GroupsHomePage = ({
   const router = useRouter()
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  console.log(groupData)
   const isUserAdmin = (group: Group, userId: string) => {
     if (JSON.parse(group.admins).includes(userId)) {
       return true

@@ -14,20 +14,26 @@ import Pencil from '../icons/pencil.svg'
 import 'react-toastify/dist/ReactToastify.css'
 import GroupInviteModal from './GroupInviteModal'
 
-//TODO: The changing of group profile picture should requre admin priviledges
+interface userId {
+  user_id: string
+}
 
+//TODO: The changing of group profile picture should requre admin priviledges
 const GroupDetailsSection = ({
   groupData,
   userData,
   toast,
+  userIdArray,
 }: {
   groupData: Group
   userData: UserData[]
   toast: any
+  userIdArray: userId[]
 }) => {
   type FileEvent = ChangeEvent<HTMLInputElement> & {
     target: EventTarget & { files: FileList }
   }
+
   const router = useRouter()
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const [isGroupInviteModalOpen, setIsGroupInviteModalOpen] = useState(false)
@@ -239,8 +245,8 @@ const GroupDetailsSection = ({
                 height={0}
               />
               <p className="text-end text-base">
-                {groupData?.users.length} member
-                {groupData?.users.length > 1 ? 's' : ''}
+                {userIdArray?.length} member
+                {userIdArray?.length > 1 ? 's' : ''}
               </p>
             </div>
             <div className="">
