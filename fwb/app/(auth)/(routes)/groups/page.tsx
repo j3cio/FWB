@@ -1,4 +1,4 @@
-import { Group, UserData } from '@/app/types/types'
+import { Group, UserData, UserToGroups } from '@/app/types/types'
 import CreateGroupsHeader from '@/components/ui/privategroups/groups/CreateGroupHeader'
 import GroupsHomePage from '@/components/ui/privategroups/groups/GroupsHomePage'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
@@ -38,7 +38,41 @@ async function getUser() {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
     const result = await response.json()
-    return result // This returns the result object
+    return result.users[0] // This returns the result object
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+    throw error // This re-throws the error to be handled by the caller
+  }
+}
+
+async function getUserGroupsTable(
+  bearer_token: string,
+  supabase_jwt: string
+) {
+  const userId = await auth().userId
+  if (!supabase_jwt) {
+    console.log('Not signed in')
+    return
+  }
+  var myHeaders = new Headers()
+  myHeaders.append('supabase_jwt', supabase_jwt)
+  myHeaders.append('Authorization', `Bearer ${bearer_token}`)
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+  }
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/userToGroup`,
+      requestOptions
+    )
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    const result = await response.json()
+    return result.groups // This returns the result object
   } catch (error) {
     console.error('Error fetching data: ', error)
     throw error // This re-throws the error to be handled by the caller
@@ -94,19 +128,29 @@ async function getGroupData(groupId: string) {
   }
 }
 
-async function GroupCards({ userData }: { userData: UserData }) {
+async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: UserToGroups[], userData: UserData }) {
+
   const groupData: Group[] = await Promise.all(
-    userData.users[0].user_groups.map(async (group_id) => {
-      const singleGroupData = await getGroupData(group_id)
+    userToGroupsTable.map(async (group) => {
+      const singleGroupData = await getGroupData(group.group_id)
       return singleGroupData.data[0]
     })
   )
-
-  return <GroupsHomePage userData={userData} groupData={groupData} />
+  //console.log('userData: ', userData) 
+  //console.log('groupData: ', groupData)
+  return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
 }
 
 const page = async () => {
+  const bearer_token = await auth().getToken({ template: 'testing_template' })
+  const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const userData: UserData = await getUser()
+  const userToGroupsTable: UserToGroups[] =
+      bearer_token && supabase_jwt
+        ? await getUserGroupsTable(bearer_token, supabase_jwt)
+        : undefined
+  // Get UserToGroups
+  // Pass user groups into group card
 
   return (
     <UserProvider initialUserData={userData}>
@@ -123,7 +167,7 @@ const page = async () => {
               </div>
             }
           >
-            <GroupCards userData={userData} />
+            <GroupCards userData={userData} userToGroupsTable={userToGroupsTable} />
           </Suspense>
         </Container>
       </Box>

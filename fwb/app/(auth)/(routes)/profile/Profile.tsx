@@ -1,25 +1,19 @@
 'use client'
 
-import BlueArrowForward from '@/components/ui/addbenefit/BlueArrowForward'
-import CreateDiscountCard from '@/components/ui/addbenefit/CreateDiscountCard'
-import Navbar from '@/components/ui/navbar/Navbar'
-import DiscountCard from '@/components/ui/privategroups/groupdetailspage/DiscountCard'
 import WhiteArrowForward from '@/components/ui/profile/WhiteArrowForward'
 import { useAuth, useUser } from '@clerk/nextjs'
-import { Box, Button, Container, Grid } from '@mui/material'
+import { Box, Button, Container } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import { useTheme } from '@mui/material/styles'
-import Image from 'next/image'
 import { useCallback, useState } from 'react'
-import BlueGroupIcon from '../../../../components/ui/profile/icons/groups-blue.svg'
 import EditProfileModal from './EditProfileModal'
 
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 
-import { DiscountData, UserData } from '../../../types/types'
+import { TestUserData } from '../../../types/types'
 
 interface ProfileProps {
-  userData: UserData
+  userData: TestUserData
   isPublic: boolean
 }
 

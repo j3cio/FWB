@@ -69,24 +69,25 @@ const insertGroup = async (request: NextRequest) => {
  */
 const getGroups = async (request: NextRequest) => {
   let group_id = request.nextUrl.searchParams.get('group_id')
+  //console.log(group_id)
   try {
     // Fetch all public groups
     const supabase = await supabaseClient()
     if (group_id) {
       // If group_id return specific group
       let { data, error } = await supabase
-        .from('groups')
-        .select('*')
-        .eq('id', group_id)
+      .from('test_groups')
+      .select('*')
+      .eq('id', group_id)
       if (error) {
         return NextResponse.json(
           { error: 'Failed to fetch group' },
           { status: 500 }
-        )
-      }
+          )
+        }
       return NextResponse.json({ success: true, data }, { status: 200 })
     } else {
-      let { data, error } = await supabase.from('groups').select('*')
+      let { data, error } = await supabase.from('test_groups').select('*')
       if (error) {
         // Else return all groups
         return NextResponse.json(
@@ -103,6 +104,10 @@ const getGroups = async (request: NextRequest) => {
     )
   }
 }
+
+
+
+
 /**
  * Deletes a group based on the provided query parameters.
  *
@@ -127,7 +132,7 @@ const deleteGroup = async (request: NextRequest) => {
       }
       const supabase = await supabaseClient(token)
       const { error } = await supabase
-        .from('groups')
+        .from('test_groups')
         .delete()
         .eq('id', group_id)
 

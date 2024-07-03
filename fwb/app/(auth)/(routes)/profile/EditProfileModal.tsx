@@ -1,4 +1,4 @@
-import { UserData } from '@/app/types/types'
+import { TestUserData } from '@/app/types/types'
 import {
   FemaleFourSVG,
   FemaleOneSVG,
@@ -19,7 +19,7 @@ import { useState } from 'react'
 type EditProfileModalProps = {
   isOpen: boolean
   onClose(): void
-  userData: UserData
+  userData: TestUserData
 }
 
 //TODO:
