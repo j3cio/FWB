@@ -1,4 +1,4 @@
-import { TestUserData, UserToDiscounts } from '@/app/types/types'
+import { DiscountData, TestUserData, UserToDiscounts } from '@/app/types/types'
 import Benefits from '@/components/ui/profile/Benefits'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
@@ -8,6 +8,7 @@ import { Box, Container } from '@mui/material'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 import Profile from './Profile'
+import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
 
 export async function getUser(bearer_token: string, supabase_jwt: string) {
   const userId = await auth().userId
@@ -41,7 +42,7 @@ export async function getUser(bearer_token: string, supabase_jwt: string) {
   }
 }
 
-async function getUserDiscountTable(
+export async function getUserDiscountTable(
   bearer_token: string,
   supabase_jwt: string
 ) {
@@ -75,7 +76,7 @@ async function getUserDiscountTable(
   }
 }
 
-async function getDiscountIdsArray(userToDiscountsTable: UserToDiscounts[]) {
+export function getDiscountIdsArray(userToDiscountsTable: UserToDiscounts[]) {
   var discountIds: any = []
   userToDiscountsTable.map((item) => discountIds.push(item.discount_id))
   return discountIds
@@ -89,17 +90,6 @@ const page = async () => {
       bearer_token && supabase_jwt
         ? await getUser(bearer_token, supabase_jwt)
         : undefined
-    const userToDiscountsTable: UserToDiscounts[] =
-      bearer_token && supabase_jwt
-        ? await getUserDiscountTable(bearer_token, supabase_jwt)
-        : undefined
-    const discountIds = await getDiscountIdsArray(userToDiscountsTable)
-    //const discountData: DiscountData[] = userData && bearer_token && supabase_jwt ? await getAllDiscountsData(discountIds, bearer_token, supabase_jwt) : []
-
-    // const userData: UserData =
-    //   bearer_token && supabase_jwt
-    //     ? await getUser(bearer_token, supabase_jwt)
-    //     : undefined
 
     if (
       userData.users[0].hasCompletedFRE[0] &&
@@ -127,6 +117,29 @@ const page = async () => {
     return <Profile userData={userData} isPublic={false} />
   }
 
+  const AsyncBenefits = async () => {
+    const bearer_token = await auth().getToken({ template: 'testing_template' })
+    const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
+    if (!bearer_token || !supabase_jwt) {
+      return null
+    }
+    const userToDiscountsTable: UserToDiscounts[] = await getUserDiscountTable(
+      bearer_token,
+      supabase_jwt
+    )
+
+    const discountIds = getDiscountIdsArray(userToDiscountsTable)
+
+    const discountData = getAllDiscountsData(
+      discountIds,
+      bearer_token,
+      supabase_jwt
+    )
+
+    return <Benefits discountData={discountData} />
+  }
+
   return (
     <Box
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
@@ -152,7 +165,7 @@ const page = async () => {
               </div>
             }
           >
-            <Benefits />
+            <AsyncBenefits />
           </Suspense>
         </div>
       </Container>

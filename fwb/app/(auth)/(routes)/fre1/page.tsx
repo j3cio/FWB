@@ -1,3 +1,4 @@
+import { UserData } from '@/app/types/types'
 import UserFlowPage1 from './fre1'
 import { auth } from '@clerk/nextjs' // Import the redirect function from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
@@ -33,7 +34,7 @@ const page = async () => {
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const userId = await auth().userId
 
-  const userData: any = await getUser(userId, supabase_jwt, bearer_token)
+  const userData: UserData = await getUser(userId, supabase_jwt, bearer_token)
 
   //Error handling for if user tries to access page not signed in or Clerk isn't ready
   if (userData.users[0]) {

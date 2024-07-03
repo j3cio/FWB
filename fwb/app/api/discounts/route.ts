@@ -72,19 +72,20 @@ export async function POST(request: NextRequest) {
   }
 
   const formData = await request.formData()
+
   // Extract the form data
   const newDiscount = {
-    user_id: user.id,
-    terms_and_conditions: formData.get('terms_and_conditions'),
-    shareable_url: '', //TODO: Generate shareable URL
     discount_amount: formData.get('discount_amount'),
     public: formData.get('public') === 'true' ? true : false,
-    name: formData.get('company'),
+    name: `${formData.get('company')} discount`,
+    company: formData.get('company'),
+    logo: '',
+    description: `${formData.get('discount_amount')} ${formData.get('company')} discount`,
   }
 
   // Insert the new discount into the database
   const { data: discount, error } = await supabase
-    .from('discounts')
+    .from('test_discounts')
     .insert([newDiscount])
     .select()
   if (error) {

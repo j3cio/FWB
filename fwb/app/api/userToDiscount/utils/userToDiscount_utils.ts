@@ -52,6 +52,7 @@ const insertUserToDiscount = async (request: NextRequest) => {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
   } catch (error) {
+    console.error(error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

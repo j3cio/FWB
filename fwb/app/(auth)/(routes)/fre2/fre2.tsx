@@ -12,6 +12,7 @@ import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
 import { UserData } from '../../../types/types'
+import DiscountsSection from '@/components/ui/privategroups/groupdetailspage/DiscountsSection'
 
 declare global {
   interface Window {
@@ -81,12 +82,12 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       })
 
       const formData = new FormData()
+      formData.append('discount_amount', discountAmount)
+      formData.append('public', JSON.stringify(!isPrivate))
       formData.append('company', company)
       formData.append('terms_and_conditions', termsAndConditions)
-      formData.append('discount_amount', discountAmount)
       formData.append('categories', `${categories}`)
       formData.append('company_url', `www.${company}.com`.toLowerCase())
-      formData.append('public', JSON.stringify(!isPrivate))
 
       const response = await fetch('/api/discounts', {
         method: 'POST',
@@ -100,8 +101,14 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       if (response.ok) {
         const data = await response.json()
         const discountId = data.data[0].id
-        addDiscountToUser(discountId, bearerToken, supabaseToken)
-        updateUser()
+        const userId = user?.id
+
+        if (discountId && userId) {
+          insertToUserDiscountTable(discountId, userId, supabaseToken)
+          updateUser()
+        } else {
+          throw Error('Missing required data')
+        }
       } else {
         const errorData = await response.json()
         console.error('Error adding discount:', errorData)
@@ -125,6 +132,31 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
       }
     } catch (error) {
       console.error('Error in updateUser:', error)
+    }
+  }
+
+  const insertToUserDiscountTable = async (
+    discount_id: string,
+    user_id: string,
+    supabaseToken: string
+  ) => {
+    var myHeaders = new Headers()
+    myHeaders.append('supabase_jwt', supabaseToken)
+
+    const formData = new FormData()
+    formData.append('discount_id', discount_id)
+    formData.append('user_id', user_id)
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formData,
+    }
+
+    try {
+      await fetch('/api/userToDiscount', requestOptions)
+    } catch (error) {
+      console.error(error)
     }
   }
 
