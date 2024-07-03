@@ -10,8 +10,7 @@ import { Chat, LoadingIndicator } from 'stream-chat-react'
 import Bargains from './BargainsPicture'
 import DiscountsSection from './DiscountsSection'
 import MembersSection from './MembersSection'
-import CreateDiscountCard from '../../addbenefit/CreateDiscountCard'
-
+import CreateDiscountCardMobile from './CreateDiscountCardMobile'
 
 const Tabs = ({
   userData,
@@ -45,7 +44,7 @@ const Tabs = ({
 
   return (
     <div
-      className="w-full bg-[#1a1a23]"
+      className="w-full bg-[#1a1a23] xs-max:px-[20px] xxs-max:px-[15px]"
       style={{
         minHeight: '100vh',
       }}
@@ -60,7 +59,7 @@ const Tabs = ({
           }`}
         >
           <Box textAlign="center">
-            <Button className="items-center pb-2">Discounts Offers</Button>
+            <Button className="items-center pb-2 xxs-max:text-[15px] xs-max:text-[15px] xs-max:font-normal xxs-max:font-normal">Discounts Offers</Button>
           </Box>
         </div>
         <div
@@ -72,7 +71,7 @@ const Tabs = ({
           }`}
         >
           <Box textAlign="center">
-            <Button className="items-center pb-2">Members</Button>
+            <Button className="items-center pb-2 xxs-max:text-[15px] xs-max:text-[15px] xs-max:font-normal xxs-max:font-normal">Members</Button>
           </Box>
         </div>
       </div>
@@ -83,7 +82,7 @@ const Tabs = ({
             <MembersSection userData={userData} />
           </Chat>
         ) : hasNoDiscounts ? (
-          <CreateDiscountCard />
+          <CreateDiscountCardMobile />
         ) : (
           <DiscountsSection discountData={discountData} />
         )}

@@ -20,7 +20,7 @@ const GroupContent = ({
   discountData,
 }: GroupContentProps) => {
   return (
-    <Container disableGutters maxWidth="lg" sx={{ paddingTop: 1 }}>
+    <Container disableGutters maxWidth="lg" sx={{ paddingTop: 1 }} className='xs-max:pt-0 xxs-max:pt-0'>
       <Box
         sx={{
           paddingX: '18px',
@@ -28,6 +28,7 @@ const GroupContent = ({
           marginTop: '56px',
           zIndex: 0,
         }}
+        className='px-[18px] xs-max:px-[0px] xxs-max:px-[0px] mt-[56px] xs-max:mt-0 xxs-max:mt-0'
       >
         <GroupDetailsSection
           userData={userData}
