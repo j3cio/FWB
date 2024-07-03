@@ -21,7 +21,7 @@ const insertUser = async (request: NextRequest) => {
       const newUser = {
         user_id: user.id,
         username: user.username,
-        email: [user.emailAddresses[0].emailAddress],
+        email: user.emailAddresses[0].emailAddress,
         company: formData.get('company'),
         verified: formData.get('verified') === 'false' ? false : true,
         profile_picture_url: user.imageUrl,
