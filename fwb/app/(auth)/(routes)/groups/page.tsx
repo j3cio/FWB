@@ -130,31 +130,19 @@ async function getGroupData(groupId: string) {
   }
 }
 
-// async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: UserToGroups[], userData: UserData }) {
+async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: UserToGroups[], userData: UserData }) {
 
-//   const groupData: Group[] = await Promise.all(
-//     userToGroupsTable.map(async (group) => {
-//       const singleGroupData = await getGroupData(group.group_id)
-//       return singleGroupData.data[0]
-//     })
-//   )
-//   //console.log('userData: ', userData) 
-//   //console.log('groupData: ', groupData)
-//   return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
-// }
-
-
-// Function to fetch group data
-async function fetchGroupData(userToGroupsTable: UserToGroups[]): Promise<Group[]> {
-  return Promise.all(
+  const groupData: Group[] = await Promise.all(
     userToGroupsTable.map(async (group) => {
-      console.log('group_id', group.group_id)
       const singleGroupData = await getGroupData(group.group_id)
-      console.log(singleGroupData)
       return singleGroupData.data[0]
     })
   )
+  console.log('userData: ', userData) 
+  console.log('groupData: ', groupData)
+  return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
 }
+
 
 const page = async () => {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
@@ -166,8 +154,6 @@ const page = async () => {
         : undefined
   // Get UserToGroups
   // Pass user groups into group card
-  const groupData = await fetchGroupData(userToGroupsTable)
-  console.log('page.tsx groupdata', groupData)
 
   return (
     <UserProvider initialUserData={userData}>
@@ -184,11 +170,7 @@ const page = async () => {
               </div>
             }
           >
-            {groupData && <GroupsHomePage
-              userData={userData}
-              groupData={groupData}
-              userToGroupsTable={userToGroupsTable}
-            />}
+            <GroupCards userData={userData} userToGroupsTable={userToGroupsTable} />
           </Suspense>
         </Container>
       </Box>
