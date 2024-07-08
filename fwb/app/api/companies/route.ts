@@ -55,15 +55,9 @@ export async function GET(request: NextRequest) {
   }
   if (sort_by === 'Lowest to Highest Discounts') sort_by = 'greatest_discount'
 
-  // Get the range of companies to fetch. Uses 0 indexing
-  const getPagination = (page: number, size: number) => {
-    const limit = size ? +size : 3
-    const from = page ? page * limit : 0
-    const to = page ? from + size - 1 : size - 1
-
-    return { from, to }
-  }
-  const { from, to } = getPagination(Number(page_num), 20)
+  // Calculate the offset based on the page number and limit
+  const limit = 20 // Number of companies to fetch per page
+  const offset = page_num ? (Number(page_num) - 1) * limit : 0
 
   const { userId } = auth()
   const user = await currentUser()
@@ -79,56 +73,31 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Only fetch companies of a category if the category is not "all"
     if (category && category !== 'all') {
-      let { data: categoryDiscounts, error } = await supabase
-        .from('categories')
-        .select('discounts')
-        .eq('name', category.toLowerCase())
-        .single()
-
-      if (error) {
-        return NextResponse.json(
-          { error: 'Failed to fetch category discounts' },
-          { status: 500 }
-        )
-      }
-
-      // Fetch all companies
-      let { data: companies, error: companiesError } = await supabase
+      let { data: companies, error } = await supabase
         .from('companies')
-        .select('*')
+        .select('*, categories(name)')
+        .eq('categories.name', category.toLowerCase())
         .order(sort_by, { ascending: ascending })
-        .range(from, to)
+        .range(offset, offset + limit - 1)
 
-      if (companiesError) {
+      if (error || !companies) {
         return NextResponse.json(
           { error: 'Failed to fetch companies' },
           { status: 500 }
         )
       }
 
-      // Filter companies by category
-      let result: CompanyAndDiscounts[] = []
-      companies?.forEach((company) => {
-        const intersection = new Set(
-          [...company.discounts].filter((x) =>
-            categoryDiscounts?.discounts.includes(x)
-          )
-        )
-        if (intersection.size > 0) {
-          result.push({
-            id: company.id,
-            name: company.name,
-            description: company.description,
-            logo: company.logo,
-            url: company.url,
-            greatest_discount: company.greatest_discount,
-            discounts: Array.from(intersection),
-            views: company.view_count,
-          })
-        }
-      })
+      const result: CompanyAndDiscounts[] = companies.map((company) => ({
+        id: company.id,
+        name: company.name,
+        description: company.description,
+        logo: company.logo,
+        url: company.url,
+        greatest_discount: company.greatest_discount,
+        discounts: company.discounts,
+        views: company.view_count,
+      }))
 
       return NextResponse.json({ result }, { status: 200 })
     }
@@ -138,7 +107,7 @@ export async function GET(request: NextRequest) {
       .from('companies')
       .select('*')
       .order(sort_by, { ascending: ascending })
-      .range(from, to)
+      .range(offset, offset + limit - 1)
 
     // Fetch categories
     const { data: categories } = await supabase.from('categories').select('*')
