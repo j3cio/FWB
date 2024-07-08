@@ -165,6 +165,7 @@ const page = async () => {
 
   console.log('USERTOGROUPTABLE', userToGroupsTable)
   const groupData = await fetchGroupData(userToGroupsTable)
+  console.log('page.tsx groupdata', groupData)
 
   return (
     <UserProvider initialUserData={userData}>
@@ -181,11 +182,11 @@ const page = async () => {
               </div>
             }
           >
-            <GroupsHomePage
+            {groupData && <GroupsHomePage
               userData={userData}
               groupData={groupData}
               userToGroupsTable={userToGroupsTable}
-            />
+            />}
           </Suspense>
         </Container>
       </Box>
