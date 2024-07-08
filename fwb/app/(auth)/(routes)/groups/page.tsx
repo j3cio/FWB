@@ -169,7 +169,7 @@ const page = async () => {
               </div>
             }
           >
-            <GroupCards userData={userData} userToGroupsTable={userToGroupsTable} />
+            {/*<GroupCards userData={userData} userToGroupsTable={userToGroupsTable} />*/}
           </Suspense>
         </Container>
       </Box>
