@@ -134,7 +134,9 @@ async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: 
 
   const groupData: Group[] = await Promise.all(
     userToGroupsTable.map(async (group) => {
+      console.log('group_id', group.group_id)
       const singleGroupData = await getGroupData(group.group_id)
+      console.log('single', singleGroupData)
       return singleGroupData.data[0]
     })
   )
@@ -154,6 +156,8 @@ const page = async () => {
         : undefined
   // Get UserToGroups
   // Pass user groups into group card
+
+  console.log('usertogroupstable', userToGroupsTable)
 
   return (
     <UserProvider initialUserData={userData}>

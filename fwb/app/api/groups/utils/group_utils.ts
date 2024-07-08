@@ -69,10 +69,9 @@ const insertGroup = async (request: NextRequest) => {
  */
 const getGroups = async (request: NextRequest) => {
   let group_id = request.nextUrl.searchParams.get('group_id')
-  console.log("group_utils group id ",group_id)
   try {
     // Fetch all public groups
-    const supabase = await supabaseClient()
+    const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
     if (group_id) {
       // If group_id return specific group
       let { data, error } = await supabase
@@ -86,7 +85,6 @@ const getGroups = async (request: NextRequest) => {
           )
         }
 
-        console.log('group utils data', data)
       return NextResponse.json({ success: true, data }, { status: 200 })
     } else {
       let { data, error } = await supabase.from('test_groups').select('*')
