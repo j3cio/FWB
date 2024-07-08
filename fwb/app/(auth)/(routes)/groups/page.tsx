@@ -128,17 +128,28 @@ async function getGroupData(groupId: string) {
   }
 }
 
-async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: UserToGroups[], userData: UserData }) {
+// async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: UserToGroups[], userData: UserData }) {
 
-  const groupData: Group[] = await Promise.all(
+//   const groupData: Group[] = await Promise.all(
+//     userToGroupsTable.map(async (group) => {
+//       const singleGroupData = await getGroupData(group.group_id)
+//       return singleGroupData.data[0]
+//     })
+//   )
+//   //console.log('userData: ', userData) 
+//   //console.log('groupData: ', groupData)
+//   return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
+// }
+
+
+// Function to fetch group data
+async function fetchGroupData(userToGroupsTable: UserToGroups[]): Promise<Group[]> {
+  return Promise.all(
     userToGroupsTable.map(async (group) => {
       const singleGroupData = await getGroupData(group.group_id)
       return singleGroupData.data[0]
     })
   )
-  //console.log('userData: ', userData) 
-  //console.log('groupData: ', groupData)
-  return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
 }
 
 const page = async () => {
@@ -153,6 +164,7 @@ const page = async () => {
   // Pass user groups into group card
 
   console.log('USERTOGROUPTABLE', userToGroupsTable)
+  const groupData = await fetchGroupData(userToGroupsTable)
 
   return (
     <UserProvider initialUserData={userData}>
@@ -169,7 +181,11 @@ const page = async () => {
               </div>
             }
           >
-            <GroupCards userData={userData} userToGroupsTable={userToGroupsTable} />
+            <GroupsHomePage
+              userData={userData}
+              groupData={groupData}
+              userToGroupsTable={userToGroupsTable}
+            />
           </Suspense>
         </Container>
       </Box>
