@@ -138,7 +138,7 @@ async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: 
   )
   //console.log('userData: ', userData) 
   //console.log('groupData: ', groupData)
-  //return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
+  return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
 }
 
 const page = async () => {
