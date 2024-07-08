@@ -128,7 +128,7 @@ const GroupsHomePage = ({
     >
       <Container disableGutters maxWidth="lg" sx={{ paddingBottom: 12 }}>
         <GroupInvites invitations={invitations} />
-        {/*groupData.length > 0 && (
+        {groupData.length > 0 && (
           <Stack
             className="relative z-0 mt-16 px-[18px]"
             direction="column"
@@ -149,8 +149,8 @@ const GroupsHomePage = ({
               )
             })}
           </Stack>
-        )*/}
-        {/*groupData.length == 0 && (
+        )}
+        {groupData.length == 0 && (
           <section className="h-full w-full">
             <Typography
               className="font-urbanist"
@@ -168,7 +168,7 @@ const GroupsHomePage = ({
               <CreateGroupCard handleOpen={handleOpen} />
             </Box>
           </section>
-        )*/}
+        )}
       </Container>
     </Box>
   )
