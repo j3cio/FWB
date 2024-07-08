@@ -83,6 +83,7 @@ async function getGroupData(groupId: string) {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
+  console.log('function', groupId)
   if (!supabase_jwt) {
     console.log('Not signed in')
     return
@@ -146,6 +147,7 @@ async function getGroupData(groupId: string) {
 async function fetchGroupData(userToGroupsTable: UserToGroups[]): Promise<Group[]> {
   return Promise.all(
     userToGroupsTable.map(async (group) => {
+      console.log('group_id', group.group_id)
       const singleGroupData = await getGroupData(group.group_id)
       console.log(singleGroupData)
       return singleGroupData.data[0]
