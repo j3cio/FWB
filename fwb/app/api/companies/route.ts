@@ -57,7 +57,8 @@ export async function GET(request: NextRequest) {
 
   // Calculate the offset based on the page number and limit
   const limit = 20 // Number of companies to fetch per page
-  const offset = page_num ? (Number(page_num) - 1) * limit : 0
+  const page = page_num !== undefined ? Number(page_num) : 0 // Treat undefined page_num as page 0
+  const offset = page * limit // Offset should be a non-negative integer
 
   const { userId } = auth()
   const user = await currentUser()
