@@ -147,6 +147,7 @@ async function fetchGroupData(userToGroupsTable: UserToGroups[]): Promise<Group[
   return Promise.all(
     userToGroupsTable.map(async (group) => {
       const singleGroupData = await getGroupData(group.group_id)
+      console.log(singleGroupData)
       return singleGroupData.data[0]
     })
   )
@@ -162,8 +163,6 @@ const page = async () => {
         : undefined
   // Get UserToGroups
   // Pass user groups into group card
-
-  console.log('USERTOGROUPTABLE', userToGroupsTable)
   const groupData = await fetchGroupData(userToGroupsTable)
   console.log('page.tsx groupdata', groupData)
 
