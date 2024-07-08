@@ -152,6 +152,8 @@ const page = async () => {
   // Get UserToGroups
   // Pass user groups into group card
 
+  console.log('USERTOGROUPTABLE', userToGroupsTable)
+
   return (
     <UserProvider initialUserData={userData}>
       <Box
