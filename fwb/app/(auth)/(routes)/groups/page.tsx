@@ -83,7 +83,6 @@ async function getGroupData(groupId: string) {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
-  console.log('function', groupId)
   if (!supabase_jwt) {
     console.log('Not signed in')
     return
@@ -107,7 +106,6 @@ async function getGroupData(groupId: string) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       const result = await response.json()
-      console.log(result)
       return result // This returns the result object
     } catch (error) {
       console.error('Error fetching data: ', error)
@@ -134,14 +132,12 @@ async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: 
 
   const groupData: Group[] = await Promise.all(
     userToGroupsTable.map(async (group) => {
-      console.log('group_id', group.group_id)
       const singleGroupData = await getGroupData(group.group_id)
-      console.log('single', singleGroupData)
       return singleGroupData.data[0]
     })
   )
-  console.log('userData: ', userData) 
-  console.log('groupData: ', groupData)
+  //console.log('userData: ', userData) 
+  //console.log('groupData: ', groupData)
   return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
 }
 
@@ -156,8 +152,6 @@ const page = async () => {
         : undefined
   // Get UserToGroups
   // Pass user groups into group card
-
-  console.log('usertogroupstable', userToGroupsTable)
 
   return (
     <UserProvider initialUserData={userData}>
