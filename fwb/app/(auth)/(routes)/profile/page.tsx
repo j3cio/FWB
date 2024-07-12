@@ -152,7 +152,7 @@ const page = async () => {
     >
       <Container disableGutters maxWidth="lg">
         <div>
-          <Profile userData={userData} isPublic={false} />
+          {/* <Profile userData={userData} isPublic={false} /> */}
           {/* <Suspense fallback={<ProfileSkeleton />}>
           </Suspense> */}
           <DiscountButtons />
