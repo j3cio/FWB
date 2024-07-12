@@ -35,7 +35,12 @@ const GroupsHomePage = ({
     return false
   }
 
-  console.log({ userData, groupData })
+  console.log({
+    userData,
+    groupData,
+    environment: process.env.NODE_ENV,
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+  })
 
   const handleDeleteGroup = async (groupId: string, userGroups: string[]) => {
     // Deleting group from groups table
