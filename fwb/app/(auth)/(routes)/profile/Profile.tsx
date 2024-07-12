@@ -13,7 +13,7 @@ import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 import { TestUserData } from '../../../types/types'
 
 interface ProfileProps {
-  userData: Promise<any>
+  userData: TestUserData
   isPublic: boolean
 }
 
@@ -22,7 +22,6 @@ function Profile({ userData, isPublic }: ProfileProps) {
   // It is hard to use the theme colors if they are not a specific MUI component, some colors are not showing up
   const theme = useTheme() // To call useTheme you have to add "use client;" to the top of your file
   const { getToken } = useAuth()
-  const userDetails = use(userData)
 
   // //Intialize the user to be in GetStream db
   const client = useIntitialChatClient()
@@ -48,7 +47,7 @@ function Profile({ userData, isPublic }: ProfileProps) {
               {user ? (
                 <Avatar
                   alt="123"
-                  src={`${userDetails.users[0].profile_picture_url}`}
+                  src={`${userData.users[0].profile_picture_url}`}
                   className="flex h-[190px] w-48 items-center justify-center rounded-full bg-slate-200 sm-max:h-[102px] sm-max:w-[102px] xs-max:h-[92px] xs-max:w-[92px] xxs-max:h-[92px] xxs-max:w-[92px]"
                 />
               ) : (
@@ -56,13 +55,13 @@ function Profile({ userData, isPublic }: ProfileProps) {
               )}
               <div className="flex grow flex-col justify-center">
                 <div className="mb-[4px] text-[35px] font-semibold leading-none text-slate-200 sm-max:text-[28px] xs-max:text-[24px] xxs-max:text-[24px]">
-                  {userDetails.users[0].username}
+                  {userData.users[0].username}
                 </div>
-                {userDetails.users[0].company && (
+                {userData.users[0].company && (
                   <div className="mb-[16px] flex flex-row sm-max:text-[14px] xs-max:text-[12px] xxs-max:text-[12px]">
                     <div className="mr-1 text-slate-200">Benefits from: </div>
                     <div className=" text-yellow-200">
-                      {userDetails.users[0].company}
+                      {userData.users[0].company}
                     </div>
                   </div>
                 )}
@@ -99,7 +98,7 @@ function Profile({ userData, isPublic }: ProfileProps) {
           <EditProfileModal
             isOpen={isEditProfileModalOpen}
             onClose={closeEditProfileModal}
-            userData={userDetails}
+            userData={userData}
           />
         </div>
       </Container>

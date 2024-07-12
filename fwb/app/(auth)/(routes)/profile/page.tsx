@@ -91,30 +91,34 @@ const page = async () => {
       return null
     }
 
-    const userData = getUser(bearer_token, supabase_jwt)
+    const userData = await getUser(bearer_token, supabase_jwt)
 
-    // if (
-    //   userData.users[0].hasCompletedFRE[0] &&
-    //   userData.users[0].hasCompletedFRE[1] &&
-    //   userData.users[0].hasCompletedFRE[2]
-    // ) {
-    // } else {
-    //   if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-    //     redirect('/fre1')
-    //   } else if (
-    //     !userData.users[0].hasCompletedFRE[2] &&
-    //     !userData.users[0].hasCompletedFRE[1] &&
-    //     userData.users[0].hasCompletedFRE[0]
-    //   ) {
-    //     redirect('/fre2')
-    //   } else if (
-    //     !userData.users[0].hasCompletedFRE[2] &&
-    //     userData.users[0].hasCompletedFRE[1] &&
-    //     userData.users[0].hasCompletedFRE[0]
-    //   ) {
-    //     redirect('/fre3')
-    //   }
-    // }
+    if (!userData) {
+      throw new Error('Something Broke getting user')
+    }
+
+    if (
+      userData.users[0].hasCompletedFRE[0] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[2]
+    ) {
+    } else {
+      if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+        redirect('/fre1')
+      } else if (
+        !userData.users[0].hasCompletedFRE[2] &&
+        !userData.users[0].hasCompletedFRE[1] &&
+        userData.users[0].hasCompletedFRE[0]
+      ) {
+        redirect('/fre2')
+      } else if (
+        !userData.users[0].hasCompletedFRE[2] &&
+        userData.users[0].hasCompletedFRE[1] &&
+        userData.users[0].hasCompletedFRE[0]
+      ) {
+        redirect('/fre3')
+      }
+    }
 
     return <Profile userData={userData} isPublic={false} />
   }
