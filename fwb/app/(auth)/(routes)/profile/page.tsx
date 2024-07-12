@@ -96,28 +96,24 @@ const page = async () => {
     throw new Error('Something Broke getting user')
   }
 
-  if (
-    userData.users[0].hasCompletedFRE[0] &&
-    userData.users[0].hasCompletedFRE[1] &&
-    userData.users[0].hasCompletedFRE[2]
+  console.log({ userData })
+
+  if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+    redirect('/fre1')
+  } else if (
+    !userData.users[0].hasCompletedFRE[2] &&
+    !userData.users[0].hasCompletedFRE[1] &&
+    userData.users[0].hasCompletedFRE[0]
   ) {
-  } else {
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      redirect('/fre1')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      !userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      redirect('/fre2')
-    } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      redirect('/fre3')
-    }
+    redirect('/fre2')
+  } else if (
+    !userData.users[0].hasCompletedFRE[2] &&
+    userData.users[0].hasCompletedFRE[1] &&
+    userData.users[0].hasCompletedFRE[0]
+  ) {
+    redirect('/fre3')
   }
+
   const AsyncProfile = async () => {
     return <Profile userData={userData} isPublic={false} />
   }
