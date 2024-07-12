@@ -87,34 +87,34 @@ const page = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
-    const userData: TestUserData =
-      bearer_token && supabase_jwt
-        ? await getUser(bearer_token, supabase_jwt)
-        : undefined
-
-    console.log({ userData: userData.users[0].hasCompletedFRE })
-    if (
-      userData.users[0].hasCompletedFRE[0] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[2]
-    ) {
-    } else {
-      if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        redirect('/fre1')
-      } else if (
-        !userData.users[0].hasCompletedFRE[2] &&
-        !userData.users[0].hasCompletedFRE[1] &&
-        userData.users[0].hasCompletedFRE[0]
-      ) {
-        redirect('/fre2')
-      } else if (
-        !userData.users[0].hasCompletedFRE[2] &&
-        userData.users[0].hasCompletedFRE[1] &&
-        userData.users[0].hasCompletedFRE[0]
-      ) {
-        redirect('/fre3')
-      }
+    if (!bearer_token || !supabase_jwt) {
+      return null
     }
+
+    const userData = getUser(bearer_token, supabase_jwt)
+
+    // if (
+    //   userData.users[0].hasCompletedFRE[0] &&
+    //   userData.users[0].hasCompletedFRE[1] &&
+    //   userData.users[0].hasCompletedFRE[2]
+    // ) {
+    // } else {
+    //   if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+    //     redirect('/fre1')
+    //   } else if (
+    //     !userData.users[0].hasCompletedFRE[2] &&
+    //     !userData.users[0].hasCompletedFRE[1] &&
+    //     userData.users[0].hasCompletedFRE[0]
+    //   ) {
+    //     redirect('/fre2')
+    //   } else if (
+    //     !userData.users[0].hasCompletedFRE[2] &&
+    //     userData.users[0].hasCompletedFRE[1] &&
+    //     userData.users[0].hasCompletedFRE[0]
+    //   ) {
+    //     redirect('/fre3')
+    //   }
+    // }
 
     return <Profile userData={userData} isPublic={false} />
   }
