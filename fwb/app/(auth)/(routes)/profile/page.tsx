@@ -86,11 +86,13 @@ const page = async () => {
   const AsyncProfile = async () => {
     const bearer_token = await auth().getToken({ template: 'testing_template' })
     const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
     const userData: TestUserData =
       bearer_token && supabase_jwt
         ? await getUser(bearer_token, supabase_jwt)
         : undefined
 
+    console.log({ userData: userData.users[0].hasCompletedFRE })
     if (
       userData.users[0].hasCompletedFRE[0] &&
       userData.users[0].hasCompletedFRE[1] &&
