@@ -35,6 +35,8 @@ const GroupsHomePage = ({
     return false
   }
 
+  console.log({ userData, groupData })
+
   const handleDeleteGroup = async (groupId: string, userGroups: string[]) => {
     // Deleting group from groups table
     setLoading(true)
@@ -120,7 +122,6 @@ const GroupsHomePage = ({
 
   //use only one modal for the two group instances ('== 0' and '> 0')
   //create loading state for when a group is being deleted
-
 
   return (
     <Box
