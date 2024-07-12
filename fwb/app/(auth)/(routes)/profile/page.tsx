@@ -152,9 +152,9 @@ const page = async () => {
     >
       <Container disableGutters maxWidth="lg">
         <div>
-          <Suspense fallback={<ProfileSkeleton />}>
-            <Profile userData={userData} isPublic={false} />
-          </Suspense>
+          <Profile userData={userData} isPublic={false} />
+          {/* <Suspense fallback={<ProfileSkeleton />}>
+          </Suspense> */}
           <DiscountButtons />
 
           <div className="my-[80px] flex h-2/5 border-b-2 border-slate-200 text-3xl text-white sm-max:text-xl xs-max:text-xl xxs-max:text-xl">
