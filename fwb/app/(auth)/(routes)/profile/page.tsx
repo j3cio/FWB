@@ -83,43 +83,42 @@ export function getDiscountIdsArray(userToDiscountsTable: UserToDiscounts[]) {
 }
 
 const page = async () => {
-  const AsyncProfile = async () => {
-    const bearer_token = await auth().getToken({ template: 'testing_template' })
-    const supabase_jwt = await auth().getToken({ template: 'supabase' })
+  const bearer_token = await auth().getToken({ template: 'testing_template' })
+  const supabase_jwt = await auth().getToken({ template: 'supabase' })
 
-    if (!bearer_token || !supabase_jwt) {
-      return null
-    }
+  if (!bearer_token || !supabase_jwt) {
+    return null
+  }
 
-    const userData = await getUser(bearer_token, supabase_jwt)
+  const userData = await getUser(bearer_token, supabase_jwt)
 
-    if (!userData) {
-      throw new Error('Something Broke getting user')
-    }
+  if (!userData) {
+    throw new Error('Something Broke getting user')
+  }
 
-    if (
-      userData.users[0].hasCompletedFRE[0] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[2]
+  if (
+    userData.users[0].hasCompletedFRE[0] &&
+    userData.users[0].hasCompletedFRE[1] &&
+    userData.users[0].hasCompletedFRE[2]
+  ) {
+  } else {
+    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+      redirect('/fre1')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      !userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
     ) {
-    } else {
-      if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        redirect('/fre1')
-      } else if (
-        !userData.users[0].hasCompletedFRE[2] &&
-        !userData.users[0].hasCompletedFRE[1] &&
-        userData.users[0].hasCompletedFRE[0]
-      ) {
-        redirect('/fre2')
-      } else if (
-        !userData.users[0].hasCompletedFRE[2] &&
-        userData.users[0].hasCompletedFRE[1] &&
-        userData.users[0].hasCompletedFRE[0]
-      ) {
-        redirect('/fre3')
-      }
+      redirect('/fre2')
+    } else if (
+      !userData.users[0].hasCompletedFRE[2] &&
+      userData.users[0].hasCompletedFRE[1] &&
+      userData.users[0].hasCompletedFRE[0]
+    ) {
+      redirect('/fre3')
     }
-
+  }
+  const AsyncProfile = async () => {
     return <Profile userData={userData} isPublic={false} />
   }
 
@@ -154,7 +153,7 @@ const page = async () => {
       <Container disableGutters maxWidth="lg">
         <div>
           <Suspense fallback={<ProfileSkeleton />}>
-            <AsyncProfile />
+            <Profile userData={userData} isPublic={false} />
           </Suspense>
           <DiscountButtons />
 
