@@ -159,7 +159,7 @@ const GroupsHomePage = ({
         )}
         {groupData.length == 0 && (
           <section className="h-full w-full">
-            <Typography
+            {/*<Typography
               className="font-urbanist"
               sx={{
                 fontSize: 24,
@@ -170,7 +170,7 @@ const GroupsHomePage = ({
               }}
             >
               Private Groups
-            </Typography>
+            </Typography>*/}
             <Box className="px-[18px]">
               <CreateGroupCard handleOpen={handleOpen} />
             </Box>

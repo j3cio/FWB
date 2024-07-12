@@ -17,8 +17,6 @@ import { VerifyPhoto5 } from './VerifyPhoto5'
 import GooglePic from '@/public/google.png'
 import TwitterPic from '@/public/twitter.png'
 
-import './page.css'
-
 export const LargeScreen = () => {
   const { isLoaded, signUp, setActive } = useSignUp()
   const [emailAddress, setEmailAddress] = useState('')
@@ -95,16 +93,21 @@ export const LargeScreen = () => {
           <div className="ml-auto mt-auto flex h-auto w-auto translate-y-[70px] flex-col">
             <div className="h-[133px] w-[133px] bg-[url('/fre0/BubbleHi.svg')] bg-contain bg-center bg-no-repeat"></div>
             <div className="h-[400px] w-[134px] bg-[url('/fre0/BubbleGirl.svg')] bg-contain bg-center bg-no-repeat"></div>
-            <div className="circle6 lg-max:h-[133px] lg-max:w-[133px] "></div>
+            <div className="h-[150px] w-[150px] shrink-0 rounded-[156.25px] bg-[#f6ff82] lg-max:h-[133px] lg-max:w-[133px] "></div>
           </div>
-          <div className="signin my-auto h-[728px] w-[556px]">
-            <div className="name">Create Account</div>
-            <div className="buttons">
-              <button className="googleButton" onClick={signUpWithGoogle}>
+          <div className="my-auto inline-flex h-[728px] w-[556px] shrink-0 flex-col items-center justify-center rounded-[60px] border-2 border-white bg-white/15 px-[161px] py-[110px] shadow-md sm:px-[162px] sm:py-[109.48px]">
+            <div className="mb-[80px] overflow-hidden whitespace-nowrap text-center font-urbanist text-[40px] font-normal leading-[110%] text-white ">
+              Create Account
+            </div>
+            <div className="mb-4 flex items-center justify-center">
+              <button
+                className="mr-[22.6px] h-[45.216px] w-[45.216px] items-center justify-center rounded-[28.26px] border-[1.413px] border-white pb-[1px] pl-[8px]"
+                onClick={signUpWithGoogle}
+              >
                 <Image src={GooglePic} alt="Google Icon" />
               </button>
               <button
-                className="discordButton px-[6px] py-[4px]"
+                className="h-[45.216px] w-[45.216px] items-center justify-center rounded-full border border-white p-[5px]"
                 onClick={signUpWithDiscord}
               >
                 <svg
@@ -121,11 +124,13 @@ export const LargeScreen = () => {
                 </svg>
               </button>
             </div>
-            <div className="or">Or</div>
+            <div className="mb-4 flex items-center justify-center font-urbanist text-[16px] font-medium leading-[150%] text-white">
+              Or
+            </div>
             <form onSubmit={handleSubmit}>
               <div>
                 <input
-                  className="input"
+                  className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px] placeholder-opacity-75"
                   placeholder="Email@address.com"
                   onChange={(e) => setEmailAddress(e.target.value)}
                   id="email"
@@ -141,7 +146,7 @@ export const LargeScreen = () => {
                     )
                     .map((passwordError: any) => (
                       <div
-                        className="errorMessage"
+                        className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
                         key={passwordError.meta.paramName}
                       >
                         <svg
@@ -150,20 +155,22 @@ export const LargeScreen = () => {
                           height="16"
                           viewBox="0 0 16 17"
                           fill="none"
-                          className="errorImage"
+                          className="rounded-full bg-red-600"
                         >
                           <path
                             d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                             fill="white"
                           />
-                        </svg>{' '}
-                        <div className="message">{passwordError.message}</div>
+                        </svg>
+                        <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
+                          {passwordError.message}
+                        </div>
                       </div>
                     ))}
               </div>
               <div>
                 <input
-                  className="input"
+                  className="mb-[16px] flex w-[367px] items-center gap-[8px] rounded-full bg-white p-[8px_8px_8px_24px]"
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                   id="password"
@@ -176,7 +183,7 @@ export const LargeScreen = () => {
                   .filter((err: any) => err.meta.paramName === 'password')
                   .map((passwordError: any) => (
                     <div
-                      className="errorMessage"
+                      className="-mt-[5px] mb-[5px] flex text-left font-urbanist text-[16px] font-normal text-white"
                       key={passwordError.meta.paramName}
                     >
                       <svg
@@ -185,26 +192,23 @@ export const LargeScreen = () => {
                         height="16"
                         viewBox="0 0 16 17"
                         fill="none"
-                        className="errorImage"
+                        className="rounded-full bg-red-600"
                       >
                         <path
                           d="M12.1997 4.49463C12.0752 4.36979 11.9061 4.29964 11.7297 4.29964C11.5534 4.29964 11.3843 4.36979 11.2597 4.49463L7.99974 7.74796L4.73974 4.48796C4.61518 4.36312 4.44608 4.29297 4.26974 4.29297C4.09339 4.29297 3.92429 4.36312 3.79974 4.48796C3.53974 4.74796 3.53974 5.16796 3.79974 5.42796L7.05974 8.68796L3.79974 11.948C3.53974 12.208 3.53974 12.628 3.79974 12.888C4.05974 13.148 4.47974 13.148 4.73974 12.888L7.99974 9.62796L11.2597 12.888C11.5197 13.148 11.9397 13.148 12.1997 12.888C12.4597 12.628 12.4597 12.208 12.1997 11.948L8.93974 8.68796L12.1997 5.42796C12.4531 5.17463 12.4531 4.74796 12.1997 4.49463Z"
                           fill="white"
                         />
                       </svg>{' '}
-                      <div className="message">{passwordError.message}</div>
+                      <div className="-mt-[5px] ml-[5px] break-words text-left font-urbanist text-[16px] font-normal">
+                        {passwordError.message}
+                      </div>
                     </div>
                   ))}
-              <div className="remember">
+              <div className="mb-[32px] flex">
                 <FormControlLabel
                   sx={{ height: '24px' }}
                   label={
-                    <Typography
-                      style={{
-                        color: '#fff',
-                        fontFamily: 'Urbanist',
-                      }}
-                    >
+                    <Typography className="font-urbanist text-white">
                       Remember me
                     </Typography>
                   }
@@ -217,12 +221,20 @@ export const LargeScreen = () => {
                 ></FormControlLabel>
               </div>
               <ul></ul>
-              <button className="submit" type="submit">
+              <button
+                className="flex h-[48px] w-[366px] items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[24px] font-normal leading-[125%] tracking-[0.48px] text-[#8e94e9]"
+                type="submit"
+              >
                 Submit
               </button>
-              <div className="signup">
-                <div className="detail">Already have an account? </div>
-                <Link href="/sign-in" className="signupButton">
+              <div className="flex items-center justify-center">
+                <div className="pr-[5px] font-urbanist text-[16px] font-normal leading-[150%] text-white">
+                  Already have an account?
+                </div>
+                <Link
+                  href="/sign-in"
+                  className="flex h-[36px] items-center justify-center gap-1 py-2 font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px] text-white"
+                >
                   Sign In
                 </Link>
               </div>
@@ -260,32 +272,32 @@ export const LargeScreen = () => {
             </div>
             <div className="h-[133px] w-[260px] translate-x-[-50%] bg-[url('/fre0/BubbleFriend.svg')] bg-contain bg-center bg-no-repeat"></div>
             <div className="h-[420px] w-[133px] bg-[url('/fre0/BubbleBoy.svg')] bg-contain bg-center bg-no-repeat"></div>
-            <div className="circle1 lg-max:ml-0 lg-max:h-[133px] lg-max:w-[133px]"></div>
+            <div className="ml-[150px] h-[150px] w-[150px] shrink-0 rounded-[156.25px] border-[5px] border-white lg-max:ml-0 lg-max:h-[133px] lg-max:w-[133px]"></div>
           </div>
         </div>
       )}
 
       {pendingVerification && (
-        <div className="processContainer  h-screen">
-          <div className="verify m-auto">
-            <div className="verifyPhotos">
-              <div className="verifyPhotos1">
+        <div className="flex-color flex h-screen bg-white">
+          <div className="m-auto h-[435px] w-[437px] rounded-[60px] border-[2px] border-[#8e94e9]">
+            <div className="-mt-[40px] flex justify-center text-center">
+              <div className="-ml-[25px]">
                 <VerifyPhoto1 />
               </div>
-              <div className="verifyPhoto2">
+              <div className="-ml-[25px]">
                 <VerifyPhoto2 />
               </div>
-              <div className="verifyPhoto3">
+              <div className="-ml-[25px]">
                 <VerifyPhoto3 />
               </div>
-              <div className="verifyPhoto4">
+              <div className="-ml-[25px]">
                 <VerifyPhoto4 />
               </div>
-              <div className="verifyPhoto5">
+              <div className="z-[1] -ml-[25px]">
                 <VerifyPhoto5 />
               </div>
             </div>
-            <div className="rightCircle">
+            <div className="-mt-[130px] ml-[300px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="204"
@@ -335,21 +347,26 @@ export const LargeScreen = () => {
             </div>
 
             <form>
-              <div className="signupProcess">
-                <div className="signupTitle">You&apos;re almost there!</div>
-                <div className="signupContent">
+              <div className="flex flex-col items-center justify-center">
+                <div className="mb-[16px] text-center font-urbanist text-[32px] font-semibold leading-[110%] text-[#fff]">
+                  You&apos;re almost there!
+                </div>
+                <div className="mb-[72px] text-center font-urbanist text-[16px] font-normal leading-[150%] text-[#fff]">
                   Hey! You&apos;re almost ready to start making Freinds
                   <br></br>
                   with Benefits.Simply click the button below to <br></br>
                   verify your email address
                 </div>
-                <button type="submit" className="verifyButton">
+                <button
+                  type="submit"
+                  className="h-[48px] w-[157px] rounded-[30px] bg-[#f6ff82] text-center font-urbanist text-[20px] font-bold leading-[125%] tracking-[0.4px] text-[#8e94e9]"
+                >
                   <Link href="/success">Verify Now!</Link>
                 </button>
               </div>
             </form>
 
-            <div className="leftCircle">
+            <div className="-ml-[80px] -mt-[80px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="244"
@@ -400,15 +417,17 @@ export const LargeScreen = () => {
               </svg>
             </div>
           </div>
-          <div className="stayinContainer">
-            <div className="stayWords">Stay in touch with us!</div>
-            <div className="socialMedia">
-              <div className="twitter">
-                <button className="twitterButton">
+          <div className="mt-[64px] flex flex-col text-center">
+            <div className="font-urbanist text-[18px] font-medium leading-[125%] text-[#8e94e9]">
+              Stay in touch with us!
+            </div>
+            <div className="mb-[8px] mt-[8px] flex justify-center text-center">
+              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[20px] bg-[#8e94e9] px-[3.754px] py-[4.246px]">
+                <button className="">
                   <Image src={TwitterPic} alt="Twitter Icon" />
                 </button>
               </div>
-              <div className="instagram">
+              <div className="ml-[5px] flex h-[32px] w-[32px] items-center justify-center rounded-[20px] bg-[#8e94e9] px-[3.754px] py-[4.246px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="19"
@@ -440,7 +459,7 @@ export const LargeScreen = () => {
                   </defs>
                 </svg>
               </div>
-              <div className="linkedin">
+              <div className="ml-[5px] flex h-[32px] w-[32px] items-center justify-center rounded-[20px] bg-[#8e94e9] px-[3.754px] py-[4.246px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
@@ -455,9 +474,12 @@ export const LargeScreen = () => {
                 </svg>
               </div>
             </div>
-            <div className="problemContact">
-              Having Problems? Email us at{' '}
-              <a className="helpEmail" href="help@makefwb.com">
+            <div className="font-urbanist text-[16px] font-medium leading-[150%] text-[#8e94e9]">
+              Having Problems? Email us at
+              <a
+                className="font-urbanist text-[16px] font-bold leading-[125%] tracking-[0.32px] text-[#8e94e9]"
+                href="help@makefwb.com"
+              >
                 help@makefwb.com
               </a>
             </div>
