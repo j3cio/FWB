@@ -11,7 +11,7 @@ import IllustrationFour from '@/components/ui/fre/IllustrationFour'
 import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
-import { UserData } from '../../../types/types'
+import { TestUser, UserData } from '../../../types/types'
 import DiscountsSection from '@/components/ui/privategroups/groupdetailspage/DiscountsSection'
 
 declare global {
@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-export default function UserFlowPage2({ userData }: { userData: UserData }) {
+export default function UserFlowPage2({ userData }: { userData: TestUser }) {
   const [company, setCompany] = useState('')
   const [termsAndConditions, setTermsAndConditions] = useState('')
   const [discountAmount, setDiscountAmount] = useState('')
@@ -42,32 +42,9 @@ export default function UserFlowPage2({ userData }: { userData: UserData }) {
   const [categories, setCategories] = useState<string[]>(allCategories)
 
   const router = useRouter()
-  const { isSignedIn, user, isLoaded } = useUser()
+  const { user } = useUser()
 
   const togglePrivacy = () => setIsPrivate(!isPrivate)
-
-  const handleRedirect = useCallback(() => {
-    if (!isLoaded || !isSignedIn || !userData.users[0]) {
-      router.replace('/fre1')
-      return
-    }
-
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-      router.replace('/fre1')
-    } else if (
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0] &&
-      !userData.users[0].hasCompletedFRE[2]
-    ) {
-      router.replace('/fre3')
-    } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
-    ) {
-      router.replace('profile')
-    }
-  }, [isLoaded, isSignedIn, router, userData])
 
   const handleDiscountSubmit = async (e: any) => {
     e.preventDefault()

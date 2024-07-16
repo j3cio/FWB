@@ -25,7 +25,7 @@ import { TestUser } from '../../../types/types'
 
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
-export default function UserFlowPage1({ userData }: { userData: TestUser }) {
+export default function UserFlowPage1() {
   //TODO: Username verification feature, onChange run code to show user Username is available (possibly grey out Next Option)
 
   const { isSignedIn, user, isLoaded } = useUser()

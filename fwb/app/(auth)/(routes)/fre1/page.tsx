@@ -33,7 +33,7 @@ const page = async () => {
 
   return (
     <div>
-      <UserFlowPage1 userData={userData} />
+      <UserFlowPage1 />
     </div>
   )
 }
