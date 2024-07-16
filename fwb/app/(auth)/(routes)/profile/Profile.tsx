@@ -10,10 +10,10 @@ import EditProfileModal from './EditProfileModal'
 
 import useIntitialChatClient from '@/app/chat/useIntializeChatClient'
 
-import { TestUserData } from '../../../types/types'
+import { TestUser, TestUserData } from '../../../types/types'
 
 interface ProfileProps {
-  userData: TestUserData
+  userData: TestUser
   isPublic: boolean
 }
 
@@ -47,7 +47,7 @@ function Profile({ userData, isPublic }: ProfileProps) {
               {user ? (
                 <Avatar
                   alt="123"
-                  src={`${userData.users[0].profile_picture_url}`}
+                  src={`${userData.profile_picture_url}`}
                   className="flex h-[190px] w-48 items-center justify-center rounded-full bg-slate-200 sm-max:h-[102px] sm-max:w-[102px] xs-max:h-[92px] xs-max:w-[92px] xxs-max:h-[92px] xxs-max:w-[92px]"
                 />
               ) : (
@@ -55,14 +55,12 @@ function Profile({ userData, isPublic }: ProfileProps) {
               )}
               <div className="flex grow flex-col justify-center">
                 <div className="mb-[4px] text-[35px] font-semibold leading-none text-slate-200 sm-max:text-[28px] xs-max:text-[24px] xxs-max:text-[24px]">
-                  {userData.users[0].username}
+                  {userData.username}
                 </div>
-                {userData.users[0].company && (
+                {userData.company && (
                   <div className="mb-[16px] flex flex-row sm-max:text-[14px] xs-max:text-[12px] xxs-max:text-[12px]">
                     <div className="mr-1 text-slate-200">Benefits from: </div>
-                    <div className=" text-yellow-200">
-                      {userData.users[0].company}
-                    </div>
+                    <div className=" text-yellow-200">{userData.company}</div>
                   </div>
                 )}
                 {!isPublic ? (

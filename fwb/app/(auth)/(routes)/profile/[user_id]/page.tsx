@@ -1,50 +1,55 @@
-import { DiscountData, UserData, UserToDiscounts } from '@/app/types/types'
+import { Suspense } from 'react'
+
+import { redirect } from 'next/navigation'
+
 import { auth } from '@clerk/nextjs'
 import { Box, Container } from '@mui/material'
-import { Suspense } from 'react'
+
+import Profile from '../Profile'
+import { getDiscountIdsArray, getUser, getUserDiscountTable } from '../page'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import Benefits from '@/components/ui/profile/Benefits'
-import Profile from '../Profile'
 import ProfileSkeleton from '@/components/ui/skeletons/variants/ProfileSkeleton'
-import { getDiscountIdsArray, getUser, getUserDiscountTable } from '../page'
+
 import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
 
+import { TestUser, UserToDiscounts } from '@/app/types/types'
+
+const AsyncProfile = async () => {
+  const userData: TestUser = await getUser()
+
+  if (!userData) {
+    redirect('/explore')
+  }
+
+  return <Profile userData={userData} isPublic={false} />
+}
+
+const AsyncBenefits = async () => {
+  const bearer_token = await auth().getToken({ template: 'testing_template' })
+  const supabase_jwt = await auth().getToken({ template: 'supabase' })
+
+  if (!bearer_token || !supabase_jwt) {
+    return null
+  }
+  const userToDiscountsTable: UserToDiscounts[] = await getUserDiscountTable(
+    bearer_token,
+    supabase_jwt
+  )
+
+  const discountIds = getDiscountIdsArray(userToDiscountsTable)
+
+  const discountData = getAllDiscountsData(
+    discountIds,
+    bearer_token,
+    supabase_jwt
+  )
+
+  return <Benefits discountData={discountData} />
+}
+
 const page = async ({ params }: { params: { user_id: string } }) => {
-  const AsyncProfile = async () => {
-    const bearer_token = await auth().getToken({ template: 'testing_template' })
-    const supabase_jwt = await auth().getToken({ template: 'supabase' })
-    const userData: UserData =
-      bearer_token && supabase_jwt
-        ? await getUser(bearer_token, supabase_jwt)
-        : undefined
-
-    return <Profile userData={userData} isPublic={false} />
-  }
-
-  const AsyncBenefits = async () => {
-    const bearer_token = await auth().getToken({ template: 'testing_template' })
-    const supabase_jwt = await auth().getToken({ template: 'supabase' })
-
-    if (!bearer_token || !supabase_jwt) {
-      return null
-    }
-    const userToDiscountsTable: UserToDiscounts[] = await getUserDiscountTable(
-      bearer_token,
-      supabase_jwt
-    )
-
-    const discountIds = getDiscountIdsArray(userToDiscountsTable)
-
-    const discountData = getAllDiscountsData(
-      discountIds,
-      bearer_token,
-      supabase_jwt
-    )
-
-    return <Benefits discountData={discountData} />
-  }
-
   return (
     <Box
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}

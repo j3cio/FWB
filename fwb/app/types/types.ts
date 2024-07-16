@@ -27,6 +27,16 @@ export interface DiscountData {
   name: string
 }
 
+export interface TestDiscountData {
+  id: string
+  created_at: string
+  public: boolean
+  logo: string
+  name: string
+  company: string
+  description: string
+  discount_amount: number
+}
 export interface UserData {
   success: boolean
   users: User[]

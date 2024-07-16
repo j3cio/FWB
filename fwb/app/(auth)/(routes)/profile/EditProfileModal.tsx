@@ -1,4 +1,4 @@
-import { TestUserData } from '@/app/types/types'
+import { TestUser } from '@/app/types/types'
 import {
   FemaleFourSVG,
   FemaleOneSVG,
@@ -19,7 +19,7 @@ import { useState } from 'react'
 type EditProfileModalProps = {
   isOpen: boolean
   onClose(): void
-  userData: TestUserData
+  userData: TestUser
 }
 
 //TODO:
@@ -362,9 +362,7 @@ const EditProfileModal = ({
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder={
-                  userData.users[0].username
-                    ? `${userData.users[0].username}`
-                    : `username`
+                  userData.username ? `${userData.username}` : `username`
                 }
                 style={{
                   //color: " var(--Neutral-900, #090A10);",
@@ -434,9 +432,7 @@ const EditProfileModal = ({
                 className="placeholder-black"
                 type="text"
                 placeholder={
-                  userData.users[0].company
-                    ? `${userData.users[0].company}`
-                    : `company name`
+                  userData.company ? `${userData.company}` : `company name`
                 }
                 value={inputCompany}
                 onChange={(e) => setInputCompany(e.target.value)}

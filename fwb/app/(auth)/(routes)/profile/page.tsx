@@ -1,4 +1,4 @@
-import { DiscountData, TestUserData, UserToDiscounts } from '@/app/types/types'
+import { TestDiscountData, TestUser, UserToDiscounts } from '@/app/types/types'
 import Benefits from '@/components/ui/profile/Benefits'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
@@ -9,36 +9,81 @@ import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 import Profile from './Profile'
 import { getAllDiscountsData } from '@/app/api/discounts/utils/fetch_discount_utils'
+import { createClient } from '@/supabase.server'
 
-export async function getUser(bearer_token: string, supabase_jwt: string) {
+// Since this is a server component, we actually don't need to use a route handler here. Test performance to see if it's faster to directly contact supabase from this end
+export async function getUser() {
   const userId = await auth().userId
-  if (!supabase_jwt) {
-    console.log('Not signed in')
-    return
-  }
 
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabase_jwt)
-  myHeaders.append('Authorization', `Bearer ${bearer_token}`)
-
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
+  if (!userId) {
+    throw new Error('UserId not found')
   }
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
-      requestOptions
-    )
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+    const supabase = await createClient()
+
+    let { data: users, error } = await supabase
+      .from('test_users')
+      .select('*')
+      .eq('user_id', userId)
+
+    if (error) {
+      throw new Error(`HTTP error! ${error}`)
     }
-    const result = await response.json()
-    return result // This returns the result object
-  } catch (error) {
+
+    if (!users || users === null) {
+      console.error('User not found')
+    }
+
+    if (users) {
+      return users[0]
+    }
     console.error('Error fetching data: ', error)
     throw error // This re-throws the error to be handled by the caller
+  } catch (error) {}
+}
+
+export async function getUserDiscounts() {
+  const userId = await auth().userId
+  const supabase = await createClient()
+
+  if (!userId) {
+    throw new Error('UserId not found')
+  }
+
+  let { data: discountIds, error } = await supabase
+    .from('UserToDiscounts')
+    .select('discount_id')
+    .eq('user_id', userId)
+
+  if (error) {
+    console.error(error)
+    throw new Error('Could not retrieve discountIds')
+  }
+
+  if (!discountIds || discountIds === null) {
+    console.error('User not found')
+  }
+
+  if (discountIds) {
+    const discountIdArray = discountIds.map((discount) => discount.discount_id)
+
+    const { data: discounts, error: discountsError } = await supabase
+      .from('test_discounts')
+      .select('*')
+      .in('id', discountIdArray)
+
+    if (discountsError) {
+      throw new Error('Failed to fetch discounts')
+    }
+
+    return discounts as TestDiscountData[]
+  }
+
+  try {
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+    throw error
   }
 }
 
@@ -82,64 +127,46 @@ export function getDiscountIdsArray(userToDiscountsTable: UserToDiscounts[]) {
   return discountIds
 }
 
-const page = async () => {
-  const AsyncProfile = async () => {
-    const bearer_token = await auth().getToken({ template: 'testing_template' })
-    const supabase_jwt = await auth().getToken({ template: 'supabase' })
-    const userData: TestUserData =
-      bearer_token && supabase_jwt
-        ? await getUser(bearer_token, supabase_jwt)
-        : undefined
+const AsyncProfile = async () => {
+  const userData: TestUser = await getUser()
 
-    if (
-      userData.users[0].hasCompletedFRE[0] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[2]
+  if (
+    userData.hasCompletedFRE[0] &&
+    userData.hasCompletedFRE[1] &&
+    userData.hasCompletedFRE[2]
+  ) {
+  } else {
+    if (!userData || !userData.hasCompletedFRE[0]) {
+      redirect('/fre1')
+    } else if (
+      !userData.hasCompletedFRE[2] &&
+      !userData.hasCompletedFRE[1] &&
+      userData.hasCompletedFRE[0]
     ) {
-    } else {
-      if (!userData || !userData.users[0].hasCompletedFRE[0]) {
-        redirect('/fre1')
-      } else if (
-        !userData.users[0].hasCompletedFRE[2] &&
-        !userData.users[0].hasCompletedFRE[1] &&
-        userData.users[0].hasCompletedFRE[0]
-      ) {
-        redirect('/fre2')
-      } else if (
-        !userData.users[0].hasCompletedFRE[2] &&
-        userData.users[0].hasCompletedFRE[1] &&
-        userData.users[0].hasCompletedFRE[0]
-      ) {
-        redirect('/fre3')
-      }
+      redirect('/fre2')
+    } else if (
+      !userData.hasCompletedFRE[2] &&
+      userData.hasCompletedFRE[1] &&
+      userData.hasCompletedFRE[0]
+    ) {
+      redirect('/fre3')
     }
-
-    return <Profile userData={userData} isPublic={false} />
   }
 
-  const AsyncBenefits = async () => {
-    const bearer_token = await auth().getToken({ template: 'testing_template' })
-    const supabase_jwt = await auth().getToken({ template: 'supabase' })
+  return <Profile userData={userData} isPublic={false} />
+}
 
-    if (!bearer_token || !supabase_jwt) {
-      return null
-    }
-    const userToDiscountsTable: UserToDiscounts[] = await getUserDiscountTable(
-      bearer_token,
-      supabase_jwt
-    )
+const AsyncBenefits = async () => {
+  const discountData = await getUserDiscounts()
 
-    const discountIds = getDiscountIdsArray(userToDiscountsTable)
-
-    const discountData = getAllDiscountsData(
-      discountIds,
-      bearer_token,
-      supabase_jwt
-    )
-
-    return <Benefits discountData={discountData} />
+  if (!discountData) {
+    throw new Error('Could not return discounts')
   }
 
+  return <Benefits discountData={discountData} />
+}
+
+const page = async () => {
   return (
     <Box
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
