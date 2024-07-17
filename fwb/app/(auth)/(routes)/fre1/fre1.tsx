@@ -21,13 +21,14 @@ import {
 } from './utils'
 
 export default function UserFlowPage1() {
-  const { isSignedIn, user } = useUser()
-  const router = useRouter()
-
   const [randomName, setRandomName] = useState<string>('')
   const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(
     null
   )
+
+  const router = useRouter()
+  const { isSignedIn, user } = useUser()
+
   const handleUpdateProfilePicture = useCallback(() => {
     updateProfilePicture(user)
   }, [user])
