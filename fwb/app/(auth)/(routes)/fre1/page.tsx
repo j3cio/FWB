@@ -1,4 +1,4 @@
-import { TestUser, UserData } from '@/app/types/types'
+import { TestUser } from '@/app/types/types'
 import UserFlowPage1 from './fre1'
 import { auth } from '@clerk/nextjs' // Import the redirect function from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
