@@ -12,171 +12,57 @@ import IllustrationTwo from '@/components/ui/fre/IllustrationTwo'
 import { NextButton } from '@/components/ui/fre/fre1/NextButton'
 import { ProfilePictureSelector } from '@/components/ui/fre/fre1/ProfilePictureSelector'
 import { UsernameForm } from '@/components/ui/fre/fre1/UsernameForm'
-import { convertFilePathToBlob, generateRandomUsername } from './utils'
+import {
+  generateRandomUsername,
+  updateProfilePicture,
+  chooseProfilePicture,
+  updateClerkUsername,
+  handleSubmitUser,
+} from './utils'
 
 export default function UserFlowPage1() {
-  const { isSignedIn, user, isLoaded } = useUser()
-  const [randomName, setRandomName] = useState<any | null>(null)
+  const { isSignedIn, user } = useUser()
+  const router = useRouter()
+
+  const [randomName, setRandomName] = useState<string>('')
   const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(
     null
   )
+  const handleUpdateProfilePicture = useCallback(() => {
+    updateProfilePicture(user)
+  }, [user])
 
-  const newUsernameInput = document.getElementById(
-    'newUsername'
-  ) as HTMLInputElement
-  const newUsername = newUsernameInput?.value
+  const handleChooseProfilePicture = useCallback(
+    (image: string) => {
+      chooseProfilePicture(image, user, setOptimisticImageUrl)
+    },
+    [user]
+  )
 
-  //Add router to push to fre2 after making User API POST Request
-  const router = useRouter()
+  const handleUpdateClerkUsername = useCallback(() => {
+    updateClerkUsername(user, randomName)
+  }, [user, randomName])
 
-  //Function to Allow user to Upload their own Profile Picture
-  const updateProfilePicture = () => {
-    const fileInput = document.getElementById(
-      'profilePicture'
-    ) as HTMLInputElement
-    const file = fileInput?.files?.[0]
+  const handleSubmit = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault()
+      handleSubmitUser(router)
+    },
+    [router]
+  )
 
-    if (file) {
-      // Use Clerk's setProfileImage method to update the profile picture
-      user!
-        .setProfileImage({ file })
-        .then((imageResource) => {
-          console.log('Profile picture updated:', imageResource)
-        })
-        .catch((error) => {
-          console.error('Error updating profile picture:', error)
-        })
-    } else {
-      console.warn('No file selected.')
-    }
-  }
-
-  //Functions to Allow user to choose amongst our default options for their Profile Picture
-
-  //Taking converted blob file and updating User's Profile Picture based on button click
-  const chooseProfilePicture = async (image: string) => {
-    const file = await convertFilePathToBlob(image)
-
-    if (file) {
-      // implementing Optimistic Loading (Update UI before making backend request)
-      const optimisticImage = URL.createObjectURL(file)
-      setOptimisticImageUrl(optimisticImage)
-
-      // Use Clerk's setProfileImage method to update the profile picture
-      user!
-        .setProfileImage({ file })
-        .then((imageResource) => {
-          console.log('Profile picture updated:', imageResource)
-          setOptimisticImageUrl(null) // if optimistic upload fails, revert to previous picture
-        })
-        .catch((error) => {
-          console.error('Error updating profile picture:', error)
-          setOptimisticImageUrl(null)
-        })
-    } else {
-      console.warn('No file selected.')
-    }
-  }
-
-  //Function updates the state of our random username to be displayed on the webpage
-  function changeRandomUsername() {
-    const newRandomUsername = generateRandomUsername()
-    setRandomName(newRandomUsername)
-  }
-
-  //Function to update User's username on Clerk
-  const updateClerkUsername = useCallback(() => {
-    //If the user provides a username in the input, we will use that
-    if (newUsername) {
-      // Use Clerk's update method to update the username
-      user!
-        .update({ username: newUsername })
-        .then((updatedUser) => {
-          console.log('Username updated:', updatedUser)
-        })
-        .catch((error) => {
-          console.error('Error updating username:', error)
-        })
-    } else {
-      console.warn('Please enter a new username.')
-    }
-
-    //If the user doesn't provide a username, we will take current randomName state and use that
-    if (!newUsername) {
-      user!
-        .update({ username: randomName })
-        .then((updatedUser) => {
-          console.log('Username updated:', updatedUser)
-        })
-        .catch((error) => {
-          console.error('Error updating username:', error)
-        })
-    }
-  }, [newUsername, randomName, user])
-
-  //Function to update User's username on Clerk with random username
-  function updateClerkWithRandomUsername() {
-    changeRandomUsername()
-    updateClerkUsername()
-  }
-
-  //Function to POST User's information to Supabase
-  const handleSubmitUser = async (e: any) => {
-    e.preventDefault()
-
-    try {
-      const bearerToken = await window.Clerk.session.getToken({
-        template: 'testing_template',
-      })
-
-      const supabaseToken = await window.Clerk.session.getToken({
-        template: 'supabase',
-      })
-
-      const formData = new FormData()
-      formData.append('user_discounts', '')
-      formData.append('user_groups', '')
-      formData.append('user_messages', '')
-      formData.append('company', '')
-      formData.append('verified', 'false')
-      formData.append('hasCompletedFRE', '{true, false, false}')
-      formData.append('blocked_users', '')
-      formData.append('reported_users', '')
-
-      // POST Fetch Request to Discounts API
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-          supabase_jwt: supabaseToken,
-        },
-        body: formData,
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log('User added successfully:', data)
-        router.push('/fre2')
-      } else {
-        const errorData = await response.json()
-        console.error('Error adding user:', errorData)
-      }
-    } catch (error) {
-      console.error('Error add user:', error)
-    }
-  }
-
-  //Initializes random username on the first render of webpage
   useEffect(() => {
     setRandomName(generateRandomUsername())
   }, [])
 
   useEffect(() => {
-    // Once our user exists, we don't have a manual name chosen, and our random name is generated, we update our username in clerk
-    if (!newUsername && randomName && user) {
-      updateClerkUsername()
+    const newUsernameInput = document.getElementById(
+      'newUsername'
+    ) as HTMLInputElement
+    if (randomName && user && !newUsernameInput?.value) {
+      handleUpdateClerkUsername()
     }
-  }, [randomName, newUsername, user, updateClerkUsername])
+  }, [randomName, user, handleUpdateClerkUsername])
 
   // Render the First Run Experience if the User has been verified
   if (isSignedIn) {
@@ -209,18 +95,21 @@ export default function UserFlowPage1() {
           <ProfilePictureSelector
             user={user}
             optimisticImageUrl={optimisticImageUrl}
-            chooseProfilePicture={chooseProfilePicture}
-            updateProfilePicture={updateProfilePicture}
+            chooseProfilePicture={handleChooseProfilePicture}
+            updateProfilePicture={handleUpdateProfilePicture}
           />
 
           <UsernameForm
             randomName={randomName}
             setRandomName={setRandomName}
-            updateClerkUsername={updateClerkUsername}
-            updateClerkWithRandomUsername={updateClerkWithRandomUsername}
+            updateClerkUsername={handleUpdateClerkUsername}
+            updateClerkWithRandomUsername={() => {
+              setRandomName(generateRandomUsername())
+              handleUpdateClerkUsername()
+            }}
           />
 
-          <NextButton handleSubmitUser={handleSubmitUser} />
+          <NextButton handleSubmitUser={handleSubmit} />
         </div>
         <div className="hidden md:block">
           <IllustrationTwo />
