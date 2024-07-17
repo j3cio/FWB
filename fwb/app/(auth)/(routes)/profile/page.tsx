@@ -1,4 +1,4 @@
-import { TestDiscountData, TestUser, UserToDiscounts } from '@/app/types/types'
+import { TestUser } from '@/app/types/types'
 import Benefits from '@/components/ui/profile/Benefits'
 import DiscountButtons from '@/components/ui/profile/DiscountButtons'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
@@ -59,7 +59,7 @@ const AsyncBenefits = async () => {
   return <Benefits discountData={discountData} />
 }
 
-const page = async () => {
+const page = () => {
   return (
     <Box
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
