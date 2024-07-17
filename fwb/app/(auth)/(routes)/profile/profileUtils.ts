@@ -27,7 +27,10 @@ export async function getUser(userId: string) {
     }
     console.error('Error fetching data: ', error)
     throw error // This re-throws the error to be handled by the caller
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error fetching data: ', error)
+    throw error
+  }
 }
 
 export async function getUserDiscounts(userId: string) {
