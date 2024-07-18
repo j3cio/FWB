@@ -41,7 +41,13 @@ export default function UserFlowPage1() {
   )
 
   const handleUpdateClerkUsername = useCallback(() => {
-    updateClerkUsername(user, randomName)
+    if (randomName && randomName.trim() !== '') {
+      updateClerkUsername(user, randomName)
+    } else {
+      const newRandomName = generateRandomUsername()
+      setRandomName(newRandomName)
+      updateClerkUsername(user, newRandomName)
+    }
   }, [user, randomName])
 
   const handleSubmit = useCallback(
@@ -60,7 +66,11 @@ export default function UserFlowPage1() {
     const newUsernameInput = document.getElementById(
       'newUsername'
     ) as HTMLInputElement
-    if (randomName && user && !newUsernameInput?.value) {
+    if (
+      randomName &&
+      user &&
+      (!newUsernameInput?.value || newUsernameInput.value.trim() === '')
+    ) {
       handleUpdateClerkUsername()
     }
   }, [randomName, user, handleUpdateClerkUsername])
