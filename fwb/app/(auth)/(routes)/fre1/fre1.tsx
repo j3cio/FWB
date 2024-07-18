@@ -1,14 +1,10 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-
 import { useRouter } from 'next/navigation'
-
 import { useUser } from '@clerk/nextjs'
-
 import IllustrationOne from '@/components/ui/fre/IllustrationOne'
 import IllustrationTwo from '@/components/ui/fre/IllustrationTwo'
-
 import { NextButton } from '@/components/ui/fre/fre1/NextButton'
 import { ProfilePictureSelector } from '@/components/ui/fre/fre1/ProfilePictureSelector'
 import { UsernameForm } from '@/components/ui/fre/fre1/UsernameForm'
@@ -21,13 +17,25 @@ import {
 } from './utils'
 
 export default function UserFlowPage1() {
-  const [randomName, setRandomName] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
   const [optimisticImageUrl, setOptimisticImageUrl] = useState<string | null>(
     null
   )
 
   const router = useRouter()
   const { isSignedIn, user } = useUser()
+
+  const generateAndSetUsername = useCallback(() => {
+    const newUsername = generateRandomUsername()
+    setUsername(newUsername)
+    return newUsername
+  }, [])
+
+  const handleUpdateClerkUsername = useCallback(() => {
+    if (user && username && username.trim() !== '') {
+      updateClerkUsername(user, username)
+    }
+  }, [user, username])
 
   const handleUpdateProfilePicture = useCallback(() => {
     updateProfilePicture(user)
@@ -40,16 +48,6 @@ export default function UserFlowPage1() {
     [user]
   )
 
-  const handleUpdateClerkUsername = useCallback(() => {
-    if (randomName && randomName.trim() !== '') {
-      updateClerkUsername(user, randomName)
-    } else {
-      const newRandomName = generateRandomUsername()
-      setRandomName(newRandomName)
-      updateClerkUsername(user, newRandomName)
-    }
-  }, [user, randomName])
-
   const handleSubmit = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault()
@@ -59,23 +57,17 @@ export default function UserFlowPage1() {
   )
 
   useEffect(() => {
-    setRandomName(generateRandomUsername())
-  }, [])
+    if (!username) {
+      generateAndSetUsername()
+    }
+  }, [username, generateAndSetUsername])
 
   useEffect(() => {
-    const newUsernameInput = document.getElementById(
-      'newUsername'
-    ) as HTMLInputElement
-    if (
-      randomName &&
-      user &&
-      (!newUsernameInput?.value || newUsernameInput.value.trim() === '')
-    ) {
+    if (user && username) {
       handleUpdateClerkUsername()
     }
-  }, [randomName, user, handleUpdateClerkUsername])
+  }, [username])
 
-  // Render the First Run Experience if the User has been verified
   if (isSignedIn) {
     return (
       <div className="flex h-screen justify-center md:justify-between">
@@ -99,7 +91,7 @@ export default function UserFlowPage1() {
           <h2 className="mt-8 text-center font-urbanist text-2xl font-medium leading-[110%] tracking-[0.1rem] text-white md:mt-[61px] md:text-[40px]">
             Welcome to Friends with Benefits!
           </h2>
-          <h5 className=" mb-[28px] mt-[8px] text-center text-xs font-medium leading-[125%] text-white md:text-[18px]">
+          <h5 className="mb-[28px] mt-[8px] text-center text-xs font-medium leading-[125%] text-white md:text-[18px]">
             Let&apos;s create your profile.
           </h5>
 
@@ -111,13 +103,10 @@ export default function UserFlowPage1() {
           />
 
           <UsernameForm
-            randomName={randomName}
-            setRandomName={setRandomName}
+            username={username}
+            setUsername={setUsername}
             updateClerkUsername={handleUpdateClerkUsername}
-            updateClerkWithRandomUsername={() => {
-              setRandomName(generateRandomUsername())
-              handleUpdateClerkUsername()
-            }}
+            updateClerkWithRandomUsername={generateAndSetUsername}
           />
 
           <NextButton handleSubmitUser={handleSubmit} />
