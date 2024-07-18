@@ -1,5 +1,5 @@
 // components/UsernameForm.tsx
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RefreshIcon } from '../../icons/RefreshIcon'
 
 interface UsernameFormProps {
@@ -15,6 +15,10 @@ export const UsernameForm: React.FC<UsernameFormProps> = ({
   updateClerkUsername,
   updateClerkWithRandomUsername,
 }) => {
+  useEffect(() => {
+    updateClerkWithRandomUsername()
+  }, [])
+
   return (
     <div className="userForm flex flex-col justify-center">
       <form
