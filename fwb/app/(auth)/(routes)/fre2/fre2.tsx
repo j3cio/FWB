@@ -179,7 +179,6 @@ export default function UserFlowPage2({ userData }: { userData: TestUser }) {
             placeholder="Share any rules or limitations about your benefit"
             value={termsAndConditions}
             onChange={(e) => setTermsAndConditions(e.target.value)}
-            required
           />
 
           <div
