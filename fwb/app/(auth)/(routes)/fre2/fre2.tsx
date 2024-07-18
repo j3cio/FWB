@@ -5,11 +5,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
 
-import UpdateUser from '@/components/hooks/updateUser'
 import IllustrationThree from '@/components/ui/fre/IllustrationThree'
 import IllustrationFour from '@/components/ui/fre/IllustrationFour'
 import { CustomSwitch } from '@/components/ui/fre/CustomSwitch'
-import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
 import {
   handleDiscountSubmit,
@@ -34,15 +32,16 @@ export default function UserFlowPage2({ userData }: { userData: TestUser }) {
   const [isPrivate, setIsPrivate] = useState(false)
 
   const allCategories = [
-    'sports',
-    'fashion',
-    'electronic',
-    'health',
-    'books',
-    'hobbies',
-    'home & kitchen',
-    'computer & accessories',
-    'beauty & skincare',
+    'All',
+    'Sports',
+    'Fashion',
+    'Electronic',
+    'Health',
+    'Books',
+    'Hobbies',
+    'Home & Kitchen',
+    'Computer & Accessories',
+    'Beauty & Skincare',
   ]
   const [categories, setCategories] = useState<string[]>(allCategories)
 
@@ -149,7 +148,7 @@ export default function UserFlowPage2({ userData }: { userData: TestUser }) {
                 Category *
               </h6>
               <select
-                className="mb-3 w-full rounded-full bg-[#8e94e9] px-3 py-1 text-sm text-white lg:mb-5 lg:w-52 lg:py-2 lg:text-base"
+                className="mb-3 w-full rounded-full border bg-[#8e94e9] px-3 py-1 text-sm text-white lg:mb-5 lg:w-52 lg:py-2 lg:text-base"
                 onChange={(e) =>
                   handleCategoryChange(
                     Array.from(
@@ -163,7 +162,11 @@ export default function UserFlowPage2({ userData }: { userData: TestUser }) {
                 value={categories[0]}
                 required
               >
-                {/* ... options ... */}
+                {allCategories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
