@@ -2,9 +2,10 @@ import React from 'react'
 
 function IllustrationOne() {
   return (
-    <div className="illustrationOne">
+    <div className="ml-[108px] hidden h-[100dvh] w-full shrink-0 xl:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        className="h-full w-full object-cover"
         width="176"
         height="931"
         viewBox="0 0 176 931"
