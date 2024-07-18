@@ -60,7 +60,7 @@ export const changeFRE = async (router: ReturnType<typeof useRouter>) => {
     const response = await UpdateUser(formData)
 
     if (response) {
-      router.push('/dashboard')
+      router.push('/profile')
     } else {
       console.error('Error in changeFRE')
     }
