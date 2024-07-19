@@ -19,12 +19,12 @@ const insertGroup = async (request: NextRequest) => {
       const formData = await request.formData()
       const newGroup = {
         name: formData.get('name'),
-        users: [formData.get('users')] || [],
-        discounts: [formData.get('discounts')] || [],
+        //users: [formData.get('users')] || [],
+        //discounts: [formData.get('discounts')] || [],
         admins: [formData.get('admins')] || [],
         public: formData.get('public') === 'false' ? false : true, // There might be a way to use a boolean rather than having to type false?
         description: formData.get('description'),
-        filePath: formData.get('filePath'),
+        //filePath: formData.get('filePath'),
       }
       const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
       if (!supabase) {
@@ -33,9 +33,9 @@ const insertGroup = async (request: NextRequest) => {
           { status: 401 }
         )
       }
-      // Insert the new group into the groups table in supabase
+      // Insert the new group into the test_groups table in supabase
       const { data, error } = await supabase
-        .from('groups')
+        .from('test_groups')
         .insert([newGroup])
         .select()
 
@@ -69,10 +69,9 @@ const insertGroup = async (request: NextRequest) => {
  */
 const getGroups = async (request: NextRequest) => {
   let group_id = request.nextUrl.searchParams.get('group_id')
-  //console.log(group_id)
   try {
     // Fetch all public groups
-    const supabase = await supabaseClient()
+    const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
     if (group_id) {
       // If group_id return specific group
       let { data, error } = await supabase
@@ -85,6 +84,7 @@ const getGroups = async (request: NextRequest) => {
           { status: 500 }
           )
         }
+
       return NextResponse.json({ success: true, data }, { status: 200 })
     } else {
       let { data, error } = await supabase.from('test_groups').select('*')
