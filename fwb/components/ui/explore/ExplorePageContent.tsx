@@ -37,6 +37,7 @@ const ExplorePageContent = () => {
   const { sortby, category, privateGroup } = useContext(FilterContext)
   const [page, setPage] = useState(0)
   const [companies, setCompanies] = useState<CompanyAndDiscounts[]>([])
+  const [testCompanies, setTestCompanies] = useState<any>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAtBottom, setIsAtBottom] = React.useState(false)
   const [infiniteScroll, setInfiniteScroll] = React.useState(false)
@@ -132,12 +133,57 @@ const ExplorePageContent = () => {
     }
   }
 
+
+  const fetchTestCompanies = async () => {
+    try {
+      var myHeaders = new Headers()
+      const bearerToken = await getToken()
+
+      if (bearerToken) {
+        myHeaders.append('Authorization', `Bearer ${bearerToken}`)
+
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow' as RequestRedirect,
+        }
+
+        const protocol = window.location.protocol
+
+        fetch(`${protocol}//${window.location.host}/api/test_companies`)
+        .then(async (res) => {
+          const data = await res.json()
+          console.log(data)
+            setTestCompanies([...companies].concat(data.result))
+          })
+          .catch((error) => console.error('error', error))
+          .finally(async () => {
+          // const companiesIndex = await getSearchIndex({
+          //   bearer_token: bearerToken,
+          // })
+          // setSearchIndex(companiesIndex)
+        })
+      }
+
+      console.log(testCompanies)
+
+    } catch (error) {
+      setIsLoading(false)
+      console.error('Error fetching data:', error)
+    }
+
+  }
+
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
 
   useEffect(() => {
     if (pathname == '/explore') {
+      console.log('fetching companies')
       fetchCompanies(true)
+      fetchTestCompanies()
+
     } else {
+      console.log('fetching public companies')
       fetchPublicCompanies()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -189,7 +235,7 @@ const ExplorePageContent = () => {
       sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
     >
       <Container disableGutters maxWidth="lg">
-        <>
+        {/* <>
           <ProductFilters
             activeOptions={activeOptions}
             setActiveOptions={setActiveOptions}
@@ -198,9 +244,9 @@ const ExplorePageContent = () => {
             activeOptions={activeOptions}
             setActiveOptions={setActiveOptions}
           />
-        </>
+        </> */}
 
-        <ResponsiveGrid
+        {/* <ResponsiveGrid
           items={
             searchResults.length
               ? searchResults
@@ -209,8 +255,12 @@ const ExplorePageContent = () => {
                 : companies
           }
           isLoading={isLoading}
+        /> */}
+        <ResponsiveGrid
+          items={companies}
+          isLoading={isLoading}
         />
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {isLoading ? (
             <Skeleton
               variant="rectangular"
@@ -229,7 +279,7 @@ const ExplorePageContent = () => {
               Load More...
             </Button>
           )}
-        </Box>
+        </Box> */}
       </Container>
     </Box>
   )
