@@ -33,9 +33,10 @@ export default function DetailPage({
   const { getToken } = useAuth()
 
   const discountIds = company.discounts.join(',')
+  
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDiscountsForSpecificCompany = async () => {
       try {
         var myHeaders = new Headers()
         myHeaders.append('Authorization', `Bearer ${await getToken()}`)
@@ -65,7 +66,7 @@ export default function DetailPage({
     }
 
     if (discounts) {
-      fetchData()
+      fetchDiscountsForSpecificCompany()
     }
   }, [discountIds])
 
@@ -91,13 +92,13 @@ function DetailPageContent({ data }: { data: DetailData }) {
 
   useEffect(() => {
     if (data.discounts) {
-      fetchData()
+      fetchDiscountsForSpecificCompany()
     }
   }, [sortby, privateGroup])
 
   const discountIds = data.company.discounts.join(',')
 
-  const fetchData = async () => {
+  const fetchDiscountsForSpecificCompany = async () => {
     try {
       var myHeaders = new Headers()
       myHeaders.append('Authorization', `Bearer ${await getToken()}`)
@@ -113,11 +114,12 @@ function DetailPageContent({ data }: { data: DetailData }) {
         `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
         requestOptions
       )
-
+      
+      
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
-
+      
       const responseData = await response.json()
       setDiscounts(responseData)
     } catch (error) {
