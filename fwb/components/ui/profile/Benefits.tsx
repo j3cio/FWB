@@ -25,9 +25,7 @@ const Benefits = ({ discountData }: BenefitsProps) => {
             Be the wingman to a friend&apos;s wallet now!
           </div>
           <div className="mt-[24px] flex grow items-center justify-center">
-            <a href="/addbenefit">
-              <ShareDiscountButton />
-            </a>
+            <ShareDiscountButton />
           </div>
         </>
       )}
