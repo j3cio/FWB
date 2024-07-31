@@ -6,12 +6,11 @@ import { useRouter } from 'next/navigation'
 
 import { motion } from 'framer-motion'
 
+import { CardActionArea } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import Avatar from '@mui/material/Avatar'
-import { CardActionArea } from '@mui/material'
 
 import { SearchContext } from '@/contexts/SearchContext'
 import { useContextSelector } from 'use-context-selector'
@@ -187,11 +186,11 @@ export default function ProductCard({ company }: { company: any }) {
                   />
                 </div>
               </div>
-              <p className="text-xs text-[#6B77AD] sm:ml-2">
+              {/* <p className="text-xs text-[#6B77AD] sm:ml-2">
                 +{company.discounts.length}{' '}
                 {company.discounts.length > 1 ? 'Benefits ' : 'Benefit '}
                 available
-              </p>
+              </p> This should be the length of the discountId array instead, still need to do this*/}
             </Box>
           </CardContent>
         </CardActionArea>

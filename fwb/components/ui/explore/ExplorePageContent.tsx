@@ -1,30 +1,22 @@
 'use client'
 //import Navbar from '@/components/ui/explore/explore_navbar'
-import { FilterContext } from '@/components/ui/explore/filter_context'
-import Productfilters from '@/components/ui/explore/productfilters'
-import ResponsiveGrid from '@/components/ui/explore/products_grid'
-import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
-import { useAuth } from '@clerk/nextjs'
-import { Box, Container, Skeleton } from '@mui/material'
-import Button from '@mui/material/Button'
-import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useContext, useEffect, useState } from 'react'
-import { SearchContext } from '@/contexts/SearchContext'
-import { fuzzySearch, getSearchIndex } from '@/lib/utils'
-import { createClient } from '@supabase/supabase-js'
-import ProductFilters from '@/components/ui/explore/productfilters'
-import MobileProductFilters from './MobileProductFilters'
-import { FilterOptions } from './constants'
-import useFilteredCompanies from '@/components/hooks/useFilteredCompanies'
 import { CompanyAndDiscounts } from '@/app/types/types'
-import { useContextSelector } from 'use-context-selector'
 import {
   useSearchIndex,
   useSearchQuery,
   useSearchResults,
   useSetSearchIndex,
-  useSetSearchResults,
 } from '@/components/hooks/SearchQuery'
+import useFilteredCompanies from '@/components/hooks/useFilteredCompanies'
+import { FilterContext } from '@/components/ui/explore/filter_context'
+import ResponsiveGrid from '@/components/ui/explore/products_grid'
+import { fuzzySearch, getSearchIndex } from '@/lib/utils'
+import { useAuth } from '@clerk/nextjs'
+import { Box, Container } from '@mui/material'
+import { createClient } from '@supabase/supabase-js'
+import { usePathname, useSearchParams } from 'next/navigation'
+import React, { useContext, useEffect, useState } from 'react'
+import { FilterOptions } from './constants'
 import { fetchData } from './utils/fetchData'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
@@ -133,7 +125,6 @@ const ExplorePageContent = () => {
     }
   }
 
-
   const fetchTestCompanies = async () => {
     try {
       var myHeaders = new Headers()
@@ -151,39 +142,31 @@ const ExplorePageContent = () => {
         const protocol = window.location.protocol
 
         fetch(`${protocol}//${window.location.host}/api/test_companies`)
-        .then(async (res) => {
-          const data = await res.json()
-          console.log(data)
-            setTestCompanies([...companies].concat(data.result))
+          .then(async (res) => {
+            const data = await res.json()
+            setTestCompanies(data.companies)
           })
           .catch((error) => console.error('error', error))
           .finally(async () => {
-          // const companiesIndex = await getSearchIndex({
-          //   bearer_token: bearerToken,
-          // })
-          // setSearchIndex(companiesIndex)
-        })
+            // const companiesIndex = await getSearchIndex({
+            //   bearer_token: bearerToken,
+            // })
+            // setSearchIndex(companiesIndex)
+          })
       }
-
-      console.log(testCompanies)
-
     } catch (error) {
       setIsLoading(false)
       console.error('Error fetching data:', error)
     }
-
   }
 
   // Fetch Data and concatenate when page is changed or infinite scroll is enabled
 
   useEffect(() => {
     if (pathname == '/explore') {
-      console.log('fetching companies')
       fetchCompanies(true)
       fetchTestCompanies()
-
     } else {
-      console.log('fetching public companies')
       fetchPublicCompanies()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -256,10 +239,7 @@ const ExplorePageContent = () => {
           }
           isLoading={isLoading}
         /> */}
-        <ResponsiveGrid
-          items={companies}
-          isLoading={isLoading}
-        />
+        <ResponsiveGrid items={testCompanies} isLoading={isLoading} />
         {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {isLoading ? (
             <Skeleton

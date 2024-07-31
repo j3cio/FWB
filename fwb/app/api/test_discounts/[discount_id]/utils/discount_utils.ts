@@ -27,7 +27,7 @@ const getDiscountsOfASingleCompany = async (request: NextRequest) => {
         )
       }
 
-      let { data: company, error } = await supabase
+      let { data: discount, error } = await supabase
         .from('test_discounts')
         .select('*')
         .eq('id', idPathVariable)
@@ -38,7 +38,7 @@ const getDiscountsOfASingleCompany = async (request: NextRequest) => {
           { status: 500 }
         )
       }
-      return NextResponse.json({ success: true, company }, { status: 200 })
+      return NextResponse.json({ success: true, discount }, { status: 200 })
     }
   } catch (error) {
     return NextResponse.json(

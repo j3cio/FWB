@@ -1,42 +1,35 @@
 'use client'
 
-import React, { useEffect, useState, useContext } from 'react'
 import {
+  CompanyAndDiscounts,
   DetailData,
   DiscountDataDetail,
-  CompanyAndDiscounts,
 } from '@/app/types/types'
 import DetailCard from '@/components/ui/detail/discount'
+import MobileDetailFilters from '@/components/ui/explore/MobileDetailFilters'
 import DetailFilters from '@/components/ui/explore/detailfilters'
 import {
   DetailContext,
   DetailProvider,
 } from '@/components/ui/explore/filter_context'
 import { useAuth } from '@clerk/nextjs'
-import Navbar from '@/components/ui/navbar/Navbar'
 import { useMediaQuery } from '@mui/material'
-import { Container } from '@mui/material'
-import MobileDetailFilters from '@/components/ui/explore/MobileDetailFilters'
+import { useContext, useEffect, useState } from 'react'
 import { FilterOptions } from '../../../../components/ui/explore/constants'
-import {
-  FilterContext,
-  FilterProvider,
-} from '@/components/ui/explore/filter_context'
 
 export default function DetailPage({
   company,
+  discountIds
 }: {
-  company: CompanyAndDiscounts
+  company: any,
+  discountIds: any
 }) {
-  const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
+  const [discounts, setDiscounts] = useState<any[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
 
-  const discountIds = company.discounts.join(',')
-  
-
   useEffect(() => {
-    const fetchDiscountsForSpecificCompany = async () => {
+    const fetchDiscountForSpecificCompany = async (discountId: string) => {
       try {
         var myHeaders = new Headers()
         myHeaders.append('Authorization', `Bearer ${await getToken()}`)
@@ -49,29 +42,34 @@ export default function DetailPage({
 
         const protocol = window.location.protocol
         const response = await fetch(
-          `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+          `${protocol}//${window.location.host}/api/test_discounts/${discountId}`,
           requestOptions
         )
-
         if (!response.ok) {
           throw new Error('Network response was not ok')
         }
 
         const responseData = await response.json()
-
-        setDiscounts(responseData)
+        setDiscounts(discounts => [...discounts, responseData.discount[0]])
       } catch (error) {
         console.error('Error fetching data:', error)
       }
     }
 
-    if (discounts) {
-      fetchDiscountsForSpecificCompany()
+    const fetchAllDiscountsForSpecificCompany = async () => {
+      await Promise.all(
+        discountIds.map(async (discount_id:any) => {
+          await fetchDiscountForSpecificCompany(discount_id.discount_id)
+          return
+        })
+      )
     }
-  }, [discountIds])
 
-  const combinedData: DetailData = { company, discounts }
+  fetchAllDiscountsForSpecificCompany()
+  
+}, [])
 
+  const combinedData: any = { company, discounts, discountIds }
   return (
     <DetailProvider>
       <DetailPageContent data={combinedData} />
@@ -79,7 +77,8 @@ export default function DetailPage({
   )
 }
 
-function DetailPageContent({ data }: { data: DetailData }) {
+function DetailPageContent({ data }: { data: any }) {
+
   const [discounts, setDiscounts] = useState<DiscountDataDetail[]>([])
   const { sortby, privateGroup } = useContext(DetailContext)
   const { getToken } = useAuth()
@@ -90,42 +89,41 @@ function DetailPageContent({ data }: { data: DetailData }) {
     categories: [],
   })
 
-  useEffect(() => {
-    if (data.discounts) {
-      fetchDiscountsForSpecificCompany()
-    }
-  }, [sortby, privateGroup])
+  // useEffect(() => {
+  //   if (data.discounts) {
+  //     fetchDiscountsForSpecificCompany()
+  //   }
+  // }, [sortby, privateGroup])
 
-  const discountIds = data.company.discounts.join(',')
+  //const discountIds = data.company.discounts.join(',')
 
-  const fetchDiscountsForSpecificCompany = async () => {
-    try {
-      var myHeaders = new Headers()
-      myHeaders.append('Authorization', `Bearer ${await getToken()}`)
+  // const fetchDiscountsForSpecificCompany = async () => {
+  //   try {
+  //     var myHeaders = new Headers()
+  //     myHeaders.append('Authorization', `Bearer ${await getToken()}`)
 
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow' as RequestRedirect,
-      }
+  //     var requestOptions = {
+  //       method: 'GET',
+  //       headers: myHeaders,
+  //       redirect: 'follow' as RequestRedirect,
+  //     }
 
-      const protocol = window.location.protocol
-      const response = await fetch(
-        `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
-        requestOptions
-      )
-      
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
-      
-      const responseData = await response.json()
-      setDiscounts(responseData)
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  }
+  //     const protocol = window.location.protocol
+  //     const response = await fetch(
+  //       `${protocol}//${window.location.host}/api/discounts/detail?discount_ids=${encodeURIComponent(discountIds)}&sort_by=${encodeURIComponent(sortby.toLowerCase())}&private_group=${encodeURIComponent(privateGroup.toLowerCase())}`,
+  //       requestOptions
+  //     )
+
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok')
+  //     }
+
+  //     const responseData = await response.json()
+  //     setDiscounts(responseData)
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error)
+  //   }
+  // }
 
   return (
     <div className="m-0 flex min-h-dvh w-full flex-col items-center bg-[#1A1A23] p-0">
@@ -183,7 +181,7 @@ function DetailPageContent({ data }: { data: DetailData }) {
               <div className="mr-[45px] flex flex-col ">
                 <div className="text-[15px]">Total Offers</div>
                 <div className="text-center text-[23px]">
-                  {data.discounts.length}
+                  {data.discountIds.length}
                 </div>
               </div>
               <div className="mr-[10px] flex flex-col">
@@ -215,8 +213,8 @@ function DetailPageContent({ data }: { data: DetailData }) {
         {/* discount listing section */}
         <div className="relative mb-[50px] xs-max:mt-[30px] xs-max:flex xs-max:flex-col xs-max:gap-[40px] xs-max:gap-[40px] xxs-max:mt-[30px] xxs-max:flex xxs-max:flex-col xxs-max:gap-[25px]">
           {(discounts.length != 0 ? discounts : data.discounts)?.map(
-            (item: DiscountDataDetail) => (
-              <DetailCard data={item} key={item.discount_amount} />
+            (item: any, index: number) => (
+              <DetailCard data={item} key={index} />
             )
           )}
         </div>

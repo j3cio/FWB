@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { auth, currentUser } from '@clerk/nextjs'
 import supabaseClient from '@/supabase'
+import { auth, currentUser } from '@clerk/nextjs'
+import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Retrieves users registered through Clerk.
@@ -24,9 +24,8 @@ export async function GET(request: NextRequest) {
           { status: 401 }
         )
       }
-
-      let { data: companyData, error } = await supabase
-        .from('companies')
+      let { data: discountData, error } = await supabase
+        .from('test_companies')
         .select('*')
         .eq('name', query)
 
@@ -37,14 +36,14 @@ export async function GET(request: NextRequest) {
         )
       }
 
-      if (!companyData) {
+      if (!discountData) {
         return NextResponse.json(
           { error: "That company doesn't have any discounts" },
           { status: 500 }
         )
       }
 
-      return NextResponse.json(companyData[0], { status: 200 })
+      return NextResponse.json(discountData[0], { status: 200 })
     }
   } catch (error) {
     return NextResponse.json(
