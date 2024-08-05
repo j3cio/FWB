@@ -1,178 +1,102 @@
-import { Group, UserData, UserToGroups } from '@/app/types/types'
+import { getUser } from '@/app/api/users/utils/user_utils'
+import { Group, TestUser, UserToGroups } from '@/app/types/types'
 import CreateGroupsHeader from '@/components/ui/privategroups/groups/CreateGroupHeader'
 import GroupsHomePage from '@/components/ui/privategroups/groups/GroupsHomePage'
 import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
-import GroupPageSkeleton from '@/components/ui/skeletons/pages/GroupPageSkeleton'
-import { UserProvider } from '@/contexts/UserContext'
+import { createClient } from '@/supabase.server'
 import { auth } from '@clerk/nextjs'
 import { Box, Container } from '@mui/material'
 import { Suspense } from 'react'
-import { User } from 'stream-chat'
 
-async function getUser() {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
+async function getUserGroupsWithData(): Promise<Group[]> {
+  const { userId } = auth()
 
-  if (!supabase_jwt) {
+  if (!userId) {
     console.log('Not signed in')
-    return
+    return []
   }
 
-  const userId = await auth().userId
-
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabase_jwt)
-  myHeaders.append('Authorization', `Bearer ${bearer_token}`)
-
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-  }
+  const supabase = await createClient()
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}`,
-      requestOptions
-    )
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+    // Retrieving user's group IDs
+    let { data: userGroups, error: userGroupsError } = await supabase
+      .from('UserToGroups')
+      .select('group_id')
+      .eq('user_id', userId)
+      .returns<UserToGroups[]>()
+
+    if (userGroupsError || !userGroups) {
+      console.error('Failed to fetch user groups:', userGroupsError)
+      return []
     }
-    const result = await response.json()
-    return result.users[0] // This returns the result object
+
+    const groupIds = userGroups.map((group) => group.group_id)
+
+    // Getting group data for the user's groups
+    let { data: groupsData, error: groupsDataError } = await supabase
+      .from('test_groups')
+      .select('*')
+      .in('id', groupIds)
+      .returns<Group[]>()
+
+    if (groupsDataError || !groupsData) {
+      console.error('Failed to fetch groups data:', groupsDataError)
+      return []
+    }
+
+    // I initially planned to do a join here:
+    // ==========================================
+    // |  let { data, error } = await supabase  |
+    // |  .from('UserToGroups')                 |
+    // | .select(`                              |
+    // |    group_id,                           |
+    // |    test_groups:group_id (*)            |
+    // |  `)                                    |
+    // |  .eq('user_id', userId)                |
+    // ==========================================
+
+    // but since our userToGroups table has group_id as type string, and our  test_groups table has id as type UUID, setting up a direct relation wasn't possible without altering some types, so it was less destructive to do it this way. Plus it's honestly more readable to have the separate queries like this anyway.
+
+    return groupsData
   } catch (error) {
     console.error('Error fetching data: ', error)
-    throw error // This re-throws the error to be handled by the caller
+    return []
   }
 }
 
-async function getUserGroupsTable(
-  bearer_token: string,
-  supabase_jwt: string
-) {
+async function GroupCards() {
   const userId = await auth().userId
-  if (!supabase_jwt) {
-    console.log('Not signed in')
-    return
-  }
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabase_jwt)
-  myHeaders.append('Authorization', `Bearer ${bearer_token}`)
 
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
+  if (!userId) {
+    throw new Error("Couldn't retrieve user")
   }
 
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/userToGroup`,
-      requestOptions
-    )
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    const result = await response.json()
-    return result.groups // This returns the result object
-  } catch (error) {
-    console.error('Error fetching data: ', error)
-    throw error // This re-throws the error to be handled by the caller
-  }
+  const userData: TestUser = await getUser(userId)
+
+  const groupData = await getUserGroupsWithData()
+  return <GroupsHomePage userData={userData} groupData={groupData} />
 }
-
-async function getGroupData(groupId: string) {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
-
-  if (!supabase_jwt) {
-    console.log('Not signed in')
-    return
-  }
-
-  if (groupId) {
-    var myHeaders = new Headers()
-    myHeaders.append('supabase_jwt', supabase_jwt)
-    myHeaders.append('Authorization', `Bearer ${bearer_token}`)
-
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-    }
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/groups?group_id=${groupId}`, // add to .env
-        requestOptions
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const result = await response.json()
-      return result // This returns the result object
-    } catch (error) {
-      console.error('Error fetching data: ', error)
-      throw error // This re-throws the error to be handled by the caller
-    }
-  } else {
-    return {
-      success: false,
-      data: [
-        {
-          id: '',
-          name: 'No group id',
-          discounts: [],
-          admins: ['123'],
-          public: false,
-          users: [],
-        },
-      ],
-    }
-  }
-}
-
-async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: UserToGroups[], userData: UserData }) {
-
-  const groupData: Group[] = await Promise.all(
-    userToGroupsTable.map(async (group) => {
-      const singleGroupData = await getGroupData(group.group_id)
-      return singleGroupData.data[0]
-    })
-  )
-  //console.log('userData: ', userData) 
-  //console.log('groupData: ', groupData)
-  return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
-}
-
 
 const page = async () => {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
-  const userData: UserData = await getUser()
-  const userToGroupsTable: UserToGroups[] =
-      bearer_token && supabase_jwt
-        ? await getUserGroupsTable(bearer_token, supabase_jwt)
-        : undefined
-  // Get UserToGroups
-  // Pass user groups into group card
-
   return (
-    <UserProvider initialUserData={userData}>
-      <Box
-        component="section"
-        sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
-      >
-        <Container disableGutters maxWidth="lg">
-          <CreateGroupsHeader />
-          <Suspense
-            fallback={
-              <div className="mt-16">
-                {generateSkeletons({ type: 'GroupCard', quantity: 3 })}
-              </div>
-            }
-          >
-            <GroupCards userData={userData} userToGroupsTable={userToGroupsTable} />
-          </Suspense>
-        </Container>
-      </Box>
-    </UserProvider>
+    <Box
+      component="section"
+      sx={{ backgroundColor: '#1A1A23', minHeight: '100vh' }}
+    >
+      <Container disableGutters maxWidth="lg">
+        <CreateGroupsHeader />
+        <Suspense
+          fallback={
+            <div className="mt-16">
+              {generateSkeletons({ type: 'GroupCard', quantity: 3 })}
+            </div>
+          }
+        >
+          <GroupCards />
+        </Suspense>
+      </Container>
+    </Box>
   )
 }
 

@@ -21,7 +21,6 @@ type Props = {
   index: number
   isUserAdmin: boolean
   loading: boolean
-  userToGroupsTable: UserToGroups[]
   //handleDeleteGroup: (groupId: string, userToGroupsTable: UserToGroups[]) => Promise<any>
   downloadFile: (filePath: string) => Promise<string | null | undefined>
 }
@@ -38,7 +37,6 @@ const SingleGroupCard = ({
   index,
   isUserAdmin,
   loading,
-  userToGroupsTable,
   //handleDeleteGroup,
   downloadFile,
 }: Props) => {

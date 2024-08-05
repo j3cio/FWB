@@ -9,18 +9,16 @@ import { Box, Container, Stack, Typography } from '@mui/material'
 import CreateGroupCard from './CreateGroupCard'
 import SingleGroupCard from './GroupCard'
 
-import { Group, TestUserData, UserToGroups } from '@/app/types/types'
+import { Group, TestUser, UserToGroups } from '@/app/types/types'
 import GroupInvites from './GroupInvites'
 
 // Type userData
 const GroupsHomePage = ({
   userData,
   groupData,
-  userToGroupsTable,
 }: {
-  userData: TestUserData
+  userData: TestUser
   groupData: Group[]
-  userToGroupsTable: UserToGroups[]
 }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -69,7 +67,7 @@ const GroupsHomePage = ({
       )
       let newUserGroupsString = '{' + newUserGroups.join(',') + '}'
       const formData = new FormData()
-      formData.append('user_id', `${userData.users[0].user_id}`)
+      formData.append('user_id', `${userData.user_id}`)
       formData.append('user_groups', `${newUserGroupsString}`)
       const bearerToken = await window.Clerk.session.getToken({
         template: 'testing_template',
@@ -121,7 +119,6 @@ const GroupsHomePage = ({
   //use only one modal for the two group instances ('== 0' and '> 0')
   //create loading state for when a group is being deleted
 
-
   return (
     <Box
       component="section"
@@ -145,7 +142,6 @@ const GroupsHomePage = ({
                   key={group.id}
                   index={index}
                   isUserAdmin={true} // Need to fix this
-                  userToGroupsTable={userToGroupsTable}
                 />
               )
             })}
