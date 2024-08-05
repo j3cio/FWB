@@ -1,12 +1,13 @@
-import { getUser } from '@/app/api/users/utils/user_utils'
-import { Group, TestUser, UserToGroups } from '@/app/types/types'
-import CreateGroupsHeader from '@/components/ui/privategroups/groups/CreateGroupHeader'
-import GroupsHomePage from '@/components/ui/privategroups/groups/GroupsHomePage'
-import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
-import { createClient } from '@/supabase.server'
+import { Suspense } from 'react'
 import { auth } from '@clerk/nextjs'
 import { Box, Container } from '@mui/material'
-import { Suspense } from 'react'
+
+import { createClient } from '@/supabase.server'
+import { getUser } from '@/app/api/users/utils/user_utils'
+import { Group, TestUser, UserToGroups } from '@/app/types/types'
+import { generateSkeletons } from '@/components/ui/skeletons/generateSkeletons'
+import CreateGroupsHeader from '@/components/ui/privategroups/groups/CreateGroupHeader'
+import GroupsHomePage from '@/components/ui/privategroups/groups/GroupsHomePage'
 
 async function getUserGroupsWithData(): Promise<Group[]> {
   const { userId } = auth()
