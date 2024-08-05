@@ -45,18 +45,23 @@ async function getUserGroupsWithData(): Promise<Group[]> {
       return []
     }
 
-    // I initially planned to do a join here:
-    // ==========================================
-    // |  let { data, error } = await supabase  |
-    // |  .from('UserToGroups')                 |
-    // | .select(`                              |
-    // |    group_id,                           |
-    // |    test_groups:group_id (*)            |
-    // |  `)                                    |
-    // |  .eq('user_id', userId)                |
-    // ==========================================
-
-    // but since our userToGroups table has group_id as type string, and our  test_groups table has id as type UUID, setting up a direct relation wasn't possible without altering some types, so it was less destructive to do it this way. Plus it's honestly more readable to have the separate queries like this anyway.
+    // Initial plan was to use a join:
+    //
+    // ┌──────────────────────────────────────────┐
+    // │ let { data, error } = await supabase     │
+    // │   .from('UserToGroups')                  │
+    // │   .select(`                              │
+    // │     group_id,                            │
+    // │     test_groups:group_id (*)             │
+    // │   `)                                     │
+    // │   .eq('user_id', userId)                 │
+    // └──────────────────────────────────────────┘
+    //
+    // However, due to type mismatch between UserToGroups.group_id (string)
+    // and test_groups.id (UUID), a direct relation wasn't feasible.
+    //
+    // The current approach with separate queries is less disruptive
+    // and more readable.
 
     return groupsData
   } catch (error) {
