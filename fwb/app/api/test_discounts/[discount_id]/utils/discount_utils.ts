@@ -3,19 +3,21 @@ import { auth, currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**
- * Retrieves users registered through Clerk.
+ * Retrieves discounts of a single company
  *
  * @param request - The NextRequest object containing the query parameters.
  * @returns A NextResponse object containing the fetched users or an error response.
  */
-export async function GET(request: NextRequest) {
-  //Extract the company_name from the url path
-  const { searchParams } = new URL(request.url)
-  const query = searchParams.get('companyQuery')
+
+const getDiscountsOfASingleCompany = async (request: NextRequest) => {
+  //Extract the clerk user_id from the url path
+  const urlObject = new URL(request.url)
+  const idPathVariable = urlObject.pathname.split('/').pop()
 
   try {
     const { userId, getToken } = auth()
     const user = await currentUser()
+    // If the user is logged in, fetch all other users on the platform
     if (userId && user) {
       const supabase = await supabaseClient(request.headers.get('supabase_jwt'))
       if (!supabase) {
@@ -24,26 +26,19 @@ export async function GET(request: NextRequest) {
           { status: 401 }
         )
       }
-      let { data: discountData, error } = await supabase
-        .from('test_companies')
+
+      let { data: discount, error } = await supabase
+        .from('test_discounts')
         .select('*')
-        .eq('name', query)
+        .eq('id', idPathVariable)
 
       if (error) {
         return NextResponse.json(
-          { error: 'Failed to fetch companies table' },
+          { error: 'Failed to fetch users' },
           { status: 500 }
         )
       }
-
-      if (!discountData) {
-        return NextResponse.json(
-          { error: "That company doesn't have any discounts" },
-          { status: 500 }
-        )
-      }
-
-      return NextResponse.json(discountData[0], { status: 200 })
+      return NextResponse.json({ success: true, discount }, { status: 200 })
     }
   } catch (error) {
     return NextResponse.json(
@@ -52,3 +47,5 @@ export async function GET(request: NextRequest) {
     )
   }
 }
+
+export { getDiscountsOfASingleCompany }
