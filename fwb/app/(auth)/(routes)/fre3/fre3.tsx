@@ -1,11 +1,9 @@
 'use client'
 
-import { FormEvent, useState, KeyboardEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import axios from 'axios'
-import { useUser } from '@clerk/nextjs'
 import {
   FacebookMessengerShareButton,
   WhatsappShareButton,
@@ -14,55 +12,32 @@ import {
 
 import IllustrationFive from '@/components/ui/fre/IllustrationFive'
 import IllustrationSix from '@/components/ui/fre/IllustrationSix'
-import UpdateUser from '@/components/hooks/updateUser'
 import FacebookMessengerIcon from '@/components/ui/icons/FacebookMessengerIcon'
 import WhatsappIcon from '@/components/ui/icons/WhatsappIcon'
 import TwitterIcon from '@/components/ui/icons/TwitterIcon'
 
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
+import CloseIcon from '@/components/ui/fre/CloseIcon'
+import { handleKeyDown, handleShare, changeFRE } from './utils'
 
 export default function UserFlowPage3() {
-  //Error handling for if user tries to access page not signed in or Clerk isn't ready
-  const { isSignedIn, user, isLoaded } = useUser()
   const [emailInput, setEmailInput] = useState<string>('')
   const [emailAddresses, setEmailAddresses] = useState<string[]>([])
   const [errorMessage, setErrorMessage] = useState('')
   const router = useRouter()
-  const width = useWindowDimensions()
 
-  //adding emails
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      if (emailInput.trim() !== '') {
-        setEmailAddresses((prevEmails) => [...prevEmails, emailInput])
-        setEmailInput('')
-      }
-    }
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    handleKeyDown(
+      e,
+      emailInput,
+      setEmailInput,
+      setEmailAddresses,
+      setErrorMessage
+    )
   }
 
-  //error message if input is empty
-  const handleShare = async () => {
-    if (emailAddresses.length === 0) {
-      setErrorMessage('Please enter at least one email before sharing.')
-      return
-    }
-
-    try {
-      // Send emails
-      const response = await axios.post('/api/invitations', {
-        emails: emailAddresses,
-      })
-
-      // Reset state after sending emails
-      setEmailAddresses([])
-      setEmailInput('')
-
-      // edirecting to the profile page
-      window.location.href = '/profile'
-    } catch (error) {
-      console.error('Error sending email:', error)
-    }
+  const onShare = () => {
+    handleShare(emailAddresses, setErrorMessage)
   }
 
   //removing emails
@@ -77,16 +52,11 @@ export default function UserFlowPage3() {
   //sending emails
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    changeFRE()
+    changeFRE(router)
 
     event.preventDefault()
 
     try {
-      const response = await axios.post('/api/invitations', {
-        emails: emailAddresses,
-      })
-
-      // 이메일 전송 후 상태 초기화 또는 다른 작업 수행
       setEmailAddresses([])
       setEmailInput('')
       router.push('/profile')
@@ -95,277 +65,112 @@ export default function UserFlowPage3() {
     }
   }
 
-  const changeFRE = async () => {
-    try {
-      const formData = new FormData()
-      formData.append('hasCompletedFRE', '{true, true, true}')
-      const response = await UpdateUser(formData)
-
-      if (response) {
-        router.push('/profile')
-      } else {
-        console.error('Error in updateUser')
-      }
-    } catch (error) {
-      console.error('Error in updateUser:', error)
-    }
+  const onChangeFRE = () => {
+    changeFRE(router)
   }
 
   return (
-    <div>
-      {width > 400 && (
-        <div className="flex h-screen justify-between">
-          <IllustrationFive />
-          <div className="shrink-0 pl-[142px] pr-[150px]">
-            <div className="flex-col justify-center">
-              <div className="mt-[103px] flex justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="56"
-                  height="8"
-                  viewBox="0 0 56 8"
-                  fill="none"
-                >
-                  <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
-                  <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
-                  <circle cx="52" cy="4" r="4" fill="#F6FF82" />
-                </svg>
-              </div>
-              <h2 className="mb-[16px] mt-[135px] text-center font-urbanist text-[40px] font-semibold leading-[110%] tracking-[0.1rem] text-white">
-                Share with Your Friends!
-              </h2>
-              <h5 className="mt-[8px] text-center font-urbanist text-[16px] font-normal leading-[125%] text-white">
-                Spread the love and be the wingman to someone else&apos;s
-                wallet!
-              </h5>
-
-              {/* This is the form that will handle email sharing  */}
-
-              {/* These are the social media redirect buttons that will handle email sharing  */}
-              {/* <div className="flex justify-center items-center space-x-4"> */}
-              <div className="mt-[64px] flex items-center justify-center gap-[16px]">
-                <FacebookMessengerShareButton
-                  url="https://app.makefwb.com/sign-up"
-                  appId="1461933537691569"
-                >
-                  <FacebookMessengerIcon />
-                </FacebookMessengerShareButton>
-                <WhatsappShareButton
-                  url="https://app.makefwb.com/sign-up"
-                  title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
-                >
-                  <WhatsappIcon />
-                </WhatsappShareButton>
-                <TwitterShareButton
-                  url="https://app.makefwb.com/sign-up"
-                  title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
-                >
-                  <TwitterIcon />
-                </TwitterShareButton>
-              </div>
-              <h5 className="my-[24px] text-center font-urbanist text-[18px] font-medium leading-[125%] text-white">
-                Or
-              </h5>
-
-              <form
-                id="invitations"
-                className="flex flex-col items-center justify-center self-stretch rounded-[10px] bg-white p-[12px]"
-                onSubmit={handleSubmit}
-              >
-                <div className="flex w-[544px] flex-wrap items-start">
-                  {emailAddresses.map((email, index) => (
-                    <span key={index} className="email-item">
-                      <div className="flex">
-                        <div className="mb-[5px] mr-[5px] flex h-[28px] gap-[4px] rounded-[100px] bg-[#adb4d2] px-[10px] py-[2px] font-urbanist text-base leading-[150%] text-white">
-                          {email}
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="17"
-                            viewBox="0 0 16 17"
-                            fill="none"
-                            style={{
-                              marginTop: '4px',
-                              marginLeft: '5px',
-                            }}
-                            onClick={() => handleRemoveEmail(index)}
-                          >
-                            <path
-                              d="M12.2005 4.02258C12.0759 3.89774 11.9068 3.82759 11.7305 3.82759C11.5541 3.82759 11.385 3.89774 11.2605 4.02258L8.00047 7.27591L4.74047 4.01591C4.61591 3.89108 4.44681 3.82092 4.27047 3.82092C4.09412 3.82092 3.92502 3.89108 3.80047 4.01591C3.54047 4.27591 3.54047 4.69591 3.80047 4.95591L7.06047 8.21591L3.80047 11.4759C3.54047 11.7359 3.54047 12.1559 3.80047 12.4159C4.06047 12.6759 4.48047 12.6759 4.74047 12.4159L8.00047 9.15591L11.2605 12.4159C11.5205 12.6759 11.9405 12.6759 12.2005 12.4159C12.4605 12.1559 12.4605 11.7359 12.2005 11.4759L8.94047 8.21591L12.2005 4.95591C12.4538 4.70258 12.4538 4.27591 12.2005 4.02258Z"
-                              fill="white"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </span>
-                  ))}
-                </div>
-
-                <input
-                  type="text"
-                  className={`flex h-[24px] w-[544px] bg-white font-urbanist outline-none placeholder:text-[#090a10] placeholder:opacity-30 ${errorMessage ? 'error' : ''}`}
-                  placeholder="Invite your friends..."
-                  id="emailInput"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                />
-                {/* <button type="submit">Send inviations</button> */}
-              </form>
-              {errorMessage && (
-                <div className="error-message" style={{ color: 'white' }}>
-                  {errorMessage}
-                </div>
-              )}
-              {/* Redirects user back to landing page, Probably should be changed to explore later  */}
-              <div className="mt-[1px] flex flex-col items-center">
-                {/* <Link href="/profile" className="next"> */}
-
-                {/* <button className="next" type="submit" form="invitations"> */}
-                <button
-                  className="mb-[8px] mt-[114px] flex h-[48px] w-[367px] justify-center gap-[8px] rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.2px] text-[#8e94e9]"
-                  type="button"
-                  onClick={handleShare}
-                >
-                  Share with My Friends
-                </button>
-                {/* </Link> */}
-                <div
-                  className="mr-[8px] mt-[1px] font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.8px] text-white"
-                  onClick={changeFRE}
-                >
-                  <div className="m-0 flex h-[48px] w-[150px] cursor-pointer justify-center gap-[8px] py-[10px] text-center text-white">
-                    Skip for now
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <IllustrationSix />
-        </div>
-      )}
-      {width < 400 && (
-        <div className="pageContent flex w-screen flex-col justify-normal">
-          <div className="mt-[32px] flex justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="56"
-              height="8"
-              viewBox="0 0 56 8"
-              fill="none"
-            >
-              <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
-              <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
-              <circle cx="52" cy="4" r="4" fill="#F6FF82" />
-            </svg>
-          </div>
-          <h2 className="mb-[0px] mt-[28px] text-center font-urbanist text-[24px] font-semibold leading-[110%] tracking-[0.05rem] text-white">
-            Share with Your Friends!
-          </h2>
-          <h5 className="mt-[8px] text-center font-urbanist text-[12px] font-normal leading-[125%] text-white">
-            Spread the love and be the wingman to <br></br> someone else&apos;s
-            wallet!
-          </h5>
-
-          {/* This is the form that will handle email sharing  */}
-
-          {/* These are the social media redirect buttons that will handle email sharing  */}
-          {/* <div className="flex justify-center items-center space-x-4"> */}
-          <div className="mt-[20px] flex items-center justify-center gap-[16px]">
-            <FacebookMessengerShareButton
-              url="https://app.makefwb.com/sign-up"
-              appId="1461933537691569"
-            >
-              <FacebookMessengerIcon />
-            </FacebookMessengerShareButton>
-            <WhatsappShareButton
-              url="https://app.makefwb.com/sign-up"
-              title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
-            >
-              <WhatsappIcon />
-            </WhatsappShareButton>
-            <TwitterShareButton
-              url="https://app.makefwb.com/sign-up"
-              title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
-            >
-              <TwitterIcon />
-            </TwitterShareButton>
-          </div>
-          <h5 className="my-[24px] text-center font-urbanist text-[14px] font-medium leading-[125%] text-white">
-            Or
-          </h5>
-
-          <form
-            id="invitations"
-            className="mx-[16px] flex w-[full] flex-col items-center justify-center self-stretch rounded-[10px] bg-white p-[12px]"
-            onSubmit={handleSubmit}
+    <div className="flex min-h-screen flex-col lg:flex-row lg:justify-between lg:overflow-hidden">
+      <div className="hidden lg:block">
+        <IllustrationFive />
+      </div>
+      <div className="flex w-full flex-col items-center justify-center px-4 lg:px-36">
+        <div className="mt-8 flex justify-center lg:mt-[103px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="56"
+            height="8"
+            viewBox="0 0 56 8"
+            fill="none"
           >
-            <div className="flex w-[544px] flex-wrap">
-              {emailAddresses.map((email, index) => (
-                <span key={index} className="email-item">
-                  <div className="flex">
-                    <div className="mb-[5px] mr-[5px] flex h-[28px] gap-[4px] rounded-[100px] bg-[#adb4d2] px-[10px] py-[2px] font-urbanist text-base leading-[150%] text-white">
-                      {email}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="17"
-                        viewBox="0 0 16 17"
-                        fill="none"
-                        style={{
-                          marginTop: '4px',
-                          marginLeft: '5px',
-                        }}
-                        onClick={() => handleRemoveEmail(index)}
-                      >
-                        <path
-                          d="M12.2005 4.02258C12.0759 3.89774 11.9068 3.82759 11.7305 3.82759C11.5541 3.82759 11.385 3.89774 11.2605 4.02258L8.00047 7.27591L4.74047 4.01591C4.61591 3.89108 4.44681 3.82092 4.27047 3.82092C4.09412 3.82092 3.92502 3.89108 3.80047 4.01591C3.54047 4.27591 3.54047 4.69591 3.80047 4.95591L7.06047 8.21591L3.80047 11.4759C3.54047 11.7359 3.54047 12.1559 3.80047 12.4159C4.06047 12.6759 4.48047 12.6759 4.74047 12.4159L8.00047 9.15591L11.2605 12.4159C11.5205 12.6759 11.9405 12.6759 12.2005 12.4159C12.4605 12.1559 12.4605 11.7359 12.2005 11.4759L8.94047 8.21591L12.2005 4.95591C12.4538 4.70258 12.4538 4.27591 12.2005 4.02258Z"
-                          fill="white"
-                        />
-                      </svg>
+            <circle cx="4" cy="4" r="4" fill="#ADB4D2" />
+            <circle cx="28" cy="4" r="4" fill="#ADB4D2" />
+            <circle cx="52" cy="4" r="4" fill="#F6FF82" />
+          </svg>
+        </div>
+        <h2 className="mb-[16px] mt-7 text-center font-urbanist text-2xl font-semibold leading-[110%] tracking-[0.1rem] text-white lg:mt-[135px] lg:text-[40px]">
+          Share with Your Friends!
+        </h2>
+        <h5 className="mt-2 text-center font-urbanist text-xs font-normal leading-[125%] text-white lg:text-base">
+          Spread the love and be the wingman to someone else&apos;s wallet!
+        </h5>
+
+        <div className="mt-5 flex items-center justify-center gap-4 lg:mt-16">
+          <FacebookMessengerShareButton
+            url="https://app.makefwb.com/sign-up"
+            appId="1461933537691569"
+          >
+            <FacebookMessengerIcon />
+          </FacebookMessengerShareButton>
+          <WhatsappShareButton
+            url="https://app.makefwb.com/sign-up"
+            title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
+          >
+            <WhatsappIcon />
+          </WhatsappShareButton>
+          <TwitterShareButton
+            url="https://app.makefwb.com/sign-up"
+            title="Swipe right on savings, left on full price. Join Friends with Benefits where people share access to their employee discounts!"
+          >
+            <TwitterIcon />
+          </TwitterShareButton>
+        </div>
+        <h5 className="my-6 text-center font-urbanist text-sm font-medium leading-[125%] text-white lg:text-lg">
+          Or
+        </h5>
+
+        <form
+          id="invitations"
+          className="mx-auto flex w-full flex-col items-center justify-center self-stretch rounded-[10px] bg-white p-3 lg:w-[544px]"
+          onSubmit={handleSubmit}
+        >
+          <div className="flex w-full flex-wrap items-start">
+            {emailAddresses.map((email, index) => (
+              <span key={index} className="email-item">
+                <div className="flex">
+                  <div className="mb-[5px] mr-[5px] flex h-7 gap-1 rounded-full bg-[#adb4d2] px-[10px] py-[2px] font-urbanist text-sm leading-[150%] text-white lg:text-base">
+                    {email}
+                    <div onClick={() => handleRemoveEmail(index)}>
+                      <CloseIcon />
                     </div>
                   </div>
-                </span>
-              ))}
-            </div>
-            <input
-              type="text"
-              className={`flex h-[24px] bg-white outline-none ${errorMessage ? 'error' : ''} w-full text-[14px] placeholder:text-[14px]`}
-              placeholder="Invite your friends..."
-              id="emailInput"
-              value={emailInput}
-              onChange={(e) => setEmailInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            {/* <button type="submit">Send inviations</button> */}
-          </form>
-          {errorMessage && (
-            <div className="error-message" style={{ color: 'white' }}>
-              {errorMessage}
-            </div>
-          )}
-          {/* Redirects user back to landing page, Probably should be changed to explore later  */}
-          <div className="mx-[16px] mt-[75px] flex flex-col items-center">
-            {/* <button className="next" type="submit" form="invitations"> */}
-            <button
-              className="mb-[8px] mt-[0px] flex h-auto w-full justify-center gap-[8px] rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[16px] text-lg font-semibold leading-[125%] tracking-[0.4px] text-[#8e94e9]"
-              type="button"
-              onClick={handleShare}
-            >
-              Share with My Friends
-            </button>
-            {/* </Link> */}
-            <div
-              className="mr-[8px] mt-[1px] h-auto font-urbanist text-[16px] text-lg font-semibold leading-[125%] tracking-[1.1px] text-white"
-              onClick={changeFRE}
-            >
-              <div className="m-0 flex h-[48px] w-[150px] cursor-pointer justify-center gap-[8px] py-[10px] text-center text-white">
-                Skip for now
-              </div>
-            </div>
+                </div>
+              </span>
+            ))}
+          </div>
+
+          <input
+            type="text"
+            className={`flex h-6 w-full bg-white font-urbanist text-sm outline-none placeholder:text-[#090a10] placeholder:opacity-30 lg:text-base ${errorMessage ? 'error' : ''}`}
+            placeholder="Invite your friends..."
+            id="emailInput"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            onKeyDown={onKeyDown}
+          />
+        </form>
+        {errorMessage && (
+          <div className="error-message text-white">{errorMessage}</div>
+        )}
+        <div className="mt-8 flex flex-col items-center lg:mt-28">
+          <button
+            className="mb-2 flex h-12 w-full items-center justify-center gap-2 rounded-[30px] bg-[#f6ff82] px-6 py-2.5 text-center font-urbanist text-base font-semibold leading-[125%] tracking-[0.2px] text-[#8e94e9] lg:w-[367px] lg:text-xl"
+            type="button"
+            onClick={onShare}
+          >
+            Share with My Friends
+          </button>
+          <div
+            className="mt-1 cursor-pointer font-urbanist text-base font-semibold leading-[125%] tracking-[0.8px] text-white lg:text-xl"
+            onClick={onChangeFRE}
+          >
+            Skip for now
           </div>
         </div>
-      )}
+      </div>
+      <div className="hidden lg:block">
+        <IllustrationSix />
+      </div>
     </div>
   )
 }

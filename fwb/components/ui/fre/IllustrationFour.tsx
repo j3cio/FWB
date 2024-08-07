@@ -2,10 +2,10 @@ import React from 'react'
 
 export default function IllustrationFour() {
   return (
-    <div className="mr-[108px] hidden h-full shrink-0 xl:block">
+    <div className="mr-[108px] hidden h-[100dvh] w-full shrink-0 xl:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-full"
+        className="h-full w-full object-cover"
         viewBox="0 0 176 931"
         fill="none"
       >

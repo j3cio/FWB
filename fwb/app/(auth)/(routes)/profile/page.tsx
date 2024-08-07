@@ -18,27 +18,20 @@ const AsyncProfile = async () => {
   }
   const userData: TestUser = await getUser(userId)
 
-  if (
-    userData.hasCompletedFRE[0] &&
-    userData.hasCompletedFRE[1] &&
-    userData.hasCompletedFRE[2]
+  if (!userData || !userData.hasCompletedFRE[0]) {
+    redirect('/fre1')
+  } else if (
+    !userData.hasCompletedFRE[2] &&
+    !userData.hasCompletedFRE[1] &&
+    userData.hasCompletedFRE[0]
   ) {
-  } else {
-    if (!userData || !userData.hasCompletedFRE[0]) {
-      redirect('/fre1')
-    } else if (
-      !userData.hasCompletedFRE[2] &&
-      !userData.hasCompletedFRE[1] &&
-      userData.hasCompletedFRE[0]
-    ) {
-      redirect('/fre2')
-    } else if (
-      !userData.hasCompletedFRE[2] &&
-      userData.hasCompletedFRE[1] &&
-      userData.hasCompletedFRE[0]
-    ) {
-      redirect('/fre3')
-    }
+    redirect('/fre2')
+  } else if (
+    !userData.hasCompletedFRE[2] &&
+    userData.hasCompletedFRE[1] &&
+    userData.hasCompletedFRE[0]
+  ) {
+    redirect('/fre3')
   }
 
   return <Profile userData={userData} isPublic={false} />
