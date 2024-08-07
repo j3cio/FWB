@@ -2,7 +2,7 @@ import { TestUser, UserData } from '@/app/types/types'
 import UserFlowPage1 from './fre1'
 import { auth } from '@clerk/nextjs' // Import the redirect function from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
-import { getUser } from '../profile/profileUtils'
+import { getUser } from '@/app/api/users/utils/user_utils'
 
 const page = async () => {
   const userId = await auth().userId
