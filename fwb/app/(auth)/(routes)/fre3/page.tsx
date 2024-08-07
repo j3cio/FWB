@@ -1,53 +1,31 @@
 import { auth } from '@clerk/nextjs'
 import UserFlowPage3 from './fre3'
 import { redirect } from 'next/navigation'
-
-async function getUser(user_id: any, supabaseToken: any, bearerToken: any) {
-  var myHeaders = new Headers()
-  myHeaders.append('supabase_jwt', supabaseToken)
-  myHeaders.append('Authorization', `Bearer ${bearerToken}`)
-
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-  }
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user_id}`,
-      requestOptions
-    )
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    const result = await response.json()
-    return result // This returns the result object
-  } catch (error) {
-    console.error('Error fetching data: ', error)
-    throw error // This re-throws the error to be handled by the caller
-  }
-}
+import { TestUser } from '@/app/types/types'
+import { getUser } from '../profile/profileUtils'
 
 const page = async () => {
-  const bearer_token = await auth().getToken({ template: 'testing_template' })
-  const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const userId = await auth().userId
 
-  const userData: any = await getUser(userId, supabase_jwt, bearer_token)
+  if (!userId) {
+    throw new Error("Couldn't retrieve user")
+  }
 
-  if (userData.users[0]) {
-    if (!userData || !userData.users[0].hasCompletedFRE[0]) {
+  const userData: TestUser = await getUser(userId)
+
+  if (userData) {
+    if (!userData || !userData.hasCompletedFRE[0]) {
       redirect('/fre1')
     } else if (
-      !userData.users[0].hasCompletedFRE[2] &&
-      !userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
+      !userData.hasCompletedFRE[2] &&
+      !userData.hasCompletedFRE[1] &&
+      userData.hasCompletedFRE[0]
     ) {
       redirect('/fre2')
     } else if (
-      userData.users[0].hasCompletedFRE[2] &&
-      userData.users[0].hasCompletedFRE[1] &&
-      userData.users[0].hasCompletedFRE[0]
+      userData.hasCompletedFRE[2] &&
+      userData.hasCompletedFRE[1] &&
+      userData.hasCompletedFRE[0]
     ) {
       redirect('/profile')
     }
@@ -57,7 +35,7 @@ const page = async () => {
 
   return (
     <div>
-      <UserFlowPage3 userData={userData} />
+      <UserFlowPage3 />
     </div>
   )
 }

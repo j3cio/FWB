@@ -141,6 +141,7 @@ async function GroupCards({ userToGroupsTable, userData }: { userToGroupsTable: 
   return <GroupsHomePage userData={userData} groupData={groupData} userToGroupsTable={userToGroupsTable}/>
 }
 
+
 const page = async () => {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
