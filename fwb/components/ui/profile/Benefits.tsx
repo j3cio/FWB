@@ -1,22 +1,20 @@
 'use client'
 
-import { DiscountData } from '@/app/types/types'
+import { TestDiscountData } from '@/app/types/types'
 import React, { use } from 'react'
 import DiscountCard from '../privategroups/groupdetailspage/DiscountCard'
 import ShareDiscountButton from './ShareDiscountButton'
 
 interface BenefitsProps {
-  discountData: Promise<any[]>
+  discountData: TestDiscountData[]
 }
 const Benefits = ({ discountData }: BenefitsProps) => {
-  const discounts = use(discountData)
-
   return (
     <div>
-      {discounts.length > 0 ? (
+      {discountData.length > 0 ? (
         <div className="flex w-full justify-center">
           <div className="flex flex-wrap justify-start gap-4 pl-2">
-            {discounts.map((company: any, index: React.Key) => (
+            {discountData.map((company: any, index: React.Key) => (
               <DiscountCard company={company} key={company.id} />
             ))}
           </div>
@@ -27,9 +25,7 @@ const Benefits = ({ discountData }: BenefitsProps) => {
             Be the wingman to a friend&apos;s wallet now!
           </div>
           <div className="mt-[24px] flex grow items-center justify-center">
-            <a href="/addbenefit">
-              <ShareDiscountButton />
-            </a>
+            <ShareDiscountButton />
           </div>
         </>
       )}

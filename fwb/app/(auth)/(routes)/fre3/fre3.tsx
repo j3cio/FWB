@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState, KeyboardEvent, useEffect } from 'react'
+import { FormEvent, useState, KeyboardEvent } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -19,11 +19,9 @@ import FacebookMessengerIcon from '@/components/ui/icons/FacebookMessengerIcon'
 import WhatsappIcon from '@/components/ui/icons/WhatsappIcon'
 import TwitterIcon from '@/components/ui/icons/TwitterIcon'
 
-import { UserData } from '../../../types/types'
-
 import useWindowDimensions from '@/components/hooks/useWindowDimensions'
 
-export default function UserFlowPage3({ userData }: { userData: UserData }) {
+export default function UserFlowPage3() {
   //Error handling for if user tries to access page not signed in or Clerk isn't ready
   const { isSignedIn, user, isLoaded } = useUser()
   const [emailInput, setEmailInput] = useState<string>('')
@@ -116,11 +114,11 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
   return (
     <div>
       {width > 400 && (
-        <div className="flex justify-between h-screen">
+        <div className="flex h-screen justify-between">
           <IllustrationFive />
           <div className="shrink-0 pl-[142px] pr-[150px]">
             <div className="flex-col justify-center">
-              <div className="flex justify-center mt-[103px]">
+              <div className="mt-[103px] flex justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="56"
@@ -133,8 +131,10 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
                   <circle cx="52" cy="4" r="4" fill="#F6FF82" />
                 </svg>
               </div>
-              <h2 className="text-white text-center font-urbanist text-[40px] font-semibold leading-[110%] mt-[135px] mb-[16px] tracking-[0.1rem]">Share with Your Friends!</h2>
-              <h5 className="text-white text-center font-urbanist text-[16px] font-normal mt-[8px] leading-[125%]">
+              <h2 className="mb-[16px] mt-[135px] text-center font-urbanist text-[40px] font-semibold leading-[110%] tracking-[0.1rem] text-white">
+                Share with Your Friends!
+              </h2>
+              <h5 className="mt-[8px] text-center font-urbanist text-[16px] font-normal leading-[125%] text-white">
                 Spread the love and be the wingman to someone else&apos;s
                 wallet!
               </h5>
@@ -143,7 +143,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
 
               {/* These are the social media redirect buttons that will handle email sharing  */}
               {/* <div className="flex justify-center items-center space-x-4"> */}
-              <div className="flex justify-center items-center gap-[16px] mt-[64px]">
+              <div className="mt-[64px] flex items-center justify-center gap-[16px]">
                 <FacebookMessengerShareButton
                   url="https://app.makefwb.com/sign-up"
                   appId="1461933537691569"
@@ -163,18 +163,20 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
                   <TwitterIcon />
                 </TwitterShareButton>
               </div>
-              <h5 className="text-white text-center font-urbanist text-[18px] font-medium leading-[125%] my-[24px]">Or</h5>
+              <h5 className="my-[24px] text-center font-urbanist text-[18px] font-medium leading-[125%] text-white">
+                Or
+              </h5>
 
               <form
                 id="invitations"
-                className="flex flex-col items-center justify-center bg-white rounded-[10px] p-[12px] self-stretch"
+                className="flex flex-col items-center justify-center self-stretch rounded-[10px] bg-white p-[12px]"
                 onSubmit={handleSubmit}
               >
-                <div className="flex w-[544px] items-start flex-wrap">
+                <div className="flex w-[544px] flex-wrap items-start">
                   {emailAddresses.map((email, index) => (
                     <span key={index} className="email-item">
                       <div className="flex">
-                        <div className="bg-[#adb4d2] text-white flex py-[2px] px-[10px] gap-[4px] h-[28px] rounded-[100px] font-urbanist text-base leading-[150%] mr-[5px] mb-[5px]">
+                        <div className="mb-[5px] mr-[5px] flex h-[28px] gap-[4px] rounded-[100px] bg-[#adb4d2] px-[10px] py-[2px] font-urbanist text-base leading-[150%] text-white">
                           {email}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +203,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
 
                 <input
                   type="text"
-                  className={`bg-white flex w-[544px] h-[24px] outline-none placeholder:text-[#090a10] placeholder:opacity-30 font-urbanist ${errorMessage ? 'error' : ''}`}
+                  className={`flex h-[24px] w-[544px] bg-white font-urbanist outline-none placeholder:text-[#090a10] placeholder:opacity-30 ${errorMessage ? 'error' : ''}`}
                   placeholder="Invite your friends..."
                   id="emailInput"
                   value={emailInput}
@@ -216,16 +218,25 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
                 </div>
               )}
               {/* Redirects user back to landing page, Probably should be changed to explore later  */}
-              <div className="flex flex-col items-center mt-[1px]">
+              <div className="mt-[1px] flex flex-col items-center">
                 {/* <Link href="/profile" className="next"> */}
 
                 {/* <button className="next" type="submit" form="invitations"> */}
-                <button className="rounded-[30px] bg-[#f6ff82] flex w-[367px] h-[48px] px-[24px] py-[10px] justify-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.2px] mt-[114px] mb-[8px]" type="button" onClick={handleShare}>
+                <button
+                  className="mb-[8px] mt-[114px] flex h-[48px] w-[367px] justify-center gap-[8px] rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.2px] text-[#8e94e9]"
+                  type="button"
+                  onClick={handleShare}
+                >
                   Share with My Friends
                 </button>
                 {/* </Link> */}
-                <div className="text-white font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.8px] mt-[1px] mr-[8px]" onClick={changeFRE}>
-                  <div className="text-white flex w-[150px] h-[48px] py-[10px] text-center gap-[8px] cursor-pointer m-0 justify-center">Skip for now</div>
+                <div
+                  className="mr-[8px] mt-[1px] font-urbanist text-[20px] font-semibold leading-[125%] tracking-[0.8px] text-white"
+                  onClick={changeFRE}
+                >
+                  <div className="m-0 flex h-[48px] w-[150px] cursor-pointer justify-center gap-[8px] py-[10px] text-center text-white">
+                    Skip for now
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,7 +246,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
       )}
       {width < 400 && (
         <div className="pageContent flex w-screen flex-col justify-normal">
-          <div className="flex justify-center mt-[32px]">
+          <div className="mt-[32px] flex justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="56"
@@ -248,10 +259,10 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
               <circle cx="52" cy="4" r="4" fill="#F6FF82" />
             </svg>
           </div>
-          <h2 className="text-white text-center font-urbanist font-semibold leading-[110%] tracking-[0.05rem] mb-[0px] mt-[28px] text-[24px]">
+          <h2 className="mb-[0px] mt-[28px] text-center font-urbanist text-[24px] font-semibold leading-[110%] tracking-[0.05rem] text-white">
             Share with Your Friends!
           </h2>
-          <h5 className="text-white text-center font-urbanist font-normal mt-[8px] leading-[125%] text-[12px]">
+          <h5 className="mt-[8px] text-center font-urbanist text-[12px] font-normal leading-[125%] text-white">
             Spread the love and be the wingman to <br></br> someone else&apos;s
             wallet!
           </h5>
@@ -260,7 +271,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
 
           {/* These are the social media redirect buttons that will handle email sharing  */}
           {/* <div className="flex justify-center items-center space-x-4"> */}
-          <div className="flex justify-center items-center gap-[16px] mt-[20px]">
+          <div className="mt-[20px] flex items-center justify-center gap-[16px]">
             <FacebookMessengerShareButton
               url="https://app.makefwb.com/sign-up"
               appId="1461933537691569"
@@ -280,18 +291,20 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
               <TwitterIcon />
             </TwitterShareButton>
           </div>
-          <h5 className="text-white text-center font-urbanist font-medium leading-[125%] my-[24px] text-[14px]">Or</h5>
+          <h5 className="my-[24px] text-center font-urbanist text-[14px] font-medium leading-[125%] text-white">
+            Or
+          </h5>
 
           <form
             id="invitations"
-            className="flex flex-col items-center justify-center bg-white rounded-[10px] p-[12px] self-stretch mx-[16px] w-[full]"
+            className="mx-[16px] flex w-[full] flex-col items-center justify-center self-stretch rounded-[10px] bg-white p-[12px]"
             onSubmit={handleSubmit}
           >
-            <div className="flex flex-wrap w-[544px]">
+            <div className="flex w-[544px] flex-wrap">
               {emailAddresses.map((email, index) => (
                 <span key={index} className="email-item">
                   <div className="flex">
-                    <div className="bg-[#adb4d2] text-white flex py-[2px] px-[10px] gap-[4px] h-[28px] rounded-[100px] font-urbanist text-base leading-[150%] mr-[5px] mb-[5px]">
+                    <div className="mb-[5px] mr-[5px] flex h-[28px] gap-[4px] rounded-[100px] bg-[#adb4d2] px-[10px] py-[2px] font-urbanist text-base leading-[150%] text-white">
                       {email}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +330,7 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
             </div>
             <input
               type="text"
-              className={`bg-white flex h-[24px] outline-none ${errorMessage ? 'error' : ''} w-full text-[14px] placeholder:text-[14px]`}
+              className={`flex h-[24px] bg-white outline-none ${errorMessage ? 'error' : ''} w-full text-[14px] placeholder:text-[14px]`}
               placeholder="Invite your friends..."
               id="emailInput"
               value={emailInput}
@@ -332,18 +345,23 @@ export default function UserFlowPage3({ userData }: { userData: UserData }) {
             </div>
           )}
           {/* Redirects user back to landing page, Probably should be changed to explore later  */}
-          <div className="flex flex-col items-center mx-[16px] mt-[75px]">
+          <div className="mx-[16px] mt-[75px] flex flex-col items-center">
             {/* <button className="next" type="submit" form="invitations"> */}
             <button
-              className="rounded-[30px] bg-[#f6ff82] flex px-[24px] py-[10px] justify-center gap-[8px] text-[#8e94e9] text-center font-urbanist text-lg font-semibold leading-[125%] tracking-[0.4px] mb-[8px] mt-[0px] h-auto w-full text-[16px]"
+              className="mb-[8px] mt-[0px] flex h-auto w-full justify-center gap-[8px] rounded-[30px] bg-[#f6ff82] px-[24px] py-[10px] text-center font-urbanist text-[16px] text-lg font-semibold leading-[125%] tracking-[0.4px] text-[#8e94e9]"
               type="button"
               onClick={handleShare}
             >
               Share with My Friends
             </button>
             {/* </Link> */}
-            <div className="text-white font-urbanist text-lg font-semibold leading-[125%] tracking-[1.1px] mt-[1px] mr-[8px] h-auto text-[16px]" onClick={changeFRE}>
-              <div className="text-white flex w-[150px] h-[48px] py-[10px] text-center gap-[8px] cursor-pointer m-0 justify-center">Skip for now</div>
+            <div
+              className="mr-[8px] mt-[1px] h-auto font-urbanist text-[16px] text-lg font-semibold leading-[125%] tracking-[1.1px] text-white"
+              onClick={changeFRE}
+            >
+              <div className="m-0 flex h-[48px] w-[150px] cursor-pointer justify-center gap-[8px] py-[10px] text-center text-white">
+                Skip for now
+              </div>
             </div>
           </div>
         </div>

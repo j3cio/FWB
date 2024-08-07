@@ -2,8 +2,10 @@
 
 import { Button, useTheme } from '@mui/material'
 import WhiteArrowForward from './WhiteArrowForward'
+import { useRouter } from 'next/navigation'
 
 const ShareDiscountButton = () => {
+  const router = useRouter()
   const theme = useTheme()
   return (
     <Button
@@ -23,6 +25,7 @@ const ShareDiscountButton = () => {
           color: `${theme.palette.common.white}`, // Hover text color
         },
       }}
+      onClick={() => router.push('/addbenefit')}
     >
       Share your discounts
     </Button>
