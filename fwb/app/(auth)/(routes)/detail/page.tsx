@@ -3,7 +3,7 @@ import { auth } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 import DetailPage from './detail'
 
-export async function getCompanyId(companyName: string) {
+ async function getCompanyId(companyName: string) {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const userId = await auth().userId
@@ -36,7 +36,7 @@ export async function getCompanyId(companyName: string) {
   }
 }
 
-export async function getCompanyDiscountsTable(company_id: string) {
+ async function getCompanyDiscountsTable(company_id: string) {
   const bearer_token = await auth().getToken({ template: 'testing_template' })
   const supabase_jwt = await auth().getToken({ template: 'supabase' })
   const userId = await auth().userId
