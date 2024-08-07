@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs'
 import UserFlowPage2 from './fre2'
 import { redirect } from 'next/navigation'
 import { TestUser } from '@/app/types/types'
-import { getUser } from '../profile/profileUtils'
+import { getUser } from '@/app/api/users/utils/user_utils'
 
 const page = async () => {
   const userId = await auth().userId

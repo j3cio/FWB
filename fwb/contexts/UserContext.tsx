@@ -1,14 +1,13 @@
 'use client'
 
+import { TestUser } from '@/app/types/types'
 import { ReactNode, useState } from 'react'
 
 import { createContext } from 'use-context-selector'
 
-import { UserData } from '@/app/types/types'
-
 interface UserContextProps {
-  userData: UserData | null
-  setUserData: (userData: UserData) => void
+  userData: TestUser | null
+  setUserData: (userData: TestUser) => void
 }
 
 export const UserContext = createContext<UserContextProps>({
@@ -18,14 +17,10 @@ export const UserContext = createContext<UserContextProps>({
 
 interface UserProviderProps {
   children: ReactNode
-  initialUserData: UserData | null
 }
 
-export const UserProvider = ({
-  children,
-  initialUserData,
-}: UserProviderProps) => {
-  const [userData, setUserData] = useState<UserData | null>(initialUserData)
+export const UserProvider = ({ children }: UserProviderProps) => {
+  const [userData, setUserData] = useState<TestUser | null>(null)
 
   return (
     <UserContext.Provider value={{ userData, setUserData }}>

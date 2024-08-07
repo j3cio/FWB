@@ -8,7 +8,7 @@ import { Box, Container } from '@mui/material'
 import { redirect } from 'next/navigation'
 import { Suspense } from 'react'
 import Profile from './Profile'
-import { getUser, getUserDiscounts } from './profileUtils'
+import { getUser, getUserDiscounts } from '@/app/api/users/utils/user_utils'
 
 const AsyncProfile = async () => {
   const userId = await auth().userId

@@ -10,6 +10,7 @@ import { PHProvider } from './posthog/providers'
 import dynamic from 'next/dynamic'
 import { Container } from '@mui/material'
 import Navbar from '@/components/ui/navbar/Navbar'
+import { UserProvider } from '@/contexts/UserContext'
 
 // We need the dynamic import since it contains the useSearchParams hook, which de-opts the entire app into client-side rendering if it is not dynamically imported.
 const PostHogPageView = dynamic(() => import('./posthog/PostHogPageView'), {
@@ -35,23 +36,25 @@ export default function RootLayout({
   return (
     <ThemeProvider theme={theme}>
       <ClerkProvider>
-        <FWBChatProvider>
-          <html lang="en">
-            <body className={urbanist.className}>
-              <PHProvider>
-                <PostHogPageView />
-                <SearchProvider>
-                  <div className="w-full bg-[#1A1A23]">
-                    <Container disableGutters maxWidth="lg">
-                      <Navbar />
-                    </Container>
-                  </div>
-                  {children}
-                </SearchProvider>
-              </PHProvider>
-            </body>
-          </html>
-        </FWBChatProvider>
+        <UserProvider>
+          <FWBChatProvider>
+            <html lang="en">
+              <body className={urbanist.className}>
+                <PHProvider>
+                  <PostHogPageView />
+                  <SearchProvider>
+                    <div className="w-full bg-[#1A1A23]">
+                      <Container disableGutters maxWidth="lg">
+                        <Navbar />
+                      </Container>
+                    </div>
+                    {children}
+                  </SearchProvider>
+                </PHProvider>
+              </body>
+            </html>
+          </FWBChatProvider>
+        </UserProvider>
       </ClerkProvider>
     </ThemeProvider>
   )

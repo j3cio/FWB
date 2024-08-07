@@ -1,7 +1,5 @@
 import { Suspense } from 'react'
 
-import { redirect } from 'next/navigation'
-
 import { Box, Container } from '@mui/material'
 
 import Profile from '../Profile'
@@ -12,7 +10,7 @@ import ProfileSkeleton from '@/components/ui/skeletons/variants/ProfileSkeleton'
 
 import { TestUser } from '@/app/types/types'
 
-import { getUser, getUserDiscounts } from '../profileUtils'
+import { getUser, getUserDiscounts } from '@/app/api/users/utils/user_utils'
 
 const AsyncProfile = async ({ userId }: { userId: string }) => {
   const userData: TestUser = await getUser(userId)
