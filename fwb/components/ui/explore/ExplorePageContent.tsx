@@ -18,6 +18,8 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
 import { FilterOptions } from './constants'
 import { fetchData } from './utils/fetchData'
+import ProductFilters from './productfilters'
+import MobileProductFilters from './MobileProductFilters'
 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
@@ -47,7 +49,8 @@ const ExplorePageContent = () => {
   const searchParams = useSearchParams()
   const companyRedirect = searchParams.get('company')
 
-  const filteredCompanies = useFilteredCompanies(activeOptions, companies)
+  const filteredCompanies = useFilteredCompanies(activeOptions, testCompanies)
+  // const filteredCompanies = useFilteredCompanies(activeOptions, companies)
 
   const fetchPublicCompanies = async () => {
     let { data, error } = await supabase.from('companies').select('*')
@@ -229,17 +232,16 @@ const ExplorePageContent = () => {
           />
         </> */}
 
-        {/* <ResponsiveGrid
+        <ResponsiveGrid
           items={
             searchResults.length
               ? searchResults
               : filteredCompanies.length
                 ? filteredCompanies
-                : companies
+                : testCompanies
           }
           isLoading={isLoading}
-        /> */}
-        <ResponsiveGrid items={testCompanies} isLoading={isLoading} />
+        />
         {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           {isLoading ? (
             <Skeleton

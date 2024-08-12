@@ -69,7 +69,6 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
   const handleSearch = async (searchQuery: string) => {
     try {
       const results = await fuzzySearch({ searchIndex, searchQuery })
-
       if (results.length) {
         addToSearchHistory(searchQuery)
       }

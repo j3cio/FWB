@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
     // Fetch all companies
     let { data: companies, error: companiesError } = await supabase
-      .from('companies')
+      .from('test_companies')
       .select('*')
 
     if (companiesError) {
